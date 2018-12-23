@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wxwork_contacts_sync_wizard" model="ir.ui.view">
+            <field name="name">数据同步</field>
+            <field name="model">wxwork.contacts.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="企业微信通讯簿数据同步" >
+                    <separator string="从服务器下载并更新本地库"/>
+                    <group>
+                        <!--<div>-->
+                        <!--结果：<t t-esc="request and request.env['ir.config_parameter'].get_wxwork_parameters().get('wxwork.corpid')"/>-->
+                        <!--</div>-->
+
+                    </group>
+                    <footer>
+                        <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
+            <field name="name">数据同步</field>
+            <field name="res_model">wxwork.contacts.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</odoo>
