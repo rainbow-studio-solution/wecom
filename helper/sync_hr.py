@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
-import base64
-import logging
-from urllib.request import urlopen
-from PIL import ImageFile
-ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
 from .common import *
 from ..api.CorpApi import *
-from odoo import fields
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -88,12 +84,7 @@ class Contacts(object):
                 else:
                     self._create_employee(employee_records, obj)
 
-    def del_employee_data(
-            self,
-            dep_response,
-            employee_response,
-            Department,
-            Employee):
+    def del_employee_data(self,dep_response, employee_response, Department,Employee):
         """
         比较且设置employee数据active状态
         """
@@ -129,15 +120,15 @@ class Contacts(object):
             department_ids.append(self._get_user_parent_department(department))
         records.write({
             'name': obj['name'],
-            'gender': Common(obj['gender']).gender(),
-            'image': Common(obj['avatar']).avatar2image(),
-            'mobile_phone': obj['mobile'],
-            'work_phone': obj['telephone'],
-            'work_email': obj['email'],
-            'active': obj['enable'],
-            'alias': obj['alias'],
-            'department_ids': [(6, 0, department_ids)],
-            'wxwork_user_order': obj['order'],
+            # 'gender': Common(obj['gender']).gender(),
+            # 'image': Common(obj['avatar']).avatar2image(),
+            # 'mobile_phone': obj['mobile'],
+            # 'work_phone': obj['telephone'],
+            # 'work_email': obj['email'],
+            # 'active': obj['enable'],
+            # 'alias': obj['alias'],
+            # 'department_ids': [(6, 0, department_ids)],
+            # 'wxwork_user_order': obj['order'],
             'is_wxwork_user': True
         })
 
@@ -148,24 +139,26 @@ class Contacts(object):
         # department_ids = []
         # for department in obj['department']:
         #     department_ids.append(self._get_user_parent_department(department))
-
-        records.create({
-            'userid': obj['userid'],
-            'name': obj['name'],
-            # 'gender': Common(obj['gender']).gender(),
-            # 'marital': not fields,  # 不生成婚姻状况
-            # 'image': Common(obj['avatar']).avatar2image(),
-            # 'image': self._avatar2image(obj['avatar']),
-            # 'mobile_phone': obj['mobile'],
-            # 'work_phone': obj['telephone'],
-            # 'work_email': obj['email'],
-            # 'active': obj['enable'],
-            # 'alias': obj['alias'],
-            # 'department_ids': [(6, 0, department_ids)],
-            # 'wxwork_user_order': obj['order'],
-            'is_wxwork_user': True
-        })
-        _logger.info("创建" + obj['name'])
+        try:
+            records.sudo().create({
+                'userid': obj['userid'],
+                'name': obj['name'],
+                # 'gender': Common(obj['gender']).gender(),
+                # 'marital': not fields,  # 不生成婚姻状况
+                # 'image': Common(obj['avatar']).avatar2image(),
+                # 'image': self._avatar2image(obj['avatar']),
+                # 'mobile_phone': obj['mobile'],
+                # 'work_phone': obj['telephone'],
+                # 'work_email': obj['email'],
+                # 'active': obj['enable'],
+                # 'alias': obj['alias'],
+                # 'department_ids': [(6, 0, department_ids)],
+                # 'wxwork_user_order': obj['order'],
+                'is_wxwork_user': True
+            })
+            _logger.info("创建" + records.name)
+        except BaseException:
+            _logger.info("创建失败" + obj['name'])
 
     def _update_department(self, records, obj):
         """
@@ -182,7 +175,7 @@ class Contacts(object):
         """
         创建企业微信部门资料
         """
-        records.create({
+        records.sudo().create({
             'name': obj['name'],
             'wxwork_department_id': obj['id'],
             'wxwork_department_parent_id': obj['parentid'],
@@ -231,7 +224,8 @@ class Contacts(object):
                         })
             return True
         except BaseException:
-            raise ValidationError('设置上级部门失败！')
+            pass
+            # raise ValidationError('设置上级部门失败！')
 
     def _avatar2image(self, url):
         """
@@ -240,5 +234,6 @@ class Contacts(object):
         if not url:
             pass
         else:
+            pass
             # res = requests.get(url)
-            return base64.b64encode(urlopen(url).read())
+            # return base64.b64encode(urlopen(url).read())

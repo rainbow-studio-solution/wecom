@@ -7,6 +7,8 @@ from odoo import api, fields, models
 from ..helper.common import Common
 from ..helper.sync_hr import Contacts
 from odoo.exceptions import UserError
+from ..models.hr_department import HrDepartment
+from ..api.CorpApi import CorpApi,CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -36,16 +38,28 @@ class ResConfigSettings(models.TransientModel):
         if not Common(auto_sync).str_to_bool():
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
-            contacts_obj = Contacts(
-                corpid,
-                secret,
-                sync_department_id,
-                Department,
-                Employee,
-                sync_del_hr,
-                )
-            sync = contacts_obj.sync()
-            if sync:
+            api = CorpApi(corpid, secret)
+            json = api.httpCall(
+                CORP_API_TYPE['DEPARTMENT_LIST'],
+                {
+                    'id': sync_department_id,
+                }
+            )
+            HrDepartment.sync_department(json)
+
+        # if not Common(auto_sync).str_to_bool():
+        #     raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
+        # else:
+        #     contacts_obj = Contacts(
+        #         corpid,
+        #         secret,
+        #         sync_department_id,
+        #         Department,
+        #         Employee,
+        #         sync_del_hr,
+        #         )
+        #     sync = contacts_obj.sync()
+        #     if sync:
                 # if Common(sync_user).str_to_bool():
                 #     NewEmployee = self.env['hr.employee']
                 #     domain = ['|', ('active', '=', False),
@@ -65,6 +79,6 @@ class ResConfigSettings(models.TransientModel):
                     # elif str(user_result) == 'False':
                     #     raise UserError('提示：企业微信同步到User的失败')
                 # else:
-                raise UserError('提示：完成企业微信到Odoo的同步')
-            else:
-                raise UserError('提示：企业微信到HR的同步失败')
+            #     raise UserError('提示：完成企业微信到Odoo的同步')
+            # else:
+            #     raise UserError('提示：企业微信到HR的同步失败')

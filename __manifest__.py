@@ -41,4 +41,9 @@
     'images': ['images/main_screenshot.png'],
     'currency': 'EUR',
     'price': 109,
+    'external_dependencies': {
+        'python': [
+
+        ],
+    },
 }
