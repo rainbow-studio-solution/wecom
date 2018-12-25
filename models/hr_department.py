@@ -28,87 +28,84 @@ class HrDepartment(models.Model):
     is_wxwork_department = fields.Boolean('企微部门')
     # is_wxwork_department = fields.Boolean('企微部门', readonly=True)
 
-    @api.model_cr
-    def _register_hook(self):
 
-        @api.model
-        def sync_department(self,json):
-            '''同步部门'''
-            for obj in json['department']:
-                records = self.search([
-                    ('wxwork_department_id', '=', json['id']),
-                    ('is_wxwork_department', '=', True)],
-                    limit=1)
-                if len(records)>0:
-                    self.update_department(obj)
+
+    @api.model
+    def sync_department(self,json):
+        '''同步部门'''
+        for obj in json['department']:
+            records = self.search([
+                ('wxwork_department_id', '=', json['id']),
+                ('is_wxwork_department', '=', True)],
+                limit=1)
+            if len(records)>0:
+                self.update(obj)
+            else:
+                self.create(obj)
+        return super(HrDepartment, self).sync_department(json)
+
+    @api.model_create_multi
+    def create(self,json):
+        """创建企业微信部门资料 """
+        self.env['hr.department'].create({
+            'name': json['name'],
+            'wxwork_department_id': json['id'],
+            'wxwork_department_parent_id': json['parentid'],
+            'wxwork_department_order': json['order'],
+            'is_wxwork_department': True
+        })
+        return super(HrDepartment,self).create(json)
+
+    @api.multi
+    def update(self, json):
+        """
+        更新企业微信部门资料
+        """
+        self.write({
+            'name': json['name'],
+            'wxwork_department_parent_id': json['parentid'],
+            'wxwork_department_order': json['order'],
+            'is_wxwork_department': True
+        })
+
+    @api.multi
+    def _get_user_parent_department(self, department_id):
+        """        获取odoo上级部门        """
+        try:
+            Department = self.department
+            departments = Department.search([
+                ('wxwork_department_id', '=', department_id),
+                ('is_wxwork_department', '=', True)],
+                limit=1)
+            if len(departments) > 0:
+                return departments.id
+        except BaseException:
+            pass
+
+    def set_parent_department(self, Department):
+        """
+        设置企业微信部门的上级部门
+        """
+        try:
+            departments = Department.search(
+                [('is_wxwork_department', '=', True)])
+            for department in departments:
+                if not department.wxwork_department_id:
+                    pass
                 else:
-                    self.create_department(obj)
-
-        models.hr.sync_department = sync_department
-        return  super(HrDepartment, self)._register_hook()
-
-
-        @api.multi
-        def create_department(self,json):
-            """创建企业微信部门资料 """
-            self.sudo().create({
-                'name': json['name'],
-                'wxwork_department_id': json['id'],
-                'wxwork_department_parent_id': json['parentid'],
-                'wxwork_department_order': json['order'],
-                'is_wxwork_department': True
-            })
-
-        @api.multi
-        def update_department(self, json):
-            """
-            更新企业微信部门资料
-            """
-            self.write({
-                'name': json['name'],
-                'wxwork_department_parent_id': json['parentid'],
-                'wxwork_department_order': json['order'],
-                'is_wxwork_department': True
-            })
-
-        @api.multi
-        def _get_user_parent_department(self, department_id):
-            """        获取odoo上级部门        """
-            try:
-                Department = self.department
-                departments = Department.search([
-                    ('wxwork_department_id', '=', department_id),
-                    ('is_wxwork_department', '=', True)],
-                    limit=1)
-                if len(departments) > 0:
-                    return departments.id
-            except BaseException:
-                pass
-
-        def set_parent_department(self, Department):
-            """
-            设置企业微信部门的上级部门
-            """
-            try:
-                departments = Department.search(
-                    [('is_wxwork_department', '=', True)])
-                for department in departments:
-                    if not department.wxwork_department_id:
+                    if not department.wxwork_department_parent_id:
                         pass
                     else:
-                        if not department.wxwork_department_parent_id:
-                            pass
-                        else:
-                            parent_department = Department.search([
-                                ('wxwork_department_id', '=', department.wxwork_department_parent_id),
-                                ('is_wxwork_department', '=', True)
-                            ])
-                            department.write({
-                                'parent_id': parent_department.id,
-                            })
-                return True
-            except BaseException:
-                raise ValidationError('设置上级部门失败！')
+                        parent_department = Department.search([
+                            ('wxwork_department_id', '=', department.wxwork_department_parent_id),
+                            ('is_wxwork_department', '=', True)
+                        ])
+                        department.write({
+                            'parent_id': parent_department.id,
+                        })
+            return True
+        except BaseException:
+            raise ValidationError('设置上级部门失败！')
 
 
     @api.multi

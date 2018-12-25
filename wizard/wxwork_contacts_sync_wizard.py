@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 import logging
 
 from odoo import api, fields, models
@@ -45,7 +44,7 @@ class ResConfigSettings(models.TransientModel):
                     'id': sync_department_id,
                 }
             )
-            HrDepartment.sync_department(json)
+            HrDepartment.create(json)
 
         # if not Common(auto_sync).str_to_bool():
         #     raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
@@ -60,25 +59,25 @@ class ResConfigSettings(models.TransientModel):
         #         )
         #     sync = contacts_obj.sync()
         #     if sync:
-                # if Common(sync_user).str_to_bool():
-                #     NewEmployee = self.env['hr.employee']
-                #     domain = ['|', ('active', '=', False),
-                #               ('active', '=', True)]
-                #     employee_records = NewEmployee.search(
-                #         domain + [
-                #             ('is_wxwork_user', '=', True)
-                #         ])
-                    # # user_records = User.search(domain)
-                    # # print(user_records.name)
-                    # user_obj = CreateOrUpdateUserFromEmployee(employee_records)
-                    # user_result = user_obj.CreateOrUpdate()
-                    # print(user_result)
-                    # user_result = HrEmployee.create_or_update_user_from_employee(employee_records)
-                    # if str(user_result) == 'True':
-                    #     raise UserError('提示：完成企业微信到Odoo的同步')
-                    # elif str(user_result) == 'False':
-                    #     raise UserError('提示：企业微信同步到User的失败')
-                # else:
-            #     raise UserError('提示：完成企业微信到Odoo的同步')
-            # else:
-            #     raise UserError('提示：企业微信到HR的同步失败')
+        #         if Common(sync_user).str_to_bool():
+        #             NewEmployee = self.env['hr.employee']
+        #             domain = ['|', ('active', '=', False),
+        #                       ('active', '=', True)]
+        #             employee_records = NewEmployee.search(
+        #                 domain + [
+        #                     ('is_wxwork_user', '=', True)
+        #                 ])
+        #             # user_records = User.search(domain)
+        #             # print(user_records.name)
+        #             user_obj = CreateOrUpdateUserFromEmployee(employee_records)
+        #             user_result = user_obj.CreateOrUpdate()
+        #             print(user_result)
+        #             user_result = HrEmployee.create_or_update_user_from_employee(employee_records)
+        #             if str(user_result) == 'True':
+        #                 raise UserError('提示：完成企业微信到Odoo的同步')
+        #             elif str(user_result) == 'False':
+        #                 raise UserError('提示：企业微信同步到User的失败')
+        #         else:
+        #         raise UserError('提示：完成企业微信到Odoo的同步')
+        #     else:
+        #         raise UserError('提示：企业微信到HR的同步失败')

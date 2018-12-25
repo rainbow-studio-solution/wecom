@@ -3,7 +3,7 @@
 
 from .common import *
 from ..api.CorpApi import *
-
+from odoo import models, fields
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -64,25 +64,25 @@ class Contacts(object):
                 if len(department_records) > 0:
                     self._update_department(department_records, obj)
                 else:
-                    self._create_department(department_records, obj)
+                    self.create_department(department_records, obj)
 
             # 由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门
             self._set_parent_department(Department)
 
-            for obj in employee_response['userlist']:
-                # 查询hr_employee是否存在相同的企业微信用户ID，有则更新，无则新建,以及重新设置active状态
-                domain = ['|', ('active', '=', False),
-                          ('active', '=', True)]
-                employee_records = Employee.search(
-                    domain + [
-                        ('userid', '=', obj['userid']),
-                        ('is_wxwork_user', '=', True)
-                    ],
-                    limit=1)
-                if len(employee_records) > 0:
-                    self._update_employee(employee_records, obj)
-                else:
-                    self._create_employee(employee_records, obj)
+            # for obj in employee_response['userlist']:
+            #     # 查询hr_employee是否存在相同的企业微信用户ID，有则更新，无则新建,以及重新设置active状态
+            #     domain = ['|', ('active', '=', False),
+            #               ('active', '=', True)]
+            #     employee_records = Employee.search(
+            #         domain + [
+            #             ('userid', '=', obj['userid']),
+            #             ('is_wxwork_user', '=', True)
+            #         ],
+            #         limit=1)
+            #     if len(employee_records) > 0:
+            #         self._update_employee(employee_records, obj)
+            #     else:
+            #         self._create_employee(employee_records, obj)
 
     def del_employee_data(self,dep_response, employee_response, Department,Employee):
         """
@@ -171,7 +171,7 @@ class Contacts(object):
             'is_wxwork_department': True
         })
 
-    def _create_department(self, records, obj):
+    def create_department(self, records, obj):
         """
         创建企业微信部门资料
         """
