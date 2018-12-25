@@ -5,6 +5,8 @@ from ..api.CorpApi import *
 from ..api.api_errcode import *
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from ..helper.common import *
+
 
 _logger = logging.getLogger(__name__)
 
@@ -29,39 +31,50 @@ class HrDepartment(models.Model):
     # is_wxwork_department = fields.Boolean('企微部门', readonly=True)
 
 
-
     @api.model
-    def sync_department(self,json):
+    def sync(self):
         '''同步部门'''
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+
+        api = CorpApi(corpid, secret)
+        json = api.httpCall(
+            CORP_API_TYPE['DEPARTMENT_LIST'],
+            {
+                'id': sync_department_id,
+            }
+        )
+
         for obj in json['department']:
             records = self.search([
-                ('wxwork_department_id', '=', json['id']),
+                ('wxwork_department_id', '=', obj['id']),
                 ('is_wxwork_department', '=', True)],
                 limit=1)
             if len(records)>0:
                 self.update(obj)
             else:
                 self.create(obj)
-        return super(HrDepartment, self).sync_department(json)
 
-    @api.model_create_multi
+    @api.multi
     def create(self,json):
         """创建企业微信部门资料 """
-        self.env['hr.department'].create({
+        lines = super(HrDepartment, self).create({
             'name': json['name'],
             'wxwork_department_id': json['id'],
             'wxwork_department_parent_id': json['parentid'],
             'wxwork_department_order': json['order'],
             'is_wxwork_department': True
         })
-        return super(HrDepartment,self).create(json)
+        return lines
 
     @api.multi
     def update(self, json):
         """
         更新企业微信部门资料
         """
-        self.write({
+        super(HrDepartment, self).write({
             'name': json['name'],
             'wxwork_department_parent_id': json['parentid'],
             'wxwork_department_order': json['order'],
@@ -70,7 +83,9 @@ class HrDepartment(models.Model):
 
     @api.multi
     def _get_user_parent_department(self, department_id):
-        """        获取odoo上级部门        """
+        """
+        获取odoo上级部门
+        """
         try:
             Department = self.department
             departments = Department.search([
@@ -112,19 +127,18 @@ class HrDepartment(models.Model):
     def unlink(self):
         params = self.env['ir.config_parameter'].sudo()
         edit = params.get_param('wxwork.contacts_edit_enabled')
-        # 判断是否开启 允许API编辑通讯录
-        if not edit:
-            return super(HrDepartment, self).unlink()  # 直接删除hr.department数据
+        # 检查odoo中是否有子部门
+        if self.isexist_child_dep():
+            raise UserError('请先删除【 %s 】的子部门!' % self.name)
         else:
-            params = self.env['ir.config_parameter'].sudo()
-            corpid = params.get_param('wxwork.corpid')
-            secret = params.get_param('wxwork.contacts_secret')
-            api = CorpApi(corpid, secret)
-            for record in self:
-                if self.search([('parent_id', '=', record.id)]):
-                    # 判断是否有子部门
-                    raise UserError('请先删除【 %s 】的子部门!' % record.name)
-                else:
+            # 判断是否开启 允许API编辑通讯录
+            if Common(edit).str_to_bool():
+                # 允许API删除企业微信部门
+                params = self.env['ir.config_parameter'].sudo()
+                corpid = params.get_param('wxwork.corpid')
+                secret = params.get_param('wxwork.contacts_secret')
+                api = CorpApi(corpid, secret)
+                for record in self:
                     try:
                         response = api.httpCall(
                             CORP_API_TYPE['DEPARTMENT_DELETE'],
@@ -135,12 +149,25 @@ class HrDepartment(models.Model):
                         err_code = response['errcode']
                         err_msg = response['errmsg']
                         if err_code == 0 and err_msg == 'deleted':
-                            return super(HrDepartment, self).unlink()
+                            raise UserError('API删除企业微信部门【 %s 】成功!' %(record.name))
                         else:
                             raise UserError(
-                                '删除部门【 %s 】失败!，\n原因：%s %s' %
+                                'API删除企业微信部门【 %s 】失败!，\n原因：%s %s' %
                                 (record.name, err_code, Errcode.getErrcode(err_code)))
                     except ApiException as e:
                         raise ValidationError(
                             '错误：%s %s\n 详细信息：%s' %
                             (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg))
+
+    @api.multi
+    def isexist_child_dep(self):
+        '''判断是否有子部门'''
+        for record in self:
+            if self.search([('wxwork_department_parent_id', '=', record.wxwork_department_id)]):
+                return True
+            else:
+                return False
+
+    @api.multi
+    def isexist_employee(self):
+        pass

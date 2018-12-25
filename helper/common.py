@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-import requests
+
 import base64
-import urllib
-import urllib.request
-import re
-import os
+from urllib.request import urlopen
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 
 class Common(object):
     def __init__(self, value):
@@ -44,7 +44,7 @@ class Common(object):
         else:
             pass
             # res = requests.get(self.value)
-            # self.result = base64.b64encode(urlopen(self.value).read())
+            self.result = base64.b64encode(urlopen(self.value).read())
         return self.result
 
     def gender(self):
