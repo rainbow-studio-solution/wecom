@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import wxwork_contacts_sync_wizard
+from . import wizard_wxwork_contacts_sync

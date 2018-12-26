@@ -3,6 +3,7 @@
 from ..api.CorpApi import *
 from ..helper.common import *
 from odoo import api, fields, models
+from .res_users import Users
 
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
@@ -12,7 +13,7 @@ class HrEmployee(models.Model):
     userid = fields.Char(string='企微用户Id', readonly=True)
     alias = fields.Char(string='别名')
     department_ids = fields.Many2many('hr.department', string='企微多部门')
-    qr_code = fields.Binary(string='个人二维码', help='员工个人二维码，扫描可添加为外部联系人')
+    qr_code = fields.Binary(string='个人二维码', help='员工个人二维码，扫描可添加为外部联系人', readonly=True)
     wxwork_user_order = fields.Char(
         '企微用户排序',
         default='0',
@@ -20,7 +21,7 @@ class HrEmployee(models.Model):
         readonly=True,
     )
 
-    is_wxwork_user = fields.Boolean('企微用户', readonly=True)
+    is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
     @api.model
     def sync(self):
@@ -45,7 +46,7 @@ class HrEmployee(models.Model):
             for obj in json['userlist']:
                 records = self.search([
                     ('userid', '=', obj['userid']),
-                    ('is_wxwork_user', '=', True)],
+                    ('is_wxwork_employee', '=', True)],
                     limit=1)
                 if len(records) > 0:
                     self.update(obj)
@@ -71,7 +72,8 @@ class HrEmployee(models.Model):
             'alias': json['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': json['order'],
-            'is_wxwork_user': True
+            'qr_code': Common(json['qr_code']).avatar2image(),
+            'is_wxwork_employee': True
         })
         return lines
 
@@ -84,7 +86,7 @@ class HrEmployee(models.Model):
         super(HrEmployee, self).write({
             'name': json['name'],
             'gender': Common(json['gender']).gender(),
-            'image': Common(json['avatar']).avatar2image(),
+            # 'image': Common(json['avatar']).avatar2image(),
             'mobile_phone': json['mobile'],
             'work_phone': json['telephone'],
             'work_email': json['email'],
@@ -92,7 +94,8 @@ class HrEmployee(models.Model):
             'alias': json['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': json['order'],
-            'is_wxwork_user': True
+            # 'qr_code': Common(json['qr_code']).avatar2image(),
+            'is_wxwork_employee': True
         })
 
     @api.multi
@@ -114,7 +117,7 @@ class HrEmployee(models.Model):
     @api.multi
     def set_employee_leave(self,employee_response):
         """
-        比较企业微信和odoo的员工数据，且设置odoo员工active状态
+        比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
         """
         list_user = []
         list_employee = []
@@ -125,7 +128,7 @@ class HrEmployee(models.Model):
                   ('active', '=', True)]
         records = self.search(
             domain + [
-                ('is_wxwork_user', '=', True)
+                ('is_wxwork_employee', '=', True)
             ])
 
         for employee_obj in records:
@@ -140,3 +143,48 @@ class HrEmployee(models.Model):
             userids.write({
                 'active': False,
             })  #
+
+    # @api.multi
+    # def sync_user_from_employee(self):
+    #     Employee = self.env['hr.employee']
+    #     domain = ['|', ('active', '=', False),
+    #               ('active', '=', True)]
+    #     employees = Employee.search(
+    #         domain + [
+    #             ('is_wxwork_employee', '=', True)
+    #         ])
+    #     for employee in employees:
+    #         records = self.env['res.users'].search(
+    #             domain + [
+    #                 ('userid', '=', employee.userid),
+    #                 ('is_wxwork_user', '=', True)],
+    #             limit=1)
+    #         if len(records) > 0:
+    #             self.update_user()
+    #         else:
+    #             self.create_user()
+    #
+    #
+    # @api.model
+    # def create_user(self):
+    #     print("创建"+self.name)
+    #
+    #     # user_id = self.env['res.users'].create({
+    #     #     'name': self.name,
+    #     #     'login': self.userid,
+    #     #     'userid': self.userid,
+    #     #     'image': self.image,
+    #     #     'qr_code': self.qr_code,
+    #     #     'active': self.active,
+    #     #     'wxwork_user_order': self.wxwork_user_order,
+    #     # })
+    #     # self.address_home_id = user_id.partner_id.id
+    #
+    # @api.multi
+    # def update_user(self):
+    #     print("更新" + self.name)
+    #     self.env['res.users'].write({
+    #         'name': self.name,
+    #         'active': self.active,
+    #         'wxwork_user_order': self.wxwork_user_order,
+    #     })

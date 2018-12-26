@@ -18,7 +18,7 @@ class ResConfigSettings(models.TransientModel):
     contacts_access_token = fields.Text('通讯录token', readonly=True, )
     contacts_auto_sync_hr_enabled = fields.Boolean(
         '允许企业微信通讯录自动更新HR', default=True)
-    contacts_sync_del_hr_enabled = fields.Boolean('同步且删除HR数据', default=False)
+    contacts_sync_del_hr_enabled = fields.Boolean('同步HR离职员工', default=False)
     contacts_sync_hr_department_id = fields.Integer('需同步的企业微信部门ID')
     contacts_edit_enabled = fields.Boolean(
         '允许API编辑企业微信通讯录', default=False, readonly=True)
