@@ -4,7 +4,6 @@ from odoo import models, fields, api
 from ..api.CorpApi import *
 from ..api.AbstractApi import ApiException
 from ..helper.common import Common
-from ..helper.sync_hr import Contacts
 import logging
 
 _logger = logging.getLogger(__name__)
