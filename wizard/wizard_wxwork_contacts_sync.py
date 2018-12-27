@@ -33,7 +33,8 @@ class ResConfigSettings(models.TransientModel):
         else:
             HrDepartment.sync(Department)
             HrEmployee.sync(Employee)
-            Users.sync(self.env['res.users'])
+            # HrEmployee.sync_user_from_employee(self.env['hr.employee'])
+            # Users.sync(self.env['res.users'])
             raise UserError('提示：完成企业微信到Odoo的同步')
 
 

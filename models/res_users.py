@@ -21,7 +21,7 @@ class Users(models.Model):
     )
 
 
-    @api.model
+    @api.multi
     def sync(self):
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
@@ -48,36 +48,30 @@ class Users(models.Model):
 
         # self.set_employee_active(json)
 
-    @api.multi
-    def create(self,json):
-        # lines = super(Users, self).create({
-        #     'name': json['name'],
-        #     'login': json['userid'],
-        #     'userid': json['userid'],
-        #     # 'image': Common(json['avatar']).avatar2image(),
-        #     # 'qr_code': Common(json['qr_code']).avatar2image(),
-        #     'active': json['enable'],
-        #     'wxwork_user_order': json['order'],
-        # })
+    @api.model
+    def create(self,values):
         lines = super(Users, self).create({
-            'name': json['name'],
-            'login': json['userid'],
-            'userid': json['userid'],
-            # 'image': Common(json['avatar']).avatar2image(),
-            # 'qr_code': Common(json['qr_code']).avatar2image(),
-            'active': json['enable'],
-            'wxwork_user_order': json['order'],
+            'name': values['name'],
+            'login': values['userid'],
+            # "email": values['email'],
+            # 'userid': values['userid'],
+            # 'image': Common(values['avatar']).avatar2image(),
+            # 'qr_code': Common(values['qr_code']).avatar2image(),
+            # 'active': values['enable'],
+            # 'wxwork_user_order': values['order'],
+            'is_wxwork_user': True,
         })
+        print(lines.name)
         return lines
-        # employee.write({"address_home_id":user_id.partner_id.id})
-        # self.address_home_id = user_id.partner_id.id
 
-    @api.multi
-    def update(self,json):
+    @api.model
+    def update(self,values):
         super(Users, self).write({
-            'name': json['name'],
-            'active': json['enable'],
-            'wxwork_user_order': json['order'],
+            'name': values['name'],
+            'active': values['enable'],
+            "email": values['email'],
+            'wxwork_user_order': values['order'],
+            'is_wxwork_user': True,
         })
 
     @api.multi

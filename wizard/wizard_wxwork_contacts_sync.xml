@@ -9,7 +9,7 @@
                 <form string="企业微信通讯簿数据同步" >
                     <separator string="从服务器下载并更新本地库"/>
                     <group>
-                        <div>同步比较慢，请耐心等候</div>
+                        <div>首次因需要同步头像故比较慢，请耐心等候</div>
                     </group>
                     <footer>
                         <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>
