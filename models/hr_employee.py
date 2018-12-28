@@ -64,7 +64,7 @@ class HrEmployee(models.Model):
             'name': json['name'],
             'gender': Common(json['gender']).gender(),
             'marital': not fields,  # 不生成婚姻状况
-            'image': Common(json['avatar']).avatar2image(),
+            # 'image': Common(json['avatar']).avatar2image(),
             'mobile_phone': json['mobile'],
             'work_phone': json['telephone'],
             'work_email': json['email'],
