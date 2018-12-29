@@ -22,127 +22,127 @@ class HrEmployee(models.Model):
 
     is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
-    @api.model
-    def sync(self):
-        '''同步员工'''
-        params = self.env['ir.config_parameter'].sudo()
-        corpid = params.get_param('wxwork.corpid')
-        secret = params.get_param('wxwork.contacts_secret')
-        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-        sync_del_hr = params.get_param('wxwork.contacts_sync_del_hr_enabled')
-
-        api = CorpApi(corpid, secret)
-        json = api.httpCall(
-            CORP_API_TYPE['USER_LIST'],
-            {
-                'department_id': sync_department_id,
-                'fetch_child': '1',
-            }
-        )
-
-        for obj in json['userlist']:
-            records = self.search([
-                ('userid', '=', obj['userid']),
-                ('is_wxwork_employee', '=', True)],
-                limit=1)
-            if len(records) > 0:
-                self.update(obj)
-            else:
-                self.create(obj)
-
-        self.set_leave_employee(json)
-        # self.sync_user_from_employee()
-
-    @api.multi
-    def create(self, json):
-        '''创建员工'''
-        department_ids = []
-        for department in json['department']:
-            department_ids.append(self.get_employee_parent_department(department))
-        lines = super(HrEmployee, self).create({
-            'userid': json['userid'],
-            'name': json['name'],
-            'gender': Common(json['gender']).gender(),
-            'marital': not fields,  # 不生成婚姻状况
-            # 'image': Common(json['avatar']).avatar2image(),
-            'mobile_phone': json['mobile'],
-            'work_phone': json['telephone'],
-            'work_email': json['email'],
-            'active': json['enable'],
-            'alias': json['alias'],
-            'department_ids': [(6, 0, department_ids)],
-            'wxwork_user_order': json['order'],
-            'qr_code': Common(json['qr_code']).avatar2image(),
-            'is_wxwork_employee': True
-        })
-        return lines
-
-    @api.multi
-    def update(self, json):
-        '''更新员工'''
-        department_ids = []
-        for department in json['department']:
-            department_ids.append(self.get_employee_parent_department(department))
-        super(HrEmployee, self).write({
-            'name': json['name'],
-            'gender': Common(json['gender']).gender(),
-            # 'image': Common(json['avatar']).avatar2image(),
-            'mobile_phone': json['mobile'],
-            'work_phone': json['telephone'],
-            'work_email': json['email'],
-            'active': json['enable'],
-            'alias': json['alias'],
-            'department_ids': [(6, 0, department_ids)],
-            'wxwork_user_order': json['order'],
-            # 'qr_code': Common(json['qr_code']).avatar2image(),
-            'is_wxwork_employee': True
-        })
-
-    @api.multi
-    def get_employee_parent_department(self, department_id):
-        """
-        获取odoo上级部门
-        """
-        try:
-            Department = self.env['hr.department']
-            departments = Department.search([
-                ('wxwork_department_id', '=', department_id),
-                ('is_wxwork_department', '=', True)],
-                limit=1)
-            if len(departments) > 0:
-                return departments.id
-        except BaseException:
-            pass
-
-    @api.multi
-    def set_leave_employee(self, json):
-        """
-        比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
-        """
-        list_user = []
-        list_employee = []
-        for obj in json:
-            list_user.append(obj['userid'])
-
-        domain = ['|', ('active', '=', False),
-                  ('active', '=', True)]
-        records = self.search(
-            domain + [
-                ('is_wxwork_employee', '=', True)
-            ])
-
-        for obj in records:
-            list_employee.append(obj.userid)
-
-        list_user_leave = list(set(list_employee).difference(set(list_user)))
-
-        for obj in list_user_leave:
-            userids = records.search([
-                ('userid', '=', obj)
-            ])
-            userids.write({
-                'active': False,
-            })
+    # @api.model
+    # def sync(self):
+    #     '''同步员工'''
+    #     params = self.env['ir.config_parameter'].sudo()
+    #     corpid = params.get_param('wxwork.corpid')
+    #     secret = params.get_param('wxwork.contacts_secret')
+    #     sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+    #     sync_del_hr = params.get_param('wxwork.contacts_sync_del_hr_enabled')
+    #
+    #     api = CorpApi(corpid, secret)
+    #     json = api.httpCall(
+    #         CORP_API_TYPE['USER_LIST'],
+    #         {
+    #             'department_id': sync_department_id,
+    #             'fetch_child': '1',
+    #         }
+    #     )
+    #
+    #     for obj in json['userlist']:
+    #         records = self.search([
+    #             ('userid', '=', obj['userid']),
+    #             ('is_wxwork_employee', '=', True)],
+    #             limit=1)
+    #         if len(records) > 0:
+    #             self.update(obj)
+    #         else:
+    #             self.create(obj)
+    #
+    #     # self.set_leave_employee(json)
+    #     # self.sync_user_from_employee()
+    #
+    # @api.multi
+    # def create(self, json):
+    #     '''创建员工'''
+    #     department_ids = []
+    #     for department in json['department']:
+    #         department_ids.append(self.get_employee_parent_department(department))
+    #     lines = super(HrEmployee, self).create({
+    #         'userid': json['userid'],
+    #         'name': json['name'],
+    #         'gender': Common(json['gender']).gender(),
+    #         'marital': not fields,  # 不生成婚姻状况
+    #         # 'image': Common(json['avatar']).avatar2image(),
+    #         'mobile_phone': json['mobile'],
+    #         'work_phone': json['telephone'],
+    #         'work_email': json['email'],
+    #         'active': json['enable'],
+    #         'alias': json['alias'],
+    #         'department_ids': [(6, 0, department_ids)],
+    #         'wxwork_user_order': json['order'],
+    #         'qr_code': Common(json['qr_code']).avatar2image(),
+    #         'is_wxwork_employee': True
+    #     })
+    #     return lines
+    #
+    # @api.multi
+    # def update(self, json):
+    #     '''更新员工'''
+    #     department_ids = []
+    #     for department in json['department']:
+    #         department_ids.append(self.get_employee_parent_department(department))
+    #     super(HrEmployee, self).write({
+    #         'name': json['name'],
+    #         'gender': Common(json['gender']).gender(),
+    #         # 'image': Common(json['avatar']).avatar2image(),
+    #         'mobile_phone': json['mobile'],
+    #         'work_phone': json['telephone'],
+    #         'work_email': json['email'],
+    #         'active': json['enable'],
+    #         'alias': json['alias'],
+    #         'department_ids': [(6, 0, department_ids)],
+    #         'wxwork_user_order': json['order'],
+    #         # 'qr_code': Common(json['qr_code']).avatar2image(),
+    #         'is_wxwork_employee': True
+    #     })
+    #
+    # @api.multi
+    # def get_employee_parent_department(self, department_id):
+    #     """
+    #     获取odoo上级部门
+    #     """
+    #     try:
+    #         Department = self.env['hr.department']
+    #         departments = Department.search([
+    #             ('wxwork_department_id', '=', department_id),
+    #             ('is_wxwork_department', '=', True)],
+    #             limit=1)
+    #         if len(departments) > 0:
+    #             return departments.id
+    #     except BaseException:
+    #         pass
+    #
+    # @api.multi
+    # def set_leave_employee(self, json):
+    #     """
+    #     比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
+    #     """
+    #     list_user = []
+    #     list_employee = []
+    #     for obj in json:
+    #         list_user.append(obj['userid'])
+    #
+    #     domain = ['|', ('active', '=', False),
+    #               ('active', '=', True)]
+    #     records = self.search(
+    #         domain + [
+    #             ('is_wxwork_employee', '=', True)
+    #         ])
+    #
+    #     for obj in records:
+    #         list_employee.append(obj.userid)
+    #
+    #     list_user_leave = list(set(list_employee).difference(set(list_user)))
+    #
+    #     for obj in list_user_leave:
+    #         userids = records.search([
+    #             ('userid', '=', obj)
+    #         ])
+    #         userids.write({
+    #             'active': False,
+    #         })
 
     # @api.multi
     # def sync_user_from_employee(self, user):

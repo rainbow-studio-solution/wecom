@@ -1,17 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import logging
-
 from odoo import api, fields, models
 from ..helper.common import Common
-
 from odoo.exceptions import UserError
-from ..models.hr_department import HrDepartment
-from ..models.hr_employee import HrEmployee
-from ..models.res_users import Users
-
-
-_logger = logging.getLogger(__name__)
+from ..models.sync import SyncDepartment,SyncEmployee
 
 
 class ResConfigSettings(models.TransientModel):
@@ -24,6 +16,9 @@ class ResConfigSettings(models.TransientModel):
         同步企业微信通讯簿到Odoo
         """
         params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
@@ -31,10 +26,17 @@ class ResConfigSettings(models.TransientModel):
         if not Common(auto_sync).str_to_bool():
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
-            HrDepartment.sync(Department)
-            HrEmployee.sync(Employee)
-            # HrEmployee.sync_user_from_employee(self.env['hr.employee'])
-            # Users.sync(self.env['res.users'])
-            raise UserError('提示：完成企业微信到Odoo的同步')
+            department_sync = SyncDepartment(corpid,secret,sync_department_id,Department).sync_department()
+            employee_sync = SyncEmployee(corpid, secret, sync_department_id, Department, Employee).sync_employee()
+            leave_sync = SyncEmployee(corpid, secret, sync_department_id, Department, Employee).update_leave_employee()
+            if not department_sync :
+                raise UserError('提示：企业微信部门同步失败')
+            elif not employee_sync:
+                raise UserError('提示：企业微信员工同步失败')
+            elif not leave_sync:
+                raise UserError('提示：企业微信员工离职同步失败')
+            else:
+                raise UserError('提示：完成企业微信的同步')
+
 
 
