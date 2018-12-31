@@ -6,10 +6,6 @@ from odoo import  fields
 from odoo.exceptions import ValidationError
 
 class SyncDepartment(object):
-    """
-        同步企微通讯录到HR操作类
-        """
-
     def __init__(self, corpid, secret, department_id, department):
         self.corpid = corpid
         self.secret = secret
@@ -37,7 +33,7 @@ class SyncDepartment(object):
                 else:
                     self.create_department(records, obj)
             # 由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门
-            self.set_parent_department(self.department)
+            # self.set_parent_department()
         except BaseException:
             self.result = False
         return self.result
@@ -61,27 +57,46 @@ class SyncDepartment(object):
         })
         self.result = True
 
-    def set_parent_department(self, Department):
+class SetDepartment(object):
+    def __init__(self,  department):
+        self.department = department
+        self.result = None
+
+    def set_parent_department(self):
+        """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
         try:
-            departments = Department.search(
+            departments = self.department.search(
                 [('is_wxwork_department', '=', True)])
-            for department in departments:
-                if not department.wxwork_department_id:
+            for dep in departments:
+                if not dep.wxwork_department_id:
                     pass
                 else:
-                    if not department.wxwork_department_parent_id:
-                        pass
-                    else:
-                        parent_department = Department.search([
-                            ('wxwork_department_id', '=', department.wxwork_department_parent_id),
+                    # self.update_department_parent_id(dep)
+                    parent_department = self.department.search([
+                            ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
                             ('is_wxwork_department', '=', True)
                         ])
-                        department.write({
+                    dep.write({
                             'parent_id': parent_department.id,
                         })
             self.result = True
         except BaseException:
-            raise ValidationError('设置上级部门失败！')
+            self.result = False
+        return self.result
+
+    def get_parent_department(self,dep):
+        parent_department = self.department.search([
+            ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
+            ('is_wxwork_department', '=', True)
+        ])
+        return parent_department
+
+    def update_department_parent_id(self, dep):
+        parent_dep = self.get_parent_department(dep)
+        dep.write({
+            'parent_id': parent_dep.id
+        })
+        self.result = True
 
 class SyncEmployee(object):
     def __init__(self, corpid, secret, department_id, department, employee):
@@ -116,7 +131,6 @@ class SyncEmployee(object):
                 else:
                     self.create_employee(records, obj)
 
-            # self.set_leave_employee(response)
         except BaseException:
             self.result = False
         return self.result
@@ -129,7 +143,7 @@ class SyncEmployee(object):
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
-            'marital': not fields,  # 不生成婚姻状况
+            # 'marital': not fields,  # 不生成婚姻状况
             'image': Common(obj['avatar']).avatar2image(),
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
@@ -139,9 +153,9 @@ class SyncEmployee(object):
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
             'qr_code': Common(obj['qr_code']).avatar2image(),
-            'is_wxwork_employee': True
+            'is_wxwork_employee': True,
         })
-        self.result = True
+        self.result =True
 
     def update_employee(self,records, obj):
         department_ids = []

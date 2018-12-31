@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from ..api.CorpApi import *
-from ..helper.common import *
 from odoo import api, fields, models
 
 class Users(models.Model):
@@ -21,62 +19,62 @@ class Users(models.Model):
     )
 
 
-    @api.multi
-    def sync(self):
-        params = self.env['ir.config_parameter'].sudo()
-        corpid = params.get_param('wxwork.corpid')
-        secret = params.get_param('wxwork.contacts_secret')
-        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-
-        api = CorpApi(corpid, secret)
-        json = api.httpCall(
-            CORP_API_TYPE['USER_LIST'],
-            {
-                'department_id': sync_department_id,
-                'fetch_child': '1',
-            }
-        )
-        for obj in json['userlist']:
-            records = self.search([
-                ('userid', '=', obj['userid']),
-                ('is_wxwork_user', '=', True)],
-                limit=1)
-            if len(records) > 0:
-                self.update(obj)
-            else:
-                self.create(obj)
-
-        # self.set_employee_active(json)
-
-    @api.model
-    def create(self,values):
-        lines = super(Users, self).create({
-            'name': values['name'],
-            'login': values['userid'],
-            # "email": values['email'],
-            # 'userid': values['userid'],
-            # 'image': Common(values['avatar']).avatar2image(),
-            # 'qr_code': Common(values['qr_code']).avatar2image(),
-            # 'active': values['enable'],
-            # 'wxwork_user_order': values['order'],
-            'is_wxwork_user': True,
-        })
-        print(lines.name)
-        return lines
-
-    @api.model
-    def update(self,values):
-        super(Users, self).write({
-            'name': values['name'],
-            'active': values['enable'],
-            "email": values['email'],
-            'wxwork_user_order': values['order'],
-            'is_wxwork_user': True,
-        })
-
-    @api.multi
-    def wxwork_message_send(self):
-        pass
+    # @api.multi
+    # def sync(self):
+    #     params = self.env['ir.config_parameter'].sudo()
+    #     corpid = params.get_param('wxwork.corpid')
+    #     secret = params.get_param('wxwork.contacts_secret')
+    #     sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+    #
+    #     api = CorpApi(corpid, secret)
+    #     json = api.httpCall(
+    #         CORP_API_TYPE['USER_LIST'],
+    #         {
+    #             'department_id': sync_department_id,
+    #             'fetch_child': '1',
+    #         }
+    #     )
+    #     for obj in json['userlist']:
+    #         records = self.search([
+    #             ('userid', '=', obj['userid']),
+    #             ('is_wxwork_user', '=', True)],
+    #             limit=1)
+    #         if len(records) > 0:
+    #             self.update(obj)
+    #         else:
+    #             self.create(obj)
+    #
+    #     # self.set_employee_active(json)
+    #
+    # @api.model
+    # def create(self,values):
+    #     lines = super(Users, self).create({
+    #         'name': values['name'],
+    #         'login': values['userid'],
+    #         # "email": values['email'],
+    #         # 'userid': values['userid'],
+    #         # 'image': Common(values['avatar']).avatar2image(),
+    #         # 'qr_code': Common(values['qr_code']).avatar2image(),
+    #         # 'active': values['enable'],
+    #         # 'wxwork_user_order': values['order'],
+    #         'is_wxwork_user': True,
+    #     })
+    #     print(lines.name)
+    #     return lines
+    #
+    # @api.model
+    # def update(self,values):
+    #     super(Users, self).write({
+    #         'name': values['name'],
+    #         'active': values['enable'],
+    #         "email": values['email'],
+    #         'wxwork_user_order': values['order'],
+    #         'is_wxwork_user': True,
+    #     })
+    #
+    # @api.multi
+    # def wxwork_message_send(self):
+    #     pass
 
 
 

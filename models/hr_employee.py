@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from ..api.CorpApi import *
-from ..helper.common import *
 from odoo import api, fields, models, registry, SUPERUSER_ID
 
 class HrEmployee(models.Model):

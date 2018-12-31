@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# import logging
-from ..api.CorpApi import *
-from ..api.api_errcode import *
 from odoo import api, fields, models
-from odoo.exceptions import UserError, ValidationError
-from ..helper.common import *
-
 
 # _logger = logging.getLogger(__name__)
 

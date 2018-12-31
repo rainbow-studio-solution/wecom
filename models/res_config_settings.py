@@ -2,7 +2,6 @@
 
 from odoo import models, fields, api
 from ..api.CorpApi import *
-from ..api.AbstractApi import ApiException
 from ..helper.common import Common
 import logging
 
@@ -112,21 +111,21 @@ class ResConfigSettings(models.TransientModel):
         sync_user = self.env['ir.config_parameter'].sudo(
         ).get_param('wxwork.contacts_sync_user_enabled')
 
-        try:
-            if not Common(auto_sync).str_to_bool():
-                _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
-            else:
-                contacts_obj = Contacts(
-                    corpid,
-                    secret,
-                    sync_department_id,
-                    Department,
-                    Employee,
-                    User,
-                    sync_del_hr,
-                    sync_user)
-                sync = contacts_obj.sync()
-                if str(sync) == 'True':
-                    _logger.info('任务提示：完成企业微信到Odoo的同步')
-        except Exception:
-            _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")
+        # try:
+        #     if not Common(auto_sync).str_to_bool():
+        #         _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
+        #     else:
+        #         contacts_obj = Contacts(
+        #             corpid,
+        #             secret,
+        #             sync_department_id,
+        #             Department,
+        #             Employee,
+        #             User,
+        #             sync_del_hr,
+        #             sync_user)
+        #         sync = contacts_obj.sync()
+        #         if str(sync) == 'True':
+        #             _logger.info('任务提示：完成企业微信到Odoo的同步')
+        # except Exception:
+        #     _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")

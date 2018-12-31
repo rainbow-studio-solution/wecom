@@ -11,6 +11,9 @@
                     <group>
                         <div>首次因需要同步头像故比较慢，请耐心等候。</div>
                     </group>
+                    <group>
+                        <field name="result"></field>
+                    </group>
                     <footer>
                         <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>
                     </footer>
