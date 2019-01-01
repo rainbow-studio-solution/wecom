@@ -142,6 +142,6 @@ class ResConfigSettings(models.TransientModel):
                     user_sync_status = True
 
                 if department_sync_status and set_department_status and employee_sync_status and leave_sync_status and user_sync_status:
-                    _logger.info("任务失败提示-企业微信同步成功")
+                    _logger.info("任务提示-企业微信同步成功")
         except Exception:
             _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")
