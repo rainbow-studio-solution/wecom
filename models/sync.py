@@ -234,3 +234,56 @@ class SyncEmployee(object):
             'active': False,
         })
         self.result = True
+
+class SyncEmployeeToUser(object):
+    def __init__(self, employee, user):
+        self.employee = employee
+        self.user = user
+        self.result = None
+
+    def sync_user(self):
+        domain = ['|', ('active', '=', False),
+                  ('active', '=', True)]
+        employee = self.employee.search(
+            domain + [
+                ('is_wxwork_employee', '=', True)])
+        try:
+            for records in employee:
+                print(records.name)
+                user = self.user.search(
+                    domain + [
+                        ('userid', '=', records.userid),
+                        ('is_wxwork_user', '=', True)
+                    ],limit=1
+                )
+                if len(user) > 0:
+                    self.update_user(records, user)
+                else:
+                    self.create_user(records, user)
+        except BaseException:
+            self.result = False
+        return self.result
+
+    def create_user(self, employee, user):
+        user.create({
+            'name': employee.name,
+            'login': employee.userid,
+            'email': employee.work_email,
+            'userid': employee.userid,
+            'image': employee.image,
+            'qr_code': employee.qr_code,
+            'active': employee.active,
+            'wxwork_user_order': employee.wxwork_user_order,
+            'is_wxwork_user': True,
+        })
+        self.result = True
+
+    def update_user(self, employee, user):
+        user.write({
+            'name': employee.name,
+            'active': employee.active,
+            'email': employee.work_email,
+            'wxwork_user_order': employee.wxwork_user_order,
+            'is_wxwork_user': True,
+        })
+        self.result = True

@@ -10,7 +10,7 @@ class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
     _description = '同步部门'
 
-    result = fields.Char(string='结果')
+    result = fields.Char(string='结果',readonly=True)
 
     @api.multi
     def action_sync_contacts(self):
@@ -24,17 +24,17 @@ class ResConfigSettings(models.TransientModel):
         auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
+        User = self.env['res.users']
 
         if not Common(auto_sync).str_to_bool():
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
             try:
-                self.result = None
                 department_sync_operate = SyncDepartment(corpid,secret,sync_department_id,Department).sync_department()
                 if not department_sync_operate:
                     raise UserError('提示：企业微信部门同步失败')
                 else:
-                    self.result = '提示：企业微信部门同步成功\n\n'
+                    department_sync_status = True
             except BaseException:
                 pass
 
@@ -43,7 +43,7 @@ class ResConfigSettings(models.TransientModel):
                 if not set_department_operate :
                     raise UserError('提示：设置企业微信上级部门失败')
                 else:
-                    self.result = '提示：设置企业微信上级部门成功\n\n'
+                    set_department_status = True
             except BaseException:
                 pass
 
@@ -53,7 +53,6 @@ class ResConfigSettings(models.TransientModel):
                     raise UserError('提示：企业微信员工同步失败')
                 else:
                     employee_sync_status = True
-                    self.result = '提示：设置企业微信上级部门成功\n\n'
             except BaseException:
                 pass
 
@@ -63,13 +62,18 @@ class ResConfigSettings(models.TransientModel):
                     raise UserError('提示：企业微信离职员工同步失败')
                 else:
                     leave_sync_status = True
-                    self.result = '提示：企业微信离职员工同步成功\n\n'
             except BaseException:
                 pass
 
-            if  employee_sync_status and  leave_sync_status:
-                raise UserError('提示：企业微信同步成功')
+            try:
+                user_sync_operate = SyncEmployeeToUser(Employee,User).sync_user()
+                if not user_sync_operate:
+                    raise UserError('提示：企业微信同步系统用户同步失败')
+                else:
+                    user_sync_status = True
+            except BaseException:
+                pass
+
+            # if  department_sync_status and set_department_status and employee_sync_status and  leave_sync_status:
+            #     raise UserError('提示：企业微信同步成功')
             return True
-
-
-
