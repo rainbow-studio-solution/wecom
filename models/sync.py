@@ -5,6 +5,7 @@ from ..helper.common import *
 from odoo import  fields
 from odoo.exceptions import ValidationError
 
+
 class SyncDepartment(object):
     def __init__(self, corpid, secret, department_id, department):
         self.corpid = corpid
