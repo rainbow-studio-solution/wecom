@@ -249,7 +249,6 @@ class SyncEmployeeToUser(object):
                 ('is_wxwork_employee', '=', True)])
         try:
             for records in employee:
-                print(records.name)
                 user = self.user.search(
                     domain + [
                         ('userid', '=', records.userid),
