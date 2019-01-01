@@ -12,8 +12,7 @@ class ResConfigSettings(models.TransientModel):
 
     result = fields.Char(string='结果',readonly=True)
 
-    # @api.multi
-    @api.onchange('result')
+    @api.multi
     def action_sync_contacts(self):
         """
         同步企业微信通讯簿到Odoo
@@ -75,13 +74,13 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-        self.result = '提示：企业微信同步成功'
-        warning = {}
-        title = False
-        message = False
-        if  department_sync_status and set_department_status and employee_sync_status and  leave_sync_status:
-            warning = {
-                'title': '提示',
-                'message': '提示：企业微信同步成功',
-            }
-        return warning
+        # self.result = '提示：企业微信同步成功'
+        # warning = {}
+        # title = False
+        # message = False
+        # if  department_sync_status and set_department_status and employee_sync_status and  leave_sync_status:
+        #     warning = {
+        #         'title': '提示',
+        #         'message': '提示：企业微信同步成功',
+        #     }
+        # return warning

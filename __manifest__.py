@@ -31,7 +31,6 @@
         'views/hr_employee_view.xml',
         'views/wxwork_views.xml',
         'views/wxwork_templates.xml',
-        # 'views/create_user_from_employee_view.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",

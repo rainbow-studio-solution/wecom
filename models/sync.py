@@ -264,7 +264,7 @@ class SyncEmployeeToUser(object):
         return self.result
 
     def create_user(self, employee, user):
-        user.create({
+        lines = user.create({
             'name': employee.name,
             'login': employee.userid,
             'email': employee.work_email,
@@ -274,6 +274,9 @@ class SyncEmployeeToUser(object):
             'active': employee.active,
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
+        })
+        employee.write({
+            'address_home_id':lines.partner_id.id
         })
         self.result = True
 
