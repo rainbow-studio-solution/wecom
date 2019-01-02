@@ -74,6 +74,16 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
+            # try:
+            #     employee_binding_user_operate = SyncEmployeeToUser(Employee,User).set_employee_partner_id()
+            #     if not employee_binding_user_operate:
+            #         raise UserError('提示：企业微信员工绑定企业微信用户失败')
+            #     else:
+            #         employee_binding_user_status = True
+            # except BaseException:
+            #     pass
+
+        # return True
         # self.result = '提示：企业微信同步成功'
         # warning = {}
         # title = False

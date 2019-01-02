@@ -3,8 +3,8 @@
 from odoo import models, fields, api
 from ..api.CorpApi import *
 from ..helper.common import Common
-from .sync import *
 import logging
+from ..models.sync import *
 
 _logger = logging.getLogger(__name__)
 
@@ -104,44 +104,40 @@ class ResConfigSettings(models.TransientModel):
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
-
         try:
             if not Common(auto_sync).str_to_bool():
                 _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
             else:
-                department_sync_operate = SyncDepartment(corpid, secret, sync_department_id,Department).sync_department()
+                department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
                 if not department_sync_operate:
                     _logger.info("任务失败提示-企业微信部门同步失败")
                 else:
-                    department_sync_status = True
+                    _logger.info("任务提示-企业微信部门同步成功")
 
                 set_department_operate = SetDepartment(Department).set_parent_department()
                 if not set_department_operate:
                     _logger.info("任务失败提示-设置企业微信上级部门失败")
                 else:
-                    set_department_status = True
+                    _logger.info("任务提示-设置企业微信上级部门成功")
 
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
                                                      Employee).sync_employee()
                 if not employee_sync_operate:
                     _logger.info("任务失败提示-企业微信员工同步失败")
                 else:
-                    employee_sync_status = True
+                    _logger.info("任务提示-企业微信员工同步成功")
 
                 leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
                                                   Employee).update_leave_employee()
                 if not leave_sync_operate:
                     _logger.info("任务失败提示-企业微信离职员工同步失败")
                 else:
-                    leave_sync_status = True
+                    _logger.info("任务提示-企业微信离职员工同步成功")
 
                 user_sync_operate = SyncEmployeeToUser(Employee, User).sync_user()
                 if not user_sync_operate:
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:
-                    user_sync_status = True
-
-                if department_sync_status and set_department_status and employee_sync_status and leave_sync_status and user_sync_status:
-                    _logger.info("任务提示-企业微信同步成功")
+                    _logger.info("任务提示-企业微信同步系统用户同步成功")
         except Exception:
             _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")

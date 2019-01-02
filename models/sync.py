@@ -74,12 +74,12 @@ class SetDepartment(object):
                 else:
                     # self.update_department_parent_id(dep)
                     parent_department = self.department.search([
-                            ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
-                            ('is_wxwork_department', '=', True)
-                        ])
+                        ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
+                        ('is_wxwork_department', '=', True)
+                    ])
                     dep.write({
-                            'parent_id': parent_department.id,
-                        })
+                        'parent_id': parent_department.id,
+                    })
             self.result = True
         except BaseException:
             self.result = False
@@ -124,8 +124,8 @@ class SyncEmployee(object):
                           ('active', '=', True)]
                 records = self.employee.search(
                     domain +[
-                    ('userid', '=', obj['userid']),
-                    ('is_wxwork_employee', '=', True)],
+                        ('userid', '=', obj['userid']),
+                        ('is_wxwork_employee', '=', True)],
                     limit=1)
                 if len(records) > 0:
                     self.update_employee(records, obj)
@@ -257,8 +257,10 @@ class SyncEmployeeToUser(object):
                 )
                 if len(user) > 0:
                     self.update_user(records, user)
+                    # self.set_employee_partner_id(records, self.user)
                 else:
                     self.create_user(records, user)
+
         except BaseException:
             self.result = False
         return self.result
@@ -276,16 +278,20 @@ class SyncEmployeeToUser(object):
             'is_wxwork_user': True,
         })
         employee.write({
-            'address_home_id':lines.partner_id.id
+            'address_home_id': lines.partner_id.id
         })
         self.result = True
 
     def update_user(self, employee, user):
+        print(employee.address_home_id ,user.partner_id.id)
         user.write({
             'name': employee.name,
             'active': employee.active,
             'email': employee.work_email,
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
+        })
+        employee.write({
+            'address_home_id': user.partner_id.id
         })
         self.result = True
