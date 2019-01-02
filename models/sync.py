@@ -257,8 +257,10 @@ class SyncEmployeeToUser(object):
                 )
                 if len(user) > 0:
                     self.update_user(records, user)
+                    # self.set_employee_partner_id(records, self.user)
                 else:
                     self.create_user(records, user)
+
         except BaseException:
             self.result = False
         return self.result
@@ -278,37 +280,18 @@ class SyncEmployeeToUser(object):
         employee.write({
             'address_home_id': lines.partner_id.id
         })
-        # self.set_employee_partner_id(employee,lines)
-        self.result = True
-        # return lines
-
-    def set_employee_partner_id(self,employee,user):
-        domain = ['|', ('active', '=', False),
-                  ('active', '=', True)]
-        list_e = employee.search(
-            domain + [
-                ('is_wxwork_employee', '=', True)
-            ]
-        )
-        for e in list_e:
-            print(e.userid)
-            u = user.search(
-                domain + [
-                    ('userid', '=', e.userid),
-                    ('is_wxwork_user', '=', True)
-                ],limit=1
-            )
-            e.write({
-                'address_home_id': u.partner_id.id
-            })
         self.result = True
 
     def update_user(self, employee, user):
+        print(employee.address_home_id ,user.partner_id.id)
         user.write({
             'name': employee.name,
             'active': employee.active,
             'email': employee.work_email,
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
+        })
+        employee.write({
+            'address_home_id': user.partner_id.id
         })
         self.result = True
