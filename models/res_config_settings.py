@@ -4,6 +4,7 @@ from odoo import models, fields, api
 from ..api.CorpApi import *
 from ..helper.common import Common
 import logging
+from ..models.sync import *
 
 _logger = logging.getLogger(__name__)
 
@@ -98,34 +99,45 @@ class ResConfigSettings(models.TransientModel):
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
-        auto_sync = params.get_param('wxwork.contacts_auto_sync_enabled')
-        sync_department_id = params.get_param(
-            'wxwork.contacts_sync_department_id')
-
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+        auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
+        try:
+            if not Common(auto_sync).str_to_bool():
+                _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
+            else:
+                department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
+                if not department_sync_operate:
+                    _logger.info("任务失败提示-企业微信部门同步失败")
+                else:
+                    _logger.info("任务提示-企业微信部门同步成功")
 
-        sync_del_hr = self.env['ir.config_parameter'].sudo(
-        ).get_param('wxwork.contacts_sync_del_hr_enabled')
-        sync_user = self.env['ir.config_parameter'].sudo(
-        ).get_param('wxwork.contacts_sync_user_enabled')
+                set_department_operate = SetDepartment(Department).set_parent_department()
+                if not set_department_operate:
+                    _logger.info("任务失败提示-设置企业微信上级部门失败")
+                else:
+                    _logger.info("任务提示-设置企业微信上级部门成功")
 
-        # try:
-        #     if not Common(auto_sync).str_to_bool():
-        #         _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
-        #     else:
-        #         contacts_obj = Contacts(
-        #             corpid,
-        #             secret,
-        #             sync_department_id,
-        #             Department,
-        #             Employee,
-        #             User,
-        #             sync_del_hr,
-        #             sync_user)
-        #         sync = contacts_obj.sync()
-        #         if str(sync) == 'True':
-        #             _logger.info('任务提示：完成企业微信到Odoo的同步')
-        # except Exception:
-        #     _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")
+                employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
+                                                     Employee).sync_employee()
+                if not employee_sync_operate:
+                    _logger.info("任务失败提示-企业微信员工同步失败")
+                else:
+                    _logger.info("任务提示-企业微信员工同步成功")
+
+                leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
+                                                  Employee).update_leave_employee()
+                if not leave_sync_operate:
+                    _logger.info("任务失败提示-企业微信离职员工同步失败")
+                else:
+                    _logger.info("任务提示-企业微信离职员工同步成功")
+
+                user_sync_operate = SyncEmployeeToUser(Employee, User).sync_user()
+                if not user_sync_operate:
+                    _logger.info("任务失败提示-企业微信同步系统用户同步失败")
+                else:
+                    _logger.info("任务提示-企业微信同步系统用户同步成功")
+        except Exception:
+            _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")

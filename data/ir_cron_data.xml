@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record forcecreate="True" id="ir_cron_sync_wxwork_contacts" model="ir.cron">
-            <field name="name">企业微信：定时同步通讯录</field>
+            <field name="name">任务：定时同步企业微信通讯录</field>
             <field name="model_id" ref="model_res_config_settings"/>
             <field name="state">code</field>
             <field name="code">model.cron_sync_contacts()</field>
