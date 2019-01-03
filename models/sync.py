@@ -268,7 +268,8 @@ class SyncEmployeeToUser(object):
             'name': employee.name,
             'login': employee.userid,
             'password':Common(8).random_passwd(),
-            'email': Common(employee.work_email).is_exists(),
+            'email': employee.work_email,
+            # 'email': Common(employee.work_email).mail_is_exists(),
             'userid': employee.userid,
             'image': employee.image,
             'qr_code': employee.qr_code,
@@ -279,26 +280,30 @@ class SyncEmployeeToUser(object):
         self.result = True
 
     def update_user(self, employee, user):
-        print(employee.work_email,Common(employee.work_email).is_exists())
-
+        # user.write({
+        #     'name': employee.name,
+        #     'email': not fields,
+        #     # 'email': Common(employee.work_email).mail_is_exists(),
+        #     'active': employee.active,
+        #     'wxwork_user_order': employee.wxwork_user_order,
+        #     'is_wxwork_user': True,
+        # })
         if Common(employee.work_email).is_exists():
-            # print(employee.work_email,"null")
             user.write({
                 'name': employee.name,
+                'email': employee.work_email,
                 'active': employee.active,
-                # 'email': employee.work_email,
                 'wxwork_user_order': employee.wxwork_user_order,
                 'is_wxwork_user': True,
             })
         else:
-            # print(employee.work_email, "no null")
             user.write({
                 'name': employee.name,
                 'active': employee.active,
-                'email': not fields,
                 'wxwork_user_order': employee.wxwork_user_order,
                 'is_wxwork_user': True,
             })
+
         self.result = True
 
 class EmployeeBindingUser(object):

@@ -71,6 +71,17 @@ class Common(object):
             self.result = True
         return self.result
 
+    def mail_is_exists(self):
+        '''
+        判断是否存在值
+        :return:
+        '''
+        if not self.value:
+            self.result = ''
+        else:
+            self.result = self.value
+        return self.result
+
     def random_passwd(self):
         '''
         生成随机密码
