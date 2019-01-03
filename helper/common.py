@@ -5,6 +5,7 @@ import requests as req
 from PIL import ImageFile
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 from io import BytesIO
+from odoo import fields
 
 class Common(object):
     def __init__(self, value):
@@ -56,4 +57,11 @@ class Common(object):
             self.result = 'female'
         else:
             self.result = 'other'
+        return self.result
+
+    def is_exists(self):
+        if not self.value:
+            self.result = None
+        else:
+            self.result = self.value
         return self.result
