@@ -61,7 +61,7 @@ class Common(object):
 
     def is_exists(self):
         if not self.value:
-            self.result =  not fields,
+            self.result = None
         else:
             self.result = self.value
         return self.result

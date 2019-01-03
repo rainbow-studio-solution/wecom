@@ -139,5 +139,11 @@ class ResConfigSettings(models.TransientModel):
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:
                     _logger.info("任务提示-企业微信同步系统用户同步成功")
+
+                employee_binding_user_operate = EmployeeBindingUser(Employee, User).binding()
+                if not employee_binding_user_operate:
+                    _logger.info("任务失败提示-企业微信员工绑定系统用户失败")
+                else:
+                    _logger.info("任务提示-企业微信员工绑定系统用户成功")
         except Exception:
             _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")

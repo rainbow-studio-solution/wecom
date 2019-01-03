@@ -267,7 +267,7 @@ class SyncEmployeeToUser(object):
         user.create({
             'name': employee.name,
             'login': employee.userid,
-            'email':  Common(employee.work_email).is_exists(),
+            'email': Common(employee.work_email).is_exists(),
             'userid': employee.userid,
             'image': employee.image,
             'qr_code': employee.qr_code,
@@ -278,6 +278,7 @@ class SyncEmployeeToUser(object):
         self.result = True
 
     def update_user(self, employee, user):
+        # print(Common(employee.work_email).is_exists())
         user.write({
             'name': employee.name,
             'active': employee.active,
@@ -317,6 +318,6 @@ class EmployeeBindingUser(object):
 
     def set_employee_user_id(self, employee, user):
         employee.write({
-            'user_id': user.partner_id.id,
+            'user_id': user.id,
         })
         self.result = True
