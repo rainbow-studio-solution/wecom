@@ -24,6 +24,8 @@ class ResConfigSettings(models.TransientModel):
     contacts_sync_user_enabled = fields.Boolean(
         '允许企业微信通讯录自动更新系统账号', default=False)
 
+
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()

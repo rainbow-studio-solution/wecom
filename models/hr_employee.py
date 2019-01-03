@@ -8,8 +8,8 @@ class HrEmployee(models.Model):
     _order = 'wxwork_user_order'
 
     userid = fields.Char(string='企微用户Id', readonly=True)
-    alias = fields.Char(string='别名')
-    department_ids = fields.Many2many('hr.department', string='企微多部门')
+    alias = fields.Char(string='别名', readonly=True)
+    department_ids = fields.Many2many('hr.department', string='企微多部门', readonly=True)
     qr_code = fields.Binary(string='个人二维码', help='员工个人二维码，扫描可添加为外部联系人', readonly=True)
     wxwork_user_order = fields.Char(
         '企微用户排序',

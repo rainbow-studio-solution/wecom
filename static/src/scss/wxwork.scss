@@ -1,13 +1,12 @@
 .o_auth_oauth_providers {
     .wxwork {
         margin: 0 0.15em;
-        width: 16px;
-        height: 16px;
+        width: 14px;
+        height: 14px;
         background-position: center;   //背景位置居中
         background-size: cover;
         background-image: url(/wxwork/static/src/img/wxwork2.png) !important;
         display: inline-block;
-        transform: translateY(2px);
     }
 }
 .social-icons{
