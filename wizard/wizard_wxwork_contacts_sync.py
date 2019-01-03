@@ -3,6 +3,7 @@
 from odoo import api, fields, models
 from ..helper.common import Common
 from odoo.exceptions import UserError
+from ..models.hr_employee import HrEmployee
 from ..models.sync import *
 
 
@@ -65,12 +66,22 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
+            # try:
+            #     user_sync_operate = SyncEmployeeToUser(Employee,User).sync_user()
+            #     if not user_sync_operate:
+            #         raise UserError('提示：企业微信同步系统用户同步失败')
+            #     else:
+            #         user_sync_status = True
+            # except BaseException:
+            #     pass
+
             try:
-                user_sync_operate = SyncEmployeeToUser(Employee,User).sync_user()
-                if not user_sync_operate:
-                    raise UserError('提示：企业微信同步系统用户同步失败')
+                employee_binding_user_operate = EmployeeBindingUser(Employee,User).binding()
+                print(employee_binding_user_operate)
+                if not employee_binding_user_operate:
+                    raise UserError('提示：企业微信员工绑定系统用户同步失败')
                 else:
-                    user_sync_status = True
+                    employee_binding_user_status = True
             except BaseException:
                 pass
 

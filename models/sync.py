@@ -257,19 +257,17 @@ class SyncEmployeeToUser(object):
                 )
                 if len(user) > 0:
                     self.update_user(records, user)
-                    # self.set_employee_partner_id(records, self.user)
                 else:
                     self.create_user(records, user)
-
         except BaseException:
             self.result = False
         return self.result
 
     def create_user(self, employee, user):
-        lines = user.create({
+        user.create({
             'name': employee.name,
             'login': employee.userid,
-            'email': employee.work_email,
+            'email':  Common(employee.work_email).is_exists(),
             'userid': employee.userid,
             'image': employee.image,
             'qr_code': employee.qr_code,
@@ -277,21 +275,48 @@ class SyncEmployeeToUser(object):
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
         })
-        employee.write({
-            'address_home_id': lines.partner_id.id
-        })
         self.result = True
 
     def update_user(self, employee, user):
-        print(employee.address_home_id ,user.partner_id.id)
         user.write({
             'name': employee.name,
             'active': employee.active,
-            'email': employee.work_email,
+            'email': Common(employee.work_email).is_exists(),
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
         })
+        self.result = True
+
+class EmployeeBindingUser(object):
+    def __init__(self, employee, user):
+        self.employee = employee
+        self.user = user
+        self.result = None
+
+    def binding(self):
+        domain = ['|', ('active', '=', False),
+                  ('active', '=', True)]
+        employee = self.employee.search(
+            domain + [
+                ('is_wxwork_employee', '=', True)])
+        try:
+            for records in employee:
+                user = self.user.search(
+                    domain + [
+                        ('userid', '=', records.userid),
+                        ('is_wxwork_user', '=', True)
+                    ], limit=1
+                )
+                if len(user) > 0:
+                    self.set_employee_user_id(records, user)
+                else:
+                    pass
+        except BaseException:
+            self.result = False
+        return self.result
+
+    def set_employee_user_id(self, employee, user):
         employee.write({
-            'address_home_id': user.partner_id.id
+            'user_id': user.partner_id.id,
         })
         self.result = True
