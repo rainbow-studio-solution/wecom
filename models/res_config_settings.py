@@ -24,7 +24,15 @@ class ResConfigSettings(models.TransientModel):
     contacts_sync_user_enabled = fields.Boolean(
         '允许企业微信通讯录自动更新系统账号', default=False)
 
+    agentid = fields.Char('网页应用ID', help='授权方的网页应用ID，在具体的网页应用中查看')
+    # 网页授权登录
+    oauth2_redirect_uri = fields.Char('网页授权登录重定向地址', help='需要进行UrlEncode')
+    oauth2_response_type = fields.Char('返回类型', default='code', readonly=True)
+    oauth2_scope = fields.Char('应用授权作用域',default='snsapi_base', readonly=True)
 
+    # 扫码登录
+
+    qr_redirect_uri = fields.Char('扫码登录重定向地址', help='需要进行UrlEncode')
 
     @api.model
     def get_values(self):

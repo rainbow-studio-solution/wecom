@@ -269,41 +269,44 @@ class SyncEmployeeToUser(object):
             'login': employee.userid,
             'password':Common(8).random_passwd(),
             'email': employee.work_email,
-            # 'email': Common(employee.work_email).mail_is_exists(),
             'userid': employee.userid,
             'image': employee.image,
             'qr_code': employee.qr_code,
             'active': employee.active,
             'wxwork_user_order': employee.wxwork_user_order,
+            'mobile': employee.mobile_phone,
+            'phone': employee.work_phone,
             'is_wxwork_user': True,
+            'employee': True,
+
         })
         self.result = True
 
     def update_user(self, employee, user):
-        # user.write({
-        #     'name': employee.name,
-        #     'email': not fields,
-        #     # 'email': Common(employee.work_email).mail_is_exists(),
-        #     'active': employee.active,
-        #     'wxwork_user_order': employee.wxwork_user_order,
-        #     'is_wxwork_user': True,
-        # })
-        if Common(employee.work_email).is_exists():
+        # print(Common(employee.work_email).is_exists())
+        if  employee.work_email.strip() ==None or employee.work_email.strip() =='' :
+            print(employee.name,employee.work_email,"邮件为空")
+            user.write({
+                'name': employee.name,
+                'active': employee.active,
+                'wxwork_user_order': employee.wxwork_user_order,
+                'is_wxwork_user': True,
+                'employee': True,
+                'mobile': employee.mobile_phone,
+                'phone': employee.work_phone,
+            })
+        else:
+            print(employee.name, employee.work_email, "邮件不为空")
             user.write({
                 'name': employee.name,
                 'email': employee.work_email,
                 'active': employee.active,
                 'wxwork_user_order': employee.wxwork_user_order,
                 'is_wxwork_user': True,
+                'employee': True,
+                'mobile': employee.mobile_phone,
+                'phone': employee.work_phone,
             })
-        else:
-            user.write({
-                'name': employee.name,
-                'active': employee.active,
-                'wxwork_user_order': employee.wxwork_user_order,
-                'is_wxwork_user': True,
-            })
-
         self.result = True
 
 class EmployeeBindingUser(object):
