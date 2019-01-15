@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <!--<menuitem id="menu_wxwork_root" name="企业微信" web_icon="eis_wxwork,static/description/icon.png"/>-->
+
+        <menuitem id="menu_wxwork_employee" name="员工管理"  parent="wxwork_base.menu_wxwork_root" sequence="10"/>
+
+        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee_tree"
+                  parent="menu_wxwork_employee" sequence="10"/>
+
+        <menuitem id="menu_wxwork_department" name="部门管理"  parent="wxwork_base.menu_wxwork_root" sequence="20"/>
+
+        <menuitem action="open_module_tree_department" id="menu_wxwork_department_tree"
+                  parent="menu_wxwork_department" sequence="10"/>
+
+        <menuitem id="menu_wxwork_user" name="用户管理"  parent="wxwork_base.menu_wxwork_root" sequence="30"/>
+
+        <menuitem action="open_module_tree_user" id="menu_wxwork_user_tree"
+                  parent="menu_wxwork_user" sequence="10"/>
+
+        <!-- menu categories -->
+    </data>
+</odoo>

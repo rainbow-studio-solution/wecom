@@ -3,7 +3,7 @@
 
         <template id="assets_frontend" inherit_id="web.assets_frontend" name="OAuth Providers Assets">
             <xpath expr="//link[last()]" position="after">
-                <link rel="stylesheet" type="text/scss" href="/eis_wxwork/static/src/scss/wxwork.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/wxwork_contacts/static/src/scss/wxwork.scss"/>
                 <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui-for-work.min.css"/>
             </xpath>
             <xpath expr="//script[last()]" position="after">

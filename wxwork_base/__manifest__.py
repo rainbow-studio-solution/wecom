@@ -5,7 +5,7 @@
     'website': "",
     'sequence': 1,
     'installable': True,
-    'application': True,
+    # 'application': True,
     'auto_install': False,
     'category': '企业微信',
     'version': '12.0.0.1',
