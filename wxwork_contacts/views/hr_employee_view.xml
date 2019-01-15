@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="wxwork_hr_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']//h1" position="after">
+                    <label for="alias" class="oe_edit_only"/>
+                    <h2>
+                        <field name="alias" placeholder="别名"/>
+                    </h2>
+                </xpath>
+                <xpath expr="//field[@name='department_id']" position="after">
+                    <field name="department_ids" widget="many2many_tags" />
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page name="wxwork_settings" string="企业微信设置" >
+                        <group>
+                            <group>
+                                <field name="userid" />
+                                <field name="is_wxwork_employee" widget="checkbox"/>
+                                <field name="department_ids" widget="many2many_tags" />
+                            </group>
+                            <group>
+                                <field name="qr_code" widget="image" class="oe_avatar" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="wxwork_hr_employee_tree" model="ir.ui.view">
+            <field name="name">hr.employee.tree</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[last()]" position="after">
+                    <field name="department_ids" widget="many2many_tags" />
+                    <!--<field name="wxwork_department"/>-->
+                    <field name="is_wxwork_employee"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="open_module_tree_employee" model="ir.actions.act_window">
+            <field name="name">员工</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="">{'default_is_wxwork_employee':True}</field>
+            <field name="domain">[('is_wxwork_employee','=',1)]</field>
+            <field name="context">{}</field>
+            <!--<field name="view_id" eval="False"/>-->
+            <!--<field name="search_view_id" ref="view_employee_filter"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new employee.
+                </p>
+                <p>
+
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
