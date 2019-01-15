@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <menuitem id="menu_wxwork_root" name="企业微信" web_icon="wxwork_base,static/description/icon.png"/>
+
+        <menuitem id="menu_wxwork_configuration" name="配置" parent="menu_wxwork_root" sequence="100"/>
+
+        <menuitem id="wxwork_menu_configuration" name="设置" parent="menu_wxwork_configuration" sequence="0"
+                  action="wxwork_config_settings_action" groups="base.group_system"/>
+
+    </data>
+</odoo>
