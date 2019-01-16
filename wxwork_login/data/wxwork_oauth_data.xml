@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="provider_openerp" model="auth.oauth.provider">
             <field name="name">Tencent Work Weixin</field>
-            <field name="auth_endpoint">https://accounts.odoo.com/oauth2/auth</field>
+            <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
             <field name="scope">userinfo</field>
             <field name="validation_endpoint">https://accounts.odoo.com/oauth2/tokeninfo</field>
             <field name="data_endpoint"></field>
