@@ -2,9 +2,6 @@
 
 from ..api.CorpApi import *
 from ..helper.common import *
-from odoo import  fields
-from odoo.exceptions import ValidationError
-
 
 class SyncDepartment(object):
     def __init__(self, corpid, secret, department_id, department):
@@ -289,9 +286,7 @@ class SyncEmployeeToUser(object):
         self.result = True
 
     def update_user(self, employee, user):
-        # print(Common(employee.work_email).is_exists())
         if  employee.work_email.strip() ==None or employee.work_email.strip() =='' :
-            # print(employee.name,employee.work_email,"邮件为空")
             user.write({
                 'name': employee.name,
                 'active': employee.active,
@@ -300,11 +295,8 @@ class SyncEmployeeToUser(object):
                 'employee': True,
                 'mobile': employee.mobile_phone,
                 'phone': employee.work_phone,
-
-                # 'groups_id':  [(6, 0, None)],
             })
         else:
-            # print(employee.name, employee.work_email, "邮件不为空")
             user.write({
                 'name': employee.name,
                 'email': employee.work_email,
@@ -314,8 +306,6 @@ class SyncEmployeeToUser(object):
                 'employee': True,
                 'mobile': employee.mobile_phone,
                 'phone': employee.work_phone,
-
-                # 'groups_id':  [(6, 0, None)],
             })
         self.result = True
 

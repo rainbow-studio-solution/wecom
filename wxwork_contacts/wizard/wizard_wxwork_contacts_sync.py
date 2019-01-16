@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, models, fields
 from ..helper.common import Common
 from odoo.exceptions import UserError
-from ..models.hr_employee import HrEmployee
 from ..models.sync import *
 
 

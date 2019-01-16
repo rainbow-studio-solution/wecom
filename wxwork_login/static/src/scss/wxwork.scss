@@ -1,17 +1,17 @@
-.o_auth_oauth_providers {
+.o_login_auth {
     .wxwork {
         margin: 0 0.15em;
         width: 14px;
         height: 14px;
         background-position: center;   //背景位置居中
         background-size: cover;
-        background-image: url(/wxwork_contacts/static/src/img/wxwork2.png) !important;
+        background-image: url(/wxwork_login/static/src/img/wxwork2.png) !important;
         display: inline-block;
     }
 }
 .social-icons{
     .wxwork {
-        background: url(/wxwork_contacts/static/src/img/wxwork1.png) no-repeat;
+        background: url(/wxwork_login/static/src/img/wxwork1.png) no-repeat;
     }
 }
 .login-social
@@ -21,9 +21,9 @@
         background-position: 0 -38px!important;
     }
     .icon-social-wxwork {
-        background: url(/wxwork_contacts/static/src/img/wxwork1.png) no-repeat;
+        background: url(/wxwork_login/static/src/img/wxwork1.png) no-repeat;
     }
     .wxwork {
-        background: url(/wxwork_contacts/static/src/img/wxwork1.png) no-repeat;
+        background: url(/wxwork_login/static/src/img/wxwork1.png) no-repeat;
     }
 }

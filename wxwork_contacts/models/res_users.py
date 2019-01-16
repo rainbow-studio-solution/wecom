@@ -64,7 +64,10 @@ class ChangeTypeUser(models.TransientModel):
         for line in self:
             if not line.new_type:
                 raise UserError(_("在点击'更改用户类型'按钮之前，您必须修改新的用户类型"))
-            line.user_id.write({
-                'groups_id':  [(6, 0, line.new_type)]
-            })
+            if line.user_id.id ==1 or line.user_id.id==2 or line.user_id.id==3 or line.user_id.id==4 or line.user_id.id==5:
+                pass
+            else:
+                line.user_id.write({
+                    'groups_id':  [(6, 0, line.new_type)]
+                })
         self.write({'new_type': False})

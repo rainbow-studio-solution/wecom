@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="wxwork_hr_department_form" model="ir.ui.view">
-            <field name="name">hr.department.form</field>
+            <field name="name">企业微信部门表单</field>
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
@@ -24,7 +24,7 @@
         </record>
 
         <record id="wxwork_hr_department_tree" model="ir.ui.view">
-            <field name="name">hr.department.tree</field>
+            <field name="name">企业微信部门列表</field>
             <field name="model">hr.department</field>
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>

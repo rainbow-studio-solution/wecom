@@ -19,7 +19,7 @@ class ResConfigSettings(models.TransientModel):
     contacts_sync_hr_department_id = fields.Integer('需同步的企业微信部门ID',
                                                     config_parameter='wxwork.contacts_sync_hr_department_id')
     contacts_edit_enabled = fields.Boolean('允许API编辑企业微信通讯录', config_parameter='wxwork.contacts_edit_enabled',
-                                           default=False, )
+                                           default=False, readonly=True,)
     contacts_sync_user_enabled = fields.Boolean('允许企业微信通讯录自动更新系统账号',
                                                 config_parameter='wxwork.contacts_sync_user_enabled', default=False)
 
@@ -34,65 +34,6 @@ class ResConfigSettings(models.TransientModel):
     #
     # qr_redirect_uri = fields.Char('扫码登录重定向地址', help='需要进行UrlEncode')
 
-    # @api.model
-    # def get_values(self):
-    #     res = super(ResConfigSettings, self).get_values()
-    #     params = self.env['ir.config_parameter'].sudo()
-    #
-    #     corpid = params.get_param('wxwork.corpid')
-    #     contacts_secret = params.get_param('wxwork.contacts_secret')
-    #     contacts_access_token = params.get_param(
-    #         'wxwork.contacts_access_token')
-    #     contacts_auto_sync_hr_enabled = params.get_param(
-    #         'wxwork.contacts_auto_sync_hr_enabled')
-    #     contacts_sync_del_hr_enabled = params.get_param(
-    #         'wxwork.contacts_sync_del_hr_enabled')
-    #     contacts_sync_hr_department_id = params.get_param(
-    #         'wxwork.contacts_sync_hr_department_id')
-    #     contacts_edit_enabled = params.get_param(
-    #         'wxwork.contacts_edit_enabled')
-    #     contacts_sync_user_enabled = params.get_param(
-    #         'wxwork.contacts_sync_user_enabled')
-    #
-    #     res.update(
-    #         corpid=corpid,
-    #         contacts_secret=contacts_secret,
-    #         contacts_access_token=contacts_access_token,
-    #         contacts_auto_sync_hr_enabled=bool(
-    #             Common(contacts_auto_sync_hr_enabled).str_to_bool()),
-    #         contacts_sync_del_hr_enabled=bool(
-    #             Common(contacts_sync_del_hr_enabled).str_to_bool()),
-    #         contacts_sync_hr_department_id=int(contacts_sync_hr_department_id),
-    #         contacts_edit_enabled=bool(
-    #             Common(contacts_edit_enabled).str_to_bool()),
-    #         contacts_sync_user_enabled=bool(
-    #             Common(contacts_sync_user_enabled).str_to_bool()),
-    #     )
-    #     return res
-    #
-    # @api.multi
-    # def set_values(self):
-    #     super(ResConfigSettings, self).set_values()
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.corpid", self.corpid)
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_secret", self.contacts_secret)
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_access_token", self.contacts_access_token)
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_auto_sync_hr_enabled", str(
-    #             self.contacts_auto_sync_hr_enabled))
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_sync_del_hr_enabled", str(
-    #             self.contacts_sync_del_hr_enabled))
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_sync_hr_department_id", str(
-    #             self.contacts_sync_hr_department_id))
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_edit_enabled", str(self.contacts_edit_enabled))
-    #     self.env['ir.config_parameter'].sudo().set_param(
-    #         "wxwork.contacts_sync_user_enabled", str(
-    #             self.contacts_sync_user_enabled))
 
     @api.multi
     def get_token(self):
@@ -114,6 +55,8 @@ class ResConfigSettings(models.TransientModel):
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
+        Groups = self.env['res.groups']
+
         try:
             if not Common(auto_sync).str_to_bool():
                 _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
@@ -144,7 +87,7 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-企业微信离职员工同步成功")
 
-                user_sync_operate = SyncEmployeeToUser(Employee, User).sync_user()
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
                 if not user_sync_operate:
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:

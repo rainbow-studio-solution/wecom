@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_form_wxwork_contacts_sync_wizard" model="ir.ui.view">
-            <field name="name">数据同步</field>
+            <field name="name">企业微信通讯簿数据同步</field>
             <field name="model">wxwork.contacts.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -12,7 +12,9 @@
                         <div>首次因需要同步头像故比较慢，请耐心等候。</div>
                     </group>
                     <group>
-                        <field name="result"></field>
+                        <div>
+
+                        </div>
                     </group>
                     <footer>
                         <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>

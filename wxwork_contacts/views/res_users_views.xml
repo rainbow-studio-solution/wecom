@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="wxwork_rew_users_tree" model="ir.ui.view">
-            <field name="name">res.users.tree</field>
+            <field name="name">企业微信用户列表</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_tree"/>
             <field name="arch" type="xml">
@@ -15,17 +15,22 @@
         </record>
 
         <record id="view_users_form" model="ir.ui.view">
-            <field name="name">res.users.form.inherit</field>
+            <field name="name">企业微信用户表单</field>
             <field name="model">res.users</field>
             <field name="type">form</field>
-            <field name="mode">primary</field>
+            <!--<field name="mode">primary</field>-->
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='access_rights']" position="after">
                     <page name="wxwork" string="企业微信" >
                         <group>
-                            <field name="userid"/>
-                            <field name="is_wxwork_user"/>
+                            <group>
+                                <field name="userid"/>
+                                <field name="is_wxwork_user"/>
+                            </group>
+                            <group>
+                                <field name="qr_code" widget="image" class="oe_avatar"/>
+                            </group>
                         </group>
                     </page>
                 </xpath>
@@ -69,12 +74,12 @@
             </field>
         </record>
         <act_window id="change_type_wizard_action"
-            name="更改用户类型"
-            src_model="res.users"
-            res_model="change.type.wizard"
-            view_type="form" view_mode="form"
-            key2="client_action_multi" target="new"
-            groups="base.group_erp_manager"/>
+                    name="更改用户类型"
+                    src_model="res.users"
+                    res_model="change.type.wizard"
+                    view_type="form" view_mode="form"
+                    key2="client_action_multi" target="new"
+                    groups="base.group_erp_manager"/>
 
 
 
