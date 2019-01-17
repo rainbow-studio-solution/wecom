@@ -1,14 +1,10 @@
-.o_login_auth {
-    .wxwork {
-        margin: 0 0.15em;
-        width: 14px;
-        height: 14px;
-        background-position: center;   //背景位置居中
-        background-size: cover;
-        background-image: url(/wxwork_login/static/src/img/wxwork2.png) !important;
-        display: inline-block;
+.o_auth_oauth_providers {
+    .fa-weixin {
+        color: #0886f0;!important;
     }
+
 }
+
 .social-icons{
     .wxwork {
         background: url(/wxwork_login/static/src/img/wxwork1.png) no-repeat;

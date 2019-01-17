@@ -22,9 +22,10 @@
         'wxwork_contacts',
     ],
     'data': [
-        'data/wxwork_oauth_data.xml',
-        'views/wxwork_templates.xml',
+        # 'data/wxwork_oauth_data.xml',
+        'views/wxwork_login_templates.xml',
         'views/res_config_settings_views.xml',
+        'views/auth_oauth_views.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
