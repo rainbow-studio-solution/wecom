@@ -21,19 +21,21 @@
 
         <template id="providers" inherit_id="auth_oauth.providers">
             <xpath expr="//t[@t-if='len(providers) &gt; 0']" position="replace">
-                <t>
-                    <em t-attf-class="d-block text-center text-muted small my-#{len(providers) if len(providers) &lt; 3 else 3}">- or -</em>
-                    <t t-set="auth_link" t-value="request and request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_link', '')"/>
-                    <div class="o_auth_oauth_providers list-group mt-1 mb-1 text-left">
-                        <a class="list-group-item list-group-item-action py-2" t-att-href="auth_link">
-                            <i class="fa fa-weixin" style="color:#0886f0"></i>使用企业微信登陆
-                        </a>
-                        <a t-foreach="providers" t-as="p" class="list-group-item list-group-item-action py-2" t-att-href="p['auth_link']">
-                            <i t-att-class="p['css_class']"/>
-                            <t t-esc="p['body']"/>
-                        </a>
-                    </div>
-                </t>
+                <em t-attf-class="d-block text-center text-muted small my-#{len(providers) if len(providers) &lt; 3 else 3}">- or -</em>
+                <t t-set="auth_link" t-value="request and request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_link', '')"/>
+                <div class="o_auth_oauth_providers list-group mt-1 mb-1 text-left">
+                    <a class="list-group-item list-group-item-action py-2" t-att-href="auth_link">
+                        <!--<i class="fa fa-weixin" style="color:#0886f0"></i> -->
+                        <i class="wxwork"/> 使用企业微信登录
+                    </a>
+                    <a class="list-group-item list-group-item-action py-2">
+                        <i class="wxwork"/> 企业微信扫码登录
+                    </a>
+                    <a t-foreach="providers" t-as="p" class="list-group-item list-group-item-action py-2" t-att-href="p['auth_link']">
+                        <i t-att-class="p['css_class']"/>
+                        <t t-esc="p['body']"/>
+                    </a>
+                </div>
             </xpath>
         </template>
     </data>

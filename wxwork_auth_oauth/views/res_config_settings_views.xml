@@ -62,6 +62,7 @@
                                 <label for="auth_link"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
+                                        构造网页授权链接,获取code参数<br/>
                                         <button name="get_auth_link" type="object" string="生成网页授权链接" class="oe_highlight"/>
                                     </div>
                                 </div>

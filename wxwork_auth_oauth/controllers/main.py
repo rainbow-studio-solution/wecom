@@ -19,47 +19,10 @@ from odoo.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_an
 
 
 class WxworkOAuthLogin(Home):
-    def wxwork_providers(self):
-        try:
-            providers = request.env['auth.oauth.provider'].sudo().search_read([
-                '|', ('name', '=', 'Tencent Work Weixin'),
-                ('enabled', '=', True)
-            ])
-        except Exception:
-            providers = []
-        for provider in providers:
-            return_url = request.httprequest.url_root + 'auth_oauth/signin'
-            state = self.get_state(provider)
-            params = dict(
-                appid=provider['client_id'],
-                redirect_uri=return_url,
-                response_type='code',
-                scope=provider['scope'],
-                state=json.dumps(state),
-            )
-            # +provider['identity']
-            provider['auth_link'] = "%s?%s%s" % (provider['auth_endpoint'], werkzeug.url_encode(params),provider['identity'])
-        return providers
-
-    def get_state(self, provider):
-        redirect = request.params.get('redirect') or 'web'
-        if not redirect.startswith(('//', 'http://', 'https://')):
-            redirect = '%s%s' % (request.httprequest.url_root, redirect[1:] if redirect[0] == '/' else redirect)
-        state = dict(
-            d=request.session.db,
-            p=provider['id'],
-            r=werkzeug.url_quote_plus(redirect),
-        )
-        token = request.params.get('token')
-        if token:
-            state['t'] = token
-        return state
-
     @http.route()
     def web_login(self, *args, **kw):
         ensure_db()
         if request.httprequest.method == 'GET' and request.session.uid and request.params.get('redirect'):
-            # Redirect if already logged in and redirect param is present
             return http.redirect_with_hash(request.params.get('redirect'))
         providers = self.wxwork_providers()
 
@@ -79,7 +42,7 @@ class WxworkOAuthLogin(Home):
             response.qcontext['providers'] = providers
             if error:
                 response.qcontext['error'] = error
-
+        print(response)
         return response
 
 
