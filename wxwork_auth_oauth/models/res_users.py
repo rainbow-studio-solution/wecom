@@ -7,7 +7,7 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     @api.model
-    def wxwork_auth_oauth_signin(self, params):
+    def auth_oauth_wxwork(self, params):
         oauth_uid = params['userid']
         # deviceId = params['DeviceId']
         deviceId = params['DeviceId']

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.voip</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='emails']" position="after">
+                <div id="dingtalk_settings">
+                    <h2>钉钉设置</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <div class="mt16 row">
+                                        <label for="dingtalk_app_id" string="钉钉appid"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="dingtalk_app_id" class="oe_inline"/>
+
+                                    </div>
+                                    <div class="mt16 row">
+                                        <label for="dingtalk_qr_appSecret" string="钉钉扫码appSecret"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="dingtalk_qr_appSecret" class="oe_inline"/>
+
+                                    </div>
+                                     <div class="mt16 row">
+                                        <label for="dingtalk_corpid" string="钉钉应用corpid"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="dingtalk_corpid" class="oe_inline"/>
+
+                                    </div>
+                                      <div class="mt16 row">
+                                        <label for="dingtalk_corpSecret" string="钉钉corpSecret"
+                                               class="col-xs-3 col-md-3 o_light_label"/>
+                                        <field name="dingtalk_corpSecret" class="oe_inline"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
