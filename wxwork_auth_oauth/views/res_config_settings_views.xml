@@ -11,6 +11,24 @@
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auth_secret"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        应用与小程序→打开需要验证授权应用，复制'Secret'
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="auth_secret" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
                                 <!--<i class="fa fa-building fa-lg"/>-->
                             </div>
                             <div class="o_setting_right_pane">
@@ -41,9 +59,9 @@
                                 <label for="auth_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        地址格式为: http://xxx.xxx.com:端口号/web/login。<br/>
+                                        地址格式为: http://xxx.xxx.com:端口号/auth_oauth/wxwork<br/>
                                         企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
-                                        如odoo地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/web/login
+                                        如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/auth_oauth/wxwork
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -62,7 +80,7 @@
                                 <label for="auth_link"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        构造网页授权链接,获取code参数<br/>
+                                        构造网页授权链接,以获取code参数<br/>
                                         <button name="get_auth_link" type="object" string="生成网页授权链接" class="oe_highlight"/>
                                     </div>
                                 </div>

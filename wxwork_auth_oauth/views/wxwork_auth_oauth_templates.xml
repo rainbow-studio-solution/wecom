@@ -25,8 +25,7 @@
                 <t t-set="auth_link" t-value="request and request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_link', '')"/>
                 <div class="o_auth_oauth_providers list-group mt-1 mb-1 text-left">
                     <a class="list-group-item list-group-item-action py-2" t-att-href="auth_link">
-                        <!--<i class="fa fa-weixin" style="color:#0886f0"></i> -->
-                        <i class="wxwork"/> 使用企业微信登录
+                        <i class="wxwork"/> 企业微信一键登录
                     </a>
                     <a class="list-group-item list-group-item-action py-2">
                         <i class="wxwork"/> 企业微信扫码登录

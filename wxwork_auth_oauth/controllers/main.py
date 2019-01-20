@@ -1,49 +1,44 @@
 # -*- coding: utf-8 -*-
 
-import functools
-import logging
 
 import json
-
-import werkzeug.urls
-import werkzeug.utils
-from werkzeug.exceptions import BadRequest
-
+import requests
+from ..api.CorpApi import *
+from ..api.AbstractApi import *
+from ..api.api_errcode import *
 from odoo import api, http, SUPERUSER_ID, _
-from odoo.exceptions import AccessDenied
 from odoo.http import request
-from odoo import registry as registry_get
-
-from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home
-from odoo.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_and_redirect, login_and_redirect
+from odoo.exceptions import AccessDenied, AccessError, UserError, ValidationError
 
 
-class WxworkOAuthLogin(Home):
-    @http.route()
-    def web_login(self, *args, **kw):
-        ensure_db()
-        if request.httprequest.method == 'GET' and request.session.uid and request.params.get('redirect'):
-            return http.redirect_with_hash(request.params.get('redirect'))
-        providers = self.wxwork_providers()
+class WxworkOAuthLogin(http.Controller):
+    @http.route('/auth_oauth/wxwork', type='http', auth='none')
+    def signin(self, **kw):
+        code = kw.pop('code', None)
+        corpid = request.env['ir.config_parameter'].sudo().get_param('wxwork.corpid')
+        secret = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_secret')
+        api = CorpApi(corpid, secret)
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE['GET_USER_INFO_BY_CODE'],
+                {
+                    'code': code,
+                }
+            )
+        except ApiException as e:
+            pass
 
-        response = super(WxworkOAuthLogin, self).web_login(*args, **kw)
-        if response.is_qweb:
-            error = request.params.get('oauth_error')
-            if error == '1':
-                error = _("Sign up is not allowed on this database.")
-            elif error == '2':
-                error = _("Access Denied")
-            elif error == '3':
-                error = _(
-                    "You do not have access to this database or your invitation has expired. Please ask for an invitation and be sure to follow the link in your invitation email.")
-            else:
-                error = None
+        if not response['DeviceId']:
+            raise UserError(_("抱歉，您非本企业员工"))
+        else:
+            print(response['UserId'])
 
-            response.qcontext['providers'] = providers
-            if error:
-                response.qcontext['error'] = error
-        print(response)
-        return response
+
+
+
+
+
+
 
 
 

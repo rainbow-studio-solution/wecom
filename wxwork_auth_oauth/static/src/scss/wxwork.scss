@@ -3,6 +3,10 @@
         color: #0886f0 !important;
     }
     .wxwork {
+        transform:translateY(2px);
+        -webkit-transform:translateY(2px);
+        -o-transform:translateY(2px);
+        -moz-transform:translateY(2px);
         width: 16px;
         height: 16px;
         background-repeat: no-repeat; //属性设置是否及如何重复背景图像

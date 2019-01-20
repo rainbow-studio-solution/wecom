@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!--<record id="provider_openerp" model="auth.oauth.provider">-->
-            <!--<field name="name">Tencent Work Weixin</field>-->
-            <!--&lt;!&ndash;身份验证网址&ndash;&gt;-->
-            <!--<field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>-->
-            <!--&lt;!&ndash;作用域&ndash;&gt;-->
-            <!--<field name="scope">snsapi_base</field>-->
-            <!--&lt;!&ndash;验证网址&ndash;&gt;-->
-            <!--<field name="validation_endpoint">http://eis.ouyahotels.com:8012/web/login</field>-->
-            <!--&lt;!&ndash;数据网址&ndash;&gt;-->
-            <!--<field name="data_endpoint"></field>-->
-            <!--<field name="css_class">wxwork</field>-->
-            <!--<field name="body">使用企业微信登陆</field>-->
-            <!--<field name="enabled" eval="False"/>-->
+        <record id="provider_wxwork" model="auth.oauth.provider">
+            <field name="name">Tencent Work Weixin</field>
+            <!--身份验证网址-->
+            <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
+            <!--作用域-->
+            <field name="scope">snsapi_base</field>
+            <!--验证网址-->
+            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/auth_oauth/wxwork</field>
+            <!--数据网址-->
+            <field name="data_endpoint"></field>
+            <field name="css_class">wxwork</field>
+            <field name="body">使用企业微信登陆</field>
+            <field name="enabled" eval="True"/>
             <!--<field name="identity">#wechat_redirect</field>-->
             <!--<field name="remarks">-->
 <!--！！！重要！！！：由于企业微信使用OAuth2授权链接参数字段odoo中（odoo/facebook/google）不一样，故请勿启用。-->
@@ -25,7 +25,7 @@
 <!--作用域：请填写"snsapi_base"-->
 <!--身份信息：请填写"#wechat_redirect"-->
             <!--</field>-->
-        <!--</record>-->
+        </record>
 
         <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
             <field name="enabled" eval="False" />
