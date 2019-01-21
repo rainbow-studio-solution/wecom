@@ -1,35 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="provider_wxwork" model="auth.oauth.provider">
-            <field name="name">Tencent Work Weixin</field>
+        <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
+            <field name="enabled" eval="False" />
+            <field name="partner_id" ref="auth_oauth.provider_openerp"/>
+        </record>
+
+        <record id="provider_wxwork_authorize" model="auth.oauth.provider">
+            <field name="name">企业微信一键登录</field>
             <!--身份验证网址-->
             <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
             <!--作用域-->
             <field name="scope">snsapi_base</field>
             <!--验证网址-->
-            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/auth_oauth/wxwork</field>
+            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/signin</field>
             <!--数据网址-->
             <field name="data_endpoint"></field>
             <field name="css_class">wxwork</field>
-            <field name="body">使用企业微信登陆</field>
+            <field name="body">企业微信一键登录</field>
             <field name="enabled" eval="True"/>
-            <!--<field name="identity">#wechat_redirect</field>-->
-            <!--<field name="remarks">-->
-<!--！！！重要！！！：由于企业微信使用OAuth2授权链接参数字段odoo中（odoo/facebook/google）不一样，故请勿启用。-->
-<!--！！！重要！！！：请勿修改服务商名称-->
-<!--系统使用其他的方式构建授权链接。-->
-<!--请确保如下字段正确即可：-->
-<!--身份验证网址：https://open.weixin.qq.com/connect/oauth2/authorize-->
-<!--客户端 ID：企业CorpID-->
-<!--作用域：请填写"snsapi_base"-->
-<!--身份信息：请填写"#wechat_redirect"-->
-            <!--</field>-->
         </record>
 
-        <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
-            <field name="enabled" eval="False" />
-            <field name="partner_id" ref="auth_oauth.provider_openerp"/>
+        <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
+            <field name="name">企业微信扫码登录</field>
+            <field name="auth_endpoint">https://open.work.weixin.qq.com/wwopen/sso/qrConnect</field>
+            <field name="scope"></field>
+            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/qr</field>
+            <field name="data_endpoint"></field>
+            <field name="css_class">wxwork</field>
+            <field name="body">企业微信扫码登录</field>
+            <field name="enabled" eval="True"/>
+        </record>
+
+        <record id="auth_agentid" model="ir.config_parameter">
+            <field name="key">wxwork.auth_agentid</field>
+            <field name="value">1000003</field>
+            <!--<field name="value">0000000</field>-->
+        </record>
+        <record id="auth_secret" model="ir.config_parameter">
+            <field name="key">wxwork.auth_secret</field>
+            <field name="value">E6nW-s_YX2dKwnzv0-HIHsQrehZHG3VYX3IqzoVY8qA</field>
+            <!--<field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>-->
         </record>
 
     </data>

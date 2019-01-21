@@ -5,17 +5,6 @@
         <function model="ir.config_parameter" name="set_param" eval="('base_setup.default_user_rights', 'True')"/>
         <function model="ir.config_parameter" name="set_param" eval="('base.template_portal_user_id', '5')"/>
 
-        <!--<record id="provider_openerp" model="auth.oauth.provider">-->
-            <!--<field name="name">Tencent Work Weixin</field>-->
-            <!--<field name="auth_endpoint">https://accounts.odoo.com/oauth2/auth</field>-->
-            <!--<field name="scope">userinfo</field>-->
-            <!--<field name="validation_endpoint">https://accounts.odoo.com/oauth2/tokeninfo</field>-->
-            <!--<field name="data_endpoint"></field>-->
-            <!--<field name="css_class">wxwork</field>-->
-            <!--<field name="body">使用企业微信登陆</field>-->
-            <!--<field name="enabled" eval="True"/>-->
-        <!--</record>-->
-
         <record id="contacts_secret" model="ir.config_parameter">
             <field name="key">wxwork.contacts_secret</field>
             <field name="value">1UxbNyBhEjjC6cgPu9QvDNaDXrF8s-QoGmj35BI8Rls</field>

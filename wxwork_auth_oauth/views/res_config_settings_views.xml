@@ -59,9 +59,9 @@
                                 <label for="auth_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        地址格式为: http://xxx.xxx.com:端口号/auth_oauth/wxwork<br/>
+                                        地址格式为: http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin<br/>
                                         企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
-                                        如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/auth_oauth/wxwork
+                                        如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin
                                     </div>
                                 </div>
                                 <div class="content-group">

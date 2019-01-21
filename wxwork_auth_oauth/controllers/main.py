@@ -31,248 +31,112 @@ _logger = logging.getLogger(__name__)
 
 class OAuthLogin(Home):
     def list_providers(self):
-        result = super(OAuthLogin, self).list_providers()
-
-        for provider in result:
-            if 'wxwork' in provider['auth_endpoint']:
-                return_url = request.httprequest.url_root + 'wxwork/auth_oauth/signin/' + str(provider['id'])
+        try:
+            providers = request.env['auth.oauth.provider'].sudo().search_read([('enabled', '=', True)])
+        except Exception:
+            providers = []
+        # 构造企业微信一键登录（应用内免登录）和扫码登录链接
+        for provider in providers:
+            if 'https://open.weixin.qq.com/connect/oauth2/authorize' in provider['auth_endpoint']:
+                return_url = request.httprequest.url_root + 'wxwork/auth_oauth/signin'
+                # auth_state = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_state')
                 state = self.get_state(provider)
                 params = dict(
                     appid=provider['client_id'],
-                    response_type='code',
                     redirect_uri=return_url,
+                    response_type='code',
                     scope=provider['scope'],
-                    state='STATE',
+                    state=json.dumps(state),
                 )
                 provider['auth_link'] = "%s?%s%s" % (provider['auth_endpoint'], werkzeug.url_encode(params),'#wechat_redirect')
+            if 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
+                return_url = request.httprequest.url_root + 'wxwork/auth_oauth/signin'
+                # auth_state = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_state')
+                state = self.get_state(provider)
+                auth_agentid = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_agentid')
+                params = dict(
+                    appid=provider['client_id'],
+                    agentid=auth_agentid,
+                    redirect_uri=return_url,
+                    response_type='code',
+                    state=json.dumps(state),
+                )
+                provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
+        return providers
 
-        return result
-
-    @http.route('/web', type='http', auth="none")
-    def web_login(self, s_action=None, **kw):
-        ensure_db()
-        user_agent = request.httprequest.user_agent.string.lower()
-
-        if not request.session.uid and 'wxwork' in user_agent:
-            providers = request.env['auth.oauth.provider'].sudo().search([('auth_endpoint', 'ilike', 'wxwork')])
-            if not providers:
-                return super(OAuthLogin, self).web_login(s_action, **kw)
-            provider_id = providers[0].id
-
-            icp = request.env['ir.config_parameter'].sudo()
-            appid = icp.get_param('dingtalk.appid', default='')
-
-            url = "https://oapi.dingtalk.com/connect/oauth2/sns_authorize?appid=%s&response_type=code&scope=snsapi_auth&state=STATE&redirect_uri=" % (
-                appid)
-
-            return self.redirect_wxwork(url, provider_id)
-        else:
-            return super(OAuthLogin, self).web_login(s_action, **kw)
-
-    def redirect_wxwork(self, url, provider_id):
-        url = pycompat.to_text(url).strip()
-        if urls.url_parse(url, scheme='http').scheme not in ('http', 'https'):
-            url = u'http://' + url
-        url = url.replace("'", "%27").replace("<", "%3C")
-
-        redir_url = "encodeURIComponent('%swxwork/auth_oauth/signin/%d' + location.hash.replace('#','?'))" % (
-            request.httprequest.url_root, provider_id)
-        return "<html><head><script>window.location = '%s' +%s;</script></head></html>" % (url, redir_url)
-
-
-class OAuthController(Controller):
-    @http.route('/wxwork/auth_oauth/signin/<int:provider_id>', type='http', auth='none')
-    def signin(self, provider_id, **kw):
-
-        code = kw.get('code', "")
-
-        action = kw.get('action', "")
-        menu_id = kw.get('menu_id', "")
-        model = kw.get('model', "")
-        view_type = kw.get('view_type', "")
-
-        token = self.get_token()
-        openid, persistent_code = self.get_persistent_code(code, token)
-        sns_token = self.get_sns_token(token, openid, persistent_code)
-        userinfo = self.get_userinfo(sns_token)
-        access_token = self.get_access_token()
-        userid = self.get_userid_by_unionid(access_token, userinfo['unionid'])
-        try:
-            _logger.info("track...........")
-            _logger.info("cre:%s:%s" % (str(provider_id), str(userid)))
-            credentials = request.env['res.users'].sudo().auth_oauth_dingtalk(provider_id, userid)
-            _logger.info("credentials: %s", credentials)
-            url = '/web'
-
-            hash = ""
-
-            for key in kw.keys():
-                if key not in ['code', 'state']:
-                    hash += '%s=%s&' % (key, kw.get(key, ""))
-
-            if hash:
-                hash = hash[:-1]
-                url = '/web#' + hash
-
-            uid = request.session.authenticate(*credentials)
-            if uid is not False:
-                request.params['login_success'] = True
-                return http.redirect_with_hash(url)
-
-            # resp = login_and_redirect(*credentials, url)
-            # if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group(
-            #         'base.group_user'):
-            #     resp.location = '/'
-            #
-            # return resp
-        except AttributeError:
-            # auth_signup is not installed
-            # _logger.error("auth_signup not installed on database %s: oauth sign up cancelled." % (dbname,))
-            url = "/web/login?oauth_error=1"
-        except AccessDenied:
-            # oauth credentials not valid, user could be on a temporary session
-            _logger.info(
-                'OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies')
-            url = "/web/login?oauth_error=3"
-            redirect = werkzeug.utils.redirect(url, 303)
-            redirect.autocorrect_location_header = False
-            return redirect
-        except Exception as e:
-            # signup error
-            _logger.exception("OAuth2: %s" % str(e))
-            url = "/web/login?oauth_error=2"
-
-    def get_token(self):
-        params = request.env['ir.config_parameter'].sudo()
-
-        appid = params.get_param('wxwork.corpid', default='')
-        appscret = params.get_param('wxwork.auth_secret', default='')
-        if not appid or not appscret:
-            raise werkzeug.exceptions.NotFound()
-
-        params = dict(
-            appid=appid,
-            appsecret=appscret
+    def get_state(self, provider):
+        redirect = request.params.get('redirect') or 'web'
+        if not redirect.startswith(('//', 'http://', 'https://')):
+            redirect = '%s%s' % (request.httprequest.url_root, redirect[1:] if redirect[0] == '/' else redirect)
+        state = dict(
+            d=request.session.db,
+            p=provider['id'],
+            r=werkzeug.url_quote_plus(redirect),
         )
-        url = "https://oapi.dingtalk.com/sns/gettoken"
+        token = request.params.get('token')
+        if token:
+            state['t'] = token
+        return state
 
-        link = "%s?%s" % (url, werkzeug.url_encode(params))
-        urlRequest = urllib.request.Request(link)
-        urlResponse = urllib.request.urlopen(urlRequest).read()
-        result = json.loads(str(urlResponse, encoding='utf-8'))
-        if result['errcode'] == 0:
-            return result['access_token']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
+class OAuthController(http.Controller):
+    @http.route('/wxwork/auth_oauth/signin', type='http', auth='none')
+    def signin(self, **kw):
+        code = kw.pop('code', None)
+        corpid = request.env['ir.config_parameter'].sudo().get_param('wxwork.corpid')
+        secret = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_secret')
+        api = CorpApi(corpid, secret)
 
-    def get_persistent_code(self, code, token):
-        params = dict(access_token=token)
-        body = {"tmp_auth_code": code}
-        url = 'https://oapi.dingtalk.com/sns/get_persistent_code'
-        link = "%s?%s" % (url, werkzeug.url_encode(params))
+        response = api.httpCall(
+            CORP_API_TYPE['GET_USER_INFO_BY_CODE'],
+            {
+                'code': code,
+            }
+        )
+        # print(response['UserId'])
 
-        result = requests.post(link, json=body, ).text
-        result = json.loads(result)
-        if result['errcode'] == 0:
-            return result['openid'], result['persistent_code']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
+        state = json.loads(kw['state'])
+        dbname = state['d']
+        if not http.db_filter([dbname]):
+            return BadRequest()
+        provider = state['p']
+        context = state.get('c', {'no_user_creation': True})
+        registry = registry_get(dbname)
+        print(state,dbname,provider,context,response['UserId'])
 
-    def get_sns_token(self, token, openid, persistent_code):
-        params = dict(access_token=token)
-        body = {
-            "openid": openid,
-            "persistent_code": persistent_code
-        }
-        url = 'https://oapi.dingtalk.com/sns/get_sns_token'
-        link = "%s?%s" % (url, werkzeug.url_encode(params))
+        with registry.cursor() as cr:
+            try:
+                # env = api.Environment(cr, SUPERUSER_ID, {})
+                credentials = request.env['res.users'].sudo().auth_oauth_wxwork(provider, response)
+                # cr.commit()
+                action = state.get('a')
+                menu = state.get('m')
+                redirect = werkzeug.url_unquote_plus(state['r']) if state.get('r') else False
+                url = '/web'
+                if redirect:
+                    url = redirect
+                elif action:
+                    url = '/web#action=%s' % action
+                elif menu:
+                    url = '/web#menu_id=%s' % menu
+                resp = login_and_redirect(*credentials, redirect_url=url)
+                # Since /web is hardcoded, verify user has right to land on it
+                if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group('base.group_user'):
+                    resp.location = '/'
+                return resp
+            except AttributeError:
+                # auth_signup is not installed
+                _logger.error("auth_signup not installed on database %s: oauth sign up cancelled." % (dbname,))
+                url = "/web/login?oauth_error=1"
+            except AccessDenied:
+                # oauth credentials not valid, user could be on a temporary session
+                _logger.info('OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies')
+                url = "/web/login?oauth_error=3"
+                redirect = werkzeug.utils.redirect(url, 303)
+                redirect.autocorrect_location_header = False
+                return redirect
+            except Exception as e:
+                # signup error
+                _logger.exception("OAuth2: %s" % str(e))
+                url = "/web/login?oauth_error=2"
 
-        result = requests.post(link, json=body, ).text
-        result = json.loads(result)
-        if result['errcode'] == 0:
-            return result['sns_token']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
-
-    def get_userinfo(self, sns_token):
-
-        params = dict(sns_token=sns_token)
-
-        url = 'https://oapi.dingtalk.com/sns/getuserinfo'
-
-        result = requests.get(url, params).text
-        result = json.loads(result)
-        if result['errcode'] == 0:
-            return result['user_info']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
-
-    def get_access_token(self):
-        icp = request.env['ir.config_parameter'].sudo()
-
-        appid = icp.get_param('dingtalk.corpid', default='')
-        appscret = icp.get_param('dingtalk.corpSecret', default='')
-        if not appid or not appscret:
-            raise werkzeug.exceptions.NotFound()
-
-        params = dict(corpid=appid, corpsecret=appscret)
-
-        url = "https://oapi.dingtalk.com/gettoken"
-        result = requests.get(url, params)
-        result = requests.get(url, params).text
-        result = json.loads(result)
-        if result['errcode'] == 0:
-            return result['access_token']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
-
-    def get_userid_by_unionid(self, token, unionid):
-        params = dict(access_token=token, unionid=unionid)
-        url = 'https://oapi.dingtalk.com/user/getUseridByUnionid'
-
-        result = requests.get(url, params).text
-        result = json.loads(result)
-        if result['errcode'] == 0:
-            return result['userid']
-        else:
-            raise werkzeug.exceptions.BadRequest(result['errmsg'])
-
-
-# class WxworkOAuthLogin(http.Controller):
-#     @http.route('/auth_oauth/wxwork', type='http', auth='none')
-#     def signin(self, **kw):
-#         code = kw.pop('code', None)
-#         corpid = request.env['ir.config_parameter'].sudo().get_param('wxwork.corpid')
-#         secret = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_secret')
-#         api = CorpApi(corpid, secret)
-#         try:
-#             response = api.httpCall(
-#                 CORP_API_TYPE['GET_USER_INFO_BY_CODE'],
-#                 {
-#                     'code': code,
-#                 }
-#             )
-#         except ApiException as e:
-#             pass
-#
-#
-#         UserId = response['UserId']
-#         user = request.env['res.users'].sudo().search([('userid', '=', UserId)], limit=1)
-#         # print(user.name)
-#         if user:
-#             request.uid = user.id
-#             return login_and_redirect(*(request.session.db, user.login, UserId))
-#         else:
-#             return redirect(request.httprequest.url_root + '/web/login/')
-
-
-
-
-
-
-
-
-
-
-
-
+        return set_cookie_and_redirect(url)
