@@ -21,8 +21,11 @@
 
         <menuitem id="menu_wxwork_contacts_sync" name="数据同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
 
-        <menuitem id="menu_wxwork_contacts_wizard" name="同步" parent="menu_wxwork_contacts_sync"
+        <menuitem id="menu_wxwork_contacts_wizard" name="手动同步" parent="menu_wxwork_contacts_sync"
                   action="view_actions_wxwork_contacts_wizard" sequence="10"/>
+
+        <menuitem id="menu_wxwork_contacts_sync_record" name="手动同步记录" parent="menu_wxwork_contacts_sync"
+                  action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
 
         <!-- menu categories -->
     </data>
