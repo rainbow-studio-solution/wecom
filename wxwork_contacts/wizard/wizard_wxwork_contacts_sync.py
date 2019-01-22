@@ -109,6 +109,7 @@ class ResConfigSettings(models.TransientModel):
                     self.employee_binding_user_result = True
             except BaseException:
                 pass
+
         for i in result:
             self.result = result[i] + '\n'
         # self.result = result

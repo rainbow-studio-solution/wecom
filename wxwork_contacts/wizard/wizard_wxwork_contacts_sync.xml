@@ -12,7 +12,7 @@
                         <div>首次因需要同步头像故比较慢，请耐心等候。</div>
                     </group>
                     <group>
-                        <div>
+                        <div style="width:100px">
                             生成User默认属于门户用户。<br/>
                             门户用户是免费用户，不占用系统资源。<br/>
                             需要在用户列表视图将转换成内部用户。<br/>
@@ -39,6 +39,7 @@
                             <field name="employee_sync_result"  />
                             <field name="leave_sync_result"  />
                             <field name="user_sync_result"  />
+                            <field name="employee_binding_user_result"  />
                         </group>
                         <group>
                             <field name="result"  />
