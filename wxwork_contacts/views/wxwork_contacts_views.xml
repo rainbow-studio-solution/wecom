@@ -19,8 +19,10 @@
         <menuitem action="open_module_tree_user" id="menu_wxwork_user_tree"
                   parent="menu_wxwork_user" sequence="10"/>
 
-        <menuitem id="menu_wxwork_contacts_wizard" parent="wxwork_base.menu_wxwork_root"
-                  action="view_actions_wxwork_contacts_wizard" sequence="40"/>
+        <menuitem id="menu_wxwork_contacts_sync" name="数据同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
+
+        <menuitem id="menu_wxwork_contacts_wizard" name="同步" parent="menu_wxwork_contacts_sync"
+                  action="view_actions_wxwork_contacts_wizard" sequence="10"/>
 
         <!-- menu categories -->
     </data>

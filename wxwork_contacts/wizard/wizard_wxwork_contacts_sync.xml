@@ -24,6 +24,16 @@
             </field>
         </record>
 
+        <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
+            <field name="name">数据同步</field>
+            <field name="res_model">wxwork.contacts.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
         <record id="dialog_wxwork_contacts_sync_result" model="ir.ui.view">
             <field name="name">企业微信通讯簿数据同步结果</field>
             <field name="model">wxwork.contacts.wizard</field>
@@ -50,16 +60,12 @@
             </field>
         </record>
 
-        <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
-            <field name="name">数据同步</field>
-            <field name="res_model">wxwork.contacts.wizard</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
-            <field name="context">{}</field>
-            <field name="target">new</field>
-        </record>
+        <!--<record id="view_wxwork_contacts_sync_tree" model="ir.ui.view">-->
 
+        <!--</record>-->
 
+        <!--<record id="view_wxwork_contacts_sync_form" model="ir.ui.view">-->
+
+        <!--</record>-->
     </data>
 </odoo>
