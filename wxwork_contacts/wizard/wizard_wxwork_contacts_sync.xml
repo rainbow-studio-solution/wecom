@@ -12,10 +12,40 @@
                         <div>首次因需要同步头像故比较慢，请耐心等候。</div>
                     </group>
                     <group>
-                        <div>生成User默认属于门户用户（门户用户是免费用户，不占用系统资源）。需要在用户列表视图将转换成内部用户（内部用户是付费账号，占用系统资源）。</div>
+                        <div>
+                            生成User默认属于门户用户。<br/>
+                            门户用户是免费用户，不占用系统资源。<br/>
+                            需要在用户列表视图将转换成内部用户。<br/>
+                            内部用户是付费账号，占用系统资源。
+                        </div>
                     </group>
                     <footer>
                         <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="dialog_wxwork_contacts_sync_result" model="ir.ui.view">
+            <field name="name">企业微信通讯簿数据同步结果</field>
+            <field name="model">wxwork.contacts.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="企业微信通讯簿数据同步情况" >
+                    <group>
+                        <group>
+                            <field name="department_sync_result"  />
+                            <field name="department_set_result"  />
+                            <field name="employee_sync_result"  />
+                            <field name="leave_sync_result"  />
+                            <field name="user_sync_result"  />
+                        </group>
+                        <group>
+                            <field name="result"  />
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="关闭" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>
             </field>
