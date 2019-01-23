@@ -7,8 +7,7 @@
 
         <record id="contacts_secret" model="ir.config_parameter">
             <field name="key">wxwork.contacts_secret</field>
-            <field name="value">1UxbNyBhEjjC6cgPu9QvDNaDXrF8s-QoGmj35BI8Rls</field>
-            <!--<field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>-->
+            <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>
         </record>
 
         <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_auto_sync_hr_enabled', 'True')"/>

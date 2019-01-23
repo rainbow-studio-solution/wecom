@@ -13,18 +13,25 @@ class ResConfigSettings(models.TransientModel):
     auth_secret = fields.Char("应用的密钥", config_parameter='wxwork.auth_secret')
     auth_redirect_uri = fields.Char('网页授权链接回调链接地址', help='授权后重定向的回调链接地址，请使用urlencode对链接进行处理',
                                     config_parameter='wxwork.auth_redirect_uri')
-    # # auth_state = fields.Char('state参数', help='重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值，长度不可超过128个字节',
-    #                          config_parameter='wxwork.auth_state', readonly=True, )
-
-
-    # auth_link = fields.Char('网页授权链接', help='', config_parameter='wxwork.auth_link',readonly=True,)
 
     @api.multi
     def set_oauth_provider_wxwork(self):
-        providers = self.env['auth.oauth.provider'].sudo().search_read([('enabled', '=', True)])
+        client_id = self.env['ir.config_parameter'].get_param('wxwork.corpid')
+        redirect_uri = self.env['ir.config_parameter'].get_param('wxwork.auth_redirect_uri')
+
+        url1 = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+        url2 = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect'
+
+        providers = self.env['auth.oauth.provider'].sudo().search([
+            '|',
+            ('auth_endpoint', '=', url1),
+            ('auth_endpoint', '=', url2)
+        ])
+
         for provider in providers:
-            if 'https://open.weixin.qq.com/connect/oauth2/authorize' in provider['auth_endpoint']:
-                pass
-            elif 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
-                pass
+            provider.write({
+                'client_id': client_id,
+                'validation_endpoint': redirect_uri,
+            })
+
 

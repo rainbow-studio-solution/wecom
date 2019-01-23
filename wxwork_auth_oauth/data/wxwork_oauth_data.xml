@@ -34,13 +34,15 @@
 
         <record id="auth_agentid" model="ir.config_parameter">
             <field name="key">wxwork.auth_agentid</field>
-            <field name="value">1000003</field>
-            <!--<field name="value">0000000</field>-->
+            <field name="value">0000000</field>
         </record>
         <record id="auth_secret" model="ir.config_parameter">
             <field name="key">wxwork.auth_secret</field>
-            <field name="value">E6nW-s_YX2dKwnzv0-HIHsQrehZHG3VYX3IqzoVY8qA</field>
-            <!--<field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>-->
+            <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>
+        </record>
+        <record id="auth_redirect_uri" model="ir.config_parameter">
+            <field name="key">wxwork.auth_redirect_uri</field>
+            <field name="value">http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin</field>
         </record>
 
     </data>
