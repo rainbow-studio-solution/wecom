@@ -73,6 +73,7 @@
                 </tree>
             </field>
         </record>
+
         <act_window id="change_type_wizard_action"
                     name="更改用户类型"
                     src_model="res.users"
@@ -80,9 +81,6 @@
                     view_type="form" view_mode="form"
                     key2="client_action_multi" target="new"
                     groups="base.group_erp_manager"/>
-
-
-
 
         <record id="open_module_tree_user" model="ir.actions.act_window">
             <field name="name">用户</field>
