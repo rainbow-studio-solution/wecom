@@ -14,6 +14,25 @@
                                 <i class="fa fa-key fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
+                                <label for="auth_agentid"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        应用与小程序→打开需要验证授权应用，复制'AgentId'
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="auth_agentid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
                                 <label for="auth_secret"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
@@ -26,29 +45,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <!--<i class="fa fa-building fa-lg"/>-->
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="auth_state"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值，长度不可超过128个字节
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_state"/>
-                                        <button name="get_random_state" type="object" string="随机生成state" class="oe_highlight"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-
                         </div>
 
                         <div class="col-xs-12 col-md-12 o_setting_box">
@@ -74,19 +70,17 @@
 
                         <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg"/>
+
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="auth_link"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        构造网页授权链接,以获取code参数<br/>
-                                        <button name="get_auth_link" type="object" string="生成网页授权链接" class="oe_highlight"/>
+                                        正确填写"企业ID",需要身份验证授权"应用ID"和"应用的密钥"后，点击按钮"一键设置企业微信OAuth接口"
+                                        <br/>
+                                        请勿修改"常规设置"→"OAuth服务商"中关于企业微信的"身份验证网址"
                                     </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_link" style="width: 100%;"/>
+                                    <div class="text-muted col-md-12">
+                                        <button name="set_oauth_provider_wxwork" type="object" string="一键设置企业微信OAuth接口" class="oe_highlight"/>
                                     </div>
                                 </div>
                             </div>

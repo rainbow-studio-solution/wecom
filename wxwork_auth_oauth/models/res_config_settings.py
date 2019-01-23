@@ -13,28 +13,18 @@ class ResConfigSettings(models.TransientModel):
     auth_secret = fields.Char("应用的密钥", config_parameter='wxwork.auth_secret')
     auth_redirect_uri = fields.Char('网页授权链接回调链接地址', help='授权后重定向的回调链接地址，请使用urlencode对链接进行处理',
                                     config_parameter='wxwork.auth_redirect_uri')
-    auth_state = fields.Char('state参数', help='重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值，长度不可超过128个字节',
-                             config_parameter='wxwork.auth_state', readonly=True, )
+    # # auth_state = fields.Char('state参数', help='重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值，长度不可超过128个字节',
+    #                          config_parameter='wxwork.auth_state', readonly=True, )
 
 
-    auth_link = fields.Char('网页授权链接', help='', config_parameter='wxwork.auth_link',readonly=True,)
-
-    @api.multi
-    def get_random_state(self):
-        self.env['ir.config_parameter'].sudo().set_param(
-            "wxwork.auth_state", Common(8).random_str())
+    # auth_link = fields.Char('网页授权链接', help='', config_parameter='wxwork.auth_link',readonly=True,)
 
     @api.multi
-    def get_auth_link(self):
-        auth_url = 'https://open.weixin.qq.com/connect/oauth2/authorize'
-        ir_params = self.env['ir.config_parameter'].sudo()
-        auth_params = dict(
-            appid=ir_params.get_param('wxwork.corpid'),
-            redirect_uri=ir_params.get_param('wxwork.auth_redirect_uri'),
-            response_type='code',
-            scope='snsapi_base',
-            state=ir_params.get_param('wxwork.auth_state'),
-        )
-        auth_link = "%s?%s%s" % (auth_url, werkzeug.url_encode(auth_params),'#wechat_redirect')
-        self.env['ir.config_parameter'].sudo().set_param(
-            "wxwork.auth_link", auth_link)
+    def set_oauth_provider_wxwork(self):
+        providers = self.env['auth.oauth.provider'].sudo().search_read([('enabled', '=', True)])
+        for provider in providers:
+            if 'https://open.weixin.qq.com/connect/oauth2/authorize' in provider['auth_endpoint']:
+                pass
+            elif 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
+                pass
+

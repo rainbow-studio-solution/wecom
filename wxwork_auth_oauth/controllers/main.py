@@ -29,6 +29,7 @@ from odoo.tools import ustr, consteq, frozendict, pycompat, unique
 _logger = logging.getLogger(__name__)
 
 
+
 class OAuthLogin(Home):
     def list_providers(self):
         try:
@@ -49,9 +50,8 @@ class OAuthLogin(Home):
                     state=json.dumps(state),
                 )
                 provider['auth_link'] = "%s?%s%s" % (provider['auth_endpoint'], werkzeug.url_encode(params),'#wechat_redirect')
-            if 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
+            elif 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
                 return_url = request.httprequest.url_root + 'wxwork/auth_oauth/signin'
-                # auth_state = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_state')
                 state = self.get_state(provider)
                 auth_agentid = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_agentid')
                 params = dict(
@@ -59,6 +59,17 @@ class OAuthLogin(Home):
                     agentid=auth_agentid,
                     redirect_uri=return_url,
                     response_type='code',
+                    state=json.dumps(state),
+                )
+                provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
+            else:
+                return_url = request.httprequest.url_root + 'auth_oauth/signin'
+                state = self.get_state(provider)
+                params = dict(
+                    response_type='token',
+                    client_id=provider['client_id'],
+                    redirect_uri=return_url,
+                    scope=provider['scope'],
                     state=json.dumps(state),
                 )
                 provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
@@ -80,34 +91,31 @@ class OAuthLogin(Home):
 
 class OAuthController(http.Controller):
     @http.route('/wxwork/auth_oauth/signin', type='http', auth='none')
-    def signin(self, **kw):
+    def wxwork(self, **kw):
         code = kw.pop('code', None)
         corpid = request.env['ir.config_parameter'].sudo().get_param('wxwork.corpid')
         secret = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_secret')
-        api = CorpApi(corpid, secret)
-
-        response = api.httpCall(
+        wxwork_api = CorpApi(corpid, secret)
+        response = wxwork_api.httpCall(
             CORP_API_TYPE['GET_USER_INFO_BY_CODE'],
             {
                 'code': code,
             }
         )
-        # print(response['UserId'])
-
         state = json.loads(kw['state'])
         dbname = state['d']
         if not http.db_filter([dbname]):
             return BadRequest()
         provider = state['p']
-        context = state.get('c', {'no_user_creation': True})
+        context = {'no_user_creation': True}
         registry = registry_get(dbname)
-        print(state,dbname,provider,context,response['UserId'])
 
         with registry.cursor() as cr:
             try:
-                # env = api.Environment(cr, SUPERUSER_ID, {})
-                credentials = request.env['res.users'].sudo().auth_oauth_wxwork(provider, response)
-                # cr.commit()
+                env = api.Environment(cr, SUPERUSER_ID, context)
+                credentials = env['res.users'].sudo().auth_oauth_wxwork(provider, response)
+                #print(credentials) #('eis', 'rain.wen', 'rain.wen')
+                cr.commit()
                 action = state.get('a')
                 menu = state.get('m')
                 redirect = werkzeug.url_unquote_plus(state['r']) if state.get('r') else False
@@ -120,7 +128,8 @@ class OAuthController(http.Controller):
                     url = '/web#menu_id=%s' % menu
                 resp = login_and_redirect(*credentials, redirect_url=url)
                 # Since /web is hardcoded, verify user has right to land on it
-                if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group('base.group_user'):
+                if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group(
+                        'base.group_user'):
                     resp.location = '/'
                 return resp
             except AttributeError:

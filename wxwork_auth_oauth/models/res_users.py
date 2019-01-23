@@ -16,13 +16,10 @@ class ResUsers(models.Model):
     def auth_oauth_wxwork(self, provider, validation):
         oauth_uid = validation['UserId']
         oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
-        # print(oauth_user)
-
         if not oauth_user or len(oauth_user) > 1:
             return AccessDenied
-        return oauth_user.login
-
-
+        return (self.env.cr.dbname, oauth_user.login, oauth_uid)
+        # return oauth_user.login
 
     @api.model
     def _check_credentials(self, password):
