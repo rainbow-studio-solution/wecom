@@ -106,12 +106,10 @@ class OAuthController(http.Controller):
         provider = state['p']
         context = {'no_user_creation': True}
         registry = registry_get(dbname)
-
         with registry.cursor() as cr:
             try:
                 env = api.Environment(cr, SUPERUSER_ID, context)
                 credentials = env['res.users'].sudo().auth_oauth_wxwork(provider, response)
-                #print(credentials) #('eis', 'rain.wen', 'rain.wen')
                 cr.commit()
                 action = state.get('a')
                 menu = state.get('m')
@@ -147,6 +145,7 @@ class OAuthController(http.Controller):
 
         return set_cookie_and_redirect(url)
 
+class OAuthQrController(http.Controller):
     @http.route('/wxwork/auth_oauth/qr', type='http', auth='none')
     def wxwork_qr_signin(self, **kw):
         code = kw.pop('code', None)
@@ -159,7 +158,6 @@ class OAuthController(http.Controller):
                 'code': code,
             }
         )
-
         state = json.loads(kw['state'].replace('M','"'))
         dbname = state['d']
         if not http.db_filter([dbname]):
@@ -167,6 +165,7 @@ class OAuthController(http.Controller):
         provider = state['p']
         context = {'no_user_creation': True}
         registry = registry_get(dbname)
+
         with registry.cursor() as cr:
             try:
                 env = api.Environment(cr, SUPERUSER_ID, context)
@@ -182,8 +181,8 @@ class OAuthController(http.Controller):
                     url = '/web#action=%s' % action
                 elif menu:
                     url = '/web#menu_id=%s' % menu
+
                 resp = login_and_redirect(*credentials, redirect_url=url)
-                # Since /web is hardcoded, verify user has right to land on it
                 if werkzeug.urls.url_parse(resp.location).path == '/web' and not request.env.user.has_group(
                         'base.group_user'):
                     resp.location = '/'

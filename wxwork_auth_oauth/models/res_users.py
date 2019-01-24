@@ -14,12 +14,21 @@ class ResUsers(models.Model):
 
     @api.model
     def auth_oauth_wxwork(self, provider, validation):
-        oauth_uid = validation['UserId']
-        oauth_user = self.search([("oauth_uid", "=", oauth_uid), ('oauth_provider_id', '=', provider)])
-        if not oauth_user or len(oauth_user) > 1:
+        auth_endpoint = 'https://open.weixin.qq.com/connect/oauth2/authorize'
+        qr_auth_endpoint = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect'
+
+        wxwork_providers = self.env['auth.oauth.provider'].sudo().search([
+            ('id', '=', provider),
+        ])
+
+        if auth_endpoint in wxwork_providers['auth_endpoint'] or qr_auth_endpoint in wxwork_providers['auth_endpoint']:
+            oauth_uid = validation['UserId']
+            oauth_user = self.search([("oauth_uid", "=", oauth_uid)])
+            if not oauth_user or len(oauth_user) > 1:
+                return AccessDenied
+            return (self.env.cr.dbname, oauth_user.login, oauth_uid)
+        else:
             return AccessDenied
-        return (self.env.cr.dbname, oauth_user.login, oauth_uid)
-        # return oauth_user.login
 
     @api.model
     def _check_credentials(self, password):
