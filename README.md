@@ -18,13 +18,6 @@
 2. wxwork_contacts  通讯簿同步模块
 3. wxwork_auth_oauth 企业微信APP内一键登录,企业微信扫码登录
 
-
-### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
 ### 使用说明
 
 1. 安装相关模块
@@ -32,8 +25,18 @@
 3. xxxx
 
 
-#### 下载分支12.0 最新的代码到本地的wxwork文件夹
+### 下载分支12.0 最新的代码到本地的wxwork文件夹
 
 ```
 git clone git@gitee.com:rainbowstudio/wxwork.git --depth 1 --branch 12.0 --single-branch wxwork 
 ```
+
+### 图片展示
+
+![登录](img/登录页面.png)
+
+![配置](img/配置.png)
+
+![数据同步](img/数据同步.png)
+
+![同步结果](img/同步结果.png)
