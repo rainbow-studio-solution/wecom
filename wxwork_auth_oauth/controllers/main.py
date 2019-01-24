@@ -145,7 +145,6 @@ class OAuthController(http.Controller):
 
         return set_cookie_and_redirect(url)
 
-class OAuthQrController(http.Controller):
     @http.route('/wxwork/auth_oauth/qr', type='http', auth='none')
     def wxwork_qr_signin(self, **kw):
         code = kw.pop('code', None)

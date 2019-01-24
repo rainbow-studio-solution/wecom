@@ -233,11 +233,11 @@ class SyncEmployee(object):
         self.result = True
 
 class SyncEmployeeToUser(object):
-    def __init__(self, employee, user, group, provider):
+    def __init__(self, employee, user, group):
         self.employee = employee
         self.user = user
         self.group = group
-        self.provider = provider
+        # self.provider = provider
         self.result = None
 
     def sync_user(self):
@@ -257,20 +257,20 @@ class SyncEmployeeToUser(object):
                 if len(user) > 0:
                     self.update_user(records, user)
                 else:
-                    self.create_user(records, user, self.group, self.provider)
+                    self.create_user(records, user, self.group)
         except BaseException:
             self.result = False
         return self.result
 
-    def create_user(self, employee, user ,group, provider):
+    def create_user(self, employee, user ,group):
         groups_id = group.search([('id', '=', 9),],limit=1).id
-        oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
+        # oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
         user.create({
             'name': employee.name,
             'login': employee.userid,
             'password':Common(8).random_passwd(),
             'oauth_uid': employee.userid,
-            'oauth_provider_id': oauth_provider_id,
+            # 'oauth_provider_id': oauth_provider_id,
             'email': employee.work_email,
             'userid': employee.userid,
             'image': employee.image,

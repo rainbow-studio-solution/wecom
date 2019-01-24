@@ -44,7 +44,7 @@ class ResConfigSettings(models.TransientModel):
         Employee = self.env['hr.employee']
         User = self.env['res.users']
         Groups = self.env['res.groups']
-        Provider = self.env['auth.oauth.provider']
+        # Provider = self.env['auth.oauth.provider']
 
         try:
             if not Common(auto_sync).str_to_bool():
@@ -76,7 +76,7 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-企业微信离职员工同步成功")
 
-                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, Provider).sync_user()
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
                 if not user_sync_operate:
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:
