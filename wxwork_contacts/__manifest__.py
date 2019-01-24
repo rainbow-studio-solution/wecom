@@ -33,6 +33,7 @@
         'views/res_users_views.xml',
         'views/wxwork_contacts_views.xml',
         'views/res_config_settings_views.xml',
+        'views/ir_cron_views.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
