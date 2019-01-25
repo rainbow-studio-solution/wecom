@@ -7,10 +7,10 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="企业微信通讯簿数据同步" >
-                    <separator string="从服务器下载并更新本地库"/>
+                    <separator string="从企业微信更新下载并更新本地 HR 和 USER"/>
                     <group>
                         <div>
-                            首次因需要同步头像故比较慢，请耐心等候。<br/>
+                            首次同步因需要通过互联网访问企业微信用户头像故比较慢，请耐心等候。<br/>
                             若同步失败,请在配置中停用"允许同步企业微信头像"功能。
                         </div>
                         <ul>
