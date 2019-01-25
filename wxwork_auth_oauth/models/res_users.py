@@ -28,11 +28,11 @@ class ResUsers(models.Model):
         ])
 
         if auth_endpoint in wxwork_providers['auth_endpoint'] or qr_auth_endpoint in wxwork_providers['auth_endpoint']:
-            oauth_uid = validation['UserId']
-            oauth_user = self.search([("oauth_uid", "=", oauth_uid),("is_wxwork_user","=",True)])
+            oauth_userid = validation['UserId']
+            oauth_user = self.search([("userid", "=", oauth_userid),("is_wxwork_user","=",True)])
             if not oauth_user or len(oauth_user) > 1:
                 return AccessDenied
-            return (self.env.cr.dbname, oauth_user.login, oauth_uid)
+            return (self.env.cr.dbname, oauth_user.login, oauth_userid)
         else:
             return AccessDenied
 
