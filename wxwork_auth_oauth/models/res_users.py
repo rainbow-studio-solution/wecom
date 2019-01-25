@@ -15,7 +15,7 @@ class ResUsers(models.Model):
     @api.model
     def auth_oauth_wxwork(self, provider, validation):
         '''
-        判断 是否通过 一键登录和扫码登录且标记了企业微信的用户
+        允许一键登录和扫码登录且标记了企业微信的用户登录系统
         :param provider:
         :param validation:
         :return:
