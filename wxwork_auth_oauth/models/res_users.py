@@ -14,6 +14,12 @@ class ResUsers(models.Model):
 
     @api.model
     def auth_oauth_wxwork(self, provider, validation):
+        '''
+        判断 是否通过 一键登录和扫码登录且标记了企业微信的用户
+        :param provider:
+        :param validation:
+        :return:
+        '''
         auth_endpoint = 'https://open.weixin.qq.com/connect/oauth2/authorize'
         qr_auth_endpoint = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect'
 
@@ -23,7 +29,7 @@ class ResUsers(models.Model):
 
         if auth_endpoint in wxwork_providers['auth_endpoint'] or qr_auth_endpoint in wxwork_providers['auth_endpoint']:
             oauth_uid = validation['UserId']
-            oauth_user = self.search([("oauth_uid", "=", oauth_uid)])
+            oauth_user = self.search([("oauth_uid", "=", oauth_uid),("is_wxwork_user","=",True)])
             if not oauth_user or len(oauth_user) > 1:
                 return AccessDenied
             return (self.env.cr.dbname, oauth_user.login, oauth_uid)
