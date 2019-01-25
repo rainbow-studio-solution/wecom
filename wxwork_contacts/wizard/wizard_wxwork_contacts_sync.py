@@ -91,7 +91,7 @@ class ResConfigSettings(models.TransientModel):
                 pass
 
             try:
-                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, sync_avatar).sync_user()
                 if not user_sync_operate:
                     self.user_sync_result = False
                     result.append('企业微信同步系统用户同步失败')

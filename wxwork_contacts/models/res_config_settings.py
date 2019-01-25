@@ -79,7 +79,7 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-企业微信离职员工同步成功")
 
-                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, sync_avatar).sync_user()
                 if not user_sync_operate:
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:

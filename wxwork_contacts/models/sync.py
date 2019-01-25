@@ -237,10 +237,11 @@ class SyncEmployee(object):
         self.result = True
 
 class SyncEmployeeToUser(object):
-    def __init__(self, employee, user, group):
+    def __init__(self, employee, user, group, sync_avatar):
         self.employee = employee
         self.user = user
         self.group = group
+        self.sync_avatar = sync_avatar
         # self.provider = provider
         self.result = None
 
@@ -272,6 +273,11 @@ class SyncEmployeeToUser(object):
         email = "" if not employee.work_email else employee.work_email
         # print(email)
         # oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
+
+        if not self.sync_avatar:
+            image = None
+        else:
+            image = employee.image
         user.create({
             'name': employee.name,
             'login': employee.userid,
@@ -280,7 +286,7 @@ class SyncEmployeeToUser(object):
             # 'oauth_provider_id': oauth_provider_id,
             'email': email,
             'userid': employee.userid,
-            'image': employee.image,
+            'image': image,
             'qr_code': employee.qr_code,
             'active': employee.active,
             'wxwork_user_order': employee.wxwork_user_order,
