@@ -11,6 +11,7 @@
         </record>
 
         <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_auto_sync_hr_enabled', 'True')"/>
+        <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_sync_avatar_enabled', 'True')"/>
 
         <record id="contacts_sync_hr_department_id" model="ir.config_parameter">
             <field name="key">wxwork.contacts_sync_hr_department_id</field>

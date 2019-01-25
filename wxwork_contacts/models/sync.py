@@ -97,12 +97,13 @@ class SetDepartment(object):
         self.result = True
 
 class SyncEmployee(object):
-    def __init__(self, corpid, secret, department_id, department, employee):
+    def __init__(self, corpid, secret, department_id, department, employee, sync_avatar):
         self.corpid = corpid
         self.secret = secret
         self.department_id = department_id
         self.department = department
         self.employee = employee
+        self.sync_avatar = sync_avatar
         self.result = None
 
     def sync_employee(self):
@@ -137,12 +138,16 @@ class SyncEmployee(object):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
+        if not self.sync_avatar:
+            avatar = None
+        else:
+            avatar = Common(obj['avatar']).avatar2image()
+
         records.create({
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
-            # 'marital': not fields,  # 不生成婚姻状况
-            'image': Common(obj['avatar']).avatar2image(),
+            'image': avatar ,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -159,10 +164,10 @@ class SyncEmployee(object):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
+
         records.write({
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
-            # 'image': Common(obj['avatar']).avatar2image(),
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -170,7 +175,6 @@ class SyncEmployee(object):
             'alias': obj['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
-            # 'qr_code': Common(obj['qr_code']).avatar2image(),
             'is_wxwork_employee': True
         })
         self.result = True
@@ -264,14 +268,17 @@ class SyncEmployeeToUser(object):
 
     def create_user(self, employee, user ,group):
         groups_id = group.search([('id', '=', 9),],limit=1).id
+        #TODO 空邮件需要处理
+        email = "" if not employee.work_email else employee.work_email
+        # print(email)
         # oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
         user.create({
             'name': employee.name,
             'login': employee.userid,
             'password':Common(8).random_passwd(),
-            'oauth_uid': employee.userid,
+            # 'oauth_uid': employee.userid,
             # 'oauth_provider_id': oauth_provider_id,
-            'email': employee.work_email,
+            'email': email,
             'userid': employee.userid,
             'image': employee.image,
             'qr_code': employee.qr_code,
@@ -290,29 +297,17 @@ class SyncEmployeeToUser(object):
         self.result = True
 
     def update_user(self, employee, user):
-        if  employee.work_email.strip() ==None or employee.work_email.strip() =='' :
-            user.write({
-                'name': employee.name,
-                'active': employee.active,
-                'oauth_uid': employee.userid,
-                'wxwork_user_order': employee.wxwork_user_order,
-                'is_wxwork_user': True,
-                'employee': True,
-                'mobile': employee.mobile_phone,
-                'phone': employee.work_phone,
-            })
-        else:
-            user.write({
-                'name': employee.name,
-                'email': employee.work_email,
-                'active': employee.active,
-                'oauth_uid': employee.userid,
-                'wxwork_user_order': employee.wxwork_user_order,
-                'is_wxwork_user': True,
-                'employee': True,
-                'mobile': employee.mobile_phone,
-                'phone': employee.work_phone,
-            })
+        user.write({
+            'name': employee.name,
+            'active': employee.active,
+            # 'oauth_uid': employee.userid,
+            'wxwork_user_order': employee.wxwork_user_order,
+            'is_wxwork_user': True,
+            'employee': True,
+            'mobile': employee.mobile_phone,
+            'phone': employee.work_phone,
+        })
+
         self.result = True
 
 class EmployeeBindingUser(object):

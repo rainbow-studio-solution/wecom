@@ -32,6 +32,7 @@ class ResConfigSettings(models.TransientModel):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
+        sync_avatar = params.get_param('wxwork.contacts_sync_avatar_enabled')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
@@ -66,7 +67,7 @@ class ResConfigSettings(models.TransientModel):
 
             try:
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                     Employee).sync_employee()
+                                                     Employee,sync_avatar).sync_employee()
                 if not employee_sync_operate:
                     self.employee_sync_result = False
                     result.append("企业微信员工同步失败")
@@ -79,7 +80,7 @@ class ResConfigSettings(models.TransientModel):
 
             try:
                 leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                  Employee).update_leave_employee()
+                                                  Employee,sync_avatar).update_leave_employee()
                 if not leave_sync_operate:
                     self.leave_sync_result = False
                     result.append('企业微信离职员工同步失败')
