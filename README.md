@@ -22,12 +22,24 @@
 
 1. 安装相关模块
 2. 在"企业微信"→"设置"中进行配置，配置页面中有详细说明
-3. xxxx
+3. 在部署在Debian上，进行企业微信同步测试，发现失败，查看日志发现有如下日志：
+    ```bash
+    odoo.service.server: Thread <Thread(odoo.service.cron.cron0, started daemon 140477819664128)> virtual real time limit (120/120s) reached.
+    ```
+   解决方案,在 /etc/odoo/odoo.conf 添加如下参数：
+   ```editorconfig
+   limit_time_cpu = 600
+   limit_time_real = 1200 
+   ``` 
+   使用以下命令实时查看odoo运行日志，如发现virtual real time limit，将limit_time_real改动合适为止：
+   ```bash
+   tail -f /var/log/odoo/odoo-server.log 
+    ```
 
 
 ### 下载分支12.0 最新的代码到本地的wxwork文件夹
 
-```
+```bash
 git clone git@gitee.com:rainbowstudio/wxwork.git --depth 1 --branch 12.0 --single-branch wxwork 
 ```
 
