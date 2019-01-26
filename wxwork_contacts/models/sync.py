@@ -138,10 +138,10 @@ class SyncEmployee(object):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
-        if not self.sync_avatar:
-            avatar = None
-        else:
-            avatar = Common(obj['avatar']).avatar2image()
+        # if not self.sync_avatar:
+        #     avatar = None
+        # else:
+        #     avatar = Common(obj['avatar']).avatar2image()
 
         records.create({
             'userid': obj['userid'],
