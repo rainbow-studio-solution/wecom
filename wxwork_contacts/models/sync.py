@@ -147,6 +147,7 @@ class SyncEmployee(object):
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
+            'marital': None, # 不生成婚姻状况
             # 'image': avatar ,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
