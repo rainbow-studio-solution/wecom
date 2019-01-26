@@ -147,7 +147,7 @@ class SyncEmployee(object):
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
-            'image': avatar ,
+            # 'image': avatar ,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -155,7 +155,7 @@ class SyncEmployee(object):
             'alias': obj['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
-            'qr_code': Common(obj['qr_code']).avatar2image(),
+            # 'qr_code': Common(obj['qr_code']).avatar2image(),
             'is_wxwork_employee': True,
         })
         self.result =True
