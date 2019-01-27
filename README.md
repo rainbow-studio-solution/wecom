@@ -21,6 +21,14 @@
 2. wxwork_contacts  通讯簿同步模块
 3. wxwork_auth_oauth 企业微信APP内一键登录,企业微信扫码登录
 
+### 安装说明
+
+1. 使用pip安装scipy和scikit-image
+    ```bash
+    pip install scipy scikit-image imageio  -i https://pypi.doubanio.com/simple
+
+    ```
+
 ### 使用说明
 
 1. 安装相关模块

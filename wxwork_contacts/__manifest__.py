@@ -39,9 +39,5 @@
         "static/src/xml/*.xml",
     ],
     'bootstrap': True,  # load translations for login screen
-    'external_dependencies': {
-        'python': [
-
-        ],
-    },
+    # 'external_dependencies': {'python': ['scikit-image']},
 }

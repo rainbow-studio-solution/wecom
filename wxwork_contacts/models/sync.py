@@ -2,6 +2,12 @@
 
 from ..api.CorpApi import *
 from ..helper.common import *
+from skimage import io
+import base64
+import urllib
+from PIL import Image
+from io import StringIO
+from httplib2 import Http
 
 class SyncDepartment(object):
     def __init__(self, corpid, secret, department_id, department):
@@ -10,6 +16,8 @@ class SyncDepartment(object):
         self.department_id = department_id
         self.department = department
         self.result = None
+
+
 
     def sync_department(self):
         api = CorpApi(self.corpid, self.secret)
@@ -106,6 +114,24 @@ class SyncEmployee(object):
         self.sync_avatar = sync_avatar
         self.result = None
 
+    @staticmethod
+    def encode_image_as_base64(image_url, file_path, file_name):
+        print(image_url)
+        if  image_url in None:
+            # base64_data = None
+            continue
+        else:
+            try:
+                urllib.request.urlretrieve(image_url, file_path+file_name+".jpg")
+                with open(file_path+file_name+".jpg", "rb") as f:
+                    base64_data = base64.b64encode(f.read())
+            except Exception as e:
+                print(e)
+
+
+        print(base64_data)
+        return base64_data
+
     def sync_employee(self):
         api = CorpApi(self.corpid, self.secret)
         try:
@@ -138,17 +164,18 @@ class SyncEmployee(object):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
-        # if not self.sync_avatar:
-        #     avatar = None
-        # else:
-        #     avatar = Common(obj['avatar']).avatar2image()
+        if not self.sync_avatar:
+            avatar = None
+        else:
+            avatar = self.encode_image_as_base64(obj['avatar'],"d:\img\\",obj['userid'])
+            # avatar = Common(obj['avatar']).avatar2image()
 
         records.create({
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
             'marital': None, # 不生成婚姻状况
-            # 'image': avatar ,
+            'image': avatar,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -157,6 +184,7 @@ class SyncEmployee(object):
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
             # 'qr_code': Common(obj['qr_code']).avatar2image(),
+            # 'qr_code': self.encode_image_as_base64(obj['qr_code'],"d:\\img\\",obj['userid']),
             'is_wxwork_employee': True,
         })
         self.result =True
