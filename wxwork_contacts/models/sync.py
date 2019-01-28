@@ -2,9 +2,9 @@
 
 from ..api.CorpApi import *
 from ..helper.common import *
-import base64,urllib,os
+import base64,urllib,os,platform,cv2
 import numpy as np
-import cv2
+
 
 # start 以下为解决 image file is truncated (18 bytes not processed)错误
 from PIL import ImageFile
@@ -157,6 +157,14 @@ class SyncImage(object):
             os.makedirs(path)
         return path
 
+    def get_pach(self):
+        print(platform.system())
+        if (platform.system() == 'Windows'):
+            pass
+        elif (platform.system() == 'Linux'):
+            pass
+
+
     def download_image_avatar(self,response):
         directory = self.file_path + "/avatar//"
         self.path_is_exists(directory)
@@ -217,7 +225,6 @@ class SyncImage(object):
                 except BaseException as e:
                     # print('二维码错误-%s %s' % (obj['name'], e))
                     pass
-
         self.result = True
 
 class SyncEmployee(object):
