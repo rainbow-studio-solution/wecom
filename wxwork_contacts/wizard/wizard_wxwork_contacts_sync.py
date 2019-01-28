@@ -78,52 +78,52 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-            # try:
-            #     employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-            #                                          Employee,sync_avatar).sync_employee()
-            #     if not employee_sync_operate:
-            #         self.employee_sync_result = False
-            #         result.append("企业微信员工同步失败")
-            #     else:
-            #         self.employee_sync_result = True
-            #         result.append("企业微信员工同步成功")
-            #
-            # except BaseException:
-            #     pass
-            #
-            # try:
-            #     leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-            #                                       Employee,sync_avatar).update_leave_employee()
-            #     if not leave_sync_operate:
-            #         self.leave_sync_result = False
-            #         result.append('企业微信离职员工同步失败')
-            #     else:
-            #         self.leave_sync_result = True
-            #         result.append('企业微信离职员工同步成功')
-            # except BaseException:
-            #     pass
-            #
-            # try:
-            #     user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, sync_avatar).sync_user()
-            #     if not user_sync_operate:
-            #         self.user_sync_result = False
-            #         result.append('企业微信同步系统用户同步失败')
-            #     else:
-            #         self.user_sync_result = True
-            #         result.append('企业微信同步系统用户同步成功')
-            # except BaseException:
-            #     pass
-            #
-            # try:
-            #     employee_binding_user_operate = EmployeeBindingUser(Employee, User).binding()
-            #     if not employee_binding_user_operate:
-            #         self.employee_binding_user_result = False
-            #         result.append('企业微信员工绑定系统用户失败')
-            #     else:
-            #         self.employee_binding_user_result = True
-            #         result.append('企业微信员工绑定系统用户成功')
-            # except BaseException:
-            #     pass
+            try:
+                employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
+                                                     Employee,sync_img,img_path).sync_employee()
+                if not employee_sync_operate:
+                    self.employee_sync_result = False
+                    result.append("企业微信员工同步失败")
+                else:
+                    self.employee_sync_result = True
+                    result.append("企业微信员工同步成功")
+
+            except BaseException:
+                pass
+
+            try:
+                leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
+                                                  Employee,sync_img,img_path).update_leave_employee()
+                if not leave_sync_operate:
+                    self.leave_sync_result = False
+                    result.append('企业微信离职员工同步失败')
+                else:
+                    self.leave_sync_result = True
+                    result.append('企业微信离职员工同步成功')
+            except BaseException:
+                pass
+
+            try:
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
+                if not user_sync_operate:
+                    self.user_sync_result = False
+                    result.append('企业微信同步系统用户同步失败')
+                else:
+                    self.user_sync_result = True
+                    result.append('企业微信同步系统用户同步成功')
+            except BaseException:
+                pass
+
+            try:
+                employee_binding_user_operate = EmployeeBindingUser(Employee, User).binding()
+                if not employee_binding_user_operate:
+                    self.employee_binding_user_result = False
+                    result.append('企业微信员工绑定系统用户失败')
+                else:
+                    self.employee_binding_user_result = True
+                    result.append('企业微信员工绑定系统用户成功')
+            except BaseException:
+                pass
 
 
         self.result = '\n'.join(result)

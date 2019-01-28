@@ -6,6 +6,10 @@ import base64,urllib,os
 import numpy as np
 import cv2
 
+# start 以下为解决 image file is truncated (18 bytes not processed)错误
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+# end 以上为解决 image file is truncated (18 bytes not processed)错误
 
 class SyncDepartment(object):
     def __init__(self, corpid, secret, department_id, department):
@@ -14,8 +18,6 @@ class SyncDepartment(object):
         self.department_id = department_id
         self.department = department
         self.result = None
-
-
 
     def sync_department(self):
         api = CorpApi(self.corpid, self.secret)
@@ -135,9 +137,7 @@ class SyncImage(object):
             resp = urllib.request.urlopen(remote)
             remote_img = np.asarray(bytearray(resp.read()), dtype="uint8")
             remote_img = cv2.imdecode(remote_img, cv2.IMREAD_COLOR)
-
             local_img = cv2.imread(local)
-
             difference = cv2.subtract(remote_img, local_img)
             result = not np.any(difference)
             if result is True:
@@ -171,12 +171,12 @@ class SyncImage(object):
                         file_avatar.write(avatar_data)
                         file_avatar.close()
                     except BaseException as e:
-                        print('头像错误-%s %s' %(obj['name'],e))
+                        # print('头像错误-%s %s' %(obj['name'],e))
                         pass
-                    print("头像图片不一致")
+                    # print("头像图片不一致")
                 else:
                     pass
-                    print("头像图片一致")
+                    # print("头像图片一致")
             else:
                 try:
                     avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
@@ -184,11 +184,9 @@ class SyncImage(object):
                     file_avatar.write(avatar_data)
                     file_avatar.close()
                 except BaseException as e:
-                    print('头像错误-%s %s' % (obj['name'], e))
+                    # print('头像错误-%s %s' % (obj['name'], e))
                     pass
-
         self.result = True
-
 
     def download_image_qr_code(self,response):
         directory = self.file_path + "/qr_code//"
@@ -204,12 +202,12 @@ class SyncImage(object):
                         file_qr_code.write(qr_code_data)
                         file_qr_code.close()
                     except BaseException as e:
-                        print('二维码错误-%s %s' % (obj['name'], e))
+                        # print('二维码错误-%s %s' % (obj['name'], e))
                         pass
-                    print("二维码图片不一致")
+                    # print("二维码图片不一致")
                 else:
                     pass
-                    print("二维码图片一致")
+                    # print("二维码图片一致")
             else:
                 try:
                     qr_code_data = urllib.request.urlopen(remote_img).read()  # 打开URL
@@ -217,19 +215,20 @@ class SyncImage(object):
                     file_qr_code.write(qr_code_data)
                     file_qr_code.close()
                 except BaseException as e:
-                    print('二维码错误-%s %s' % (obj['name'], e))
+                    # print('二维码错误-%s %s' % (obj['name'], e))
                     pass
 
         self.result = True
 
 class SyncEmployee(object):
-    def __init__(self, corpid, secret, department_id, department, employee, sync_img):
+    def __init__(self, corpid, secret, department_id, department, employee, sync_img, img_path):
         self.corpid = corpid
         self.secret = secret
         self.department_id = department_id
         self.department = department
         self.employee = employee
         self.sync_img = sync_img
+        self.img_path = img_path
         self.result = None
 
     def sync_employee(self):
@@ -260,34 +259,46 @@ class SyncEmployee(object):
             self.result = False
         return self.result
 
+    def encode_image_as_base64(self,image_path):
+        # if not self.sync_img:
+        #     return None
+        if not os.path.exists(image_path):
+            return None
+        else:
+            try:
+                with open(image_path, "rb") as f:
+                    encoded_string = base64.b64encode(f.read())
+                return encoded_string
+            except BaseException as e:
+                return None
+                # pass
+
     def create_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
-        # if not self.sync_img:
-        #     avatar = None
-        # else:
-        #     # avatar = self.encode_image_as_base64(obj['avatar'],"d:\img\\",obj['userid'])
-        #     avatar = self.encode_image_as_base64(obj['avatar'])
-        #     # avatar = Common(obj['avatar']).avatar2image()
 
-        records.create({
-            'userid': obj['userid'],
-            'name': obj['name'],
-            'gender': Common(obj['gender']).gender(),
-            'marital': None, # 不生成婚姻状况
-            # 'image': avatar,
-            'mobile_phone': obj['mobile'],
-            'work_phone': obj['telephone'],
-            'work_email': obj['email'],
-            'active': obj['enable'],
-            'alias': obj['alias'],
-            'department_ids': [(6, 0, department_ids)],
-            'wxwork_user_order': obj['order'],
-            # 'qr_code': Common(obj['qr_code']).avatar2image(),
-            # 'qr_code': self.encode_image_as_base64(obj['qr_code'],"d:\\img\\",obj['userid']),
-            'is_wxwork_employee': True,
-        })
+        avatar_file = self.img_path + "/avatar//" + obj['userid'] + ".jpg"
+        qr_code_file = self.img_path + "/qr_code//" + obj['userid'] + ".png"
+        try:
+            records.create({
+                'userid': obj['userid'],
+                'name': obj['name'],
+                'gender': Common(obj['gender']).gender(),
+                'marital': None, # 不生成婚姻状况
+                'image': self.encode_image_as_base64(avatar_file),
+                'mobile_phone': obj['mobile'],
+                'work_phone': obj['telephone'],
+                'work_email': obj['email'],
+                'active': obj['enable'],
+                'alias': obj['alias'],
+                'department_ids': [(6, 0, department_ids)],
+                'wxwork_user_order': obj['order'],
+                'qr_code': self.encode_image_as_base64(qr_code_file),
+                'is_wxwork_employee': True,
+            })
+        except BaseException as e:
+            print('%s - %s' % (obj['name'], e))
         self.result =True
 
     def update_employee(self,records, obj):
@@ -295,9 +306,22 @@ class SyncEmployee(object):
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
 
+        avatar_file = self.img_path + "/avatar//" + obj['userid'] + ".jpg"
+        qr_code_file = self.img_path + "/qr_code//" + obj['userid'] + ".png"
+        if not os.path.exists(avatar_file):
+            avatar = None
+        else:
+            avatar = self.encode_image_as_base64(avatar_file)
+
+        if not os.path.exists(qr_code_file):
+            qr_code = None
+        else:
+            qr_code = self.encode_image_as_base64(qr_code_file)
+
         records.write({
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
+            'image': avatar,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -305,6 +329,7 @@ class SyncEmployee(object):
             'alias': obj['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
+            'qr_code': qr_code,
             'is_wxwork_employee': True
         })
         self.result = True
@@ -367,11 +392,10 @@ class SyncEmployee(object):
         self.result = True
 
 class SyncEmployeeToUser(object):
-    def __init__(self, employee, user, group, sync_img):
+    def __init__(self, employee, user, group):
         self.employee = employee
         self.user = user
         self.group = group
-        self.sync_img = sync_img
         # self.provider = provider
         self.result = None
 
@@ -401,10 +425,8 @@ class SyncEmployeeToUser(object):
         groups_id = group.search([('id', '=', 9),],limit=1).id
         #TODO 空邮件需要处理
         email = "" if not employee.work_email else employee.work_email
-        # print(email)
-        # oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
 
-        if not self.sync_img:
+        if not employee.image:
             image = None
         else:
             image = employee.image
@@ -412,8 +434,6 @@ class SyncEmployeeToUser(object):
             'name': employee.name,
             'login': employee.userid,
             'password':Common(8).random_passwd(),
-            # 'oauth_uid': employee.userid,
-            # 'oauth_provider_id': oauth_provider_id,
             'email': email,
             'userid': employee.userid,
             'image': image,

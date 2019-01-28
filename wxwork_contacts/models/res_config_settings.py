@@ -44,6 +44,7 @@ class ResConfigSettings(models.TransientModel):
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
         sync_img = params.get_param('wxwork.contacts_sync_img_enabled')
+        img_path = params.get_param('wxwork.contacts_img_path')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
@@ -66,15 +67,21 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-设置企业微信上级部门成功")
 
+                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
+                if not image_sync_operate:
+                    _logger.info("任务失败提示-企业微信图片同步失败")
+                else:
+                    _logger.info("任务提示-企业微信图片同步成功")
+
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                     Employee, sync_img).sync_employee()
+                                                     Employee, sync_img,img_path).sync_employee()
                 if not employee_sync_operate:
                     _logger.info("任务失败提示-企业微信员工同步失败")
                 else:
                     _logger.info("任务提示-企业微信员工同步成功")
 
                 leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                  Employee, sync_img).update_leave_employee()
+                                                  Employee, sync_img,img_path).update_leave_employee()
                 if not leave_sync_operate:
                     _logger.info("任务失败提示-企业微信离职员工同步失败")
                 else:

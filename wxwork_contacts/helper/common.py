@@ -38,33 +38,13 @@ class Common(object):
             self.result = True
         return self.result
 
-    def avatar2image(self):
-        """
-            企业微信图片base64
-        """
-        #TODO 处理图片
+    def encode_image_as_base64(self):
         if not self.value:
             pass
         else:
-            # response = req.get(self.value) # 将这个图片保存在内存
-            # self.result = base64.b64encode(BytesIO(response.content).read()) #得到这个图片的base64编码
-            with open(self.value, "rb") as imageFile:
-                self.result = base64.b64encode(imageFile.read())
-        return self.result
-
-    @staticmethod
-    def encode_image_as_base64(image_path, base_path):
-        qs_split = image_path.split("?")
-        image_path = qs_split[0]
-
-        file_name = os.path.join(base_path, image_path)
-        file_name = urllib.unquote(file_name)
-
-        encoded_string = ""
-        with open(file_name, "rb") as image_file:
-            encoded_string = base64.b64encode(image_file.read())
-
-        return encoded_string
+            with open(self.value, "rb") as f:
+                encoded_string = base64.b64encode(f.read())
+            return encoded_string
 
     def gender(self):
         """
