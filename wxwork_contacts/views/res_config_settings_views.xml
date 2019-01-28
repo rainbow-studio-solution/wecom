@@ -74,13 +74,33 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <field name="contacts_sync_avatar_enabled"/>
+                                <field name="contacts_sync_img_enabled"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="contacts_sync_avatar_enabled"/>
+                                <label for="contacts_sync_img_enabled"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        若同步失败,尝试关闭同步头像功能；
+                                        同步企业微信用户头像和二维码。<br/>
+                                        若同步失败或时间过长且不可接受,尝试关闭请同步图片功能；
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="contacts_img_path"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        用于保存企业微信用户头像和二维码图片的路径<br/>
+                                        参考：Windows：D:\img\  ； Linux：/home/img/
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="contacts_img_path"/>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +164,6 @@
                 </xpath>
             </field>
         </record>
-
 
     </data>
 </odoo>

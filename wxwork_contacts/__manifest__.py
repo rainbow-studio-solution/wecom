@@ -26,8 +26,8 @@
     ],
     'data': [
         'data/ir_cron_data.xml',
-        'views/ir_cron_views.xml',
         'data/wxwork_data.xml',
+        'views/ir_cron_views.xml',
         'wizard/wizard_wxwork_contacts_sync.xml',
         'views/hr_department_view.xml',
         'views/hr_employee_view.xml',

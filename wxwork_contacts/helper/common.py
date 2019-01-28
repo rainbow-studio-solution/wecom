@@ -1,17 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from skimage import io
 from PIL import Image
-import skimage
+
 import base64
 import urllib
 import  os
-# import requests as req
-# import urllib.request
-# import re
-# from PIL import ImageFile
-# ImageFile.LOAD_TRUNCATED_IMAGES = True
-from io import BytesIO
+
 import random
 from passlib.context import CryptContext
 
@@ -44,9 +38,9 @@ class Common(object):
             self.result = True
         return self.result
 
-    def avatar2image(self)-> str:
+    def avatar2image(self):
         """
-            头像转换
+            企业微信图片base64
         """
         #TODO 处理图片
         if not self.value:

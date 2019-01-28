@@ -23,9 +23,9 @@
 
 ### 安装说明
 
-1. 使用pip安装scipy和scikit-image
+1. 使用pip安装numpy、opencv-python,用于比较本地的图片（头像和二维码）和企业微信的是否一致
     ```bash
-    pip install scipy scikit-image imageio  -i https://pypi.doubanio.com/simple
+    pip install numpy opencv-python -i https://pypi.doubanio.com/simple
 
     ```
 

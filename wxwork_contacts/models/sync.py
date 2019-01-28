@@ -2,12 +2,10 @@
 
 from ..api.CorpApi import *
 from ..helper.common import *
-from skimage import io
-import base64
-import urllib
-from PIL import Image
-from io import StringIO
-from httplib2 import Http
+import base64,urllib,os
+import numpy as np
+import cv2
+
 
 class SyncDepartment(object):
     def __init__(self, corpid, secret, department_id, department):
@@ -104,33 +102,135 @@ class SetDepartment(object):
         })
         self.result = True
 
+class SyncImage(object):
+    def __init__(self, corpid, secret, department_id, file_path):
+        self.corpid = corpid
+        self.secret = secret
+        self.department_id = department_id
+        self.file_path = file_path
+        self.result = None
+
+    def download_image(self):
+        api = CorpApi(self.corpid, self.secret)
+        response = api.httpCall(
+            CORP_API_TYPE['USER_LIST'],
+            {
+                'department_id': self.department_id,
+                'fetch_child': '1',
+            }
+        )
+        self.download_image_avatar(response['userlist'])
+        self.download_image_qr_code(response['userlist'])
+
+        return self.result
+
+    def check_identical_images(self,remote,local):
+        '''
+        比较远程图片和本地图片是否一致
+        :param remote: 远程图片
+        :param local: 本地图片
+        :return: 布尔值
+        '''
+        try:
+            resp = urllib.request.urlopen(remote)
+            remote_img = np.asarray(bytearray(resp.read()), dtype="uint8")
+            remote_img = cv2.imdecode(remote_img, cv2.IMREAD_COLOR)
+
+            local_img = cv2.imread(local)
+
+            difference = cv2.subtract(remote_img, local_img)
+            result = not np.any(difference)
+            if result is True:
+                return True
+            else:
+                return False
+        except BaseException as e:
+            print(e)
+
+    def path_is_exists(self,path):
+        '''
+        检文件夹路径
+        :param path:
+        :return:
+        '''
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path
+
+    def download_image_avatar(self,response):
+        directory = self.file_path + "/avatar//"
+        self.path_is_exists(directory)
+        for obj in response:
+            remote_img = obj['avatar']
+            local_img = directory + obj['userid'] + ".jpg"
+            if os.path.exists(local_img):
+                if not self.check_identical_images(remote_img,local_img):
+                    try:
+                        avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
+                        file_avatar = open(local_img, "wb")  # 读取，写入
+                        file_avatar.write(avatar_data)
+                        file_avatar.close()
+                    except BaseException as e:
+                        print('头像错误-%s %s' %(obj['name'],e))
+                        pass
+                    print("头像图片不一致")
+                else:
+                    pass
+                    print("头像图片一致")
+            else:
+                try:
+                    avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
+                    file_avatar = open(local_img, "wb")  # 读取，写入
+                    file_avatar.write(avatar_data)
+                    file_avatar.close()
+                except BaseException as e:
+                    print('头像错误-%s %s' % (obj['name'], e))
+                    pass
+
+        self.result = True
+
+
+    def download_image_qr_code(self,response):
+        directory = self.file_path + "/qr_code//"
+        self.path_is_exists(directory)
+        for obj in response:
+            remote_img = obj['qr_code']
+            local_img = directory + obj['userid'] + ".png"
+            if os.path.exists(local_img):
+                if not self.check_identical_images(remote_img, local_img):
+                    try:
+                        qr_code_data = urllib.request.urlopen(remote_img).read()  # 打开URL
+                        file_qr_code = open(local_img, "wb")  # 读取，写入
+                        file_qr_code.write(qr_code_data)
+                        file_qr_code.close()
+                    except BaseException as e:
+                        print('二维码错误-%s %s' % (obj['name'], e))
+                        pass
+                    print("二维码图片不一致")
+                else:
+                    pass
+                    print("二维码图片一致")
+            else:
+                try:
+                    qr_code_data = urllib.request.urlopen(remote_img).read()  # 打开URL
+                    file_qr_code = open(local_img, "wb")  # 读取，写入
+                    file_qr_code.write(qr_code_data)
+                    file_qr_code.close()
+                except BaseException as e:
+                    print('二维码错误-%s %s' % (obj['name'], e))
+                    pass
+
+        self.result = True
+
 class SyncEmployee(object):
-    def __init__(self, corpid, secret, department_id, department, employee, sync_avatar):
+    def __init__(self, corpid, secret, department_id, department, employee, sync_img):
         self.corpid = corpid
         self.secret = secret
         self.department_id = department_id
         self.department = department
         self.employee = employee
-        self.sync_avatar = sync_avatar
+        self.sync_img = sync_img
         self.result = None
-
-    @staticmethod
-    def encode_image_as_base64(image_url, file_path, file_name):
-        print(image_url)
-        if  image_url in None:
-            # base64_data = None
-            continue
-        else:
-            try:
-                urllib.request.urlretrieve(image_url, file_path+file_name+".jpg")
-                with open(file_path+file_name+".jpg", "rb") as f:
-                    base64_data = base64.b64encode(f.read())
-            except Exception as e:
-                print(e)
-
-
-        print(base64_data)
-        return base64_data
 
     def sync_employee(self):
         api = CorpApi(self.corpid, self.secret)
@@ -164,18 +264,19 @@ class SyncEmployee(object):
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
-        if not self.sync_avatar:
-            avatar = None
-        else:
-            avatar = self.encode_image_as_base64(obj['avatar'],"d:\img\\",obj['userid'])
-            # avatar = Common(obj['avatar']).avatar2image()
+        # if not self.sync_img:
+        #     avatar = None
+        # else:
+        #     # avatar = self.encode_image_as_base64(obj['avatar'],"d:\img\\",obj['userid'])
+        #     avatar = self.encode_image_as_base64(obj['avatar'])
+        #     # avatar = Common(obj['avatar']).avatar2image()
 
         records.create({
             'userid': obj['userid'],
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
             'marital': None, # 不生成婚姻状况
-            'image': avatar,
+            # 'image': avatar,
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -266,11 +367,11 @@ class SyncEmployee(object):
         self.result = True
 
 class SyncEmployeeToUser(object):
-    def __init__(self, employee, user, group, sync_avatar):
+    def __init__(self, employee, user, group, sync_img):
         self.employee = employee
         self.user = user
         self.group = group
-        self.sync_avatar = sync_avatar
+        self.sync_img = sync_img
         # self.provider = provider
         self.result = None
 
@@ -303,7 +404,7 @@ class SyncEmployeeToUser(object):
         # print(email)
         # oauth_provider_id = provider.search([('name', '=', '企业微信一键登录'),],limit=1).id
 
-        if not self.sync_avatar:
+        if not self.sync_img:
             image = None
         else:
             image = employee.image

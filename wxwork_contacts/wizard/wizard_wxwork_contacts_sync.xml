@@ -48,6 +48,7 @@
                         <group>
                             <field name="department_sync_result"/>
                             <field name="department_set_result"/>
+                            <field name="image_sync_result"/>
                             <field name="employee_sync_result"/>
                             <field name="leave_sync_result"/>
                             <field name="user_sync_result"/>

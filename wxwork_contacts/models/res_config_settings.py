@@ -16,8 +16,9 @@ class ResConfigSettings(models.TransientModel):
     contacts_access_token = fields.Char('通讯录token', config_parameter='wxwork.contacts_access_token', readonly=True, )
     contacts_auto_sync_hr_enabled = fields.Boolean(
         '允许企业微信通讯录自动更新HR', config_parameter='wxwork.contacts_auto_sync_hr_enabled', )
-    contacts_sync_avatar_enabled = fields.Boolean(
-        '允许同步企业微信头像', config_parameter='wxwork.contacts_sync_avatar_enabled', )
+    contacts_sync_img_enabled = fields.Boolean(
+        '允许同步企业微信图片', config_parameter='wxwork.contacts_sync_img_enabled', )
+    contacts_img_path = fields.Char('企业微信图片存储路径', config_parameter='wxwork.contacts_img_path', )
     contacts_sync_hr_department_id = fields.Integer('需同步的企业微信部门ID',
                                                     config_parameter='wxwork.contacts_sync_hr_department_id')
     contacts_edit_enabled = fields.Boolean('允许API编辑企业微信通讯录', config_parameter='wxwork.contacts_edit_enabled',
@@ -42,7 +43,7 @@ class ResConfigSettings(models.TransientModel):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
-        sync_avatar = params.get_param('wxwork.contacts_sync_avatar_enabled')
+        sync_img = params.get_param('wxwork.contacts_sync_img_enabled')
         Department = self.env['hr.department']
         Employee = self.env['hr.employee']
         User = self.env['res.users']
@@ -50,7 +51,7 @@ class ResConfigSettings(models.TransientModel):
         # Provider = self.env['auth.oauth.provider']
 
         try:
-            if not Common(auto_sync).str_to_bool():
+            if not auto_sync:
                 _logger.info("任务失败提示-当前设置不允许从企业微信同步到odoo，请修改相关的设置")
             else:
                 department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
@@ -66,20 +67,20 @@ class ResConfigSettings(models.TransientModel):
                     _logger.info("任务提示-设置企业微信上级部门成功")
 
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                     Employee, sync_avatar).sync_employee()
+                                                     Employee, sync_img).sync_employee()
                 if not employee_sync_operate:
                     _logger.info("任务失败提示-企业微信员工同步失败")
                 else:
                     _logger.info("任务提示-企业微信员工同步成功")
 
                 leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                  Employee, sync_avatar).update_leave_employee()
+                                                  Employee, sync_img).update_leave_employee()
                 if not leave_sync_operate:
                     _logger.info("任务失败提示-企业微信离职员工同步失败")
                 else:
                     _logger.info("任务提示-企业微信离职员工同步成功")
 
-                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, sync_avatar).sync_user()
+                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups, sync_img).sync_user()
                 if not user_sync_operate:
                     _logger.info("任务失败提示-企业微信同步系统用户同步失败")
                 else:
