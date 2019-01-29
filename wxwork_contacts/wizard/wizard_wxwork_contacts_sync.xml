@@ -10,7 +10,7 @@
                     <separator string="从企业微信更新下载并更新本地 HR 和 USER"/>
                     <group>
                         <div>
-                            首次同步因需要通过互联网下载企业微信用户头像和二维码，故比较慢，请耐心等候。<br/>
+                            首次同步因需要通过互联网下载企业微信用户头像和二维码，企业微信用户多的话很慢，容易造成超时，建议首次同步从同步图片开始。<br/>
                             若同步失败,请在配置中停用"允许同步企业微信图片"功能。<br/>
                             同时使用"Odoo加速计算器"配置odoo.conf。<br/>
                         </div>
@@ -42,6 +42,7 @@
             <field name="name">数据同步结果</field>
             <field name="model">wxwork.contacts.wizard</field>
             <field name="type">form</field>
+            <field name="priority" eval="1"/>
             <field name="arch" type="xml">
                 <form string="企业微信通讯簿数据同步情况" edit="false" create="false">
                     <group>
@@ -86,7 +87,7 @@
         </record>
 
         <record id="open_view_wxwork_contacts_sync_tree" model="ir.actions.act_window">
-            <field name="name">企业微信通讯簿数据同步记录列表</field>
+            <field name="name">通讯录同步记录列表</field>
             <field name="res_model">wxwork.contacts.wizard</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>

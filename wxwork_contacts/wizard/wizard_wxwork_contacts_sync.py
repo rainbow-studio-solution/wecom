@@ -12,8 +12,6 @@ class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
     _description = '同步部门'
 
-
-
     department_sync_result = fields.Boolean(string='部门同步结果',default=False, readonly=True )
     department_set_result = fields.Boolean(string='设置上级部门结果',default=False, readonly=True )
     image_sync_result = fields.Boolean(string='图片同步结果',default=False, readonly=True )
@@ -22,6 +20,47 @@ class ResConfigSettings(models.TransientModel):
     user_sync_result = fields.Boolean(string='用户同步结果',default=False, readonly=True )
     employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
     result = fields.Text(string='结果', readonly=True)
+
+    @api.multi
+    def action_sync_image(self):
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_img = params.get_param('wxwork.contacts_sync_img_enabled')
+        img_path = params.get_param('wxwork.contacts_img_path')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+
+        result = []
+        if not sync_img:
+            raise UserError('提示：当前设置不允许下载企业微信图片 \n\n 请修改相关的设置')
+        else:
+            try:
+                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
+                if not image_sync_operate:
+                    self.image_sync_result = False
+                    result.append("企业微信图片同步失败")
+                else:
+                    self.image_sync_result = True
+                    result.append("企业微信图片同步成功")
+            except BaseException:
+                pass
+
+        self.result = '\n'.join(result)
+
+        form_view = self.env.ref('wxwork_contacts.dialog_wxwork_image_sync_result')
+        return {
+            'name': '图片同步结果',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'wxwork.contacts.wizard',
+            'res_id': self.id,
+            'view_id': False,
+            'views': [[form_view.id, 'form'], ],
+            'type': 'ir.actions.act_window',
+            'context': {'form_view_ref': 'wxwork_contacts.dialog_wxwork_image_sync_result'},
+            'target': 'new',  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
+        }
+
 
     @api.multi
     def action_sync_contacts(self):
@@ -67,16 +106,6 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-            try:
-                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
-                if not image_sync_operate:
-                    self.image_sync_result = False
-                    result.append("企业微信图片同步失败")
-                else:
-                    self.image_sync_result = True
-                    result.append("企业微信图片同步成功")
-            except BaseException:
-                pass
 
             try:
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
@@ -124,7 +153,6 @@ class ResConfigSettings(models.TransientModel):
                     result.append('企业微信员工绑定系统用户成功')
             except BaseException:
                 pass
-
 
         self.result = '\n'.join(result)
 

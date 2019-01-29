@@ -33,6 +33,28 @@ class ResConfigSettings(models.TransientModel):
             "wxwork.contacts_access_token", api.getAccessToken())
 
     @api.multi
+    def cron_sync_image(self):
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+        sync_img = params.get_param('wxwork.contacts_sync_img_enabled')
+        img_path = params.get_param('wxwork.contacts_img_path')
+
+        try:
+            if not sync_img:
+                _logger.info("任务失败提示-当前设置不允许从企业微信下载图片，请修改相关的设置")
+            else:
+                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
+                if not image_sync_operate:
+                    _logger.info("任务失败提示-企业微信图片同步失败")
+                else:
+                    _logger.info("任务提示-企业微信图片同步成功")
+        except Exception as e:
+            _logger.error("任务失败提示-定时下载企业微信通讯簿图片,详细原因:%s" % (e))
+
+
+    @api.multi
     def cron_sync_contacts(self):
         """
         同步通讯录任务
@@ -67,12 +89,6 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-设置企业微信上级部门成功")
 
-                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
-                if not image_sync_operate:
-                    _logger.info("任务失败提示-企业微信图片同步失败")
-                else:
-                    _logger.info("任务提示-企业微信图片同步成功")
-
                 employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
                                                      Employee, sync_img,img_path).sync_employee()
                 if not employee_sync_operate:
@@ -99,5 +115,5 @@ class ResConfigSettings(models.TransientModel):
                 else:
                     _logger.info("任务提示-企业微信员工绑定系统用户成功")
 
-        except Exception:
-            _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,请手工执行数据同步查看详细原因")
+        except Exception as e:
+            _logger.error("任务失败提示-定时同步企业微信通讯簿任务无法执行,详细原因:%s" % (e))

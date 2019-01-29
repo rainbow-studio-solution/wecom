@@ -2,8 +2,15 @@
 <odoo>
     <data>
 
-        <record id="ir_cron_act" model="ir.actions.act_window">
-            <field name="name">企业微信：定时同步通讯录</field>
+        <record id="ir_cron_act_image" model="ir.actions.act_window">
+            <field name="name">企业微信：定时同步通讯录图片</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="ir_cron_sync_wxwork_contacts_images"/>
+        </record>
+        <record id="ir_cron_act_contacts" model="ir.actions.act_window">
+            <field name="name">企业微信：定时同步通讯录人员</field>
             <field name="res_model">ir.cron</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>

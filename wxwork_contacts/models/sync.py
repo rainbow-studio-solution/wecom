@@ -256,7 +256,7 @@ class SyncEmployee(object):
                           ('active', '=', True)]
                 records = self.employee.search(
                     domain +[
-                        ('userid', '=', obj['userid']),
+                        ('wxwork_id', '=', obj['userid']),
                         ('is_wxwork_employee', '=', True)],
                     limit=1)
                 if len(records) > 0:
@@ -287,11 +287,16 @@ class SyncEmployee(object):
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
 
-        avatar_file = self.img_path + "/avatar//" + obj['userid'] + ".jpg"
-        qr_code_file = self.img_path + "/qr_code//" + obj['userid'] + ".png"
+        if (platform.system() == 'Windows'):
+            avatar_file = self.img_path.replace("\\","/") + "/avatar/" + obj['userid'] + ".jpg"
+            qr_code_file = self.img_path.replace("\\","/")  + "/qr_code/" + obj['userid'] + ".png"
+        else:
+            avatar_file = self.img_path + "avatar/" + obj['userid'] + ".jpg"
+            qr_code_file = self.img_path + "qr_code/" + obj['userid'] + ".png"
+
         try:
             records.create({
-                'userid': obj['userid'],
+                'wxwork_id': obj['userid'],
                 'name': obj['name'],
                 'gender': Common(obj['gender']).gender(),
                 'marital': None, # 不生成婚姻状况
@@ -315,22 +320,17 @@ class SyncEmployee(object):
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_department(department))
 
-        avatar_file = self.img_path + "/avatar//" + obj['userid'] + ".jpg"
-        qr_code_file = self.img_path + "/qr_code//" + obj['userid'] + ".png"
-        if not os.path.exists(avatar_file):
-            avatar = None
+        if (platform.system() == 'Windows'):
+            avatar_file = self.img_path.replace("\\","/") + "/avatar/" + obj['userid'] + ".jpg"
+            qr_code_file = self.img_path.replace("\\","/")  + "/qr_code/" + obj['userid'] + ".png"
         else:
-            avatar = self.encode_image_as_base64(avatar_file)
-
-        if not os.path.exists(qr_code_file):
-            qr_code = None
-        else:
-            qr_code = self.encode_image_as_base64(qr_code_file)
+            avatar_file = self.img_path + "avatar/" + obj['userid'] + ".jpg"
+            qr_code_file = self.img_path + "qr_code/" + obj['userid'] + ".png"
 
         records.write({
             'name': obj['name'],
             'gender': Common(obj['gender']).gender(),
-            'image': avatar,
+            'image': self.encode_image_as_base64(avatar_file),
             'mobile_phone': obj['mobile'],
             'work_phone': obj['telephone'],
             'work_email': obj['email'],
@@ -338,7 +338,7 @@ class SyncEmployee(object):
             'alias': obj['alias'],
             'department_ids': [(6, 0, department_ids)],
             'wxwork_user_order': obj['order'],
-            'qr_code': qr_code,
+            'qr_code': self.encode_image_as_base64(qr_code_file),
             'is_wxwork_employee': True
         })
         self.result = True
@@ -379,14 +379,14 @@ class SyncEmployee(object):
                     ('is_wxwork_employee', '=', True)
                 ])
 
-            for obj in records:
-                list_employee.append(obj.userid)
+            for e in records:
+                list_employee.append(e.wxwork_id)
 
             list_user_leave = list(set(list_employee).difference(set(list_user)))
 
             for obj in list_user_leave:
                 employee = records.search([
-                    ('userid', '=', obj)
+                    ('wxwork_id', '=', obj)
                 ])
                 self.set_employee_active(employee)
             self.result = True
@@ -418,7 +418,7 @@ class SyncEmployeeToUser(object):
             for records in employee:
                 user = self.user.search(
                     domain + [
-                        ('userid', '=', records.userid),
+                        ('wxwork_id', '=', records.wxwork_id),
                         ('is_wxwork_user', '=', True)
                     ],limit=1
                 )
@@ -441,10 +441,10 @@ class SyncEmployeeToUser(object):
             image = employee.image
         user.create({
             'name': employee.name,
-            'login': employee.userid,
+            'login': employee.wxwork_id,
             'password':Common(8).random_passwd(),
             'email': email,
-            'userid': employee.userid,
+            'wxwork_id': employee.wxwork_id,
             'image': image,
             # 'qr_code': employee.qr_code,
             'active': employee.active,
@@ -465,7 +465,6 @@ class SyncEmployeeToUser(object):
         user.write({
             'name': employee.name,
             'active': employee.active,
-            # 'oauth_uid': employee.userid,
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
             'employee': True,
@@ -491,7 +490,7 @@ class EmployeeBindingUser(object):
             for records in employee:
                 user = self.user.search(
                     domain + [
-                        ('userid', '=', records.userid),
+                        ('wxwork_id', '=', records.wxwork_id),
                         ('is_wxwork_user', '=', True)
                     ], limit=1
                 )

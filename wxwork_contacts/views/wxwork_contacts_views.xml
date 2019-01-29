@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Top menu item -->
-        <!--<menuitem id="menu_wxwork_root" name="企业微信" web_icon="eis_wxwork,static/description/icon.png"/>-->
 
         <menuitem id="menu_wxwork_employee" name="员工管理"  parent="wxwork_base.menu_wxwork_root" sequence="10"/>
 
@@ -21,14 +19,20 @@
 
         <menuitem id="menu_wxwork_contacts_sync" name="数据同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
 
-        <menuitem id="menu_wxwork_contacts_wizard" name="向导同步" parent="menu_wxwork_contacts_sync"
-                  action="view_actions_wxwork_contacts_wizard" sequence="10"/>
+        <menuitem id="menu_wxwork_image_wizard" name="向导同步图片" parent="menu_wxwork_contacts_sync"
+                  action="view_actions_wxwork_image_wizard" sequence="10"/>
+
+        <menuitem id="menu_wxwork_contacts_wizard" name="向导同步通讯录" parent="menu_wxwork_contacts_sync"
+                  action="view_actions_wxwork_contacts_wizard" sequence="20"/>
 
         <menuitem id="menu_wxwork_contacts_sync_record" name="向导同步记录" parent="menu_wxwork_contacts_sync"
-                  action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
+                  action="open_view_wxwork_contacts_sync_tree" sequence="30"/>
 
-        <menuitem id="menu_wxwork_contacts_sync_auto" name="自动同步" parent="menu_wxwork_contacts_sync"
-                  action="ir_cron_act" sequence="30"/>
+        <menuitem id="menu_wxwork_contacts_image_sync_auto" name="图片同步任务" parent="menu_wxwork_contacts_sync"
+                  action="ir_cron_act_image" sequence="40"/>
+
+        <menuitem id="menu_wxwork_contacts_sync_auto" name="通讯录同步任务" parent="menu_wxwork_contacts_sync"
+                  action="ir_cron_act_contacts" sequence="50"/>
 
         <!-- menu categories -->
     </data>

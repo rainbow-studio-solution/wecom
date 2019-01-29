@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wxwork_contacts_image_wizard" model="ir.ui.view">
+            <field name="name">企业微信图片同步</field>
+            <field name="model">wxwork.contacts.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="企业微信图片同步" >
+                    <separator string="从企业微信下载图片到指定目录"/>
+                    <group>
+                        <div>
+                            首次同步因需要通过互联网下载企业微信用户头像和二维码，企业微信用户多的话很慢，容易造成超时，建议首次同步从同步图片开始。<br/>
+                            同步图片功能仅用于企业微信用户数量大（>200）情况,而后则是增量更新图片了<br/>
+                        </div>
+                    </group>
+                    <footer>
+                        <button name="action_sync_image" string="开始同步" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="dialog_wxwork_image_sync_result" model="ir.ui.view">
+            <field name="name">图片同步结果</field>
+            <field name="model">wxwork.contacts.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="企业微信通讯图片同步情况" edit="false" create="false">
+                    <group>
+                        <group>
+                            <field name="image_sync_result"/>
+                        </group>
+                        <group>
+                            <field name="create_date" string="启动时间"/>
+                            <field name="write_date" string="完成时间"/>
+                            <field name="result"  />
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_actions_wxwork_image_wizard" model="ir.actions.act_window">
+            <field name="name">图片同步</field>
+            <field name="res_model">wxwork.contacts.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_contacts_image_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

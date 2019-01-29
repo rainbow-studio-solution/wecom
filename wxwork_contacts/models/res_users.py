@@ -8,7 +8,7 @@ class Users(models.Model):
     _description = '企业微信员工'
     _order = 'wxwork_user_order'
 
-    userid = fields.Char(string='企微用户ID', readonly=True)
+    wxwork_id = fields.Char(string='企微用户ID', readonly=True)
     is_wxwork_notice =fields.Boolean('是否接收提醒', default=True)
     is_wxwork_user = fields.Boolean('企微用户', readonly=True)
     # qr_code = fields.Binary(string='个人二维码', help='员工个人二维码，扫描可添加为外部联系人', readonly=True)

@@ -19,7 +19,7 @@
                     <page name="wxwork_settings" string="企业微信设置" >
                         <group>
                             <group>
-                                <field name="userid" />
+                                <field name="wxwork_id" />
                                 <field name="is_wxwork_employee" widget="checkbox"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
