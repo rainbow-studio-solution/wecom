@@ -95,7 +95,8 @@
                                 <div class="row">
                                     <div class="text-muted col-md-12">
                                         用于保存企业微信用户头像和二维码图片的路径<br/>
-                                        参考：Windows：D:\img\  ； Linux：/home/img/
+                                        参考：Windows：D:\img\  <br/>
+                                        Linux：/home/odoo/img/ 注：odoo为当前系统账号
                                     </div>
                                 </div>
                                 <div class="content-group">

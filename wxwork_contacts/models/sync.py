@@ -2,6 +2,7 @@
 
 from ..api.CorpApi import *
 from ..helper.common import *
+import platform
 import base64,urllib,os,platform,cv2
 import numpy as np
 
@@ -145,7 +146,8 @@ class SyncImage(object):
             else:
                 return False
         except BaseException as e:
-            print(e)
+            return False
+            # print(e)
 
     def path_is_exists(self,path):
         '''
@@ -157,16 +159,13 @@ class SyncImage(object):
             os.makedirs(path)
         return path
 
-    def get_pach(self):
-        print(platform.system())
-        if (platform.system() == 'Windows'):
-            pass
-        elif (platform.system() == 'Linux'):
-            pass
-
 
     def download_image_avatar(self,response):
-        directory = self.file_path + "/avatar//"
+        if (platform.system() == 'Windows'):
+            directory = self.file_path.replace("\\", "/") + "avatar/"
+        else:
+            directory = self.file_path + "avatar/"
+        # print(platform.system(),directory)
         self.path_is_exists(directory)
         for obj in response:
             remote_img = obj['avatar']
@@ -197,7 +196,10 @@ class SyncImage(object):
         self.result = True
 
     def download_image_qr_code(self,response):
-        directory = self.file_path + "/qr_code//"
+        if (platform.system() == 'Windows'):
+            directory = self.file_path.replace("\\","/") + "qr_code/"
+        else:
+            directory = self.file_path + "qr_code/"
         self.path_is_exists(directory)
         for obj in response:
             remote_img = obj['qr_code']
@@ -444,7 +446,7 @@ class SyncEmployeeToUser(object):
             'email': email,
             'userid': employee.userid,
             'image': image,
-            'qr_code': employee.qr_code,
+            # 'qr_code': employee.qr_code,
             'active': employee.active,
             'wxwork_user_order': employee.wxwork_user_order,
             'mobile': employee.mobile_phone,

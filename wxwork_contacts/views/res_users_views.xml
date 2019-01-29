@@ -28,9 +28,9 @@
                                 <field name="userid"/>
                                 <field name="is_wxwork_user"/>
                             </group>
-                            <group>
-                                <field name="qr_code" widget="image" class="oe_avatar"/>
-                            </group>
+                            <!--<group>-->
+                                <!--<field name="qr_code" widget="image" class="oe_avatar"/>-->
+                            <!--</group>-->
                         </group>
                     </page>
                 </xpath>
