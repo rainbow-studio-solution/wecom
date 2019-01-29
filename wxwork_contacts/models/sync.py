@@ -7,8 +7,8 @@ import base64,urllib,os,platform,cv2
 import numpy as np
 import requests
 import time
-from lxml import etree
 from threading import Thread
+from multiprocessing.dummy import Pool as ThreadPool
 
 # start 以下为解决 image file is truncated (18 bytes not processed)错误
 from PIL import ImageFile
@@ -108,6 +108,7 @@ class SetDepartment(object):
         })
         self.result = True
 
+
 class SyncImage(object):
     def __init__(self, corpid, secret, department_id, file_path):
         self.corpid = corpid
@@ -115,6 +116,36 @@ class SyncImage(object):
         self.department_id = department_id
         self.file_path = file_path
         self.result = None
+
+
+    def run(self):
+        if (platform.system() == 'Windows'):
+            avatar_directory = self.file_path.replace("\\", "/") + "avatar/"
+            qr_code_directory = self.file_path.replace("\\", "/") + "qr_code/"
+        else:
+            avatar_directory = self.file_path + "avatar/"
+            qr_code_directory = self.file_path + "qr_code/"
+        self.path_is_exists(avatar_directory)
+        self.path_is_exists(qr_code_directory)
+
+        user_list,avatar_urls,qr_code_urls = self.generate_image_list()
+
+        start = time.time()
+        for i in range(len(user_list)):
+            remote_avatar_img = avatar_urls[i]
+            local_avatar_img = avatar_directory + user_list[i]+ ".jpg"
+
+            remote_qr_code_img = qr_code_urls[i]
+            local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
+
+            t1 = Thread(target=self.check_image, args=[remote_avatar_img,local_avatar_img])
+            t1.start()
+            t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
+            t2.start()
+            # self.check_image(remote_avatar_img,local_avatar_img)
+            # self.check_image(remote_qr_code_img,local_qr_code_img)
+        end = time.time()
+        print('Total cost:', end - start, 's')
 
     def generate_image_list(self):
         '''
@@ -136,47 +167,17 @@ class SyncImage(object):
             userid_list.append(object['userid'])
             avatar_urls.append(object['avatar'])
             qr_code_urls.append(object['qr_code'])
-        return (userid_list,avatar_urls,qr_code_urls)
+        return userid_list,avatar_urls,qr_code_urls
 
-    def download(self):
-        pass
-
-    def download_image(self):
-        api = CorpApi(self.corpid, self.secret)
-        response = api.httpCall(
-            CORP_API_TYPE['USER_LIST'],
-            {
-                'department_id': self.department_id,
-                'fetch_child': '1',
-            }
-        )
-        if (platform.system() == 'Windows'):
-            avatar_directory = self.file_path.replace("\\", "/") + "avatar/"
-            qr_code_directory = self.file_path.replace("\\", "/") + "qr_code/"
-        else:
-            avatar_directory = self.file_path + "avatar/"
-            qr_code_directory = self.file_path + "qr_code/"
-
-        download_list = []
-        userid_list = []
-        avatar_urls = []
-        qr_code_urls = []
-        for object in response['userlist']:
-            # json = "'userid': '%s'," % (object['userid']) + "'avatar': '%s'," % (
-            # object['avatar']) + "'qr_code': '%s'," % (object['qr_code']) + "'userid':'%s'," % (
-            #            avatar_directory)
-            userid_list.append(object['userid'])
-            avatar_urls.append(object['avatar'])
-            qr_code_urls.append(object['qr_code'])
-            # download_list.append(json)
-
-
-        # list_avatar = self.generate_image_list_avatar(response['userlist'])
-        # list_qr_code = self.generate_image_list_qr_code(response['userlist'])
-        # self.result = True
-        # return self.result
-
-
+    def path_is_exists(self,path):
+        '''
+        检文件夹路径
+        :param path:
+        :return:
+        '''
+        if not os.path.exists(path):
+            os.makedirs(path)
+        return path
 
     def check_identical_images(self,remote,local):
         '''
@@ -200,94 +201,25 @@ class SyncImage(object):
             return False
             # print(e)
 
-    def path_is_exists(self,path):
-        '''
-        检文件夹路径
-        :param path:
-        :return:
-        '''
-        if not os.path.exists(path):
-            os.makedirs(path)
-        return path
-
-    def generate_image_list_avatar(self,response):
-        if (platform.system() == 'Windows'):
-            directory = self.file_path.replace("\\", "/") + "avatar/"
+    def check_image(self,remote_img,local_img):
+        # 是否存在本地图片
+        if os.path.exists(local_img):
+            # 比较本地远程和本地图片
+            if not self.check_identical_images(remote_img, local_img):
+                self.download_image(remote_img, local_img)
         else:
-            directory = self.file_path + "avatar/"
-        # print(platform.system(),directory)
-        self.path_is_exists(directory)
-        download_list = []
-        for obj in response:
-            remote_img = obj['avatar']
-            local_img = directory + obj['userid'] + ".jpg"
-            if os.path.exists(local_img):
-                if not self.check_identical_images(remote_img,local_img):
-                    # self.download_queue = queue.Queue()
-                    download_list.append(remote_img,directory)
-                    # try:
-                    #     avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
-                    #     file_avatar = open(local_img, "wb")  # 读取，写入
-                    #     file_avatar.write(avatar_data)
-                    #     file_avatar.close()
-                    # except BaseException as e:
-                    #     # print('头像错误-%s %s' %(obj['name'],e))
-                    #     pass
-                    # # print("头像图片不一致")
-                else:
-                    pass
-                    # print("头像图片一致")
-            else:
-                try:
-                    download_list.append(remote_img, directory)
-                    # avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
-                    # file_avatar = open(local_img, "wb")  # 读取，写入
-                    # file_avatar.write(avatar_data)
-                    # file_avatar.close()
-                except BaseException as e:
-                    # print('头像错误-%s %s' % (obj['name'], e))
-                    pass
-        print(download_list)
-        # return download_list
+            self.download_image(remote_img, local_img)
 
-    def generate_image_list_qr_code(self,response):
-        if (platform.system() == 'Windows'):
-            directory = self.file_path.replace("\\","/") + "qr_code/"
-        else:
-            directory = self.file_path + "qr_code/"
-        self.path_is_exists(directory)
-        download_list = []
-        for obj in response:
-            remote_img = obj['qr_code']
-            local_img = directory + obj['userid'] + ".png"
-            if os.path.exists(local_img):
-                if not self.check_identical_images(remote_img, local_img):
-                    try:
-                        download_list.append(remote_img, directory)
-                        # qr_code_data = urllib.request.urlopen(remote_img).read()  # 打开URL
-                        # file_qr_code = open(local_img, "wb")  # 读取，写入
-                        # file_qr_code.write(qr_code_data)
-                        # file_qr_code.close()
-                    except BaseException as e:
-                        # print('二维码错误-%s %s' % (obj['name'], e))
-                        pass
-                    # print("二维码图片不一致")
-                else:
-                    pass
-                    # print("二维码图片一致")
-            else:
-                try:
-                    download_list.append(remote_img, directory)
-                    # qr_code_data = urllib.request.urlopen(remote_img).read()  # 打开URL
-                    # file_qr_code = open(local_img, "wb")  # 读取，写入
-                    # file_qr_code.write(qr_code_data)
-                    # file_qr_code.close()
-                except BaseException as e:
-                    # print('二维码错误-%s %s' % (obj['name'], e))
-                    pass
+    def download_image(self,remote_img,local_img):
+        try:
+            avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
+            file_avatar = open(local_img, "wb")  # 读取，写入
+            file_avatar.write(avatar_data)
+            file_avatar.close()
+        except BaseException as e:
+            # print('头像错误-%s %s' %(obj['name'],e))
+            pass
 
-        print(download_list)
-        # return download_list
 
 class SyncEmployee(object):
     def __init__(self, corpid, secret, department_id, department, employee, sync_img, img_path):

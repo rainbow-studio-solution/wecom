@@ -35,7 +35,7 @@ class ResConfigSettings(models.TransientModel):
             raise UserError('提示：当前设置不允许下载企业微信图片 \n\n 请修改相关的设置')
         else:
             try:
-                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).download_image()
+                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).run()
                 if not image_sync_operate:
                     self.image_sync_result = False
                     result.append("企业微信图片同步失败")
@@ -45,21 +45,21 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-        self.result = '\n'.join(result)
-
-        form_view = self.env.ref('wxwork_contacts.dialog_wxwork_image_sync_result')
-        return {
-            'name': '图片同步结果',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'res_model': 'wxwork.contacts.wizard',
-            'res_id': self.id,
-            'view_id': False,
-            'views': [[form_view.id, 'form'], ],
-            'type': 'ir.actions.act_window',
-            'context': {'form_view_ref': 'wxwork_contacts.dialog_wxwork_image_sync_result'},
-            'target': 'new',  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
-        }
+        # self.result = '\n'.join(result)
+        #
+        # form_view = self.env.ref('wxwork_contacts.dialog_wxwork_image_sync_result')
+        # return {
+        #     'name': '图片同步结果',
+        #     'view_type': 'form',
+        #     'view_mode': 'form',
+        #     'res_model': 'wxwork.contacts.wizard',
+        #     'res_id': self.id,
+        #     'view_id': False,
+        #     'views': [[form_view.id, 'form'], ],
+        #     'type': 'ir.actions.act_window',
+        #     'context': {'form_view_ref': 'wxwork_contacts.dialog_wxwork_image_sync_result'},
+        #     'target': 'new',  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
+        # }
 
 
     @api.multi
