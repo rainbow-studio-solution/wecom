@@ -21,7 +21,7 @@
         'base',
         'hr',
         'portal',
-        # 'auth_oauth',
+        'auth_oauth',
         'wxwork_base',
     ],
     'data': [

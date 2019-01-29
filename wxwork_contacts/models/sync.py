@@ -442,6 +442,7 @@ class SyncEmployeeToUser(object):
         user.create({
             'name': employee.name,
             'login': employee.wxwork_id,
+            'oauth_uid': employee.wxwork_id,
             'password':Common(8).random_passwd(),
             'email': email,
             'wxwork_id': employee.wxwork_id,
@@ -464,6 +465,7 @@ class SyncEmployeeToUser(object):
     def update_user(self, employee, user):
         user.write({
             'name': employee.name,
+            'oauth_uid': employee.wxwork_id,
             'active': employee.active,
             'wxwork_user_order': employee.wxwork_user_order,
             'is_wxwork_user': True,
