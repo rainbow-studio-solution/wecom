@@ -116,6 +116,31 @@ class SyncImage(object):
         self.file_path = file_path
         self.result = None
 
+    def generate_image_list(self):
+        '''
+        生成userid、avatar、qr_code的List
+        :return: list
+        '''
+        api = CorpApi(self.corpid, self.secret)
+        response = api.httpCall(
+            CORP_API_TYPE['USER_LIST'],
+            {
+                'department_id': self.department_id,
+                'fetch_child': '1',
+            }
+        )
+        userid_list = []
+        avatar_urls = []
+        qr_code_urls = []
+        for object in response['userlist']:
+            userid_list.append(object['userid'])
+            avatar_urls.append(object['avatar'])
+            qr_code_urls.append(object['qr_code'])
+        return (userid_list,avatar_urls,qr_code_urls)
+
+    def download(self):
+        pass
+
     def download_image(self):
         api = CorpApi(self.corpid, self.secret)
         response = api.httpCall(
