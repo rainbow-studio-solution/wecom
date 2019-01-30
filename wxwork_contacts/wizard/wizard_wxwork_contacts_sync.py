@@ -5,7 +5,6 @@ from odoo.http import request
 from ..helper.common import Common
 from odoo.exceptions import UserError
 from ..models.sync import *
-from ..models.hr_employee import *
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
@@ -83,30 +82,32 @@ class ResConfigSettings(models.TransientModel):
         if not auto_sync:
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
-            # try:
-            #     times_department_sync,department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
-            #     if not department_sync_operate:
-            #         self.department_sync_result = False
-            #         result.append("企业微信同步部门失败")
-            #     else:
-            #         self.department_sync_result = True
-            #         result.append("企业微信同步部门成功")
-            # except BaseException:
-            #     pass
-            #
-            # try:
-            #     times_set_department,set_department_operate = SetDepartment(Department).set_parent_department()
-            #     if not set_department_operate:
-            #         self.department_set_result = False
-            #         result.append("企业微信设置上级部门失败")
-            #     else:
-            #         self.department_set_result = True
-            #         result.append("企业微信设置上级部门成功")
-            # except BaseException:
-            #     pass
+            try:
+                times_department_sync,department_sync_operate = self.env['hr.department'].sync_department()
+                times.append(times_department_sync)
+                if not department_sync_operate:
+                    self.department_sync_result = False
+                    result.append("企业微信同步部门失败")
+                else:
+                    self.department_sync_result = True
+                    result.append("企业微信同步部门成功")
+            except BaseException:
+                pass
 
             try:
-                times_employee_sync, employee_sync_operate=  self.env['hr.employee'].sync_employee()
+                times_set_department,set_department_operate = self.env['hr.department'].set_parent_department()
+                times.append(times_set_department)
+                if not set_department_operate:
+                    self.department_set_result = False
+                    result.append("企业微信设置上级部门失败")
+                else:
+                    self.department_set_result = True
+                    result.append("企业微信设置上级部门成功")
+            except BaseException:
+                pass
+
+            try:
+                times_employee_sync, employee_sync_operate =  self.env['hr.employee'].sync_employee()
                 times.append(times_employee_sync)
                 if not employee_sync_operate:
                     self.employee_sync_result = False
@@ -117,18 +118,18 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-            # try:
-            #     times_leave_sync,leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-            #                                       Employee,sync_img,img_path).update_leave_employee()
-            #     if not leave_sync_operate:
-            #         self.leave_sync_result = False
-            #         result.append('企业微信离职员工同步失败')
-            #     else:
-            #         self.leave_sync_result = True
-            #         result.append('企业微信离职员工同步成功')
-            # except BaseException:
-            #     pass
-            #
+            try:
+                times_leave_sync,leave_sync_operate = self.env['hr.employee'].update_leave_employee()
+                times.append(times_leave_sync)
+                if not leave_sync_operate:
+                    self.leave_sync_result = False
+                    result.append('企业微信离职员工同步失败')
+                else:
+                    self.leave_sync_result = True
+                    result.append('企业微信离职员工同步成功')
+            except BaseException:
+                pass
+
             # try:
             #     times_user_sync,user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
             #     if not user_sync_operate:

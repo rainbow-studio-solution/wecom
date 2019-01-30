@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, registry, SUPERUSER_ID
+from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
 import logging,platform
@@ -35,7 +35,7 @@ class HrEmployee(models.Model):
         api = CorpApi(corpid, secret)
         try:
             response = api.httpCall(
-                CORP_API_TYPE['USER_LIST'],
+                CORP_API_TYPE['DEPARTMENT_LIST'],
                 {
                     'department_id': sync_department_id,
                     'fetch_child': '1',
@@ -45,7 +45,6 @@ class HrEmployee(models.Model):
             for obj in response['userlist']:
                 threaded_sync = threading.Thread(target=self.run, args=[obj])
                 threaded_sync.start()
-                # self.run(obj)
             end = time.time()
             times = end - start
             result = True
@@ -149,7 +148,6 @@ class HrEmployee(models.Model):
 
         return result
 
-
     @api.multi
     def encode_image_as_base64(self,image_path):
         # if not self.sync_img:
@@ -177,4 +175,67 @@ class HrEmployee(models.Model):
         except BaseException:
             pass
 
+    @api.multi
+    def update_leave_employee(self):
+        """
+                比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
+                """
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+        api = CorpApi(corpid, secret)
 
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE['USER_LIST'],
+                {
+                    'department_id': sync_department_id,
+                    'fetch_child': '1',
+                }
+            )
+            list_user = []
+            list_employee = []
+
+            for obj in response['userlist']:
+                list_user.append(obj['userid'])
+
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            env = self.sudo().env['hr.employee']
+
+            domain = ['|', ('active', '=', False),
+                      ('active', '=', True)]
+            records = env.search(
+                domain + [
+                    ('is_wxwork_employee', '=', True)
+                ])
+
+            for employee in records:
+                list_employee.append(employee.wxwork_id)
+
+            list_user_leave = list(set(list_employee).difference(set(list_user)))
+
+            start = time.time()
+
+
+            for obj in list_user_leave:
+                employee = records.search([
+                    ('wxwork_id', '=', obj)
+                ])
+                threaded = threading.Thread(target=self.set_employee_active, args=[employee])
+                threaded.start()
+                # self.set_employee_active(employee)
+            end = time.time()
+            self.times = end - start
+
+            self.result = True
+        except BaseException:
+            self.result = False
+
+        return self.times, self.result
+
+    def set_employee_active(self,records):
+        records.write({
+            'active': False,
+        })

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-
-# _logger = logging.getLogger(__name__)
+from ..api.CorpApi import *
+from ..helper.common import *
+import logging,platform
+import threading
+import time
 
 
 class HrDepartment(models.Model):
@@ -22,3 +25,117 @@ class HrDepartment(models.Model):
         readonly=True,
     )
     is_wxwork_department = fields.Boolean('企微部门', readonly=True)
+
+    @api.multi
+    def sync_department(self):
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+        api = CorpApi(corpid, secret)
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE['USER_LIST'],
+                {
+                    'id': sync_department_id,
+                }
+            )
+            start = time.time()
+            for obj in response['department']:
+                threaded_sync = threading.Thread(target=self.threaded_sync_run, args=[obj])
+                threaded_sync.start()
+            end = time.time()
+            times = end - start
+            result = True
+        except BaseException as e:
+            print(repr(e))
+            result = False
+        return times,result
+
+    @api.multi
+    def threaded_sync_run(self, obj):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            env = self.sudo().env['hr.department']
+            # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
+            records = env.search([
+                ('wxwork_department_id', '=', obj['id']),
+                ('is_wxwork_department', '=', True)],
+                limit=1)
+            try:
+                if len(records) >0:
+                    self.update_department(records, obj)
+                else:
+                    self.create_department(records, obj)
+            except Exception as e:
+                print(repr(e))
+            new_cr.commit()
+            new_cr.close()
+
+    @api.multi
+    def create_department(self,records, obj):
+        try:
+            records.create({
+                'name': obj['name'],
+                'wxwork_department_id': obj['id'],
+                'wxwork_department_parent_id': obj['parentid'],
+                'wxwork_department_order': obj['order'],
+                'is_wxwork_department': True
+            })
+            result = True
+        except Exception as e:
+            print('部门:%s - %s' % (obj['name'], repr(e)))
+            result = False
+        return result
+
+    @api.multi
+    def update_employee(self,records, obj):
+        try:
+            records.write({
+                'name': obj['name'],
+                'wxwork_department_parent_id': obj['parentid'],
+                'wxwork_department_order': obj['order'],
+                'is_wxwork_department': True
+            })
+            result = True
+        except Exception as e:
+            print('部门:%s - %s' % (obj['name'], repr(e)))
+            result = False
+        return result
+
+    @api.multi
+    def set_parent_department(self):
+        """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            env = self.sudo().env['hr.department']
+            departments = env.search(
+                [('is_wxwork_department', '=', True)])
+            start = time.time()
+            try:
+                for dep in departments:
+                    if not dep.wxwork_department_id:
+                        pass
+                    else:
+                        threaded_sync = threading.Thread(target=self.update_department_parent_id, args=[dep])
+                        threaded_sync.start()
+                        # self.update_department_parent_id(dep)
+                result = True
+            except BaseException:
+                result = False
+
+            end = time.time()
+            times = end - start
+
+            return times,result
+
+    def update_department_parent_id(self, dep):
+        parent_department = self.department.search([
+            ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
+            ('is_wxwork_department', '=', True)
+        ])
+        dep.write({
+            'parent_id': parent_department.id,
+        })
