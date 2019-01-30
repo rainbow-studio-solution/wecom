@@ -1,4 +1,5 @@
 # 企业微信 For Odoo 12.0
+[![Help](http://img.shields.io/badge/12.0-帮助-875A7B.svg?style=flat&colorA=8F8F8F)]()
 
 ### 功能介绍
 
