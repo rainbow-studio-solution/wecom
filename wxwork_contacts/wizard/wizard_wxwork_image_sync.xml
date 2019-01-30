@@ -32,8 +32,7 @@
                             <field name="image_sync_result"/>
                         </group>
                         <group>
-                            <field name="create_date" string="启动时间"/>
-                            <field name="write_date" string="完成时间"/>
+                            <field name="times" />
                             <field name="result"  />
                         </group>
                     </group>

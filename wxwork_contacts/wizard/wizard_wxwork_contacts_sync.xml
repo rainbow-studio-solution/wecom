@@ -56,8 +56,7 @@
                             <field name="employee_binding_user_result"/>
                         </group>
                         <group>
-                            <field name="create_date" string="启动时间"/>
-                            <field name="write_date" string="完成时间"/>
+                            <field name="times" />
                             <field name="result"  />
                         </group>
                     </group>
@@ -80,8 +79,7 @@
                     <field name="leave_sync_result" string="离职员工同步"/>
                     <field name="user_sync_result" string="用户同步"/>
                     <field name="employee_binding_user_result" string="员工绑定用户"/>
-                    <field name="create_date" string="启动时间"/>
-                    <field name="write_date" string="完成时间"/>
+                    <field name="times" />
                 </tree>
             </field>
         </record>

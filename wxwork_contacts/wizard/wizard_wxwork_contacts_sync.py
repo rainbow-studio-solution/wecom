@@ -5,12 +5,11 @@ from odoo.http import request
 from ..helper.common import Common
 from odoo.exceptions import UserError
 from ..models.sync import *
-
-# department_sync_result = False
+from ..models.hr_employee import *
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
-    _description = '同步部门'
+    _description = '企业微信同步向导'
 
     department_sync_result = fields.Boolean(string='部门同步结果',default=False, readonly=True )
     department_set_result = fields.Boolean(string='设置上级部门结果',default=False, readonly=True )
@@ -19,6 +18,7 @@ class ResConfigSettings(models.TransientModel):
     leave_sync_result = fields.Boolean(string='离职员工同步结果',default=False, readonly=True )
     user_sync_result = fields.Boolean(string='用户同步结果',default=False, readonly=True )
     employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
+    times = fields.Integer(string='所用时间(秒)', readonly=True)
     result = fields.Text(string='结果', readonly=True)
 
     @api.multi
@@ -35,7 +35,7 @@ class ResConfigSettings(models.TransientModel):
             raise UserError('提示：当前设置不允许下载企业微信图片 \n\n 请修改相关的设置')
         else:
             try:
-                image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).run()
+                self.times,image_sync_operate = SyncImage(corpid, secret, sync_department_id, img_path).run()
                 if not image_sync_operate:
                     self.image_sync_result = False
                     result.append("企业微信图片同步失败")
@@ -45,22 +45,21 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-        # self.result = '\n'.join(result)
-        #
-        # form_view = self.env.ref('wxwork_contacts.dialog_wxwork_image_sync_result')
-        # return {
-        #     'name': '图片同步结果',
-        #     'view_type': 'form',
-        #     'view_mode': 'form',
-        #     'res_model': 'wxwork.contacts.wizard',
-        #     'res_id': self.id,
-        #     'view_id': False,
-        #     'views': [[form_view.id, 'form'], ],
-        #     'type': 'ir.actions.act_window',
-        #     'context': {'form_view_ref': 'wxwork_contacts.dialog_wxwork_image_sync_result'},
-        #     'target': 'new',  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
-        # }
+        self.result = '\n'.join(result)
 
+        form_view = self.env.ref('wxwork_contacts.dialog_wxwork_image_sync_result')
+        return {
+            'name': '图片同步结果',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'wxwork.contacts.wizard',
+            'res_id': self.id,
+            'view_id': False,
+            'views': [[form_view.id, 'form'], ],
+            'type': 'ir.actions.act_window',
+            'context': {'form_view_ref': 'wxwork_contacts.dialog_wxwork_image_sync_result'},
+            'target': 'new',  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
+        }
 
     @api.multi
     def action_sync_contacts(self):
@@ -79,81 +78,83 @@ class ResConfigSettings(models.TransientModel):
         User = self.env['res.users']
         Groups = self.env['res.groups']
         # Provider = self.env['auth.oauth.provider']
-
+        times =[]
         result = []
         if not auto_sync:
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
-            try:
-                department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
-                if not department_sync_operate:
-                    self.department_sync_result = False
-                    result.append("企业微信同步部门失败")
-                else:
-                    self.department_sync_result = True
-                    result.append("企业微信同步部门成功")
-            except BaseException:
-                pass
+            # try:
+            #     times_department_sync,department_sync_operate = SyncDepartment(corpid, secret, sync_department_id, Department).sync_department()
+            #     if not department_sync_operate:
+            #         self.department_sync_result = False
+            #         result.append("企业微信同步部门失败")
+            #     else:
+            #         self.department_sync_result = True
+            #         result.append("企业微信同步部门成功")
+            # except BaseException:
+            #     pass
+            #
+            # try:
+            #     times_set_department,set_department_operate = SetDepartment(Department).set_parent_department()
+            #     if not set_department_operate:
+            #         self.department_set_result = False
+            #         result.append("企业微信设置上级部门失败")
+            #     else:
+            #         self.department_set_result = True
+            #         result.append("企业微信设置上级部门成功")
+            # except BaseException:
+            #     pass
 
             try:
-                set_department_operate = SetDepartment(Department).set_parent_department()
-                if not set_department_operate:
-                    self.department_set_result = False
-                    result.append("企业微信设置上级部门失败")
-                else:
-                    self.department_set_result = True
-                    result.append("企业微信设置上级部门成功")
-            except BaseException:
-                pass
-
-
-            try:
-                employee_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                     Employee,sync_img,img_path).sync_employee()
+                times_employee_sync, employee_sync_operate=  self.env['hr.employee'].sync_employee()
+                times.append(times_employee_sync)
                 if not employee_sync_operate:
                     self.employee_sync_result = False
                     result.append("企业微信员工同步失败")
                 else:
                     self.employee_sync_result = True
                     result.append("企业微信员工同步成功")
-
             except BaseException:
                 pass
 
-            try:
-                leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
-                                                  Employee,sync_img,img_path).update_leave_employee()
-                if not leave_sync_operate:
-                    self.leave_sync_result = False
-                    result.append('企业微信离职员工同步失败')
-                else:
-                    self.leave_sync_result = True
-                    result.append('企业微信离职员工同步成功')
-            except BaseException:
-                pass
+            # try:
+            #     times_leave_sync,leave_sync_operate = SyncEmployee(corpid, secret, sync_department_id, Department,
+            #                                       Employee,sync_img,img_path).update_leave_employee()
+            #     if not leave_sync_operate:
+            #         self.leave_sync_result = False
+            #         result.append('企业微信离职员工同步失败')
+            #     else:
+            #         self.leave_sync_result = True
+            #         result.append('企业微信离职员工同步成功')
+            # except BaseException:
+            #     pass
+            #
+            # try:
+            #     times_user_sync,user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
+            #     if not user_sync_operate:
+            #         self.user_sync_result = False
+            #         result.append('企业微信同步系统用户同步失败')
+            #     else:
+            #         self.user_sync_result = True
+            #         result.append('企业微信同步系统用户同步成功')
+            # except BaseException:
+            #     pass
+            #
+            # try:
+            #     times_binding,employee_binding_user_operate = EmployeeBindingUser(Employee, User).binding()
+            #     if not employee_binding_user_operate:
+            #         self.employee_binding_user_result = False
+            #         result.append('企业微信员工绑定系统用户失败')
+            #     else:
+            #         self.employee_binding_user_result = True
+            #         result.append('企业微信员工绑定系统用户成功')
+            # except BaseException:
+            #     pass
 
-            try:
-                user_sync_operate = SyncEmployeeToUser(Employee, User, Groups).sync_user()
-                if not user_sync_operate:
-                    self.user_sync_result = False
-                    result.append('企业微信同步系统用户同步失败')
-                else:
-                    self.user_sync_result = True
-                    result.append('企业微信同步系统用户同步成功')
-            except BaseException:
-                pass
-
-            try:
-                employee_binding_user_operate = EmployeeBindingUser(Employee, User).binding()
-                if not employee_binding_user_operate:
-                    self.employee_binding_user_result = False
-                    result.append('企业微信员工绑定系统用户失败')
-                else:
-                    self.employee_binding_user_result = True
-                    result.append('企业微信员工绑定系统用户成功')
-            except BaseException:
-                pass
-
+        print(times)
+        # self.times = times_employee_sync
+        # self.times = times_department_sync+times_set_department+times_employee_sync
+        # self.times = times_department_sync+times_set_department+times_employee_sync+times_leave_sync+times_user_sync+times_binding
         self.result = '\n'.join(result)
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_result')

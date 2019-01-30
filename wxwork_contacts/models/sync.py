@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
-
+from odoo import api
 from ..api.CorpApi import *
 from ..helper.common import *
-import platform
 import base64,urllib,os,platform,cv2
 import numpy as np
-import requests
 import time
 from threading import Thread
-from multiprocessing.dummy import Pool as ThreadPool
+import threading
 
 # start 以下为解决 image file is truncated (18 bytes not processed)错误
 from PIL import ImageFile
@@ -21,6 +19,7 @@ class SyncDepartment(object):
         self.secret = secret
         self.department_id = department_id
         self.department = department
+        self.times = 0
         self.result = None
 
     def sync_department(self):
@@ -32,21 +31,31 @@ class SyncDepartment(object):
                     'id': self.department_id,
                 }
             )
+            start = time.time()
             for obj in response['department']:
                 # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
                 records = self.department.search([
                     ('wxwork_department_id', '=', obj['id']),
                     ('is_wxwork_department', '=', True)],
                     limit=1)
-                if len(records) > 0:
-                    self.update_department(records, obj)
-                else:
-                    self.create_department(records, obj)
+                self.run(records, obj)
+                # t = Thread(target=self.run, args=[records, obj])
+                # t.start()
+
             # 由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门
             # self.set_parent_department()
+            end = time.time()
+            self.times = end - start
         except BaseException:
             self.result = False
-        return self.result
+
+        return self.times, self.result
+
+    def run(self,records, obj):
+        if len(records) > 0:
+            self.update_department(records, obj)
+        else:
+            self.create_department(records, obj)
 
     def create_department(self, records, obj):
         records.create({
@@ -70,6 +79,7 @@ class SyncDepartment(object):
 class SetDepartment(object):
     def __init__(self,  department):
         self.department = department
+        self.times = 0
         self.result = None
 
     def set_parent_department(self):
@@ -77,22 +87,20 @@ class SetDepartment(object):
         try:
             departments = self.department.search(
                 [('is_wxwork_department', '=', True)])
+            start = time.time()
             for dep in departments:
                 if not dep.wxwork_department_id:
                     pass
                 else:
-                    # self.update_department_parent_id(dep)
-                    parent_department = self.department.search([
-                        ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
-                        ('is_wxwork_department', '=', True)
-                    ])
-                    dep.write({
-                        'parent_id': parent_department.id,
-                    })
+                    self.update_department_parent_id(dep)
+                    # t = Thread(target=self.update_department_parent_id, args=[dep])
+                    # t.start()
+            end = time.time()
+            self.times = end - start
             self.result = True
         except BaseException:
             self.result = False
-        return self.result
+        return self.times,self.result
 
     def get_parent_department(self,dep):
         parent_department = self.department.search([
@@ -102,12 +110,14 @@ class SetDepartment(object):
         return parent_department
 
     def update_department_parent_id(self, dep):
-        parent_dep = self.get_parent_department(dep)
+        parent_department = self.department.search([
+            ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
+            ('is_wxwork_department', '=', True)
+        ])
         dep.write({
-            'parent_id': parent_dep.id
+            'parent_id': parent_department.id,
         })
         self.result = True
-
 
 class SyncImage(object):
     def __init__(self, corpid, secret, department_id, file_path):
@@ -115,6 +125,7 @@ class SyncImage(object):
         self.secret = secret
         self.department_id = department_id
         self.file_path = file_path
+        self.times = 0
         self.result = None
 
 
@@ -145,7 +156,10 @@ class SyncImage(object):
             # self.check_image(remote_avatar_img,local_avatar_img)
             # self.check_image(remote_qr_code_img,local_qr_code_img)
         end = time.time()
-        print('Total cost:', end - start, 's')
+        self.times = end - start
+        self.result = True
+
+        return self.times,self.result
 
     def generate_image_list(self):
         '''
@@ -198,8 +212,8 @@ class SyncImage(object):
             else:
                 return False
         except BaseException as e:
+            print(repr(e))
             return False
-            # print(e)
 
     def check_image(self,remote_img,local_img):
         # 是否存在本地图片
@@ -217,9 +231,7 @@ class SyncImage(object):
             file_avatar.write(avatar_data)
             file_avatar.close()
         except BaseException as e:
-            # print('头像错误-%s %s' %(obj['name'],e))
-            pass
-
+            print(repr(e))
 
 class SyncEmployee(object):
     def __init__(self, corpid, secret, department_id, department, employee, sync_img, img_path):
@@ -230,6 +242,7 @@ class SyncEmployee(object):
         self.employee = employee
         self.sync_img = sync_img
         self.img_path = img_path
+        self.times = 0
         self.result = None
 
     def sync_employee(self):
@@ -242,6 +255,7 @@ class SyncEmployee(object):
                     'fetch_child': '1',
                 }
             )
+            start = time.time()
             for obj in response['userlist']:
                 # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
                 domain = ['|', ('active', '=', False),
@@ -252,13 +266,23 @@ class SyncEmployee(object):
                         ('is_wxwork_employee', '=', True)],
                     limit=1)
                 if len(records) > 0:
+                    # t = thread(target=self.update_employee, args=[records, obj])
+                    # t = Thread(target=self.update_employee, args=[records, obj])
                     self.update_employee(records, obj)
                 else:
+                    # t = Thread(target=self.create_employee, args=[records, obj])
                     self.create_employee(records, obj)
+
+            end = time.time()
+            self.times = end - start
 
         except BaseException:
             self.result = False
-        return self.result
+
+        return self.times, self.result
+
+
+
 
     def encode_image_as_base64(self,image_path):
         # if not self.sync_img:
@@ -303,9 +327,10 @@ class SyncEmployee(object):
                 'qr_code': self.encode_image_as_base64(qr_code_file),
                 'is_wxwork_employee': True,
             })
-        except BaseException as e:
-            print('%s - %s' % (obj['name'], e))
-        self.result =True
+            self.result = True
+        except Exception as e:
+            print('%s - %s' % (obj['name'], repr(e)))
+            self.result = False
 
     def update_employee(self,records, obj):
         department_ids = []
@@ -318,22 +343,25 @@ class SyncEmployee(object):
         else:
             avatar_file = self.img_path + "avatar/" + obj['userid'] + ".jpg"
             qr_code_file = self.img_path + "qr_code/" + obj['userid'] + ".png"
-
-        records.write({
-            'name': obj['name'],
-            'gender': Common(obj['gender']).gender(),
-            'image': self.encode_image_as_base64(avatar_file),
-            'mobile_phone': obj['mobile'],
-            'work_phone': obj['telephone'],
-            'work_email': obj['email'],
-            'active': obj['enable'],
-            'alias': obj['alias'],
-            'department_ids': [(6, 0, department_ids)],
-            'wxwork_user_order': obj['order'],
-            'qr_code': self.encode_image_as_base64(qr_code_file),
-            'is_wxwork_employee': True
-        })
-        self.result = True
+        try:
+            records.write({
+                'name': obj['name'],
+                'gender': Common(obj['gender']).gender(),
+                'image': self.encode_image_as_base64(avatar_file),
+                'mobile_phone': obj['mobile'],
+                'work_phone': obj['telephone'],
+                'work_email': obj['email'],
+                'active': obj['enable'],
+                'alias': obj['alias'],
+                'department_ids': [(6, 0, department_ids)],
+                'wxwork_user_order': obj['order'],
+                'qr_code': self.encode_image_as_base64(qr_code_file),
+                'is_wxwork_employee': True
+            })
+            self.result = True
+        except Exception as e:
+            print('%s - %s' % (obj['name'], repr(e)))
+            self.result = False
 
     def get_employee_parent_department(self,department_id):
         try:
@@ -361,6 +389,7 @@ class SyncEmployee(object):
             )
             list_user = []
             list_employee = []
+
             for obj in response['userlist']:
                 list_user.append(obj['userid'])
 
@@ -376,15 +405,22 @@ class SyncEmployee(object):
 
             list_user_leave = list(set(list_employee).difference(set(list_user)))
 
+            start = time.time()
             for obj in list_user_leave:
                 employee = records.search([
                     ('wxwork_id', '=', obj)
                 ])
-                self.set_employee_active(employee)
+                t = Thread(target=self.set_employee_active, args=[employee])
+                t.start()
+                # self.set_employee_active(employee)
+            end = time.time()
+            self.times = end - start
+
             self.result = True
         except BaseException:
             self.result = False
-        return self.result
+
+        return self.times, self.result
 
     def set_employee_active(self,records):
         records.write({
@@ -398,6 +434,7 @@ class SyncEmployeeToUser(object):
         self.user = user
         self.group = group
         # self.provider = provider
+        self.times = 0
         self.result = None
 
     def sync_user(self):
@@ -407,6 +444,7 @@ class SyncEmployeeToUser(object):
             domain + [
                 ('is_wxwork_employee', '=', True)])
         try:
+            start = time.time()
             for records in employee:
                 user = self.user.search(
                     domain + [
@@ -415,12 +453,18 @@ class SyncEmployeeToUser(object):
                     ],limit=1
                 )
                 if len(user) > 0:
-                    self.update_user(records, user)
+                    t = Thread(target=self.update_user, args=[records, user])
+                    # self.update_user(records, user)
                 else:
-                    self.create_user(records, user, self.group)
+                    t = Thread(target=self.create_user, args=[records, user])
+                    # self.create_user(records, user, self.group)
+                t.start()
+            end = time.time()
+            self.times = end - start
         except BaseException:
             self.result = False
-        return self.result
+
+        return self.times, self.result
 
     def create_user(self, employee, user ,group):
         groups_id = group.search([('id', '=', 9),],limit=1).id
@@ -472,6 +516,7 @@ class EmployeeBindingUser(object):
     def __init__(self, employee, user):
         self.employee = employee
         self.user = user
+        self.times = 0
         self.result = None
 
     def binding(self):
@@ -480,6 +525,7 @@ class EmployeeBindingUser(object):
         employee = self.employee.search(
             domain + [
                 ('is_wxwork_employee', '=', True)])
+        start = time.time()
         try:
             for records in employee:
                 user = self.user.search(
@@ -489,12 +535,18 @@ class EmployeeBindingUser(object):
                     ], limit=1
                 )
                 if len(user) > 0:
-                    self.set_employee_user_id(records, user)
+                    t = Thread(target=self.set_employee_user_id, args=[records, user])
+                    t.start()
+                    # self.set_employee_user_id(records, user)
                 else:
                     pass
         except BaseException:
             self.result = False
-        return self.result
+
+        end = time.time()
+        self.times = end - start
+
+        return self.times, self.result
 
     def set_employee_user_id(self, employee, user):
         employee.write({
