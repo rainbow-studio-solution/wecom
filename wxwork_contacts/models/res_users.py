@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
-from odoo.exceptions import AccessDenied, AccessError, UserError, ValidationError
+from odoo import api, fields, models
+from ..api.CorpApi import *
+from ..helper.common import *
+import logging,platform
+import threading
+import time
 
 class Users(models.Model):
     _inherit = 'res.users'
@@ -20,8 +24,137 @@ class Users(models.Model):
     )
 
     # @api.model
-    def change_to_no_share_user(self):
-        raise Warning(self.name)
+    # def change_to_no_share_user(self):
+    #     raise Warning(self.name)
+
+    @api.multi
+    def sync_user(self):
+        params = self.env['ir.config_parameter'].sudo()
+        corpid = params.get_param('wxwork.corpid')
+        secret = params.get_param('wxwork.contacts_secret')
+        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
+        api = CorpApi(corpid, secret)
+
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE['USER_LIST'],
+                {
+                    'department_id': sync_department_id,
+                    'fetch_child': '1',
+                }
+            )
+            start = time.time()
+            for obj in response['userlist']:
+                result = threaded_sync = threading.Thread(target=self.run, args=[obj])
+                threaded_sync.start()
+            end = time.time()
+            times = end - start
+        except BaseException as e:
+            print(repr(e))
+            result = False
+        return times, result
+
+    @api.multi
+    def run(self,obj):
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            env = self.sudo().env['res.users']
+            domain = ['|', ('active', '=', False),
+                      ('active', '=', True)]
+            records = env.search(
+                domain + [
+                    ('wxwork_id', '=', obj['userid']),
+                    ('is_wxwork_user', '=', True)],
+                limit=1)
+
+            try:
+                if len(records) > 0:
+                    self.update_user(records, obj)
+                else:
+                    self.create_user(records, obj)
+            except Exception as e:
+                print(repr(e))
+            new_cr.commit()
+            new_cr.close()
+
+
+    @api.multi
+    def create_user(self, records, obj):
+        img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
+        if (platform.system() == 'Windows'):
+            avatar_file = img_path.replace("\\", "/") + "/avatar/" + obj['userid'] + ".jpg"
+        else:
+            avatar_file = img_path + "avatar/" + obj['userid'] + ".jpg"
+
+        groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
+
+        try:
+            records.create({
+                'name': obj['name'],
+                'login': obj['userid'],
+                'oauth_uid': obj['userid'],
+                'password': Common(8).random_passwd(),
+                'email': obj['email'],
+                'wxwork_id': obj['userid'],
+                'image': self.encode_image_as_base64(avatar_file),
+                # 'qr_code': employee.qr_code,
+                'active':obj['enable'],
+                'wxwork_user_order': obj['order'],
+                'mobile': obj['mobile'],
+                'phone':  obj['telephone'],
+                'is_wxwork_user': True,
+                'is_moderator': False,
+                'is_company': False,
+                'supplier': False,
+                'employee': True,
+                'share': False,
+                'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
+            })
+            result = True
+        except Exception as e:
+            print('%s创建错误 - %s' % (obj['name'], repr(e)))
+            result = False
+        return result
+
+    @api.multi
+    def update_user(self, records, obj):
+        img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
+        if (platform.system() == 'Windows'):
+            avatar_file = img_path.replace("\\", "/") + "/avatar/" + obj['userid'] + ".jpg"
+        else:
+            avatar_file = img_path + "avatar/" + obj['userid'] + ".jpg"
+        try:
+            records.write({
+                'name': obj['name'],
+                'oauth_uid': obj['userid'],
+                'email': obj['email'],
+                'image': self.encode_image_as_base64(avatar_file),
+                'wxwork_user_order': obj['order'],
+                'is_wxwork_user': True,
+                'mobile': obj['mobile'],
+                'phone': obj['telephone'],
+            })
+            result = True
+        except Exception as e:
+            print('%s更新错误 - %s' % (obj['name'], repr(e)))
+            result = False
+        return result
+
+    @api.multi
+    def encode_image_as_base64(self, image_path):
+        # if not self.sync_img:
+        #     return None
+        if not os.path.exists(image_path):
+            pass
+        else:
+            try:
+                with open(image_path, "rb") as f:
+                    encoded_string = base64.b64encode(f.read())
+                return encoded_string
+            except BaseException as e:
+                return None
+                # pass
 
 class ChangeTypeWizard(models.TransientModel):
     _name = "change.type.wizard"

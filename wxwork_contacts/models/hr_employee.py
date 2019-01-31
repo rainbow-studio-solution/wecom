@@ -35,7 +35,7 @@ class HrEmployee(models.Model):
         api = CorpApi(corpid, secret)
         try:
             response = api.httpCall(
-                CORP_API_TYPE['DEPARTMENT_LIST'],
+                CORP_API_TYPE['USER_LIST'],
                 {
                     'department_id': sync_department_id,
                     'fetch_child': '1',
@@ -110,7 +110,7 @@ class HrEmployee(models.Model):
             })
             result = True
         except Exception as e:
-            print('%s - %s' % (obj['name'], repr(e)))
+            print('创建员工错误：%s - %s' % (obj['name'], repr(e)))
             result = False
         return result
 
@@ -143,7 +143,7 @@ class HrEmployee(models.Model):
             })
             result = True
         except Exception as e:
-            print('%s - %s' % (obj['name'], repr(e)))
+            print('更新员工错误：%s - %s' % (obj['name'], repr(e)))
             result = False
 
         return result
@@ -235,7 +235,81 @@ class HrEmployee(models.Model):
 
         return self.times, self.result
 
+    @api.multi
     def set_employee_active(self,records):
         records.write({
             'active': False,
+        })
+
+    @api.multi
+    def sync_user_from_employee(self):
+        with api.Environment.manage():
+            domain = ['|', ('active', '=', False),
+                      ('active', '=', True)]
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+            employees = self.sudo().env['hr.employee'].search(domain)
+            users = self.sudo().env['res.users'].search(domain)
+            start = time.time()
+            for employee in employees:
+                user = users.search([
+                    ('wxwork_id', '=', employee.wxwork_id),
+                    ('is_wxwork_user', '=', True)
+                ],limit=1)
+                result = threaded_sync = threading.Thread(target=self.user_run, args=[employee,user])
+                threaded_sync.start()
+            end = time.time()
+            times = end - start
+
+            return times,result
+
+    @api.multi
+    def user_run(self,employee,user):
+        try:
+            if len(user) >0:
+                self.update_user(employee,user)
+            else:
+                self.create_user(employee,user)
+        except Exception as e:
+            print(repr(e))
+
+    @api.multi
+    def create_user(self, employee, user):
+        groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
+        email = None if not employee.work_email else employee.work_email
+        image = None if not employee.image else employee.image
+        user.create({
+            'name': employee.name,
+            'login': employee.wxwork_id,
+            'oauth_uid': employee.wxwork_id,
+            'password': Common(8).random_passwd(),
+            'email': email,
+            'wxwork_id': employee.wxwork_id,
+            'image': image,
+            # 'qr_code': employee.qr_code,
+            'active': employee.active,
+            'wxwork_user_order': employee.wxwork_user_order,
+            'mobile': employee.mobile_phone,
+            'phone': employee.work_phone,
+            'is_wxwork_user': True,
+            'is_moderator': False,
+            'is_company': False,
+            'supplier': False,
+            'employee': True,
+            'share': False,
+            'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
+        })
+        return True
+
+    @api.multi
+    def update_user(self, employee, user):
+        user.write({
+            'name': employee.name,
+            'oauth_uid': employee.wxwork_id,
+            'active': employee.active,
+            'wxwork_user_order': employee.wxwork_user_order,
+            'is_wxwork_user': True,
+            'employee': True,
+            'mobile': employee.mobile_phone,
+            'phone': employee.work_phone,
         })
