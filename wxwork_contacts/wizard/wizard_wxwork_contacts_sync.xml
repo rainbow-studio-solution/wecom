@@ -48,7 +48,6 @@
                     <group>
                         <group>
                             <field name="department_sync_result"/>
-                            <field name="department_set_result"/>
                             <field name="image_sync_result"/>
                             <field name="employee_sync_result"/>
                             <field name="leave_sync_result"/>
@@ -56,7 +55,8 @@
                             <field name="employee_binding_user_result"/>
                         </group>
                         <group>
-                            <field name="times" eval="3"/>
+                            <field name="create_date"/>
+                            <field name="times"/>
                             <field name="result"  />
                         </group>
                     </group>
@@ -73,13 +73,13 @@
             <field name="arch" type="xml">
                 <tree string="同步记录" edit="false" create="false" delete="false">
                     <field name="department_sync_result" string="部门同步"/>
-                    <field name="department_set_result" string="设置上级部门"/>
                     <field name="image_sync_result" string="图片同步"/>
                     <field name="employee_sync_result" string="员工同步" />
                     <field name="leave_sync_result" string="离职员工同步"/>
                     <field name="user_sync_result" string="用户同步"/>
                     <field name="employee_binding_user_result" string="员工绑定用户"/>
-                    <field name="times" eval="3"/>
+                    <field name="times"/>
+                    <field name="create_date"/>
                 </tree>
             </field>
         </record>

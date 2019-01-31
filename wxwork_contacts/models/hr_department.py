@@ -139,7 +139,7 @@ class SyncDepartment(models.Model):
                         })
                 result = True
             except BaseException as e:
-                print('部门:%s的上级设置失败 - %s' % (dep.name, repr(e)))
+                print('部门:%s 的上级部门设置失败 - %s' % (dep.name, repr(e)))
                 result = False
             new_cr.commit()
             new_cr.close()

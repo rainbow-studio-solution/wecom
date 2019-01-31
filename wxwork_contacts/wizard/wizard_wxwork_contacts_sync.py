@@ -11,10 +11,10 @@ import decimal
 class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
     _description = '企业微信同步向导'
+    _order = 'create_date'
 
+    image_sync_result = fields.Boolean(string='图片同步结果', default=False, readonly=True)
     department_sync_result = fields.Boolean(string='部门同步结果',default=False, readonly=True )
-    department_set_result = fields.Boolean(string='设置上级部门结果',default=False, readonly=True )
-    image_sync_result = fields.Boolean(string='图片同步结果',default=False, readonly=True )
     employee_sync_result = fields.Boolean(string='员工同步结果',default=False, readonly=True )
     leave_sync_result = fields.Boolean(string='离职员工同步结果',default=False, readonly=True )
     user_sync_result = fields.Boolean(string='用户同步结果',default=False, readonly=True )
@@ -89,17 +89,6 @@ class ResConfigSettings(models.TransientModel):
             except BaseException:
                 pass
 
-            # try:
-            #     times_set_department,set_department_operate = self.env['hr.department'].set_parent_department()
-            #     times.append(times_set_department)
-            #     if not set_department_operate:
-            #         self.department_set_result = False
-            #         result.append("企业微信设置上级部门失败")
-            #     else:
-            #         self.department_set_result = True
-            #         result.append("企业微信设置上级部门成功,花费时间%s秒" % (round(times_set_department,3)))
-            # except BaseException:
-            #     pass
 
             # try:
             #     times_employee_sync, employee_sync_operate =  self.env['hr.employee'].sync_employee()
