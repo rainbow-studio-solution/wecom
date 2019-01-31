@@ -4,7 +4,7 @@ from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
 import logging,platform
-import threading
+from threading import Thread, Lock
 import time
 
 
@@ -46,7 +46,7 @@ class SyncDepartment(models.Model):
             )
             start1 = time.time()
             for obj in response['department']:
-                threaded_sync = threading.Thread(target=self.run_sync, args=[obj])
+                threaded_sync = Thread(target=self.run_sync, args=[obj])
                 threaded_sync.start()
                 # self.run(obj)
 
@@ -54,7 +54,7 @@ class SyncDepartment(models.Model):
             times1 = end1 - start1
             # TODO 解决线程的顺序
             start2 = time.time()
-            threaded_set = threading.Thread(target=self.run_set, args=[])
+            threaded_set = Thread(target=self.run_set, args=[])
             threaded_set.start()
             end2 = time.time()
 
