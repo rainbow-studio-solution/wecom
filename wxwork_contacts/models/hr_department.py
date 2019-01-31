@@ -44,27 +44,26 @@ class SyncDepartment(models.Model):
                     'id': sync_department_id,
                 }
             )
-            start1 = time.time()
+            start = time.time()
+            threaded_set = Thread(target=self.run_set, args=[])
             for obj in response['department']:
                 threaded_sync = Thread(target=self.run_sync, args=[obj])
                 threaded_sync.start()
                 # self.run(obj)
+                if threaded_sync.is_alive():
+                    print("执行中")
+                else:
 
-            end1 = time.time()
-            times1 = end1 - start1
-            # TODO 解决线程的顺序
-            start2 = time.time()
-            threaded_set = Thread(target=self.run_set, args=[])
-            threaded_set.start()
-            end2 = time.time()
-
-            times2 = end2 - start2
+                    threaded_set.start()
+                    end = time.time()
+                    times = end - start
+                    print(times)
 
             result = True
         except BaseException as e:
             print(repr(e))
             result = False
-        return times1+times2, result
+        return times, result
 
     @api.multi
     def run_sync(self, obj):
