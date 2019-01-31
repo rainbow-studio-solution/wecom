@@ -52,7 +52,7 @@ class SyncDepartment(models.Model):
 
             end1 = time.time()
             times1 = end1 - start1
-
+            # TODO 解决线程的顺序
             start2 = time.time()
             threaded_set = threading.Thread(target=self.run_set, args=[])
             threaded_set.start()
