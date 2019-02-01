@@ -2,8 +2,6 @@
 
 from odoo import api, fields, models
 from ..api.CorpApi import *
-from ..helper.common import *
-import logging,platform
 from threading import Thread, Lock
 import time
 
@@ -37,6 +35,7 @@ class SyncDepartment(models.Model):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         api = CorpApi(corpid, secret)
+        lock = Lock()
         try:
             response = api.httpCall(
                 CORP_API_TYPE['DEPARTMENT_LIST'],
@@ -44,29 +43,27 @@ class SyncDepartment(models.Model):
                     'id': sync_department_id,
                 }
             )
-            start = time.time()
-            threaded_set = Thread(target=self.run_set, args=[])
+            start1 = time.time()
             for obj in response['department']:
-                threaded_sync = Thread(target=self.run_sync, args=[obj])
+                threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
                 threaded_sync.start()
-                # self.run(obj)
-                if threaded_sync.is_alive():
-                    print("执行中")
-                else:
-
-                    threaded_set.start()
-                    end = time.time()
-                    times = end - start
-                    print(times)
-
+            end1 = time.time()
+            times1 = end1 - start1
             result = True
         except BaseException as e:
             print(repr(e))
             result = False
+        start2 = time.time()
+        threaded_set = Thread(target=self.run_set, args=[lock])
+        threaded_set.start()
+        end2 = time.time()
+        times2 = end2 - start2
+        times = times1 +times2
         return times, result
 
     @api.multi
-    def run_sync(self, obj):
+    def run_sync(self, obj,lock):
+        lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -87,6 +84,7 @@ class SyncDepartment(models.Model):
 
             new_cr.commit()
             new_cr.close()
+        lock.release()
 
     @api.multi
     def create_department(self, records, obj):
@@ -120,8 +118,9 @@ class SyncDepartment(models.Model):
         return result
 
     @api.multi
-    def run_set(self):
+    def run_set(self,lock):
         """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
+        lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -144,6 +143,8 @@ class SyncDepartment(models.Model):
             new_cr.close()
 
             return  result
+
+        lock.release()
 
     @api.multi
     def get_parent_department(self,dep,departments):
