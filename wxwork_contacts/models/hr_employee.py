@@ -4,7 +4,7 @@ from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
 import logging,platform
-import threading
+from threading import Thread, Lock
 import time
 
 _logger = logging.getLogger(__name__)
@@ -33,6 +33,7 @@ class HrEmployee(models.Model):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         api = CorpApi(corpid, secret)
+        lock = Lock()
         try:
             response = api.httpCall(
                 CORP_API_TYPE['USER_LIST'],
@@ -41,20 +42,29 @@ class HrEmployee(models.Model):
                     'fetch_child': '1',
                 }
             )
-            start = time.time()
+            start1 = time.time()
             for obj in response['userlist']:
-                threaded_sync = threading.Thread(target=self.run, args=[obj])
+                threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
                 threaded_sync.start()
-            end = time.time()
-            times = end - start
+            end1 = time.time()
+            times1 = end1 - start1
+
+            start2 = time.time()
+            threaded_sync_leave = Thread(target=self.sync_leave_employee, args=[response,lock])
+            threaded_sync_leave.start()
+            end2 = time.time()
+            times2 = end2 - start2
+
+            times = times1+ times2
             result = True
         except BaseException as e:
-            print(repr(e))
+            print('员工同步错误:%s' % (repr(e)))
             result = False
         return times,result
 
     @api.multi
-    def run(self, obj):
+    def run_sync(self, obj,lock):
+        lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -76,6 +86,7 @@ class HrEmployee(models.Model):
                 print(repr(e))
             new_cr.commit()
             new_cr.close()
+        lock.release()
 
     @api.multi
     def create_employee(self,records, obj):
@@ -172,144 +183,45 @@ class HrEmployee(models.Model):
                 limit=1)
             if len(departments) > 0:
                 return departments.id
-        except BaseException:
-            pass
+        except BaseException as e:
+            print('获取员工上级部门错误:%s' % (repr(e)))
 
     @api.multi
-    def update_leave_employee(self):
+    def sync_leave_employee(self,response,lock):
         """
                 比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
                 """
-        params = self.env['ir.config_parameter'].sudo()
-        corpid = params.get_param('wxwork.corpid')
-        secret = params.get_param('wxwork.contacts_secret')
-        sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-        api = CorpApi(corpid, secret)
-
         try:
-            response = api.httpCall(
-                CORP_API_TYPE['USER_LIST'],
-                {
-                    'department_id': sync_department_id,
-                    'fetch_child': '1',
-                }
-            )
             list_user = []
             list_employee = []
-
             for obj in response['userlist']:
                 list_user.append(obj['userid'])
-
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
             env = self.sudo().env['hr.employee']
-
             domain = ['|', ('active', '=', False),
                       ('active', '=', True)]
             records = env.search(
                 domain + [
                     ('is_wxwork_employee', '=', True)
                 ])
-
             for employee in records:
                 list_employee.append(employee.wxwork_id)
-
             list_user_leave = list(set(list_employee).difference(set(list_user)))
-
-            start = time.time()
-
-
             for obj in list_user_leave:
                 employee = records.search([
                     ('wxwork_id', '=', obj)
                 ])
-                threaded = threading.Thread(target=self.set_employee_active, args=[employee])
+                threaded = Thread(target=self.set_employee_active, args=[employee,lock])
                 threaded.start()
                 # self.set_employee_active(employee)
-            end = time.time()
-            self.times = end - start
-
-            self.result = True
-        except BaseException:
-            self.result = False
-
-        return self.times, self.result
+        except BaseException as e:
+            print('离职员工同步错误:%s' % (repr(e)))
 
     @api.multi
-    def set_employee_active(self,records):
+    def set_employee_active(self,records,lock):
+        lock.acquire()
         records.write({
             'active': False,
         })
-
-    @api.multi
-    def sync_user_from_employee(self):
-        with api.Environment.manage():
-            domain = ['|', ('active', '=', False),
-                      ('active', '=', True)]
-            new_cr = self.pool.cursor()
-            self = self.with_env(self.env(cr=new_cr))
-            employees = self.sudo().env['hr.employee'].search(domain)
-            users = self.sudo().env['res.users'].search(domain)
-            start = time.time()
-            for employee in employees:
-                user = users.search([
-                    ('wxwork_id', '=', employee.wxwork_id),
-                    ('is_wxwork_user', '=', True)
-                ],limit=1)
-                result = threaded_sync = threading.Thread(target=self.user_run, args=[employee,user])
-                threaded_sync.start()
-            end = time.time()
-            times = end - start
-
-            return times,result
-
-    @api.multi
-    def user_run(self,employee,user):
-        try:
-            if len(user) >0:
-                self.update_user(employee,user)
-            else:
-                self.create_user(employee,user)
-        except Exception as e:
-            print(repr(e))
-
-    @api.multi
-    def create_user(self, employee, user):
-        groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
-        email = None if not employee.work_email else employee.work_email
-        image = None if not employee.image else employee.image
-        user.create({
-            'name': employee.name,
-            'login': employee.wxwork_id,
-            'oauth_uid': employee.wxwork_id,
-            'password': Common(8).random_passwd(),
-            'email': email,
-            'wxwork_id': employee.wxwork_id,
-            'image': image,
-            # 'qr_code': employee.qr_code,
-            'active': employee.active,
-            'wxwork_user_order': employee.wxwork_user_order,
-            'mobile': employee.mobile_phone,
-            'phone': employee.work_phone,
-            'is_wxwork_user': True,
-            'is_moderator': False,
-            'is_company': False,
-            'supplier': False,
-            'employee': True,
-            'share': False,
-            'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
-        })
-        return True
-
-    @api.multi
-    def update_user(self, employee, user):
-        user.write({
-            'name': employee.name,
-            'oauth_uid': employee.wxwork_id,
-            'active': employee.active,
-            'wxwork_user_order': employee.wxwork_user_order,
-            'is_wxwork_user': True,
-            'employee': True,
-            'mobile': employee.mobile_phone,
-            'phone': employee.work_phone,
-        })
+        lock.release()

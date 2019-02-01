@@ -50,7 +50,6 @@
                             <field name="department_sync_result"/>
                             <field name="image_sync_result"/>
                             <field name="employee_sync_result"/>
-                            <field name="leave_sync_result"/>
                             <field name="user_sync_result"/>
                             <field name="employee_binding_user_result"/>
                         </group>
@@ -75,7 +74,6 @@
                     <field name="department_sync_result" string="部门同步"/>
                     <field name="image_sync_result" string="图片同步"/>
                     <field name="employee_sync_result" string="员工同步" />
-                    <field name="leave_sync_result" string="离职员工同步"/>
                     <field name="user_sync_result" string="用户同步"/>
                     <field name="employee_binding_user_result" string="员工绑定用户"/>
                     <field name="times"/>

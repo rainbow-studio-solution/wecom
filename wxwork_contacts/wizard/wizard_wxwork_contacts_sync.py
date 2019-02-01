@@ -12,7 +12,6 @@ class ResConfigSettings(models.TransientModel):
     image_sync_result = fields.Boolean(string='图片同步结果', default=False, readonly=True)
     department_sync_result = fields.Boolean(string='部门同步结果',default=False, readonly=True )
     employee_sync_result = fields.Boolean(string='员工同步结果',default=False, readonly=True )
-    leave_sync_result = fields.Boolean(string='离职员工同步结果',default=False, readonly=True )
     user_sync_result = fields.Boolean(string='用户同步结果',default=False, readonly=True )
     employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
     times = fields.Float(string='所用时间(秒)', digits=(16, 3), readonly=True)
@@ -45,16 +44,31 @@ class ResConfigSettings(models.TransientModel):
                     self.image_sync_result = True
                     result.append("企业微信图片同步成功,花费时间 %s 秒" % (round(times_image_sync,3)))
             except Exception as  e:
-                print('同步错误:%s' % repr(e))
+                print('图片同步错误:%s' % repr(e))
 
-            times_department_sync, department_sync_operate = self.env['hr.department'].sync_department()
-            times.append(times_department_sync)
-            if not department_sync_operate:
-                self.department_sync_result = False
-                result.append("企业微信同步部门失败")
-            else:
-                self.department_sync_result = True
-                result.append("企业微信同步部门成功,花费时间%s秒" % (round(times_department_sync, 3)))
+            try:
+                times_department_sync, department_sync_operate = self.env['hr.department'].sync_department()
+                times.append(times_department_sync)
+                if not department_sync_operate:
+                    self.department_sync_result = False
+                    result.append("企业微信同步部门失败")
+                else:
+                    self.department_sync_result = True
+                    result.append("企业微信同步部门成功,花费时间%s秒" % (round(times_department_sync, 3)))
+            except Exception as  e:
+                print('部门同步错误:%s' % repr(e))
+
+            try:
+                times_employee_sync, employee_sync_operate = self.env['hr.employee'].sync_employee()
+                times.append(times_employee_sync)
+                if not employee_sync_operate:
+                    self.employee_sync_result = False
+                    result.append("企业微信同步员工失败")
+                else:
+                    self.employee_sync_result = True
+                    result.append("企业微信同步员工成功,花费时间%s秒" % (round(times_employee_sync, 3)))
+            except Exception as  e:
+                print('员工同步错误:%s' % repr(e))
 
 
         self.times = sum(times)
