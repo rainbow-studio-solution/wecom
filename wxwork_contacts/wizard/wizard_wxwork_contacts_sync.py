@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-from ..models.sync_image import *
+# from ..models.sync_image import *
+from ..models.sync import *
+import time
 
 
 class ResConfigSettings(models.TransientModel):
@@ -28,51 +30,16 @@ class ResConfigSettings(models.TransientModel):
             'auto_sync': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
             'img_path': params.get_param('wxwork.contacts_img_path'),
             'department': self.env['hr.department'],
+            'users': self.env['res.users'],
         }
-        times = []
-        result = []
+
         if not auto_sync:
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
-            try:
-                times_image_sync,image_sync_operate = SyncImage(kwargs).run()
-                times.append(times_image_sync)
-                if not image_sync_operate:
-                    self.image_sync_result = False
-                    result.append("企业微信图片同步失败 %s 秒" % (round(times_image_sync,3)))
-                else:
-                    self.image_sync_result = True
-                    result.append("企业微信图片同步成功,花费时间 %s 秒" % (round(times_image_sync,3)))
-            except Exception as  e:
-                print('图片同步错误:%s' % repr(e))
+            self.times, statuses, self.result = SyncTask(kwargs).run()
+            self.image_sync_result = statuses['image']
+            self.user_sync_result = statuses['user']
 
-            try:
-                times_department_sync, department_sync_operate = self.env['hr.department'].sync_department()
-                times.append(times_department_sync)
-                if not department_sync_operate:
-                    self.department_sync_result = False
-                    result.append("企业微信同步部门失败")
-                else:
-                    self.department_sync_result = True
-                    result.append("企业微信同步部门成功,花费时间%s秒" % (round(times_department_sync, 3)))
-            except Exception as  e:
-                print('部门同步错误:%s' % repr(e))
-
-            try:
-                times_employee_sync, employee_sync_operate = self.env['hr.employee'].sync_employee()
-                times.append(times_employee_sync)
-                if not employee_sync_operate:
-                    self.employee_sync_result = False
-                    result.append("企业微信同步员工失败")
-                else:
-                    self.employee_sync_result = True
-                    result.append("企业微信同步员工成功,花费时间%s秒" % (round(times_employee_sync, 3)))
-            except Exception as  e:
-                print('员工同步错误:%s' % repr(e))
-
-
-        self.times = sum(times)
-        self.result = '\n'.join(result)
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_result')
         return {

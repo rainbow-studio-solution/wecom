@@ -22,8 +22,8 @@ class SyncImage(object):
         self.department_id = self.kwargs['department_id']
         self.img_path = self.kwargs['img_path']
         self.department = self.kwargs['department']
-        self.times = 0
-        self.result = None
+        # self.times = 0
+        #         # self.result = None
 
     def run(self):
         if (platform.system() == 'Windows'):
@@ -37,22 +37,31 @@ class SyncImage(object):
 
         user_list,avatar_urls,qr_code_urls = self.generate_image_list()
         start = time.time()
-        for i in range(len(user_list)):
-            remote_avatar_img = avatar_urls[i]
-            local_avatar_img = avatar_directory + user_list[i]+ ".jpg"
+        try:
+            for i in range(len(user_list)):
+                remote_avatar_img = avatar_urls[i]
+                local_avatar_img = avatar_directory + user_list[i]+ ".jpg"
 
-            remote_qr_code_img = qr_code_urls[i]
-            local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
-            # self.check_image(remote_avatar_img,local_avatar_img)
-            # self.check_image(remote_qr_code_img,local_qr_code_img)
-            t1 = Thread(target=self.check_image, args=[remote_avatar_img,local_avatar_img])
-            t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
-            t1.start()
-            t2.start()
-        end = time.time()
-        self.times = end - start
-        self.result = True
-        return self.times, self.result
+                remote_qr_code_img = qr_code_urls[i]
+                local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
+                # self.check_image(remote_avatar_img,local_avatar_img)
+                # self.check_image(remote_qr_code_img,local_qr_code_img)
+                t1 = Thread(target=self.check_image, args=[remote_avatar_img,local_avatar_img])
+                t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
+                t1.start()
+                t2.start()
+                end = time.time()
+                times = end - start
+                result = "企业微信图片同步成功,花费时间 %s 秒" % (round(times,3))
+                # status ="image:%s" % True
+                status ={'image': True}
+        except Exception as e:
+            result = "企业微信图片同步失败,花费时间  %s 秒" % (round(times,3))
+            # status ="image:%s" % False
+            status = {'image': False}
+            print('同步图片错误:%s' % (repr(e)))
+
+        return times,status,result
 
     def generate_image_list(self):
         '''

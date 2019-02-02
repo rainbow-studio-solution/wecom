@@ -4,7 +4,7 @@ from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
 import logging,platform
-import threading
+from threading import Thread, Lock
 import time
 
 class Users(models.Model):
@@ -23,9 +23,6 @@ class Users(models.Model):
         readonly=True,
     )
 
-    # @api.model
-    # def change_to_no_share_user(self):
-    #     raise Warning(self.name)
 
     @api.multi
     def sync_user(self):
@@ -34,7 +31,8 @@ class Users(models.Model):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         api = CorpApi(corpid, secret)
-
+        lock = Lock()
+        start = time.time()
         try:
             response = api.httpCall(
                 CORP_API_TYPE['USER_LIST'],
@@ -43,44 +41,53 @@ class Users(models.Model):
                     'fetch_child': '1',
                 }
             )
-            start = time.time()
+
             for obj in response['userlist']:
-                result = threaded_sync = threading.Thread(target=self.run, args=[obj])
+                threaded_sync = Thread(target=self.run, args=[obj,lock])
                 threaded_sync.start()
+
             end = time.time()
             times = end - start
+            result = "企业微信用户同步成功,花费时间 %s 秒" % (round(times,3))
+            # status = "user:%s" % True
+            status = {'user': True}
         except BaseException as e:
-            print(repr(e))
-            result = False
-        return times, result
+            result = "企业微信用户同步失败,花费时间 %s 秒" % (round(times, 3))
+            status = {'user': False}
+            print('用户同步 错误:%s' % (repr(e)))
+
+        return times, status, result
+
 
     @api.multi
-    def run(self,obj):
+    def run(self,obj,lock):
+        lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
             env = self.sudo().env['res.users']
             domain = ['|', ('active', '=', False),
                       ('active', '=', True)]
-            records = env.search(
+            user = env.search(
                 domain + [
                     ('wxwork_id', '=', obj['userid']),
                     ('is_wxwork_user', '=', True)],
                 limit=1)
 
             try:
-                if len(records) > 0:
-                    self.update_user(records, obj)
+                if len(user) > 0:
+                    self.update_user(user, obj)
                 else:
-                    self.create_user(records, obj)
+                    self.create_user(user, obj)
+
             except Exception as e:
-                print(repr(e))
+                print('线程同步用户错误:%s' % (repr(e)))
             new_cr.commit()
             new_cr.close()
-
+        lock.release()
 
     @api.multi
-    def create_user(self, records, obj):
+    def create_user(self, user, obj):
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
             avatar_file = img_path.replace("\\", "/") + "/avatar/" + obj['userid'] + ".jpg"
@@ -90,7 +97,7 @@ class Users(models.Model):
         groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
 
         try:
-            records.create({
+            user.create({
                 'name': obj['name'],
                 'login': obj['userid'],
                 'oauth_uid': obj['userid'],
@@ -118,14 +125,14 @@ class Users(models.Model):
         return result
 
     @api.multi
-    def update_user(self, records, obj):
+    def update_user(self, user, obj):
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
             avatar_file = img_path.replace("\\", "/") + "/avatar/" + obj['userid'] + ".jpg"
         else:
             avatar_file = img_path + "avatar/" + obj['userid'] + ".jpg"
         try:
-            records.write({
+            user.write({
                 'name': obj['name'],
                 'oauth_uid': obj['userid'],
                 'email': obj['email'],
@@ -143,8 +150,6 @@ class Users(models.Model):
 
     @api.multi
     def encode_image_as_base64(self, image_path):
-        # if not self.sync_img:
-        #     return None
         if not os.path.exists(image_path):
             pass
         else:
@@ -154,7 +159,6 @@ class Users(models.Model):
                 return encoded_string
             except BaseException as e:
                 return None
-                # pass
 
 class ChangeTypeWizard(models.TransientModel):
     _name = "change.type.wizard"
@@ -196,7 +200,7 @@ class ChangeTypeUser(models.TransientModel):
     def change_type_button(self):
         for line in self:
             if not line.new_type:
-                raise UserError(_("在点击'更改用户类型'按钮之前，您必须修改新的用户类型"))
+                raise UserError("在点击'更改用户类型'按钮之前，您必须修改新的用户类型")
             if line.user_id.id ==1 or line.user_id.id==2 or line.user_id.id==3 or line.user_id.id==4 or line.user_id.id==5:
                 pass
             else:
