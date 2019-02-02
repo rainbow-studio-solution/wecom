@@ -52,11 +52,11 @@ class SyncImage(object):
                 t2.start()
                 end = time.time()
                 times = end - start
-                result = "企业微信图片同步成功,花费时间 %s 秒" % (round(times,3))
+                result = "图片同步成功,花费时间 %s 秒" % (round(times,3))
                 # status ="image:%s" % True
                 status ={'image': True}
         except Exception as e:
-            result = "企业微信图片同步失败,花费时间  %s 秒" % (round(times,3))
+            result = "图片同步失败,花费时间  %s 秒" % (round(times,3))
             # status ="image:%s" % False
             status = {'image': False}
             print('同步图片错误:%s' % (repr(e)))

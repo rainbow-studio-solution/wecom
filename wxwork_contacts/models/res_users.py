@@ -48,11 +48,11 @@ class Users(models.Model):
 
             end = time.time()
             times = end - start
-            result = "企业微信用户同步成功,花费时间 %s 秒" % (round(times,3))
+            result = "用户同步成功,花费时间 %s 秒" % (round(times,3))
             # status = "user:%s" % True
             status = {'user': True}
         except BaseException as e:
-            result = "企业微信用户同步失败,花费时间 %s 秒" % (round(times, 3))
+            result = "用户同步失败,花费时间 %s 秒" % (round(times, 3))
             status = {'user': False}
             print('用户同步 错误:%s' % (repr(e)))
 
