@@ -25,11 +25,17 @@ class SyncTask(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.users = self.kwargs['users']
+        self.department = self.kwargs['department']
+
     def run(self):
         _logger.error("开始同步企业微信通讯录")
         threads = []
-        task_name_list = ['企业微信图片同步','企业微信用户同步']
-        task_func_list = [SyncImage(self.kwargs).run,self.users.sync_user]
+        task_name_list = ['企业微信图片同步','企业微信用户同步','企业微信部门同步']
+        task_func_list = [
+            SyncImage(self.kwargs).run,
+            self.users.sync_user,
+            self.department.sync_department
+        ]
         times = []
         results = []
         statuses = {}

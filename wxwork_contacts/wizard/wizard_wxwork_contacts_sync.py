@@ -30,6 +30,7 @@ class ResConfigSettings(models.TransientModel):
             'auto_sync': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
             'img_path': params.get_param('wxwork.contacts_img_path'),
             'department': self.env['hr.department'],
+            'employee': self.env['hr.employee'],
             'users': self.env['res.users'],
         }
 
@@ -39,7 +40,7 @@ class ResConfigSettings(models.TransientModel):
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses['image']
             self.user_sync_result = statuses['user']
-
+            self.department_sync_result = statuses['department']
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_result')
         return {

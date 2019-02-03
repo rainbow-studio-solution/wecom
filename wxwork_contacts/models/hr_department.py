@@ -49,17 +49,24 @@ class SyncDepartment(models.Model):
                 threaded_sync.start()
             end1 = time.time()
             times1 = end1 - start1
-            result = True
+
+            time.sleep(3)
+
+            start2 = time.time()
+            threaded_set = Thread(target=self.run_set, args=[lock])
+            threaded_set.start()
+            end2 = time.time()
+            times2 = end2 - start2
+
+            times = times1 + times2 +3
+            result = "部门同步成功,花费时间 %s 秒" % (round(times, 3))
+            status = {'department': True}
         except BaseException as e:
+            result = "部门同步失败,花费时间 %s 秒" % (round(times, 3))
+            status = {'department': False}
             print(repr(e))
-            result = False
-        start2 = time.time()
-        threaded_set = Thread(target=self.run_set, args=[lock])
-        threaded_set.start()
-        end2 = time.time()
-        times2 = end2 - start2
-        times = times1 +times2
-        return times, result
+
+        return times, status, result
 
     @api.multi
     def run_sync(self, obj,lock):
