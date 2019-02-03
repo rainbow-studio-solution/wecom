@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, fields
-# from ..models.sync_image import *
+from odoo.exceptions import UserError
 from ..models.sync import *
-import time
-
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wxwork.contacts.wizard'
@@ -22,19 +20,20 @@ class ResConfigSettings(models.TransientModel):
     @api.multi
     def action_sync_contacts(self):
         params = self.env['ir.config_parameter'].sudo()
-        auto_sync = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
+        sync_hr_enabled = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
         kwargs = {
             'corpid': params.get_param('wxwork.corpid'),
             'secret': params.get_param('wxwork.contacts_secret'),
             'department_id': params.get_param('wxwork.contacts_sync_hr_department_id'),
-            'auto_sync': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
+            'sync_hr': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
+            'sync_user': params.get_param('wxwork.contacts_sync_user_enabled'),
             'img_path': params.get_param('wxwork.contacts_img_path'),
             'department': self.env['hr.department'],
             'employee': self.env['hr.employee'],
             'users': self.env['res.users'],
         }
 
-        if not auto_sync:
+        if not sync_hr_enabled:
             raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()

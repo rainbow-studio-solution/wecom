@@ -338,7 +338,7 @@ class EmployeeBindingUser(models.Model):
             user.write({
                 'name': employee.name,
                 'oauth_uid': employee.wxwork_id,
-                'email': employee.work_email,
+                # 'email': employee.work_email,
                 'image': employee.image,
                 'wxwork_user_order': employee.wxwork_user_order,
                 'is_wxwork_user': True,
