@@ -16,8 +16,8 @@ class ResConfigSettings(models.TransientModel):
     contacts_access_token = fields.Char('通讯录token', config_parameter='wxwork.contacts_access_token', readonly=True, )
     contacts_auto_sync_hr_enabled = fields.Boolean(
         '允许企业微信通讯录自动更新HR', config_parameter='wxwork.contacts_auto_sync_hr_enabled', )
-    contacts_sync_img_enabled = fields.Boolean(
-        '允许同步企业微信图片', config_parameter='wxwork.contacts_sync_img_enabled', )
+    # contacts_sync_img_enabled = fields.Boolean(
+    #     '允许同步企业微信图片', config_parameter='wxwork.contacts_sync_img_enabled', )
     contacts_img_path = fields.Char('企业微信图片存储路径', config_parameter='wxwork.contacts_img_path',)
     contacts_sync_hr_department_id = fields.Integer('需同步的企业微信部门ID',
                                                     config_parameter='wxwork.contacts_sync_hr_department_id')

@@ -26,6 +26,7 @@ class SyncImage(object):
         #         # self.result = None
 
     def run(self):
+        _logger.error("开始同步企业微信通讯录-图片")
         if (platform.system() == 'Windows'):
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
@@ -50,17 +51,16 @@ class SyncImage(object):
                 t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
                 t1.start()
                 t2.start()
-                end = time.time()
-                times = end - start
-                result = "图片同步成功,花费时间 %s 秒" % (round(times,3))
-                # status ="image:%s" % True
+                result = "图片同步成功"
                 status ={'image': True}
         except Exception as e:
-            result = "图片同步失败,花费时间  %s 秒" % (round(times,3))
-            # status ="image:%s" % False
+            result = "图片同步失败"
             status = {'image': False}
             print('同步图片错误:%s' % (repr(e)))
 
+        end = time.time()
+        times = end - start
+        _logger.error("结束同步企业微信通讯录-图片，总共花费时间：%s 秒" % times)
         return times,status,result
 
     def generate_image_list(self):

@@ -4,7 +4,8 @@ from odoo import api, fields, models
 from ..api.CorpApi import *
 from threading import Thread, Lock
 import time
-
+import logging
+_logger = logging.getLogger(__name__)
 
 class HrDepartment(models.Model):
     _inherit = 'hr.department'
@@ -30,12 +31,13 @@ class SyncDepartment(models.Model):
 
     @api.multi
     def sync_department(self):
+        _logger.error("开始同步企业微信通讯录-部门同步")
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         api = CorpApi(corpid, secret)
-        lock = Lock()
+        # lock = Lock()
         try:
             response = api.httpCall(
                 CORP_API_TYPE['DEPARTMENT_LIST'],
@@ -45,32 +47,34 @@ class SyncDepartment(models.Model):
             )
             start1 = time.time()
             for obj in response['department']:
-                threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
-                threaded_sync.start()
+                self.run_sync(obj)
+                # threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
+                # threaded_sync.start()
             end1 = time.time()
             times1 = end1 - start1
 
-            time.sleep(3)
-
             start2 = time.time()
-            threaded_set = Thread(target=self.run_set, args=[lock])
-            threaded_set.start()
+            self.run_set()
+            # threaded_set = Thread(target=self.run_set, args=[lock])
+            # threaded_set.start()
             end2 = time.time()
             times2 = end2 - start2
 
-            times = times1 + times2 +3
-            result = "部门同步成功,花费时间 %s 秒" % (round(times, 3))
+            times = times1 + times2
+            result = "部门同步成功,花费时间"
             status = {'department': True}
         except BaseException as e:
-            result = "部门同步失败,花费时间 %s 秒" % (round(times, 3))
+            times = time.time()
+            result = "部门同步失败,花费时间"
             status = {'department': False}
             print(repr(e))
-
+        times = times
+        _logger.error("结束同步企业微信通讯录-部门同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
     @api.multi
-    def run_sync(self, obj,lock):
-        lock.acquire()
+    def run_sync(self, obj):
+        # lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -91,7 +95,7 @@ class SyncDepartment(models.Model):
 
             new_cr.commit()
             new_cr.close()
-        lock.release()
+        # lock.release()
 
     @api.multi
     def create_department(self, records, obj):
@@ -125,9 +129,9 @@ class SyncDepartment(models.Model):
         return result
 
     @api.multi
-    def run_set(self,lock):
+    def run_set(self):
         """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
-        lock.acquire()
+        # lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -151,7 +155,7 @@ class SyncDepartment(models.Model):
 
             return  result
 
-        lock.release()
+        # lock.release()
 
     @api.multi
     def get_parent_department(self,dep,departments):

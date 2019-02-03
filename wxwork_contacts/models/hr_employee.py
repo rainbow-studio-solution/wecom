@@ -28,12 +28,13 @@ class HrEmployee(models.Model):
 
     @api.multi
     def sync_employee(self):
+        _logger.error("开始同步企业微信通讯录-员工同步")
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
         api = CorpApi(corpid, secret)
-        lock = Lock()
+        # lock = Lock()
         try:
             response = api.httpCall(
                 CORP_API_TYPE['USER_LIST'],
@@ -44,29 +45,33 @@ class HrEmployee(models.Model):
             )
             start1 = time.time()
             for obj in response['userlist']:
-                threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
-                threaded_sync.start()
+                # threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
+                # threaded_sync.start()
+                self.run_sync(obj)
             end1 = time.time()
             times1 = end1 - start1
 
-            time.sleep(5)
-
             start2 = time.time()
-            threaded_sync_leave = Thread(target=self.sync_leave_employee, args=[response,lock])
-            threaded_sync_leave.start()
+            self.sync_leave_employee(response)
+            # threaded_sync_leave = Thread(target=self.sync_leave_employee, args=[response,lock])
+            # threaded_sync_leave.start()
             end2 = time.time()
             times2 = end2 - start2
 
-            times = times1 + times2 +5
-            result = True
+            times = times1 + times2
+            status = {'employee': True}
+            result = "员工同步成功,花费时间 %s 秒" % (round(times, 3))
         except BaseException as e:
+            result = "员工同步失败,花费时间 %s 秒" % (round(times, 3))
+            status = {'employee': False}
             print('员工同步错误:%s' % (repr(e)))
-            result = False
-        return times,result
+
+        _logger.error("结束同步企业微信通讯录-员工同步，总共花费时间：%s 秒" % times)
+        return times, status, result
 
     @api.multi
-    def run_sync(self, obj,lock):
-        lock.acquire()
+    def run_sync(self, obj):
+        # lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -88,7 +93,7 @@ class HrEmployee(models.Model):
                 print(repr(e))
             new_cr.commit()
             new_cr.close()
-        lock.release()
+        # lock.release()
 
     @api.multi
     def create_employee(self,records, obj):
@@ -189,7 +194,7 @@ class HrEmployee(models.Model):
             print('获取员工上级部门错误:%s' % (repr(e)))
 
     @api.multi
-    def sync_leave_employee(self,response,lock):
+    def sync_leave_employee(self,response):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
         try:
             list_user = []
@@ -215,7 +220,7 @@ class HrEmployee(models.Model):
                     leave_employee  = employees.search([
                         ('wxwork_id', '=', wxwork_leave_employee)
                     ])
-                    self.set_employee_active(leave_employee ,lock)
+                    self.set_employee_active(leave_employee )
                     # print(leave_employee.name + str(op))
                 new_cr.commit()
                 new_cr.close()
@@ -224,7 +229,7 @@ class HrEmployee(models.Model):
 
     @api.multi
     def set_employee_active(self,records,lock):
-        lock.acquire()
+        # lock.acquire()
         try:
             records.write({
                 'active': False,
@@ -233,4 +238,112 @@ class HrEmployee(models.Model):
         except Exception as e:
             print('离职员工:%s 同步错误:%s' % (records.name,repr(e)))
             # return False
-        lock.release()
+        # lock.release()
+
+class EmployeeBindingUser(models.Model):
+    # _inherit = ["hr.employee", "res.users"]
+    _inherit = 'hr.employee'
+    _description = '企业微信员工绑定用户'
+
+    @api.multi
+    def binding(self):
+        _logger.error("开始同步企业微信通讯录-用户绑定")
+
+        domain = ['|', ('active', '=', False),
+                  ('active', '=', True)]
+        with api.Environment.manage():
+            new_cr = self.pool.cursor()
+            self = self.with_env(self.env(cr=new_cr))
+
+            employees = self.sudo().env['hr.employee'].search(
+                domain+ [
+                    ('is_wxwork_employee', '=', True)
+                ]
+            )
+
+            start = time.time()
+            for employee in employees:
+                user = self.sudo().env['res.users'].search(
+                    domain+ [
+                        ('wxwork_id', '=', employee.wxwork_id),
+                        ('is_wxwork_user', '=', True)
+                    ],limit=1)
+
+                try:
+                    # threaded_sync = Thread(target=self.run, args=[user, employee])
+                    # threaded_sync.start()
+                    if len(user) > 0:
+                        self.update_user(user, employee)
+                    else:
+                        employee.write({
+                            'user_id':self.create_user(user, employee).id
+                        })
+                    # employee.user_id =self.create_user(user, employee).id
+                    result = "员工绑定用户成功"
+                    status = {'binding': True}
+                except Exception as e:
+                    result = "员工绑定用户失败"
+                    status = {'binding': False}
+                    print('从员工绑定用户错误:%s' % (repr(e)))
+            end = time.time()
+            times = end - start
+            new_cr.commit()
+            new_cr.close()
+            _logger.error("结束同步企业微信通讯录-员工绑定，总共花费时间：%s 秒" % times)
+        return times, status, result
+
+    @api.multi
+    def run(self, user, employee):
+        if len(user) > 0:
+            self.update_user(user, employee)
+        else:
+            user_id = self.create_user(user, employee).id
+            employee.write({
+                'user_id':user_id
+            })
+
+    @api.multi
+    def create_user(self, user, employee):
+        try:
+            groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
+            user_id = user.create({
+                'name': employee.name,
+                'login': employee.wxwork_id,
+                'oauth_uid': employee.wxwork_id,
+                'password': Common(8).random_passwd(),
+                'email': employee.work_email,
+                'wxwork_id': employee.wxwork_id,
+                'image': employee.image,
+                # 'qr_code': employee.qr_code,
+                'active': employee.active,
+                'wxwork_user_order': employee.wxwork_user_order,
+                'mobile': employee.mobile_phone,
+                'phone': employee.work_phone,
+                'is_wxwork_user': True,
+                'is_moderator': False,
+                'is_company': False,
+                'supplier': False,
+                'employee': True,
+                'share': False,
+                'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
+            })
+            return user_id
+        except Exception as e:
+            print('从员工创建用户错误:%s' % (repr(e)))
+
+
+    @api.multi
+    def update_user(self, user, employee):
+        try:
+            user.write({
+                'name': employee.name,
+                'oauth_uid': employee.wxwork_id,
+                'email': employee.work_email,
+                'image': employee.image,
+                'wxwork_user_order': employee.wxwork_user_order,
+                'is_wxwork_user': True,
+                'mobile': employee.mobile_phone,
+                'phone': employee.work_phone,
+            })
+        except Exception as e:
+            print('从员工更新用户错误:%s' % (repr(e)))

@@ -4,119 +4,121 @@
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">企业微信验证授权</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_contacts.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
-                    <h2>身份验证授权</h2>
-                    <div class="row mt16 o_settings_container">
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="auth_agentid"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        应用与小程序→打开需要验证授权应用，复制'AgentId'
+                <xpath expr="//page[last()]" position="after" >
+                    <page string="身份验证授权">
+                        <h2>身份验证授权</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-key fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auth_agentid"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            应用与小程序→打开需要验证授权应用，复制'AgentId'
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="auth_agentid" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_agentid" />
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-key fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auth_secret"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            应用与小程序→打开需要验证授权应用，复制'Secret'
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="auth_secret" style="width: 100%;"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-link fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auth_redirect_uri"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            地址格式为: http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin<br/>
+                                            企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
+                                            如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="auth_redirect_uri" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-link fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="qr_redirect_uri"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            地址格式为: http://xxx.xxx.com:端口号/wxwork/auth_oauth/qr<br/>
+                                            企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
+                                            如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/wxwork/auth_oauth/qr
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="qr_redirect_uri" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            正确填写"企业ID"、需要身份验证授权"应用ID"和"应用的密钥"、"网页授权链接回调链接地址"、"扫码链接回调链接地址"后，
+                                            <span style="color:orange;padding: 0px 16px;">
+                                                点击按钮"一键设置企业微信OAuth接口"
+                                            </span>
+
+                                            <br/>
+                                            用户中"OAuth"面板中的"OAuth服务商可以随意选择"，已在程序中做了校验。
+                                            <br/>
+                                            <span style="color:red;padding: 0px 16px;"> <i class="fa fa-warning"/>
+                                                注意! 请勿修改"常规设置"→"OAuth服务商"中关于企业微信的"身份验证网址"
+                                            </span>
+                                            <br/>
+                                        </div>
+                                        <div class="text-muted col-md-12">
+                                            <button name="set_oauth_provider_wxwork" type="object" string="一键设置企业微信OAuth接口" class="oe_highlight"/>
+                                            <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="查看OAuth提供者" icon="fa-arrow-right" class="btn-link"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="auth_secret"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        应用与小程序→打开需要验证授权应用，复制'Secret'
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_secret" style="width: 100%;"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="auth_redirect_uri"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        地址格式为: http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin<br/>
-                                        企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
-                                        如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_redirect_uri" style="width: 100%;"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="qr_redirect_uri"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        地址格式为: http://xxx.xxx.com:端口号/wxwork/auth_oauth/qr<br/>
-                                        企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
-                                        如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/wxwork/auth_oauth/qr
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="qr_redirect_uri" style="width: 100%;"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane">
-
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        正确填写"企业ID"、需要身份验证授权"应用ID"和"应用的密钥"、"网页授权链接回调链接地址"、"扫码链接回调链接地址"后，
-                                        <span style="color:orange;padding: 0px 16px;">
-                                            点击按钮"一键设置企业微信OAuth接口"
-                                        </span>
-
-                                        <br/>
-                                        用户中"OAuth"面板中的"OAuth服务商可以随意选择"，已在程序中做了校验。
-                                        <br/>
-                                        <span style="color:red;padding: 0px 16px;"> <i class="fa fa-warning"/>
-                                            注意! 请勿修改"常规设置"→"OAuth服务商"中关于企业微信的"身份验证网址"
-                                        </span>
-                                        <br/>
-                                    </div>
-                                    <div class="text-muted col-md-12">
-                                        <button name="set_oauth_provider_wxwork" type="object" string="一键设置企业微信OAuth接口" class="oe_highlight"/>
-                                        <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="查看OAuth提供者" icon="fa-arrow-right" class="btn-link"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
+                    </page>
                 </xpath>
             </field>
         </record>

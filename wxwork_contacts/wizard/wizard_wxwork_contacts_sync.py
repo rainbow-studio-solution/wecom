@@ -39,8 +39,9 @@ class ResConfigSettings(models.TransientModel):
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses['image']
-            self.user_sync_result = statuses['user']
             self.department_sync_result = statuses['department']
+            self.employee_sync_result = statuses['employee']
+            self.employee_binding_user_result = statuses['binding']
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_result')
         return {

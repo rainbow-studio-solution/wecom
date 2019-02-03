@@ -26,15 +26,17 @@ class SyncTask(object):
         self.kwargs = kwargs
         self.users = self.kwargs['users']
         self.department = self.kwargs['department']
+        self.employee = self.kwargs['employee']
 
     def run(self):
         _logger.error("开始同步企业微信通讯录")
         threads = []
-        task_name_list = ['企业微信图片同步','企业微信用户同步','企业微信部门同步']
+        task_name_list = ['企业微信图片同步','企业微信部门同步','企业微信员工同步','企业微信用户绑定']
         task_func_list = [
             SyncImage(self.kwargs).run,
-            self.users.sync_user,
-            self.department.sync_department
+            self.department.sync_department,
+            self.employee.sync_employee,
+            self.employee.binding,
         ]
         times = []
         results = []
@@ -52,10 +54,11 @@ class SyncTask(object):
                 pass
             else:
                 time, status, result = t.result
-                times.append(time)
                 statuses.update(status)
-                results.append(result)
+                times.append(time)
+                results.append("%s，花费时间：%s 秒" % (result,round(time,3)))
         results = '\n'.join(results)
+        _logger.error("结束同步企业微信通讯录，总共花费时间：%s 秒" % sum(times))
         return sum(times),statuses,results
 
 class SyncTaskThread(Thread):
