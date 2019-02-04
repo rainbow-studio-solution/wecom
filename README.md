@@ -2,6 +2,7 @@
 [![Install](http://img.shields.io/badge/12.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md)
 [![Help](http://img.shields.io/badge/12.0-帮助-875A7B.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 
+**目前 同步通讯录和验证登陆可以正常使用了**  
 _使用过程中发现错误，请参考帮助_
 
 ## 功能介绍
