@@ -2,27 +2,33 @@
 <odoo>
     <data>
 
-        <menuitem id="menu_wxwork_employee" name="员工管理"  parent="wxwork_base.menu_wxwork_root" sequence="10"/>
+        <!--<menuitem id="menu_wxwork_employee" name="员工管理"  parent="wxwork_base.menu_wxwork_root" sequence="10"/>-->
 
-        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee_tree"
-                  parent="menu_wxwork_employee" sequence="10"/>
+        <!--<menuitem action="open_module_tree_employee" id="menu_wxwork_employee_tree"  name="员工"-->
+                  <!--parent="wxwork_base.menu_wxwork_root" sequence="10"/>-->
+        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee"  name="员工"
+                  parent="wxwork_base.menu_wxwork_root" sequence="10"/>
 
-        <menuitem id="menu_wxwork_department" name="部门管理"  parent="wxwork_base.menu_wxwork_root" sequence="20"/>
+        <!--<menuitem id="menu_wxwork_department" name="部门管理"  parent="wxwork_base.menu_wxwork_root" sequence="20"/>-->
 
-        <menuitem action="open_module_tree_department" id="menu_wxwork_department_tree"
-                  parent="menu_wxwork_department" sequence="10"/>
+        <!--<menuitem action="open_module_tree_department" id="menu_wxwork_department_tree"-->
+                  <!--parent="menu_wxwork_department" sequence="10"/>-->
+        <menuitem action="open_module_tree_department" id="menu_wxwork_department" name="部门"
+                  parent="wxwork_base.menu_wxwork_root" sequence="20"/>
 
-        <menuitem id="menu_wxwork_user" name="用户管理"  parent="wxwork_base.menu_wxwork_root" sequence="30"/>
+        <!--<menuitem id="menu_wxwork_user" name="用户管理"  parent="wxwork_base.menu_wxwork_root" sequence="30"/>-->
 
-        <menuitem action="open_module_tree_user" id="menu_wxwork_user_tree"
-                  parent="menu_wxwork_user" sequence="10"/>
+        <!--<menuitem action="open_module_tree_user" id="menu_wxwork_user_tree"-->
+                  <!--parent="menu_wxwork_user" sequence="10"/>-->
+        <menuitem action="open_module_tree_user" id="menu_wxwork_user" name="用户"
+                  parent="wxwork_base.menu_wxwork_root" sequence="30"/>
 
-        <menuitem id="menu_wxwork_contacts_sync" name="数据同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
+        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
 
         <!--<menuitem id="menu_wxwork_image_wizard" name="向导同步图片" parent="menu_wxwork_contacts_sync"-->
                   <!--action="view_actions_wxwork_image_wizard" sequence="10"/>-->
 
-        <menuitem id="menu_wxwork_contacts_wizard" name="向导同步通讯录" parent="menu_wxwork_contacts_sync"
+        <menuitem id="menu_wxwork_contacts_wizard" name="向导同步" parent="menu_wxwork_contacts_sync"
                   action="view_actions_wxwork_contacts_wizard" sequence="10"/>
 
         <menuitem id="menu_wxwork_contacts_sync_record" name="向导同步记录" parent="menu_wxwork_contacts_sync"
@@ -31,7 +37,7 @@
         <!--<menuitem id="menu_wxwork_contacts_image_sync_auto" name="图片同步任务" parent="menu_wxwork_contacts_sync"-->
                   <!--action="ir_cron_act_image" sequence="30"/>-->
 
-        <menuitem id="menu_wxwork_contacts_sync_auto" name="通讯录同步任务" parent="menu_wxwork_contacts_sync"
+        <menuitem id="menu_wxwork_contacts_sync_auto" name="定时同步任务" parent="menu_wxwork_contacts_sync"
                   action="ir_cron_act_contacts" sequence="30"/>
 
         <!-- menu categories -->

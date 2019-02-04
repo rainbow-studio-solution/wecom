@@ -6,12 +6,6 @@
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//sheet" position="before">
-                    <header attrs="{'invisible': [('is_wxwork_department', '=', False)]}"   >
-                        <button name="action_department" string="同步详细信息" type="object" class="oe_highlight"/>
-                        <button name="action_department_user" string="获取部门成员" type="object" class="oe_highlight"/>
-                    </header>
-                </xpath>
                 <xpath expr="//group[@col='4']" position="after">
                     <group col="4" string="企业微信" attrs="{'invisible': [('is_wxwork_department', '=', False)]}">
                         <field name="wxwork_department_id"/>

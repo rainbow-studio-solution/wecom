@@ -25,6 +25,7 @@ class HrDepartment(models.Model):
     )
     is_wxwork_department = fields.Boolean('企微部门', readonly=True)
 
+
 class SyncDepartment(models.Model):
     _inherit = 'hr.department'
     _description = '同步企业微信部门'
