@@ -22,8 +22,9 @@
         'wxwork_auth_oauth',
     ],
     'data': [
-        # 'data/ir_cron_data.xml',
-        # 'views/ir_cron_views.xml',
+        'data/wxwork_data.xml',
+        'views/reset_password_templates.xml',
+        'views/reset_password_views.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
