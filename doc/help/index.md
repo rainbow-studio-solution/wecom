@@ -135,3 +135,11 @@ ANY  | =< 256MB |    NR   |  NR  |      NR |     NR  | NR
     ```editorconfig
     ``` 
 3. <a href="https://pgtune.leopard.in.ua" target="_blank">postgresql工具</a>
+
+## Nginx加速
+1. <a href="https://www.odoo.com/documentation/12.0/setup/deploy.html#https" target="_blank">参考官方文档</a>  
+    有效提高网页加载速度。
+2. 免费证书 
+    *   部署在国内云服务器上的，可以使用云服务器厂商的证书。
+    *   部署在局域网内部的服务器，可以使用<a href="https://letsencrypt.org/" target="_blank">Let's Encrypt</a>  
+        80端口被封的情况，可以<a href="http://www.ituring.com.cn/article/211255" target="_blank">参考</a>  
