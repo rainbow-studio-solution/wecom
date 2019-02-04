@@ -133,6 +133,7 @@ ANY  | =< 256MB |    NR   |  NR  |      NR |     NR  | NR
 
 2. 配置odoo.conf  
     ```editorconfig
+    
     ``` 
 3. <a href="https://pgtune.leopard.in.ua" target="_blank">postgresql工具</a>
 
