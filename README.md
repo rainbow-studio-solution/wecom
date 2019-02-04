@@ -60,10 +60,10 @@ git clone git@gitee.com:rainbowstudio/wxwork.git --depth 1 --branch 12.0 --singl
 
 ## 图片展示
 
-![登录](img/登录页面.png)
+![登录](doc/img/登录页面.png)
 
-![配置](img/配置.png)
+![配置](doc/img/配置.png)
 
-![数据同步](img/数据同步.png)
+![数据同步](doc/img/数据同步.png)
 
-![同步结果](img/同步结果.png)
+![同步结果](doc/img/同步结果.png)
