@@ -3,14 +3,20 @@
 ## 错误
 1.  Worker (7534) CPU time limit (240) reached. 解决方案/etc/odoo/odoo.conf 添加如下参数：
     ```editorconfig
-       ; 将limit_time_cpu修改成合理值
+       ; 将limit_time_cpu修改成合适的值
        limit_time_cpu = 600 
     ``` 
 2. virtual real time limit (120/120s) reached。 解决方案/etc/odoo/odoo.conf 添加如下参数：
     ```editorconfig
-       ; 将limit_time_real修改成合理值
+       ; 将limit_time_real修改成合适的值
        limit_time_real = 1200
-   
+    ``` 
+3. PoolError('The Connection Pool Is Full')。 解决方案/etc/odoo/odoo.conf 添加如下参数：  
+    ```editorconfig
+       ; 将db_maxconn修改成合适的值
+       db_maxconn = 1200
+    ``` 
+
 ## 如何加速Odoo
 ###  1.参考资料
     
@@ -98,6 +104,7 @@ ANY  | =< 256MB |    NR   |  NR  |      NR |     NR  | NR
     limit_time_cpu  =  600 
     limit_time_real  =  1200
     max_cron_threads = 3
+    
     ; workers = (CPU数量*2) + 1 ，多处理模式仅在基于 unix 的系统上可用
     workers = 9
     
