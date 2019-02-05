@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="wxwork_contacts.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[last()]" position="after" >
-                    <page string="授权登录">
+                    <page string="企业应用授权">
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
@@ -27,7 +27,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-key fa-lg"/>
@@ -46,7 +45,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-xs-12 col-md-12 o_setting_box">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-link fa-lg"/>
@@ -87,7 +85,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-xs-12 col-md-12 o_setting_box">
                                 <div class="o_setting_left_pane">
 
@@ -115,7 +112,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </page>
                 </xpath>
