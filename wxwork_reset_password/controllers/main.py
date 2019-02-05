@@ -29,7 +29,6 @@ _logger = logging.getLogger(__name__)
 
 class OAuthLogin(Home):
     def list_providers(self):
-        params = request.env['ir.config_parameter'].sudo()
         try:
             providers = request.env['auth.oauth.provider'].sudo().search_read([('enabled', '=', True)])
         except Exception:

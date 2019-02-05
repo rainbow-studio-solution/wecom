@@ -18,6 +18,7 @@
 
         """,
     'depends': [
+        'mail',
         'wxwork_contacts',
     ],
     'data': [
