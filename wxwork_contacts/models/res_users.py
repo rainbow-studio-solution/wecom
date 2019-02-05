@@ -12,6 +12,7 @@ class Users(models.Model):
     _description = '企业微信员工'
     _order = 'wxwork_user_order'
 
+    notification_type = fields.Selection(selection_add=[('wxwork','通过企业微信处理')])
     wxwork_id = fields.Char(string='企微用户ID', readonly=True)
     is_wxwork_notice =fields.Boolean('是否接收提醒', default=True)
     is_wxwork_user = fields.Boolean('企微用户', readonly=True)

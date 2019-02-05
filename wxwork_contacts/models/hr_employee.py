@@ -302,6 +302,7 @@ class EmployeeBindingUser(models.Model):
                 'user_id':user_id
             })
 
+
     @api.multi
     def create_user(self, user, employee):
         try:
@@ -319,6 +320,7 @@ class EmployeeBindingUser(models.Model):
                 'wxwork_user_order': employee.wxwork_user_order,
                 'mobile': employee.mobile_phone,
                 'phone': employee.work_phone,
+                'notification_type': 'wxwork',
                 'is_wxwork_user': True,
                 'is_moderator': False,
                 'is_company': False,
