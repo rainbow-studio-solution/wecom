@@ -29,14 +29,15 @@ _logger = logging.getLogger(__name__)
 
 class OAuthLogin(Home):
     def list_providers(self):
+        params = request.env['ir.config_parameter'].sudo()
         try:
             providers = request.env['auth.oauth.provider'].sudo().search_read([('enabled', '=', True)])
         except Exception:
             providers = []
-        # 构造企业微信一键登录（应用内免登录）和扫码登录链接
+        # 构造企业微信一键修改密码（应用内免登录）和扫码修改链接
         for provider in providers:
             if 'https://open.weixin.qq.com/connect/oauth2/authorize' in provider['auth_endpoint']:
-                return_url = request.httprequest.url_root + 'wxwork/auth_oauth/signin'
+                return_url = request.httprequest.url_root + '/web/reset_password_wxwork'
                 state = self.get_state(provider)
                 params = dict(
                     appid=provider['client_id'],
@@ -47,7 +48,7 @@ class OAuthLogin(Home):
                 )
                 provider['auth_link'] = "%s?%s%s" % (provider['auth_endpoint'], werkzeug.url_encode(params),'#wechat_redirect')
             elif 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect' in provider['auth_endpoint']:
-                return_url = request.httprequest.url_root + 'wxwork/auth_oauth/qr'
+                return_url = request.httprequest.url_root + '/web/reset_password_wxwork_qr'
                 state = self.get_state(provider)
                 auth_agentid = request.env['ir.config_parameter'].sudo().get_param('wxwork.auth_agentid')
                 params = dict(
@@ -57,17 +58,7 @@ class OAuthLogin(Home):
                     state=json.dumps(state),
                 )
                 provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
-            else:
-                return_url = request.httprequest.url_root + 'auth_oauth/signin'
-                state = self.get_state(provider)
-                params = dict(
-                    response_type='token',
-                    client_id=provider['client_id'],
-                    redirect_uri=return_url,
-                    scope=provider['scope'],
-                    state=json.dumps(state),
-                )
-                provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
+
         return providers
 
     def get_state(self, provider):
@@ -86,7 +77,7 @@ class OAuthLogin(Home):
 
     @http.route('/web/reset_password_wxwork', type='http', auth='public', website=True, sitemap=False)
     def web_auth_reset_password_wxwork(self, *args, **kw):
-        print("微信修改密码") \
+        print("微信修改密码")
 
     @http.route('/web/reset_password_wxwork_qr', type='http', auth='public', website=True, sitemap=False)
     def web_auth_reset_password_wxwork_qr(self, *args, **kw):

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">企业微信验证授权</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wxwork_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[last()]" position="after" >
+                    <page string="授权重置密码">
+                        <div class="row mt16 o_settings_container">
+
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-link fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="auth_reset_password_redirect_uri"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            地址格式为: http://xxx.xxx.com:端口号/web/reset_password_wxwork<br/>
+                                            企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
+                                            如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/web/reset_password_wxwork
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="auth_reset_password_redirect_uri" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-link fa-lg"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="qr_reset_password_redirect_uri"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            地址格式为: http://xxx.xxx.com:端口号/web/reset_password_wxwork_qr<br/>
+                                            企业微信不支持数字IP地址，请使用通过ICP备案的域名。<br/>
+                                            如回调链接地址使用了https协议443端口，请填写https协议头，如http://xxx.xxx.com:端口号/web/reset_password_wxwork_qr
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="qr_reset_password_redirect_uri" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

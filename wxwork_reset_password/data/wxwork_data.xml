@@ -4,6 +4,14 @@
         <!--开启密码重置功能-->
         <function model="ir.config_parameter" name="set_param" eval="('auth_signup.reset_password', 'True')"/>
 
+        <record id="auth_reset_password_redirect_uri" model="ir.config_parameter">
+            <field name="key">wxwork.auth_reset_password_redirect_uri</field>
+            <field name="value">http://xxx.xxx.com:端口号/web/reset_password_wxwork</field>
+        </record>
+        <record id="qr_reset_password_redirect_uri" model="ir.config_parameter">
+            <field name="key">wxwork.qr_reset_password_redirect_uri</field>
+            <field name="value">http://xxx.xxx.com:端口号/web/reset_password_wxwork_qr</field>
+        </record>
 
     </data>
 </odoo>
