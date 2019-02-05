@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <sheet>
-                        <notebook>
+                        <notebook colspan="4" style="padding-left: 16px">
                             <page string="同步">
                                 <h2>通讯簿同步ODOO HR配置 </h2>
                                 <div class="row mt16 o_settings_container">

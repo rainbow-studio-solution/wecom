@@ -7,8 +7,7 @@
             <field name="inherit_id" ref="wxwork_contacts.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[last()]" position="after" >
-                    <page string="身份验证授权">
-                        <h2>身份验证授权</h2>
+                    <page string="授权登录">
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
