@@ -7,7 +7,7 @@
         </record>
 
         <record id="provider_wxwork_authorize" model="auth.oauth.provider">
-            <field name="name">企业微信一键登录</field>
+            <field name="name">企业微信应用内一键登录</field>
             <!--身份验证网址-->
             <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
             <!--作用域-->
@@ -17,18 +17,18 @@
             <!--数据网址-->
             <field name="data_endpoint"></field>
             <field name="css_class">wxwork</field>
-            <field name="body">企业微信一键登录</field>
+            <field name="body">企业微信应用内一键登录</field>
             <field name="enabled" eval="True"/>
         </record>
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
-            <field name="name">企业微信扫码登录</field>
+            <field name="name">企业微信应用外扫码登录</field>
             <field name="auth_endpoint">https://open.work.weixin.qq.com/wwopen/sso/qrConnect</field>
             <field name="scope"></field>
             <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/qr</field>
             <field name="data_endpoint"></field>
             <field name="css_class">wxwork</field>
-            <field name="body">企业微信扫码登录</field>
+            <field name="body">企业微信应用外扫码登录</field>
             <field name="enabled" eval="True"/>
         </record>
 
