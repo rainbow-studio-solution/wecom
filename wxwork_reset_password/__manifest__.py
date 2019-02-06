@@ -25,7 +25,6 @@
         'data/wxwork_data.xml',
         'views/reset_password_templates.xml',
         'views/reset_password_views.xml',
-        # 'views/res_config_settings_views.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
