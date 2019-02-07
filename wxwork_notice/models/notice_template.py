@@ -29,5 +29,12 @@ class NoticeTemplate(models.Model):
         '消息类型', required=True, default='text',
         )
     agentid = fields.Integer('企业应用ID',required=True, help="企业应用的id，整型。企业内部开发，可在应用的设置页面查看")
-    content = fields.Text('消息内容',required=True, help="最长不超过2048个字节，超过将截断")
-    safe = fields.Boolean('保密消息',default=False)
+    safe = fields.Boolean('保密消息', default=False)
+
+    title = fields.Char('标题',size=128, help="视频消息的标题，不超过128个字节，超过会自动截断")
+    description = fields.Char('描述',size=512,help="描述，不超过512个字节，超过会自动截断")
+    content = fields.Text('消息主体',help="最长不超过2048个字节，超过将截断")
+    url = fields.Char('点击后跳转的链接', help="点击后跳转的链接")
+    picurl = fields.Char('图片链接', help="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图 1068*455，小图150*150。")
+    btntxt = fields.Char('按钮文字', size=4, help="按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。")
+    body= fields.Text('消息模板')

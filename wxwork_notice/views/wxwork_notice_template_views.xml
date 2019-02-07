@@ -18,13 +18,87 @@
                         </div>
                         <notebook>
                             <page string="内容">
-                                <group col="6">
-                                    <group colspan="2">
-                                        <field name="msgtype" widget="radio"/>
+                                <group >
+                                    <group>
+                                        <field name="msgtype"/>
                                     </group>
-                                    <group colspan="4">
-                                        <field name="content" colspan="3"  widget="html" options="{'style-inline': true}"/>
+                                    <group>
+                                        <!--<button name="generate_json" type="object" string="生成JSON" class="btn-primary"/>-->
                                     </group>
+                                </group>
+                                <group>
+                                    <!--attrs="{'invisible': ['|',('edit','=',True),('create ','=',True)]}"-->
+                                    <field name="title"
+                                           attrs="{'invisible':[
+                                           ('msgtype','!=','video'),
+                                           ('msgtype','!=','textcard'),
+                                           ('msgtype','!=','news'),
+                                           ('msgtype','!=','mpnews'),
+                                           ('msgtype','!=','miniprogram_notice'),
+                                           ]}"
+                                    />
+                                    <field name="url"
+                                           attrs="{'invisible':[
+                                           ('msgtype','!=','textcard'),
+                                           ('msgtype','!=','news'),
+                                           ('msgtype','!=','mpnews'),
+                                           ]}"
+                                    />
+                                </group>
+                                <group>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','video')]}">
+                                            视频消息的描述，不超过512个字节，超过会自动截断。
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','textcard')]}">
+                                            文本卡片消息的描述，不超过512个字节，超过会自动截断<br/>
+                                            卡片消息的展现形式非常灵活，支持使用br标签或者空格来进行换行处理，也支持使用div标签来使用不同的字体颜色，目前内置了3种文字颜色：灰色(gray)、高亮(highlight)、默认黑色(normal)，将其作为div标签的class属性即可，具体用法请参考上面的示例。
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','news')]}">
+                                            图文消息的描述，不超过512个字节，超过会自动截断
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','mpnews')]}">
+                                            图文消息的描述，不超过512个字节，超过会自动截断
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','miniprogram_notice')]}">
+                                            小程序通知消息的消息描述，长度限制4-12个汉字
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="description" widget="html" options="{'style-inline': true}"
+                                           attrs="{'invisible':[
+                                           ('msgtype','!=','textcard'),
+                                           ('msgtype','!=','video'),
+                                           ('msgtype','!=','news'),
+                                           ('msgtype','!=','mpnews'),
+                                           ('msgtype','!=','miniprogram_notice'),
+                                           ]}"
+                                    />
+                                </group>
+                                <group>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','text')]}">
+                                            文本消息可以支持换行、以及A标签，即可打开自定义的网页（可参考以上示例代码）(注意：换行符请用转义过的\n)<br/>
+                                            消息内容，最长不超过2048个字节，超过将截断
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','mpnews')]}">
+                                            图文消息的内容，支持html标签，不超过666 K个字节
+                                        </div>
+                                        <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','markdown')]}">
+                                            markdown内容，最长不超过2048个字节，必须是utf8编码
+                                        </div>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="content" widget="html" options="{'style-inline': true}"
+                                           attrs="{'invisible':[
+                                           ('msgtype','!=','text'),
+                                           ('msgtype','!=','mpnews'),
+                                           ('msgtype','!=','markdown'),
+                                           ]}"
+                                    />
+
                                 </group>
                             </page>
                             <page string="通知设置">
@@ -37,6 +111,9 @@
                                     <field name="agentid"/>
                                     <field name="safe"/>
                                 </group>
+                            </page>
+                            <page string="消息数据模板">
+                                <field name="body"  options="{'style-inline': true}"/>
                             </page>
                         </notebook>
                     </sheet>
