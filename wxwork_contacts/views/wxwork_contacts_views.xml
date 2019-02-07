@@ -23,7 +23,7 @@
         <menuitem action="open_module_tree_user" id="menu_wxwork_user" name="用户"
                   parent="wxwork_base.menu_wxwork_root" sequence="30"/>
 
-        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="40"/>
+        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="90"/>
 
         <!--<menuitem id="menu_wxwork_image_wizard" name="向导同步图片" parent="menu_wxwork_contacts_sync"-->
                   <!--action="view_actions_wxwork_image_wizard" sequence="10"/>-->

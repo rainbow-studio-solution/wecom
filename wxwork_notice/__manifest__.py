@@ -23,7 +23,9 @@
     ],
     'data': [
         # 'data/wxwork_data.xml',
+        'views/wxwork_notice_template_views.xml',
         'views/res_config_settings_views.xml',
+        'security/ir.model.access.csv',
     ],
     'qweb': [
         "static/src/xml/*.xml",
