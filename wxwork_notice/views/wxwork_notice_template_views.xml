@@ -21,30 +21,33 @@
                                 <group >
                                     <group>
                                         <field name="msgtype"/>
-                                    </group>
-                                    <group>
-                                        <!--<button name="generate_json" type="object" string="生成JSON" class="btn-primary"/>-->
-                                    </group>
-                                </group>
-                                <group>
-                                    <!--attrs="{'invisible': ['|',('edit','=',True),('create ','=',True)]}"-->
-                                    <field name="title"
-                                           attrs="{'invisible':[
+                                        <field name="title"
+                                               attrs="{'invisible':[
                                            ('msgtype','!=','video'),
                                            ('msgtype','!=','textcard'),
                                            ('msgtype','!=','news'),
                                            ('msgtype','!=','mpnews'),
                                            ('msgtype','!=','miniprogram_notice'),
                                            ]}"
-                                    />
-                                    <field name="url"
-                                           attrs="{'invisible':[
+                                        />
+                                        <field name="url" widget="url"
+                                               attrs="{'invisible':[
                                            ('msgtype','!=','textcard'),
                                            ('msgtype','!=','news'),
                                            ('msgtype','!=','mpnews'),
                                            ]}"
-                                    />
+                                        />
+                                    </group>
+                                    <group>
+                                        <!--<button name="generate_json" type="object" string="生成JSON" class="btn-primary"/>-->
+                                        <field name="picurl"
+                                               attrs="{'invisible':[
+                                           ('msgtype','!=','textcard'),
+                                           ]}"
+                                        />
+                                    </group>
                                 </group>
+
                                 <group>
                                     <div class="row">
                                         <div class="col-xs-12 col-md-12" style="color:red" attrs="{'invisible':[('msgtype','!=','video')]}">
@@ -108,7 +111,7 @@
                                     <field name="to_user" placeholder="消息接收者，多个接收者用‘|’分隔，最多支持1000个。特殊情况：指定为@all，则向该企业应用的全部成员发送"/>
                                     <field name="to_party" placeholder="部门ID列表，多个接收者用‘|’分隔，最多支持100个。当'到用户'为@all时忽略本参数"/>
                                     <field name="to_tag" placeholder="标签ID列表，多个接收者用‘|’分隔，最多支持100个。当'到用户'为@all时忽略本参数"/>
-                                    <field name="agentid"/>
+                                    <field name="agentid" />
                                     <field name="safe"/>
                                 </group>
                             </page>
