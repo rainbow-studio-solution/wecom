@@ -1,0 +1,18 @@
+<template>
+    <t t-name="eis_widgets.pic_url">
+        <span class="oe_form_field oe_form_field_pic" t-att-style="widget.node.attrs.style">
+            <img t-if="widget.get('effective_readonly')" class="oe_form_pic img-thumbnail" style="display:none"/>
+            <t t-if="!widget.get('effective_readonly')">
+                <div>
+                    <input type="text"
+                           t-att-id="widget.id_for_label"
+                           t-att-tabindex="widget.node.attrs.tabindex"
+                           t-att-autofocus="widget.node.attrs.autofocus"
+                           t-att-placeholder="widget.node.attrs.placeholder"
+                           t-att-maxlength="widget.field.size"
+                    />
+                </div>
+            </t>
+        </span>
+    </t>
+</template>
