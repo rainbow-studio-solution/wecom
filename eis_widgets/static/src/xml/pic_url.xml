@@ -1,7 +1,7 @@
 <template>
-    <t t-name="eis_widgets.pic_url">
+    <t t-name="PicUrl">
         <span class="oe_form_field oe_form_field_pic" t-att-style="widget.node.attrs.style">
-            <img t-if="widget.get('effective_readonly')" class="oe_form_pic img-thumbnail" style="display:none"/>
+            <img t-if="widget.get('effective_readonly')" class="oe_form_pic img-thumbnail"/>
             <t t-if="!widget.get('effective_readonly')">
                 <div>
                     <input type="text"

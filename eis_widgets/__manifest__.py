@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "EIS-小组件",
+    'name': "EIS 小组件",
     'author': "RStudio",
     'website': "",
     'sequence': 1,
@@ -21,7 +21,7 @@
 
     ],
     'data': [
-
+        'views/webclient_templates.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
