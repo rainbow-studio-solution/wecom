@@ -1,11 +1,8 @@
-/**
- * 参考资料
- * https://apps.odoo.com/apps/modules/11.0/web_widget_image_url/
- * https://renjie.me/2016/09/10/odoo-form-view-pic-url-widget/
- */
+// Copyright 2017 - 2018 Modoolar <info@modoolar.com>
+// License LGPLv3.0 or later (https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
-odoo.define('eis_widgets.FieldImageURL', function (require) {
-    "use strict";
+odoo.define('web_widget_image_url.FieldImageURL', function (require) {
+"use strict";
 
     var AbstractField = require('web.AbstractField');
     var core = require('web.core');
@@ -34,5 +31,6 @@ odoo.define('eis_widgets.FieldImageURL', function (require) {
             });
         }
     });
+
     registry.add('image_url', UrlImage);
 });
