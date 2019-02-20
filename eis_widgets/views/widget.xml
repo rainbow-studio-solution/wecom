@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="assets_backend" name="eis widgets assets backend" inherit_id="web.assets_backend">
-        <xpath expr="//script[last()]" position="after">
-            <script type="text/javascript" src="/eis_widgets/static/src/js/widgets/pic_url.js"></script>
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/eis_widgets/static/src/js/web_widget_image_url.js"></script>
         </xpath>
     </template>
 </odoo>

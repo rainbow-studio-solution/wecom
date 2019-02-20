@@ -21,7 +21,7 @@
 
     ],
     'data': [
-        'views/webclient_templates.xml',
+        'views/widget.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",

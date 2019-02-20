@@ -39,12 +39,12 @@
                                         />
                                     </group>
                                     <group>
-                                        <!--<button name="generate_json" type="object" string="生成JSON" class="btn-primary"/>-->
-                                        <field name="picurl" widget="pic" placeholder="支持JPG、PNG格式,较好的效果为大图1068*455,小图150*150"
+                                        <field name="picurl"  widget="image_url" placeholder="支持JPG、PNG格式,较好的效果为大图1068*455,小图150*150"
                                                attrs="{'invisible':[
                                            ('msgtype','!=','textcard'),
                                            ]}"
                                         />
+
                                     </group>
                                 </group>
 
