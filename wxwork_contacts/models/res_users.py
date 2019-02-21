@@ -3,9 +3,7 @@
 from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
-import logging,platform
-from threading import Thread, Lock
-import time
+from odoo.exceptions import UserError
 
 class Users(models.Model):
     _inherit = 'res.users'

@@ -24,38 +24,21 @@ class Users(models.Model):
 
     @api.multi
     def action_wxwork_reset_password(self):
-        """ 为每个企微用户创建注册令牌，并通过企业微信发送他们的注册URL """
-        # prepare reset password signup
-        create_mode = bool(self.env.context.get('create_user'))
+        """ 为每个企微用户创建注册令牌，并通过企业微信发送重置密码的URL """
+        pass
 
-        # no time limit for initial invitation, only for reset password
-        expiration = False if create_mode else now(days=+1)
-
-        self.mapped('partner_id').signup_prepare(signup_type="reset", expiration=expiration)
-
-        # send email to users with their signup url
-        template = False
-        if create_mode:
-            try:
-                template = self.env.ref('auth_signup.set_password_email', raise_if_not_found=False)
-            except ValueError:
-                pass
-        if not template:
-            template = self.env.ref('auth_signup.reset_password_email')
-        assert template._name == 'mail.template'
-
-        template_values = {
-            'email_to': '${object.email|safe}',
-            'email_cc': False,
-            'auto_delete': True,
-            'partner_to': False,
-            'scheduled_date': False,
-        }
-        template.write(template_values)
-
-        for user in self:
-            if not user.email:
-                raise UserError(_("Cannot send email: user %s has no email address.") % user.name)
-            with self.env.cr.savepoint():
-                template.with_context(lang=user.lang).send_mail(user.id, force_send=True, raise_exception=True)
-            _logger.info("Password reset email sent for user <%s> to <%s>", user.login, user.email)
+        # template = False
+        #
+        # if not template:
+        # template = self.env.ref('wxwork_reset_password.reset_password_email')
+        # assert template._name == 'wxwork.notice.template'
+        #
+        # template_values = {
+        #     'to_user': '${object.wxwork_id|safe}',
+        # }
+        # template.write(template_values)
+        #
+        # for user in self:
+        #     with self.env.cr.savepoint():
+        #         template.with_context(lang=user.lang).send_notice(user.id, force_send=True, raise_exception=True)
+        #     _logger.info("密码重置的企业微信通知发送到用户名：<%s> 企业微信ID：<%s>", user.name, user.wxwork_id)

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+
 from ..api.CorpApi import *
-import urllib,os,platform,cv2
+
+import urllib, os, platform, cv2
 import numpy as np
 import time
 import logging
@@ -22,8 +24,6 @@ class SyncImage(object):
         self.department_id = self.kwargs['department_id']
         self.img_path = self.kwargs['img_path']
         self.department = self.kwargs['department']
-        # self.times = 0
-        #         # self.result = None
 
     def run(self):
         _logger.error("开始同步企业微信通讯录-图片")
