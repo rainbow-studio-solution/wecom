@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="wxwork_hr_department_form" model="ir.ui.view">
-            <field name="name">企业微信部门表单</field>
+        <record id="view_department_form" model="ir.ui.view">
+            <field name="name">wxwork.department.form</field>
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//group[@col='4']" position="after">
-                    <group col="4" string="企业微信" attrs="{'invisible': [('is_wxwork_department', '=', False)]}">
+                    <group col="4" string="wxwork" attrs="{'invisible': [('is_wxwork_department', '=', False)]}">
                         <field name="wxwork_department_id"/>
                         <field name="wxwork_department_parent_id"/>
                         <field name="is_wxwork_department"/>
@@ -18,44 +18,29 @@
         </record>
 
         <record id="wxwork_hr_department_tree" model="ir.ui.view">
-            <field name="name">企业微信部门列表</field>
+            <field name="name">wxwork hr departmen tree</field>
             <field name="model">hr.department</field>
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='parent_id']" position="after">
-
-                    <!--<field name="wxwork_department_parent_id"/>-->
-                    <!--<field name="wxwork_department_order"/>-->
                     <field name="is_wxwork_department"/>
                     <field name="wxwork_department_id"/>
                 </xpath>
             </field>
         </record>
 
-        <!--<record id="wxwork_hr_department_search" model="ir.ui.view">-->
-        <!--<field name="name">hr.department.search</field>-->
-        <!--<field name="model">hr.department</field>-->
-        <!--<field name="arch" type="xml">-->
-        <!--<search string="Departments">-->
-        <!--<field name="name" string="查询"-->
-        <!--filter_domain="['|',('company_id','ilike',self),('name','ilike',self)]"/>-->
-        <!--<separator/>-->
-        <!--<filter string="有效" name="inactive" domain="[('active','=',False)]"/>-->
-        <!--</search>-->
-        <!--</field>-->
-        <!--</record>-->
+
 
         <record id="open_module_tree_department" model="ir.actions.act_window">
-            <field name="name">部门</field>
+            <field name="name">企业微信部门</field>
             <field name="res_model">hr.department</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <!--<field name="search_view_id" ref="wxwork_hr_department_search"/>-->
-            <field name="">{'default_is_wxwork_department':True}</field>
+            <!--            <field name="view_mode">form</field>-->
+            <!--            <field name="">{'default_is_wxwork_department':True}</field>-->
             <field name="domain">[('is_wxwork_department','=',1)]</field>
             <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
+                <p class="o_view_nocontent_smiling_face">
                     创建部门.
                 </p>
                 <p>
@@ -63,8 +48,5 @@
                 </p>
             </field>
         </record>
-
-
-
     </data>
 </odoo>
