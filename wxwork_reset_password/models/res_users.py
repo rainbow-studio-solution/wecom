@@ -22,7 +22,7 @@ class Users(models.Model):
             'target': 'new',
         }
 
-    @api.multi
+    # @api.multi
     def action_wxwork_reset_password(self):
         """ 为每个企微用户创建注册令牌，并通过企业微信发送重置密码的URL """
         pass

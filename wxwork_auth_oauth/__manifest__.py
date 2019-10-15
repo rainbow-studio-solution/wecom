@@ -8,7 +8,7 @@
     'application': True,
     'auto_install': False,
     'category': '企业微信',
-    'version': '12.0.0.1',
+    'version': '13.0.0.1',
     'summary': """
         企业微信OAuth的授权登录和扫码登录
         """,

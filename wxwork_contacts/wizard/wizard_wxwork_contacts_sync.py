@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
     times = fields.Float(string='所用时间(秒)', digits=(16, 3), readonly=True)
     result = fields.Text(string='结果', readonly=True)
 
-    @api.multi
+    # @api.multi
     def action_sync_contacts(self):
         params = self.env['ir.config_parameter'].sudo()
         sync_hr_enabled = params.get_param('wxwork.contacts_auto_sync_hr_enabled')

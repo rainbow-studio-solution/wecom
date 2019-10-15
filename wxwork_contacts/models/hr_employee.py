@@ -26,7 +26,7 @@ class HrEmployee(models.Model):
     )
     is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
-    @api.multi
+    # @api.multi
     def sync_employee(self):
         _logger.error("开始同步企业微信通讯录-员工同步")
         params = self.env['ir.config_parameter'].sudo()
@@ -69,7 +69,7 @@ class HrEmployee(models.Model):
         _logger.error("结束同步企业微信通讯录-员工同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
-    @api.multi
+    # @api.multi
     def run_sync(self, obj):
         # lock.acquire()
         with api.Environment.manage():
@@ -95,7 +95,7 @@ class HrEmployee(models.Model):
             new_cr.close()
         # lock.release()
 
-    @api.multi
+    # @api.multi
     def create_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
@@ -132,7 +132,7 @@ class HrEmployee(models.Model):
             result = False
         return result
 
-    @api.multi
+    # @api.multi
     def update_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
@@ -166,7 +166,7 @@ class HrEmployee(models.Model):
 
         return result
 
-    @api.multi
+    # @api.multi
     def encode_image_as_base64(self,image_path):
         # if not self.sync_img:
         #     return None
@@ -181,7 +181,7 @@ class HrEmployee(models.Model):
                 return None
                 # pass
 
-    @api.multi
+    # @api.multi
     def get_employee_parent_department(self,department_id):
         try:
             departments = self.env['hr.department'].search([
@@ -193,7 +193,7 @@ class HrEmployee(models.Model):
         except BaseException as e:
             print('获取员工上级部门错误:%s' % (repr(e)))
 
-    @api.multi
+    # @api.multi
     def sync_leave_employee(self,response):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
         try:
@@ -227,7 +227,7 @@ class HrEmployee(models.Model):
         except Exception as e:
             print('生成离职员工数据错误:%s' % (repr(e)))
 
-    @api.multi
+    # @api.multi
     def set_employee_active(self,records,lock):
         # lock.acquire()
         try:
@@ -245,7 +245,7 @@ class EmployeeBindingUser(models.Model):
     _inherit = 'hr.employee'
     _description = '企业微信员工绑定用户'
 
-    @api.multi
+    # @api.multi
     def binding(self):
         _logger.error("开始同步企业微信通讯录-用户绑定")
 
@@ -292,7 +292,7 @@ class EmployeeBindingUser(models.Model):
             _logger.error("结束同步企业微信通讯录-员工绑定，总共花费时间：%s 秒" % times)
         return times, status, result
 
-    @api.multi
+    # @api.multi
     def run(self, user, employee):
         if len(user) > 0:
             self.update_user(user, employee)
@@ -303,7 +303,7 @@ class EmployeeBindingUser(models.Model):
             })
 
 
-    @api.multi
+    # @api.multi
     def create_user(self, user, employee):
         try:
             groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
@@ -334,7 +334,7 @@ class EmployeeBindingUser(models.Model):
             print('从员工创建用户错误:%s' % (repr(e)))
 
 
-    @api.multi
+    # @api.multi
     def update_user(self, user, employee):
         try:
             user.write({

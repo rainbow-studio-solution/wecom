@@ -41,7 +41,7 @@ class ChangeTypeWizard(models.TransientModel):
 
     user_ids = fields.One2many('change.type.user', 'wizard_id', string='用户', default=_default_user_ids)
 
-    @api.multi
+    # @api.multi
     def change_type_button(self):
         self.ensure_one()
         self.user_ids.change_type_button()
@@ -60,7 +60,7 @@ class ChangeTypeUser(models.TransientModel):
     choices = (('1', '内部用户'),('9', '门户用户'),('10', '公共用户'))
     new_type = fields.Selection(choices, string='用户类型', default='')
 
-    @api.multi
+    # @api.multi
     def change_type_button(self):
         for line in self:
             if not line.new_type:

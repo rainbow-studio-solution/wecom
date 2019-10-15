@@ -69,7 +69,7 @@ class NoticeTemplate(models.Model):
             expression += "}"
         return expression
 
-    @api.multi
+    # @api.multi
     def send_notice(self, send_to_all=False):
         '''
         生成一个新的企业微信通知。 模板由res_id和来自模板的模型给出的记录呈现。
@@ -101,14 +101,14 @@ class NoticeTemplate(models.Model):
         #     print e.errCode, e.errMsg
 
 
-    @api.multi
+    # @api.multi
     def generate_notice(self):
         '''
         根据res_ids给出的记录，根据给定模型从模板生成企业微信通知
         :return:
         '''
 
-    @api.multi
+    # @api.multi
     def generate_notice_template(self):
         '''
         生成企业微信消息模板

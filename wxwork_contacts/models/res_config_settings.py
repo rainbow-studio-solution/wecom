@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
 from ..api.CorpApi import *
 from ..models.sync import *
 
@@ -24,13 +25,21 @@ class ResConfigSettings(models.TransientModel):
     contacts_sync_user_enabled = fields.Boolean('允许企业微信通讯录自动更新系统账号',
                                                 config_parameter='wxwork.contacts_sync_user_enabled', default=False)
 
-    @api.multi
+    # @api.onchange('corpid', 'contacts_secret')
     def get_token(self):
-        api = CorpApi(self.corpid, self.contacts_secret)
-        self.env['ir.config_parameter'].sudo().set_param(
-            "wxwork.contacts_access_token", api.getAccessToken())
+        if self.corpid == False:
+            raise UserError(_("请正确填写企业ID."))
+        elif self.contacts_secret  == False:
+            raise UserError(_("请正确填写通讯录凭证密钥."))
+        # elif self.contacts_secret.strip() == '' or self.contacts_secret.isspace() == True or self.contacts_secret is None:
+        #     raise UserError(_("请正确填写通讯录凭证密钥."))
+        else:
+            api = CorpApi(self.corpid, self.contacts_secret)
+            self.env['ir.config_parameter'].sudo().set_param(
+                "wxwork.contacts_access_token", api.getAccessToken())
 
-    @api.multi
+
+    # @api.multi
     def cron_sync_contacts(self):
         """
         同步通讯录任务

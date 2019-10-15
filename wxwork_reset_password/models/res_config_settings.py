@@ -8,6 +8,6 @@ class ResConfigSettings(models.TransientModel):
 
     qr_reset_password_uri = fields.Char('扫码重置密码地址', config_parameter='wxwork.qr_reset_password_uri')
 
-    @api.multi
+    # @api.multi
     def generate_qr_reset_password_uri(self):
         pass

@@ -90,7 +90,3 @@ class CorpApi(AbstractApi) :
                     'corpsecret':   self.secret, 
                 })
         self.access_token = response.get('access_token')
-
-
-
-

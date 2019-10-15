@@ -30,7 +30,7 @@ class SyncDepartment(models.Model):
     _inherit = 'hr.department'
     _description = '同步企业微信部门'
 
-    @api.multi
+    # @api.multi
     def sync_department(self):
         _logger.error("开始同步企业微信通讯录-部门同步")
         params = self.env['ir.config_parameter'].sudo()
@@ -73,7 +73,7 @@ class SyncDepartment(models.Model):
         _logger.error("结束同步企业微信通讯录-部门同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
-    @api.multi
+    # @api.multi
     def run_sync(self, obj):
         # lock.acquire()
         with api.Environment.manage():
@@ -98,7 +98,7 @@ class SyncDepartment(models.Model):
             new_cr.close()
         # lock.release()
 
-    @api.multi
+    # @api.multi
     def create_department(self, records, obj):
         try:
             records.create({
@@ -114,7 +114,7 @@ class SyncDepartment(models.Model):
             result = False
         return result
 
-    @api.multi
+    # @api.multi
     def update_department(self, records, obj):
         try:
             records.write({
@@ -129,7 +129,7 @@ class SyncDepartment(models.Model):
             result = False
         return result
 
-    @api.multi
+    # @api.multi
     def run_set(self):
         """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
         # lock.acquire()
@@ -158,7 +158,7 @@ class SyncDepartment(models.Model):
 
         # lock.release()
 
-    @api.multi
+    # @api.multi
     def get_parent_department(self,dep,departments):
         parent_department = departments.search([
             ('wxwork_department_id', '=', dep.wxwork_department_parent_id),
