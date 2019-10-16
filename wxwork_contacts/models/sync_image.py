@@ -52,10 +52,10 @@ class SyncImage(object):
                 t1.start()
                 t2.start()
                 result = "图片同步成功"
-                status ={'image': True}
+                status ={'image_1024': True}
         except Exception as e:
             result = "图片同步失败"
-            status = {'image': False}
+            status = {'image_1024': False}
             print('同步图片错误:%s' % (repr(e)))
 
         end = time.time()

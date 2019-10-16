@@ -26,7 +26,6 @@ class HrEmployee(models.Model):
     )
     is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
-    # @api.multi
     def sync_employee(self):
         _logger.error("开始同步企业微信通讯录-员工同步")
         params = self.env['ir.config_parameter'].sudo()
@@ -95,7 +94,6 @@ class HrEmployee(models.Model):
             new_cr.close()
         # lock.release()
 
-    # @api.multi
     def create_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
@@ -115,7 +113,7 @@ class HrEmployee(models.Model):
                 'name': obj['name'],
                 'gender': Common(obj['gender']).gender(),
                 'marital': None, # 不生成婚姻状况
-                'image': self.encode_image_as_base64(avatar_file),
+                'image_1024': self.encode_image_as_base64(avatar_file),
                 'mobile_phone': obj['mobile'],
                 'work_phone': obj['telephone'],
                 'work_email': obj['email'],
@@ -132,7 +130,6 @@ class HrEmployee(models.Model):
             result = False
         return result
 
-    # @api.multi
     def update_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
@@ -148,7 +145,7 @@ class HrEmployee(models.Model):
             records.write({
                 'name': obj['name'],
                 'gender': Common(obj['gender']).gender(),
-                'image': self.encode_image_as_base64(avatar_file),
+                'image_1024': self.encode_image_as_base64(avatar_file),
                 'mobile_phone': obj['mobile'],
                 'work_phone': obj['telephone'],
                 'work_email': obj['email'],
@@ -166,7 +163,6 @@ class HrEmployee(models.Model):
 
         return result
 
-    # @api.multi
     def encode_image_as_base64(self,image_path):
         # if not self.sync_img:
         #     return None
@@ -314,7 +310,7 @@ class EmployeeBindingUser(models.Model):
                 'password': Common(8).random_passwd(),
                 'email': employee.work_email,
                 'wxwork_id': employee.wxwork_id,
-                'image': employee.image,
+                'image_1024': employee.image_1024,
                 # 'qr_code': employee.qr_code,
                 'active': employee.active,
                 'wxwork_user_order': employee.wxwork_user_order,
@@ -341,7 +337,7 @@ class EmployeeBindingUser(models.Model):
                 'name': employee.name,
                 'oauth_uid': employee.wxwork_id,
                 # 'email': employee.work_email,
-                'image': employee.image,
+                'image_1024': employee.image_1024,
                 'wxwork_user_order': employee.wxwork_user_order,
                 'is_wxwork_user': True,
                 'mobile': employee.mobile_phone,
