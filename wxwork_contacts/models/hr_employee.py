@@ -4,7 +4,6 @@ from odoo import api, fields, models
 from ..api.CorpApi import *
 from ..helper.common import *
 import logging,platform
-from threading import Thread, Lock
 import time
 
 _logger = logging.getLogger(__name__)
@@ -68,9 +67,7 @@ class HrEmployee(models.Model):
         _logger.error("结束同步企业微信通讯录-员工同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
-    # @api.multi
     def run_sync(self, obj):
-        # lock.acquire()
         with api.Environment.manage():
             new_cr = self.pool.cursor()
             self = self.with_env(self.env(cr=new_cr))
@@ -92,12 +89,17 @@ class HrEmployee(models.Model):
                 print(repr(e))
             new_cr.commit()
             new_cr.close()
-        # lock.release()
 
     def create_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
-            department_ids.append(self.get_employee_parent_department(department))
+            department_ids.append(self.get_employee_parent_wxwork_department(department))
+
+        department_id = []
+        if len(obj['department'])>1:
+            department_id = None
+        else:
+            department_id = self.get_employee_parent_hr_department(obj['department'])
 
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
@@ -119,6 +121,7 @@ class HrEmployee(models.Model):
                 'work_email': obj['email'],
                 'active': obj['enable'],
                 'alias': obj['alias'],
+                'department_id':department_id,
                 'department_ids': [(6, 0, department_ids)],
                 'wxwork_user_order': obj['order'],
                 'qr_code': self.encode_image_as_base64(qr_code_file),
@@ -133,7 +136,14 @@ class HrEmployee(models.Model):
     def update_employee(self,records, obj):
         department_ids = []
         for department in obj['department']:
-            department_ids.append(self.get_employee_parent_department(department))
+            department_ids.append(self.get_employee_parent_wxwork_department(department))
+
+        department_id = []
+        if len(obj['department']) > 1:
+            department_id = None
+        else:
+            department_id = self.get_employee_parent_hr_department(obj['department'])
+
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
             avatar_file = img_path.replace("\\","/") + "/avatar/" + obj['userid'] + ".jpg"
@@ -151,6 +161,7 @@ class HrEmployee(models.Model):
                 'work_email': obj['email'],
                 'active': obj['enable'],
                 'alias': obj['alias'],
+                'department_id': department_id,
                 'department_ids': [(6, 0, department_ids)],
                 'wxwork_user_order': obj['order'],
                 'qr_code': self.encode_image_as_base64(qr_code_file),
@@ -175,10 +186,28 @@ class HrEmployee(models.Model):
                 return encoded_string
             except BaseException as e:
                 return None
-                # pass
+                # pass+
 
-    # @api.multi
-    def get_employee_parent_department(self,department_id):
+    def get_employee_parent_hr_department(self,department_obj):
+        '''
+        如果企微用户只有一个部门，则设置企业用户的HR部门
+        :param department_obj: 部门json
+        :return:
+            企微用户只有一个部门，返回department_id
+            企微用户归属多个部门，返回 None
+        '''
+        try:
+            departments = self.env['hr.department'].search([
+                ('wxwork_department_id', 'in', department_obj),
+                ('is_wxwork_department', '=', True)],
+                limit=1)
+            if len(departments) > 0:
+                return departments.id
+        except BaseException as e:
+            print('获取员工上级部门错误:%s' % (repr(e)))
+
+
+    def get_employee_parent_wxwork_department(self,department_id):
         try:
             departments = self.env['hr.department'].search([
                 ('wxwork_department_id', '=', department_id),
@@ -189,7 +218,6 @@ class HrEmployee(models.Model):
         except BaseException as e:
             print('获取员工上级部门错误:%s' % (repr(e)))
 
-    # @api.multi
     def sync_leave_employee(self,response):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
         try:
@@ -223,7 +251,6 @@ class HrEmployee(models.Model):
         except Exception as e:
             print('生成离职员工数据错误:%s' % (repr(e)))
 
-    # @api.multi
     def set_employee_active(self,records,lock):
         # lock.acquire()
         try:

@@ -18,6 +18,7 @@
 
         """,
     'depends': [
+        'portal',
         'auth_oauth',
         'wxwork_contacts',
     ],

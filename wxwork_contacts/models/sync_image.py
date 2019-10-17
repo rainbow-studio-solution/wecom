@@ -118,7 +118,14 @@ class SyncImage(object):
             return False
 
     def check_image(self,remote_img,local_img):
-        # 是否存在本地图片
+        '''
+        检查是否存在本地图片，
+        有：比较和更新图片
+        无：下载图片
+        :param remote_img: 远程图片
+        :param local_img: 本地图片
+        :return:
+        '''
         if os.path.exists(local_img):
             # 比较本地远程和本地图片
             if not self.check_identical_images(remote_img, local_img):
@@ -127,10 +134,20 @@ class SyncImage(object):
             self.download_image(remote_img, local_img)
 
     def download_image(self,remote_img,local_img):
+        '''
+        下载图片
+        :param remote_img: 远程图片
+        :param local_img: 本地图片
+        :return:
+            Ture：下载成功
+            False: 下载失败
+        '''
         try:
             avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
             file_avatar = open(local_img, "wb")  # 读取，写入
             file_avatar.write(avatar_data)
             file_avatar.close()
+            return True
         except BaseException as e:
+            return False
             print(repr(e))

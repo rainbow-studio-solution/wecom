@@ -21,8 +21,7 @@
         'base',
         'mail',
         'hr',
-        'portal',
-        'auth_oauth',
+
         'wxwork_base',
     ],
     'data': [
