@@ -63,5 +63,18 @@
             </field>
         </record>
 
+
+        <!--    树形    -->
+<!--        <record id="view_wxwork_employee_filter" model="ir.ui.view">-->
+<!--            <field name="name">hr.employee.search</field>-->
+<!--            <field name="model">hr.employee</field>-->
+<!--            <field name="inherit_id" ref="hr.hr_employee_public_view_search"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//searchpanel//field[@name='department_id']" position="replace">-->
+<!--                    <field name="department_ids" icon="fa-users"/>-->
+<!--                </xpath>-->
+<!--             </field>-->
+<!--        </record>-->
+
     </data>
 </odoo>

@@ -95,11 +95,11 @@ class HrEmployee(models.Model):
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_wxwork_department(department))
 
-        department_id = []
-        if len(obj['department'])>1:
-            department_id = None
-        else:
-            department_id = self.get_employee_parent_hr_department(obj['department'])
+        # department_id = []
+        # if len(obj['department'])>1:
+        #     department_id = None
+        # else:
+        #     department_id = self.get_employee_parent_hr_department(obj['department'])
 
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
@@ -121,7 +121,8 @@ class HrEmployee(models.Model):
                 'work_email': obj['email'],
                 'active': obj['enable'],
                 'alias': obj['alias'],
-                'department_id':department_id,
+                # 'department_id':department_id,
+                'department_id': department_ids[0],#归属多个部门的情况下，第一个部门为默认部门
                 'department_ids': [(6, 0, department_ids)],
                 'wxwork_user_order': obj['order'],
                 'qr_code': self.encode_image_as_base64(qr_code_file),
@@ -138,11 +139,11 @@ class HrEmployee(models.Model):
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_wxwork_department(department))
 
-        department_id = []
-        if len(obj['department']) > 1:
-            department_id = None
-        else:
-            department_id = self.get_employee_parent_hr_department(obj['department'])
+        # department_id = []
+        # if len(obj['department']) > 1:
+        #     department_id = None
+        # else:
+        #     department_id = self.get_employee_parent_hr_department(obj['department'])
 
         img_path = self.env['ir.config_parameter'].sudo().get_param('wxwork.contacts_img_path')
         if (platform.system() == 'Windows'):
@@ -161,7 +162,8 @@ class HrEmployee(models.Model):
                 'work_email': obj['email'],
                 'active': obj['enable'],
                 'alias': obj['alias'],
-                'department_id': department_id,
+                # 'department_id': department_id,
+                'department_id': department_ids[0],#归属多个部门的情况下，第一个部门为默认部门
                 'department_ids': [(6, 0, department_ids)],
                 'wxwork_user_order': obj['order'],
                 'qr_code': self.encode_image_as_base64(qr_code_file),
