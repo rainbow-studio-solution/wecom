@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="企业微信通讯簿数据同步" >
-                    <separator string="从企业微信更新下载并更新本地 HR 和 USER"/>
+                    <separator string="从企业微信更新下载并更新本地：部门和员工"/>
                     <group>
                         <div>
                             多次代码优化后，目前仅对图片下载使用了多线程。Linux生产服务器使用一下命令查看实时日志：<br/><br/>
@@ -52,7 +52,7 @@
                             <field name="image_sync_result"/>
                             <field name="department_sync_result"/>
                             <field name="employee_sync_result"/>
-                            <field name="employee_binding_user_result"/>
+<!--                            <field name="employee_binding_user_result"/>-->
                         </group>
                         <group>
                             <field name="create_date" string="开始时间"/>
@@ -76,7 +76,7 @@
                     <field name="department_sync_result" string="部门同步"/>
                     <field name="employee_sync_result" string="员工同步" />
                     <!--<field name="user_sync_result" string="用户同步"/>-->
-                    <field name="employee_binding_user_result" string="用户绑定"/>
+<!--                    <field name="employee_binding_user_result" string="用户绑定"/>-->
                     <field name="times"/>
                     <field name="create_date" string="开始时间"/>
                 </tree>

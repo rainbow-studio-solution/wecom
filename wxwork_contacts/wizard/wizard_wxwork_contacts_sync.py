@@ -13,11 +13,10 @@ class ResConfigSettings(models.TransientModel):
     department_sync_result = fields.Boolean(string='部门同步结果',default=False, readonly=True )
     employee_sync_result = fields.Boolean(string='员工同步结果',default=False, readonly=True )
     user_sync_result = fields.Boolean(string='用户同步结果',default=False, readonly=True )
-    employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
+    # employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
     times = fields.Float(string='所用时间(秒)', digits=(16, 3), readonly=True)
     result = fields.Text(string='结果', readonly=True)
 
-    # @api.multi
     def action_sync_contacts(self):
         params = self.env['ir.config_parameter'].sudo()
         sync_hr_enabled = params.get_param('wxwork.contacts_auto_sync_hr_enabled')
@@ -26,21 +25,21 @@ class ResConfigSettings(models.TransientModel):
             'secret': params.get_param('wxwork.contacts_secret'),
             'department_id': params.get_param('wxwork.contacts_sync_hr_department_id'),
             'sync_hr': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
-            'sync_user': params.get_param('wxwork.contacts_sync_user_enabled'),
+            # 'sync_user': params.get_param('wxwork.contacts_sync_user_enabled'),
             'img_path': params.get_param('wxwork.contacts_img_path'),
             'department': self.env['hr.department'],
             'employee': self.env['hr.employee'],
-            'users': self.env['res.users'],
+            # 'users': self.env['res.users'],
         }
 
         if not sync_hr_enabled:
-            raise UserError('提示：当前设置不允许从企业微信同步到odoo \n\n 请修改相关的设置')
+            raise UserError('提示：当前设置不允许从企业微信同步到HR \n\n 请修改相关的设置')
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses['image_1024']
             self.department_sync_result = statuses['department']
             self.employee_sync_result = statuses['employee']
-            self.employee_binding_user_result = statuses['binding']
+            # self.employee_binding_user_result = statuses['binding']
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_result')
         return {

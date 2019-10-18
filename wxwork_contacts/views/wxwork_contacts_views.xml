@@ -2,16 +2,17 @@
 <odoo>
     <data>
 
-        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee"  name="员工"
-                  parent="wxwork_base.menu_wxwork_root" sequence="10"/>
+<!--        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee"  name="员工"-->
+<!--                  parent="wxwork_base.menu_wxwork_root" sequence="10"/>-->
 
-        <menuitem action="open_module_tree_department" id="menu_wxwork_department" name="部门"
-                  parent="wxwork_base.menu_wxwork_root" sequence="20"/>
+<!--        <menuitem action="open_module_tree_department" id="menu_wxwork_department" name="部门"-->
+<!--                  parent="wxwork_base.menu_wxwork_root" sequence="20"/>-->
 
-        <menuitem action="open_module_tree_user" id="menu_wxwork_user" name="用户"
-                  parent="wxwork_base.menu_wxwork_root" sequence="30"/>
+<!--        <menuitem action="open_module_tree_user" id="menu_wxwork_user" name="用户"-->
+<!--                  parent="wxwork_base.menu_wxwork_root" sequence="30"/>-->
 
-        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="90"/>
+<!--        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="90"/>-->
+        <menuitem id="menu_wxwork_contacts_sync" name="企微同步" parent="hr.menu_hr_root" sequence="90"/>
 
 
         <menuitem id="menu_wxwork_contacts_wizard" name="向导同步" parent="menu_wxwork_contacts_sync"

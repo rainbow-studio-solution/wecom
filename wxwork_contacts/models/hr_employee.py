@@ -264,11 +264,9 @@ class HrEmployee(models.Model):
         # lock.release()
 
 class EmployeeBindingUser(models.Model):
-    # _inherit = ["hr.employee", "res.users"]
     _inherit = 'hr.employee'
     _description = '企业微信员工绑定用户'
 
-    # @api.multi
     def binding(self):
         _logger.error("开始同步企业微信通讯录-用户绑定")
 
@@ -315,7 +313,6 @@ class EmployeeBindingUser(models.Model):
             _logger.error("结束同步企业微信通讯录-员工绑定，总共花费时间：%s 秒" % times)
         return times, status, result
 
-    # @api.multi
     def run(self, user, employee):
         if len(user) > 0:
             self.update_user(user, employee)
@@ -325,8 +322,6 @@ class EmployeeBindingUser(models.Model):
                 'user_id':user_id
             })
 
-
-    # @api.multi
     def create_user(self, user, employee):
         try:
             groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id

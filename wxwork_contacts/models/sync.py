@@ -10,8 +10,8 @@ class SyncTask(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.sync_hr = self.kwargs['sync_hr']
-        self.sync_user = self.kwargs['sync_user']
-        self.users = self.kwargs['users']
+        # self.sync_user = self.kwargs['sync_user']
+        # self.users = self.kwargs['users']
         self.department = self.kwargs['department']
         self.employee = self.kwargs['employee']
 
@@ -19,22 +19,22 @@ class SyncTask(object):
         _logger.error("开始同步企业微信通讯录")
         if self.sync_hr:
             threads = []
-            if self.sync_user:
-                task_name_list = ['企业微信图片同步','企业微信部门同步','企业微信员工同步','企业微信用户绑定']
-                task_func_list = [
-                    SyncImage(self.kwargs).run,
-                    self.department.sync_department,
-                    self.employee.sync_employee,
-                    self.employee.binding,
-                ]
-            else:
-                _logger.error("当前设置不允许从企业微信同步到User")
-                task_name_list = ['企业微信图片同步', '企业微信部门同步', '企业微信员工同步']
-                task_func_list = [
-                    SyncImage(self.kwargs).run,
-                    self.department.sync_department,
-                    self.employee.sync_employee,
-                ]
+            # if self.sync_user:
+            #     task_name_list = ['企业微信图片同步','企业微信部门同步','企业微信员工同步','企业微信用户绑定']
+            #     task_func_list = [
+            #         SyncImage(self.kwargs).run,
+            #         self.department.sync_department,
+            #         self.employee.sync_employee,
+            #         # self.employee.binding,
+            #     ]
+            # else:
+            # _logger.error("当前设置不允许从企业微信同步到User")
+            task_name_list = ['企业微信图片同步', '企业微信部门同步', '企业微信员工同步']
+            task_func_list = [
+                SyncImage(self.kwargs).run,
+                self.department.sync_department,
+                self.employee.sync_employee,
+            ]
             times = []
             results = []
             statuses = {}
