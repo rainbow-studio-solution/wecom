@@ -36,7 +36,7 @@ class ResConfigSettings(models.TransientModel):
             raise UserError('提示：当前设置不允许从企业微信同步到HR \n\n 请修改相关的设置')
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
-            self.image_sync_result = statuses['image_1024']
+            self.image_sync_result = statuses['image_1920']
             self.department_sync_result = statuses['department']
             self.employee_sync_result = statuses['employee']
             # self.employee_binding_user_result = statuses['binding']

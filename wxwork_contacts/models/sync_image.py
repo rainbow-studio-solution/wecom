@@ -45,17 +45,15 @@ class SyncImage(object):
 
                 remote_qr_code_img = qr_code_urls[i]
                 local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
-                # self.check_image(remote_avatar_img,local_avatar_img)
-                # self.check_image(remote_qr_code_img,local_qr_code_img)
                 t1 = Thread(target=self.check_image, args=[remote_avatar_img,local_avatar_img])
                 t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
                 t1.start()
                 t2.start()
                 result = "图片同步成功"
-                status ={'image_1024': True}
+                status ={'image_1920': True}
         except Exception as e:
             result = "图片同步失败"
-            status = {'image_1024': False}
+            status = {'image_1920': False}
             print('同步图片错误:%s' % (repr(e)))
 
         end = time.time()
@@ -147,7 +145,7 @@ class SyncImage(object):
             file_avatar = open(local_img, "wb")  # 读取，写入
             file_avatar.write(avatar_data)
             file_avatar.close()
-            return True
+            # return True
         except BaseException as e:
-            return False
+            # return False
             print(repr(e))
