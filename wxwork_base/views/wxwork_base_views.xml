@@ -11,7 +11,10 @@
         <!--        <menuitem id="menu_wxwork_configuration" name="设置" parent="menu_wxwork_root" sequence="100"-->
         <!--                  action="wxwork_config_settings_action" groups="base.group_system"/>-->
 
-        <menuitem id="menu_wxwork_configuration" name="企微设置" parent="base.menu_administration" sequence="100"
+        <menuitem id="menu_wxwork" name="企微" parent="base.menu_administration" sequence="100"
+                  groups="base.group_system"/>
+
+        <menuitem id="menu_wxwork_configuration" name="设置" parent="wxwork_base.menu_wxwork" sequence="1"
                   action="wxwork_config_settings_action" groups="base.group_system"/>
 
     </data>

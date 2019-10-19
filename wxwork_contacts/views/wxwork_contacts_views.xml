@@ -2,16 +2,6 @@
 <odoo>
     <data>
 
-<!--        <menuitem action="open_module_tree_employee" id="menu_wxwork_employee"  name="员工"-->
-<!--                  parent="wxwork_base.menu_wxwork_root" sequence="10"/>-->
-
-<!--        <menuitem action="open_module_tree_department" id="menu_wxwork_department" name="部门"-->
-<!--                  parent="wxwork_base.menu_wxwork_root" sequence="20"/>-->
-
-<!--        <menuitem action="open_module_tree_user" id="menu_wxwork_user" name="用户"-->
-<!--                  parent="wxwork_base.menu_wxwork_root" sequence="30"/>-->
-
-<!--        <menuitem id="menu_wxwork_contacts_sync" name="同步" parent="wxwork_base.menu_wxwork_root" sequence="90"/>-->
         <menuitem id="menu_wxwork_contacts_sync" name="企微同步" parent="hr.menu_hr_root" sequence="90"/>
 
 
@@ -22,8 +12,8 @@
                   action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
 
 
-<!--        <menuitem id="menu_wxwork_contacts_sync_auto" name="定时同步任务" parent="menu_wxwork_contacts_sync"-->
-<!--                  action="ir_cron_act_contacts" sequence="30"/>-->
+        <menuitem id="menu_wxwork_contacts_sync_auto" name="配置定时任务" parent="wxwork_base.menu_wxwork"
+                  action="ir_cron_act_contacts" sequence="2"/>
 
         <!-- menu categories -->
     </data>

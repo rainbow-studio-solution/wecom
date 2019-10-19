@@ -25,6 +25,41 @@ class HrEmployee(models.Model):
     )
     is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
+    user_check_tick = fields.Boolean('User Check Tick')
+
+    def create_user_from_employee(self):
+        groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
+        user_id = self.env['res.users'].create({
+            'name': self.name,
+                'login': self.wxwork_id,
+                'oauth_uid': self.wxwork_id,
+                'password': Common(8).random_passwd(),
+                'email': self.work_email,
+                'wxwork_id': self.wxwork_id,
+                'image_1920': self.image_1920,
+                # 'qr_code': employee.qr_code,
+                'active': self.active,
+                'wxwork_user_order': self.wxwork_user_order,
+                'mobile': self.mobile_phone,
+                'phone': self.work_phone,
+                'notification_type': 'wxwork',
+                'is_wxwork_user': True,
+                'is_moderator': False,
+                'is_company': False,
+                'employee': True,
+                'share': False,
+                'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
+        })
+        self.address_home_id = user_id.partner_id.id
+        self.user_check_tick = True
+
+    @api.onchange('address_home_id')
+    def user_checking(self):
+        if self.address_home_id:
+            self.user_check_tick = True
+        else:
+            self.user_check_tick = False
+
     def sync_employee(self):
         _logger.error("开始同步企业微信通讯录-员工同步")
         params = self.env['ir.config_parameter'].sudo()
@@ -353,8 +388,6 @@ class EmployeeBindingUser(models.Model):
         except Exception as e:
             print('从员工创建用户错误:%s' % (repr(e)))
 
-
-    # @api.multi
     def update_user(self, user, employee):
         try:
             user.write({

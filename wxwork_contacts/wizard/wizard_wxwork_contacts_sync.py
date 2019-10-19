@@ -5,7 +5,7 @@ from odoo.exceptions import UserError
 from ..models.sync import *
 
 class ResConfigSettings(models.TransientModel):
-    _name = 'wxwork.contacts.wizard'
+    _name = 'wizard.wxwork.contacts'
     _description = '企业微信同步向导'
     _order = 'create_date'
 
@@ -46,7 +46,7 @@ class ResConfigSettings(models.TransientModel):
             'name': '更新结果',
             'view_type': 'form',
             'view_mode': 'form',
-            'res_model': 'wxwork.contacts.wizard',
+            'res_model': 'wizard.wxwork.contacts',
             'res_id': self.id,
             'view_id': False,
             'views': [[form_view.id,'form'],],

@@ -23,10 +23,13 @@ class Users(models.Model):
         readonly=True,
     )
 
+#----------------------------------------------------------
+# 变更用户类型向导
+#----------------------------------------------------------
 
 class ChangeTypeWizard(models.TransientModel):
-    _name = "change.type.wizard"
-    _description = "Change WxWork User Type Wizard"
+    _name = "wizard.change.user.type"
+    _description = "向导变更用户类型(企业微信)"
 
     def _default_user_ids(self):
         user_ids = self._context.get('active_model') == 'res.users' and self._context.get('active_ids') or []
@@ -39,9 +42,8 @@ class ChangeTypeWizard(models.TransientModel):
             for user in self.env['res.users'].browse(user_ids)
         ]
 
-    user_ids = fields.One2many('change.type.user', 'wizard_id', string='用户', default=_default_user_ids)
+    user_ids = fields.One2many('user.type.change', 'wizard_id', string='用户', default=_default_user_ids)
 
-    # @api.multi
     def change_type_button(self):
         self.ensure_one()
         self.user_ids.change_type_button()
@@ -50,17 +52,16 @@ class ChangeTypeWizard(models.TransientModel):
         return {'type': 'ir.actions.act_window_close'}
 
 class ChangeTypeUser(models.TransientModel):
-    _name = 'change.type.user'
+    _name = 'user.type.change'
     _description = 'User, Change Type Wizard'
 
-    wizard_id = fields.Many2one('change.type.wizard', string='Wizard', required=True, ondelete='cascade')
+    wizard_id = fields.Many2one('wizard.change.user.type', string='Wizard', required=True, ondelete='cascade')
     user_id = fields.Many2one('res.users', string='User', required=True, ondelete='cascade')
     user_login = fields.Char(string='登录账号', readonly=True)
     user_name = fields.Char(string='名称', readonly=True)
-    choices = (('1', '内部用户'),('9', '门户用户'),('10', '公共用户'))
-    new_type = fields.Selection(choices, string='用户类型', default='')
+    choices = ([('1', '内部用户'),('8', '门户用户'),('9', '公共用户')])
+    new_type = fields.Selection(choices, string='用户类型', default='1', tracking=True)
 
-    # @api.multi
     def change_type_button(self):
         for line in self:
             if not line.new_type:
@@ -72,3 +73,4 @@ class ChangeTypeUser(models.TransientModel):
                     'groups_id':  [(6, 0, line.new_type)]
                 })
         self.write({'new_type': False})
+

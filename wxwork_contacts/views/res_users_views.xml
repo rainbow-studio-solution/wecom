@@ -51,7 +51,7 @@
         <!--转换用户类型 wizard-->
         <record id="change_type_wizard_view" model="ir.ui.view">
             <field name="name">change user type wizard</field>
-            <field name="model">change.type.wizard</field>
+            <field name="model">wizard.change.user.type</field>
             <field name="arch" type="xml">
                 <form string="改变用户类型">
                     <field name="user_ids"/>
@@ -65,7 +65,7 @@
 
         <record id="change_type_wizard_user_tree_view" model="ir.ui.view">
             <field name="name">change user type tree</field>
-            <field name="model">change.type.user</field>
+            <field name="model">user.type.change</field>
             <field name="arch" type="xml">
                 <tree string="Users" editable="bottom" create="false" delete="false">
                     <field name="user_name" />
@@ -76,9 +76,9 @@
         </record>
 
         <act_window id="change_type_wizard_action"
-                    name="change user type"
+                    name="变更用户类型"
                     binding_model="res.users"
-                    res_model="change.type.wizard"
+                    res_model="wizard.change.user.type"
                     view_mode="form"
                     target="new"
                     groups="base.group_erp_manager"/>
@@ -102,5 +102,6 @@
                 </p>
             </field>
         </record>
+
     </data>
 </odoo>

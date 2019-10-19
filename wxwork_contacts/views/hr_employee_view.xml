@@ -6,6 +6,13 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
+                <field name="work_email" position="after">
+                    <field name="user_check_tick" invisible="1"/>
+                </field>
+                <xpath expr="//header//button[last()]" position="before">
+                    <button name="create_user_from_employee" string="复制为系统用户" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('user_check_tick', '=', True)]}"/>
+                </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <label for="alias" class="oe_edit_only"/>
                     <h2>
@@ -45,11 +52,25 @@
             </field>
         </record>
 
+        <record id="wxwork_hr_employee_tree2" model="ir.ui.view">
+            <field name="name">wxwork_hr_employee_tree2</field>
+            <field name="model">hr.employee</field>
+            <field name="priority" eval="0"/>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="wxwork_id" />
+                    <field name="department_id"/>
+                    <field name="is_wxwork_employee"/>
+                </tree>
+            </field>
+        </record>
+
         <record id="open_module_tree_employee" model="ir.actions.act_window">
             <field name="name">企业微信员工</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">tree,form</field>
-<!--            <field name="domain">[('is_wxwork_employee','=',1)]</field>-->
+            <!--            <field name="domain">[('is_wxwork_employee','=',1)]</field>-->
             <field name="context">{}</field>
             <!--<field name="view_id" eval="False"/>-->
             <!--<field name="search_view_id" ref="view_employee_filter"/>-->
@@ -62,19 +83,6 @@
                 </p>
             </field>
         </record>
-
-
-        <!--    树形    -->
-<!--        <record id="view_wxwork_employee_filter" model="ir.ui.view">-->
-<!--            <field name="name">hr.employee.search</field>-->
-<!--            <field name="model">hr.employee</field>-->
-<!--            <field name="inherit_id" ref="hr.hr_employee_public_view_search"/>-->
-<!--            <field name="arch" type="xml">-->
-<!--                <xpath expr="//searchpanel//field[@name='department_id']" position="replace">-->
-<!--                    <field name="department_ids" icon="fa-users"/>-->
-<!--                </xpath>-->
-<!--             </field>-->
-<!--        </record>-->
 
     </data>
 </odoo>

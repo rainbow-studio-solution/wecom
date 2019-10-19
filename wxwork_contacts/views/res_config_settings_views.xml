@@ -134,22 +134,26 @@
                                     </div>
                                 </div>
 
-                                <h2>通讯录同步ODOO USER配置</h2>
-                                <div class="row mt16 o_settings_container">
-                                    <div class="col-xs-12 col-md-6 o_setting_box">
-                                        <div class="o_setting_left_pane">
-                                            <field name="contacts_sync_user_enabled"/>
-                                        </div>
-                                        <div class="o_setting_right_pane">
-                                            <label for="contacts_sync_user_enabled"/>
-                                            <div class="row">
-                                                <div class="text-muted col-md-12">
-                                                    勾选,同步企业微信通讯录时生成系统账号；
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                                <h2>通讯录同步ODOO USER配置</h2>-->
+<!--                                <div class="row mt16 o_settings_container">-->
+<!--                                    <div class="col-xs-12 col-md-6 o_setting_box">-->
+<!--                                        <div class="o_setting_left_pane">-->
+<!--                                            <field name="contacts_sync_user_enabled"/>-->
+<!--                                        </div>-->
+<!--                                        <div class="o_setting_right_pane">-->
+<!--                                            <label for="contacts_sync_user_enabled"/>-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="text-muted col-md-12">-->
+<!--                                                    勾选,同步企业微信通讯录时生成系统账号；-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </page>
+                            <page string="通知">
+                                <h2>通知配置 </h2>
+                                <div class="row mt16 o_settings_container"></div>
                             </page>
                         </notebook>
                     </sheet>
