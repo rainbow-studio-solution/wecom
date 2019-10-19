@@ -23,6 +23,9 @@
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
+<!--                <xpath expr="//tree" position="attributes">-->
+<!--                    <attribute name="default_order">wxwork_department_order DESC</attribute>-->
+<!--                </xpath>-->
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="is_wxwork_department"/>
                     <field name="wxwork_department_id"/>

@@ -191,14 +191,14 @@ class HrEmployee(models.Model):
             records.write({
                 'name': obj['name'],
                 'gender': Common(obj['gender']).gender(),
-                'image_1920': self.encode_image_as_base64(avatar_file),
+                # 'image_1920': self.encode_image_as_base64(avatar_file),   # 首次同步后，不再更新头像
                 'mobile_phone': obj['mobile'],
                 'work_phone': obj['telephone'],
                 'work_email': obj['email'],
                 'active': obj['enable'],
                 'alias': obj['alias'],
                 # 'department_id': department_id,
-                'department_id': department_ids[0],#归属多个部门的情况下，第一个部门为默认部门
+                'department_id': department_ids[0], #归属多个部门的情况下，第一个部门为默认部门
                 'department_ids': [(6, 0, department_ids)],
                 'wxwork_user_order': obj['order'],
                 'qr_code': self.encode_image_as_base64(qr_code_file),

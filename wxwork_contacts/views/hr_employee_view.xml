@@ -11,7 +11,7 @@
                 </field>
                 <xpath expr="//header//button[last()]" position="before">
                     <button name="create_user_from_employee" string="复制为系统用户" type="object" class="oe_highlight"
-                            attrs="{'invisible': [('user_check_tick', '=', True)]}"/>
+                            attrs="{'invisible': [('user_check_tick', '=', True)]}"     groups="base.group_system"  />
                 </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <label for="alias" class="oe_edit_only"/>
