@@ -151,10 +151,6 @@
 <!--                                    </div>-->
 <!--                                </div>-->
                             </page>
-                            <page string="通知">
-                                <h2>通知配置 </h2>
-                                <div class="row mt16 o_settings_container"></div>
-                            </page>
                         </notebook>
                     </sheet>
                 </xpath>

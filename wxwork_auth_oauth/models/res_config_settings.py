@@ -16,7 +16,6 @@ class ResConfigSettings(models.TransientModel):
     qr_redirect_uri = fields.Char('扫码登陆链接回调链接地址', help='授权后重定向的回调链接地址，请使用urlencode对链接进行处理',
                                     config_parameter='wxwork.qr_redirect_uri')
 
-    # @api.multi
     def set_oauth_provider_wxwork(self):
         client_id = self.env['ir.config_parameter'].get_param('wxwork.corpid')
         auth_redirect_uri = self.env['ir.config_parameter'].get_param('wxwork.auth_redirect_uri')

@@ -3,7 +3,6 @@
     <data noupdate="1">
         <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
             <field name="enabled" eval="False" />
-            <field name="partner_id" ref="auth_oauth.provider_openerp"/>
         </record>
 
         <record id="provider_wxwork_authorize" model="auth.oauth.provider">
