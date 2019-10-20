@@ -28,8 +28,12 @@ class HrEmployee(models.Model):
     user_check_tick = fields.Boolean('User Check Tick')
 
     def create_user_from_employee(self):
+        '''
+        从员工生成用户
+        :return:
+        '''
         groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
-        user_id = self.env['res.users'].create({
+        res_user_id = self.env['res.users'].create({
             'name': self.name,
                 'login': self.wxwork_id,
                 'oauth_uid': self.wxwork_id,
@@ -50,7 +54,8 @@ class HrEmployee(models.Model):
                 'share': False,
                 'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
         })
-        self.address_home_id = user_id.partner_id.id
+        self.user_id = res_user_id.id
+        self.address_home_id = res_user_id.partner_id.id
         self.user_check_tick = True
 
     @api.onchange('address_home_id')
