@@ -19,7 +19,7 @@ odoo 13.0变化很大，发现不少需要改动的。
     
 2. wxwork_auth_oauth （企业微信-登录授权）初步完成适配，待服务器与域名解析及端口映射好进行测试
 
-3. wxwork_checkin (企业微信-打卡) 进行中
+3. wxwork_attendance (企业微信-打卡) 进行中
 
 # 帮助
 

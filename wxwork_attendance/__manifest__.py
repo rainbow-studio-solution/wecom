@@ -19,10 +19,12 @@
         """,
     'depends': [
         'hr_attendance',
-        'wxwork_base',
+        'wxwork_contacts',
     ],
     'data': [
-
+        'data/wxwork_data.xml',
+        'views/res_config_settings_views.xml',
+        'views/wxwork_attendance_views.xml',
     ],
     'qweb': [
         "static/src/xml/*.xml",
