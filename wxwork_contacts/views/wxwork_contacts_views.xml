@@ -12,7 +12,7 @@
                   action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
 
 
-        <menuitem id="menu_wxwork_contacts_sync_auto" name="配置定时任务" parent="wxwork_base.menu_wxwork"
+        <menuitem id="menu_wxwork_contacts_sync_auto" name="同步通讯录" parent="wxwork_base.menu_wxwork_cron"
                   action="ir_cron_act_contacts" sequence="2"/>
 
         <!-- menu categories -->

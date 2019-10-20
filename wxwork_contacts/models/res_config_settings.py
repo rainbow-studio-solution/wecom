@@ -38,8 +38,6 @@ class ResConfigSettings(models.TransientModel):
             self.env['ir.config_parameter'].sudo().set_param(
                 "wxwork.contacts_access_token", api.getAccessToken())
 
-
-    # @api.multi
     def cron_sync_contacts(self):
         """
         同步通讯录任务

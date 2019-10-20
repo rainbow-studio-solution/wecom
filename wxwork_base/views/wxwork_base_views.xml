@@ -17,5 +17,8 @@
         <menuitem id="menu_wxwork_configuration" name="设置" parent="wxwork_base.menu_wxwork" sequence="1"
                   action="wxwork_config_settings_action" groups="base.group_system"/>
 
+        <menuitem id="menu_wxwork_cron" name="定时任务" parent="wxwork_base.menu_wxwork" sequence="2"
+                  groups="base.group_system"/>
+
     </data>
 </odoo>
