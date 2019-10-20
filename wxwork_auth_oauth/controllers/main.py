@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from ..api.CorpApi import *
-from ..api.AbstractApi import *
 import functools
 import logging
 
@@ -24,6 +22,7 @@ import requests
 from werkzeug import urls
 
 from odoo.tools import ustr, consteq, frozendict, pycompat, unique
+from wxwork.wxwork_api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 

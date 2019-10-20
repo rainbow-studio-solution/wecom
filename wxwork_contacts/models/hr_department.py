@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from ..api.CorpApi import *
 from threading import Thread, Lock
 import time
 import logging
+
+from wxwork.wxwork_api.CorpApi import CorpApi, CORP_API_TYPE
+
 _logger = logging.getLogger(__name__)
 
 class HrDepartment(models.Model):

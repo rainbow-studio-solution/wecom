@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from ..api.CorpApi import *
 
 import urllib, os, platform, cv2
 import numpy as np
 import time
 import logging
 from threading import Thread, Lock
+
+from wxwork.wxwork_api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from ..api.CorpApi import *
 from ..helper.common import *
 from odoo.exceptions import UserError
 
