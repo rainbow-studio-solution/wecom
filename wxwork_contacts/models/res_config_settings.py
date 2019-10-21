@@ -2,7 +2,7 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi
+from wxworkapi.CorpApi import CorpApi
 from ..models.sync import *
 
 _logger = logging.getLogger(__name__)

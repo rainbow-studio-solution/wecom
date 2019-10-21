@@ -22,7 +22,7 @@ import requests
 from werkzeug import urls
 
 from odoo.tools import ustr, consteq, frozendict, pycompat, unique
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 

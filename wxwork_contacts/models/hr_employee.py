@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 from ..helper.common import *
 import logging,platform
