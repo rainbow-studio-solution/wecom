@@ -1,15 +1,26 @@
+#!/usr/bin/env python
 # -*- coding:utf-8 -*-
+##
+ # Copyright (C) 2018 All rights reserved.
+ #
+ # @File CorpApi.py
+ # @Brief
+ # @Author abelzhu, abelzhu@tencent.com
+ # @Version 1.0
+ # @Date 2018-02-24
+ #
+ #
 
-from .AbstractApi  import *
+from AbstractApi import *
 
-CORP_API_TYPE = { 
+CORP_API_TYPE = {
         'GET_ACCESS_TOKEN' : ['/cgi-bin/gettoken', 'GET'],
         'USER_CREATE' 	   : ['/cgi-bin/user/create?access_token=ACCESS_TOKEN', 'POST'],
         'USER_GET' 	   : ['/cgi-bin/user/get?access_token=ACCESS_TOKEN', 'GET'],
         'USER_UPDATE'      : ['/cgi-bin/user/update?access_token=ACCESS_TOKEN', 'POST'],
         'USER_DELETE' 	   : ['/cgi-bin/user/delete?access_token=ACCESS_TOKEN', 'GET'],
         'USER_BATCH_DELETE': ['/cgi-bin/user/batchdelete?access_token=ACCESS_TOKEN', 'POST'],
-        'USER_SIMPLE_LIST ': ['/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN', 'GET'],
+        'USER_SIMPLE_LIST': ['/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN', 'GET'],
         'USER_LIST' 	   : ['/cgi-bin/user/list?access_token=ACCESS_TOKEN', 'GET'],
         'USERID_TO_OPENID' : ['/cgi-bin/user/convert_to_openid?access_token=ACCESS_TOKEN', 'POST'],
         'OPENID_TO_USERID' : ['/cgi-bin/user/convert_to_userid?access_token=ACCESS_TOKEN', 'POST'],
@@ -56,12 +67,12 @@ CORP_API_TYPE = {
         'GET_APPROVAL_DATA': ['/cgi-bin/corp/getapprovaldata?access_token=ACCESS_TOKEN', 'POST'],
 
         'GET_INVOICE_INFO' : ['/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=ACCESS_TOKEN', 'POST'],
-        'UPDATE_INVOICE_STATUS' : 
+        'UPDATE_INVOICE_STATUS' :
             ['/cgi-bin/card/invoice/reimburse/updateinvoicestatus?access_token=ACCESS_TOKEN', 'POST'],
-        'BATCH_UPDATE_INVOICE_STATUS' : 
+        'BATCH_UPDATE_INVOICE_STATUS' :
             ['/cgi-bin/card/invoice/reimburse/updatestatusbatch?access_token=ACCESS_TOKEN', 'POST'],
-        'BATCH_GET_INVOICE_INFO' : 
-            ['/cgi-bin/card/invoice/reimburse/getinvoiceinfobatch?access_token=ACCESS_TOKEN', 'POST'], 
+        'BATCH_GET_INVOICE_INFO' :
+            ['/cgi-bin/card/invoice/reimburse/getinvoiceinfobatch?access_token=ACCESS_TOKEN', 'POST'],
 
         'APP_CHAT_CREATE'  : ['/cgi-bin/appchat/create?access_token=ACCESS_TOKEN', 'POST'],
         'APP_CHAT_GET'     : ['/cgi-bin/appchat/get?access_token=ACCESS_TOKEN', 'GET'],
@@ -74,7 +85,7 @@ CORP_API_TYPE = {
 class CorpApi(AbstractApi) :
     def __init__(self, corpid, secret) :
         self.corpid = corpid
-        self.secret = secret 
+        self.secret = secret
         self.access_token = None
 
     def getAccessToken(self) :
@@ -86,7 +97,8 @@ class CorpApi(AbstractApi) :
         response = self.httpCall(
                 CORP_API_TYPE['GET_ACCESS_TOKEN'],
                 {
-                    'corpid'    :   self.corpid, 
-                    'corpsecret':   self.secret, 
+                    'corpid'    :   self.corpid,
+                    'corpsecret':   self.secret,
                 })
         self.access_token = response.get('access_token')
+

@@ -1,7 +1,17 @@
 #!/usr/bin/env python
-
+# -*- coding:utf-8 -*-
+##
+ # Copyright (C) 2018 All rights reserved.
+ #   
+ # @File ServiceProviderApi.py
+ # @Brief 
+ # @Author abelzhu, abelzhu@tencent.com
+ # @Version 1.0
+ # @Date 2018-02-26
+ #
+ #
  
-from .AbstractApi import *
+from AbstractApi import *
 
 SERVICE_PROVIDER_API_TYPE = { 
         'GET_PROVIDER_TOKEN': ['/cgi-bin/service/get_provider_token', 'POST'],
