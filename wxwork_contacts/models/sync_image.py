@@ -7,7 +7,7 @@ import time
 import logging
 from threading import Thread, Lock
 
-from wxwork.wxwork_api.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
