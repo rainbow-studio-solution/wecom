@@ -9,6 +9,7 @@ _logger = logging.getLogger(__name__)
 class SyncTask(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
+        self.debug = self.kwargs['debug']
         self.sync_hr = self.kwargs['sync_hr']
         # self.sync_user = self.kwargs['sync_user']
         # self.users = self.kwargs['users']
@@ -16,7 +17,8 @@ class SyncTask(object):
         self.employee = self.kwargs['employee']
 
     def run(self):
-        _logger.error("开始同步企业微信通讯录")
+        if self.debug:
+            _logger.error("开始同步企业微信通讯录")
         if self.sync_hr:
             threads = []
             # if self.sync_user:
@@ -55,10 +57,12 @@ class SyncTask(object):
                     times.append(time)
                     results.append("%s，花费时间：%s 秒" % (result,round(time,3)))
             results = '\n'.join(results)
-            _logger.error("结束同步企业微信通讯录，总共花费时间：%s 秒" % sum(times))
+            if self.debug:
+                _logger.error("结束同步企业微信通讯录，总共花费时间：%s 秒" % sum(times))
             return sum(times),statuses,results
         else:
-            _logger.error("同步终止，当前设置不允许从企业微信同步到odoo")
+            if self.debug:
+                _logger.error("同步终止，当前设置不允许从企业微信同步到odoo")
 
 class SyncTaskThread(Thread):
     def __init__(self, func, name=''):

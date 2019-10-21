@@ -7,7 +7,8 @@ import time
 import logging
 from threading import Thread, Lock
 
-from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ class SyncImage(object):
         self.kwargs = kwargs
         self.corpid = self.kwargs['corpid']
         self.secret = self.kwargs['secret']
+        self.debug = self.kwargs['debug']
         self.department_id = self.kwargs['department_id']
         self.img_path = self.kwargs['img_path']
         self.department = self.kwargs['department']
@@ -42,7 +44,7 @@ class SyncImage(object):
         try:
             for i in range(len(user_list)):
                 remote_avatar_img = avatar_urls[i]
-                local_avatar_img = avatar_directory + user_list[i]+ ".jpg"
+                local_avatar_img = avatar_directory + user_list[i] + ".jpg"
 
                 remote_qr_code_img = qr_code_urls[i]
                 local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
@@ -68,7 +70,7 @@ class SyncImage(object):
         :return: list
         '''
 
-        api = CorpApi(self.corpid, self.secret)
+        api = CorpApi(self.corpid, self.secret, self.debug)
         response = api.httpCall(
             CORP_API_TYPE['USER_LIST'],
             {

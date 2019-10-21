@@ -5,12 +5,12 @@ import json
 import sys
 
 import requests
-
 from .api_errcode import Errcode
+from .conf import DEBUG
+from odoo.exceptions import ValidationError, UserError
 
 # sys.path.append("../../")
 
-from .conf import DEBUG
 
 class ApiException(Exception) :
     def __init__(self, errCode, errMsg) :
@@ -18,28 +18,32 @@ class ApiException(Exception) :
         self.errMsg = errMsg
 
 class AbstractApi(object) :
-    def __init__(self) : 
+    def __init__(self):
         return
 
-    def getAccessToken(self) :
-        raise NotImplementedError
-    def refreshAccessToken(self) :
+    def getAccessToken(self):
         raise NotImplementedError
 
-    def getSuiteAccessToken(self) :
-        raise NotImplementedError
-    def refreshSuiteAccessToken(self) :
+    def refreshAccessToken(self):
         raise NotImplementedError
 
-    def getProviderAccessToken(self) :
-        raise NotImplementedError
-    def refreshProviderAccessToken(self) :
+    def getSuiteAccessToken(self):
         raise NotImplementedError
 
-    def httpCall(self, urlType, args=None) : 
+    def refreshSuiteAccessToken(self):
+        raise NotImplementedError
+
+    def getProviderAccessToken(self):
+        raise NotImplementedError
+
+    def refreshProviderAccessToken(self):
+        raise NotImplementedError
+
+    def httpCall(self, urlType, args=None):
         shortUrl = urlType[0]
         method = urlType[1]
         response = {}
+        # print(self.debug)
         for retryCnt in range(0, 3) :
             if 'POST' == method :
                 url = self.__makeUrl(shortUrl)
@@ -62,7 +66,7 @@ class AbstractApi(object) :
         return self.__checkResponse(response) 
 
     @staticmethod
-    def __appendArgs(url, args) : 
+    def __appendArgs(url, args):
         if args is None :
             return url
 
@@ -74,36 +78,36 @@ class AbstractApi(object) :
         return url
 
     @staticmethod
-    def __makeUrl(shortUrl) :
+    def __makeUrl(shortUrl):
         base = "https://qyapi.weixin.qq.com"
         if shortUrl[0] == '/' :
             return base + shortUrl
         else :
             return base + '/' + shortUrl 
 
-    def __appendToken(self, url) : 
+    def __appendToken(self, url):
         if 'SUITE_ACCESS_TOKEN' in url :
             return url.replace('SUITE_ACCESS_TOKEN', self.getSuiteAccessToken())
-        elif 'PROVIDER_ACCESS_TOKEN' in url :
+        elif 'PROVIDER_ACCESS_TOKEN' in url:
             return url.replace('PROVIDER_ACCESS_TOKEN', self.getProviderAccessToken())
-        elif 'ACCESS_TOKEN' in url :
+        elif 'ACCESS_TOKEN' in url:
             return url.replace('ACCESS_TOKEN', self.getAccessToken())
-        else : 
+        else:
             return url
 
-    def __httpPost(self, url, args) :
+    def __httpPost(self, url, args):
         realUrl = self.__appendToken(url)
-
-        if DEBUG is True :
-            print(realUrl, args)
+        print(DEBUG)
+        # if self.debug is True:
+        #     print(realUrl, args)
 
         return requests.post(realUrl, data = json.dumps(args, ensure_ascii = False).encode('utf-8')).json()
 
-    def __httpGet(self, url) :
+    def __httpGet(self, url):
         realUrl = self.__appendToken(url)
-
-        if DEBUG is True :
-            print(realUrl)
+        print(DEBUG)
+        # if self.debug is True:
+        #     print(realUrl)
 
         return requests.get(realUrl).json()
 

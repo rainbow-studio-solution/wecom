@@ -3,7 +3,8 @@ from odoo import api, fields, models
 import time
 import logging
 
-from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -35,12 +36,13 @@ class SyncDepartment(models.Model):
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
+        debug = params.get_param('wxwork.debug_enabled')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
 
-        api = CorpApi(corpid, secret)
+        wxapi = CorpApi(corpid, secret, debug)
         # lock = Lock()
         try:
-            response = api.httpCall(
+            response = wxapi.httpCall(
                 CORP_API_TYPE['DEPARTMENT_LIST'],
                 {
                     'id': sync_department_id,

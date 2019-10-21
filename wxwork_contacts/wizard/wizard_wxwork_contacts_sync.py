@@ -23,6 +23,7 @@ class ResConfigSettings(models.TransientModel):
         kwargs = {
             'corpid': params.get_param('wxwork.corpid'),
             'secret': params.get_param('wxwork.contacts_secret'),
+            'debug': params.get_param('wxwork.debug_enabled'),
             'department_id': params.get_param('wxwork.contacts_sync_hr_department_id'),
             'sync_hr': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
             # 'sync_user': params.get_param('wxwork.contacts_sync_user_enabled'),

@@ -7,5 +7,7 @@
             <field name="value">xxxxxxxxxxxxxxxxxx</field>
         </record>
 
+        <function model="ir.config_parameter" name="set_param" eval="('wxwork.debug_enabled', 'True')"/>
+
     </data>
 </odoo>

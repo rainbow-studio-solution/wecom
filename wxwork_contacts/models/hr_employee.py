@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 from ..helper.common import *
 import logging,platform
@@ -71,8 +72,9 @@ class HrEmployee(models.Model):
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
+        debug = params.get_param('wxwork.debug_enabled')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-        api = CorpApi(corpid, secret)
+        api = CorpApi(corpid, secret, debug)
         # lock = Lock()
         try:
             response = api.httpCall(

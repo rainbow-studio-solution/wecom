@@ -1,5 +1,6 @@
 # 企微微信API
     参考https://github.com/sbzhu/weworkapi_python的二次封装
+    仅用于odoo
 
 # 关于token的缓存
 token是需要缓存的，不能每次调用都去获取token，[否者会中频率限制](https://work.weixin.qq.com/api/doc#10013/%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E7%BC%93%E5%AD%98%E5%92%8C%E5%88%B7%E6%96%B0access_token)  
