@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 from ..helper.common import *
 import logging,platform
 import time
-import wxworkapi as wxapi
 
 _logger = logging.getLogger(__name__)
 
@@ -72,11 +72,11 @@ class HrEmployee(models.Model):
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-        api = wxapi.CorpApi(corpid, secret)
+        api = CorpApi(corpid, secret)
         # lock = Lock()
         try:
             response = api.httpCall(
-                wxapi.CorpApi.CORP_API_TYPE['USER_LIST'],
+                CORP_API_TYPE['USER_LIST'],
                 {
                     'department_id': sync_department_id,
                     'fetch_child': '1',

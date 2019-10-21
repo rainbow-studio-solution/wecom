@@ -1,16 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-##
- # Copyright (C) 2018 All rights reserved.
- #   
- # @File AbstractApi.py
- # @Brief 
- # @Author abelzhu, abelzhu@tencent.com
- # @Version 1.0
- # @Date 2018-02-24
- #
- #
- 
+
 import json
 import sys
 
@@ -20,7 +10,7 @@ from .api_errcode import Errcode
 
 # sys.path.append("../../")
 
-# from conf import DEBUG
+from .conf import DEBUG
 
 class ApiException(Exception) :
     def __init__(self, errCode, errMsg) :
@@ -104,16 +94,16 @@ class AbstractApi(object) :
     def __httpPost(self, url, args) :
         realUrl = self.__appendToken(url)
 
-        # if DEBUG is True :
-        #     print realUrl, args
+        if DEBUG is True :
+            print(realUrl, args)
 
         return requests.post(realUrl, data = json.dumps(args, ensure_ascii = False).encode('utf-8')).json()
 
     def __httpGet(self, url) :
         realUrl = self.__appendToken(url)
 
-        # if DEBUG is True :
-        #     print realUrl
+        if DEBUG is True :
+            print(realUrl)
 
         return requests.get(realUrl).json()
 

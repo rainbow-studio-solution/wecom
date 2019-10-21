@@ -5,8 +5,8 @@ from odoo import api, fields, models
 from threading import Thread, Lock
 import time
 import logging
-import wxworkapi as wxapi
 
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -29,6 +29,8 @@ class HrDepartment(models.Model):
     is_wxwork_department = fields.Boolean('企微部门', readonly=True)
 
 
+
+
 class SyncDepartment(models.Model):
     _inherit = 'hr.department'
     _description = '同步企业微信部门'
@@ -41,12 +43,12 @@ class SyncDepartment(models.Model):
         secret = params.get_param('wxwork.contacts_secret')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
 
-        api =  wxapi.CorpApiCorpApi(corpid, secret)
+        api =  CorpApi(corpid, secret)
         # api = CorpApi(corpid, secret)
         # lock = Lock()
         try:
             response = api.httpCall(
-                wxapi.CorpApi.CORP_API_TYPE['DEPARTMENT_LIST'],
+                CORP_API_TYPE['DEPARTMENT_LIST'],
                 {
                     'id': sync_department_id,
                 }

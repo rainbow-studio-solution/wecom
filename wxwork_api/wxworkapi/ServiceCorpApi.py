@@ -1,16 +1,3 @@
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-##
- # Copyright (C) 2018 All rights reserved.
- #   
- # @File ServiceCorp.py
- # @Brief 
- # @Author abelzhu, abelzhu@tencent.com
- # @Version 1.0
- # @Date 2018-02-24
- #
- #
- 
 from .CorpApi import *
 
 SERVICE_CORP_API_TYPE = { 
