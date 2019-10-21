@@ -11,7 +11,7 @@
  #
  #
  
-from CorpApi import *
+from .CorpApi import *
 
 SERVICE_CORP_API_TYPE = { 
         'GET_CORP_TOKEN'    : ['/cgi-bin/service/get_corp_token?suite_access_token=SUITE_ACCESS_TOKEN', 'POST'],

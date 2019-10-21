@@ -18,7 +18,7 @@ import requests
 
 from .api_errcode import Errcode
 
-sys.path.append("../../")
+# sys.path.append("../../")
 
 # from conf import DEBUG
 

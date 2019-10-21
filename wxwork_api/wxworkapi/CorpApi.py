@@ -11,7 +11,7 @@
  #
  #
 
-from AbstractApi import *
+from .AbstractApi import *
 
 CORP_API_TYPE = {
         'GET_ACCESS_TOKEN' : ['/cgi-bin/gettoken', 'GET'],

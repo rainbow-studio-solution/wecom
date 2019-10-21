@@ -11,7 +11,7 @@
  #
  #
  
-from AbstractApi import *
+from .AbstractApi import *
 
 SERVICE_PROVIDER_API_TYPE = { 
         'GET_PROVIDER_TOKEN': ['/cgi-bin/service/get_provider_token', 'POST'],

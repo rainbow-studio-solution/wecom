@@ -39,6 +39,8 @@ odoo 13.0变化很大，发现不少需要改动的。
 2. 切换到 wxwork 目录,安装requirements.txt中的python包
     ```bash
     pip install -r requirements.txt -i https://pypi.doubanio.com/simple
+   或
+   pip3 install -r requirements.txt -i https://pypi.doubanio.com/simple
     ```
    
 ## 模块 介绍 

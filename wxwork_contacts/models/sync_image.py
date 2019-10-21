@@ -7,7 +7,8 @@ import time
 import logging
 from threading import Thread, Lock
 
-from api.CorpApi import CorpApi, CORP_API_TYPE
+import wxworkapi as wxapi
+
 
 _logger = logging.getLogger(__name__)
 
@@ -67,9 +68,9 @@ class SyncImage(object):
         生成userid、avatar、qr_code的List
         :return: list
         '''
-        api = CorpApi(self.corpid, self.secret)
+        api = wxapi.CorpApi(self.corpid, self.secret)
         response = api.httpCall(
-            CORP_API_TYPE['USER_LIST'],
+            wxapi.CorpApi.CORP_API_TYPE['USER_LIST'],
             {
                 'department_id': self.department_id,
                 'fetch_child': '1',

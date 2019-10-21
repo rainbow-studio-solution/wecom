@@ -3,9 +3,11 @@
 
 from setuptools import find_packages, setup
 
+# lib_name = 'wxworkapi'
 setup(
-    name='wxwork-api',
-    version='0.1',
+    name='wxworkapi',
+    py_modules=['wxworkapi'],
+    version='2019.10',
     description='企业微信API',
     long_description= '''
 企业微信API，

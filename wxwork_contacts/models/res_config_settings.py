@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-from api.CorpApi import CorpApi
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 from ..models.sync import *
+
+import wxworkapi as wxapi
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +35,7 @@ class ResConfigSettings(models.TransientModel):
         # elif self.contacts_secret.strip() == '' or self.contacts_secret.isspace() == True or self.contacts_secret is None:
         #     raise UserError(_("请正确填写通讯录凭证密钥."))
         else:
-            api = CorpApi(self.corpid, self.contacts_secret)
+            api = wxapi.CorpApi(self.corpid, self.contacts_secret)
             self.env['ir.config_parameter'].sudo().set_param(
                 "wxwork.contacts_access_token", api.getAccessToken())
 
