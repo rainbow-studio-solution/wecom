@@ -1,0 +1,13 @@
+README.rst
+setup.py
+wxworkapi/AbstractApi.py
+wxworkapi/CorpApi.py
+wxworkapi/ServiceCorpApi.py
+wxworkapi/ServiceProviderApi.py
+wxworkapi/__init__.py
+wxworkapi/api_errcode.py
+wxworkapi/conf.py
+wxworkapi.egg-info/PKG-INFO
+wxworkapi.egg-info/SOURCES.txt
+wxworkapi.egg-info/dependency_links.txt
+wxworkapi.egg-info/top_level.txt

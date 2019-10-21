@@ -1,0 +1,14 @@
+Metadata-Version: 1.2
+Name: wxworkapi
+Version: 2019.10
+Summary: 企业微信API
+Home-page: UNKNOWN
+Author: RStudio
+Author-email: rain.wen@outlook.com
+License: UNKNOWN
+Description: 
+        企业微信API，
+        参考 https://github.com/sbzhu/weworkapi_python的二次封装
+            
+Platform: any
+Requires-Python: >=3.6
