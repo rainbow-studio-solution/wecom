@@ -4,8 +4,8 @@
 from setuptools import find_packages, setup
 
 setup(
-    name='wxwork_api',
-    version=0.1,
+    name='wxwork-api',
+    version='0.1',
     description='企业微信API',
     long_description= '''
 企业微信API，
@@ -14,10 +14,14 @@ setup(
     author='RStudio',
     author_email='rain.wen@outlook.com',
     packages=find_packages(),
+    include_package_data = True,
+    platforms = "any",
+    #依赖包
     install_requires=[
 
     ],
     python_requires='>=3.6',
+    #依赖的文件
     extras_require={
 
     },

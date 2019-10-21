@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
+from api.CorpApi import CorpApi, CORP_API_TYPE
 
 from odoo import api, fields, models
 from threading import Thread, Lock
 import time
 import logging
 
-from wxwork.wxwork_api.api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
