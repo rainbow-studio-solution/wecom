@@ -19,7 +19,7 @@ odoo 13.0变化很大，发现不少需要改动的。
     
     2.5 将企微的设置菜单移到系统设置菜单去，同时增加配置企业定时任务的菜单
     
-3. wxwork_auth_oauth （企业微信-登录授权）初步完成适配，待服务器与域名解析及端口映射好进行测试
+3. wxwork_auth_oauth （企业微信-登录授权）已完成在服务器上的测试
 
 4. wxwork_attendance (企业微信-打卡) 进行中
 
@@ -42,7 +42,7 @@ odoo 13.0变化很大，发现不少需要改动的。
    或
    pip3 install -r requirements.txt -i https://pypi.doubanio.com/simple
     ```
- 3. 切换到  wxwork/wxwork_api 目录，安装企业微信的API
+ 3. 切换到  wxwork/wxwork_api 目录，安装企业微信的API 依赖包
      ```bash
     python setup.py install
     ```
