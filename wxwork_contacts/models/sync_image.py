@@ -7,8 +7,8 @@ import time
 import logging
 from threading import Thread, Lock
 
-# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -29,7 +29,8 @@ class SyncImage(object):
         self.department = self.kwargs['department']
 
     def run(self):
-        _logger.error("开始同步企业微信通讯录-图片")
+        if self.debug:
+            _logger.error("开始同步企业微信通讯录-图片")
         if (platform.system() == 'Windows'):
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
@@ -61,7 +62,9 @@ class SyncImage(object):
 
         end = time.time()
         times = end - start
-        _logger.error("结束同步企业微信通讯录-图片，总共花费时间：%s 秒" % times)
+
+        if self.debug:
+            _logger.error("结束同步企业微信通讯录-图片，总共花费时间：%s 秒" % times)
         return times,status,result
 
     def generate_image_list(self):
@@ -70,7 +73,7 @@ class SyncImage(object):
         :return: list
         '''
 
-        api = CorpApi(self.corpid, self.secret, self.debug)
+        api = CorpApi(self.corpid, self.secret)
         response = api.httpCall(
             CORP_API_TYPE['USER_LIST'],
             {

@@ -2,7 +2,6 @@
 # -*- coding:utf-8 -*-
 
 from .AbstractApi import *
-from .conf import DebugMode
 
 CORP_API_TYPE = {
     'GET_ACCESS_TOKEN' : ['/cgi-bin/gettoken', 'GET'],
@@ -72,17 +71,19 @@ CORP_API_TYPE = {
 
     'MINIPROGRAM_CODE_TO_SESSION_KEY' : ['/cgi-bin/miniprogram/jscode2session?access_token=ACCESS_TOKEN', 'GET'],
 }
+DEBUG = True
 
 class CorpApi(AbstractApi):
-    def __init__(self, corpid, secret, debug):
+    def __init__(self, corpid, secret):
         self.corpid = corpid
         self.secret = secret
-        self.debug = debug
         self.access_token = None
 
+    def getDebugMode(self):
+        DEBUG = self.debug
+        return DEBUG
 
     def getAccessToken(self):
-        print(DebugMode.gerDebugMode(self))
         if self.access_token is None:
             self.refreshAccessToken()
         return self.access_token

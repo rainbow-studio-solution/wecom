@@ -5,8 +5,10 @@ import json
 import sys
 
 import requests
-from .api_errcode import Errcode
+
 from .conf import DEBUG
+from .api_errcode import Errcode
+
 from odoo.exceptions import ValidationError, UserError
 
 # sys.path.append("../../")
@@ -97,17 +99,15 @@ class AbstractApi(object) :
 
     def __httpPost(self, url, args):
         realUrl = self.__appendToken(url)
-        print(DEBUG)
-        # if self.debug is True:
-        #     print(realUrl, args)
+        if DEBUG is True:
+            print(realUrl, args)
 
         return requests.post(realUrl, data = json.dumps(args, ensure_ascii = False).encode('utf-8')).json()
 
     def __httpGet(self, url):
         realUrl = self.__appendToken(url)
-        print(DEBUG)
-        # if self.debug is True:
-        #     print(realUrl)
+        if DEBUG is True:
+            print(realUrl)
 
         return requests.get(realUrl).json()
 

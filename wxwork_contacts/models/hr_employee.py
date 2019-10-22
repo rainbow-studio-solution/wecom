@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 from ..helper.common import *
 import logging,platform
@@ -68,13 +68,15 @@ class HrEmployee(models.Model):
             self.user_check_tick = False
 
     def sync_employee(self):
-        _logger.error("开始同步企业微信通讯录-员工同步")
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
         debug = params.get_param('wxwork.debug_enabled')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-        api = CorpApi(corpid, secret, debug)
+
+        if debug:
+            _logger.error("开始同步企业微信通讯录-员工同步")
+        api = CorpApi(corpid, secret)
         # lock = Lock()
         try:
             response = api.httpCall(
@@ -106,8 +108,8 @@ class HrEmployee(models.Model):
             result = "员工同步失败,花费时间 %s 秒" % (round(times, 3))
             status = {'employee': False}
             print('员工同步错误:%s' % (repr(e)))
-
-        _logger.error("结束同步企业微信通讯录-员工同步，总共花费时间：%s 秒" % times)
+        if debug:
+            _logger.error("结束同步企业微信通讯录-员工同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
     def run_sync(self, obj):

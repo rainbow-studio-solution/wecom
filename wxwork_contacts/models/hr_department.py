@@ -3,8 +3,8 @@ from odoo import api, fields, models
 import time
 import logging
 
-# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+# from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
@@ -32,14 +32,15 @@ class SyncDepartment(models.Model):
 
     # @api.multi
     def sync_department(self):
-        _logger.error("开始同步企业微信通讯录-部门同步")
+
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
         debug = params.get_param('wxwork.debug_enabled')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-
-        wxapi = CorpApi(corpid, secret, debug)
+        if debug:
+            _logger.error("开始同步企业微信通讯录-部门同步")
+        wxapi = CorpApi(corpid, secret)
         # lock = Lock()
         try:
             response = wxapi.httpCall(
@@ -72,7 +73,8 @@ class SyncDepartment(models.Model):
             status = {'department': False}
             print(repr(e))
         times = times
-        _logger.error("结束同步企业微信通讯录-部门同步，总共花费时间：%s 秒" % times)
+        if debug:
+            _logger.error("结束同步企业微信通讯录-部门同步，总共花费时间：%s 秒" % times)
         return times, status, result
 
     # @api.multi
@@ -116,7 +118,6 @@ class SyncDepartment(models.Model):
             result = False
         return result
 
-    # @api.multi
     def update_department(self, records, obj):
         try:
             records.write({
@@ -131,7 +132,6 @@ class SyncDepartment(models.Model):
             result = False
         return result
 
-    # @api.multi
     def run_set(self):
         """由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门"""
         # lock.acquire()
