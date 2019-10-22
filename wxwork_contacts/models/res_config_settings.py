@@ -25,6 +25,8 @@ class ResConfigSettings(models.TransientModel):
                                            default=False, readonly=True,)
     contacts_sync_user_enabled = fields.Boolean('允许企业微信通讯录自动更新系统账号',
                                                 config_parameter='wxwork.contacts_sync_user_enabled', default=False)
+    contacts_always_update_avatar_enabled = fields.Boolean('一直更新头像',
+                                                config_parameter='wxwork.contacts_always_update_avatar_enabled', default=False)
 
     # @api.onchange('corpid', 'contacts_secret')
     def get_token(self):

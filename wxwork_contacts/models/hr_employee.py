@@ -180,6 +180,10 @@ class HrEmployee(models.Model):
         return result
 
     def update_employee(self,records, obj):
+        params = self.env['ir.config_parameter'].sudo()
+        always = params.get_param('wxwork.contacts_always_update_avatar_enabled')
+
+
         department_ids = []
         for department in obj['department']:
             department_ids.append(self.get_employee_parent_wxwork_department(department))
@@ -201,7 +205,7 @@ class HrEmployee(models.Model):
             records.write({
                 'name': obj['name'],
                 'gender': Common(obj['gender']).gender(),
-                # 'image_1920': self.encode_image_as_base64(avatar_file),   # 首次同步后，不再更新头像
+                'image_1920':  self.check_always_update_avatar(always,avatar_file),
                 'mobile_phone': obj['mobile'],
                 'work_phone': obj['telephone'],
                 'work_email': obj['email'],
@@ -220,6 +224,14 @@ class HrEmployee(models.Model):
             result = False
 
         return result
+
+    def check_always_update_avatar(self,always,avatar_file):
+        if always:
+            # print("一直更新图片"+avatar_file)
+            return self.encode_image_as_base64(avatar_file)
+        else:
+            # print("不更新图片" + avatar_file)
+            return None
 
     def encode_image_as_base64(self,image_path):
         # if not self.sync_img:

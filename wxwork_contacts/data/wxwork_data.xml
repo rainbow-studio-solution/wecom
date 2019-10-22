@@ -20,6 +20,7 @@
 
         <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_edit_enabled', 'False')"/>
         <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_sync_user_enabled', 'True')"/>
+        <function model="ir.config_parameter" name="set_param" eval="('wxwork.contacts_always_update_avatar_enabled', 'False')"/>
 
     </data>
 </odoo>
