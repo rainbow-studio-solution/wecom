@@ -144,6 +144,7 @@
                                                     勾选,每次同步都同步企业微信用户头像。
                                                     <br/>
                                                     <span style="color:orange;padding: 0px 16px;"> <i class="fa fa-info-circle"/>建议：在因各种原因同步头像失败时开启</span>
+                                                    <br/>
                                                     <span style="color:orange;padding: 0px 16px;"> <i class="fa fa-info-circle"/>每次同步更新头像会花费更多的时间，另外HR一般会使用员工的正式照片</span>
                                                     <br/>
                                                     <span style="color:red;padding: 0px 16px;"> <i class="fa fa-warning"/>不想被HR骂，慎用！</span>
