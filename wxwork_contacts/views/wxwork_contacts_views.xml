@@ -2,8 +2,8 @@
 <odoo>
     <data>
 
-        <menuitem id="menu_wxwork_contacts_sync" name="企微同步" parent="hr.menu_hr_root" sequence="90"/>
-
+        <menuitem id="menu_wxwork_contacts_sync" name="企微同步" parent="hr.menu_hr_root" sequence="90"
+                  groups="group_hr_manager"/>
 
         <menuitem id="menu_wxwork_contacts_wizard" name="向导同步" parent="menu_wxwork_contacts_sync"
                   action="view_actions_wxwork_contacts_wizard" sequence="10"/>
