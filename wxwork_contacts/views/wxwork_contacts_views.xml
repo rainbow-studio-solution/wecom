@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
-        <menuitem id="menu_wxwork_contacts_sync" name="企微同步" parent="hr.menu_hr_root" sequence="90"
+        <!--    HR菜单    -->
+        <menuitem id="menu_wxwork_contacts_sync" name="同步企微通讯簿" parent="hr.menu_hr_root" sequence="90"
                   groups="hr.group_hr_manager"/>
 
         <menuitem id="menu_wxwork_contacts_wizard" name="向导同步" parent="menu_wxwork_contacts_sync"
                   action="view_actions_wxwork_contacts_wizard" sequence="10"/>
 
-        <menuitem id="menu_wxwork_contacts_sync_record" name="向导同步记录" parent="menu_wxwork_contacts_sync"
+        <menuitem id="menu_wxwork_contacts_sync_record" name="同步通讯录记录" parent="menu_wxwork_contacts_sync"
                   action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
+
+        <!--    系统设置菜单    -->
+
+        <menuitem id="menu_wxwork_contacts_create_user_wizard" name="向导生成" parent="wxwork_base.menu_wxwork_sync_user"
+                  action="view_actions_wxwork_user_wizard" sequence="10"/>
 
 
         <menuitem id="menu_wxwork_contacts_sync_auto" name="同步通讯录" parent="wxwork_base.menu_wxwork_cron"
                   action="ir_cron_act_contacts" sequence="2"/>
 
-        <!-- menu categories -->
     </data>
 </odoo>

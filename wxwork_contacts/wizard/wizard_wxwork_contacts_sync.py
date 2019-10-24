@@ -2,7 +2,7 @@
 
 from odoo import api, models, fields
 from odoo.exceptions import UserError
-from ..models.sync import *
+from ..models.sync_contacts import *
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wizard.wxwork.contacts'
@@ -26,15 +26,13 @@ class ResConfigSettings(models.TransientModel):
             'debug': params.get_param('wxwork.debug_enabled'),
             'department_id': params.get_param('wxwork.contacts_sync_hr_department_id'),
             'sync_hr': params.get_param('wxwork.contacts_auto_sync_hr_enabled'),
-            # 'sync_user': params.get_param('wxwork.contacts_sync_user_enabled'),
             'img_path': params.get_param('wxwork.contacts_img_path'),
             'department': self.env['hr.department'],
-            'employee': self.env['hr.employee'],
-            # 'users': self.env['res.users'],
+            'employee': self.env['hr.employee']
         }
 
         if not sync_hr_enabled:
-            raise UserError('提示：当前设置不允许从企业微信同步到HR \n\n 请修改相关的设置')
+            raise UserError('提示：当前设置不允许从企业微信同步到HR \n\n 请手工单个生成用户 \n\n 请修改相关的设置')
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses['image_1920']

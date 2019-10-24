@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wxwork_sync_user_wizard" model="ir.ui.view">
+            <field name="name">从员工同步用户</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="从员工同步用户" >
+                    <separator string="从HR的企业微信员工批量同步生成用户"/>
+                    <group>
+                        <div>
+                            Linux生产服务器使用以下命令查看实时日志：<br/><br/>
+                            <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
+                                tail -f /var/log/odoo/odoo-server.log
+                            </span><br/><br/>
+                            若出现错误，请查看帮助文档<br/>
+                        </div>
+                        <ul>
+                            <li>生成User默认属于门户用户。</li>
+                            <li>门户用户是免费用户，不占用系统资源。</li>
+                            <li>需要在用户列表视图将转换成内部用户。</li>
+                            <li>内部用户是付费账号，占用系统资源。</li>
+                            <li class="dropdown-divider"></li>
+                            <li>在用户列表中勾选用户，在动作菜单中使用"变更用户类型"可以变更为内部用户</li>
+                            <li class="dropdown-divider"></li>
+                            <li><span style="color:orange;">从用户同步生成用户功能，建议仅在初次上线的时候使用，生成用户实在有点慢</span></li>
+                        </ul>
+                    </group>
+                    <footer>
+                        <button name="action_create_user" string="同步生成用户" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_actions_wxwork_user_wizard" model="ir.actions.act_window">
+            <field name="name">从员工同步用户</field>
+            <field name="res_model">wizard.wxwork.user</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_sync_user_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="dialog_wxwork_contacts_sync_user_result" model="ir.ui.view">
+            <field name="name">同步用户结果</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="type">form</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="员工生成系统用户情况" edit="false" create="false">
+                    <group>
+                        <group>
+                            <field name="sync_user_result"/>
+                        </group>
+                        <group>
+                            <field name="create_date" string="开始时间"/>
+                            <field name="times"/>
+                            <field name="result"  />
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_wxwork_sync_user_tree" model="ir.ui.view">
+            <field name="name">员工同步系统用户记录列表</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="arch" type="xml">
+                <tree string="同步记录" edit="false" create="false" delete="false">
+                    <field name="sync_user_result" string="系统用户生成"/>
+<!--                    <field name="employee_binding_user_result" string="员工绑定系统用户"/>-->
+                    <field name="times"/>
+                    <field name="create_date" string="开始时间"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_view_wxwork_sync_user_tree" model="ir.actions.act_window">
+            <field name="name">生成系统用户记录列表</field>
+            <field name="res_model">wizard.wxwork.user</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_wxwork_sync_user_tree"/>
+        </record>
+    </data>
+</odoo>

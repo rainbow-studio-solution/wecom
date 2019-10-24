@@ -10,7 +10,7 @@
     'category': '企业微信',
     'version': '13.0.0.1',
     'summary': """
-        企业微信通讯簿生成HR及USER
+        同步企业微信通讯簿到HR
         """,
     'description': """
 功能：
@@ -29,6 +29,7 @@
         'data/wxwork_data.xml',
         'views/ir_cron_views.xml',
         'wizard/wizard_wxwork_contacts_sync.xml',
+        'wizard/wizard_wxwork_sync_user.xml',
         'views/hr_department_view.xml',
         'views/hr_employee_view.xml',
         'views/res_users_views.xml',

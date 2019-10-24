@@ -27,7 +27,7 @@ class HrEmployee(models.Model):
     )
     is_wxwork_employee = fields.Boolean('企微员工', readonly=True)
 
-    user_check_tick = fields.Boolean('User Check Tick')
+    user_check_tick = fields.Boolean('User Check Tick',default=False)
 
     def create_user_from_employee(self):
         '''
@@ -73,13 +73,12 @@ class HrEmployee(models.Model):
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
-        debug = params.get_param('wxwork.debug_enabled')
         sync_department_id = params.get_param('wxwork.contacts_sync_hr_department_id')
-
+        debug = params.get_param('wxwork.debug_enabled')
         if debug:
             _logger.error("开始同步企业微信通讯录-员工同步")
         api = CorpApi(corpid, secret)
-        # lock = Lock()
+
         try:
             response = api.httpCall(
                 CORP_API_TYPE['USER_LIST'],
@@ -90,16 +89,12 @@ class HrEmployee(models.Model):
             )
             start1 = time.time()
             for obj in response['userlist']:
-                # threaded_sync = Thread(target=self.run_sync, args=[obj,lock])
-                # threaded_sync.start()
                 self.run_sync(obj)
             end1 = time.time()
             times1 = end1 - start1
 
             start2 = time.time()
-            self.sync_leave_employee(response)
-            # threaded_sync_leave = Thread(target=self.sync_leave_employee, args=[response,lock])
-            # threaded_sync_leave.start()
+            self.sync_leave_employee(response) #同步离职员工
             end2 = time.time()
             times2 = end2 - start2
 
@@ -324,73 +319,74 @@ class HrEmployee(models.Model):
             # return False
         # lock.release()
 
-class EmployeeBindingUser(models.Model):
+class EmployeeSyncUser(models.Model):
     _inherit = 'hr.employee'
     _description = '企业微信员工绑定用户'
 
-    def binding(self):
-        _logger.error("开始同步企业微信通讯录-用户绑定")
+    def sync_user(self):
+        params = self.env['ir.config_parameter'].sudo()
+        debug = params.get_param('wxwork.debug_enabled')
 
+        if debug:
+            _logger.error("开始从员工同步到系统用户")
         domain = ['|', ('active', '=', False),
                   ('active', '=', True)]
-        with api.Environment.manage():
-            new_cr = self.pool.cursor()
-            self = self.with_env(self.env(cr=new_cr))
 
-            employees = self.sudo().env['hr.employee'].search(
-                domain+ [
-                    ('is_wxwork_employee', '=', True)
-                ]
-            )
 
-            start = time.time()
-            for employee in employees:
-                user = self.sudo().env['res.users'].search(
-                    domain+ [
-                        ('wxwork_id', '=', employee.wxwork_id),
-                        ('is_wxwork_user', '=', True)
-                    ],limit=1)
+        try:
+            with api.Environment.manage():
+                new_cr = self.pool.cursor()
+                self = self.with_env(self.env(cr=new_cr))
 
-                try:
-                    # threaded_sync = Thread(target=self.run, args=[user, employee])
-                    # threaded_sync.start()
-                    if len(user) > 0:
-                        self.update_user(user, employee)
-                    else:
-                        employee.write({
-                            'user_id':self.create_user(user, employee).id
-                        })
-                    # employee.user_id =self.create_user(user, employee).id
-                    result = "员工绑定用户成功"
-                    status = {'binding': True}
-                except Exception as e:
-                    result = "员工绑定用户失败"
-                    status = {'binding': False}
-                    print('从员工绑定用户错误:%s' % (repr(e)))
-            end = time.time()
-            times = end - start
-            new_cr.commit()
-            new_cr.close()
-            _logger.error("结束同步企业微信通讯录-员工绑定，总共花费时间：%s 秒" % times)
+                employees = self.sudo().env['hr.employee'].search(
+                    domain + [
+                        ('is_wxwork_employee', '=', True),
+                        ('user_check_tick', '=', False),
+                    ]
+                )
+                start = time.time()
+                for employee in employees:
+                    user = self.sudo().env['res.users'].search(
+                        domain + [
+                            ('wxwork_id', '=', employee.wxwork_id),
+                            ('is_wxwork_user', '=', True)
+                        ], limit=1)
+
+                    try:
+                        if len(user) > 0:
+                            self.update_user(user, employee)
+                        else:
+                            self.create_user(user, employee)
+
+                        result = "员工同步用户成功"
+                        status = True
+                    except Exception as e:
+                        result = "员工同步用户失败"
+                        status = False
+                        print('从员工同步用户错误:%s' % (repr(e)))
+
+                end = time.time()
+                times = end - start
+                new_cr.commit()
+                new_cr.close()
+                if debug:
+                    _logger.error("结束同步企业微信通讯录-员工同步用户，总共花费时间：%s 秒" % times)
+        except BaseException as e:
+            if debug:
+                _logger.error("员工同步用户错误：%s 秒" % (repr(e)))
+            result = "员工同步用户失败"
+            status = False
         return times, status, result
 
-    def run(self, user, employee):
-        if len(user) > 0:
-            self.update_user(user, employee)
-        else:
-            user_id = self.create_user(user, employee).id
-            employee.write({
-                'user_id':user_id
-            })
 
     def create_user(self, user, employee):
         try:
             groups_id = self.sudo().env['res.groups'].search([('id', '=', 9), ], limit=1).id
-            user_id = user.create({
+            user = user.create({
                 'name': employee.name,
                 'login': employee.wxwork_id,
                 'oauth_uid': employee.wxwork_id,
-                'password': Common(8).random_passwd(),
+                'password': Common(8).random_passwd(), #随机密码
                 'email': employee.work_email,
                 'wxwork_id': employee.wxwork_id,
                 'image_1920': employee.image_1920,
@@ -403,14 +399,23 @@ class EmployeeBindingUser(models.Model):
                 'is_wxwork_user': True,
                 'is_moderator': False,
                 'is_company': False,
-                'supplier': False,
                 'employee': True,
                 'share': False,
                 'groups_id': [(6, 0, [groups_id])],  # 设置用户为门户用户
+                'tz': 'Asia/Chongqing',
+                'lang': 'zh_CN',
             })
-            return user_id
+
+            employee.write({
+                'user_id': user.id,
+                'address_home_id': user.partner_id.id,
+                'user_check_tick': True,
+            })
+            # return user
         except Exception as e:
             print('从员工创建用户错误:%s' % (repr(e)))
+            result = False
+        return result
 
     def update_user(self, user, employee):
         try:
@@ -424,5 +429,8 @@ class EmployeeBindingUser(models.Model):
                 'mobile': employee.mobile_phone,
                 'phone': employee.work_phone,
             })
+            result = True
         except Exception as e:
             print('从员工更新用户错误:%s' % (repr(e)))
+            result = False
+        return result
