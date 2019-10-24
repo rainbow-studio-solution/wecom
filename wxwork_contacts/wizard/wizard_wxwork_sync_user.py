@@ -20,16 +20,16 @@ class ResConfigSettings(models.TransientModel):
 
     def action_create_user(self):
         params = self.env['ir.config_parameter'].sudo()
-        kwargs = {
-            'debug': params.get_param('wxwork.debug_enabled'),
-            'employee': self.env['hr.employee'],
-            'users': self.env['res.users'],
-        }
+        # kwargs = {
+        #     'debug': params.get_param('wxwork.debug_enabled'),
+        #     'employee': self.env['hr.employee'],
+        #     'users': self.env['res.users'],
+        # }
         if not params.get_param('wxwork.debug_enabled'):
             _logger.error("当前设置不允许从员工同步到系统用户")
             raise UserError("当前设置不允许从员工同步到系统用户 \n\n 请检查相关设置")
         else:
-            self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user()
+            self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user(self.env['hr.employee'])
 
 
         form_view = self.env.ref('wxwork_contacts.dialog_wxwork_contacts_sync_user_result')

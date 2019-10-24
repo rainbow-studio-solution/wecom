@@ -345,6 +345,8 @@ class EmployeeSyncUser(models.Model):
                     ]
                 )
                 start = time.time()
+                result = ""
+                status = False
                 for employee in employees:
                     user = self.sudo().env['res.users'].search(
                         domain + [
@@ -367,8 +369,10 @@ class EmployeeSyncUser(models.Model):
 
                 end = time.time()
                 times = end - start
+
                 new_cr.commit()
                 new_cr.close()
+
                 if debug:
                     _logger.error("结束同步企业微信通讯录-员工同步用户，总共花费时间：%s 秒" % times)
         except BaseException as e:
@@ -376,6 +380,8 @@ class EmployeeSyncUser(models.Model):
                 _logger.error("员工同步用户错误：%s 秒" % (repr(e)))
             result = "员工同步用户失败"
             status = False
+
+        print(times, status, result)
         return times, status, result
 
 
@@ -414,8 +420,7 @@ class EmployeeSyncUser(models.Model):
             # return user
         except Exception as e:
             print('从员工创建用户错误:%s' % (repr(e)))
-            result = False
-        return result
+
 
     def update_user(self, user, employee):
         try:
@@ -429,8 +434,5 @@ class EmployeeSyncUser(models.Model):
                 'mobile': employee.mobile_phone,
                 'phone': employee.work_phone,
             })
-            result = True
         except Exception as e:
             print('从员工更新用户错误:%s' % (repr(e)))
-            result = False
-        return result
