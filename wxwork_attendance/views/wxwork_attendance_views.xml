@@ -1,7 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-
+        <record id="view_attendance_tree" model="ir.ui.view">
+            <field name="name">wxwork.attendance.tree</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//tree" position="replace">-->
+                <xpath expr="//tree//field[last()]" position="after">
+                    <!--                    <field name="employee_id"/>-->
+                    <field name="groupname"/>
+                    <field name="checkin_type"/>
+                    <field name="exception_type"/>
+                    <field name="checkin_time"/>
+                </xpath>
+                <xpath expr="//tree//field[@name='check_in']" position="replace"/>
+                <xpath expr="//tree//field[@name='check_out']" position="replace"/>
+                <xpath expr="//tree//field[@name='worked_hours']" position="replace"/>
+            </field>
+        </record>
 
     </data>
 </odoo>
