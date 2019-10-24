@@ -13,8 +13,11 @@
 
         <!--    系统设置菜单    -->
 
-        <menuitem id="menu_wxwork_contacts_create_user_wizard" name="向导生成" parent="wxwork_base.menu_wxwork_sync_user"
+        <menuitem id="menu_wxwork_contacts_sync_user_wizard" name="同步向导" parent="wxwork_base.menu_wxwork_sync_user"
                   action="view_actions_wxwork_user_wizard" sequence="10"/>
+
+        <menuitem id="menu_wxwork_contacts_sync_user_record" name="同步向记录" parent="wxwork_base.menu_wxwork_sync_user"
+                  action="open_view_wxwork_sync_user_tree" sequence="10"/>
 
 
         <menuitem id="menu_wxwork_contacts_sync_auto" name="同步通讯录" parent="wxwork_base.menu_wxwork_cron"

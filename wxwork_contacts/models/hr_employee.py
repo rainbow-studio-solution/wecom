@@ -345,7 +345,7 @@ class EmployeeSyncUser(models.Model):
                     ]
                 )
                 start = time.time()
-                result = ""
+                result = "当前没有需要生成用户的员工资料"
                 status = False
                 for employee in employees:
                     user = self.sudo().env['res.users'].search(
@@ -381,7 +381,6 @@ class EmployeeSyncUser(models.Model):
             result = "员工同步用户失败"
             status = False
 
-        print(times, status, result)
         return times, status, result
 
 
@@ -417,7 +416,6 @@ class EmployeeSyncUser(models.Model):
                 'address_home_id': user.partner_id.id,
                 'user_check_tick': True,
             })
-            # return user
         except Exception as e:
             print('从员工创建用户错误:%s' % (repr(e)))
 
