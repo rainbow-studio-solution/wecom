@@ -1,8 +1,21 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
+from wxworkapi.CorpApi import CorpApi
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     attendance_secret = fields.Char("打卡凭证密钥", config_parameter='wxwork.attendance_secret')
+    attendance_access_token= fields.Char("打卡token", config_parameter='wxwork.attendance_access_token', readonly=True,)
+
+    def get_attendance_access_token(self):
+        if self.corpid == False:
+            raise UserError(_("请正确填写企业ID."))
+        elif self.contacts_secret == False:
+            raise UserError(_("请正确填写通讯录凭证密钥."))
+        else:
+            api = CorpApi(self.corpid, self.contacts_secret)
+            self.env['ir.config_parameter'].sudo().set_param(
+                "wxwork.attendance_access_token", api.getAccessToken())

@@ -29,7 +29,36 @@
                                 </div>
                             </div>
 
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="contacts_access_token"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        在企业微信的后台获取应用"打卡"应用信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。
+                                        <br/>
+                                        <span style="color:orange;padding: 0px 16px;">
+                                            <i class="fa fa-info-circle"/>
+                                            token已经经过缓存处理，当且仅当发现token过期，系统会自动刷新token。
+                                        </span>
+
+                                    </div>
+                                    <div class="text-muted col-md-12">
+                                        <button name="get_attendance_access_token" type="object" string="点击测试获取token" class="oe_highlight"/>
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="attendance_access_token" style="word-break:break-all;width: 100%;" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
+                        </div>
+
 
                     </page>
                 </xpath>
