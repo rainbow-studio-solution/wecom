@@ -48,7 +48,7 @@
 
                                                 </div>
                                                 <div class="text-muted col-md-12">
-                                                    <button name="get_token" type="object" string="点击测试获取token" class="oe_highlight"/>
+                                                    <button name="get_contacts_access_token" type="object" string="点击测试获取token" class="oe_highlight"/>
                                                 </div>
                                             </div>
                                             <div class="content-group">

@@ -29,7 +29,7 @@ class ResConfigSettings(models.TransientModel):
                                                 config_parameter='wxwork.contacts_always_update_avatar_enabled', default=False)
 
     # @api.onchange('corpid', 'contacts_secret')
-    def get_token(self):
+    def get_contacts_access_token(self):
         if self.corpid == False:
             raise UserError(_("请正确填写企业ID."))
         elif self.contacts_secret  == False:
