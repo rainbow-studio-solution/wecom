@@ -27,7 +27,6 @@
         <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
             <field name="name">数据同步</field>
             <field name="res_model">wizard.wxwork.contacts</field>
-<!--            <field name="view_type">form</field>-->
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
             <field name="context">{}</field>
@@ -46,7 +45,6 @@
                             <field name="image_sync_result"/>
                             <field name="department_sync_result"/>
                             <field name="employee_sync_result"/>
-<!--                            <field name="employee_binding_user_result"/>-->
                         </group>
                         <group>
                             <field name="create_date" string="开始时间"/>

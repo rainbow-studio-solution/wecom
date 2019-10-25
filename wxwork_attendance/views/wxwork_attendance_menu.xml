@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_wxwork_attendance_pull_wizard" name="拉取打卡记录" parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  action="view_actions_wxwork_attendance_pull_wizard" sequence="10"/>
+
+    </data>
+</odoo>

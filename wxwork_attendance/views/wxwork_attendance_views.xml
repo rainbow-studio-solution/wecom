@@ -6,9 +6,8 @@
             <field name="model">hr.attendance</field>
             <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
             <field name="arch" type="xml">
-                <!--                <xpath expr="//tree" position="replace">-->
                 <xpath expr="//tree//field[last()]" position="after">
-                    <!--                    <field name="employee_id"/>-->
+                    <field name="employee_id"/>
                     <field name="groupname"/>
                     <field name="checkin_type"/>
                     <field name="exception_type"/>
@@ -19,6 +18,5 @@
                 <xpath expr="//tree//field[@name='worked_hours']" position="replace"/>
             </field>
         </record>
-
     </data>
 </odoo>
