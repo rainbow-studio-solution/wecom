@@ -14,8 +14,8 @@ class ResConfigSettings(models.TransientModel):
         if self.corpid == False:
             raise UserError(_("请正确填写企业ID."))
         elif self.contacts_secret == False:
-            raise UserError(_("请正确填写通讯录凭证密钥."))
+            raise UserError(_("请正确填写打卡凭证密钥."))
         else:
-            api = CorpApi(self.corpid, self.contacts_secret)
+            api = CorpApi(self.corpid, self.attendance_secret)
             self.env['ir.config_parameter'].sudo().set_param(
                 "wxwork.attendance_access_token", api.getAccessToken())
