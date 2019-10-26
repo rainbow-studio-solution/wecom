@@ -36,6 +36,7 @@ odoo 13.0变化很大，发现不少需要改动的。
      ```bash
     python setup.py install
     ```
+    有空打包上传到 PyPi，暂时先在windows下开发
  
 ## 模块 介绍 
 

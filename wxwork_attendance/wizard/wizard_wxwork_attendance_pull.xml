@@ -8,17 +8,22 @@
             <field name="arch" type="xml">
                 <form string="拉取打卡记录" >
                     <separator string="从企业微信拉取打卡记录"/>
+                    <span>部门为空，则拉取整个组织架构</span>
+                    <br/>
+                    <span>打卡类型为空，默认全部打卡</span>
                     <group>
                         <group>
-                            <field name="start_time"/>
+                            <field name="start_time" />
                             <field name="end_time"/>
+                            <field name="delta"/>
                         </group>
                         <group>
                             <field name="department_id" options="{'no_create_edit': 1}"/>
+                            <field name="checkin_type" />
                         </group>
                     </group>
                     <footer>
-                        <button string="拉取" type="object" class="oe_highlight"/>
+                        <button name="action_pull_attendance" string="拉取" type="object" class="oe_highlight"/>
                         <button string="关闭" class="btn-secondary" special="cancel"/>
                     </footer>
                 </form>

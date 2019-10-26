@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from wxworkapi.CorpApi import CorpApi
+import platform
+if (platform.system() == 'Windows'):
+    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi
+else:
+    pass
 
 
 class ResConfigSettings(models.TransientModel):
@@ -16,6 +20,6 @@ class ResConfigSettings(models.TransientModel):
         elif self.contacts_secret == False:
             raise UserError(_("请正确填写打卡凭证密钥."))
         else:
-            api = CorpApi(self.corpid, self.attendance_secret)
+            wxapi = CorpApi(self.corpid, self.attendance_secret)
             self.env['ir.config_parameter'].sudo().set_param(
-                "wxwork.attendance_access_token", api.getAccessToken())
+                "wxwork.attendance_access_token", wxapi.getAccessToken())

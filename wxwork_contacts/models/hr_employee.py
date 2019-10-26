@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models
-from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+import platform
+if (platform.system() == 'Windows'):
+    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+else:
+    pass
 # from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
 
 from ..helper.common import *

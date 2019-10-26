@@ -2,10 +2,11 @@
 from odoo import api, fields, models
 import time
 import logging
-
-from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-# from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-
+import platform
+if (platform.system() == 'Windows'):
+    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+else:
+    pass
 _logger = logging.getLogger(__name__)
 
 class HrDepartment(models.Model):
@@ -32,7 +33,6 @@ class SyncDepartment(models.Model):
 
     # @api.multi
     def sync_department(self):
-
         params = self.env['ir.config_parameter'].sudo()
         corpid = params.get_param('wxwork.corpid')
         secret = params.get_param('wxwork.contacts_secret')
