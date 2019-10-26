@@ -5,6 +5,9 @@ import datetime
 import time
 import json
 import platform
+
+from wxwork.wxwork_api.wxworkapi.AbstractApi import ApiException
+
 if (platform.system() == 'Windows'):
     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
     from wxwork.wxwork_api.wxworkapi.ErrCode import *
@@ -62,43 +65,55 @@ class ResConfigSettings(models.TransientModel):
                     "opencheckindatatype": str(checkin_type),
                     "starttime": str(time.mktime(self.start_time.timetuple())),
                     "endtime": str(time.mktime(self.end_time.timetuple())),
-                    # "useridlist": json.loads(pull_list),
-                    "useridlist": pull_list,
+                    "useridlist": json.loads(pull_list),
+                    # "useridlist": pull_list,
                 }
             )
             for checkindata in response["checkindata"]:
                 with api.Environment.manage():
                     new_cr = self.pool.cursor()
                     self = self.with_env(self.env(cr=new_cr))
-                    env = self.sudo().env['hr.attendance']
+                    env = self.sudo().env['hr.attendance.wxwrok']
                     records = env.search([
                         ('wxwork_id', '=', checkindata['userid']),
-                        ('checkin_time', '=', checkindata['checkin_time'])],
+                        ('checkin_time', '=', time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkindata['checkin_time']))),
+                        ],
                         limit=1)
                     try:
                         if len(records) > 0:
                             pass
                         else:
-                            self.create_attendance(records,checkindata)
+                            self.create_wxwork_attendance(records,checkindata)
                     except Exception as e:
                         print(repr(e))
 
                     new_cr.commit()
                     new_cr.close()
 
-        except BaseException as e:
+        except ApiException as e:
             raise UserError(
                 '错误：%s %s\n\n详细信息：%s' %
                 (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg))
 
-    def create_attendance(self,attendance,checkindata):
+    def create_wxwork_attendance(self, attendance, checkindata):
         try:
             attendance.create({
-                'employee_id': self.get_employee_id(checkindata['userid']),
-                'groupname': self.get_employee_id(checkindata['groupname']),
+                'wxwork_id': checkindata['userid'],
+                'groupname': checkindata['groupname'],
+                'checkin_type': checkindata['checkin_type'],
+                'checkin_time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkindata['checkin_time'])),
+                'exception_type': checkindata['exception_type'],
+                'location_title': checkindata['location_title'],
+                'location_detail': checkindata['location_detail'],
+                'wifiname': checkindata['wifiname'],
+                'notes': checkindata['notes'],
+                'wifimac': checkindata['wifimac'],
+                'mediaids': checkindata['mediaids'],
+                'lat': checkindata['lat'],
+                'lng': checkindata['lng'],
             })
-        except Exception as e:
-            print('拉取记录失败:%s - %s' % (checkindata['name'], repr(e)))
+        except BaseException as e:
+            print('拉取记录失败:%s - %s' % (checkindata['userid'], repr(e)))
 
 
     def get_employee_id(self,wxwork_id):
@@ -144,7 +159,7 @@ class ResConfigSettings(models.TransientModel):
                 return userlist,True
             else:
                 return json.dumps(userlist),False
-        except BaseException as e:
+        except ApiException as e:
             raise UserError(
                 '错误：%s %s\n\n详细信息：%s' %
                 (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg))

@@ -8,8 +8,6 @@ import re
 
 import json
 import requests
-from odoo.exceptions import ValidationError,UserError
-
 
 from .conf import DEBUG
 
