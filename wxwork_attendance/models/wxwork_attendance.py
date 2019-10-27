@@ -6,6 +6,7 @@ class HrWxworkAttendance(models.Model):
     _name = "hr.attendance.wxwrok"
     _description = '企业微信打卡数据'
 
+    name = fields.Char(string="姓名", readonly=True)
     wxwork_id = fields.Char(string='企微用户Id', readonly=True)
     groupname = fields.Char(string='打卡规则名称', readonly=True)
     # checkin_type = fields.Selection(
@@ -22,5 +23,4 @@ class HrWxworkAttendance(models.Model):
     mediaids = fields.Char(string='打卡的附件media_id', readonly=True)
     lat = fields.Char(string='打卡地点纬度', readonly=True)
     lng = fields.Char(string='打卡地点经度', readonly=True)
-
 

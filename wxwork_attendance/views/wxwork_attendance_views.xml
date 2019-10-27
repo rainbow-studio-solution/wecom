@@ -2,21 +2,73 @@
 <odoo>
     <data>
         <record id="view_attendance_tree" model="ir.ui.view">
-            <field name="name">wxwork.attendance.tree</field>
+            <field name="name">hr.attendance.tree</field>
             <field name="model">hr.attendance</field>
             <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
             <field name="arch" type="xml">
-<!--                <xpath expr="//tree//field[last()]" position="after">-->
-<!--                    <field name="employee_id"/>-->
-<!--                    <field name="groupname"/>-->
-<!--                    <field name="checkin_type"/>-->
-<!--                    <field name="exception_type"/>-->
-<!--                    <field name="checkin_time"/>-->
-<!--                </xpath>-->
-<!--                <xpath expr="//tree//field[@name='check_in']" position="replace"/>-->
-<!--                <xpath expr="//tree//field[@name='check_out']" position="replace"/>-->
                 <xpath expr="//tree//field[@name='worked_hours']" position="replace"/>
             </field>
         </record>
+
+        <record id="view_wxwrok_attendance_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.wxwrok.tree</field>
+            <field name="model">hr.attendance.wxwrok</field>
+            <field name="arch" type="xml">
+                <tree edit="false" create="false">
+                    <field name="name"/>
+                    <field name="wxwork_id"/>
+                    <field name="groupname"/>
+                    <field name="checkin_type"/>
+                    <field name="exception_type"/>
+                    <field name="checkin_time"/>
+                    <field name="location_title"/>
+                    <field name="wifiname"/>
+                    <field name="notes"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_wxwrok_attendance_form" model="ir.ui.view">
+            <field name="name">hr.attendance.wxwrok.form</field>
+            <field name="model">hr.attendance.wxwrok</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="wxwork_id"/>
+                                <field name="groupname"/>
+                                <field name="checkin_type"/>
+                                <field name="exception_type"/>
+                                <field name="checkin_time"/>
+                            </group>
+                            <group>
+                                <field name="location_title"/>
+                                <field name="wifiname"/>
+                                <field name="notes"/>
+                                <field name="wifimac"/>
+                                <field name="lat"/>
+                                <field name="lng"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="mediaids"/>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wxwrok_attendance_action" model="ir.actions.act_window">
+            <field name="name">企业微信打卡记录</field>
+            <field name="res_model">hr.attendance.wxwrok</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+        </record>
+
+
     </data>
 </odoo>

@@ -27,6 +27,7 @@
         'views/res_config_settings_views.xml',
         'views/wxwork_attendance_views.xml',
         'views/wxwork_attendance_menu.xml',
+        'security/ir.model.access.csv',
     ],
     'qweb': [
         "static/src/xml/*.xml",

@@ -98,6 +98,7 @@ class ResConfigSettings(models.TransientModel):
     def create_wxwork_attendance(self, attendance, checkindata):
         try:
             attendance.create({
+                'name': self.sudo().env['hr.employee'].search([('wxwork_id', '=', checkindata['userid'])],limit=1).name,
                 'wxwork_id': checkindata['userid'],
                 'groupname': checkindata['groupname'],
                 'checkin_type': checkindata['checkin_type'],

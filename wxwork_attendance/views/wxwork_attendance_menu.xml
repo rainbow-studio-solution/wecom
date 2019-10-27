@@ -2,8 +2,14 @@
 <odoo>
     <data>
 
-        <menuitem id="menu_wxwork_attendance_pull_wizard" name="拉取打卡记录" parent="hr_attendance.menu_hr_attendance_manage_attendances"
-                  action="view_actions_wxwork_attendance_pull_wizard" sequence="10"/>
+        <menuitem id="menu_wxwork_attendance" name="企微打卡" parent="hr_attendance.menu_hr_attendance_manage_attendances"
+                  sequence="10"/>
+
+        <menuitem id="menu_wxwork_attendance_data" name="打卡记录" parent="menu_wxwork_attendance" groups="hr_attendance.group_hr_attendance_user"
+                  action="wxwrok_attendance_action" sequence="10"/>
+
+        <menuitem id="menu_wxwork_attendance_pull_wizard" name="拉取打卡记录" parent="menu_wxwork_attendance"
+                  action="view_actions_wxwork_attendance_pull_wizard" sequence="20"/>
 
     </data>
 </odoo>
