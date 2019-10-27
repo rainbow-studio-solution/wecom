@@ -5,8 +5,6 @@
         <!--        <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances" />-->
 <!--        <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode" />-->
 
-
-
         <record id="attendance_secret" model="ir.config_parameter">
             <field name="key">wxwork.attendance_secret</field>
             <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>

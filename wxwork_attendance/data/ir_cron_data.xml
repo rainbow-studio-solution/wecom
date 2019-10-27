@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record forcecreate="True" id="ir_cron_pull_attendance_data" model="ir.cron">
+            <field name="name">企业微信：定时拉取3天内全部类型的考勤记录</field>
+            <field name="model_id" ref="model_res_config_settings"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_pull_attendance_data()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

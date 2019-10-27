@@ -10,7 +10,7 @@
     'category': '企业微信',
     'version': '12.0.0.1',
     'summary': """
-        获取企业微信打卡规则以及打卡数据
+        获取企业微信打卡数据
         """,
     'description': """
 功能：
@@ -22,12 +22,14 @@
         'wxwork_contacts',
     ],
     'data': [
+        'security/ir.model.access.csv',
+        'data/ir_cron_data.xml',
         'data/wxwork_data.xml',
+        'views/ir_cron_views.xml',
         'wizard/wizard_wxwork_attendance_data_pull.xml',
         'views/res_config_settings_views.xml',
         'views/wxwork_attendance_views.xml',
         'views/wxwork_attendance_menu.xml',
-        'security/ir.model.access.csv',
     ],
     'qweb': [
         "static/src/xml/*.xml",
