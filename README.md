@@ -8,7 +8,7 @@ odoo 13.0变化很大，发现不少需要改动的。
 1. wxwork_base （企业微信-基础模块）完成适配
 2. wxwork_contacts （企业微信-通讯簿同步）基本完成，部分需要腾讯更新API     
 3. wxwork_auth_oauth （企业微信-登录授权）已完成在服务器上的测试
-4. wxwork_attendance (企业微信-打卡) 已完成拉取考勤记录，排班和考勤计算计算收费
+4. wxwork_attendance (企业微信-打卡) 已完成拉取考勤记录
 5. wxwork_notice（企业微信-通知），未开展
 6. wxwork_approval（企业微信-审批），未开展
 7. wxwork_reset_password（企业微信-密码重置），未开展
