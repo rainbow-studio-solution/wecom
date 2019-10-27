@@ -23,7 +23,7 @@
     ],
     'data': [
         'data/wxwork_data.xml',
-        'wizard/wizard_wxwork_attendance_pull.xml',
+        'wizard/wizard_wxwork_attendance_data_pull.xml',
         'views/res_config_settings_views.xml',
         'views/wxwork_attendance_views.xml',
         'views/wxwork_attendance_menu.xml',

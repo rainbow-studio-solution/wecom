@@ -16,7 +16,7 @@ else:
 
 
 class ResConfigSettings(models.TransientModel):
-    _name = 'wizard.wxwork.attendance.pull'
+    _name = 'wizard.wxwork.attendance.data.pull'
     _description = '企业微信打卡拉取向导'
     _order = 'start_time'
 
@@ -73,7 +73,7 @@ class ResConfigSettings(models.TransientModel):
                 with api.Environment.manage():
                     new_cr = self.pool.cursor()
                     self = self.with_env(self.env(cr=new_cr))
-                    env = self.sudo().env['hr.attendance.wxwrok']
+                    env = self.sudo().env['hr.attendance.data.wxwrok']
                     records = env.search([
                         ('wxwork_id', '=', checkindata['userid']),
                         ('checkin_time', '=', time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkindata['checkin_time']))),

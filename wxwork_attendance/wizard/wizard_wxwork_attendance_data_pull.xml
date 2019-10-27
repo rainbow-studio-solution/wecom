@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_form_wxwork_attendance_pull_wizard" model="ir.ui.view">
+        <record id="view_form_wxwork_attendance_data_pull_wizard" model="ir.ui.view">
             <field name="name">拉取打卡记录</field>
-            <field name="model">wizard.wxwork.attendance.pull</field>
+            <field name="model">wizard.wxwork.attendance.data.pull</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="拉取打卡记录" >
@@ -30,11 +30,11 @@
             </field>
         </record>
 
-        <record id="view_actions_wxwork_attendance_pull_wizard" model="ir.actions.act_window">
+        <record id="view_actions_wxwork_attendance_data_pull_wizard" model="ir.actions.act_window">
             <field name="name">拉取打卡记录</field>
-            <field name="res_model">wizard.wxwork.attendance.pull</field>
+            <field name="res_model">wizard.wxwork.attendance.data.pull</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_form_wxwork_attendance_pull_wizard"/>
+            <field name="view_id" ref="view_form_wxwork_attendance_data_pull_wizard"/>
             <field name="context">{}</field>
             <field name="target">new</field>
         </record>

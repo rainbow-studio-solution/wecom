@@ -10,9 +10,9 @@
             </field>
         </record>
 
-        <record id="view_wxwrok_attendance_tree" model="ir.ui.view">
-            <field name="name">hr.attendance.wxwrok.tree</field>
-            <field name="model">hr.attendance.wxwrok</field>
+        <record id="view_wxwrok_attendance_data_tree" model="ir.ui.view">
+            <field name="name">hr.attendance.data.wxwrok.tree</field>
+            <field name="model">hr.attendance.data.wxwrok</field>
             <field name="arch" type="xml">
                 <tree edit="false" create="false">
                     <field name="name"/>
@@ -28,8 +28,8 @@
             </field>
         </record>
         <record id="view_wxwrok_attendance_form" model="ir.ui.view">
-            <field name="name">hr.attendance.wxwrok.form</field>
-            <field name="model">hr.attendance.wxwrok</field>
+            <field name="name">hr.attendance.data.wxwrok.form</field>
+            <field name="model">hr.attendance.data.wxwrok</field>
             <field name="arch" type="xml">
                 <form edit="false" create="false">
                     <sheet>
@@ -60,9 +60,9 @@
             </field>
         </record>
 
-        <record id="wxwrok_attendance_action" model="ir.actions.act_window">
+        <record id="wxwrok_attendance_data_action" model="ir.actions.act_window">
             <field name="name">企业微信打卡记录</field>
-            <field name="res_model">hr.attendance.wxwrok</field>
+            <field name="res_model">hr.attendance.data.wxwrok</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
             <field name="context">{}</field>

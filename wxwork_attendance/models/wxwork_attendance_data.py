@@ -3,7 +3,7 @@
 from odoo import models, fields, api, exceptions, _
 
 class HrWxworkAttendance(models.Model):
-    _name = "hr.attendance.wxwrok"
+    _name = "hr.attendance.data.wxwrok"
     _description = '企业微信打卡数据'
 
     name = fields.Char(string="姓名", readonly=True)
