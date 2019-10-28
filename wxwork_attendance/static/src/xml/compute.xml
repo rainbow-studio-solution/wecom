@@ -2,10 +2,10 @@
 
 <templates>
     <t t-name="ListView.buttons">
-        <t t-jquery="div.o_list_buttons" t-operation="append">
-            <button type="button" class="btn btn-primary o_list_button_save" >
-                核计考勤
-            </button>
-        </t>
+<!--        <t t-jquery="div.o_list_buttons" t-operation="append">-->
+<!--            <button type="button" class="btn btn-primary o_list_button_save" >-->
+<!--                核计考勤-->
+<!--            </button>-->
+<!--        </t>-->
     </t>
 </templates>
