@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wxwork_attendance_rule_pull_wizard" model="ir.ui.view">
+            <field name="name">拉取打卡规则</field>
+            <field name="model">wizard.wxwork.attendance.rule.pull</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="拉取打卡规则" >
+                    <separator string="从企业微信拉取打卡规则"/>
+                    <span>部门为空，则拉取整个组织架构</span>
+                    <br/>
+                    <span>后台拉取任务处于开启状态的话，不需要经常手工拉取</span>
+                    <group>
+                        <group>
+                            <field name="current_date"/>
+                            <field name="status" />
+                        </group>
+                        <group>
+                            <field name="department_id" options="{'no_create_edit': 1}"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_pull_attendance" string="拉取" type="object" class="oe_highlight"/>
+                        <button string="关闭" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_actions_wxwork_attendance_rule_pull_wizard" model="ir.actions.act_window">
+            <field name="name">拉取打卡规则</field>
+            <field name="res_model">wizard.wxwork.attendance.rule.pull</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_attendance_rule_pull_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

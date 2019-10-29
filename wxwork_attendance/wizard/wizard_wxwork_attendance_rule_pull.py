@@ -21,13 +21,12 @@ class ResConfigSettings(models.TransientModel):
     _order = 'start_time'
 
     department_id = fields.Many2one('hr.department', string="部门", )
-    time = fields.Datetime(string="结束时间", default=fields.Datetime.now, required=True,help="规则的日期当天0点的Unix时间戳")
+    current_date = fields.Datetime(string="请选择日期", default= fields.Datetime.now, required=True,help="规则的日期当天0点的Unix时间戳")
     # TODO:获取任务是否开启
     status = fields.Boolean(string="后台拉取任务状态")
 
 
     def action_pull_attendance(self):
-
         pull_list,batch = self.get_employees_by_department(self.department_id)
 
         if batch:
@@ -44,23 +43,25 @@ class ResConfigSettings(models.TransientModel):
 
 
         wxapi = CorpApi(corpid, secret)
-
+        t = datetime.datetime.strptime(self.current_date.strftime('%Y-%m-%d 00:00:00'), "%Y-%m-%d %H:%M:%S")
         try:
             response = wxapi.httpCall(
                 CORP_API_TYPE['GET_CHECKIN_OPTION'],
                 {
-                    "datetime": str(time.mktime(self.end_time.timetuple())),
+                    "datetime": str(time.mktime(t.timetuple())),
                     "useridlist": json.loads(pull_list),
                 }
             )
+            # print(t)
+            # print(response["info"])
             for checkinoption in response["info"]:
                 with api.Environment.manage():
                     new_cr = self.pool.cursor()
                     self = self.with_env(self.env(cr=new_cr))
-                    env = self.sudo().env['hr.attendance.data.wxwrok']
+                    env = self.sudo().env['hr.attendance.rule.wxwrok']
                     records = env.search([
                         ('wxwork_id', '=', checkinoption['userid']),
-                        ('checkin_time', '=', time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkinoption['checkin_time']))),
+                        ('pull_time', '=', t),
                         ],
                         limit=1)
                     try:
@@ -79,26 +80,30 @@ class ResConfigSettings(models.TransientModel):
                 '错误：%s %s\n\n详细信息：%s' %
                 (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg))
 
-    def create_wxwork_attendance(self, attendance, checkindata):
+    def create_wxwork_attendance(self, attendance, checkinoption):
+        # print(json.dumps(checkinoption["group"]["checkindate"]))
+        t = datetime.datetime.strptime(self.current_date.strftime('%Y-%m-%d 00:00:00'), "%Y-%m-%d %H:%M:%S")
         try:
             attendance.create({
-                'name': self.sudo().env['hr.employee'].search([('wxwork_id', '=', checkindata['userid'])],limit=1).name,
-                'wxwork_id': checkindata['userid'],
-                'groupname': checkindata['groupname'],
-                'checkin_type': checkindata['checkin_type'],
-                'checkin_time': time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(checkindata['checkin_time'])),
-                'exception_type': checkindata['exception_type'],
-                'location_title': checkindata['location_title'],
-                'location_detail': checkindata['location_detail'],
-                'wifiname': checkindata['wifiname'],
-                'notes': checkindata['notes'],
-                'wifimac': checkindata['wifimac'],
-                'mediaids': checkindata['mediaids'],
-                'lat': checkindata['lat'],
-                'lng': checkindata['lng'],
+                'name': self.sudo().env['hr.employee'].search([('wxwork_id', '=', checkinoption['userid'])],limit=1).name,
+                'pull_time':t,
+                'wxwork_id': checkinoption['userid'],
+                'groupid': checkinoption['group']['groupid'],
+                'groupname': checkinoption['group']['groupname'],
+                'grouptype': checkinoption["group"]["grouptype"],
+                'checkindate_json': json.dumps(checkinoption["group"]["checkindate"]),
+                'spe_workdays_json': checkinoption['group']['spe_workdays'],
+                'spe_offdays_json': checkinoption['group']['spe_offdays'],
+                'sync_holidays': checkinoption['group']['sync_holidays'],
+                'need_photo': checkinoption['group']['need_photo'],
+                'wifimac_infos': checkinoption['group']['wifimac_infos'],
+                'note_can_use_local_pic': checkinoption['group']['note_can_use_local_pic'],
+                'allow_checkin_offworkday': checkinoption['group']['allow_checkin_offworkday'],
+                'allow_apply_ocffworkday': checkinoption['group']['allow_apply_offworkday'],
+                'loc_infosloc_infosloc_infos': checkinoption['group']['loc_infos'],
             })
         except BaseException as e:
-            print('拉取记录失败:%s - %s' % (checkindata['userid'], repr(e)))
+            print('拉取记录失败:%s - %s' % (checkinoption['userid'], repr(e)))
 
 
     def get_employee_id(self,wxwork_id):

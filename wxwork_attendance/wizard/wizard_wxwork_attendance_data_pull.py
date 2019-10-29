@@ -37,12 +37,8 @@ class ResConfigSettings(models.TransientModel):
     def _compute_start_time(self):
         self.start_time = self.end_time - datetime.timedelta(int(self.delta))
 
-
-
     def action_pull_attendance(self):
-
         pull_list,batch = self.get_employees_by_department(self.department_id)
-
         if batch:
             for i in range(0, int(len(pull_list))):
                 self.get_checkin_data(pull_list[i])

@@ -8,13 +8,18 @@
         <menuitem id="menu_wxwork_attendance_data" name="打卡记录" parent="menu_wxwork_attendance" groups="hr_attendance.group_hr_attendance_user"
                   action="wxwrok_attendance_data_action" sequence="10"/>
 
-        <menuitem id="menu_wxwork_attendance_pull_wizard" name="拉取打卡记录" parent="menu_wxwork_attendance"
-                  action="view_actions_wxwork_attendance_data_pull_wizard" sequence="20"/>
+        <menuitem id="menu_wxwork_attendance_data_pull_wizard" name="拉取打卡记录" parent="menu_wxwork_attendance"
+                  action="view_actions_wxwork_attendance_data_pull_wizard" sequence="30"/>
+
+        <menuitem id="menu_wxwork_attendance_rule_pull_wizard" name="拉取打卡规则" parent="menu_wxwork_attendance"
+                  action="view_actions_wxwork_attendance_rule_pull_wizard" sequence="40"/>
 
 
         <!--    系统设置菜单    -->
         <menuitem id="menu_wxwork_attendance_data_auto_pull" name="拉取打卡记录" parent="wxwork_base.menu_wxwork_cron"
-                  action="ir_cron_pull_attendance" sequence="3"/>
+                  action="ir_cron_pull_attendance_data" sequence="3"/>
+<!--        <menuitem id="menu_wxwork_attendance_rule_auto_pull" name="拉取打卡规则" parent="wxwork_base.menu_wxwork_cron"-->
+<!--                  action="ir_cron_pull_attendance_rule" sequence="3"/>-->
 
     </data>
 </odoo>
