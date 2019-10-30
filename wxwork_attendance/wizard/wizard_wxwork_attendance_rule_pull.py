@@ -52,7 +52,7 @@ class ResConfigSettings(models.TransientModel):
                     "useridlist": json.loads(pull_list),
                 }
             )
-            # print(t)
+            # print(str(time.mktime(t.timetuple())))
             # print(response["info"])
             for checkinoption in response["info"]:
                 with api.Environment.manage():
@@ -99,8 +99,8 @@ class ResConfigSettings(models.TransientModel):
                 'wifimac_infos': checkinoption['group']['wifimac_infos'],
                 'note_can_use_local_pic': checkinoption['group']['note_can_use_local_pic'],
                 'allow_checkin_offworkday': checkinoption['group']['allow_checkin_offworkday'],
-                'allow_apply_ocffworkday': checkinoption['group']['allow_apply_offworkday'],
-                'loc_infosloc_infosloc_infos': checkinoption['group']['loc_infos'],
+                'allow_apply_offworkday': checkinoption['group']['allow_apply_offworkday'],
+                'loc_infos': checkinoption['group']['loc_infos'],
             })
         except BaseException as e:
             print('拉取记录失败:%s - %s' % (checkinoption['userid'], repr(e)))
