@@ -56,13 +56,10 @@
             <field name="name">设置</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.config.settings</field>
+            <field name="view_id" ref="res_config_settings_view_form"/>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
             <field name="context">{ 'module' : 'wxwork_base'}</field>
-            <!--<field name="context">{-->
-                <!--'module' : 'wxwork_base',-->
-                <!--'module' : 'wxwork_contacts',-->
-                <!--}</field>-->
         </record>
 
     </data>

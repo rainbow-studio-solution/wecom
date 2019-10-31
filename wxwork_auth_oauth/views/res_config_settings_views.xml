@@ -4,10 +4,10 @@
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">企业微信验证授权</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_contacts.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[last()]" position="after" >
-                    <page string="企业应用登录授权">
+                <xpath expr="//notebook[@id='wxwork_notebook']//page[last()]" position="after" >
+                    <page string="应用登录授权">
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">

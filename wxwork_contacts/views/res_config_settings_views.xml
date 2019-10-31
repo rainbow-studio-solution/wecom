@@ -8,7 +8,8 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <sheet>
-                        <notebook style="padding-left: 16px">
+<!--                        <notebook style="padding-left: 16px">-->
+                        <notebook id="wxwork_notebook">
                             <page string="通讯录同步">
                                 <h2>通讯录同步ODOO HR配置 </h2>
                                 <div class="row mt16 o_settings_container">
@@ -20,7 +21,7 @@
                                             <label for="contacts_secret"/>
                                             <div class="row">
                                                 <div class="text-muted col-md-12">
-                                                    通讯录管理secret。在“管理工具”-“通讯录同步”里面查看（需开启“API接口同步”）。为了保证数据的安全，密钥务必不能泄漏。
+                                                    通讯录管理secret。在“管理工具”→“通讯录同步”里面查看（需开启“API接口同步”）。为了保证数据的安全，密钥务必不能泄漏。
                                                 </div>
                                             </div>
                                             <div class="content-group">
