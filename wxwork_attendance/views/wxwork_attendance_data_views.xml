@@ -14,7 +14,7 @@
             <field name="name">hr.attendance.data.wxwrok.tree</field>
             <field name="model">hr.attendance.data.wxwrok</field>
             <field name="arch" type="xml">
-                <tree edit="false" create="false">
+                <tree edit="false" create="false" default_order="checkin_time desc">
                     <field name="name"/>
                     <field name="wxwork_id"/>
                     <field name="groupname"/>
@@ -28,7 +28,7 @@
             </field>
         </record>
 
-        <record id="view_wxwrok_attendance_form" model="ir.ui.view">
+        <record id="view_wxwrok_attendance_data__form" model="ir.ui.view">
             <field name="name">hr.attendance.data.wxwrok.form</field>
             <field name="model">hr.attendance.data.wxwrok</field>
             <field name="arch" type="xml">

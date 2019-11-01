@@ -6,7 +6,7 @@
             <field name="name">hr.attendance.rule.wxwrok.tree</field>
             <field name="model">hr.attendance.rule.wxwrok</field>
             <field name="arch" type="xml">
-                <tree edit="false" create="false">
+                <tree edit="false" create="false" default_order="pull_time desc">
                     <field name="pull_time"/> <!-- TODO:时间格式 -->
                     <field name="name"/>
                     <field name="groupname"/>
@@ -20,10 +20,34 @@
             </field>
         </record>
 
+        <record id="view_wxwrok_attendance_rule__form" model="ir.ui.view">
+            <field name="name">hr.attendance.rule.wxwrok.form</field>
+            <field name="model">hr.attendance.rule.wxwrok</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                            <h2>
+                                <field name="groupname"  />
+                            </h2>
+                        </div>
+                        <group string="打卡时间">
+                            <group string="打卡时间"></group>
+                            <group></group>
+                            <group></group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="wxwrok_attendance_rule_action" model="ir.actions.act_window">
             <field name="name">企业微信打卡规则</field>
             <field name="res_model">hr.attendance.rule.wxwrok</field>
-            <field name="view_mode">tree</field>
+            <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
             <field name="context">{}</field>
             <field name="view_id" eval="False"/>

@@ -25,7 +25,7 @@ class ResConfigSettings(models.TransientModel):
     checkin_type = fields.Selection(
         ([('1', '上下班打卡'), ('2', '外出打卡'), ('3', '全部打卡')]),
         string='打卡类型')
-    start_time = fields.Datetime(string="开始时间", required=True,compute='_compute_start_time')
+    start_time = fields.Datetime(string="开始时间", required=True, compute='_compute_start_time')
     end_time = fields.Datetime(string="结束时间", default=fields.Datetime.now, required=True)
     delta = fields.Selection(
         ([('1', '1 天'), ('7', '7 天'), ('15', '15天'), ('30', '30天')]),
