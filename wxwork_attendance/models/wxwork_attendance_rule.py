@@ -3,7 +3,7 @@
 from odoo import models, fields, api, exceptions, _
 import datetime
 
-class HrWxworkAttendanceData(models.Model):
+class HrWxworkAttendanceRule(models.Model):
     _name = "hr.attendance.rule.wxwrok"
     _description = '企业微信打卡数据'
 
@@ -11,7 +11,7 @@ class HrWxworkAttendanceData(models.Model):
     groupid = fields.Char(string='打卡规则id', readonly=True)
     groupname = fields.Char(string="打卡规则名称", readonly=True)#groupname
     wxwork_id = fields.Char(string='企微用户Id', readonly=True)#userid
-    pull_time = fields.Datetime(string='拉取日期', readonly=True, help="日期当天0点", )#compute='_compute_time'
+    pull_time = fields.Datetime(string='日期', readonly=True, help="日期当天0点", )#compute='_compute_time'
 
     grouptype = fields.Char(string='打卡规则类型', readonly=True, help='1：固定时间上下班；2：按班次上下班；3：自由上下班')
 
@@ -21,11 +21,11 @@ class HrWxworkAttendanceData(models.Model):
 
     spe_offdays_json = fields.Char(string='不需要打卡的日期JSON', readonly=True, help="" )
 
-    allow_checkin_offworkday = fields.Char(string="是否非工作日允许打卡", readonly=True, help="" )
-    sync_holidays = fields.Char(string="是否同步法定节假日", readonly=True, help="" )
-    need_photo = fields.Char(string="是否打卡必须拍照", readonly=True, help="" )
-    note_can_use_local_pic = fields.Char(string="是否备注时允许上传本地图片", readonly=True, help="" )
-    allow_apply_offworkday = fields.Char(string="是否允许异常打卡时提交申请", readonly=True, help="" )
+    allow_checkin_offworkday = fields.Char(string="非工作日允许打卡", readonly=True, help="" )
+    sync_holidays = fields.Char(string="同步法定节假日", readonly=True, help="" )
+    need_photo = fields.Char(string="打卡必须拍照", readonly=True, help="" )
+    note_can_use_local_pic = fields.Char(string="备注时允许上传本地图片", readonly=True, help="" )
+    allow_apply_offworkday = fields.Char(string="允许异常打卡时提交申请", readonly=True, help="" )
 
     wifimac_infos = fields.Char(string="WiFi打卡地点信息", readonly=True, help="" )
 

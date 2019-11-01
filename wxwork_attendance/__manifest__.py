@@ -29,7 +29,8 @@
         'wizard/wizard_wxwork_attendance_data_pull.xml',
         'wizard/wizard_wxwork_attendance_rule_pull.xml',
         'views/res_config_settings_views.xml',
-        'views/wxwork_attendance_views.xml',
+        'views/wxwork_attendance_data_views.xml',
+        'views/wxwork_attendance_rule_views.xml',
         'views/wxwork_attendance_menu.xml',
     ],
     'qweb': [

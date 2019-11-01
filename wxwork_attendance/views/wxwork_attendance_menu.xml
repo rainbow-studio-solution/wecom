@@ -5,21 +5,24 @@
         <menuitem id="menu_wxwork_attendance" name="企微打卡" parent="hr_attendance.menu_hr_attendance_manage_attendances"
                   sequence="10"/>
 
-        <menuitem id="menu_wxwork_attendance_data" name="打卡记录" parent="menu_wxwork_attendance" groups="hr_attendance.group_hr_attendance_user"
+        <menuitem id="menu_wxwork_attendance_data" name="打卡数据" parent="menu_wxwork_attendance" groups="hr_attendance.group_hr_attendance_user"
                   action="wxwrok_attendance_data_action" sequence="10"/>
 
-        <menuitem id="menu_wxwork_attendance_data_pull_wizard" name="拉取打卡记录" parent="menu_wxwork_attendance"
-                  action="view_actions_wxwork_attendance_data_pull_wizard" sequence="30"/>
+        <menuitem id="menu_wxwork_attendance_data_pull_wizard" name="拉取打卡数据" parent="menu_wxwork_attendance"
+                  action="view_actions_wxwork_attendance_data_pull_wizard" sequence="20"/>
+
+        <menuitem id="menu_wxwork_attendance_rule" name="打卡规则" parent="menu_wxwork_attendance" groups="hr_attendance.group_hr_attendance_user"
+                  action="wxwrok_attendance_rule_action" sequence="30"/>
 
         <menuitem id="menu_wxwork_attendance_rule_pull_wizard" name="拉取打卡规则" parent="menu_wxwork_attendance"
                   action="view_actions_wxwork_attendance_rule_pull_wizard" sequence="40"/>
 
 
         <!--    系统设置菜单    -->
-        <menuitem id="menu_wxwork_attendance_data_auto_pull" name="拉取打卡记录" parent="wxwork_base.menu_wxwork_cron"
+        <menuitem id="menu_wxwork_attendance_data_auto_pull" name="拉取打卡数据" parent="wxwork_base.menu_wxwork_cron"
                   action="ir_cron_pull_attendance_data" sequence="3"/>
-<!--        <menuitem id="menu_wxwork_attendance_rule_auto_pull" name="拉取打卡规则" parent="wxwork_base.menu_wxwork_cron"-->
-<!--                  action="ir_cron_pull_attendance_rule" sequence="3"/>-->
+        <!--        <menuitem id="menu_wxwork_attendance_rule_auto_pull" name="拉取打卡规则" parent="wxwork_base.menu_wxwork_cron"-->
+        <!--                  action="ir_cron_pull_attendance_rule" sequence="3"/>-->
 
     </data>
 </odoo>
