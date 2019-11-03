@@ -23,7 +23,7 @@
         <record id="view_wxwrok_attendance_rule__form" model="ir.ui.view">
             <field name="name">hr.attendance.rule.wxwrok.form</field>
             <field name="model">hr.attendance.rule.wxwrok</field>
-            <field name="arch" type="xml">
+            <field name="arch" type="xml"><!--   TODO: 待数据完整后, 分解json         -->
                 <form edit="false" create="false">
                     <sheet>
                         <div class="oe_title">
@@ -31,13 +31,42 @@
                                 <field name="name" />
                             </h1>
                             <h2>
-                                <field name="groupname"  />
+                                打卡规则:<field name="groupname"  />
                             </h2>
+                            <h3>
+                                获取规则的日期:<field name="pull_time"  />
+                            </h3>
                         </div>
+                        <group>
+                            <group>
+                                <field name="allow_checkin_offworkday"  />
+                                <field name="sync_holidays"  />
+                                <field name="need_photo"  />
+                            </group>
+                            <group>
+
+                                <field name="note_can_use_local_pic"  />
+                                <field name="allow_apply_offworkday"  />
+                            </group>
+                        </group>
                         <group string="打卡时间">
-                            <group string="打卡时间"></group>
+                            <group>
+                                <field name="checkindate_json"  />
+                            </group>
+
                             <group></group>
-                            <group></group>
+                        </group>
+                        <group string="必须打卡的日期">
+                            <field name="spe_workdays_json" />
+                        </group>
+                        <group string="不需要打卡的日期">
+                            <field name="spe_offdays_json" />
+                        </group>
+                        <group string="WiFi打卡地点信息">
+                            <field name="wifimac_infos" />
+                        </group>
+                        <group string="位置打卡地点信息">
+                            <field name="loc_infos" />
                         </group>
                     </sheet>
                 </form>
