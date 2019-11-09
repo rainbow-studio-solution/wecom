@@ -21,8 +21,7 @@ import requests
 
 from werkzeug import urls
 
-from ...wxwork_api.CorpApi import CorpApi
-
+from ...wxwork_api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
