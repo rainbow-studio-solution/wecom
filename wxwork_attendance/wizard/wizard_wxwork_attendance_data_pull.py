@@ -8,12 +8,13 @@ import platform
 
 from wxwork.wxwork_api.wxworkapi.AbstractApi import ApiException
 
-if (platform.system() == 'Windows'):
-    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-    from wxwork.wxwork_api.wxworkapi.ErrCode import *
-else:
-    pass
-
+# if (platform.system() == 'Windows'):
+#     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+#     from wxwork.wxwork_api.wxworkapi.ErrCode import *
+# else:
+#     pass
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.wxworkapi.ErrCode import *
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wizard.wxwork.attendance.data.pull'

@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import platform
-if (platform.system() == 'Windows'):
-    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi
-else:
-    pass
 
+from ...wxwork_api.CorpApi import *
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 # from wxworkapi.CorpApi import CorpApi
+
 
 from ..models.sync_contacts import *
 

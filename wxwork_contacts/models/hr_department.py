@@ -2,11 +2,10 @@
 from odoo import api, fields, models
 import time
 import logging
-import platform
-if (platform.system() == 'Windows'):
-    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-else:
-    pass
+
+from ...wxwork_api.CorpApi import *
+
+
 _logger = logging.getLogger(__name__)
 
 class HrDepartment(models.Model):

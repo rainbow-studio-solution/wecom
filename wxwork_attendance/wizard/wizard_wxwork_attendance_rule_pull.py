@@ -7,12 +7,13 @@ import json
 import platform
 
 from wxwork.wxwork_api.wxworkapi.AbstractApi import ApiException
-
-if (platform.system() == 'Windows'):
-    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-    from wxwork.wxwork_api.wxworkapi.ErrCode import *
-else:
-    pass
+from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+from wxwork.wxwork_api.wxworkapi.ErrCode import Errcode
+# if (platform.system() == 'Windows'):
+#     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+#     from wxwork.wxwork_api.wxworkapi.ErrCode import *
+# else:
+#     pass
 
 
 class ResConfigSettings(models.TransientModel):

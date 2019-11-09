@@ -21,11 +21,7 @@ import requests
 
 from werkzeug import urls
 
-import platform
-if (platform.system() == 'Windows'):
-    from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi
-else:
-    pass
+from ...wxwork_api.CorpApi import CorpApi
 
 
 _logger = logging.getLogger(__name__)

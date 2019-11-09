@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+
 from .AbstractApi import *
 
 CORP_API_TYPE = {

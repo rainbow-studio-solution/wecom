@@ -36,11 +36,7 @@ odoo 13.0变化很大，发现不少需要改动的。
    或
    pip3 install -r requirements.txt -i https://pypi.doubanio.com/simple
     ```
- 3. 切换到  wxwork/wxwork_api 目录，安装企业微信的API 依赖包
-     ```bash
-    python setup.py install
-    ```
-    有空打包上传到 PyPi，暂时先在windows下开发
+
  
 ## 模块 介绍 
 
