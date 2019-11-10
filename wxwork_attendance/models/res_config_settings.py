@@ -8,13 +8,8 @@ import platform
 import logging
 _logger = logging.getLogger(__name__)
 
-# if (platform.system() == 'Windows'):
-#     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE, ApiException
-#     from wxwork.wxwork_api.wxworkapi.ErrCode import Errcode
-# else:
-#     pass
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.ErrCode import Errcode
+from ...wxwork_api.ErrCode import Errcode
+from ...wxwork_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
 
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'

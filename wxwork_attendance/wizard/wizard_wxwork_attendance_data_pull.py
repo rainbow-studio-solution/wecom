@@ -6,15 +6,9 @@ import time
 import json
 import platform
 
-from wxwork.wxwork_api.wxworkapi.AbstractApi import ApiException
+from ...wxwork_api.ErrCode import Errcode
+from ...wxwork_api.CorpApi import CorpApi, CORP_API_TYPE,  ApiException
 
-# if (platform.system() == 'Windows'):
-#     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-#     from wxwork.wxwork_api.wxworkapi.ErrCode import *
-# else:
-#     pass
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.ErrCode import *
 
 class ResConfigSettings(models.TransientModel):
     _name = 'wizard.wxwork.attendance.data.pull'

@@ -1,19 +1,12 @@
 from odoo import api, models, fields
 from odoo.exceptions import UserError
-# from wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
+
 import datetime
 import time
 import json
-import platform
 
-from wxwork.wxwork_api.wxworkapi.AbstractApi import ApiException
-from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-from wxwork.wxwork_api.wxworkapi.ErrCode import Errcode
-# if (platform.system() == 'Windows'):
-#     from wxwork.wxwork_api.wxworkapi.CorpApi import CorpApi, CORP_API_TYPE
-#     from wxwork.wxwork_api.wxworkapi.ErrCode import *
-# else:
-#     pass
+from ...wxwork_api.ErrCode import Errcode
+from ...wxwork_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
 
 
 class ResConfigSettings(models.TransientModel):
