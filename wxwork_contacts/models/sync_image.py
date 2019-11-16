@@ -47,9 +47,10 @@ class SyncImage(object):
         user_list, avatar_urls, qr_code_urls = self.generate_image_list()
         start = time.time()
         threads = []
-        thread_max = int(os.getpid() / 1000)    # 限制线程的最大数量为系统最大PID数量的1/1000
-
-        print(os.getpid(), thread_max)
+        '''
+        限制线程的最大数量为系统最大PID数量的1/1000,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
+        '''
+        thread_max = int(os.getpid() / 1000)
         try:
             for i in range(len(user_list)):
                 remote_avatar_img = avatar_urls[i]
@@ -62,10 +63,6 @@ class SyncImage(object):
                 threads.append(t1)
                 t2 = threading.Thread(target=self.image_is_exists, args=[remote_qr_code_img, local_qr_code_img])
                 threads.append(t2)
-                # t1.start()
-                # t2.start()
-                # result = "图片同步成功"
-                # status = {'image_1920': True}
 
             for t in threads:
                 # 如果线程达到最大值则等待前面线程跑完空出线程位置
