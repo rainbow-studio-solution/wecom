@@ -1,20 +1,25 @@
 # -*- coding: utf-8 -*-
 
-
-import urllib, os, platform, cv2
-import numpy as np
-import time
+import os
+import cv2
 import logging
-from threading import Thread, Lock
+import platform
+import time
+import urllib
+import threading
+
+import numpy as np
 
 from ...wxwork_api.CorpApi import *
 
 _logger = logging.getLogger(__name__)
 
-
 # start 以下为解决 image file is truncated (18 bytes not processed)错误
 from PIL import ImageFile
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+
+
 # end 以上为解决 image file is truncated (18 bytes not processed)错误
 
 class SyncImage(object):
@@ -30,7 +35,7 @@ class SyncImage(object):
     def run(self):
         if self.debug:
             _logger.error("开始同步企业微信通讯录-图片")
-        if (platform.system() == 'Windows'):
+        if platform.system() == 'Windows':
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
         else:
@@ -39,21 +44,41 @@ class SyncImage(object):
         self.path_is_exists(avatar_directory)
         self.path_is_exists(qr_code_directory)
 
-        user_list,avatar_urls,qr_code_urls = self.generate_image_list()
+        user_list, avatar_urls, qr_code_urls = self.generate_image_list()
         start = time.time()
+        threads = []
+        thread_max = int(os.getpid() / 1000)    # 限制线程的最大数量为系统最大PID数量的1/1000
+
+        print(os.getpid(), thread_max)
         try:
             for i in range(len(user_list)):
                 remote_avatar_img = avatar_urls[i]
                 local_avatar_img = avatar_directory + user_list[i] + ".jpg"
 
                 remote_qr_code_img = qr_code_urls[i]
-                local_qr_code_img = qr_code_directory + user_list[i]+ ".png"
-                t1 = Thread(target=self.check_image, args=[remote_avatar_img,local_avatar_img])
-                t2 = Thread(target=self.check_image, args=[remote_qr_code_img, local_qr_code_img])
-                t1.start()
-                t2.start()
+                local_qr_code_img = qr_code_directory + user_list[i] + ".png"
+
+                t1 = threading.Thread(target=self.image_is_exists, args=[remote_avatar_img, local_avatar_img])
+                threads.append(t1)
+                t2 = threading.Thread(target=self.image_is_exists, args=[remote_qr_code_img, local_qr_code_img])
+                threads.append(t2)
+                # t1.start()
+                # t2.start()
+                # result = "图片同步成功"
+                # status = {'image_1920': True}
+
+            for t in threads:
+                # 如果线程达到最大值则等待前面线程跑完空出线程位置
+                t.start()
+                while True:
+                    # 判断正在运行的线程数量,如果小于 thread_max 则退出while循环,
+                    # 进入for循环启动新的进程.否则就一直在while循环进入死循环
+                    if len(threading.enumerate()) < thread_max:
+                        break
+
                 result = "图片同步成功"
-                status ={'image_1920': True}
+                status = {'image_1920': True}
+
         except Exception as e:
             result = "图片同步失败"
             status = {'image_1920': False}
@@ -64,13 +89,13 @@ class SyncImage(object):
 
         if self.debug:
             _logger.error("结束同步企业微信通讯录-图片，总共花费时间：%s 秒" % times)
-        return times,status,result
+        return times, status, result
 
     def generate_image_list(self):
-        '''
+        """
         生成userid、avatar、qr_code的List
         :return: list
-        '''
+        """
 
         api = CorpApi(self.corpid, self.secret)
         response = api.httpCall(
@@ -88,9 +113,9 @@ class SyncImage(object):
             userid_list.append(object['userid'])
             avatar_urls.append(object['avatar'])
             qr_code_urls.append(object['qr_code'])
-        return userid_list,avatar_urls,qr_code_urls
+        return userid_list, avatar_urls, qr_code_urls
 
-    def path_is_exists(self,path):
+    def path_is_exists(self, path):
         '''
         检文件夹路径
         :param path:
@@ -100,7 +125,7 @@ class SyncImage(object):
             os.makedirs(path)
         return path
 
-    def check_identical_images(self,remote,local):
+    def check_images(self, remote, local):
         '''
         比较远程图片和本地图片是否一致
         :param remote: 远程图片
@@ -122,31 +147,31 @@ class SyncImage(object):
             print(repr(e))
             return False
 
-    def check_image(self,remote_img,local_img):
-        '''
+    def image_is_exists(self, remote_img, local_img):
+        """
         检查是否存在本地图片，
         有：比较和更新图片
         无：下载图片
         :param remote_img: 远程图片
         :param local_img: 本地图片
         :return:
-        '''
+        """
         if os.path.exists(local_img):
             # 比较本地远程和本地图片
-            if not self.check_identical_images(remote_img, local_img):
+            if not self.check_images(remote_img, local_img):
                 self.download_image(remote_img, local_img)
         else:
             self.download_image(remote_img, local_img)
 
-    def download_image(self,remote_img,local_img):
-        '''
+    def download_image(self, remote_img, local_img):
+        """
         下载图片
         :param remote_img: 远程图片
         :param local_img: 本地图片
         :return:
             Ture：下载成功
             False: 下载失败
-        '''
+        """
         try:
             avatar_data = urllib.request.urlopen(remote_img).read()  # 打开URL
             file_avatar = open(local_img, "wb")  # 读取，写入
@@ -156,3 +181,5 @@ class SyncImage(object):
         except BaseException as e:
             # return False
             print(repr(e))
+
+
