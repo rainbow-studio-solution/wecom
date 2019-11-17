@@ -21,7 +21,7 @@
         </record>
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
-            <field name="name">企业微信应用外扫码登录</field>
+            <field name="name">使用企业微信扫一扫登录</field>
             <field name="auth_endpoint">https://open.work.weixin.qq.com/wwopen/sso/qrConnect</field>
             <field name="scope"></field>
             <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/qr</field>
