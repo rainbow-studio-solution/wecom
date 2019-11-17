@@ -30,20 +30,11 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 
 # 帮助
-
 ## 安装
-1. 下载代码
-    ```bash
-    git clone git@gitee.com:rainbowstudio/wxwork.git --depth 1 --branch 13.0 --single-branch wxwork 
-    ```
-2. 切换到 wxwork 目录,安装requirements.txt中的python包
-    ```bash
-    pip install -r requirements.txt -i https://pypi.doubanio.com/simple
-   或
-   pip3 install -r requirements.txt -i https://pypi.doubanio.com/simple
-    ```
+[![Install](http://img.shields.io/badge/13.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md)
 
- 
+## 故障处理
+[![Help](http://img.shields.io/badge/13.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 ## 模块 介绍 
 
 ## 使用说明
