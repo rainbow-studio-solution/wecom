@@ -20,7 +20,7 @@
 
         <!--    系统设置菜单    -->
         <menuitem id="menu_wxwork_attendance_data_auto_pull" name="拉取打卡数据" parent="wxwork_base.menu_wxwork_cron"
-                  action="ir_cron_pull_attendance_data" sequence="3"/>
+                  action="ir_cron_act_auto_pull_attendance_data" sequence="3"/>ir_cron_pull_attendance_data
         <!--        <menuitem id="menu_wxwork_attendance_rule_auto_pull" name="拉取打卡规则" parent="wxwork_base.menu_wxwork_cron"-->
         <!--                  action="ir_cron_pull_attendance_rule" sequence="3"/>-->
 
