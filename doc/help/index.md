@@ -1,6 +1,6 @@
 # 帮助
 ## 在linux上查看实时日志
-使用以下命令实时查看odoo运行日志，如发现CPU time limit和virtual real time limit，将limit_time_cpu和limit_time_real改动合适为止：
+使用以下命令实时查看odoo运行日志：
 ```editorconfig
 tail -f /var/log/odoo/odoo-server.log 
 ``` 
