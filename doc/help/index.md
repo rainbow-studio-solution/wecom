@@ -1,4 +1,9 @@
 # 帮助
+## 在linux上查看实时日志
+使用以下命令实时查看odoo运行日志，如发现CPU time limit和virtual real time limit，将limit_time_cpu和limit_time_real改动合适为止：
+```editorconfig
+tail -f /var/log/odoo/odoo-server.log 
+``` 
 
 ## 错误
 1.  Worker (7534) CPU time limit (240) reached. 解决方案/etc/odoo/odoo.conf 添加如下参数：
