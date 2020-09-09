@@ -24,6 +24,12 @@
         'auth_oauth',
         'wxwork_base',
     ],
+    'external_dependencies': {
+        'python': [
+            'numpy',
+            'opencv-python',
+        ],
+    },
     'data': [
         'data/ir_cron_data.xml',
         'data/wxwork_data.xml',
