@@ -50,7 +50,5 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 ## 付费模块
 
-[应用](https://apps.odoo.com/apps/themes/browse?search=RStudio)
-[主题](https://apps.odoo.com/apps/themes/browse?search=RStudio)
-[应用](https://apps.odoo.com/apps/themes/browse?search=RStudio "应用")
+[应用](https://apps.odoo.com/apps/modules/browse?search=RStudio "应用")
 [主题](https://apps.odoo.com/apps/themes/browse?search=RStudio "主题")
