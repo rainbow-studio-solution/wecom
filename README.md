@@ -47,3 +47,8 @@ odoo 13.0变化很大，发现不少需要改动的。
 ![QQ群](doc/img/QQ群二维码.png)
 
 如果我的作品能对您有所帮助，能力范围内，请不要介意点击下面“捐赠”按钮，或者点个⭐。
+
+## 付费模块
+
+[应用](https://apps.odoo.com/apps/themes/browse?search=RStudio "应用")
+[主题](https://apps.odoo.com/apps/themes/browse?search=RStudio "主题")
