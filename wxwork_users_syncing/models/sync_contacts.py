@@ -38,7 +38,8 @@ class SyncTask(object):
             results = []
             statuses = {}
             for i in range(len(task_name_list)):
-                thread_task = SyncTaskThread(task_func_list[i], task_name_list[i])
+                thread_task = SyncTaskThread(
+                    task_func_list[i], task_name_list[i])
                 threads.append(thread_task)
             for i in range(len(task_name_list)):
                 threads[i].start()
@@ -53,15 +54,18 @@ class SyncTask(object):
                     statuses.update(status)
                     times.append(time)
                     results.append(
-                        _("%s, time spent: %s seconds") % (result, round(time, 3))
+                        _("%s, time spent: %s seconds") % (
+                            result, round(time, 3))
                     )
             results = "\n".join(results)
             if self.debug:
-                _logger.error(_("End sync Enterprise WeChat  Contact, total time spent: %s seconds)" % sum(times))
+                _logger.error._(
+                    "End sync Enterprise WeChat  Contact, total time spent: %s seconds" % sum(times))
             return sum(times), statuses, results
         else:
             if self.debug:
-                _logger.error(_("The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"))
+                _logger.error(
+                    _("The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"))
 
 
 class SyncTaskThread(Thread):

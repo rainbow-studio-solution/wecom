@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
 # from ..models.sync_user import *
@@ -13,23 +13,24 @@ _logger = logging.getLogger(__name__)
 
 class ResConfigSettings(models.TransientModel):
     _name = "wizard.wxwork.user"
-    _description = "企业微信生成用户向导"
+    _description = "Enterprise WeChat Generation System User Guide"
     _order = "create_date"
 
-    sync_user_result = fields.Boolean(string="用户同步结果", default=False, readonly=True)
-    times = fields.Float(string="所用时间(秒)", digits=(16, 3), readonly=True)
-    result = fields.Text(string="结果", readonly=True)
+    sync_user_result = fields.Boolean(
+        string="User synchronization result", default=False, readonly=True)
+    times = fields.Float(string="Elapsed time (seconds)",
+                         digits=(16, 3), readonly=True)
+    result = fields.Text(string="Result", readonly=True)
 
     def action_create_user(self):
         params = self.env["ir.config_parameter"].sudo()
-        # kwargs = {
-        #     'debug': params.get_param('wxwork.debug_enabled'),
-        #     'employee': self.env['hr.employee'],
-        #     'users': self.env['res.users'],
-        # }
-        if not params.get_param("wxwork.debug_enabled"):
-            _logger.error("当前设置不允许从员工同步到系统用户")
-            raise UserError("当前设置不允许从员工同步到系统用户 \n\n 请检查相关设置")
+
+        if not params.get_param("wxwork.contacts_sync_user_enabled"):
+            if params.get_param("wxwork.debug_enabled"):
+                _logger.error(
+                    _("The current setting does not allow synchronization from employees to system users"))
+            raise UserError(
+                "The current setting does not allow synchronization from employees to system users \n\n Please check related settings")
         else:
             self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user(
                 self.env["hr.employee"]
@@ -39,7 +40,7 @@ class ResConfigSettings(models.TransientModel):
             "wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result"
         )
         return {
-            "name": "员工同步系统用户结果",
+            "name": _("Employee synchronization system user results"),
             "view_type": "form",
             "view_mode": "form",
             "res_model": "wizard.wxwork.user",

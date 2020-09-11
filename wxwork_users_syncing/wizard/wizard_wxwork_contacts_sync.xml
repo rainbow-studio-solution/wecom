@@ -2,19 +2,19 @@
 <odoo>
     <data>
         <record id="view_form_wxwork_contacts_sync_wizard" model="ir.ui.view">
-            <field name="name">企业微信通讯簿数据同步</field>
+            <field name="name">Enterprise WeChat contact data synchronization</field>
             <field name="model">wizard.wxwork.contacts</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="企业微信通讯簿数据同步" >
-                    <separator string="从企业微信更新下载并更新本地：部门和员工"/>
+                <form string="Enterprise WeChat contact data synchronization" >
+                    <separator string="Download and update local from Enterprise WeChat update: departments and employees"/>
                     <group>
                         <div>
-                            多次代码优化后，目前仅对图片下载使用了多线程。Linux生产服务器使用一下命令查看实时日志：<br/><br/>
+                            Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:<br/><br/>
                             <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
                                 tail -f /var/log/odoo/odoo-server.log
                             </span><br/><br/>
-                            若出现错误，请查看帮助文档<br/>
+                            If an error occurs, please check the help file.<br/>
                         </div>
                     </group>
                     <footer>
@@ -25,7 +25,7 @@
         </record>
 
         <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
-            <field name="name">数据同步</field>
+            <field name="name">data synchronization</field>
             <field name="res_model">wizard.wxwork.contacts</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
@@ -34,12 +34,12 @@
         </record>
 
         <record id="dialog_wxwork_contacts_sync_result" model="ir.ui.view">
-            <field name="name">数据同步结果</field>
+            <field name="name">Data synchronization result</field>
             <field name="model">wizard.wxwork.contacts</field>
             <field name="type">form</field>
             <field name="priority" eval="1"/>
             <field name="arch" type="xml">
-                <form string="企业微信通讯簿数据同步情况" edit="false" create="false">
+                <form string="Enterprise WeChat contact data synchronization" edit="false" create="false">
                     <group>
                         <group>
                             <field name="image_sync_result"/>
@@ -47,7 +47,7 @@
                             <field name="employee_sync_result"/>
                         </group>
                         <group>
-                            <field name="create_date" string="开始时间"/>
+                            <field name="create_date" string="Starting time"/>
                             <field name="times"/>
                             <field name="result"  />
                         </group>
@@ -60,23 +60,23 @@
         </record>
 
         <record id="view_wxwork_contacts_sync_tree" model="ir.ui.view">
-            <field name="name">数据同步记录列表</field>
+            <field name="name">Data synchronization record list</field>
             <field name="model">wizard.wxwork.contacts</field>
             <field name="arch" type="xml">
-                <tree string="同步记录" edit="false" create="false" delete="false">
-                    <field name="image_sync_result" string="图片同步"/>
-                    <field name="department_sync_result" string="部门同步"/>
-                    <field name="employee_sync_result" string="员工同步" />
+                <tree string="Synchronous recording" edit="false" create="false" delete="false">
+                    <field name="image_sync_result" string="Picture synchronization"/>
+                    <field name="department_sync_result" string="Department synchronization"/>
+                    <field name="employee_sync_result" string="Employee synchronization" />
                     <!--<field name="user_sync_result" string="用户同步"/>-->
 <!--                    <field name="employee_binding_user_result" string="用户绑定"/>-->
                     <field name="times"/>
-                    <field name="create_date" string="开始时间"/>
+                    <field name="create_date" string="Starting time"/>
                 </tree>
             </field>
         </record>
 
         <record id="open_view_wxwork_contacts_sync_tree" model="ir.actions.act_window">
-            <field name="name">通讯录同步记录列表</field>
+            <field name="name">Contact synchronization record list</field>
             <field name="res_model">wizard.wxwork.contacts</field>
 <!--            <field name="view_type">form</field>-->
             <field name="view_mode">tree,form</field>

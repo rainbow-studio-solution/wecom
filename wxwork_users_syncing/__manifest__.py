@@ -10,7 +10,7 @@
     "category": "wxwork",
     "version": "13.0.0.1",
     "summary": """
-        Enterprise WeChat User Syncing
+        Enterprise WeChat users are synchronized to Odoo Hr and Users
         """,
     "description": """
 

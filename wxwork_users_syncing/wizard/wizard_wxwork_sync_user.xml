@@ -2,40 +2,40 @@
 <odoo>
     <data>
         <record id="view_form_wxwork_sync_user_wizard" model="ir.ui.view">
-            <field name="name">从员工同步用户</field>
+            <field name="name">Sync users from employees</field>
             <field name="model">wizard.wxwork.user</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="从员工同步用户" >
-                    <separator string="从HR的企业微信员工批量同步生成用户"/>
+                <form string="Sync users from employees" >
+                    <separator string="Generate system users in batches from HR's Enterprise WeChat employees"/>
                     <group>
                         <div>
-                            Linux生产服务器使用以下命令查看实时日志：<br/><br/>
+                            The Linux production server uses the following command to view real-time logs:<br/><br/>
                             <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
                                 tail -f /var/log/odoo/odoo-server.log
                             </span><br/><br/>
-                            若出现错误，请查看帮助文档<br/>
+                            If there is an error, please check the help file<br/>
                         </div>
                         <ul>
-                            <li>生成User默认属于门户用户。</li>
-                            <li>门户用户是免费用户，不占用系统资源。</li>
-                            <li>需要在用户列表视图将转换成内部用户。</li>
-                            <li>内部用户是付费账号，占用系统资源。</li>
+                            <li>The generated user type belongs to the portal user by default.</li>
+                            <li>Portal users are free users and do not occupy system resources.</li>
+                            <li>Need to be converted into internal users in the user list.</li>
+                            <li>Internal users occupy system resources.</li>
                             <li class="dropdown-divider"></li>
-                            <li>在用户列表中勾选用户，在动作菜单中使用"变更用户类型"可以变更为内部用户</li>
+                            <li>Select a user in the user list and use "Change User Type" in the action menu to change to an internal user</li>
                             <li class="dropdown-divider"></li>
-                            <li><span style="color:orange;">从用户同步生成用户功能，建议仅在初次上线的时候使用，生成用户实在有点慢</span></li>
+                            <li><span style="color:orange;">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span></li>
                         </ul>
                     </group>
                     <footer>
-                        <button name="action_create_user" string="同步生成用户" type="object" class="oe_highlight"/>
+                        <button name="action_create_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
         </record>
 
         <record id="view_actions_wxwork_user_wizard" model="ir.actions.act_window">
-            <field name="name">从员工同步用户</field>
+            <field name="name">Sync users from employees<</field>
             <field name="res_model">wizard.wxwork.user</field>
 <!--            <field name="view_type">form</field>-->
             <field name="view_mode">form</field>
@@ -45,18 +45,18 @@
         </record>
 
         <record id="dialog_wxwork_contacts_sync_user_result" model="ir.ui.view">
-            <field name="name">同步用户结果</field>
+            <field name="name">Synchronize system user results</field>
             <field name="model">wizard.wxwork.user</field>
             <field name="type">form</field>
             <field name="priority" eval="1"/>
             <field name="arch" type="xml">
-                <form string="员工生成系统用户情况" edit="false" create="false">
+                <form string="Employees generation system user case" edit="false" create="false">
                     <group>
                         <group>
                             <field name="sync_user_result"/>
                         </group>
                         <group>
-                            <field name="create_date" string="开始时间"/>
+                            <field name="create_date" string="Starting time"/>
                             <field name="times"/>
                             <field name="result"  />
                         </group>
@@ -69,7 +69,7 @@
         </record>
 
         <record id="view_wxwork_sync_user_tree" model="ir.ui.view">
-            <field name="name">员工同步系统用户记录列表</field>
+            <field name="name">Employee synchronization system user record list</field>
             <field name="model">wizard.wxwork.user</field>
             <field name="arch" type="xml">
                 <tree string="同步记录" edit="false" create="false" delete="false">
@@ -82,7 +82,7 @@
         </record>
 
         <record id="open_view_wxwork_sync_user_tree" model="ir.actions.act_window">
-            <field name="name">生成系统用户记录列表</field>
+            <field name="name">Open to generate system user record list</field>
             <field name="res_model">wizard.wxwork.user</field>
 <!--            <field name="view_type">form</field>-->
             <field name="view_mode">tree,form</field>
