@@ -10,6 +10,7 @@ import threading
 
 import numpy as np
 
+from odoo import _
 from ...wxwork_api.CorpApi import *
 
 _logger = logging.getLogger(__name__)
@@ -22,20 +23,21 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 # end 以上为解决 image file is truncated (18 bytes not processed)错误
 
+
 class SyncImage(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
-        self.corpid = self.kwargs['corpid']
-        self.secret = self.kwargs['secret']
-        self.debug = self.kwargs['debug']
-        self.department_id = self.kwargs['department_id']
-        self.img_path = self.kwargs['img_path']
-        self.department = self.kwargs['department']
+        self.corpid = self.kwargs["corpid"]
+        self.secret = self.kwargs["secret"]
+        self.debug = self.kwargs["debug"]
+        self.department_id = self.kwargs["department_id"]
+        self.img_path = self.kwargs["img_path"]
+        self.department = self.kwargs["department"]
 
     def run(self):
         if self.debug:
-            _logger.error("开始同步企业微信通讯录-图片")
-        if platform.system() == 'Windows':
+            _logger.error(_("Start syncing Enterprise WeChat Contact - Picture"))
+        if platform.system() == "Windows":
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
         else:
@@ -47,9 +49,9 @@ class SyncImage(object):
         user_list, avatar_urls, qr_code_urls = self.generate_image_list()
         start = time.time()
         threads = []
-        '''
+        """
         限制线程的最大数量为系统最大PID数量的1/800,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
-        '''
+        """
         thread_max = int(os.getpid() / 1000)
         try:
             for i in range(len(user_list)):
@@ -59,9 +61,15 @@ class SyncImage(object):
                 remote_qr_code_img = qr_code_urls[i]
                 local_qr_code_img = qr_code_directory + user_list[i] + ".png"
 
-                t1 = threading.Thread(target=self.image_is_exists, args=[remote_avatar_img, local_avatar_img])
+                t1 = threading.Thread(
+                    target=self.image_is_exists,
+                    args=[remote_avatar_img, local_avatar_img],
+                )
                 threads.append(t1)
-                t2 = threading.Thread(target=self.image_is_exists, args=[remote_qr_code_img, local_qr_code_img])
+                t2 = threading.Thread(
+                    target=self.image_is_exists,
+                    args=[remote_qr_code_img, local_qr_code_img],
+                )
                 threads.append(t2)
 
             for t in threads:
@@ -73,19 +81,25 @@ class SyncImage(object):
                     if len(threading.enumerate()) < thread_max:
                         break
 
-                result = "图片同步成功"
-                status = {'image_1920': True}
+                result = _("Picture synced successfully")
+                status = {"image_1920": True}
 
         except Exception as e:
-            result = "图片同步失败"
-            status = {'image_1920': False}
-            print('同步图片错误:%s' % (repr(e)))
+            result = _("Picture sync failed")
+            status = {"image_1920": False}
+            if self.debug:
+                print(_("Sync picture error:%s") % (repr(e)))
 
         end = time.time()
         times = end - start
 
         if self.debug:
-            _logger.error("结束同步企业微信通讯录-图片，总共花费时间：%s 秒" % times)
+            _logger.error(
+                _(
+                    "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
+                )
+                % times
+            )
         return times, status, result
 
     def generate_image_list(self):
@@ -96,39 +110,39 @@ class SyncImage(object):
 
         api = CorpApi(self.corpid, self.secret)
         response = api.httpCall(
-            CORP_API_TYPE['USER_LIST'],
+            CORP_API_TYPE["USER_LIST"],
             {
-                'department_id': self.department_id,
-                'fetch_child': '1',
-            }
+                "department_id": self.department_id,
+                "fetch_child": "1",
+            },
         )
 
         userid_list = []
         avatar_urls = []
         qr_code_urls = []
-        for object in response['userlist']:
-            userid_list.append(object['userid'])
-            avatar_urls.append(object['avatar'])
-            qr_code_urls.append(object['qr_code'])
+        for object in response["userlist"]:
+            userid_list.append(object["userid"])
+            avatar_urls.append(object["avatar"])
+            qr_code_urls.append(object["qr_code"])
         return userid_list, avatar_urls, qr_code_urls
 
     def path_is_exists(self, path):
-        '''
+        """
         检文件夹路径
         :param path:
         :return:
-        '''
+        """
         if not os.path.exists(path):
             os.makedirs(path)
         return path
 
     def check_images(self, remote, local):
-        '''
+        """
         比较远程图片和本地图片是否一致
         :param remote: 远程图片
         :param local: 本地图片
         :return: 布尔值
-        '''
+        """
         try:
             resp = urllib.request.urlopen(remote)
             remote_img = np.asarray(bytearray(resp.read()), dtype="uint8")
@@ -141,7 +155,8 @@ class SyncImage(object):
             else:
                 return False
         except BaseException as e:
-            print(repr(e))
+            if self.debug:
+                print(repr(e))
             return False
 
     def image_is_exists(self, remote_img, local_img):
@@ -176,7 +191,5 @@ class SyncImage(object):
             file_avatar.close()
             # return True
         except BaseException as e:
-            # return False
-            print(repr(e))
-
-
+            if self.debug:
+                print(repr(e))

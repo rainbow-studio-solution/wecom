@@ -36,7 +36,7 @@
 
 
         <record id="open_module_tree_department" model="ir.actions.act_window">
-            <field name="name">企业微信部门</field>
+            <field name="name">Enterprise WeChat Department</field>
             <field name="res_model">hr.department</field>
             <field name="view_mode">tree,form</field>
             <!--            <field name="view_mode">form</field>-->
@@ -44,10 +44,10 @@
             <field name="domain">[('is_wxwork_department','=',1)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    创建部门.
+                    Create department.
                 </p>
                 <p>
-                    企业微信部门管理
+                    Enterprise WeChat department management
                 </p>
             </field>
         </record>

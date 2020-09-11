@@ -1,24 +1,44 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 from ..models.sync_contacts import *
 
 
 class ResConfigSettings(models.TransientModel):
     _name = "wizard.wxwork.contacts"
-    _description = "企业微信同步向导"
+    _description = "Enterprise WeChat synchronization wizard"
     _order = "create_date"
 
-    image_sync_result = fields.Boolean(string="图片同步结果", default=False, readonly=True)
-    department_sync_result = fields.Boolean(
-        string="部门同步结果", default=False, readonly=True
+    image_sync_result = fields.Boolean(
+        string="Picture synchronization result",
+        default=False,
+        readonly=True,
+        translate=True,
     )
-    employee_sync_result = fields.Boolean(string="员工同步结果", default=False, readonly=True)
-    user_sync_result = fields.Boolean(string="用户同步结果", default=False, readonly=True)
+    department_sync_result = fields.Boolean(
+        string="Department synchronization result",
+        default=False,
+        readonly=True,
+        translate=True,
+    )
+    employee_sync_result = fields.Boolean(
+        string="Employee synchronization results",
+        default=False,
+        readonly=True,
+        translate=True,
+    )
+    user_sync_result = fields.Boolean(
+        string="User synchronization result",
+        default=False,
+        readonly=True,
+        translate=True,
+    )
     # employee_binding_user_result = fields.Boolean(string='员工绑定用户结果',default=False, readonly=True )
-    times = fields.Float(string="所用时间(秒)", digits=(16, 3), readonly=True)
-    result = fields.Text(string="结果", readonly=True)
+    times = fields.Float(
+        string="Elapsed time (seconds)", digits=(16, 3), readonly=True, translate=True
+    )
+    result = fields.Text(string="result", readonly=True)
 
     def action_sync_contacts(self):
         params = self.env["ir.config_parameter"].sudo()
@@ -35,7 +55,11 @@ class ResConfigSettings(models.TransientModel):
         }
 
         if not sync_hr_enabled:
-            raise UserError("提示：当前设置不允许从企业微信同步到HR \n\n 请手工单个生成用户 \n\n 请修改相关的设置")
+            raise UserError(
+                _(
+                    "Tip: The current setting does not allow synchronization from enterprise WeChat to HR \n\n Please generate a user manually \n\n Please modify the related settings"
+                )
+            )
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses["image_1920"]
@@ -47,7 +71,7 @@ class ResConfigSettings(models.TransientModel):
             "wxwork_users_syncing.dialog_wxwork_contacts_sync_result"
         )
         return {
-            "name": "更新结果",
+            "name": _("Update result"),
             "view_type": "form",
             "view_mode": "form",
             "res_model": "wizard.wxwork.contacts",

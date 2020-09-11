@@ -31,7 +31,7 @@
     },
     "data": [
         "data/ir_cron_data.xml",
-        "data/wxwork_data.xml",
+        "data/ir_config_parameter.xml",
         "views/ir_cron_views.xml",
         "wizard/wizard_wxwork_contacts_sync.xml",
         "wizard/wizard_wxwork_sync_user.xml",

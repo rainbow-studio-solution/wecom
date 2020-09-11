@@ -146,7 +146,7 @@ class HrEmployee(models.Model):
         times = times
         if debug:
             _(
-                "End sync Enterprise WeChat Contact-Employee Synchronization,Total time spent: %s seconds"
+                "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds"
                 % times
             )
         return times, status, result
@@ -460,7 +460,7 @@ class EmployeeSyncUser(models.Model):
                 if debug:
                     _logger.error(
                         _(
-                            "Finished synchronizing enterprise WeChat contacts-employee synchronization system users, total time spent: %s seconds"
+                            "Finished synchronizing enterprise WeChat contacts - employee synchronization system users, total time spent: %s seconds"
                         )
                         % times
                     )

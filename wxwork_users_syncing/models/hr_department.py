@@ -56,7 +56,7 @@ class SyncDepartment(models.Model):
         if debug:
             _logger.error(
                 _(
-                    "Start to synchronize Enterprise WeChat Contact-Department Synchronization"
+                    "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
                 )
             )
         wxapi = CorpApi(corpid, secret)
@@ -92,7 +92,7 @@ class SyncDepartment(models.Model):
         if debug:
             _logger.error(
                 _(
-                    "End sync Enterprise WeChat Contact-Department Synchronization,Total time spent: %s seconds"
+                    "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
                     % times
                 )
             )

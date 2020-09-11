@@ -11,7 +11,7 @@
                 </field>
                 <xpath expr="//header//button[last()]" position="before">
                     <!--     “复制为系统用户”按钮仅HR管理员可见          -->
-                    <button name="create_user_from_employee" string="复制为系统用户" type="object" class="oe_highlight"
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight"
                             attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
                             groups="hr.group_hr_manager"/>
                 </xpath>
@@ -25,7 +25,7 @@
                     <field name="department_ids" widget="many2many_tags" />
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
-                    <page name="wxwork_settings" string="企业微信设置" >
+                    <page name="wxwork_settings" string="Enterprise WeChat settings" >
                         <group>
                             <group>
                                 <field name="wxwork_id" />
@@ -42,7 +42,7 @@
         </record>
 
         <record id="wxwork_hr_employee_tree" model="ir.ui.view">
-            <field name="name">企业微信员工列表</field>
+            <field name="name">Enterprise WeChat employee list</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
             <field name="arch" type="xml">
@@ -69,7 +69,7 @@
         </record>
 
         <record id="open_module_tree_employee" model="ir.actions.act_window">
-            <field name="name">企业微信员工</field>
+            <field name="name">Enterprise WeChat employee</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">tree,form</field>
             <!--            <field name="domain">[('is_wxwork_employee','=',1)]</field>-->

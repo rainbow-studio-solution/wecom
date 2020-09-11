@@ -22,7 +22,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='access_rights']" position="after">
-                    <page name="wxwork" string="企业微信" >
+                    <page name="wxwork" string="Enterprise WeChat" >
                         <group>
                             <group>
                                 <field name="wxwork_id"/>
@@ -53,11 +53,11 @@
             <field name="name">change user type wizard</field>
             <field name="model">wizard.change.user.type</field>
             <field name="arch" type="xml">
-                <form string="改变用户类型">
+                <form string="Change user type">
                     <field name="user_ids"/>
                     <footer>
-                        <button string="改变类型" name="change_type_button" type="object" class="btn-primary"/>
-                        <button string="取消" class="btn-secondary" special="cancel" />
+                        <button string="Change type" name="change_type_button" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
                     </footer>
                 </form>
             </field>
@@ -76,7 +76,7 @@
         </record>
 
         <act_window id="change_type_wizard_action"
-                    name="变更用户类型"
+                    name="Change user type"
                     binding_model="res.users"
                     res_model="wizard.change.user.type"
                     view_mode="form"
