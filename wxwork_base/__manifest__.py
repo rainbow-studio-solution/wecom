@@ -1,37 +1,30 @@
 # -*- coding: utf-8 -*-
-{
-    'name': "企业微信",
-    'author': "RStudio",
-    'website': "",
-    'sequence': 1,
-    'installable': True,
-    # 'application': True,
-    'auto_install': False,
-    'category': '企业微信',
-    'version': '13.0.0.1',
-    'summary': """
-        企业微信基础模块
-        """,
-    'description': """
-功能：
-====================
-企业微信用户同步，企业微信一键登录
-        """,
-    'depends': [
 
+{
+    "name": "Enterprise WeChat Base",
+    "author": "RStudio",
+    "sequence": 1,
+    "installable": True,
+    "application": False,
+    "auto_install": False,
+    "category": "wxwrok",
+    "version": "13.0.0.1",
+    "summary": """
+        Enterprise WeChat Base
+        """,
+    "description": """
+
+        """,
+    "depends": [],
+    "data": [
+        "data/ir_config_parameter.xml",
+        "views/res_config_settings_views.xml",
+        "views/wxwork_base_views.xml",
     ],
-    'data': [
-        'data/wxwork_data.xml',
-        'views/res_config_settings_views.xml',
-        'views/wxwork_base_views.xml',
-    ],
-    'qweb': [
+    "qweb": [
         "static/src/xml/*.xml",
     ],
-    'bootstrap': True,  # load translations for login screen
-    'external_dependencies': {
-        'python': [
-
-        ],
+    "external_dependencies": {
+        "python": [],
     },
 }

@@ -2,25 +2,17 @@
 <odoo>
     <data>
         <!-- Top menu item -->
-<!--        <menuitem id="menu_wxwork_root" name="企业微信" web_icon="wxwork_base,static/description/icon.png"/>-->
 
-        <!--<menuitem id="menu_wxwork_configuration" name="配置" parent="menu_wxwork_root" sequence="100"/>-->
-
-        <!--<menuitem id="wxwork_menu_configuration" name="设置" parent="menu_wxwork_configuration" sequence="0"-->
-        <!--action="wxwork_config_settings_action" groups="base.group_system"/>-->
-        <!--        <menuitem id="menu_wxwork_configuration" name="设置" parent="menu_wxwork_root" sequence="100"-->
-        <!--                  action="wxwork_config_settings_action" groups="base.group_system"/>-->
-
-        <menuitem id="menu_wxwork" name="企微" parent="base.menu_administration" sequence="100"
+        <menuitem id="menu_wxwork" name="Enterprise WeChat" parent="base.menu_administration" sequence="100"
                   groups="base.group_system"/>
 
-        <menuitem id="menu_wxwork_configuration" name="设置" parent="wxwork_base.menu_wxwork" sequence="10"
+        <menuitem id="menu_wxwork_configuration" name="Settings" parent="wxwork_base.menu_wxwork" sequence="10"
                   action="wxwork_config_settings_action" groups="base.group_system"/>
 
-        <menuitem id="menu_wxwork_sync_user" name="企微员工同步为用户" parent="wxwork_base.menu_wxwork" sequence="20"
+        <menuitem id="menu_wxwork_sync_user" name="Sync as user" parent="wxwork_base.menu_wxwork" sequence="20"
                   groups="base.group_system"/>
 
-        <menuitem id="menu_wxwork_cron" name="定时任务" parent="wxwork_base.menu_wxwork" sequence="30"
+        <menuitem id="menu_wxwork_cron" name="Timed task" parent="wxwork_base.menu_wxwork" sequence="30"
                   groups="base.group_system"/>
 
     </data>

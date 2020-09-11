@@ -1,0 +1,103 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wxwork_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-11 05:58+0000\n"
+"PO-Revision-Date: 2020-09-11 14:02+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "<i class=\"fa fa-weixin fa-lg\"/> Enterprise WeChat global settings"
+msgstr "<i class=\\\"fa fa-weixin fa-lg\\\"/> 企业微信全局设置"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid ""
+"<strong>Save</strong> this page and come back here to set up the feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置该功能。"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid ""
+"Check, print some debugging information in IDE and log;\n"
+"                                            <br/>\n"
+"                                            For debugging"
+msgstr ""
+"勾选此项，在IDE中打印一些调试信息，并在Odoo日志中显示；\n"
+"                                                     <br/>\n"
+"                                                     用于调试"
+
+#. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__corpid
+msgid "Enterprise ID"
+msgstr "企业ID"
+
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Enterprise WeChat"
+msgstr "企业微信"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Enterprise WeChat OAuth Authentication"
+msgstr "企业微信OAuth认证"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid ""
+"Fill in: Enterprise WeChat management background → \"Enterprise "
+"Information\" → \"Enterprise ID\""
+msgstr "填写：企业微信管理后台→“企业信息”→“企业ID”"
+
+#. module: wxwork_base
+#: model:ir.actions.act_window,name:wxwork_base.wxwork_config_settings_action
+msgid "Set up"
+msgstr "设置"
+
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_configuration
+msgid "Settings"
+msgstr "设置"
+
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_sync_user
+msgid "Sync as user"
+msgstr "同步为用户"
+
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_cron
+msgid "Timed task"
+msgstr "定时任务"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__debug_enabled
+msgid "Turn on debug mode"
+msgstr "开启调试模式"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__module_wxwork_auth_oauth
+msgid "Use enterprise weChat scan code to verify login (OAuth)"
+msgstr "使用企业微信扫描代码来验证登录（OAuth）"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Use enterprise wechat scan code to verify login"
+msgstr "使用企业微信扫描代码来验证登录"
