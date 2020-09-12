@@ -62,10 +62,11 @@ class HrEmployee(models.Model):
             .id
         )
         res_user_id = self.env["res.users"].create(
+            # TODO:oauth_uid
             {
                 "name": self.name,
                 "login": self.wxwork_id,
-                "oauth_uid": self.wxwork_id,
+                # "oauth_uid": self.wxwork_id,
                 "password": Common(8).random_passwd(),
                 "email": self.work_email,
                 "wxwork_id": self.wxwork_id,
@@ -489,10 +490,11 @@ class EmployeeSyncUser(models.Model):
                 .id
             )
             user = user.create(
+                # TODO:oauth_uid
                 {
                     "name": employee.name,
                     "login": employee.wxwork_id,
-                    "oauth_uid": employee.wxwork_id,
+                    # "oauth_uid": employee.wxwork_id,
                     "password": Common(8).random_passwd(),  # 随机密码
                     "email": employee.work_email,
                     "wxwork_id": employee.wxwork_id,
@@ -528,9 +530,10 @@ class EmployeeSyncUser(models.Model):
     def update_user(self, user, employee, debug):
         try:
             user.write(
+                # TODO:oauth_uid
                 {
                     "name": employee.name,
-                    "oauth_uid": employee.wxwork_id,
+                    # "oauth_uid": employee.wxwork_id,
                     # 'email': employee.work_email,
                     "image_1920": employee.image_1920,
                     "wxwork_user_order": employee.wxwork_user_order,
