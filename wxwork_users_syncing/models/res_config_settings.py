@@ -141,7 +141,7 @@ class ResConfigSettings(models.TransientModel):
             SyncTask(kwargs).run()
         except Exception as e:
             if params.get_param("wxwork.debug_enabled"):
-                _logger.error(
+                _logger.warning(
                     _(
                         "Task failure prompt - The task of synchronizing Enterprise WeChat contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
                         % (e)

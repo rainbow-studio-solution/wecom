@@ -27,7 +27,7 @@ class ResConfigSettings(models.TransientModel):
 
         if not params.get_param("wxwork.contacts_sync_user_enabled"):
             if params.get_param("wxwork.debug_enabled"):
-                _logger.error(
+                _logger.warning(
                     _("The current setting does not allow synchronization from employees to system users"))
             raise UserError(
                 "The current setting does not allow synchronization from employees to system users \n\n Please check related settings")

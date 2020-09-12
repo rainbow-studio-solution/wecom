@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from PIL import ImageFile
 import os
 import cv2
 import logging
@@ -16,11 +17,7 @@ from ...wxwork_api.CorpApi import *
 _logger = logging.getLogger(__name__)
 
 # start 以下为解决 image file is truncated (18 bytes not processed)错误
-from PIL import ImageFile
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-
-
 # end 以上为解决 image file is truncated (18 bytes not processed)错误
 
 
@@ -36,7 +33,8 @@ class SyncImage(object):
 
     def run(self):
         if self.debug:
-            _logger.error(_("Start syncing Enterprise WeChat Contact - Picture"))
+            _logger.info(
+                _("Start syncing Enterprise WeChat Contact - Picture"))
         if platform.system() == "Windows":
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
@@ -94,7 +92,7 @@ class SyncImage(object):
         times = end - start
 
         if self.debug:
-            _logger.error(
+            _logger.info(
                 _(
                     "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
                 )

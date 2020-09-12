@@ -52,9 +52,10 @@ class SyncDepartment(models.Model):
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
         debug = params.get_param("wxwork.debug_enabled")
-        sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
+        sync_department_id = params.get_param(
+            "wxwork.contacts_sync_hr_department_id")
         if debug:
-            _logger.error(
+            _logger.info(
                 _(
                     "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
                 )
@@ -81,7 +82,8 @@ class SyncDepartment(models.Model):
             times2 = end2 - start2
 
             times = times1 + times2
-            result = _("Department synchronization is successful, it takes time")
+            result = _(
+                "Department synchronization is successful, it takes time")
             status = {"department": True}
         except BaseException as e:
             times = time.time()
@@ -90,7 +92,7 @@ class SyncDepartment(models.Model):
             print(repr(e))
         times = times
         if debug:
-            _logger.error(
+            _logger.info(
                 _(
                     "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
                 )

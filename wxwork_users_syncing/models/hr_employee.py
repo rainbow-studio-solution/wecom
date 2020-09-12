@@ -5,7 +5,8 @@ from odoo import api, fields, models, _
 from ...wxwork_api.CorpApi import *
 
 from ..helper.common import *
-import logging, platform
+import logging
+import platform
 import time
 
 _logger = logging.getLogger(__name__)
@@ -43,7 +44,8 @@ class HrEmployee(models.Model):
         "Enterprise WeChat employees", readonly=True, translate=True
     )
 
-    user_check_tick = fields.Boolean("User Check Tick", default=False, translate=True)
+    user_check_tick = fields.Boolean(
+        "User Check Tick", default=False, translate=True)
 
     def create_user_from_employee(self):
         """
@@ -62,11 +64,10 @@ class HrEmployee(models.Model):
             .id
         )
         res_user_id = self.env["res.users"].create(
-            # TODO:oauth_uid
             {
                 "name": self.name,
                 "login": self.wxwork_id,
-                # "oauth_uid": self.wxwork_id,
+                "oauth_uid": self.wxwork_id,
                 "password": Common(8).random_passwd(),
                 "email": self.work_email,
                 "wxwork_id": self.wxwork_id,
@@ -102,10 +103,11 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
-        sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
+        sync_department_id = params.get_param(
+            "wxwork.contacts_sync_hr_department_id")
         debug = params.get_param("wxwork.debug_enabled")
         if debug:
-            _logger.error(
+            _logger.debug(
                 _("Start syncing Enterprise WeChat Contact-Employee Synchronization")
             )
         api = CorpApi(corpid, secret)
@@ -146,10 +148,10 @@ class HrEmployee(models.Model):
 
         times = times
         if debug:
-            _(
-                "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds"
-                % times
-            )
+            _logger.debug(_(
+                "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds")
+                % times)
+
         return times, status, result
 
     def run_sync(self, obj, debug):
@@ -185,14 +187,17 @@ class HrEmployee(models.Model):
             )
 
         img_path = (
-            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
+            self.env["ir.config_parameter"].sudo().get_param(
+                "wxwork.contacts_img_path")
         )
         if platform.system() == "Windows":
             avatar_file = (
-                img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
+                img_path.replace("\\", "/") + "/avatar/" +
+                obj["userid"] + ".jpg"
             )
             qr_code_file = (
-                img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
+                img_path.replace("\\", "/") + "/qr_code/" +
+                obj["userid"] + ".png"
             )
         else:
             avatar_file = img_path + "avatar/" + obj["userid"] + ".jpg"
@@ -212,7 +217,8 @@ class HrEmployee(models.Model):
                     "active": obj["enable"],
                     "alias": obj["alias"],
                     # 'department_id':department_id,
-                    "department_id": department_ids[0],  # 归属多个部门的情况下，第一个部门为默认部门
+                    # 归属多个部门的情况下，第一个部门为默认部门
+                    "department_id": department_ids[0],
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -222,13 +228,15 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Error creating employee:%s - %s") % (obj["name"], repr(e)))
+                print(_("Error creating employee:%s - %s") %
+                      (obj["name"], repr(e)))
             result = False
         return result
 
     def update_employee(self, records, obj, debug):
         params = self.env["ir.config_parameter"].sudo()
-        always = params.get_param("wxwork.contacts_always_update_avatar_enabled")
+        always = params.get_param(
+            "wxwork.contacts_always_update_avatar_enabled")
 
         department_ids = []
         for department in obj["department"]:
@@ -237,14 +245,17 @@ class HrEmployee(models.Model):
             )
 
         img_path = (
-            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
+            self.env["ir.config_parameter"].sudo().get_param(
+                "wxwork.contacts_img_path")
         )
         if platform.system() == "Windows":
             avatar_file = (
-                img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
+                img_path.replace("\\", "/") + "/avatar/" +
+                obj["userid"] + ".jpg"
             )
             qr_code_file = (
-                img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
+                img_path.replace("\\", "/") + "/qr_code/" +
+                obj["userid"] + ".png"
             )
         else:
             avatar_file = img_path + "avatar/" + obj["userid"] + ".jpg"
@@ -261,7 +272,8 @@ class HrEmployee(models.Model):
                     "active": obj["enable"],
                     "alias": obj["alias"],
                     # 'department_id': department_id,
-                    "department_id": department_ids[0],  # 归属多个部门的情况下，第一个部门为默认部门
+                    # 归属多个部门的情况下，第一个部门为默认部门
+                    "department_id": department_ids[0],
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -271,7 +283,8 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Update employee error:%s - %s") % (obj["name"], repr(e)))
+                print(_("Update employee error:%s - %s") %
+                      (obj["name"], repr(e)))
             result = False
 
         return result
@@ -333,7 +346,8 @@ class HrEmployee(models.Model):
                 return departments.id
         except BaseException as e:
             if debug:
-                print(_("Get the employee's parent department error:%s") % (repr(e)))
+                print(_("Get the employee's parent department error:%s") %
+                      (repr(e)))
 
     def sync_leave_employee(self, response, debug):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
@@ -348,7 +362,8 @@ class HrEmployee(models.Model):
                 self = self.with_env(self.env(cr=new_cr))
                 env = self.sudo().env["hr.employee"]
                 domain = ["|", ("active", "=", False), ("active", "=", True)]
-                employees = env.search(domain + [("is_wxwork_employee", "=", True)])
+                employees = env.search(
+                    domain + [("is_wxwork_employee", "=", True)])
                 for employee in employees:
                     list_employee.append(employee.wxwork_id)
 
@@ -395,7 +410,7 @@ class EmployeeSyncUser(models.Model):
         debug = params.get_param("wxwork.debug_enabled")
 
         if debug:
-            _logger.error(_("Start syncing from employees to system users"))
+            _logger.info(_("Start syncing from employees to system users"))
 
         domain = ["|", ("active", "=", False), ("active", "=", True)]
 
@@ -459,7 +474,7 @@ class EmployeeSyncUser(models.Model):
                 new_cr.close()
 
                 if debug:
-                    _logger.error(
+                    _logger.info(
                         _(
                             "Finished synchronizing enterprise WeChat contacts - employee synchronization system users, total time spent: %s seconds"
                         )
@@ -467,7 +482,7 @@ class EmployeeSyncUser(models.Model):
                     )
         except BaseException as e:
             if debug:
-                _logger.error(
+                _logger.warning(
                     _("Employee synchronization as system user error: %s seconds")
                     % (repr(e))
                 )
@@ -490,11 +505,10 @@ class EmployeeSyncUser(models.Model):
                 .id
             )
             user = user.create(
-                # TODO:oauth_uid
                 {
                     "name": employee.name,
                     "login": employee.wxwork_id,
-                    # "oauth_uid": employee.wxwork_id,
+                    "oauth_uid": employee.wxwork_id,
                     "password": Common(8).random_passwd(),  # 随机密码
                     "email": employee.work_email,
                     "wxwork_id": employee.wxwork_id,
@@ -530,10 +544,9 @@ class EmployeeSyncUser(models.Model):
     def update_user(self, user, employee, debug):
         try:
             user.write(
-                # TODO:oauth_uid
                 {
                     "name": employee.name,
-                    # "oauth_uid": employee.wxwork_id,
+                    "oauth_uid": employee.wxwork_id,
                     # 'email': employee.work_email,
                     "image_1920": employee.image_1920,
                     "wxwork_user_order": employee.wxwork_user_order,

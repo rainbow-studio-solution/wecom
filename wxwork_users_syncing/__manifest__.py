@@ -20,7 +20,7 @@
         "base",
         "mail",
         "hr",
-        # 'auth_oauth',
+        'auth_oauth',
         "wxwork_base",
     ],
     "external_dependencies": {
