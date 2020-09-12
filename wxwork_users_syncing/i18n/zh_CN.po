@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 08:35+0000\n"
-"PO-Revision-Date: 2020-09-12 16:38+0800\n"
+"POT-Creation-Date: 2020-09-12 08:07+0000\n"
+"PO-Revision-Date: 2020-09-12 16:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -567,7 +567,7 @@ msgstr ""
 "                                                    </span>"
 
 #. module: wxwork_users_syncing
-#: code:addons/wxwork_users_syncing/models/res_users.py:0 model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__1
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
 #, python-format
 msgid "Internal User"
 msgstr "内部用户"
@@ -697,7 +697,7 @@ msgstr ""
 "- 系统内部处理: 通知会出现在Odoo收件箱"
 
 #. module: wxwork_users_syncing
-#: code:addons/wxwork_users_syncing/models/res_users.py:0 model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__8
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
 #, python-format
 msgid "Portal"
 msgstr "门户"
@@ -713,7 +713,7 @@ msgid "Processing via Enterprise WeChat"
 msgstr "通过企业微信进行处理"
 
 #. module: wxwork_users_syncing
-#: code:addons/wxwork_users_syncing/models/res_users.py:0 model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__9
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
 #, python-format
 msgid "Public"
 msgstr "公共"
@@ -727,11 +727,6 @@ msgstr "结果"
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
 msgid "Select a user in the user list and use \"Change User Type\" in the action menu to change to an internal user"
 msgstr "在用户列表中选择一个用户，然后在操作菜单中使用\"更改用户类型\"更改为内部用户"
-
-#. module: wxwork_users_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_users_search_inherit
-msgid "Share User"
-msgstr "共享用户"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
@@ -990,4 +985,24 @@ msgstr "用户"
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_department_form
 msgid "wxwork"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__9
+msgid "公共"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_users_search_inherit
+msgid "共享用户"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__1
+msgid "内部用户"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__8
+msgid "门户"
 msgstr ""

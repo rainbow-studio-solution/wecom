@@ -18,7 +18,7 @@
                         </div>
                     </group>
                     <footer>
-                        <button name="action_sync_contacts" string="开始同步" type="object" class="oe_highlight"/>
+                        <button name="action_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>

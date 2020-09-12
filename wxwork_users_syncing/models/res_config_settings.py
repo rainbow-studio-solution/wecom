@@ -22,14 +22,13 @@ class ResConfigSettings(models.TransientModel):
     )
     contacts_auto_sync_hr_enabled = fields.Boolean(
         "Allow Enterprise WeChat Contacts are automatically updated to HR",
-
         translate=True,
     )
     # contacts_sync_img_enabled = fields.Boolean(
     #     '允许同步Enterprise WeChat图片', config_parameter='wxwork.contacts_sync_img_enabled', )
     contacts_img_path = fields.Char(
         "Enterprise WeChat Picture storage path",
-
+        config_parameter="wxwork.contacts_img_path",
         translate=True,
     )
     contacts_sync_hr_department_id = fields.Integer(
@@ -39,20 +38,17 @@ class ResConfigSettings(models.TransientModel):
     )
     contacts_edit_enabled = fields.Boolean(
         "Allow API to edit Enterprise WeChat contacts",
-
         default=False,
         readonly=True,
         translate=True,
     )
     contacts_sync_user_enabled = fields.Boolean(
         "Allow Enterprise WeChat contacts to automatically update system accounts",
-
         default=False,
         translate=True,
     )
     contacts_always_update_avatar_enabled = fields.Boolean(
         "Always update avatar",
-
         default=False,
         translate=True,
     )

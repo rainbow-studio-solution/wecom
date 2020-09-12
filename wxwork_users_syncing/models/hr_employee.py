@@ -141,7 +141,7 @@ class HrEmployee(models.Model):
             status = {"employee": False}
 
             if debug:
-                print(_("员工同步错误:%s") % (repr(e)))
+                print(_("Employee synchronization error:%s") % (repr(e)))
 
         times = times
         if debug:
@@ -180,7 +180,7 @@ class HrEmployee(models.Model):
         department_ids = []
         for department in obj["department"]:
             department_ids.append(
-                self.get_employee_parent_wxwork_department(department)
+                self.get_employee_parent_wxwork_department(department, debug)
             )
 
         img_path = (

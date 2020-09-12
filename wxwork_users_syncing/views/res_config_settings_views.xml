@@ -10,7 +10,7 @@
                     <sheet>
 <!--                        <notebook style="padding-left: 16px">-->
                         <notebook id="wxwork_notebook">
-                            <page string="通讯录同步">
+                            <page string="Contact synchronization">
                                 <h2>Contact synchronization ODOO HR settings</h2>
                                 <div class="row mt16 o_settings_container">
                                     <div class="col-xs-12 col-md-12 o_setting_box">
@@ -50,7 +50,7 @@
 
                                                 </div>
                                                 <div class="text-muted col-md-12">
-                                                    <button name="get_contacts_access_token" type="object" string="点击测试获取token" class="oe_highlight"/>
+                                                    <button name="get_contacts_access_token" type="object" string="Click test to get token" class="oe_highlight"/>
                                                 </div>
                                             </div>
                                             <div class="content-group">

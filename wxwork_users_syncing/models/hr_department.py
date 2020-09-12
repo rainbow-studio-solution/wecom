@@ -93,8 +93,8 @@ class SyncDepartment(models.Model):
             _logger.error(
                 _(
                     "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
-                    % times
                 )
+                % times
             )
         return times, status, result
 

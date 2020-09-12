@@ -35,7 +35,7 @@
         </record>
 
         <record id="view_actions_wxwork_user_wizard" model="ir.actions.act_window">
-            <field name="name">Sync users from employees<</field>
+            <field name="name">Sync users from employees</field>
             <field name="res_model">wizard.wxwork.user</field>
 <!--            <field name="view_type">form</field>-->
             <field name="view_mode">form</field>
@@ -72,11 +72,11 @@
             <field name="name">Employee synchronization system user record list</field>
             <field name="model">wizard.wxwork.user</field>
             <field name="arch" type="xml">
-                <tree string="同步记录" edit="false" create="false" delete="false">
-                    <field name="sync_user_result" string="系统用户生成"/>
+                <tree string="Synchronous recording" edit="false" create="false" delete="false">
+                    <field name="sync_user_result" string="System user generation"/>
 <!--                    <field name="employee_binding_user_result" string="员工绑定系统用户"/>-->
                     <field name="times"/>
-                    <field name="create_date" string="开始时间"/>
+                    <field name="create_date" string="Starting time"/>
                 </tree>
             </field>
         </record>

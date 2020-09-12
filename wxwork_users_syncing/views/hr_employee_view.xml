@@ -18,7 +18,7 @@
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <label for="alias" class="oe_edit_only"/>
                     <h2>
-                        <field name="alias" placeholder="别名"/>
+                        <field name="alias" placeholder="Alias"/>
                     </h2>
                 </xpath>
                 <xpath expr="//field[@name='department_id']" position="after">

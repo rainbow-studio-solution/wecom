@@ -43,7 +43,7 @@
             <field name="inherit_id" ref="base.view_users_search"/>
             <field name="arch" type="xml">
                 <xpath expr="//filter[@name='no_share']" position="after">
-                    <filter name="share" string="共享用户" domain="[('share','=',True)]"/>
+                    <filter name="share" string="Share User" domain="[('share','=',True)]"/>
                 </xpath>
             </field>
         </record>
