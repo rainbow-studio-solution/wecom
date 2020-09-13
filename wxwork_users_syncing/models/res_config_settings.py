@@ -12,7 +12,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     contacts_secret = fields.Char(
-        "Contact Secret", config_parameter="wxwork.contacts_secret", translate=True
+        "Contact Secret", config_parameter="wxwork.contacts_secret"
     )
     contacts_access_token = fields.Char(
         "Contact token",
@@ -29,7 +29,6 @@ class ResConfigSettings(models.TransientModel):
     contacts_img_path = fields.Char(
         "Enterprise WeChat Picture storage path",
         config_parameter="wxwork.contacts_img_path",
-        translate=True,
     )
     contacts_sync_hr_department_id = fields.Integer(
         "Enterprise WeChat department ID to be synchronized",
