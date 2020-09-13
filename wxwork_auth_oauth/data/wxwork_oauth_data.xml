@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
+        <!-- <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
             <field name="enabled" eval="False" />
-        </record>
+        </record> -->
 
-        <record id="provider_wxwork_authorize" model="auth.oauth.provider">
-            <field name="name">企业微信应用内一键登录</field>
+        <!-- <record id="provider_wxwork_authorize" model="auth.oauth.provider"> -->
+            <!-- <field name="name">企业微信应用内一键登录</field> -->
             <!--身份验证网址-->
-            <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
+            <!-- <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field> -->
             <!--作用域-->
-            <field name="scope">snsapi_base</field>
+            <!-- <field name="scope">snsapi_base</field> -->
             <!--验证网址-->
-            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/signin</field>
+            <!-- <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/signin</field> -->
             <!--数据网址-->
-            <field name="data_endpoint"></field>
-            <field name="css_class">wxwork</field>
-            <field name="body">企业微信应用内一键登录</field>
-            <field name="enabled" eval="True"/>
-        </record>
+            <!-- <field name="data_endpoint"></field> -->
+            <!-- <field name="css_class">wxwork</field> -->
+            <!-- <field name="body">企业微信应用内一键登录</field> -->
+            <!-- <field name="enabled" eval="True"/> -->
+        <!-- </record> -->
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
             <field name="name">使用企业微信扫一扫登录</field>

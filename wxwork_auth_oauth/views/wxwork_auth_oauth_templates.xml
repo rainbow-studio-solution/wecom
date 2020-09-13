@@ -18,5 +18,7 @@
                 <attribute name="id">wx_reg</attribute>
             </xpath>
         </template>
+
+        
     </data>
 </odoo>

@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">企业微信验证授权</field>
+            <field name="name">Enterprise WeChat OAuth authorization login method</field>
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
@@ -17,7 +17,7 @@
                                     <label for="auth_agentid"/>
                                     <div class="row">
                                         <div class="text-muted col-md-12">
-                                            应用与小程序→打开需要验证授权应用，复制'AgentId'
+                                            Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
                                         </div>
                                     </div>
                                     <div class="content-group">
@@ -35,7 +35,7 @@
                                     <label for="auth_secret"/>
                                     <div class="row">
                                         <div class="text-muted col-md-12">
-                                            应用与小程序→打开需要验证授权应用，复制'Secret'
+                                            Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
                                         </div>
                                     </div>
                                     <div class="content-group">
