@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-12 08:07+0000\n"
-"PO-Revision-Date: 2020-09-12 16:31+0800\n"
+"POT-Creation-Date: 2020-09-14 10:07+0000\n"
+"PO-Revision-Date: 2020-09-14 18:10+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4\n"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
@@ -26,15 +26,15 @@ msgstr "%s， 所花费的时间： %s 秒"
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
 msgid ""
-"<span style=\"color:orange;\">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</"
-"span>"
+"<span style=\"color:orange;\">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate "
+"users.</span>"
 msgstr "<span style=\"color:orange;\">从员工同步生成系统用户。 建议仅在第一次上线时使用它。 生成用户需要很长时间。</span>"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
-"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure data "
-"security, the key must not be leaked."
+"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure "
+"data security, the key must not be leaked."
 msgstr "通讯录同步secret。 在“管理工具”→“通讯录同步”中进行检查（需要打开“ API接口同步”）。 为确保数据安全，务必泄露密钥。"
 
 #. module: wxwork_users_syncing
@@ -112,11 +112,6 @@ msgstr "配置设置"
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_secret
 msgid "Contact Secret"
 msgstr "通讯录Secret"
-
-#. module: wxwork_users_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
-msgid "Contact synchronization"
-msgstr "通讯录同步"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
@@ -286,19 +281,19 @@ msgstr "员工生成系统用户信息"
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid "Enable to allow batch generation of system accounts from employees;"
-msgstr "启用，允许从员工批量生成系统帐户；"
+msgstr "启用，允许从员工批量生成系统帐户;"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
-"Enabled, allows the enterprise WeChat address book to be read and edited through the API interface; conversely, only allows the enterprise WeChat address book to be read through the API "
-"interface.\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>\n"
-"                                                        Precondition: Need to enable the \"API Edit Address Book\" permission of the application \"Address Book Synchronization\"\n"
-"                                                    </span>\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Danger! Not recommended!</span>"
+"Enabled, allows the enterprise WeChat address book to be read and edited through the API interface; conversely, only allows the enterprise WeChat address book to be read "
+"through the API interface.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>\n"
+"                                            Precondition: Need to enable the \"API Edit Address Book\" permission of the application \"Address Book Synchronization\"\n"
+"                                        </span>\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Danger! Not recommended!</span>"
 msgstr ""
 "启用，允许通过API接口读取和编辑企业微信通讯录； 反之，仅允许通过API接口读取企业微信通讯录。\n"
 "                                                    <br/>\n"
@@ -338,7 +333,8 @@ msgid "Enterprise WeChat"
 msgstr "企业微信"
 
 #. module: wxwork_users_syncing
-#: model:ir.actions.act_window,name:wxwork_users_syncing.open_module_tree_department model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__is_wxwork_department
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_module_tree_department
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__is_wxwork_department
 msgid "Enterprise WeChat Department"
 msgstr "企业微信部门"
 
@@ -353,7 +349,8 @@ msgid "Enterprise WeChat Picture storage path"
 msgstr "企业微信图片存储路径"
 
 #. module: wxwork_users_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
 msgid "Enterprise WeChat contact data synchronization"
 msgstr "企业微信通讯录数据同步"
 
@@ -510,8 +507,10 @@ msgid "Get the employee's parent department error:%s"
 msgstr "获取员工的上级部门错误：%s"
 
 #. module: wxwork_users_syncing
-#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__id model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__id
-#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__id model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__id
 msgid "ID"
 msgstr ""
 
@@ -519,8 +518,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
 "If enabled, it allows to read the enterprise WeChat address book through the API interface and automatically synchronize to ODOO;\n"
-"                                                    <br/>\n"
-"                                                    Otherwise, you can only manually bind enterprise WeChat users."
+"                                        <br/>\n"
+"                                        Otherwise, you can only manually bind enterprise WeChat users."
 msgstr ""
 "如果启用，它允许通过API接口读取企业微信通讯录并自动同步到ODOO；\n"
 "                                                    <br/>\n"
@@ -530,34 +529,35 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
 "If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>Suggestion: turn on when avatar synchronization "
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>Suggestion: turn on when avatar synchronization "
 "fails due to various reasons</span>\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>It takes more time to update the avatar each time, "
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>It takes more time to update the avatar each time, "
 "and HR generally uses the official photo of the employee</span>\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Don't want to be troubled by HR, use it with caution!</span>"
+"                                        <br/>\n"
+"                                        <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Don't want to be troubled by HR, use it with caution!</span>"
 msgstr ""
 "如果启用，则每次同步时都会同步企业微信用户头像。\n"
 "                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>建议：当头像同步由于各种原因而失败时打开</span>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>建议：当头像同步由于各种原因而失败时打开"
+"</span>\n"
 "                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>每次更新头像需要花费更多时间，并且HR通常使用员工的正"
-"式照片</span>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>每次更新头像需要花费更多时间，并且HR通常"
+"使用员工的正式照片</span>\n"
 "                                                    <br/>\n"
 "                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>不想被HR找麻烦，请谨慎使用！</span>"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
-"Important notes when obtaining application \"address book\" information in the background of the enterprise WeChat, this information needs to be carried during communication to verify "
-"the access authority of the interface.\n"
-"                                                    <br/>\n"
-"                                                    <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                        <i class=\"fa fa-info-circle\"/>\n"
-"                                                        The token has been cached and the system will automatically refresh the token.\n"
-"                                                    </span>"
+"Important notes when obtaining application \"address book\" information in the background of the enterprise WeChat, this information needs to be carried during communication "
+"to verify the access authority of the interface.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
+"                                            <i class=\"fa fa-info-circle\"/>\n"
+"                                            The token has been cached and the system will automatically refresh the token.\n"
+"                                        </span>"
 msgstr ""
 "在企业微信的后台获取应用\"通讯录\"信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
 "                                                    <br/>\n"
@@ -604,7 +604,7 @@ msgstr "最后更新者"
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__write_date
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__write_date
 msgid "Last Updated on"
-msgstr "最后更新时间："
+msgstr "最后更新时间"
 
 #. module: wxwork_users_syncing
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__user_login
@@ -729,6 +729,11 @@ msgid "Select a user in the user list and use \"Change User Type\" in the action
 msgstr "在用户列表中选择一个用户，然后在操作菜单中使用\"更改用户类型\"更改为内部用户"
 
 #. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_users_search_inherit
+msgid "Share User"
+msgstr "共享用户"
+
+#. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
 msgid "Start syncing"
 msgstr "开始同步"
@@ -764,7 +769,8 @@ msgid "Start to synchronize Enterprise WeChat Contact - Department Synchronizati
 msgstr "开始同步企业微信通讯录-部门同步"
 
 #. module: wxwork_users_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_sync_user_tree
 msgid "Starting time"
 msgstr "起始时间"
@@ -842,8 +848,8 @@ msgstr "默认情况下，生成的用户类型属于门户用户。"
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
 msgid ""
 "The path used to save the enterprise WeChat user avatar and QR code image<br/>\n"
-"                                                    reference: D:\\img\\  <br/>\n"
-"                                                    Linux：/home/odoo/img/ Note: odoo is the current system account"
+"                                        reference: D:\\img\\  <br/>\n"
+"                                        Linux：/home/odoo/img/ Note: odoo is the current system account"
 msgstr ""
 "用于保存企业微信用户头像和QR码图像的路径<br/>\n"
 "                                                    参考: D:\\img\\  <br/>\n"
@@ -851,12 +857,15 @@ msgstr ""
 
 #. module: wxwork_users_syncing
 #: model:ir.model.fields,help:wxwork_users_syncing.field_res_users__wxwork_user_order
-msgid "The sort value in the department, the default is 0. The number must be the same as the department. The larger the number, the higher the order.The value range is [0, 2^32)"
+msgid ""
+"The sort value in the department, the default is 0. The number must be the same as the department. The larger the number, the higher the order.The value range is [0, 2^32)"
 msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
 
 #. module: wxwork_users_syncing
 #: model:ir.model.fields,help:wxwork_users_syncing.field_hr_employee__wxwork_user_order
-msgid "The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, 2^32)"
+msgid ""
+"The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, "
+"2^32)"
 msgstr "部门内的排序值，默认值为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
 
 #. module: wxwork_users_syncing
@@ -990,11 +999,6 @@ msgstr ""
 #. module: wxwork_users_syncing
 #: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__9
 msgid "公共"
-msgstr ""
-
-#. module: wxwork_users_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_users_search_inherit
-msgid "共享用户"
 msgstr ""
 
 #. module: wxwork_users_syncing

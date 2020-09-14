@@ -8,7 +8,7 @@
             </xpath>
             <xpath expr="//script[last()]" position="after">
                 <!--企业微信网页登录二维码-->
-                <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/>
+                <script type="text/javascript" src="https://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/>
             </xpath>
         </template>
 

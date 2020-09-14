@@ -5,29 +5,29 @@
             <field name="enabled" eval="False" />
         </record> -->
 
-        <!-- <record id="provider_wxwork_authorize" model="auth.oauth.provider"> -->
-            <!-- <field name="name">企业微信应用内一键登录</field> -->
+        <record id="provider_wxwork_authorize" model="auth.oauth.provider">
+            <field name="name">Enterprise WeChat OAuth2</field>
             <!--身份验证网址-->
-            <!-- <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field> -->
+            <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
             <!--作用域-->
-            <!-- <field name="scope">snsapi_base</field> -->
+            <field name="scope">snsapi_base</field>
             <!--验证网址-->
-            <!-- <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/signin</field> -->
+            <field name="validation_endpoint"></field>
             <!--数据网址-->
-            <!-- <field name="data_endpoint"></field> -->
-            <!-- <field name="css_class">wxwork</field> -->
-            <!-- <field name="body">企业微信应用内一键登录</field> -->
-            <!-- <field name="enabled" eval="True"/> -->
-        <!-- </record> -->
+            <field name="data_endpoint"></field>
+            <field name="css_class">fa fa-fw fa-wechat</field>
+            <field name="body">Enterprise WeChat one-click login</field>
+            <field name="enabled" eval="True"/>
+        </record>
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
-            <field name="name">使用企业微信扫一扫登录</field>
+            <field name="name">Enterprise WeChat OAuth2 Scan</field>
             <field name="auth_endpoint">https://open.work.weixin.qq.com/wwopen/sso/qrConnect</field>
             <field name="scope"></field>
-            <field name="validation_endpoint">http://eis.ouyahotels.com:8012/wxwork/auth_oauth/qr</field>
+            <field name="validation_endpoint"></field>
             <field name="data_endpoint"></field>
-            <field name="css_class">wxwork</field>
-            <field name="body">企业微信应用外扫码登录</field>
+            <field name="css_class">fa fa-fw fa-qrcode</field>
+            <field name="body">Enterprise WeChat scan code login</field>
             <field name="enabled" eval="True"/>
         </record>
 
@@ -41,11 +41,11 @@
         </record>
         <record id="auth_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.auth_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:端口号/wxwork/auth_oauth/signin</field>
+            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/signin</field>
         </record>
         <record id="qr_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.qr_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:端口号/wxwork/auth_oauth/qr</field>
+            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/qr</field>
         </record>
 
     </data>
