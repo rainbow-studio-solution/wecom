@@ -155,26 +155,24 @@ class MessageTemplate(models.Model):
     )
 
     # 以下为企业微信独有字段
-    msgtype = fields.Selection(
-        [
-            ("text", _("Text message")),
-            ("image", _("Picture message")),
-            ("voice", _("Voice messages")),
-            ("video", _("Video message")),
-            ("file", _("File message")),
-            ("textcard", _("Text card message")),
-            ("news", _("Graphic message")),
-            ("mpnews", _("Graphic message（mpnews）")),
-            ("markdown", _("markdown message")),
-            ("miniprogram_notice", _("Mini Program Notification Message")),
-            ("miniprogram_notice", _("Task card message")),
-        ],
-        "Message type",
-        # required=True,
-        default="text",
-        translate=True,
-    )
 
+    msgtype = fields.Selection([
+        ("text", "Text message"),
+        ("image", "Picture message"),
+        ("voice", "Voice messages"),
+        ("video", "Video message"),
+        ("file", "File message"),
+        ("textcard", "Text card message"),
+        ("news", "Graphic message"),
+        ("mpnews", "Graphic message（mpnews）"),
+        ("markdown", "Markdown message"),
+        ("miniprogram", "Mini Program Notification Message"),
+        ("taskcard", "Task card message"),
+    ],
+        'Message type', required=True, default='markdown',
+        help="Policy on how to handle Chatter notifications:\n"
+             "- Handle by Emails: notifications are sent to your email address\n"
+             "- Handle in Odoo: notifications appear in your Odoo Inbox")
     # safe = fields.Boolean("保密消息", default=False)
 
     # title = fields.Char("标题", size=128, help="视频消息的标题，不超过128个字节，超过会自动截断")
@@ -203,32 +201,96 @@ class MessageTemplate(models.Model):
             # print(template.name)
             self.create({
                 "name": template.name,
-                "model_id": template.model_id,
-                "model": template.model,
-                "lang": template.lang,
-                "user_signature": template.user_signature,
-                "subject": template.subject,
-                "message_from": template.email_from,
-                "use_default_to": template.use_default_to,
-                "message_to": template.email_to,
-                "partner_to": template.partner_to,
-                "message_cc": template.email_cc,
-                "reply_to": template.reply_to,
-                "mail_server_id": template.mail_server_id,
-                "body_html": template.body_html,
-                "report_name": template.report_name,
-                "report_template": template.report_template,
-                "ref_ir_act_window": template.ref_ir_act_window,
-                "auto_delete": template.auto_delete,
-                "sub_object": template.sub_object,
-                "sub_model_object_field": template.sub_model_object_field,
-                "null_value": template.null_value,
-                "copyvalue": template.copyvalue,
-                "scheduled_date": template.scheduled_date,
-                "msgtype": "markdown",
+                "model_id": template.model_id.id,
+                # "model": template.model,
+                # "lang": template.lang,
+                # "user_signature": template.user_signature,
+                # "subject": template.subject,
+                # "message_from": template.email_from,
+                # "use_default_to": template.use_default_to,
+                # "message_to": template.email_to,
+                # "partner_to": template.partner_to,
+                # "message_cc": template.email_cc,
+                # "reply_to": template.reply_to,
+                # "mail_server_id": template.mail_server_id,
+                # "body_html": template.body_html,
+                # "report_name": template.report_name,
+                # "report_template": template.report_template,
+
+
+                # "ref_ir_act_window": template.ref_ir_act_window,
+                # "auto_delete": template.auto_delete,
+                # "sub_object": template.sub_object,
+                # "sub_model_object_field": template.sub_model_object_field,
+                # "null_value": template.null_value,
+                # "copyvalue": template.copyvalue,
+                # "scheduled_date": template.scheduled_date,
+                # "msgtype": "markdown",
             })
+
         return True
 
-    @api.model
-    def create(self, values):
-        return super(MessageTemplate, self.with_context(mail_create_nosubscribe=True)).create(values)
+    @api.onchange('model_id')
+    def onchange_model_id(self):
+        # TDE CLEANME: should'nt it be a stored related ?
+        if self.model_id:
+            self.model = self.model_id.model
+        else:
+            self.model = False
+
+    @api.onchange('model_object_field', 'sub_model_object_field', 'null_value')
+    def onchange_sub_model_object_value_field(self):
+        if self.model_object_field:
+            if self.model_object_field.ttype in ['many2one', 'one2many', 'many2many']:
+                model = self.env['ir.model']._get(
+                    self.model_object_field.relation)
+                if model:
+                    self.sub_object = model.id
+                    self.copyvalue = self.build_expression(
+                        self.model_object_field.name, self.sub_model_object_field and self.sub_model_object_field.name or False, self.null_value or False)
+            else:
+                self.sub_object = False
+                self.sub_model_object_field = False
+                self.copyvalue = self.build_expression(
+                    self.model_object_field.name, False, self.null_value or False)
+        else:
+            self.sub_object = False
+            self.copyvalue = False
+            self.sub_model_object_field = False
+            self.null_value = False
+
+    def unlink(self):
+        self.unlink_action()
+        return super(MessageTemplate, self).unlink()
+
+    @api.returns('self', lambda value: value.id)
+    def copy(self, default=None):
+        default = dict(default or {},
+                       name=_("%s (copy)") % self.name)
+        return super(MessageTemplate, self).copy(default=default)
+
+    def unlink_action(self):
+        for template in self:
+            if template.ref_ir_act_window:
+                template.ref_ir_act_window.unlink()
+        return True
+
+    def create_action(self):
+        ActWindow = self.env['ir.actions.act_window']
+        view = self.env.ref('mail.email_compose_message_wizard_form')
+
+        for template in self:
+            button_name = _('Send Mail (%s)') % template.name
+            action = ActWindow.create({
+                'name': button_name,
+                'type': 'ir.actions.act_window',
+                'res_model': 'mail.compose.message',
+                'context': "{'default_composition_mode': 'mass_mail', 'default_template_id' : %d, 'default_use_template': True}" % (template.id),
+                'view_mode': 'form,tree',
+                'view_id': view.id,
+                'target': 'new',
+                'binding_model_id': template.model_id.id,
+            })
+            template.write({'ref_ir_act_window': action.id})
+
+        return True
