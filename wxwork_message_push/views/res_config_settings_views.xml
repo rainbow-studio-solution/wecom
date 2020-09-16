@@ -6,12 +6,11 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//notebook[@id='wxwork_notebook']//page[last()]" position="after" >
-                    <page string="通知">
-                        <div class="row mt16 o_settings_container">
+                <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
+                    <h2>Enterprise WeChat Message Push</h2>
+                    <div class="row mt16 o_settings_container">
 
-                        </div>
-                    </page>
+                    </div>
                 </xpath>
             </field>
         </record>

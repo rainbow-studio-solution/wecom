@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "企业微信-通知",
+    "name": "Enterprise WeChat Message Push",
     "author": "RStudio",
     "website": "",
     "sequence": 1,
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "企业微信",
-    "version": "12.0.0.1",
+    "category": "wxwork",
+    "version": "13.0.0.1",
     "summary": """
-        Odoo事件通知到企业微信
+        Odoo event notification to enterprise WeChat
         """,
     "description": """
 功能：
@@ -19,17 +19,19 @@
         """,
     "depends": [
         "mail",
-        "wxwork_users_syncing",
+        "mass_mailing",
+        "wxwork_base",
     ],
     "data": [
         # 'data/wxwork_data.xml',
-        "views/wxwork_notice_template_views.xml",
+        "wizard/message_template_preview_view.xml",
+        "views/assets_templates.xml",
+        "views/wxwork_message_template_views.xml",
         "views/res_config_settings_views.xml",
         "security/ir.model.access.csv",
     ],
     "qweb": [
         "static/src/xml/*.xml",
     ],
-    "bootstrap": True,  # load translations for login screen
     # 'external_dependencies': {'python': ['skimage']},
 }

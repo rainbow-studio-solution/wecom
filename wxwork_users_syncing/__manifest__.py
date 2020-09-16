@@ -20,8 +20,9 @@
         "base",
         "mail",
         "hr",
-        'auth_oauth',
+        "auth_oauth",
         "wxwork_base",
+        # "wxwork_message_push",
     ],
     "external_dependencies": {
         "python": [

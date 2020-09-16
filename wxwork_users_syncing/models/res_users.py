@@ -11,7 +11,7 @@ class Users(models.Model):
     _order = "wxwork_user_order"
 
     notification_type = fields.Selection(
-        selection_add=[("wxwork", "Processing via Enterprise WeChat")],
+        selection_add=[("wxwork", "Handle by Enterprise WeChat")],
         translate=True,
     )
 

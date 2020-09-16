@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record model="ir.ui.view" id="wxwork_notice_template_view_form">
-            <field name="name">wxwork.notice.template.form</field>
-            <field name="model">wxwork.notice.template</field>
+        <record model="ir.ui.view" id="wxwork_message_template_view_form">
+            <field name="name">wxwork.message.template.form</field>
+            <field name="model">wxwork.message.template</field>
             <field name="arch" type="xml">
-                <form string="模板">
+                <form string="Message">
                     <sheet>
                         <!--<div class="oe_button_box" name="button_box">-->
                             <!--<button class="oe_stat_button"  icon="fa-search-plus" string="预览"-->
@@ -112,16 +112,16 @@
                             </page>
                             <page string="通知设置">
                                 <group>
-                                    <field name="from_user" placeholder="覆盖发送者的企业微信ID"/>
-                                    <field name="use_default_to"/>
+                                    <field name="message_from" placeholder="覆盖发送者的企业微信ID"/>
+                                    <!-- <field name="use_default_to"/>
                                     <field name="to_user" placeholder="消息接收者，多个接收者用‘|’分隔，最多支持1000个。特殊情况：指定为@all，则向该企业应用的全部成员发送"/>
                                     <field name="to_party" placeholder="部门ID列表，多个接收者用‘|’分隔，最多支持100个。当'到用户'为@all时忽略本参数"/>
                                     <field name="to_tag" placeholder="标签ID列表，多个接收者用‘|’分隔，最多支持100个。当'到用户'为@all时忽略本参数"/>
-                                    <field name="safe"/>
+                                    <field name="safe"/> -->
                                 </group>
                             </page>
                             <page string="消息数据模板">
-                                <field name="body"  options="{'style-inline': true}"/>
+                                <field name="body_html"  options="{'style-inline': true}"/>
                             </page>
                         </notebook>
                     </sheet>
@@ -129,42 +129,42 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="wxwork_notice_template_view_tree">
-            <field name="name">wxwork.notice.template.tree</field>
-            <field name="model">wxwork.notice.template</field>
+        <record model="ir.ui.view" id="wxwork_message_template_view_tree">
+            <field name="name">wxwork.message.template.tree</field>
+            <field name="model">wxwork.message.template</field>
             <field name="arch" type="xml">
-                <tree string="模板">
+                <tree string="Templates">
                     <field name="name"/>
                     <field name="model_id"/>
-                    <field name="from_user"/>
-                    <field name="to_user"/>
-                    <field name="to_party"/>
-                    <field name="model_id"/>
+                    <field name="subject"/>
+                    <field name="message_from"/>
+                    <field name="message_to"/>
+                    <field name="partner_to"/>
+                    <field name="report_name"/>
                     <field name="msgtype"/>
                     <field name="safe"/>
                 </tree>
             </field>
         </record>
 
-        <record model="ir.ui.view" id="wxwork_notice_template_view_search">
-            <field name="name">wxwork.notice.template.search</field>
-            <field name="model">wxwork.notice.template</field>
+        <record model="ir.ui.view" id="wxwork_message_template_view_search">
+            <field name="name">wxwork.message.template.search</field>
+            <field name="model">wxwork.message.template</field>
             <field name="arch" type="xml">
-                <search string="模板">
+                <search string="Message">
                     <field name="model_id"/>
                 </search>
             </field>
         </record>
 
-        <record id="open_module_tree_notice_template" model="ir.actions.act_window">
-            <field name="name">通知</field>
-            <field name="res_model">wxwork.notice.template</field>
-            <field name="view_type">form</field>
+        <record id="open_module_tree_message_template" model="ir.actions.act_window">
+            <field name="name">Message Template</field>
+            <field name="res_model">wxwork.message.template</field>
             <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="wxwork_notice_template_view_tree" />
+            <field name="view_id" ref="wxwork_message_template_view_tree" />
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    创建一个新模板
+                    Create a new Message Template
                 </p>
                 <p>
 
@@ -172,9 +172,9 @@
             </field>
         </record>
 
-        <menuitem id="menu_wxwork_notice" name="通知" parent="wxwork_base.menu_wxwork_root" sequence="40" />
+        <menuitem id="menu_wxwork_message" name="Message" parent="wxwork_base.menu_wxwork" sequence="40" />
 
-        <menuitem id="menu_wxwork_notice_template" name="模板" parent="menu_wxwork_notice"
-                  action="open_module_tree_notice_template" sequence="10"/>
+        <menuitem id="menu_wxwork_message_template" name="Template" parent="menu_wxwork_message"
+                  action="open_module_tree_message_template" sequence="10"/>
     </data>
 </odoo>
