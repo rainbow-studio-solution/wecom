@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Email Template Preview -->
+        <!-- Message Template Preview -->
         <record model="ir.ui.view" id="wxwork_message_template_preview_form">
             <field name="name">message_template.preview.form</field>
             <field name="model">wxwork_message_template.preview</field>
@@ -42,7 +42,7 @@
             <field name="binding_model_id" eval="False"/>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="message_template_preview_form"/>
+            <field name="view_id" ref="wxwork_message_template_preview_form"/>
             <field name="target">new</field>
             <field name="context">{'template_id':active_id}</field>
         </record>

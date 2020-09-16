@@ -170,7 +170,7 @@ class MessageTemplate(models.Model):
             ("miniprogram_notice", _("Task card message")),
         ],
         "Message type",
-        required=True,
+        # required=True,
         default="text",
         translate=True,
     )
@@ -201,31 +201,34 @@ class MessageTemplate(models.Model):
         templates = self.sudo().env["mail.template"].search([])
         for template in templates:
             # print(template.name)
-            self.sudo().create(
-                {
-                    "name": template.name,
-                    "model_id": template.model_id,
-                    "model": template.model,
-                    "lang": template.lang,
-                    "user_signature": template.user_signature,
-                    "subject": template.subject,
-                    "message_from": template.email_from,
-                    "use_default_to": template.use_default_to,
-                    "message_to": template.email_to,
-                    "partner_to": template.partner_to,
-                    "message_cc": template.email_cc,
-                    "reply_to": template.reply_to,
-                    "mail_server_id": template.mail_server_id,
-                    "body_html": template.body_html,
-                    "report_name": template.report_name,
-                    "report_template": template.report_template,
-                    "ref_ir_act_window": template.ref_ir_act_window,
-                    "auto_delete": template.auto_delete,
-                    "sub_object": template.sub_object,
-                    "sub_model_object_field": template.sub_model_object_field,
-                    "null_value": template.null_value,
-                    "copyvalue": template.copyvalue,
-                    "scheduled_date": template.scheduled_date,
-                    "msgtype": "markdown",
-                }
-            )
+            self.create({
+                "name": template.name,
+                "model_id": template.model_id,
+                "model": template.model,
+                "lang": template.lang,
+                "user_signature": template.user_signature,
+                "subject": template.subject,
+                "message_from": template.email_from,
+                "use_default_to": template.use_default_to,
+                "message_to": template.email_to,
+                "partner_to": template.partner_to,
+                "message_cc": template.email_cc,
+                "reply_to": template.reply_to,
+                "mail_server_id": template.mail_server_id,
+                "body_html": template.body_html,
+                "report_name": template.report_name,
+                "report_template": template.report_template,
+                "ref_ir_act_window": template.ref_ir_act_window,
+                "auto_delete": template.auto_delete,
+                "sub_object": template.sub_object,
+                "sub_model_object_field": template.sub_model_object_field,
+                "null_value": template.null_value,
+                "copyvalue": template.copyvalue,
+                "scheduled_date": template.scheduled_date,
+                "msgtype": "markdown",
+            })
+        return True
+
+    @api.model
+    def create(self, values):
+        return super(MessageTemplate, self.with_context(mail_create_nosubscribe=True)).create(values)

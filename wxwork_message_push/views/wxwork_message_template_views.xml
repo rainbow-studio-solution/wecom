@@ -2,8 +2,8 @@
 <odoo>
     <data>
         <record model="ir.ui.view" id="message_template_form">
-            <field name="name">email.template.form</field>
-            <field name="model">mail.template</field>
+            <field name="name">wxwork.message.template.form</field>
+            <field name="model">wxwork.message.template</field>
             <field name="arch" type="xml">
                 <form string="Templates">
                     <sheet>
@@ -46,7 +46,7 @@
                                 <label for="subject"/>
                                 <h2 style="display: inline-block;"><field name="subject" placeholder="Subject (placeholders may be used here)"/></h2>
                                 <field name="body_html" widget="html" options="{'style-inline': true}"/>
-                                <field name="attachment_ids" widget="many2many_binary"/>
+                                <!-- <field name="attachment_ids" widget="many2many_binary"/> -->
                             </page>
                             <page string="Email Configuration">
                                 <group>
@@ -93,8 +93,8 @@
         </record>
 
         <record model="ir.ui.view" id="message_template_tree">
-            <field name="name">email.template.tree</field>
-            <field name="model">mail.template</field>
+            <field name="name">wxwork.message.template.tree</field>
+            <field name="model">wxwork.message.template</field>
             <field name="arch" type="xml">
                 <tree string="Templates">
                     <field name="mail_server_id" invisible="1"/>
@@ -110,8 +110,8 @@
         </record>
 
         <record id="view_message_template_search" model="ir.ui.view">
-           <field name="name">email.template.search</field>
-           <field name="model">mail.template</field>
+           <field name="name">wxwork.message.template.search</field>
+           <field name="model">wxwork.message.template</field>
            <field name="arch" type="xml">
                <search string="Templates">
                     <field name="name" filter_domain="['|', '|', '|',('name','ilike',self), ('report_name','ilike',self), ('subject','ilike',self), ('message_to','ilike',self)]" string="Templates"/>
