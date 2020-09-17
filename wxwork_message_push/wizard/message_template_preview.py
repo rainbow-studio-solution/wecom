@@ -57,7 +57,7 @@ class TemplatePreview(models.TransientModel):
 
     res_id = fields.Selection(_get_records, "Sample Document")
     partner_ids = fields.Many2many("res.partner", string="Recipients")
-    # attachment_ids = fields.Many2many(string="Attachments", store=False)
+    attachment_ids = fields.Many2many(string="Attachments", store=False)
     preview_lang = fields.Selection(_get_languages, string="Template Preview Language")
 
     @api.onchange("res_id", "preview_lang")
@@ -80,6 +80,6 @@ class TemplatePreview(models.TransientModel):
             "body_html",
             "partner_to",
             "partner_ids",
-            # "attachment_ids",
+            "attachment_ids",
         ]:
             setattr(self, field, mail_values.get(field, False))
