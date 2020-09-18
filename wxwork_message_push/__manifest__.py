@@ -22,6 +22,9 @@
         "mass_mailing",
         "wxwork_base",
     ],
+    "external_dependencies": {
+        "python": ["html2text"],
+    },
     "data": [
         # 'data/wxwork_data.xml',
         "wizard/message_template_preview_view.xml",

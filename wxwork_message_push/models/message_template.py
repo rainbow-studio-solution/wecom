@@ -10,6 +10,7 @@ import datetime
 import dateutil.relativedelta as relativedelta
 import functools
 import logging
+import html2text
 
 from werkzeug import urls
 
@@ -266,8 +267,8 @@ class MessageTemplate(models.Model):
     @api.model
     def copy_mail_template(self):
         templates = self.sudo().env["mail.template"].search([])
+
         for template in templates:
-            # print(template.name)
             message = self.search(
                 [("name", "=", template.name)],
                 limit=1,
@@ -275,6 +276,7 @@ class MessageTemplate(models.Model):
             if len(message) > 0:
                 pass
             else:
+
                 self.create(
                     {
                         "name": template.name,
@@ -290,7 +292,8 @@ class MessageTemplate(models.Model):
                         "message_cc": template.email_cc,
                         "reply_to": template.reply_to,
                         # "mail_server_id": template.mail_server_id,
-                        "body_html": template.body_html,
+                        "body_html": self.html2text_handle(template.body_html),
+                        # "body_html": template.body_html,
                         "report_name": template.report_name,
                         "report_template": template.report_template.id,
                         "ref_ir_act_window": template.ref_ir_act_window.id,
@@ -302,11 +305,17 @@ class MessageTemplate(models.Model):
                         "null_value": template.null_value,
                         "copyvalue": template.copyvalue,
                         "scheduled_date": template.scheduled_date,
-                        "msgtype": "textcard",
+                        "msgtype": "markdown",
                     }
                 )
 
         return True
+
+    def html2text_handle(self, html):
+        if bool(html):
+            return html2text.html2text(html)
+        else:
+            pass
 
     @api.onchange("model_id")
     def onchange_model_id(self):
