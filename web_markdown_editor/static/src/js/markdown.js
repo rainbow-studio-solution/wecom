@@ -15,6 +15,7 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         ].join(' '),
         jsLibs: [
             '/web_markdown_editor/static/src/js/marked.js',
+            '/web_markdown_editor/static/src/js/dropzone.js',
             '/web_markdown_editor/static/lib/bootstrap-markdown/js/bootstrap-markdown.js',
             //语言包
             '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ar.js',
@@ -50,7 +51,7 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         },
         _prepareInput: function () {
             var $input = this._super.apply(this, arguments);
-            console.log(this.className);
+            // console.log(this.className);
             _.defer(function ($elm) {
                 $input.removeClass(this.className);
                 $input.wrap(
@@ -65,7 +66,6 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
             this.$el.html(marked(this._formatValue(this.value)));
         },
         _getMarkdownOptions: function () {
-            console.log(this.getSession().user_context.lang);
             var markdownOpts = {
                 autofocus: false,
                 savable: false,
@@ -97,7 +97,6 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
                         self._markdownDropZoneInit(this);
                     },
                 };
-
                 if (_t.database.multi_lang && this.field.translate) {
                     markdownOpts.additionalButtons = [
                         [{
@@ -106,13 +105,30 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
                                 name: 'cmdTranslate',
                                 title: _t('Translate'),
                                 icon: {
-                                    glyph: 'glyphicon glyphicon-flag'
+                                    glyph: 'glyphicon glyphicon-globe'
                                 },
                                 callback: this._markdownTranslate,
                             }],
                         }],
                     ];
                 }
+                // if (_t.database.multi_lang && this.field.translate) {
+                //     var lang = this.getSession().user_context.lang.split('_')[0].toUpperCase();
+                //     markdownOpts.additionalButtons = [
+                //         [{
+                //             name: 'oTranslate',
+                //             data: [{
+                //                 name: 'cmdTranslate',
+                //                 toggle: true,
+                //                 title: _t('Translate:') + lang,
+                //                 icon: {
+                //                     glyph: 'glyphicon glyphicon-globe'
+                //                 },
+                //                 // callback: this._markdownTranslate,
+                //             }],
+                //         }],
+                //     ];
+                // }
             }
 
             return markdownOpts;
@@ -169,6 +185,7 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         _markdownTranslate: function () {
             this._onTranslate();
         },
+
     });
 
 
