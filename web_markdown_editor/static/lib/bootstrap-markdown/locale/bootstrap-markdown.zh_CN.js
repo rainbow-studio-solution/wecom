@@ -3,7 +3,7 @@
  * benhaile <denghaier@163.com>
  */
 (function ($) {
-  $.fn.markdown.messages.zh = {
+  $.fn.markdown.messages.zh_CN = {
     'Bold': "粗体",
     'Italic': "斜体",
     'Heading': "标题",

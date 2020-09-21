@@ -3,7 +3,7 @@
  + * WoongBi Kim <ssinss@gmail.com>
  + */
 (function ($) {
-  $.fn.markdown.messages.kr = {
+  $.fn.markdown.messages.ko_KP = {
     'Bold': "진하게",
     'Italic': "이탤릭체",
     'Heading': "머리글",

@@ -3,7 +3,7 @@
  * Vít Kabele <vit@kabele.me>
  */
 (function ($) {
-  $.fn.markdown.messages.cs = {
+  $.fn.markdown.messages.cs_CZ = {
     'Bold': "Tučně",
     'Italic': "Kurzíva",
     'Heading': "Nadpis",

@@ -3,7 +3,7 @@
  * TheoKlein <theokleintw@gmail.com>
  */
 (function ($) {
-  $.fn.markdown.messages.zh = {
+  $.fn.markdown.messages.zh_TW = {
     'Bold': "粗體",
     'Italic': "斜體",
     'Heading': "標題",

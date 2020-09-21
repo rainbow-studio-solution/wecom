@@ -3,7 +3,7 @@
  * George Ajam <george.ejaam@gmail.com>
  */
 (function ($) {
-  $.fn.markdown.messages.nl = {
+  $.fn.markdown.messages.ar = {
     'Bold': "غامق",
     'Italic': "مائل",
     'Heading': "عنوان",

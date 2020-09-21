@@ -12,6 +12,11 @@
     "depends": [
         "web",
     ],
+    "external_dependencies": {
+        "python": [
+            "lessc",
+        ],
+    },
     "data": [
         "views/assets_templates.xml",
     ],

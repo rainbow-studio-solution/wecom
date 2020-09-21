@@ -3,7 +3,7 @@
  * Tobias Bohwalli <hi@futhr.io>
  */
 (function ($) {
-  $.fn.markdown.messages.nb = {
+  $.fn.markdown.messages.nb_NO = {
     'Bold': 'Fet',
     'Italic': 'Kursiv',
     'Heading': 'Overskrift',

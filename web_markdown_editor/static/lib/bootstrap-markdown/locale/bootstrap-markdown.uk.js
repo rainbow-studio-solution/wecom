@@ -3,7 +3,7 @@
  * by Oleg Vivtash <o@vivtash.net>
  */
 (function ($) {
-  $.fn.markdown.messages.ua = {
+  $.fn.markdown.messages.uk = {
     'Bold': "Жирний",
     'Italic': "Курсів",
     'Heading': "Заголовок",

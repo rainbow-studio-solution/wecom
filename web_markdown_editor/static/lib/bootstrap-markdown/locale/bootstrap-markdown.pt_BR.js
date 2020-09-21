@@ -3,7 +3,7 @@
  * Gabriel Anderson <gcacars@>
  */
 (function ($) {
-  $.fn.markdown.messages.ptBR = {
+  $.fn.markdown.messages.pt_BR = {
     'Bold': "Negrito",
     'Italic': "Itálico",
     'Heading': "Título",

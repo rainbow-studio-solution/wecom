@@ -16,11 +16,35 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         jsLibs: [
             '/web_markdown_editor/static/src/js/marked.js',
             '/web_markdown_editor/static/lib/bootstrap-markdown/js/bootstrap-markdown.js',
+            //语言包
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ar.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.cs_CZ.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.da_DK.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.de.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.es.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.fa.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.fr.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.hu.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.it.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ja.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ko_KP.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ko_KR.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.nb_NO.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.nl.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.pl.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.pt_BR.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ru.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.sl.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.sv.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.tr.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.uk.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.zh_CN.js',
+            '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.zh_TW.js',
         ],
         cssLibs: [
             '/web_markdown_editor/static/lib/bootstrap-markdown/css/bootstrap-markdown.min.css',
+            '/web_markdown_editor/static/lib/glyphicons//glyphicon.css',
         ],
-
         _getValue: function () {
             return this.$markdown.getContent();
         },
@@ -37,13 +61,11 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
             }.bind(this), $input);
             return $input;
         },
-
         _renderReadonly: function () {
             this.$el.html(marked(this._formatValue(this.value)));
         },
-
-
         _getMarkdownOptions: function () {
+            console.log(this.getSession().user_context.lang);
             var markdownOpts = {
                 autofocus: false,
                 savable: false,
