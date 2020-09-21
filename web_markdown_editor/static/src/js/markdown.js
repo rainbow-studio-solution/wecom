@@ -15,7 +15,7 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         ].join(' '),
         jsLibs: [
             '/web_markdown_editor/static/src/js/marked.js',
-            '/web_markdown_editor/static/src/js/dropzone.js',
+            // '/web_markdown_editor/static/src/js/dropzone.js',
             '/web_markdown_editor/static/lib/bootstrap-markdown/js/bootstrap-markdown.js',
             //语言包
             '/web_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ar.js',
@@ -44,14 +44,14 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
         ],
         cssLibs: [
             '/web_markdown_editor/static/lib/bootstrap-markdown/css/bootstrap-markdown.min.css',
-            '/web_markdown_editor/static/lib/glyphicons//glyphicon.css',
+            '/web_markdown_editor/static/lib/glyphicons/glyphicon.css',
         ],
         _getValue: function () {
             return this.$markdown.getContent();
         },
         _prepareInput: function () {
             var $input = this._super.apply(this, arguments);
-            // console.log(this.className);
+
             _.defer(function ($elm) {
                 $input.removeClass(this.className);
                 $input.wrap(
@@ -71,115 +71,34 @@ odoo.define("web_markdown_editor.FieldTextMarkDown", function (require) {
                 savable: false,
                 language: this.getSession().user_context.lang,
             };
-
-            // Only can create attachments on non-virtual records
-            if (this.res_id) {
-                var self = this;
-                markdownOpts.dropZoneOptions = {
-                    paramName: 'ufile',
-                    url: '/web/binary/upload_attachment',
-                    acceptedFiles: 'image/*',
-                    width: 'o_form_field_markdown',
-                    params: {
-                        csrf_token: core.csrf_token,
-                        session_id: this.getSession().override_session,
-                        callback: '',
-                        model: this.model,
-                        id: this.res_id,
-                    },
-                    success: function () {
-                        self._markdownDropZoneUploadSuccess(this);
-                    },
-                    error: function () {
-                        self._markdownDropZoneUploadError(this);
-                    },
-                    init: function () {
-                        self._markdownDropZoneInit(this);
-                    },
-                };
-                if (_t.database.multi_lang && this.field.translate) {
-                    markdownOpts.additionalButtons = [
-                        [{
-                            name: 'oTranslate',
-                            data: [{
-                                name: 'cmdTranslate',
-                                title: _t('Translate'),
-                                icon: {
-                                    glyph: 'glyphicon glyphicon-globe'
-                                },
-                                callback: this._markdownTranslate,
-                            }],
-                        }],
-                    ];
-                }
-                // if (_t.database.multi_lang && this.field.translate) {
-                //     var lang = this.getSession().user_context.lang.split('_')[0].toUpperCase();
-                //     markdownOpts.additionalButtons = [
-                //         [{
-                //             name: 'oTranslate',
-                //             data: [{
-                //                 name: 'cmdTranslate',
-                //                 toggle: true,
-                //                 title: _t('Translate:') + lang,
-                //                 icon: {
-                //                     glyph: 'glyphicon glyphicon-globe'
-                //                 },
-                //                 // callback: this._markdownTranslate,
-                //             }],
-                //         }],
-                //     ];
-                // }
-            }
-
+            markdownOpts.additionalButtons = [
+                [{
+                    name: 'oTranslate',
+                    data: [{
+                        name: 'cmdTranslate',
+                        title: _t('Translate'),
+                        icon: "glyphicon glyphicon-globe",
+                        callback: self._markdownTranslate,
+                    }],
+                }],
+            ];
+            // if (this.res_id) {
+            //     var self = this;
+            //     if (_t.database.multi_lang && this.field.translate) {
+            //         markdownOpts.additionalButtons = [
+            //             [{
+            //                 name: 'oTranslate',
+            //                 data: [{
+            //                     name: 'cmdTranslate',
+            //                     title: _t('Translate'),
+            //                     icon: "glyphicon glyphicon-globe",
+            //                     callback: self._markdownTranslate,
+            //                 }],
+            //             }],
+            //         ];
+            //     }
+            // }
             return markdownOpts;
-        },
-
-        _getAttachmentId: function (response) {
-            var matchElms = response.match(/"id":\s?(\d+)/);
-            if (matchElms && matchElms.length) {
-                return matchElms[1];
-            }
-            return null;
-        },
-
-        _markdownDropZoneInit: function (markdown) {
-            var self = this;
-            var caretPos = 0;
-            var $textarea = null;
-            markdown.on('drop', function (e) {
-                $textarea = $(e.target);
-                caretPos = $textarea.prop('selectionStart');
-            });
-            markdown.on('success', function (file, response) {
-                var text = $textarea.val();
-                var attachment_id = self._getAttachmentId(response);
-                if (attachment_id) {
-                    var ftext = text.substring(0, caretPos) + '\n![' +
-                        _t('description') +
-                        '](/web/image/' + attachment_id + ')\n' +
-                        text.substring(caretPos);
-                    $textarea.val(ftext);
-                } else {
-                    self.do_warn(
-                        _t('Error'),
-                        _t("Can't create the attachment."));
-                }
-            });
-            markdown.on('error', function (file, error) {
-                console.warn(error);
-            });
-        },
-
-        _markdownDropZoneUploadSuccess: function () {
-            this.isDirty = true;
-            this._doDebouncedAction();
-            this.$markdown.$editor.find(".dz-error-mark:last")
-                .css("display", "none");
-        },
-
-        _markdownDropZoneUploadError: function () {
-            this.$markdown.$editor.find(".dz-success-mark:last")
-                .css("display", "none");
         },
 
         _markdownTranslate: function () {
