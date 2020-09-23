@@ -1,4 +1,27 @@
 .o_form_field_markdown {
+
+  .md-editor {
+    .md-header {
+      .md-controls {
+        .o_field_translate {
+          font-size: 15px !important;
+        }
+      }
+    }
+  }
+
+  .md-editor.md-fullscreen-mode {
+    .md-header {
+      .md-controls {
+        .o_field_translate {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+
+
   .dz-preview {
     display: inline-block;
     margin: 0.5em;

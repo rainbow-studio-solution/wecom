@@ -30,6 +30,7 @@ odoo 13.0变化很大，发现不少需要改动的。
    
     测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。
 
+5. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
 4. wxwork_message_push（企业微信消息推送，原名wxwork_notice），开展中
 
 

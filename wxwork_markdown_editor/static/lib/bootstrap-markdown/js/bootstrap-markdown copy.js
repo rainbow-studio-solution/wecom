@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * ========================================================== */
-(function(factory) {
+(function (factory) {
   if (typeof define === "function" && define.amd) {
     // RequireJS
     define(["jquery"], factory);
@@ -27,20 +27,20 @@
     // jQuery plugin
     factory(jQuery);
   }
-}(function($) {
+}(function ($) {
   "use strict";
 
   /* MARKDOWN CLASS DEFINITION
    * ========================== */
 
-  var Markdown = function(element, options) {
+  var Markdown = function (element, options) {
     // @TODO : remove this BC on next major release
     // @see : https://github.com/toopay/bootstrap-markdown/issues/109
     var opts = ['autofocus', 'savable', 'hideable', 'width',
       'height', 'resize', 'iconlibrary', 'language',
       'footer', 'fullscreen', 'hiddenButtons', 'disabledButtons'
     ];
-    $.each(opts, function(_, opt) {
+    $.each(opts, function (_, opt) {
       if (typeof $(element).data(opt) !== 'undefined') {
         options = typeof options == 'object' ? options : {};
         options[opt] = $(element).data(opt);
@@ -74,12 +74,12 @@
   Markdown.prototype = {
 
     constructor: Markdown,
-    __alterButtons: function(name, alter) {
+    __alterButtons: function (name, alter) {
       var handler = this.$handler,
         isAll = (name == 'all'),
         that = this;
 
-      $.each(handler, function(k, v) {
+      $.each(handler, function (k, v) {
         var halt = true;
         if (isAll) {
           halt = false;
@@ -92,7 +92,7 @@
         }
       });
     },
-    __buildButtons: function(buttonsArray, container) {
+    __buildButtons: function (buttonsArray, container) {
       var i,
         ns = this.$ns,
         handler = this.$handler,
@@ -156,7 +156,7 @@
 
       return container;
     },
-    __setListener: function() {
+    __setListener: function () {
       // Set size and resizable Properties
       var hasRows = typeof this.$textarea.attr('rows') !== 'undefined',
         maxRows = this.$textarea.val().split("\n").length > 5 ? this.$textarea.val().split("\n").length : '5',
@@ -170,7 +170,7 @@
       // Re-attach markdown data
       this.$textarea.data('markdown', this);
     },
-    __setEventListeners: function() {
+    __setEventListeners: function () {
       this.$textarea.on({
         'focus': $.proxy(this.focus, this),
         'keyup': $.proxy(this.keyup, this),
@@ -186,7 +186,7 @@
         this.$textarea.on('keypress', $.proxy(this.keypress, this));
       }
     },
-    __handle: function(e) {
+    __handle: function (e) {
       var target = $(e.currentTarget),
         handler = this.$handler,
         callback = this.$callback,
@@ -210,7 +210,7 @@
 
       e.preventDefault();
     },
-    __localize: function(string) {
+    __localize: function (string) {
       var messages = $.fn.markdown.messages,
         language = this.$options.language;
       if (
@@ -222,15 +222,15 @@
       }
       return string;
     },
-    __getIcon: function(src) {
-      if(typeof src == 'object'){
+    __getIcon: function (src) {
+      if (typeof src == 'object') {
         var customIcon = this.$options.customIcons[src.name];
         return typeof customIcon == 'undefined' ? src.icon[this.$options.iconlibrary] : customIcon;
       } else {
         return src;
       }
     },
-    setFullscreen: function(mode) {
+    setFullscreen: function (mode) {
       var $editor = this.$editor,
         $textarea = this.$textarea;
 
@@ -250,7 +250,7 @@
       this.$isFullscreen = mode;
       $textarea.focus();
     },
-    showEditor: function() {
+    showEditor: function () {
       var instance = this,
         textarea,
         ns = this.$ns,
@@ -263,7 +263,7 @@
         options = this.$options,
         editor = $('<div/>', {
           'class': 'md-editor',
-          click: function() {
+          click: function () {
             instance.focus();
           }
         });
@@ -280,10 +280,10 @@
         if (options.buttons.length > 0) allBtnGroups = allBtnGroups.concat(options.buttons[0]);
         if (options.additionalButtons.length > 0) {
           // iterate the additional button groups
-          $.each(options.additionalButtons[0], function(idx, buttonGroup) {
+          $.each(options.additionalButtons[0], function (idx, buttonGroup) {
 
             // see if the group name of the additional group matches an existing group
-            var matchingGroups = $.grep(allBtnGroups, function(allButtonGroup, allIdx) {
+            var matchingGroups = $.grep(allBtnGroups, function (allButtonGroup, allIdx) {
               return allButtonGroup.name === buttonGroup.name;
             });
 
@@ -300,10 +300,10 @@
         // Reduce and/or reorder the button groups
         if (options.reorderButtonGroups.length > 0) {
           allBtnGroups = allBtnGroups
-            .filter(function(btnGroup) {
+            .filter(function (btnGroup) {
               return options.reorderButtonGroups.indexOf(btnGroup.name) > -1;
             })
-            .sort(function(a, b) {
+            .sort(function (a, b) {
               if (options.reorderButtonGroups.indexOf(a.name) < options.reorderButtonGroups.indexOf(b.name)) return -1;
               if (options.reorderButtonGroups.indexOf(a.name) > options.reorderButtonGroups.indexOf(b.name)) return 1;
               return 0;
@@ -316,7 +316,8 @@
         }
 
         if (options.fullscreen.enable) {
-          editorHeader.append('<div class="md-controls"><a class="md-control md-control-fullscreen" href="#"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOn) + '"></span></a></div>').on('click', '.md-control-fullscreen', function(e) {
+          editorHeader.append('<div class="md-controls"><a class="md-control md-control-fullscreen" href="#"><span class="' +
+            this.__getIcon(options.fullscreen.icons.fullscreenOn) + '"></span></a></div>').on('click', '.md-control-fullscreen', function (e) {
             e.preventDefault();
             instance.setFullscreen(true);
           });
@@ -347,7 +348,7 @@
           editable.type = container.prop('tagName').toLowerCase();
           editable.content = container.html();
 
-          $(container[0].attributes).each(function() {
+          $(container[0].attributes).each(function () {
             editable.attrKeys.push(this.nodeName);
             editable.attrValues.push(this.nodeValue);
           });
@@ -431,11 +432,11 @@
         }
 
         if (this.eventSupported('keydown') && typeof jQuery.hotkeys === 'object') {
-          editorHeader.find('[data-provider="bootstrap-markdown"]').each(function() {
+          editorHeader.find('[data-provider="bootstrap-markdown"]').each(function () {
             var $button = $(this),
               hotkey = $button.attr('data-hotkey');
             if (hotkey.toLowerCase() !== '') {
-              textarea.bind('keydown', hotkey, function() {
+              textarea.bind('keydown', hotkey, function () {
                 $button.trigger('click');
                 return false;
               });
@@ -463,7 +464,7 @@
           '<a href="#" class="exit-fullscreen" title="Exit fullscreen"><span class="' + this.__getIcon(options.fullscreen.icons.fullscreenOff) + '">' +
           '</span></a>' +
           '</div>');
-        this.$editor.on('click', '.exit-fullscreen', function(e) {
+        this.$editor.on('click', '.exit-fullscreen', function (e) {
           e.preventDefault();
           instance.setFullscreen(false);
         });
@@ -478,19 +479,19 @@
       // enable dropZone if available and configured
       if (options.dropZoneOptions) {
         if (this.$editor.dropzone) {
-          if(!options.dropZoneOptions.init) {
-            options.dropZoneOptions.init = function() {
+          if (!options.dropZoneOptions.init) {
+            options.dropZoneOptions.init = function () {
               var caretPos = 0;
-              this.on('drop', function(e) {
-                  caretPos = textarea.prop('selectionStart');
-                  });
-              this.on('success', function(file, path) {
-                  var text = textarea.val();
-                  textarea.val(text.substring(0, caretPos) + '\n![description](' + path + ')\n' + text.substring(caretPos));
-                  });
-              this.on('error', function(file, error, xhr) {
-                  console.log('Error:', error);
-                  });
+              this.on('drop', function (e) {
+                caretPos = textarea.prop('selectionStart');
+              });
+              this.on('success', function (file, path) {
+                var text = textarea.val();
+                textarea.val(text.substring(0, caretPos) + '\n![description](' + path + ')\n' + text.substring(caretPos));
+              });
+              this.on('error', function (file, error, xhr) {
+                console.log('Error:', error);
+              });
             };
           }
           this.$editor.addClass('dropzone');
@@ -502,22 +503,22 @@
 
       // enable data-uris via drag and drop
       if (options.enableDropDataUri === true) {
-        this.$editor.on('drop', function(e) {
+        this.$editor.on('drop', function (e) {
           var caretPos = textarea.prop('selectionStart');
           e.stopPropagation();
           e.preventDefault();
-          $.each(e.originalEvent.dataTransfer.files, function(index, file){
+          $.each(e.originalEvent.dataTransfer.files, function (index, file) {
             var fileReader = new FileReader();
-              fileReader.onload = (function(file) {
-                 var type = file.type.split('/')[0];
-                 return function(e) {
-                    var text = textarea.val();
-                    if (type === 'image')
-                      textarea.val(text.substring(0, caretPos) + '\n<img src="'+ e.target.result  +'" />\n' + text.substring(caretPos) );
-                    else
-                      textarea.val(text.substring(0, caretPos) + '\n<a href="'+ e.target.result  +'">Download ' + file.name + '</a>\n' + text.substring(caretPos) );
-                 };
-              })(file);
+            fileReader.onload = (function (file) {
+              var type = file.type.split('/')[0];
+              return function (e) {
+                var text = textarea.val();
+                if (type === 'image')
+                  textarea.val(text.substring(0, caretPos) + '\n<img src="' + e.target.result + '" />\n' + text.substring(caretPos));
+                else
+                  textarea.val(text.substring(0, caretPos) + '\n<a href="' + e.target.result + '">Download ' + file.name + '</a>\n' + text.substring(caretPos));
+              };
+            })(file);
             fileReader.readAsDataURL(file);
           });
         });
@@ -528,7 +529,7 @@
 
       return this;
     },
-    parseContent: function(val) {
+    parseContent: function (val) {
       var content;
 
       // parse with supported markdown parser
@@ -546,7 +547,7 @@
 
       return content;
     },
-    showPreview: function() {
+    showPreview: function () {
       var options = this.$options,
         container = this.$textarea,
         afterContainer = container.next(),
@@ -608,7 +609,7 @@
 
       return this;
     },
-    hidePreview: function() {
+    hidePreview: function () {
       // Give flag that tells the editor to quit preview mode
       this.$isPreview = false;
 
@@ -632,18 +633,18 @@
 
       return this;
     },
-    isDirty: function() {
+    isDirty: function () {
       return this.$oldContent != this.getContent();
     },
-    getContent: function() {
+    getContent: function () {
       return this.$textarea.val();
     },
-    setContent: function(content) {
+    setContent: function (content) {
       this.$textarea.val(content);
 
       return this;
     },
-    findSelection: function(chunk) {
+    findSelection: function (chunk) {
       var content = this.getContent(),
         startChunkPosition;
 
@@ -661,13 +662,13 @@
         return null;
       }
     },
-    getSelection: function() {
+    getSelection: function () {
 
       var e = this.$textarea[0];
 
       return (
 
-        ('selectionStart' in e && function() {
+        ('selectionStart' in e && function () {
           var l = e.selectionEnd - e.selectionStart;
           return {
             start: e.selectionStart,
@@ -678,40 +679,40 @@
         }) ||
 
         /* browser not supported */
-        function() {
+        function () {
           return null;
         }
 
       )();
 
     },
-    setSelection: function(start, end) {
+    setSelection: function (start, end) {
 
       var e = this.$textarea[0];
 
       return (
 
-        ('selectionStart' in e && function() {
+        ('selectionStart' in e && function () {
           e.selectionStart = start;
           e.selectionEnd = end;
           return;
         }) ||
 
         /* browser not supported */
-        function() {
+        function () {
           return null;
         }
 
       )();
 
     },
-    replaceSelection: function(text) {
+    replaceSelection: function (text) {
 
       var e = this.$textarea[0];
 
       return (
 
-        ('selectionStart' in e && function() {
+        ('selectionStart' in e && function () {
           e.value = e.value.substr(0, e.selectionStart) + text + e.value.substr(e.selectionEnd, e.value.length);
           // Set cursor to the last replacement end
           e.selectionStart = e.value.length;
@@ -719,14 +720,14 @@
         }) ||
 
         /* browser not supported */
-        function() {
+        function () {
           e.value += text;
           return jQuery(e);
         }
 
       )();
     },
-    getNextTab: function() {
+    getNextTab: function () {
       // Shift the nextTab
       if (this.$nextTab.length === 0) {
         return null;
@@ -742,11 +743,11 @@
         return nextTab;
       }
     },
-    setNextTab: function(start, end) {
+    setNextTab: function (start, end) {
       // Push new selection into nextTab collections
       if (typeof start == 'string') {
         var that = this;
-        this.$nextTab.push(function() {
+        this.$nextTab.push(function () {
           return that.findSelection(start);
         });
       } else if (typeof start == 'number' && typeof end == 'number') {
@@ -760,61 +761,61 @@
 
       return;
     },
-    __parseButtonNameParam: function(names) {
+    __parseButtonNameParam: function (names) {
       return typeof names == 'string' ?
         names.split(' ') :
         names;
 
     },
-    enableButtons: function(name) {
+    enableButtons: function (name) {
       var buttons = this.__parseButtonNameParam(name),
         that = this;
 
-      $.each(buttons, function(i, v) {
-        that.__alterButtons(buttons[i], function(el) {
+      $.each(buttons, function (i, v) {
+        that.__alterButtons(buttons[i], function (el) {
           el.removeAttr('disabled');
         });
       });
 
       return this;
     },
-    disableButtons: function(name) {
+    disableButtons: function (name) {
       var buttons = this.__parseButtonNameParam(name),
         that = this;
 
-      $.each(buttons, function(i, v) {
-        that.__alterButtons(buttons[i], function(el) {
+      $.each(buttons, function (i, v) {
+        that.__alterButtons(buttons[i], function (el) {
           el.attr('disabled', 'disabled');
         });
       });
 
       return this;
     },
-    hideButtons: function(name) {
+    hideButtons: function (name) {
       var buttons = this.__parseButtonNameParam(name),
         that = this;
 
-      $.each(buttons, function(i, v) {
-        that.__alterButtons(buttons[i], function(el) {
+      $.each(buttons, function (i, v) {
+        that.__alterButtons(buttons[i], function (el) {
           el.addClass('hidden');
         });
       });
 
       return this;
     },
-    showButtons: function(name) {
+    showButtons: function (name) {
       var buttons = this.__parseButtonNameParam(name),
         that = this;
 
-      $.each(buttons, function(i, v) {
-        that.__alterButtons(buttons[i], function(el) {
+      $.each(buttons, function (i, v) {
+        that.__alterButtons(buttons[i], function (el) {
           el.removeClass('hidden');
         });
       });
 
       return this;
     },
-    eventSupported: function(eventName) {
+    eventSupported: function (eventName) {
       var isSupported = eventName in this.$element;
       if (!isSupported) {
         this.$element.setAttribute(eventName, 'return;');
@@ -822,7 +823,7 @@
       }
       return isSupported;
     },
-    keyup: function(e) {
+    keyup: function (e) {
       var blocked = false;
       switch (e.keyCode) {
         case 40: // down arrow
@@ -837,7 +838,7 @@
           if (nextTab = this.getNextTab(), nextTab !== null) {
             // Get the nextTab if exists
             var that = this;
-            setTimeout(function() {
+            setTimeout(function () {
               that.setSelection(nextTab.start, nextTab.end);
             }, 500);
 
@@ -882,10 +883,10 @@
           if (charFollowingLastLineBreak === '-') {
             this.addBullet(enterIndex);
           } else if ($.isNumeric(charFollowingLastLineBreak)) {
-              var numBullet = this.getBulletNumber(priorNewlineIndex + 1);
-              if (numBullet) {
-                this.addNumberedBullet(enterIndex, numBullet);
-              }
+            var numBullet = this.getBulletNumber(priorNewlineIndex + 1);
+            if (numBullet) {
+              this.addNumberedBullet(enterIndex, numBullet);
+            }
           }
           break;
 
@@ -905,35 +906,35 @@
 
       this.$options.onChange(this);
     },
-    insertContent: function(index, content) {
+    insertContent: function (index, content) {
       var firstHalf = this.getContent().slice(0, index);
       var secondHalf = this.getContent().slice(index + 1);
       this.setContent(firstHalf.concat(content).concat(secondHalf));
     },
-    addBullet: function(index) {
+    addBullet: function (index) {
       this.insertContent(index, '- \n');
       this.setSelection(index + 2, index + 2); // Put the cursor after the bullet
     },
-    addNumberedBullet: function(index, num) {
+    addNumberedBullet: function (index, num) {
       var numBullet = (num + 1) + '. \n';
       this.insertContent(index, numBullet);
 
       var prefixLength = num.toString().length + 2;
       this.setSelection(index + prefixLength, index + prefixLength); // Put the cursor after the number
     },
-    getBulletNumber: function(startIndex) {
+    getBulletNumber: function (startIndex) {
       var bulletNum = this.getContent().slice(startIndex).split('.')[0];
       return $.isNumeric(bulletNum) ? parseInt(bulletNum) : null;
     },
-    change: function(e) {
+    change: function (e) {
       this.$options.onChange(this);
       return this;
     },
-    select: function(e) {
+    select: function (e) {
       this.$options.onSelect(this);
       return this;
     },
-    focus: function(e) {
+    focus: function (e) {
       var options = this.$options,
         isHideable = options.hideable,
         editor = this.$editor;
@@ -941,7 +942,7 @@
       editor.addClass('active');
 
       // Blur other markdown(s)
-      $(document).find('.md-editor').each(function() {
+      $(document).find('.md-editor').each(function () {
         if ($(this).attr('id') !== editor.attr('id')) {
           var attachedMarkdown;
 
@@ -961,7 +962,7 @@
 
       return this;
     },
-    blur: function(e) {
+    blur: function (e) {
       var options = this.$options,
         isHideable = options.hideable,
         editor = this.$editor,
@@ -978,7 +979,7 @@
               content = this.getContent(),
               currentContent = this.parseContent(content);
 
-            $(editable.attrKeys).each(function(k, v) {
+            $(editable.attrKeys).each(function (k, v) {
               oldElement.attr(editable.attrKeys[k], editable.attrValues[k]);
             });
 
@@ -1005,8 +1006,8 @@
 
   var old = $.fn.markdown;
 
-  $.fn.markdown = function(option) {
-    return this.each(function() {
+  $.fn.markdown = function (option) {
+    return this.each(function () {
       var $this = $(this),
         data = $this.data('markdown'),
         options = typeof option == 'object' && option;
@@ -1047,7 +1048,7 @@
             'fa-5': 'fas fa-bold',
             octicons: 'octicon octicon-bold'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Give/remove ** surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent();
@@ -1084,7 +1085,7 @@
             'fa-5': 'fas fa-italic',
             octicons: 'octicon octicon-italic'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Give/remove * surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent();
@@ -1121,7 +1122,7 @@
             'fa-5': 'fas fa-heading',
             octicons: 'octicon octicon-text-size'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Append/remove ### surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent(),
@@ -1166,7 +1167,7 @@
             'fa-5': 'fas fa-link',
             octicons: 'octicon octicon-link'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Give [] surround the selection and prepend the link
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent(),
@@ -1204,7 +1205,7 @@
             'fa-5': 'far fa-image',
             octicons: 'octicon octicon-file-media'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Give ![] surround the selection and prepend the image link
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent(),
@@ -1248,7 +1249,7 @@
             'fa-5': 'fas fa-list-ul',
             octicons: 'octicon octicon-list-unordered'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Prepend/Give - surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent();
@@ -1275,7 +1276,7 @@
                 list = selected.text.split('\n');
                 chunk = list[0];
 
-                $.each(list, function(k, v) {
+                $.each(list, function (k, v) {
                   list[k] = '- ' + v;
                 });
 
@@ -1300,7 +1301,7 @@
             'fa-5': 'fas fa-list-ol',
             octicons: 'octicon octicon-list-ordered'
           },
-          callback: function(e) {
+          callback: function (e) {
 
             // Prepend/Give - surround the selection
             var chunk, cursor, selected = e.getSelection(),
@@ -1328,7 +1329,7 @@
                 list = selected.text.split('\n');
                 chunk = list[0];
 
-                $.each(list, function(k, v) {
+                $.each(list, function (k, v) {
                   list[k] = i + '. ' + v;
                   i++;
                 });
@@ -1354,7 +1355,7 @@
             'fa-5': 'fas fa-code',
             octicons: 'octicon octicon-code'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Give/remove ** surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent();
@@ -1399,7 +1400,7 @@
             'fa-5': 'fas fa-quote-left',
             octicons: 'octicon octicon-quote'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Prepend/Give - surround the selection
             var chunk, cursor, selected = e.getSelection(),
               content = e.getContent();
@@ -1427,7 +1428,7 @@
                 list = selected.text.split('\n');
                 chunk = list[0];
 
-                $.each(list, function(k, v) {
+                $.each(list, function (k, v) {
                   list[k] = '> ' + v;
                 });
 
@@ -1458,7 +1459,7 @@
             'fa-5': 'fas fa-search',
             octicons: 'octicon octicon-search'
           },
-          callback: function(e) {
+          callback: function (e) {
             // Check the preview mode and toggle based on this flag
             var isPreview = e.$isPreview,
               content;
@@ -1506,16 +1507,16 @@
     },
 
     /* Events hook */
-    onShow: function(e) {},
-    onPreview: function(e) {},
-    onPreviewEnd: function(e) {},
-    onSave: function(e) {},
-    onBlur: function(e) {},
-    onFocus: function(e) {},
-    onChange: function(e) {},
-    onFullscreen: function(e) {},
-    onFullscreenExit: function(e) {},
-    onSelect: function(e) {}
+    onShow: function (e) {},
+    onPreview: function (e) {},
+    onPreviewEnd: function (e) {},
+    onSave: function (e) {},
+    onBlur: function (e) {},
+    onFocus: function (e) {},
+    onChange: function (e) {},
+    onFullscreen: function (e) {},
+    onFullscreenExit: function (e) {},
+    onSelect: function (e) {}
   };
 
   $.fn.markdown.Constructor = Markdown;
@@ -1524,14 +1525,14 @@
   /* MARKDOWN NO CONFLICT
    * ==================== */
 
-  $.fn.markdown.noConflict = function() {
+  $.fn.markdown.noConflict = function () {
     $.fn.markdown = old;
     return this;
   };
 
   /* MARKDOWN GLOBAL FUNCTION & DATA-API
    * ==================================== */
-  var initMarkdown = function(el) {
+  var initMarkdown = function (el) {
     var $this = el;
 
     if ($this.data('markdown')) {
@@ -1542,11 +1543,11 @@
     $this.markdown();
   };
 
-  var blurNonFocused = function(e) {
+  var blurNonFocused = function (e) {
     var $activeElement = $(document.activeElement);
 
     // Blur event
-    $(document).find('.md-editor').each(function() {
+    $(document).find('.md-editor').each(function () {
       var $this = $(this),
         focused = $activeElement.closest('.md-editor')[0] === this,
         attachedMarkdown = $this.find('textarea').data('markdown') ||
@@ -1559,15 +1560,15 @@
   };
 
   $(document)
-    .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function(e) {
+    .on('click.markdown.data-api', '[data-provide="markdown-editable"]', function (e) {
       initMarkdown($(this));
       e.preventDefault();
     })
-    .on('click focusin', function(e) {
+    .on('click focusin', function (e) {
       blurNonFocused(e);
     })
-    .ready(function() {
-      $('textarea[data-provide="markdown"]').each(function() {
+    .ready(function () {
+      $('textarea[data-provide="markdown"]').each(function () {
         initMarkdown($(this));
       });
     });

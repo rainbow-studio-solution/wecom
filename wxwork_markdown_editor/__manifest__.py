@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Web MarkDown Editor",
+    "name": "Enterprise WeChat MarkDown Editor",
     "author": "RStudio",
     "category": "Extra Tools",
-    "summary": "Bootstrap Markdown Editor Widget",
+    "summary": "Bootstrap Markdown Editor for Enterprise WeChat",
     "version": "13.0.0.1",
     "description": """ 
 
@@ -14,9 +14,6 @@
     ],
     "data": [
         "views/assets_templates.xml",
-    ],
-    "qweb": [
-        "static/src/xml/*.xml",
     ],
     "installable": True,
     "auto_install": False,

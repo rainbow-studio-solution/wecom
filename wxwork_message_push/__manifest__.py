@@ -21,7 +21,7 @@
         "mail",
         "mass_mailing",
         "wxwork_base",
-        "web_markdown_editor",
+        "wxwork_markdown_editor",
     ],
     "external_dependencies": {
         "python": ["html2text"],
