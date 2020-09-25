@@ -16,7 +16,7 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 # 适配odoo13.0开发计划，随着自己的想法而变动
 
-## 开源项目 (2020-09-14)
+## 开源项目 (2020-09-25)
 
 1. wxwork_base （企业微信-基础模块）完成适配
 2. wxwork_users_syncing （企业微信-用户同步，原名 wxwork_contacts）完成
@@ -28,7 +28,7 @@ odoo 13.0变化很大，发现不少需要改动的。
     3. mac版的微信浏览器内核是系统的safari
     4. windows版cef核心浏览器版本是Chromium框架53
    
-    测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。
+    测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。目前已经将此问题反馈给腾讯企业微信团队，希望他们能更新吧。
 
 4. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
 5. wxwork_message_push（企业微信消息推送，原名wxwork_notice）
