@@ -15,8 +15,7 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
             'o_form_field_markdown',
         ].join(' '),
         jsLibs: [
-            '/wxwork_markdown_editor/static/src/js/marked.js',
-            // '/wxwork_markdown_editor/static/src/js/dropzone.js',
+            '/wxwork_markdown_editor/static/lib/bootstrap-markdown/js/marked.js',
             '/wxwork_markdown_editor/static/lib/bootstrap-markdown/js/bootstrap-markdown.js',
             //语言包
             // '/wxwork_markdown_editor/static/lib/bootstrap-markdown/locale/bootstrap-markdown.ar.js',
@@ -62,8 +61,8 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
                 $elm.markdown(this._getMarkdownOptions());
                 if (this.res_id) {
                     if (_t.database.multi_lang && this.field.translate) {
+                        $input[1].remove();
                         var $button = this._renderTranslateButton();
-                        // $button.css()
                         var fullscreen = $elm.prev().find(".md-control-fullscreen");
                         fullscreen.before($button);
                     }
