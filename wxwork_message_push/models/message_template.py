@@ -243,7 +243,7 @@ class MessageTemplate(models.Model):
         "- Handle by Emails: notifications are sent to your email address\n"
         "- Handle in Odoo: notifications appear in your Odoo Inbox",
     )
-    # safe = fields.Boolean("保密消息", default=False)
+    safe = fields.Boolean("保密消息", default=False)
 
     # title = fields.Char("标题", size=128, help="视频消息的标题，不超过128个字节，超过会自动截断")
     # description = fields.Char("描述", size=512, help="描述，不超过512个字节，超过会自动截断")
@@ -254,19 +254,20 @@ class MessageTemplate(models.Model):
     # )
     # btntxt = fields.Char("按钮文字", size=4, help="按钮文字。 默认为“详情”， 不超过4个文字，超过自动截断。")
 
-    # enable_id_trans = fields.Boolean(
-    #     string="开启id转译", help="0表示否，1表示是，默认0", default=False
-    # )
-    # enable_duplicate_check = fields.Boolean(
-    #     string="表示是否开启重复消息检查，", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
-    # )
-    # duplicate_check_interval = fields.Integer(
-    #     string="重复消息检查的时间间隔", help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时", default=1800
-    # )
+    enable_id_trans = fields.Boolean(
+        string="开启id转译", help="0表示否，1表示是，默认0", default=False
+    )
+    enable_duplicate_check = fields.Boolean(
+        string="表示是否开启重复消息检查，", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
+    )
+    duplicate_check_interval = fields.Integer(
+        string="重复消息检查的时间间隔", help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时", default=1800
+    )
 
     @api.model
     def copy_mail_template(self):
         templates = self.sudo().env["mail.template"].search([])
+
         for template in templates:
             message = self.search(
                 [("name", "=", template.name)],
@@ -306,6 +307,7 @@ class MessageTemplate(models.Model):
                         "msgtype": "markdown",
                     }
                 )
+
         # return {
         #     "type": "ir.actions.client",
         #     "tag": "reload",

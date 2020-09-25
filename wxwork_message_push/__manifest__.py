@@ -30,8 +30,10 @@
         # 'data/wxwork_data.xml',
         "wizard/message_template_preview_view.xml",
         "views/assets_templates.xml",
+        "views/res_users_views.xml",
         "views/wxwork_message_template_views.xml",
         "views/res_config_settings_views.xml",
+        "data/wxwork_message_data.xml",
         "security/ir.model.access.csv",
     ],
     "qweb": [
