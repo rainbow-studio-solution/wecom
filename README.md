@@ -30,8 +30,12 @@ odoo 13.0变化很大，发现不少需要改动的。
    
     测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。
 
-5. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
-4. wxwork_message_push（企业微信消息推送，原名wxwork_notice），开展中
+4. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
+5. wxwork_message_push（企业微信消息推送，原名wxwork_notice）
+   
+    5.1. 一键复制mail.template所有内容，暂时只能复制当前页面的默认语言，复制英文的内容，暂时没有找到方法，若有其方法，请留言告知。
+
+6. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。<a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
 
 
 
@@ -50,13 +54,13 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 ## 使用说明
 
-## QQ群
+# QQ群
 
 >若有使用问题，可以加入QQ群，寻求本人帮助
 
 ![QQ群](doc/img/QQ群二维码.png)
 
-## Odoo商城付费模块
+# Odoo商城付费模块
 
 <a href="https://apps.odoo.com/apps/modules/browse?search=RStudio" target="_blank">应用</a>
 <a href="https://apps.odoo.com/apps/themes/browse?search=RStudio" target="_blank">主题</a>
