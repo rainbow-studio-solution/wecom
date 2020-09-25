@@ -267,7 +267,6 @@ class MessageTemplate(models.Model):
     @api.model
     def copy_mail_template(self):
         templates = self.sudo().env["mail.template"].search([])
-
         for template in templates:
             message = self.search(
                 [("name", "=", template.name)],
@@ -276,7 +275,7 @@ class MessageTemplate(models.Model):
             if len(message) > 0:
                 pass
             else:
-
+                # pass
                 self.create(
                     {
                         "name": template.name,
@@ -293,7 +292,6 @@ class MessageTemplate(models.Model):
                         "reply_to": template.reply_to,
                         # "mail_server_id": template.mail_server_id,
                         "body_html": self.html2text_handle(template.body_html),
-                        # "body_html": template.body_html,
                         "report_name": template.report_name,
                         "report_template": template.report_template.id,
                         "ref_ir_act_window": template.ref_ir_act_window.id,
@@ -308,8 +306,10 @@ class MessageTemplate(models.Model):
                         "msgtype": "markdown",
                     }
                 )
-
-        return True
+        # return {
+        #     "type": "ir.actions.client",
+        #     "tag": "reload",
+        # }
 
     def html2text_handle(self, html):
         if bool(html):
