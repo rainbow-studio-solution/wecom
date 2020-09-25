@@ -23,7 +23,7 @@ odoo 13.0变化很大，发现不少需要改动的。
    
     2.1. 一键复制mail.template所有内容，暂时只能复制当前页面的默认语言，复制英文的内容，暂时没有找到方法，若有其方法，请留言告知。
 3. wxwork_users_syncing （企业微信-用户同步，原名 wxwork_contacts）完成
-4. wxwork_auth_oauth （企业微信-登录授权）,初步完成。PC版本企业微信内置浏览器访问Odoo的白屏问题待解决。
+4. wxwork_auth_oauth （企业微信-登录授权）,初步完成。PC版本企业微信内置浏览器访问Odoo的白屏问题已经反馈给腾讯企业微信团队，希望他们能更新吧
    
     企业微信的内置浏览器是什么:
     1. ios企业微信用的ios系统自带的WKWebview
@@ -31,7 +31,7 @@ odoo 13.0变化很大，发现不少需要改动的。
     3. mac版的微信浏览器内核是系统的safari
     4. windows版cef核心浏览器版本是Chromium框架53
    
-    测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。目前已经将此问题反馈给腾讯企业微信团队，希望他们能更新吧。
+    测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。
 
 5. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
 
