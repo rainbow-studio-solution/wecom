@@ -1,0 +1,78 @@
+// Main settings
+// ==========================================================================
+$eis-light2-theme-name: "light2";
+$eis-light2-brand-main-color: #3FD5C0 !default;
+$eis-light2-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-light2-font-size-base-touch: 15px;
+
+// 1. Colors
+// ==========================================================================
+//$eis-light2-brand: $o-enterprise-color;
+$eis-light2-primary-color: #fff;
+$eis-light2-primary-color-light: lighten($eis-light2-primary-color, 15%);
+$eis-light2-primary-color-dark: darken($eis-light2-primary-color, 15%);
+
+$eis-light2-brand-primary: $o-enterprise-primary-color;
+$eis-light2-brand-secondary: #8f8f8f;
+$eis-light2-brand-lightsecondary: #f8f9fa;
+
+// Body and header
+// ==========================================================================
+$eis-light2-bg-color: #F6F6F6 !default;
+$eis-light2-header-navbar-bg-color: #E1E1E1;
+$eis-light2-header-navbar-font-color: #484848;
+$eis-light2-header-navbar-toggle-color: darken($eis-light2-header-navbar-bg-color, 30%) !default;
+$eis-light2-header-navbar-toggle-bg-color: lighten($eis-light2-header-navbar-bg-color, 3%) !default;
+$eis-light2-header-navbar-inverse-link-hover-bg: lighten($eis-light2-header-navbar-bg-color, 1%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-light2-sidebar-menu-devider-border-color: #EEEEEE !default;
+
+$eis-light2-sidebar-menu-link-font-color: #555555 !default;
+$eis-light2-sidebar-menu-link-font-color-on-hover: $eis-light2-sidebar-menu-link-font-color !default;
+$eis-light2-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-light2-sidebar-menu-link-icon-font-color: #AAAAAA !default;
+$eis-light2-sidebar-menu-link-icon-font-color-on-active: $eis-light2-sidebar-menu-link-font-color-on-active !default;
+$eis-light2-sidebar-menu-link-icon-font-color-on-hover: #AAAAAA !default;
+
+$eis-light2-sidebar-menu-link-bg-color-on-hover: #EFEFEF !default;
+$eis-light2-sidebar-menu-link-bg-color-on-active: $eis-light2-brand-main-color;
+
+$eis-light2-sidebar-menu-arrow-color: $eis-light2-sidebar-menu-link-icon-font-color !default;
+$eis-light2-sidebar-menu-arrow-color-on-active: $eis-light2-sidebar-menu-link-font-color-on-active !default;
+$eis-light2-sidebar-menu-arrow-color-on-hover: $eis-light2-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-light2-sidebar-menu-sub-menu-box-shadow-color: $eis-light2-sidebar-menu-link-bg-color-on-hover !default;
+$eis-light2-sidebar-menu-sub-menu-link-font-color: $eis-light2-sidebar-menu-link-font-color !default;
+$eis-light2-sidebar-menu-sub-menu-link-icon-font-color: $eis-light2-sidebar-menu-arrow-color !default;
+$eis-light2-sidebar-menu-sub-menu-link-bg-color-on-hover: #EFEFEF !default;
+$eis-light2-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-light2-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-light2-sidebar-menu-hover-sub-menu-bg-color: darken($eis-light2-sidebar-menu-link-bg-color-on-hover, 3%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-light2-launcher-bg-color: darken($eis-light2-bg-color, 5%) !default;
+
+// Page content
+// ==========================================================================
+$eis-light2-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+$eis-light2-footer-default-font-color: lighten($eis-light2-bg-color, 40%) !default;
+$eis-light2-footer-default-go-top-bg-color: lighten($eis-light2-bg-color, 7%) !default;
+$eis-light2-footer-default-go-top-icon-font-color: lighten($eis-light2-bg-color, 30%) !default;
+$eis-light2-footer-fixed-bg-color: lighten(#E1E1E1, 5%) !default;
+
+
+// THEME PANEL
+// ==========================================================================
+$eis-light2-theme-panel-bg-color: #E1E1E1 !default;
+$eis-light2-theme-panel-font-color: #555555 !default;
+$eis-light2-theme-panel-line-color: #AAAAAA !default;

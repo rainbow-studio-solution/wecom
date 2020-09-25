@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- 全局设置 -->
+        <!-- <record id="base.main_company" model="res.company">
+            <field name="name">Rainbow Studio</field>
+            <field name="logo" type="base64" file="rainbow_community_theme/static/src/img/logo.png"/>
+            <field name="partner_id" ref="base.main_partner"/>
+        </record> -->
+        <record id="eis_system_name" model="ir.config_parameter">
+            <field name="key">rainbow.system_name</field>
+            <field name="value">ERP Solution</field>
+        </record>
+        <record id="eis_show_lang" model="ir.config_parameter">
+            <field name="key">rainbow.show_lang</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_show_poweredby" model="ir.config_parameter">
+            <field name="key">rainbow.show_poweredby</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_poweredby_text" model="ir.config_parameter">
+            <field name="key">rainbow.poweredby_text</field>
+            <field name="value">Powered by Odoo</field>
+        </record>
+        <record id="eis_poweredby_url" model="ir.config_parameter">
+            <field name="key">rainbow.poweredby_url</field>
+            <field name="value">https://www.odoo.com</field>
+        </record>
+
+        <record id="eis_web_icon" model="ir.config_parameter">
+            <field name="key">rainbow.web_icon</field>
+            <field name="value">static/src/img/favicon.png</field>
+        </record>
+        <record id="eis_apple_icon" model="ir.config_parameter">
+            <field name="key">rainbow.apple_touch_icon</field>
+            <field name="value">/rainbow_community_theme/static/src/img/mobile-icons/apple-152x152.png</field>
+        </record>
+        <record id="eis_android_icon" model="ir.config_parameter">
+            <field name="key">rainbow.android_touch_icon</field>
+            <field name="value">/rainbow_community_theme/static/src/img/mobile-icons/android-192x192.png</field>
+        </record>
+        <record id="eis_windows_icon" model="ir.config_parameter">
+            <field name="key">rainbow.windows_touch_icon</field>
+            <field name="value">/rainbow_community_theme/static/src/img/mobile-icons/windows-144x144.png</field>
+        </record>
+        <!-- 用户菜单 -->
+        <record id="eis_show_debug" model="ir.config_parameter">
+            <field name="key">rainbow.show_debug</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_show_documentation" model="ir.config_parameter">
+            <field name="key">rainbow.show_documentation</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_show_documentation_dev" model="ir.config_parameter">
+            <field name="key">rainbow.show_documentation_dev</field>
+            <field name="value">False</field>
+        </record>
+        <record id="eis_show_support" model="ir.config_parameter">
+            <field name="key">rainbow.show_support</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_show_account" model="ir.config_parameter">
+            <field name="key">rainbow.show_account</field>
+            <field name="value">True</field>
+        </record>
+
+        <!-- <record id="eis_show_enterprise" model="ir.config_parameter">
+            <field name="key">rainbow.show_enterprise</field>
+            <field name="value">False</field>
+        </record> -->
+        <record id="eis_show_share" model="ir.config_parameter">
+            <field name="key">rainbow.show_share</field>
+            <field name="value">False</field>
+        </record>
+
+        <record id="eis_documentation_url" model="ir.config_parameter">
+            <field name="key">rainbow.documentation_url</field>
+            <field name="value">https://www.odoo.com/documentation/user</field>
+        </record>
+        <record id="eis_documentation_dev_url" model="ir.config_parameter">
+            <field name="key">rainbow.documentation_dev_url</field>
+            <field name="value">https://www.odoo.com/documentation</field>
+        </record>
+        <record id="eis_support_url" model="ir.config_parameter">
+            <field name="key">rainbow.support_url</field>
+            <field name="value">https://www.odoo.com/help</field>
+        </record>
+        <record id="eis_account_title" model="ir.config_parameter">
+            <field name="key">rainbow.account_title</field>
+            <field name="value">My Online Account</field>
+        </record>
+        <record id="eis_account_url" model="ir.config_parameter">
+            <field name="key">rainbow.account_url</field>
+            <field name="value">https://accounts.odoo.com/account</field>
+        </record>
+
+        <!-- <record id="eis_enable_login_theme" model="ir.config_parameter">
+            <field name="key">rainbow.enable_login_theme</field>
+            <field name="value">True</field>
+        </record>
+        <record id="eis_login_theme" model="ir.config_parameter">
+            <field name="key">rainbow.login_theme</field>
+            <field name="value">4</field>
+        </record>
+        <record id="eis_lock_theme" model="ir.config_parameter">
+            <field name="key">rainbow.lock_theme</field>
+            <field name="value">1</field>
+        </record> -->
+    </data>
+</openerp>

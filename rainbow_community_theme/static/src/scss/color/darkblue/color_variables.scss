@@ -1,0 +1,78 @@
+// Main settings
+// ==========================================================================
+$eis-darkblue-theme-name: "darkblue";
+$eis-darkblue-brand-main-color: lighten(#32c5d2, 1%) !default;
+$eis-darkblue-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-darkblue-font-size-base-touch: 15px;
+
+// 1. Colors
+// ==========================================================================
+//$eis-darkblue-brand: $o-enterprise-color;
+$eis-darkblue-primary-color: #fff;
+$eis-darkblue-primary-color-light: lighten($eis-darkblue-primary-color, 15%);
+$eis-darkblue-primary-color-dark: darken($eis-darkblue-primary-color, 15%);
+
+$eis-darkblue-brand-primary: $o-enterprise-primary-color;
+$eis-darkblue-brand-secondary: #8f8f8f;
+$eis-darkblue-brand-lightsecondary: #f8f9fa;
+
+// Body and header
+// ==========================================================================
+$eis-darkblue-bg-color: #364150 !default;
+$eis-darkblue-header-navbar-bg-color: #2b3643 !default;
+$eis-darkblue-header-navbar-font-color:#c5c5c5 !default;
+$eis-darkblue-header-navbar-toggle-color: lighten($eis-darkblue-header-navbar-bg-color, 50%) !default;
+$eis-darkblue-header-navbar-toggle-bg-color: lighten($eis-darkblue-bg-color, 5%) !default;
+// $eis-darkblue-header-navbar-inverse-link-hover-bg: lighten($eis-darkblue-bg-color, 5%) !default;
+$eis-darkblue-header-navbar-inverse-link-hover-bg: lighten($eis-darkblue-header-navbar-bg-color, 5%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-darkblue-sidebar-menu-devider-border-color: darken(#3f4b5a, 1%) !default;
+
+$eis-darkblue-sidebar-menu-link-font-color: #b4bcc8 !default;
+$eis-darkblue-sidebar-menu-link-font-color-on-hover: $eis-darkblue-sidebar-menu-link-font-color !default;
+$eis-darkblue-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-darkblue-sidebar-menu-link-icon-font-color: #606C7D !default;
+$eis-darkblue-sidebar-menu-link-icon-font-color-on-active: $eis-darkblue-sidebar-menu-link-font-color-on-active !default;
+$eis-darkblue-sidebar-menu-link-icon-font-color-on-hover: $eis-darkblue-sidebar-menu-link-icon-font-color !default;
+
+$eis-darkblue-sidebar-menu-link-bg-color-on-hover: #2C3542 !default;
+$eis-darkblue-sidebar-menu-link-bg-color-on-active: $eis-darkblue-brand-main-color;
+
+$eis-darkblue-sidebar-menu-arrow-color: $eis-darkblue-sidebar-menu-link-icon-font-color !default;
+$eis-darkblue-sidebar-menu-arrow-color-on-active: $eis-darkblue-sidebar-menu-link-font-color-on-active !default;
+$eis-darkblue-sidebar-menu-arrow-color-on-hover: $eis-darkblue-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-darkblue-sidebar-menu-sub-menu-box-shadow-color: $eis-darkblue-sidebar-menu-link-bg-color-on-hover !default;
+$eis-darkblue-sidebar-menu-sub-menu-link-font-color: #b4bcc8 !default;
+$eis-darkblue-sidebar-menu-sub-menu-link-icon-font-color: $eis-darkblue-sidebar-menu-arrow-color !default;
+$eis-darkblue-sidebar-menu-sub-menu-link-bg-color-on-hover: lighten($eis-darkblue-bg-color, 4%) !default;
+$eis-darkblue-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-darkblue-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-darkblue-sidebar-menu-hover-sub-menu-bg-color: lighten($eis-darkblue-sidebar-menu-link-bg-color-on-hover, 3%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-darkblue-launcher-bg-color: lighten($eis-darkblue-bg-color, 5%) !default;
+
+// Page content
+// ==========================================================================
+$eis-darkblue-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+$eis-darkblue-footer-default-font-color: lighten($eis-darkblue-bg-color, 40%) !default;
+$eis-darkblue-footer-default-go-top-bg-color: lighten($eis-darkblue-bg-color, 7%) !default;
+$eis-darkblue-footer-default-go-top-icon-font-color: lighten($eis-darkblue-bg-color, 30%) !default;
+$eis-darkblue-footer-fixed-bg-color: darken($eis-darkblue-bg-color, 7%) !default;
+
+// THEME PANEL
+// ==========================================================================
+$eis-darkblue-theme-panel-bg-color: #2b3643;
+$eis-darkblue-theme-panel-font-color: #c5c5c5 !default;
+$eis-darkblue-theme-panel-line-color: lighten($eis-darkblue-theme-panel-bg-color, 5%) !default;

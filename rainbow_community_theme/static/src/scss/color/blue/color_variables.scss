@@ -1,0 +1,77 @@
+// Main settings
+// ==========================================================================
+$eis-blue-theme-name: "blue";
+$eis-blue-brand-main-color: #d64635 !default;
+$eis-blue-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-blue-font-size-base-touch: 15px !default;
+
+// 1. Colors
+// ==========================================================================
+//$eis-blue-brand: $o-enterprise-color;
+$eis-blue-primary-color: #fff;
+$eis-blue-primary-color-light: lighten($eis-blue-primary-color, 15%) !default;
+$eis-blue-primary-color-dark: darken($eis-blue-primary-color, 15%) !default;
+
+$eis-blue-brand-primary: $o-enterprise-primary-color !default;
+$eis-blue-brand-secondary: #8f8f8f !default;
+$eis-blue-brand-lightsecondary: #f8f9fa !default;
+
+// Body and header
+// ==========================================================================
+$eis-blue-bg-color: #4276A4 !default;
+$eis-blue-header-navbar-bg-color: #2D5F8B !default;
+$eis-blue-header-navbar-font-color: #c5c5c5 !default;
+$eis-blue-header-navbar-toggle-color: lighten($eis-blue-header-navbar-bg-color, 50%) !default;
+$eis-blue-header-navbar-toggle-bg-color: darken($eis-blue-bg-color, 5%) !default;
+$eis-blue-header-navbar-inverse-link-hover-bg: darken($eis-blue-bg-color, 5%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-blue-sidebar-menu-devider-border-color: lighten($eis-blue-bg-color, 2%) !default;
+
+$eis-blue-sidebar-menu-link-font-color: #C9DFF5 !default;
+$eis-blue-sidebar-menu-link-font-color-on-hover: $eis-blue-sidebar-menu-link-font-color !default;
+$eis-blue-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-blue-sidebar-menu-link-icon-font-color: #8EB8DE !default;
+$eis-blue-sidebar-menu-link-icon-font-color-on-active: $eis-blue-sidebar-menu-link-font-color-on-active !default;
+$eis-blue-sidebar-menu-link-icon-font-color-on-hover: #D2E6F9 !default;
+
+$eis-blue-sidebar-menu-link-bg-color-on-hover: #497FAE !default;
+$eis-blue-sidebar-menu-link-bg-color-on-active: $eis-blue-brand-main-color !default;
+
+$eis-blue-sidebar-menu-arrow-color: $eis-blue-sidebar-menu-link-icon-font-color !default;
+$eis-blue-sidebar-menu-arrow-color-on-active: $eis-blue-sidebar-menu-link-font-color-on-active !default;
+$eis-blue-sidebar-menu-arrow-color-on-hover: $eis-blue-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-blue-sidebar-menu-sub-menu-box-shadow-color: $eis-blue-sidebar-menu-link-bg-color-on-hover !default;
+$eis-blue-sidebar-menu-sub-menu-link-font-color: #C9DFF5 !default;
+$eis-blue-sidebar-menu-sub-menu-link-icon-font-color: $eis-blue-sidebar-menu-arrow-color !default;
+$eis-blue-sidebar-menu-sub-menu-link-bg-color-on-hover: #397FAE !default;
+$eis-blue-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-blue-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-blue-sidebar-menu-hover-sub-menu-bg-color: darken($eis-blue-sidebar-menu-link-bg-color-on-hover, 8%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-blue-launcher-bg-color: darken($eis-blue-bg-color, 5%) !default;
+
+// Page content
+// ==========================================================================
+$eis-blue-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+$eis-blue-footer-default-font-color: lighten($eis-blue-bg-color, 40%) !default;
+$eis-blue-footer-default-go-top-bg-color: lighten($eis-blue-bg-color, 7%) !default;
+$eis-blue-footer-default-go-top-icon-font-color: lighten($eis-blue-bg-color, 30%) !default;
+$eis-blue-footer-fixed-bg-color: darken($eis-blue-bg-color, 7%) !default;
+
+// THEME PANEL
+// ==========================================================================
+$eis-blue-theme-panel-bg-color: #4276A4 !default;
+$eis-blue-theme-panel-font-color: #c6cfda !default;
+$eis-blue-theme-panel-line-color: #548bba !default;

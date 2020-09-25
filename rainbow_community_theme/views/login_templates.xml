@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="login_assets" inherit_id="web.assets_frontend">
+        <xpath expr="." position="inside">
+            <t t-set="website_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('website')"/>
+            <t t-if="website_is_installed"></t>
+            <t t-else="">
+                
+                <t t-set="enable_login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.enable_login_theme', '')"/>
+                <t t-set="login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.login_theme', '')"/>
+                <t t-if="enable_login_theme =='True'">
+                    <link rel="stylesheet" type="text/scss" t-att-href="'/rainbow_community_theme/static/src/scss/pages/login/login'+login_theme+'.scss'" />
+                    <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/lib/simple-line-icons/simple-line-icons.scss"/>
+                    <script type="text/javascript" src="/rainbow_community_theme/static/lib/backstretch/jquery.backstretch.min.js"></script>
+                    <script type="text/javascript" t-att-src="'/rainbow_community_theme/static/src/js/login/login'+ login_theme +'.js'"></script>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="rainbow_community_theme.login_layout" inherit_id="web.login_layout">
+        <xpath expr="//t[@t-call='web.frontend_layout']/t[last()]" position="after">
+            <t t-set="website_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('website')"/>
+            <t t-if="website_is_installed">
+                <t t-set="body_classname" t-value="'o_launcher_menu_background'"/>
+                <t t-set="login_card_classes" t-value="'rounded-0 shadow-sm bg-white'"/>
+            </t>
+            <t t-else="">
+                <t t-set="enable_login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.enable_login_theme', '')"/>
+                <t t-set="login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.login_theme', '')"/>
+                
+                <t t-if="enable_login_theme =='True'" t-set="body_classname" t-value="'o_login_'+login_theme"/>
+                <t t-else="" t-set="body_classname" t-value="'o_launcher_menu_background'">
+                    <t t-set="login_card_classes" t-value="'rounded-0 shadow-sm bg-white'"/>
+                </t>
+            </t>    
+        </xpath>
+        <xpath expr="//div[@class='container py-5']" position="replace">
+            <t t-set="website_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('website')"/>
+            <t t-if="website_is_installed">
+                <div class="container py-5">
+                    <div t-attf-class="card border-0 mx-auto bg-100 {{login_card_classes}} o_database_list" style="max-width: 300px;">
+                        <div class="card-body">
+                            <div t-attf-class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}}">
+                                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+                            </div>
+                            <t t-raw="0"/>
+                            <div class="text-center small mt-4 pt-3 border-top" t-if="not disable_footer">
+                                <t t-if="not disable_database_manager">
+                                    <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                </t>
+                                <a href="https://www.odoo.com?utm_source=db&amp;utm_medium=auth" target="_blank">Powered by <span>Odoo</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-set="enable_login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.enable_login_theme', '')"/>
+                <t t-set="login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.login_theme', '')"/>
+                <t t-if="enable_login_theme =='True'">
+                    <t t-if="login_theme=='1' or login_theme=='2' or login_theme=='3' or login_theme=='4'">
+                        <div class="logo">
+                            <a class="brand">
+                                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <t t-raw="0"/>
+                        </div>
+                        <div class="copyright">
+                            <t t-if="not disable_database_manager">
+                                <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                            </t>
+                            <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+                            <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+                            <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+                            <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                                <t t-if="show_poweredby=='True'">
+                                    <t t-esc="poweredby_text"/>
+                                </t>
+                                <t t-else="">Powered by Odoo</t>
+                            </a>
+                        </div>
+                    </t>
+                    <t t-if="login_theme=='5' or login_theme=='6' ">
+                        <div class="user-login">
+                            <div class="row bs-reset">
+                                <t t-raw="0"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+                <t t-else="">
+                    <div class="container py-5">
+                        <div t-attf-class="card border-0 mx-auto bg-100 {{login_card_classes}} o_database_list" style="max-width: 300px;">
+                            <div class="card-body">
+                            
+                                <div t-attf-class="text-center pb-3 border-bottom {{'mb-3' if form_small else 'mb-4'}}">
+                                    <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+                                </div>
+                                <t t-raw="0"/>
+                                <div class="text-center small mt-4 pt-3 border-top" t-if="not disable_footer">
+                                    <t t-if="not disable_database_manager">
+                                        <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                    </t>
+                                    <a href="https://www.odoo.com?utm_source=db&amp;utm_medium=auth" target="_blank">Powered by <span>Odoo</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+
+        </xpath>
+    </template>
+
+    <template id="rainbow_community_theme.login" name="Login" inherit_id="web.login">
+        <xpath expr="//form[@class='oe_login_form']" position="replace">
+            <t t-set="website_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('website')"/>
+            <t t-if="website_is_installed">
+                <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                        <label for="db" class="col-form-label">Database</label>
+                        <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+                            <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                            <span class="input-group-append">
+                                <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"></i></a>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group field-login">
+                        <label for="login">Email</label>
+                        <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                    </div>
+
+                    <div class="form-group field-password">
+                        <label for="password">Password</label>
+                        <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                    </div>
+
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <p class="alert alert-success" t-if="message" role="status">
+                        <t t-esc="message"/>
+                    </p>
+
+                    <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                        <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                        <t t-if="debug">
+                            <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
+                        </t>
+
+                        <div class="o_login_auth"/>
+                    </div>
+
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                </form>
+            </t>
+            <t t-else="">
+                <t t-set="enable_login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.enable_login_theme', '')"/>
+                <t t-set="login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.login_theme', '')"/>
+                <t t-if="enable_login_theme =='True' ">
+                    <t t-call="rainbow_community_theme.login_form{{login_theme}}">
+                        <t t-raw="0"/>
+                    </t>
+                </t>
+                <t t-else="">
+                    <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                            <label for="db" class="col-form-label">Database</label>
+                            <div t-attf-class="input-group {{'input-group-sm' if form_small else ''}}">
+                                <input type="text" name="db" t-att-value="request.db" id="db" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" readonly="readonly"/>
+                                <span class="input-group-append">
+                                    <a role="button" href="/web/database/selector" class="btn btn-secondary">Select <i class="fa fa-database" role="img" aria-label="Database" title="Database"></i></a>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group field-login">
+                            <label for="login">Email</label>
+                            <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
+
+                        <div class="form-group field-password">
+                            <label for="password">Password</label>
+                            <input type="password" placeholder="Password" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+
+                        <p class="alert alert-danger" t-if="error" role="alert">
+                            <t t-esc="error"/>
+                        </p>
+                        <p class="alert alert-success" t-if="message" role="status">
+                            <t t-esc="message"/>
+                        </p>
+
+                        <div t-attf-class="clearfix oe_login_buttons text-center mb-1 {{'pt-2' if form_small else 'pt-3'}}">
+                            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                            <div class="justify-content-between mt-2 d-flex small">
+                                <a t-if="signup_enabled" t-attf-href="/web/signup?{{ keep_query() }}">Don't have an account?</a>
+                                <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+                            </div>
+                            <t t-if="debug">
+                                <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-sm btn-block">Log in as superuser</button>
+                            </t>
+                            
+                            <div class="o_login_auth">
+                                <t t-call="rainbow_community_theme.providers"/>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    </form>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="rainbow_community_theme.login_layout_vertical" name="Rainbow Login Layout Vertical">
+        <div class="logo">
+            <a class="brand">
+                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" style="max-height:120px; max-width: 100%; width:auto"/>
+            </a>
+        </div>
+        <div class="content">
+            <t t-raw="0"/>
+        </div>
+        <div class="copyright">
+            <t t-if="not disable_database_manager">
+                <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+            </t>
+            <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+            <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+            <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+            <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                <t t-if="show_poweredby=='True'">
+                    <t t-esc="poweredby_text"/>
+                </t>
+                <t t-else="">Powered by Odoo</t>
+            </a>
+        </div>
+    </template>
+
+</odoo>

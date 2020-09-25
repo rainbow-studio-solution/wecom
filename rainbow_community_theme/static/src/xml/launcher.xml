@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <div t-name="LauncherMenu" class="o_launcher_menu">
+        <div class="o_menu_search o_bar_hidden d-none d-md-flex">
+            <span class="fa fa-search o_menu_search_icon" role="img" aria-label="Search" title="Search"/>
+            <input type="text" placeholder="Search..." class="o_menu_search_input" onfocus="this.value = this.value;"/>
+        </div>
+        <div class="o_launcher_menu_scrollable">
+            <t t-call="LauncherMenu.Content"/>
+        </div>
+    </div>
+
+    <t t-name="LauncherMenu.Content">
+        <div t-if="widget._state.apps.length" class="o_apps">
+            <t t-set="focused_app_index" t-value="widget.getAppIndex()"/>
+            <t t-foreach="widget._state.apps" t-as="app">
+                <a t-att-class="'o_app o_menuitem' + ((focused_app_index === app_index)? ' o_focused' : '')" t-att-data-menu="app.id" t-att-data-action-model="app.action ? app.action.split(',')[0] : ''" t-att-data-action-id="app.action" t-att-data-menu-xmlid="app.xmlid" t-att-href="app.href ? app.href : ('#menu_id='+app.id+'&amp;action_id='+app.action)">
+                    <div t-if="app.web_icon_data" class="o_app_icon" t-attf-style="background-image: url('#{app.web_icon_data}');"/>
+                    <div t-else="" class="o_app_icon o_app_icon_has_pictogram" t-attf-style="background-color: #{app.web_icon.background};">
+                        <i t-att-class="app.web_icon.class" t-attf-style="color: #{app.web_icon.color};"/>
+                    </div>
+                    <div class="o_caption">
+                        <t t-esc="app.label"/>
+                    </div>
+                </a>
+            </t>
+        </div>
+        <div t-if="widget._state.menuItems.length" class="o_menuitems">
+            <t t-set="focused_menu_index" t-value="widget.getMenuIndex()"/>
+            <t t-foreach="widget._state.menuItems" t-as="menu">
+                <a role="menuitem" t-att-class="'o_menuitem' + ((focused_menu_index === menu_index)? ' o_focused' : '')" 
+                    t-att-href="menu.href ? menu.href : ('#menu_id='+menu.id+'&amp;action_id='+menu.action)" 
+                    t-att-data-menu="menu.id"
+                >
+                    <span class="o_menuitem_parents">
+                        <t t-esc="menu.parents"></t>
+                    /
+                    </span>
+                    <t t-esc="menu.label"/>
+                </a>
+            </t>
+        </div>
+        <t t-if="widget._state.apps.length + widget._state.menuItems.length === 0">
+            <div class="o_no_result" role="alert">No result</div>
+        </t>
+        <div class="o_launcher_menu_footer">
+            <img src="/web/binary/company_logo" alt="Logo"/>
+        </div>
+    </t>
+</templates>

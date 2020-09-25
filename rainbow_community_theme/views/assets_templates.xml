@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="_assets_primary_variables" inherit_id="web._assets_primary_variables" priority="15">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/primary_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/eis_variables.scss"/>
+
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/color_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/color_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/color_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/color_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/color_variables.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/color_variables.scss"/>
+        </xpath>
+    </template>
+
+    <template id="_assets_secondary_variables" inherit_id="web._assets_secondary_variables" priority="15">
+        <xpath expr="//link" position="before">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/secondary_variables.scss"/>
+            <!-- <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/theme_options.scss"/> -->
+        </xpath>
+    </template>
+
+    <template id="_assets_backend_helpers" inherit_id="web._assets_backend_helpers" priority="15">
+        <xpath expr="//link[@href='/web/static/src/scss/bootstrap_overridden.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/bootstrap_overridden.scss"/>
+        </xpath>
+    </template>
+
+    <template id="assets_common" name="rainbow_community_theme assets common" inherit_id="web.assets_common">
+        <xpath expr="//link[@href='/web/static/src/scss/ui_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/ui.scss"/>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/fonts.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/navbar.scss']" position="after">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/navbar.scss"/>
+
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/global/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/theme_options.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/theme_options.scss"/>
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="rainbow_community_theme assets backend" inherit_id="web.assets_backend">
+        <xpath expr="//link[@href='/web/static/src/scss/webclient_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/webclient.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/webclient_layout.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/webclient_layout.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/fields_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/fields.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/form_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/form_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/list_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/list_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/search_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/search_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/dropdown_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/dropdown.scss"/>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <!--thmeme default -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/default/ui.scss"/>
+            
+            <!--thmeme darkblue -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/darkblue/ui.scss"/>
+            
+            <!--thmeme blue -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/blue/ui.scss"/>
+            
+            <!--thmeme grey -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/grey/ui.scss"/>
+            
+            <!--thmeme light -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light/ui.scss"/>
+            
+            <!--thmeme light2 -->
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/webclient_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/navbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/sidebar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/color/light2/ui.scss"/>            
+
+
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/launcher_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/launcher_menu_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/search_panel_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/menu_search.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/control_panel_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/datepicker.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/kanban_view.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/touch_device.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/snackbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/swipe_item_mixin.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/form_view_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/kanban_view_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/modal_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/navbar_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/rainbow_community_theme/static/src/scss/layout/sidebar.scss"/>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/src/js/chrome/abstract_action.js']" position="before">
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/sidebar_menu.js"/>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/footer.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/chrome/abstract_web_client.js']" position="replace">
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/abstract_web_client.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/chrome/web_client.js']" position="replace">
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/web_client.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/chrome/menu.js']" position="replace">
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/menu.js"/>
+        </xpath>
+  
+        <xpath expr="//script[@src='/web/static/src/js/fields/upgrade_fields.js']" position="replace"/>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/rainbow_community_theme/static/lib/jquery-slimscroll/jquery.slimscroll.js"/>
+            <script type="text/javascript" src="/rainbow_community_theme/static/lib/backstretch/jquery.backstretch.min.js"/>
+            
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/window_title.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/apps.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/control_panel_renderer.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/launcher_menu.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/menu_mobile.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/search_panel_mobile.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/swipe_item_mixin.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/core/dialog.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/views/calendar/calendar_renderer.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/views/form_renderer.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/views/relational_fields.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/views/upgrade_fields.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/views/view_dialogs.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/debug_manager.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/user_menu.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/snackbar.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/switch_company_menu.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/theme.js"></script>
+            <script type="text/javascript" src="/rainbow_community_theme/static/src/js/widgets/full_screen.js"></script>
+            
+        </xpath>
+    </template>
+</odoo>

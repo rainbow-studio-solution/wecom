@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <div t-name="Theme.settings.panel" class="theme-panel">
+        <div class="theme-options">
+            <div class="theme-option theme-colors clearfix" style="border-top: 0;">
+                <span> THEME COLOR </span>
+                <t t-set="colors" t-value="[
+                {'color':'default', 'title':'Default'},
+                {'color':'darkblue', 'title':'Dark Blue'},
+                {'color':'blue', 'title':'Blue'},
+                {'color':'grey', 'title':'Grey'},
+                {'color':'light', 'title':'Light'},
+                {'color':'light2', 'title':'Light 2'}]"/>
+                <t t-set="current_color" t-value="current"/>
+                <ul>
+                    <t t-foreach="colors" t-as="theme_color">
+                        <t t-if="theme_color.color==current_color">
+                            <li data-container="body" t-attf-class="color-{{theme_color.color}} current tooltips" t-att-data-style="theme_color.color" t-att-title="theme_color.title"/>
+                        </t>
+                        <t t-else="">
+                            <li data-container="body" t-attf-class="color-{{theme_color.color}} tooltips" t-att-data-style="theme_color.color" t-att-title="theme_color.title"/>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+            <div class="theme-option">
+                <span> LAUNCHER BACKGROUND </span>
+                <t t-set="status" t-value="launcher_bg_status"/>
+                <select class="launcher-bg-status-option form-control input-sm">
+                    <option value="enable" t-att-selected="((status === 'enable')? true : undefined)">Enable</option>
+                    <option value="disable" t-att-selected="((status === 'disable')? true : undefined)">Disable</option>
+                </select>
+            </div>
+            <div class="theme-option launcher-bg-option clearfix">
+                <span class="text-muted text-lowercase font-italic">Double click to preview the picture</span>
+                <t t-set="images" t-value="[
+                {'image':'1.jpg', 'title':'BACKGROUND 1'},
+                {'image':'2.jpg', 'title':'BACKGROUND 2'},
+                {'image':'3.jpg', 'title':'BACKGROUND 3'},
+                {'image':'4.jpg', 'title':'BACKGROUND 4'},
+                {'image':'5.jpg', 'title':'BACKGROUND 5'},
+                {'image':'6.jpg', 'title':'BACKGROUND 6'},
+                {'image':'7.jpg', 'title':'BACKGROUND 7'},
+                {'image':'8.jpg', 'title':'BACKGROUND 8'},
+                {'image':'9.jpg', 'title':'BACKGROUND 9'}]"/>
+                <t t-set="current_image" t-value="current_bg"/>
+                <ul>
+                    <t t-foreach="images" t-as="img">
+                        <t t-if="img.image==current_image">
+                            <li data-container="body" class="current tooltips" t-att-title="img.title" t-att-data-img="img.image">
+                                <img class="img-fluid" t-attf-src="/rainbow_community_theme/static/src/img/launcher/bg-thum-{{img.image}}"/>                                
+                            </li>
+                        </t>
+                        <t t-else="">
+                            <li data-container="body" class="tooltips" t-att-title="img.title" t-att-data-img="img.image">                                
+                                <img class="img-fluid" t-attf-src="/rainbow_community_theme/static/src/img/launcher/bg-thum-{{img.image}}"/>                                
+                            </li>
+                        </t>
+                    </t>
+                </ul>
+            </div>
+            <div class="theme-option">
+                <span> Submenu Position </span>
+                <t t-set="position" t-value="submenu_position"/>
+                <select class="submenu-pos-option form-control input-sm">
+                    <option value="header" t-att-selected="((position === 'header')? true : undefined)">Header</option>
+                    <option value="sidebar" t-att-selected="((position === 'sidebar')? true : undefined)">Sidebar</option>
+                    <option value="both" t-att-selected="((position === 'both')? true : undefined)">Both</option>
+                </select>
+            </div>
+            <div class="theme-option">
+                <span> Sidebar Mode </span>
+                <t t-set="mode" t-value="sidebar_mode"/>
+                <select class="sidebar-option form-control input-sm">
+                    <option value="expand" t-att-selected="((mode === 'expand')? true : undefined)">Expand</option>
+                    <option value="collapsed" t-att-selected="((mode === 'collapsed')? true : undefined)">Collapsed</option>
+                </select>
+            </div>
+            <!-- <div class="theme-option">
+                <span> Sidebar Position </span>
+                <t t-set="position" t-value="sidebar_position"/>
+                <select class="sidebar-pos-option form-control input-sm">
+                    <option value="left" t-att-selected="((position === 'left')? true : undefined)">Left</option>
+                    <option value="right" t-att-selected="((position === 'right')? true : undefined)">Right</option>
+                </select>
+            </div> -->
+            <div class="theme-option">
+                <span> Footer </span>
+                <t t-set="footer" t-value="footer"/>
+                <select class="page-footer-option form-control input-sm">
+                    <option value="show" t-att-selected="((footer === 'show')? true : undefined)">Show</option>
+                    <option value="hide" t-att-selected="((footer === 'hide')? true : undefined)">Hide</option>
+                </select>
+            </div>
+        </div>
+        <div class="theme-btn o_hidden">
+            <span class="text-danger"> You need to save to make the theme setting options take effect！ </span>
+            <button class="btn btn-info theme-save">SAVE</button>
+        </div>
+        <div class="theme-close" style="display: block;"></div>
+    </div>
+
+    <div t-name="Theme.launcher.preview" class="img-preview-box">
+        <t t-set="img" t-value="img"/>
+        <div class="lb-details">
+            <img class="img-fluid lb-image" t-attf-src="/rainbow_community_theme/static/src/img/launcher/bg-{{img}}"/>
+        </div>
+        <div class="lb-closeContainer">
+            <a class="lb-close"></a>
+        </div>
+    </div>
+</templates>

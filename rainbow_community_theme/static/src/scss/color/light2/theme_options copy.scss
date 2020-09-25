@@ -1,0 +1,62 @@
+.style_light2 {
+
+
+    >.theme-panel {
+        background: $eis-light2-theme-panel-bg-color !important;
+
+        >.theme-panel-option {
+            background: $eis-light2-theme-panel-bg-color !important;
+
+            >.theme-option {
+                color: $eis-light2-theme-panel-font-color;
+                border-top: 1px solid $eis-light2-theme-panel-line-color;
+
+                >select.form-control {
+                    background-color: #fff;
+                    border: 1px solid #c2cad8;
+                }
+
+                &.theme-colors {
+                    padding-top: 0 !important;
+                    border-top: 0;
+
+                    >span {
+                        display: block;
+                        width: auto;
+                    }
+
+                    >ul {
+                        >li {
+                            border: solid 1px #707070;
+
+                            &:first-child {
+                                margin-left: 0;
+                            }
+
+
+                        }
+                    }
+                }
+
+                &.launcher-bg-option {
+                    color: $eis-light2-theme-panel-font-color;
+                    border-top: 1px solid $eis-light2-theme-panel-line-color !important;
+                    // padding-top: 15px !important;
+
+                    span {
+                        color: $eis-light2-theme-panel-font-color !important;
+                    }
+                }
+            }
+        }
+
+        >.theme-panel-close {
+            color: #ffffff !important;
+            background: url(/rainbow_community_theme/static/src/img/icon-color-close.png) center no-repeat darken($eis-light2-theme-panel-bg-color, 20%) !important;
+
+            &:hover {
+                background-color: darken($eis-light2-theme-panel-bg-color, 40%) !important;
+            }
+        }
+    }
+}

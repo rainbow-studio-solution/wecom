@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>    
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-set='body_classname']" position="replace">
+            <t t-set="mode" t-value="request and request.env['res.users'].sudo().search([('id','=',request.session.uid)]).sidebar_mode"/>
+            <t t-set="color" t-value="request and request.env['res.users'].sudo().search([('id','=',request.session.uid)]).theme_color"/>
+
+            <t t-if="mode =='collapsed' and color=='default'" t-set="body_classname" t-value="'style_default o_web_client o_sidebar_collapsed '"/>
+            <t t-if="mode =='expand' and color=='default'" t-set="body_classname" t-value="'style_default o_web_client o_sidebar_expand'"/>
+            <t t-if="mode =='collapsed' and color=='darkblue'" t-set="body_classname" t-value="'style_darkblue o_web_client o_sidebar_collapsed '"/>
+            <t t-if="mode =='expand' and color=='darkblue'" t-set="body_classname" t-value="'style_darkblue o_web_client o_sidebar_expand'"/>
+            <t t-if="mode =='collapsed' and color=='blue'" t-set="body_classname" t-value="'style_blue o_web_client o_sidebar_collapsed'"/>
+            <t t-if="mode =='expand' and color=='blue'" t-set="body_classname" t-value="'style_blue o_web_client o_sidebar_expand '"/>
+            <t t-if="mode =='collapsed' and color=='grey'" t-set="body_classname" t-value="'style_grey o_web_client o_sidebar_collapsed '"/>
+            <t t-if="mode =='expand' and color=='grey'" t-set="body_classname" t-value="'style_grey o_web_client o_sidebar_expand '"/>
+            <t t-if="mode =='collapsed' and color=='light'" t-set="body_classname" t-value="'style_light o_web_client o_sidebar_collapsed '"/>
+            <t t-if="mode =='expand' and color=='light'" t-set="body_classname" t-value="'style_light o_web_client o_sidebar_expand '"/>
+            <t t-if="mode =='collapsed' and color=='light2'" t-set="body_classname" t-value="'style_light2 o_web_client o_sidebar_collapsed '"/>
+            <t t-if="mode =='expand' and color=='light2'" t-set="body_classname" t-value="'style_light2 o_web_client o_sidebar_expand '"/>
+        </xpath>
+        <xpath expr="//t[@t-set='body_classname']" position="after">
+            <div class="o_main"/>
+        </xpath>
+        <xpath expr="//t[@t-set='head']" position="after">
+            <t t-set="head_rainbow_community_theme">
+                <!-- Chrome, Firefox OS and Opera -->
+                <meta name="theme-color" content="#875A7B"/>
+                <t t-set="android_touch_icon" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.android_touch_icon', '')"/>
+                <link rel="icon" sizes="192x192" t-att-href="android_touch_icon"/>
+
+                <!-- iOS Safari -->
+                <meta name="apple-mobile-web-app-capable" content="yes"/>
+                <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+                <t t-set="apple_touch_icon" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.apple_icon', '')"/>
+                <link rel="apple-touch-icon" t-att-href="apple_touch_icon"/>
+
+                <!-- Windows Phone -->
+                <meta name="msapplication-navbutton-color" content="#875A7B"/>
+                <meta name="msapplication-TileColor" content="#875A7B"/>
+                <t t-set="windows_touch_icon" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.windows_touch_icon', '')"/>
+                <meta name="msapplication-TileImage" t-att-content="windows_touch_icon"/>
+            </t>
+            <t t-set="head" t-value="head_rainbow_community_theme + (head or '')"/>
+        </xpath>
+    </template>
+
+    <template id="layout" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <t t-set="web_title" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.system_name', '')"/>
+            <title t-esc="title or web_title" />
+        </xpath>      
+    </template>
+</odoo>

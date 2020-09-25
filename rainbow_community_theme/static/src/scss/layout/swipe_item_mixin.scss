@@ -1,0 +1,41 @@
+.o_swipe_item {
+    &, > * {
+        position: relative;
+    }
+
+    &.o_swipe_current {
+        overflow: visible;
+        border-color: transparent !important;
+
+        .o_swipe_separator {
+            border-radius: 5px;
+        }
+    }
+
+    .o_swipe_separator {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: $gray-300
+    }
+
+    .o_swipe_action {
+        position: absolute;
+        width: 100%;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+
+        &.left {
+            justify-content: flex-end;
+        }
+
+        &.right {
+            justify-content: flex-start;
+        }
+    }
+}

@@ -1,0 +1,169 @@
+
+.o_launcher_menu_background {
+    // 'Home menu background' design is shared with enterprise login
+    // screens and it's located in '/rainbow_community_theme/static/src/scss/ui.scss'
+
+    // When applied on webclient (note: we do not specify the webclient class
+    // here to avoid breaking studio custom style)
+    &:not(.o_launcher_menu_background_custom) .o_main_navbar {
+        background-color: transparent;
+        border-color: transparent;
+
+        .show .dropdown-toggle {
+            background-color: rgba(black, 0.1);
+        }
+        .oe_topbar_avatar {
+            box-shadow: $o-home-studio-menu-shadow;
+        }
+
+        &, & > ul > li {
+            > a {
+                text-shadow: $o-home-studio-menu-shadow;
+
+                &:hover, &:focus {
+                    background-color: rgba(black, 0);
+                }
+            }
+        }
+    }
+}
+
+.o_launcher_menu {
+    direction: ltr;
+    font-size: $o-font-size-base-touch;
+    -webkit-overflow-scrolling: touch; // smooth scrolling in iOS app (Safari)
+
+    .o_menu_search.o_bar_hidden input {
+        cursor: default;
+    }
+
+    .o_launcher_menu_scrollable {
+
+        .o_apps {
+            margin-top: 10px;
+
+            user-select: none;
+
+            .o_app {
+                background: transparent;
+                border: 1px solid transparent;
+                border-radius: 3%;
+                text-decoration: none;
+                text-align: center;
+                outline: none;
+                transition: all 0.3s ease 0s;
+
+                .o_app_icon {
+                    border-radius: 4%;
+                    transition: all 0.3s ease 0s;
+                    box-shadow: 0 8px 0 -10px black;
+                    background: {repeat: no-repeat; position: center; size: cover; };
+
+                    // Pictogram icons (studio)
+                    &_has_pictogram::before {
+                        border-radius: 4%;
+                        background: linear-gradient(to right top, transparent, rgba(white, 0.15));
+                        box-shadow: inset 0 1px 0 0 rgba(white, 0.4), inset 0 -1px 0 0 rgba(black, 0.4);
+                    }
+
+                    .fa {
+                        text-shadow: 0 2px 0 rgba(0, 0, 0, 0.23);
+                    }
+                }
+
+                .o_caption {
+                    @include o-text-overflow(block);
+                    margin: 4px 0;
+                    color: white;
+                    text-shadow: 0 1px 1px rgba(black, 0.8);
+                }
+
+                &:focus, &.o_focused, &:hover {
+                    .o_app_icon {
+                        box-shadow: 0 8px 15px -10px black;
+                        transform: translateY(-1px);
+                    }
+                }
+
+                &.o_menuitem {
+                    margin-left: 0;
+
+                    &:focus, &.o_focused {
+                        background-color: rgba(white, 0.05);
+                        border-radius: 4px;
+                    }
+                }
+            }
+        }
+
+        .o_menuitems {
+            margin-bottom: 40px;
+
+            .o_menuitem {
+                padding: 2px;
+                @include o-text-overflow;
+                color: $gray-200;
+                margin-bottom: 3px;
+                @include media-breakpoint-up(md) {
+                    font-size: 20px;
+                }
+                outline: none;
+                width: 100%;
+                @include media-breakpoint-down(sm) {
+                    padding: 5px 0;
+                }
+
+                .o_menuitem_parents {
+                    font-weight: $font-weight-light;
+                    color: $gray-400;
+                }
+
+                &:hover, &:focus, &.o_focused {
+                    color: white;
+                    .o_menuitem_parents {
+                        color: $gray-300;
+                    }
+                }
+
+                &:focus, &.o_focused {
+                    padding-left: 5px;
+                    background-color: rgba(white, 0.05);
+                }
+            }
+        }
+
+        .o_no_result {
+            color: $o-brand-lightsecondary;
+            font-size: 22px;
+            margin-top: 10px;
+        }
+
+        .o_launcher_menu_footer {
+            user-select: none;
+            > img {
+                width: 96px;
+                margin-bottom: 30px;
+            }
+        }
+    }
+}
+
+.database_expiration_panel {
+    text-align: center;
+    max-width: 768px;
+    width: 100%;
+    .alert {
+        @include media-breakpoint-up(lg) {
+            margin-top: 25px;
+        }
+        margin-bottom: 0px;
+    }
+}
+
+.database_expiration_panel a i {
+    margin: 0 0.2em;
+}
+
+.oe_instance_register_form, .oe_instance_success, .oe_instance_error, .oe_subscription_updated, .oe_database_already_linked {
+    display: none;
+}

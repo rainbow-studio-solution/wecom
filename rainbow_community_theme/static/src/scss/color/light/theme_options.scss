@@ -1,0 +1,141 @@
+.style_light {
+    .theme-panel {
+        width: 320px;
+        background: $eis-light-theme-panel-bg-color !important;
+        display: block;
+
+        .theme-options {
+            .theme-option {
+                color: $eis-light-theme-panel-font-color;
+                border-top: 1px solid $eis-light-theme-panel-line-color;
+
+                // >select.form-control {
+                //     display: inline;
+                //     width: 120px !important;
+                //     padding: 3px;
+                //     text-transform: lowercase;
+                //     outline: 0 !important;
+                //     box-shadow: none !important;
+                //     // background-color: #fff;
+                //     border: 1px solid #c2cad8;
+                //     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+                //     background-image: none;
+                //     border-radius: 0 !important;
+                //     font: inherit;
+                //     margin: 0;
+                //     font-family: inherit;
+                // }
+
+                &.theme-colors {
+                    // padding-top: 0 !important;
+                    // border-top: 0;
+
+                    // span {
+                    //     display: block;
+                    //     width: auto;
+                    // }
+
+                    // ul {
+                    //     list-style: none;
+                    //     padding: 0;
+                    //     display: block;
+                    //     margin-bottom: 10px !important;
+                    //     margin-top: 15px;
+
+                    //     >li {
+                    //         width: 40px;
+                    //         height: 40px;
+                    //         margin: 0 4px;
+                    //         cursor: pointer;
+                    //         list-style: none;
+                    //         float: left;
+                    //         border: solid 1px #707070;
+
+                    //         &:first-child {
+                    //             margin-left: 0;
+                    //         }
+
+
+                    //     }
+                    // }
+                }
+
+                &.launcher-bg-option {
+                    color: $eis-light-theme-panel-font-color;
+                    border-top: 1px solid $eis-light-theme-panel-line-color !important;
+                    // padding-top: 15px !important;
+
+                    span {
+                        color: $eis-light-theme-panel-font-color !important;
+                        // display: block;
+                        // width: auto;
+                    }
+
+                    ul {
+                        // list-style: none;
+                        // padding: 0;
+                        // display: block;
+                        // display: flex;
+                        // flex-direction: row;
+                        // flex-wrap: wrap;
+                        // justify-content: flex-start;
+                        // align-content: flex-start;
+                        // margin-bottom: 10px !important;
+                        // margin-top: 15px;
+
+                        // >li {
+                        // width: 80px;
+                        // height: 46px;
+                        // margin-left: 10px;
+                        // margin-top: 6px;
+                        // cursor: pointer;
+                        // list-style: none;
+                        // float: left;
+                        // border: solid 1px #707070;
+                        // overflow: hidden;
+
+                        // &:first-child {
+                        //     margin-left: 0;
+                        // }
+
+
+                        // img {
+                        //     width: 80px;
+                        //     height: 46px;
+                        //     overflow: hidden;
+                        // }
+                        // }
+                    }
+                }
+
+                // .input-sm {
+                //     font-size: 12px;
+                //     height: 30px;
+                //     line-height: 30px
+                // }
+            }
+        }
+
+        // .theme-panel-btn {
+        //     display: flex;
+        //     justify-content: space-between;
+        // }
+
+        .theme-close {
+            // display: none;
+            // top: 0px;
+            // right: 0;
+            // padding: 20px;
+            // z-index: 101;
+            // cursor: pointer;
+            // position: absolute;
+            background: url(/rainbow_community_theme/static/src/img/icon-color-close.png) center no-repeat $eis-light-theme-panel-bg-color !important;
+
+            &:hover {
+                background-color: darken($eis-light-theme-panel-bg-color, 10%) !important;
+            }
+        }
+
+
+    }
+}

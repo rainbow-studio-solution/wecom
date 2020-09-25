@@ -1,0 +1,60 @@
+.ui-autocomplete .ui-menu-item {
+    > a.ui-state-active {
+        background-color: $dropdown-link-hover-bg;
+        color: $dropdown-link-color;
+        &:hover {
+            color: $dropdown-link-color;
+        }
+    }
+    &.o_m2o_dropdown_option {
+        > a, > a.ui-state-active {
+            color: $o-brand-primary;
+            &:hover {
+                color: $o-brand-primary;
+            }
+        }
+    }
+}
+
+.oe_dropdown_toggle {
+    float: right;
+    position: relative;
+
+    .oe_dropdown_menu {
+        display: none;
+        position: absolute;
+        min-width: 160px;
+        background: white;
+        border: 1px solid gray;
+        z-index: 3;
+
+        &.oe_opened {
+            display: block;
+        }
+    }
+}
+
+// Buttons used as dropdown toggler
+.o_dropdown_toggler_btn {
+    padding: 0;
+    color: $o-main-text-color;
+    text-transform: initial;
+
+    &:hover, &:focus, &:active {
+        &, &:active {
+            @extend %o-dropdown-toggle-btn-accent;
+        }
+    }
+    .show > &.dropdown-toggle {
+        &, &:hover, &:focus, &:active {
+            &, &:active {
+                @extend %o-dropdown-toggle-btn-accent;
+            }
+        }
+    }
+}
+%o-dropdown-toggle-btn-accent {
+    background: transparent;
+    color: darken($o-main-text-color, 20%);
+    box-shadow: none;
+}

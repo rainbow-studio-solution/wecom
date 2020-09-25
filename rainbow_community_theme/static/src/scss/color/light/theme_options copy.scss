@@ -1,0 +1,60 @@
+.style_light {
+
+    // .theme-panel-header {
+    //     background: $eis-light-theme-panel-bg-color;
+    //     border-bottom: 1px solid lighten($eis-light-theme-panel-bg-color, 35%) !important;
+
+    //     .modal-title {
+    //         color: $eis-light-theme-panel-font-color !important;
+
+    //         span {
+    //             color: $eis-light-theme-panel-font-color !important;
+    //         }
+    //     }
+
+    //     button {
+    //         color: $eis-light-theme-panel-font-color !important;
+    //     }
+    // }
+
+    // .theme-panel-footer {
+    //     background: $eis-light-theme-panel-bg-color;
+    //     border-top: 1px solid lighten($eis-light-theme-panel-bg-color, 35%) !important;
+
+    //     >button {
+    //         >span {
+    //             color: $eis-light-theme-panel-font-color !important;
+    //         }
+    //     }
+
+    // }
+
+    .theme-panel {
+        background: $eis-light-theme-panel-bg-color !important;
+
+        .theme-panel-option {
+            .theme-option {
+                color: $eis-light-theme-panel-font-color;
+                border-top: 1px solid $eis-light-theme-panel-line-color;
+
+                &.launcher-bg-option {
+                    color: $eis-light-theme-panel-font-color;
+                    border-top: 1px solid $eis-light-theme-panel-line-color !important;
+
+                    span {
+                        color: $eis-light-theme-panel-font-color !important;
+                    }
+                }
+            }
+        }
+
+        .theme-panel-close {
+            color: #ffffff !important;
+            background: url(/rainbow_community_theme/static/src/img/icon-color-close.png) center no-repeat darken($eis-light-theme-panel-bg-color, 5%) !important;
+
+            &:hover {
+                background-color: darken($eis-light-theme-panel-bg-color, 10%) !important;
+            }
+        }
+    }
+}

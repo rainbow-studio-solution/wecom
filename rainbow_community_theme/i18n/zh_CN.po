@@ -1,0 +1,1192 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* rainbow_community_theme
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-04 00:46+0000\n"
+"PO-Revision-Date: 2020-09-04 09:30+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.providers
+msgid "- or -"
+msgstr "- 或 -"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "13.0"
+msgstr "13.0"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form2
+msgid ""
+"<span class=\"form-title\">Forget Password ?</span>\n"
+"                <span class=\"form-subtitle\">Enter your e-mail to reset it.</span>"
+msgstr ""
+"<span class=\"form-title\">忘记密码 ？</span>\n"
+"                <span class=\"form-subtitle\">输入您的电子邮件将其重置。</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form2
+msgid "<span class=\"form-title\">Sign Up</span>"
+msgstr "<span class=\"form-title\">注册</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+msgid ""
+"<span class=\"form-title\">Welcome.</span>\n"
+"                <span class=\"form-subtitle\">Please login.</span>"
+msgstr ""
+"<span class=\"form-title\">欢迎</span>\n"
+"                <span class=\"form-subtitle\">请登录</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Hide Enterprise Edition Apps</span>"
+msgstr "<span class=\"o_form_label\">隐藏企业版应用</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Show Enterprise Edition Apps</span>"
+msgstr "<span class=\"o_form_label\">显示企业版应用</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Uninstall Odoo referral program</span>"
+msgstr "<span class=\"o_form_label\">卸载Odoo推荐程序</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Version</span>"
+msgstr "<span class=\"o_form_label\">版本</span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                    The Odoo referral program icon "
+"is not displayed in the navigation menu.\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                    Odoo推荐程序图标不显示在导航菜"
+"单中。\n"
+"                                            </span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                Hide Enterprise Edition Apps, not "
+"visible in apps board.\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                隐藏企业版应用程序，在应用程序板中"
+"不可见。\n"
+"                                            </span>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                Show Enterprise Edition Apps, "
+"visible in apps board.\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"text-warning\">\n"
+"                                                <i class=\"fa fa-info pr-1\"/>\n"
+"                                                显示企业版应用程序，在应用程序板中"
+"可见。\n"
+"                                            </span>"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__account_title
+msgid "Account Title"
+msgstr "帐户名称"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__account_url
+msgid "Account Url"
+msgstr "账号网址"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "Action"
+msgstr "动作"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Activate the developer mode"
+msgstr "启用开发者模式"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Activate the developer mode (with assets)"
+msgstr "启用开发者模式 (assets)"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "All"
+msgstr "全部"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_layout
+msgid "Already have an account?"
+msgstr "已经有帐号了？"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Alt"
+msgstr "Alt"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/signup.py:0
+#, python-format
+msgid "An email has been sent with credentials to reset your password"
+msgstr "一封包含验证证书以重置您的密码的EMail已经发送"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__android_icon
+msgid "Android Touch Icon"
+msgstr "Android Touch图标"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/signup.py:0
+#, python-format
+msgid "Another user is already registered using this email address."
+msgstr "该邮件地址已经被其他用户注册了"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__apple_icon
+msgid "Apple Touch Icon"
+msgstr "Apple Touch 图标"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Applications"
+msgstr "申请"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Apps settings"
+msgstr "应用程式设置"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_layout
+msgid "Back to Login"
+msgstr "返回登录"
+
+#. module: rainbow_community_theme
+#: model:ir.ui.menu,name:rainbow_community_theme.menu_rainbow
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Base Settings"
+msgstr "基本设置"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Base settings"
+msgstr "基本设置"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Both"
+msgstr "都"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "COMPANIES"
+msgstr "公司介绍"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/views/view_dialogs.js:0
+#, python-format
+msgid "Clear"
+msgstr "清除"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Click to hide"
+msgstr "点击隐藏"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Click to set web favicon icon"
+msgstr "单击以设置Web网站图标"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Click to show"
+msgstr "点击显示"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Click to uninstall"
+msgstr "点击卸载"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "Close menu"
+msgstr "关闭菜单"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Collapsed"
+msgstr "折叠"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_layout
+msgid "Confirm"
+msgstr "确认"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+msgid "Confirm Password"
+msgstr "确认密码"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/abstract_web_client.js:0
+#, python-format
+msgid "Connection lost"
+msgstr "连接丢失"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/abstract_web_client.js:0
+#, python-format
+msgid "Connection restored"
+msgstr "连接已恢复"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Control"
+msgstr "Control"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/signup.py:0
+#, python-format
+msgid "Could not create a new account."
+msgstr "不能创建一个新账号"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/signup.py:0
+#, python-format
+msgid "Could not reset your password"
+msgstr "无法重置密码"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "Create an account"
+msgstr "创建一个帐户"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__poweredby_url
+msgid "Customize Powered by Url(eg. https://www.odoo.com)"
+msgstr "自定义提供支持的网址（例如https://www.odoo.com）"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__poweredby_text
+msgid "Customize Powered by text(eg. Powered by Odoo)"
+msgstr "自定义提供支持的文本（例如，由Odoo提供支持）"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "Database"
+msgstr "数据库"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Deactivate the developer mode"
+msgstr "取消开发者模式"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__documentation_dev_url
+msgid "Developer Documentation Url"
+msgstr "开发人员文档网址"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/footer.xml:0
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Developer Manual"
+msgstr "开发人员手册"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Disable"
+msgstr "禁用"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/footer.xml:0
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Documentation"
+msgstr "文档"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__documentation_url
+msgid "Documentation Url"
+msgstr "文档网址"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid ""
+"Don't have an account yet ?\n"
+"                    <br/>"
+msgstr ""
+"还没有账户吗？\n"
+"                    <br/>"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+msgid "Don't have an account?"
+msgstr "还没有帐号？"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Double click to preview the picture"
+msgstr "双击预览图片"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/res_config_edition.xml:0
+#, python-format
+msgid "EIS"
+msgstr "EIS"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+msgid "Email"
+msgstr "电子邮件"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Enable"
+msgstr "启用"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__enable_login_theme
+msgid "Enable login theme"
+msgstr "启用登录主题"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__launcher_bg_status
+msgid "Enable/Disable Launcher Background"
+msgstr "启用/禁用 启动器背景"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+msgid "Enter your account details below:"
+msgstr "在下面输入您的帐户详细信息："
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+msgid "Enter your e-mail address below to reset your password."
+msgstr "在下方输入你的电子邮件地址以重设密码。"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Expand"
+msgstr "展开"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Expand/Collapsed"
+msgstr "展开/折叠"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "Filters"
+msgstr "筛选"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Footer"
+msgstr "页脚"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+msgid "Forget Password ?"
+msgstr "忘记密码 ？"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "Forgot your password ?"
+msgstr "忘记密码了吗 ？"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Full screen"
+msgstr "全屏"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Global settings"
+msgstr "全局设置"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/footer.xml:0
+#, python-format
+msgid "GoTop"
+msgstr "向上"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP 路由"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Header"
+msgstr "Header"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Hide"
+msgstr "隐藏"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_base_language_install
+msgid "Install Language"
+msgstr "安装语言"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/database.py:0
+#, python-format
+msgid ""
+"Invalid database name. Only alphanumerical characters, underscore, hyphen and dot "
+"are allowed."
+msgstr "数据库名称无效。只允许字母数字字符、下划线、连字符和点。"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "LAUNCHER BACKGROUND"
+msgstr "启动器背景"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__launcher_bg
+msgid "Launcher Background"
+msgstr "启动器背景"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+msgid "Log in"
+msgstr "登录"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "Log in as superuser"
+msgstr "以超级用户身份登录"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Log out"
+msgstr "登出"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__login_theme
+msgid "Login Theme"
+msgstr "登录主题"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+msgid "Login to your account"
+msgstr "登录到您的帐户"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/launcher.xml:0
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout_vertical
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+#, python-format
+msgid "Logo"
+msgstr ""
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout_vertical
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+msgid "Manage Databases"
+msgstr "管理数据库"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "Menu"
+msgstr "菜单"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Mobile Phone Icon Setting"
+msgstr "手机图标设置"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_ir_module_module
+msgid "Module"
+msgstr "模块"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "My Online Account"
+msgstr "我的网上账户"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "My Profile"
+msgstr "个人资料"
+
+#. module: rainbow_community_theme
+#: code:addons/rainbow_community_theme/controllers/signup.py:0
+#, python-format
+msgid "No login provided."
+msgstr "未提供登录账号。"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/launcher.xml:0
+#, python-format
+msgid "No result"
+msgstr "没有结果"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.providers1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.providers2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.providers3
+msgid "Or login with"
+msgstr "或登录"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+msgid "Password"
+msgstr "密码"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"Please upload the icon to the module 'rainbow_community_theme' static directory, "
+"(eg.  'static/src/img/')"
+msgstr ""
+"请将图标上传到模块“ rainbow_community_theme”的静态目录（例如，'static/src/img/'）"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout
+msgid "Powered by <span>Odoo</span>"
+msgstr "由<span>Odoo</span>提供支持"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/footer.xml:0
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_layout_vertical
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+#, python-format
+msgid "Powered by Odoo"
+msgstr "由Odoo提供支持"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/views/relational_fields.js:0
+#, python-format
+msgid "Quick search: %s"
+msgstr "快速搜索: %s"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields5
+msgid "Re-type Your Password"
+msgstr "重新输入您的密码"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/views/view_dialogs.js:0
+#, python-format
+msgid "Remove"
+msgstr "移除"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form6
+msgid "Reset Password"
+msgstr "重设密码"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "SAVE"
+msgstr "保存"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/launcher.xml:0
+#, python-format
+msgid "Search"
+msgstr "搜索"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/launcher.xml:0
+#, python-format
+msgid "Search..."
+msgstr "搜索..."
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/mobile_menu.xml:0
+#, python-format
+msgid "See result"
+msgstr "查看结果"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login
+msgid ""
+"Select <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title="
+"\"Database\"/>"
+msgstr ""
+"选择 <i class=\"fa fa-database\" role=\"img\" aria-label=\"Database\" title="
+"\"Database\"/>"
+
+#. module: rainbow_community_theme
+#: model:ir.actions.act_window,name:rainbow_community_theme.rainbow_config_settings_action
+msgid "Settings"
+msgstr "设置"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__system_name
+msgid "Setup System Name"
+msgstr "设置系统名称"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Shit"
+msgstr "Shit"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Shortcuts"
+msgstr "快捷键"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Show"
+msgstr "显示"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_documentation_dev
+msgid "Show Developer Documentation"
+msgstr "显示开发人员文档"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_documentation
+msgid "Show Documentation"
+msgstr "显示文档"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__theme_footer
+msgid "Show Footer"
+msgstr "显示页脚"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_account
+msgid "Show My Account"
+msgstr "显示我的帐户"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_poweredby
+msgid "Show Powered by Text"
+msgstr "显示技术支持文本"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_debug
+msgid "Show Quick Debug"
+msgstr "显示快速调试"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_lang
+msgid "Show Quick Language Switcher"
+msgstr "显示语言快速切换器"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__show_support
+msgid "Show Support"
+msgstr "显示支持"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Sidebar"
+msgstr "侧边栏"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__sidebar_mode
+#, python-format
+msgid "Sidebar Mode"
+msgstr "侧边栏模式"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__sidebar_position
+msgid "Sidebar Position"
+msgstr "侧边栏位置"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+msgid "Sign Up"
+msgstr "注册"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_form6
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.signup_layout
+msgid "Sign up"
+msgstr "注册"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "Submenu Position"
+msgstr "子菜单位置"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__submenu_position
+msgid "Submenu display position"
+msgstr "子菜单显示位置"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Support"
+msgstr "支持"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__support_url
+msgid "Support Url"
+msgstr "支持网址"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__system_name
+msgid "System Name"
+msgstr "系统名称"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "THEME COLOR"
+msgstr "主题颜色"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/widgets/theme.js:0
+#, python-format
+msgid "THEME SETTINGS PANEL"
+msgstr "主题设置面板"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__1
+msgid "Theme 1"
+msgstr "主题1"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__2
+msgid "Theme 2"
+msgstr "主题2"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__3
+msgid "Theme 3"
+msgstr "主题3"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__4
+msgid "Theme 4"
+msgstr "主题4"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__5
+msgid "Theme 5"
+msgstr "主题5"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields.selection,name:rainbow_community_theme.selection__res_config_settings__login_theme__6
+msgid "Theme 6"
+msgstr "主题6"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_users__theme_color
+msgid "Theme Color"
+msgstr "主题颜色"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Theme Settings"
+msgstr "主题设置"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "Theme settings"
+msgstr "主题设置"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Toggle launcher menu"
+msgstr "切换启动器菜单"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Toggle menu"
+msgstr "切换菜单"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/menu.xml:0
+#, python-format
+msgid "Toggle sidebar menu"
+msgstr "切换侧边栏菜单"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/abstract_web_client.js:0
+#, python-format
+msgid "Trying to reconnect..."
+msgstr "正在尝试重新连接..."
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_poweredby
+msgid "Uncheck to hide the Powered by text"
+msgstr "取消选中以隐藏提供技术支持文本"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__enable_login_theme
+msgid "Uncheck to hide the customize login themes"
+msgstr "取消选中以隐藏自定义登录主题"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "User Menu settings"
+msgstr "用户菜单设置"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: rainbow_community_theme
+#: model:ir.model,name:rainbow_community_theme.model_ir_ui_view
+msgid "View"
+msgstr "查看"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__web_icon
+msgid "Web Favicon Icon"
+msgstr "网站的favicon图标"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_account
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,User can login to your website"
+msgstr "启用后，用户可以登录到您的网站"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_lang
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,User can quick switch language in user menu"
+msgstr "启用后，用户可以在用户菜单中快速切换语言"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_documentation_dev
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,User can visit development documentation"
+msgstr "启用后，用户可以访问开发文档"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_documentation
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,User can visit user manual"
+msgstr "启用后，用户可以访问用户手册"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_support
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,User can vist your support site"
+msgstr "启用后，用户可以访问您的支持站点"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"When enable,Users can see customized technical support information on the login "
+"page.The installed website is invalid."
+msgstr "启用后，用户可以在登录页面上查看自定义的技术支持信息。安装了website无效。"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid ""
+"When enable,You can use a customized Login page. This function is invalid when "
+"\"website\" is installed."
+msgstr "启用后，您可以使用自定义的登录页面。 当安装“website”时，此功能无效。"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,help:rainbow_community_theme.field_res_config_settings__show_debug
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.res_config_settings_view_form
+msgid "When enable,everyone login can see the debug menu"
+msgstr "启用后，每个人登录都可以看到调试菜单"
+
+#. module: rainbow_community_theme
+#: model:ir.model.fields,field_description:rainbow_community_theme.field_res_config_settings__windows_icon
+msgid "Windows Touch Icon"
+msgstr "Windows Touch图标"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/js/abstract_web_client.js:0
+#, python-format
+msgid "You are back online"
+msgstr "您重新连线了"
+
+#. module: rainbow_community_theme
+#. openerp-web
+#: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
+#, python-format
+msgid "You need to save to make the theme setting options take effect！"
+msgstr "您需要保存才能使主题设置选项生效！"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields5
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form2
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_form4
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.reset_password_layout
+msgid "Your Email"
+msgstr "你的邮件"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+msgid "Your Name"
+msgstr "你的名字"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields1
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.fields5
+msgid "e.g. John Doe"
+msgstr "例如 张三"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "here"
+msgstr "这里"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "no worries, click"
+msgstr "不用担心，请点击"
+
+#. module: rainbow_community_theme
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form3
+#: model_terms:ir.ui.view,arch_db:rainbow_community_theme.login_form4
+msgid "to reset your password."
+msgstr "重设密码。"

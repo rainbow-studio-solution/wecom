@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_rainbow" name="Base Settings" parent="base.menu_administration" sequence="-1"
+                  action="rainbow_config_settings_action"
+                  groups="base.group_system"/>
+
+    </data>
+</odoo>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <header t-name="Menu">
+        <nav class="o_main_navbar">
+            <div class="o_menu_sidebar">
+                <a>
+                    <img src='/web/binary/company_logo' class="logo-default "/>
+                </a>
+                <div class="menu-toggle sidebar-toggle" title="Expand/Collapsed" aria-label="Expand/Collapsed" aria-keyshortcuts="Alt+Shift+s" accesskey="s">
+                    <span>
+                        <i class="fa fa-angle-double-left" />
+                    </span>
+                </div>
+            </div>
+            <a href="#" class="fa fa-th o_menu_toggle" title="Applications" aria-label="Applications" accesskey="h"/>
+            <button type="button" class="fa fa-bars float-right d-block d-md-none o_mobile_menu_toggle" title="Toggle menu" aria-label="Toggle menu"/>
+
+            <a href="#" class="o_menu_brand" role="button" />
+            <ul class="o_menu_sections" role="menu"/>
+            <ul class="o_menu_systray" role="menu"/>
+        </nav>
+    </header>
+
+    <t t-name="Menu.link">
+        <t t-set="depth" t-value="(depth || 0) + 1"/>
+
+        <t t-if="!menu.children.length">
+            <t t-set="_link">
+                <a role="menuitem" t-attf-href="#menu_id=#{menu.id}&amp;action=#{menu.action ? menu.action.split(',')[1] : ''}"
+                    t-att-data-menu="menu.id"
+                    t-att-data-action-model="menu.action ? menu.action.split(',')[0] : ''"
+                    t-att-data-action-id="menu.action ? menu.action.split(',')[1] : ''"
+                    t-att-data-menu-xmlid="menu.xmlid"
+                    t-attf-class="#{inNavbar ? '' : 'dropdown-item '}o_menu_entry_lvl_#{depth}"
+                    data-toggle="collapse" data-target="#o_navbar_collapse.in">
+                    <span><t t-esc="menu.name"/></span>
+                </a>
+            </t>
+            <li t-if="inNavbar">
+                <t t-raw="_link"/>
+            </li>
+            <t t-else="">
+                <t t-raw="_link"/>
+            </t>
+        </t>
+        <t t-else="">
+            <!-- Desktop case -->
+            <t t-if="!mobile">
+                <div t-attf-class="dropdown-header o_menu_header_lvl_#{depth}">
+                    <span><t t-esc="menu.name"/></span>
+                </div>
+                <t t-foreach="menu.children" t-as="menu">
+                    <t t-call="Menu.link"/>
+                </t>
+            </t>
+            <!-- Mobile case -->
+            <li t-else="" class="o_burger_menu_section">
+                <a href="#" t-attf-class="o_menu_entry_lvl_#{depth}" t-att-data-menu-xmlid="menu.xmlid" data-toggle="dropdown" role="button" aria-expanded="false">
+                    <t t-esc="menu.name"/>
+                    <span class="fa fa-chevron-right toggle_icon float-right"/>
+                </a>
+                <ul>
+                    <t t-foreach="menu.children" t-as="menu">
+                        <t t-call="Menu.link"/>
+                    </t>
+                </ul>
+            </li>
+        </t>
+    </t>
+
+    <!-- separate first level dropdown from the others to avoid nested dropdown -->
+    <t t-name="Menu.sections">
+        <t t-foreach="menu_data.children" t-as="first_level_menu">
+            <section t-att-class="first_level_menu.id">
+                <t t-foreach="first_level_menu.children" t-as="second_level_menu">
+                    <t t-if="!second_level_menu.children.length">
+                        <t t-call="Menu.link">
+                            <t t-set="inNavbar" t-value="true"/>
+                            <t t-set="menu" t-value="second_level_menu"/>
+                        </t>
+                    </t>
+                    <t t-else="">
+                        <li>
+                            <a href="#" class="dropdown-toggle o-no-caret o_menu_header_lvl_1" t-att-data-menu-xmlid="second_level_menu.xmlid" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <t t-esc="second_level_menu.name"/>
+                            </a>
+                            <div class="dropdown-menu" role="menu">
+                                <t t-foreach="second_level_menu.children" t-as="third_level_menu">
+                                    <t t-call="Menu.link">
+                                        <t t-set="depth" t-value="1"/>
+                                        <t t-set="menu" t-value="third_level_menu"/>
+                                    </t>
+                                </t>
+                            </div>
+                        </li>
+                    </t>
+                </t>
+            </section>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu">
+        <t t-jquery="li[class='o_user_menu']" t-operation="before">
+            <li class="o_user_fullscreen">
+                <a class="toggle-fullscreen" title="Full screen">
+                    <i class="fa fa-arrows-alt"/>
+                </a>
+            </li>
+            <li class="o_user_lang">
+                <a data-lang-menu="current_lang"/>
+                <div class="dropdown-menu dropdown-menu-right" role="menu"/>
+            </li>
+
+            <li class="o_user_theme_bar" title="Theme Settings">
+                <a id="theme-option">
+                    <i class="fa fa-sliders"/>
+                </a>
+            </li>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu.Actions">
+        <t t-jquery="a[data-menu='documentation']" t-operation="before">
+            <a role="menuitem" href="#" data-menu="debug" class="dropdown-item">
+                <i class="fa fa-bug"/>
+                Activate the developer mode
+            </a>
+            <a role="menuitem" href="#" data-menu="debugassets" class="dropdown-item">
+                <i class="fa fa-bug"/>
+                Activate the developer mode (with assets)
+            </a>
+            <a role="menuitem" href="#" data-menu="quitdebug" class="dropdown-item">
+                <i class="fa fa-bug"/>
+                Deactivate the developer mode
+            </a>
+            <div role="separator" class="dropdown-divider"/>
+        </t>
+        <t t-jquery="a[data-menu='documentation']" t-operation="replace">
+            <a role="menuitem" href="#" data-menu="documentation" class="dropdown-item">
+                <i class="fa fa-book"/>
+                Documentation
+            </a>
+        </t>
+        <t t-jquery="a[data-menu='documentation']" t-operation="after">
+            <a role="menuitem" href="#" data-menu="documentation_dev" class="dropdown-item">
+                <i class="fa fa-book"/>
+                Developer Manual
+            </a>
+        </t>
+        <t t-jquery="a[data-menu='support']" t-operation="replace">
+            <a role="menuitem" href="#" data-menu="support" class="dropdown-item">
+                <i class="fa fa-handshake-o"/>
+                Support
+            </a>
+        </t>
+        <t t-jquery="a[data-menu='settings']" t-operation="replace">
+            <a role="menuitem" href="#" data-menu="settings" class="dropdown-item">
+                <i class="fa fa-user-circle-o"/>
+                 My Profile</a>
+        </t>
+        <t t-jquery="a[data-menu='account']" t-operation="replace">
+            <a role="menuitem" href="#" data-menu="account" class="dropdown-item">
+                <i class="fa fa-ticket"/>
+                My Online Account
+            </a>
+        </t>
+        <t t-jquery="a[data-menu='logout']" t-operation="replace">
+            <div role="separator" class="dropdown-divider"/>
+            <!-- <a role="menuitem" href="#" data-menu="lock" class="dropdown-item" accesskey="u">
+                <i class="fa fa-lock"/>Lock
+            </a> -->
+            <a role="menuitem" href="#" data-menu="logout" class="dropdown-item">
+                <i class="fa fa-sign-out"/>
+                Log out
+            </a>
+        </t>
+        <t t-jquery="a[data-menu='shortcuts']" t-operation="replace">
+            <a role="menuitem" href="#" data-menu="shortcuts" class="dropdown-item d-none d-md-inline-block">
+                <i class="fa fa-keyboard-o"/>
+                Shortcuts
+            </a>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu.shortcuts">
+        <t t-jquery="tr:last" t-operation="after">
+            <tr>
+                <td align="left">Toggle launcher menu</td>
+                <td>
+                    <span class="o_key">Alt</span> +
+                    <span class="o_key">h</span>
+                </td>
+                <td>
+                    <span class="o_key">Control</span> +
+                    <span class="o_key">Alt</span> +
+                    <span class="o_key">h</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">Toggle sidebar menu</td>
+                <td>
+                    <span class="o_key">Shit</span> +
+                    <span class="o_key">Alt</span> +
+                    <span class="o_key">s</span>
+                </td>
+                <td>
+                    <span class="o_key">Control</span> +
+                    <span class="o_key">Alt</span> +
+                    <span class="o_key">s</span>
+                </td>
+            </tr>
+        </t>
+    </t>
+
+</templates>

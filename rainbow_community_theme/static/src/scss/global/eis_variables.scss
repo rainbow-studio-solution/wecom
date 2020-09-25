@@ -1,0 +1,49 @@
+//##  Default Layout Settings
+
+// Header
+// ==========================================================================
+$eis-header-height: 46px !default; // header height on table and desktop view. default: 42px
+$eis-header-height-xs: ($eis-header-height * 2) !default; // header height on mobile view
+$eis-header-height-mobile: 46px !default;
+$eis-menu-toggle-size: 19px;
+$eis-header-brand-logo-height: 14px;
+$eis-header-brand-menu-toggle-width: 20px;
+$eis-header-brand-menu-toggle-height: 20px;
+$eis-header-brand-sidebar-toggle-margin: ($eis-header-height - $eis-header-brand-menu-toggle-height - 2px) / 2 0 0 0 !default;
+$eis-header-brand-responsive-toggle-margin: ($eis-header-height - $eis-header-brand-menu-toggle-height) / 2 14px 0 6px !default;
+$eis-header-brand-logo-margin: ($eis-header-height - $eis-header-brand-logo-height) / 2 0 0 0 !default; // adjsut logo's margin top. default: -1px
+$eis-header-navbar-height: $eis-header-height;
+
+
+// Sidebar
+// ==========================================================================
+$eis-sidebar-width: 235px !default; // sidebar width. default:235px
+$eis-sidebar-collapsed-width: 45px !default; // minimized/collapsed sidebar width. default:35px
+$eis-sidebar-collapsed-submenu-width-on-hover: 210px !default; // sub menu width displayed on hover in collapsed sidebar mode. default:210px
+$eis-sidebar-logo-container-width: $eis-sidebar-width !default; // logo container width. Normally same with sidebar-width.
+$eis-sidebar-logo-container-width-xs: 110px !default; // logo container width in mobile portrait view. default:110px.
+$eis-sidebar-logo-container-width-xxs: 100px !default; // logo container width in mobile landspace view. default:100px.
+
+$eis-sidebar-menu-head-font-size: 14px !default;
+$eis-sidebar-menu-link-font-size: 14px !default;
+$eis-sidebar-menu-link-font-weight: 300 !default;
+$eis-sidebar-menu-link-icon-font-size: 16px !default;
+$eis-sidebar-menu-sub-menu-link-icon-font-size: 14px !default;
+
+
+// Page footer
+$eis-footer-height: 33px !default;
+
+
+// Z-index master list
+$eis-zindex-header-fixed: 9995 !default;
+$eis-zindex-header-static: 9995 !default;
+$eis-zindex-quick-sidebar: 10500 !default;
+$eis-zindex-quick-sidebar-full-height: 9996 !default;
+$eis-zindex-sidebar-fixed: 999 !default;
+$eis-zindex-sidebar-submenu: 900 !default;
+$eis-zindex-footer-fixed: 999 !default;
+$eis-zindex-go-to-top: 1000 !default;
+
+//launcher_menu
+$eis-launcher-menu-bg:"launcher-menu-bg-overlay.svg";

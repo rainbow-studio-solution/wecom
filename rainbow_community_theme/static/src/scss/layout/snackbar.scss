@@ -1,0 +1,28 @@
+.o_snackbar {
+    display: inline-flex;
+    position: fixed;
+    z-index: 9999;
+    left: $o-snackbar-left;
+    right: $o-snackbar-right;
+    bottom: $o-snackbar-bottom;
+    height: $o-snackbar-height;
+    background: $o-tooltip-background-color;
+    color: $o-tooltip-color;
+    border-radius: 2px;
+
+    .o_snackbar_message {
+        flex-grow: 1;
+        padding: $o-snackbar-inner-padding;
+        font-weight: bold;
+    }
+
+    .o_snackbar_button {
+        height: 100%;
+        margin: 0;
+        border: 0;
+        padding: 0 $o-snackbar-inner-padding;
+        color: $o-brand-primary;
+        background: $o-tooltip-background-color;
+        font-weight: bold;
+    }
+}

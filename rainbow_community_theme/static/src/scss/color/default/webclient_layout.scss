@@ -1,0 +1,42 @@
+.style_default.o_web_client,
+.o_is_superuser {
+    background-color: $eis-default-bg-color !important;
+
+    @include media-breakpoint-down(sm) {
+        background-color: #f9f9f9 !important;
+    }
+
+    >.o_main {
+        .o_action_manager {
+            background-color: $eis-default-page-content-solid-bg-color !important;
+            // border-left: 1px solid $eis-default-sidebar-menu-devider-border-color;
+            border-bottom: 1px solid solid $eis-default-sidebar-menu-devider-border-color;
+        }
+    }
+
+    >.o_footer {
+        background-color: $eis-default-footer-fixed-bg-color;
+
+        .o_footer_inner {
+            color: $eis-default-footer-default-font-color;
+
+            a {
+                text-shadow: none;
+                color: #337ab7;
+
+                &:hover {
+                    color: darken(#337ab7, 7%)
+                }
+            }
+        }
+
+        .scroll-to-top {
+            >i {
+                padding: 2px;
+                border: 1px solid $eis-default-footer-default-font-color;
+                color: $eis-default-footer-default-font-color;
+            }
+
+        }
+    }
+}

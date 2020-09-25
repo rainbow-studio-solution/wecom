@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="rainbow_community_theme.login_form1">
+        <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+            <h3 class="form-title font-green">Login to your account</h3>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="alert alert-success" t-if="message" role="status">
+                <t t-esc="message"/>
+            </div>
+
+            <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                <label class="control-label" for="db">Database</label>
+                <select id="database_list" class="form-control form-control-solid placeholder-no-fix">
+                    <option>
+                        <t t-esc="request.db"/>
+                    </option>
+                    <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                        <t t-esc="db"/>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group field-login">
+                <label class="control-label" for="login">Email</label>
+                <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                    class="form-control form-control-solid placeholder-no-fix" 
+                    required="required" autofocus="autofocus" autocapitalize="off"/>
+            </div>
+
+            <div class="form-group field-password">
+                <label  class="control-label" for="password">Password</label>
+                <input type="password" placeholder="Password" name="password" id="password" 
+                    class="form-control form-control-solid placeholder-no-fix" 
+                    required="required" autocomplete="current-password" 
+                    t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn green uppercase">Log in</button>
+                <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}"  class="forget-password">Reset Password</a>
+                <t t-if="debug">
+                    <button type="submit" name="redirect" value="/web/become" class="btn btn-link btn-block">Log in as superuser</button>
+                </t>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers1"/>
+
+            <div class="create-account" t-if="signup_enabled">
+                <p>
+                    <a class="uppercase" t-attf-href="/web/signup?{{ keep_query() }}">Don't have an account?</a>
+                </p>
+            </div>
+            <input type="hidden" name="redirect" t-att-value="redirect"/>
+        </form>
+
+    </template>
+
+    <template id="rainbow_community_theme.login_form2">
+        <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+            <div class="form-title">
+                <span class="form-title">Welcome.</span>
+                <span class="form-subtitle">Please login.</span>
+            </div>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="alert alert-success" t-if="message" role="status">
+                <t t-esc="message"/>
+            </div>
+
+            <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                <label class="control-label" for="db">Database</label>
+                <select id="database_list" class="form-control form-control-solid placeholder-no-fix">
+                    <option>
+                        <t t-esc="request.db"/>
+                    </option>
+                    <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                        <t t-esc="db"/>
+                    </option>
+                </select>
+            </div>
+            <div class="form-group field-login">
+                <label class="control-label" for="login">Email</label>
+                <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                    class="form-control form-control-solid placeholder-no-fix" 
+                    required="required" autofocus="autofocus" autocapitalize="off"/>
+            </div>
+
+            <div class="form-group field-password">
+                <label  class="control-label" for="password">Password</label>
+                <input type="password" placeholder="Password" name="password" id="password" 
+                    class="form-control form-control-solid placeholder-no-fix" 
+                    required="required" autocomplete="current-password" 
+                    t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn red btn-block uppercase">Log in</button>
+                
+            </div>
+            <div class="form-actions">
+                <a t-if="reset_password_enabled" t-attf-href="/web/reset_password?{{ keep_query() }}"  class="forget-password-block pull-left">Reset Password</a>
+                <t t-if="debug">
+                    <a type="submit" name="redirect" value="/web/become" class="superuser pull-right">Log in as superuser</a>
+                </t>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers2"/>
+
+            <div class="create-account" t-if="signup_enabled">
+                <p>
+                    <a class="btn" t-attf-href="/web/signup?{{ keep_query() }}">Don't have an account?</a>
+                </p>
+            </div>
+            <input type="hidden" name="redirect" t-att-value="redirect"/>
+        </form>
+
+    </template>
+
+    <template id="rainbow_community_theme.login_form3">
+        <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+            <h3 class="form-title font-green">Login to your account</h3>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="alert alert-success" t-if="message" role="status">
+                <t t-esc="message"/>
+            </div>
+            
+            <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                <label class="control-label" for="db">Database</label>
+                <div class="input-icon">
+                    <i class="fa fa-database"></i>
+                    <select id="database_list" class="select2 form-control">
+                        <option>
+                            <t t-esc="request.db"/>
+                        </option>
+                        <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                            <t t-esc="db"/>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group field-login">
+                <label class="control-label" for="login">Email</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                        class="form-control form-control-solid placeholder-no-fix" 
+                        required="required" autofocus="autofocus" autocapitalize="off"/>
+                </div>
+            </div>
+
+            <div class="form-group field-password">
+                <label  class="control-label" for="password">Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" id="password" 
+                        class="form-control form-control-solid placeholder-no-fix" 
+                        required="required" autocomplete="current-password" 
+                        t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                </div>
+            </div>
+            
+            <div class="form-actions">            
+                <t t-if="debug">
+                    <a type="submit" name="redirect" value="/web/become" class="superuser">Log in as superuser</a>
+                </t>
+                <button type="submit" class="btn green uppercase pull-right">Log in</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers3"/>
+
+            <div t-if="reset_password_enabled"  class="forget-password">
+                <h4>Forgot your password ?</h4>
+                <p> no worries, click
+                    <a t-attf-href="/web/reset_password?{{ keep_query() }}"> here </a> to reset your password. </p>
+            </div>
+            <div class="create-account" t-if="signup_enabled">
+                <p> Don't have an account yet ?
+                    <br/>
+                    <a t-attf-href="/web/signup?{{ keep_query() }}" > Create an account </a>
+                </p>                
+            </div>
+            <input type="hidden" name="redirect" t-att-value="redirect"/>
+        </form>
+
+    </template>
+
+    <template id="rainbow_community_theme.login_form4">
+        <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+            <h3 class="form-title font-green">Login to your account</h3>
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="alert alert-success" t-if="message" role="status">
+                <t t-esc="message"/>
+            </div>
+            
+            <div class="form-group field-db" t-if="databases and len(databases) &gt; 1">
+                <label class="control-label" for="db">Database</label>
+                <div class="input-icon">
+                    <i class="fa fa-database"></i>
+                    <select id="database_list" class="select2 form-control">
+                        <option>
+                            <t t-esc="request.db"/>
+                        </option>
+                        <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                            <t t-esc="db"/>
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group field-login">
+                <label class="control-label" for="login">Email</label>
+                <div class="input-icon">
+                    <i class="fa fa-user"></i>
+                    <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                        class="form-control placeholder-no-fix" 
+                        required="required" autofocus="autofocus" autocapitalize="off"/>
+                </div>
+            </div>
+
+            <div class="form-group field-password">
+                <label  class="control-label" for="password">Password</label>
+                <div class="input-icon">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" id="password" 
+                        class="form-control placeholder-no-fix" 
+                        required="required" autocomplete="current-password" 
+                        t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                </div>
+            </div>
+            
+            <div class="form-actions">            
+                <t t-if="debug">
+                    <a type="submit" name="redirect" value="/web/become" class="superuser">Log in as superuser</a>
+                </t>
+                <button type="submit" class="btn green uppercase pull-right">Log in</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers3"/>
+
+            <div t-if="reset_password_enabled"  class="forget-password">
+                <h4>Forgot your password ?</h4>
+                <p> no worries, click
+                    <a t-attf-href="/web/reset_password?{{ keep_query() }}"> here </a> to reset your password. </p>
+            </div>
+            <div class="create-account" t-if="signup_enabled">
+                <p> Don't have an account yet ?
+                    <br/>
+                    <a t-attf-href="/web/signup?{{ keep_query() }}" > Create an account </a>
+                </p>                
+            </div>
+            <input type="hidden" name="redirect" t-att-value="redirect"/>
+        </form>
+
+    </template>
+
+    <template id="rainbow_community_theme.login_form5">
+        <div class="col-md-6 bs-reset mt-login-5-bsfix">
+            <div class="login-bg" style="background-image:url(/rainbow_community_theme/static/src/img/pages/login/bg1.jpg)">
+                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" class="login-logo"/>
+            </div>
+        </div>
+        <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+            <div class="login-content">
+                <h1>Login to your account</h1>
+                <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </div>
+                    <div class="alert alert-success" t-if="message" role="status">
+                        <t t-esc="message"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <select id="database_list" class="select2 form-control form-control-solid placeholder-no-fix form-group">
+                                <option>
+                                    <t t-esc="request.db"/>
+                                </option>
+                                <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                                    <t t-esc="db"/>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                                class="form-control form-control-solid placeholder-no-fix form-group" 
+                                required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="password" placeholder="Password" name="password" id="password" 
+                                class="form-control form-control-solid placeholder-no-fix form-group" 
+                                required="required" autocomplete="current-password" 
+                                t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="create-account" t-if="signup_enabled">
+                                <a t-attf-href="/web/signup?{{ keep_query() }}">Don't have an account?</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <div class="forgot-password" t-if="reset_password_enabled">
+                                <a class="forget-password" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+                            </div>
+                            <button class="btn green" type="submit">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-6 bs-reset">
+                        <t t-call="rainbow_community_theme.providers5"/>
+                    </div>
+                    <div class="col-xs-6 bs-reset">
+                        <div class="login-copyright text-right">
+                            <p>
+                                <t t-if="not disable_database_manager">
+                                    <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                </t>
+                                <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+                                <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+                                <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+                                <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                                    <t t-if="show_poweredby=='True'">
+                                        <t t-esc="poweredby_text"/>
+                                    </t>
+                                    <t t-else="">Powered by Odoo</t>
+                                </a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="rainbow_community_theme.login_form6">
+        <div class="col-md-6 login-container bs-reset">
+            <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" class="login-logo"/>
+            <div class="login-content">
+                <h1>Login to your account</h1>
+                <form class="oe_login_form" role="form" t-attf-action="/web/login" method="post" onsubmit="this.action = this.action + location.hash">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <div class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </div>
+                    <div class="alert alert-success" t-if="message" role="status">
+                        <t t-esc="message"/>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <select id="database_list" class="select2 form-control form-control-solid placeholder-no-fix form-group">
+                                <option>
+                                    <t t-esc="request.db"/>
+                                </option>
+                                <option t-foreach="databases" t-as="db" t-if="db!=request.db">
+                                    <t t-esc="db"/>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <input type="text" placeholder="Email" name="login" t-att-value="login" id="login" 
+                                class="form-control form-control-solid placeholder-no-fix form-group" 
+                                required="required" autofocus="autofocus" autocapitalize="off"/>
+                        </div>
+                        <div class="col-xs-6">
+                            <input type="password" placeholder="Password" name="password" id="password" 
+                                class="form-control form-control-solid placeholder-no-fix form-group" 
+                                required="required" autocomplete="current-password" 
+                                t-att-autofocus="'autofocus' if login else None" maxlength="4096"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="create-account" t-if="signup_enabled">
+                                <a t-attf-href="/web/signup?{{ keep_query() }}">Don't have an account?</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <div class="forgot-password" t-if="reset_password_enabled">
+                                <a class="forget-password" t-attf-href="/web/reset_password?{{ keep_query() }}">Reset Password</a>
+                            </div>
+                            <button class="btn green" type="submit">Log in</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-6 bs-reset">
+                        <t t-call="rainbow_community_theme.providers5"/>
+                    </div>
+                    <div class="col-xs-6 bs-reset">
+                        <div class="login-copyright text-right">
+                            <p>
+                                <t t-if="not disable_database_manager">
+                                    <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                </t>
+                                <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+                                <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+                                <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+                                <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                                    <t t-if="show_poweredby=='True'">
+                                        <t t-esc="poweredby_text"/>
+                                    </t>
+                                    <t t-else="">Powered by Odoo</t>
+                                </a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 bs-reset">
+            <div class="login-bg"> </div>
+        </div>
+        
+    </template>
+</odoo>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="Footer">
+        <t t-set="display" t-value="widget.footer_display"/>
+        <div t-att-class="'o_footer ' + ((display)? '':'hide') ">
+            <div t-if="display" class="o_footer_inner">
+                <a data-link="poweredby" target="_blank">
+                    Powered by Odoo
+                </a>
+                
+                <span data-link="documentation">|</span>
+                
+                <a data-link="documentation" >
+                    Documentation
+                </a>
+
+                <span data-link="documentation_dev">|</span>
+
+                <a data-link="documentation_dev" target="_blank">
+                    Developer Manual
+                </a>
+            </div>
+            <div class="scroll-to-top">
+                <i class="fa fa-chevron-circle-up" title="GoTop"></i>
+            </div>
+        </div>
+    </t>
+  
+</templates>

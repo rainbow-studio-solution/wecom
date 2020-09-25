@@ -1,0 +1,77 @@
+// Main settings
+// ==========================================================================
+$eis-light-theme-name: "light";
+$eis-light-brand-main-color: #3FD5C0 !default;
+$eis-light-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-light-font-size-base-touch: 15px;
+
+// 1. Colors
+// ==========================================================================
+//$eis-light-brand: $o-enterprise-color;
+$eis-light-primary-color: #fff;
+$eis-light-primary-color-light: lighten($eis-light-primary-color, 15%);
+$eis-light-primary-color-dark: darken($eis-light-primary-color, 15%);
+
+$eis-light-brand-primary: $o-enterprise-primary-color;
+$eis-light-brand-secondary: #8f8f8f;
+$eis-light-brand-lightsecondary: #f8f9fa;
+
+// Body and header
+// ==========================================================================
+$eis-light-bg-color: #FFFFFF !default;
+$eis-light-header-navbar-bg-color: #747F8C;
+$eis-light-header-navbar-font-color: #c5c5c5;
+$eis-light-header-navbar-toggle-color: lighten($eis-light-header-navbar-bg-color, 50%) !default;
+$eis-light-header-navbar-toggle-bg-color: lighten($eis-light-header-navbar-bg-color, 3%) !default;
+$eis-light-header-navbar-inverse-link-hover-bg: lighten($eis-light-header-navbar-bg-color, 3%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-light-sidebar-menu-devider-border-color: #F0F5F7 !default;
+
+$eis-light-sidebar-menu-link-font-color: #555555 !default;
+$eis-light-sidebar-menu-link-font-color-on-hover: $eis-light-sidebar-menu-link-font-color !default;
+$eis-light-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-light-sidebar-menu-link-icon-font-color: lighten($eis-light-header-navbar-bg-color, 18%) !default;
+$eis-light-sidebar-menu-link-icon-font-color-on-active: $eis-light-sidebar-menu-link-font-color-on-active !default;
+$eis-light-sidebar-menu-link-icon-font-color-on-hover: lighten($eis-light-sidebar-menu-link-icon-font-color, 35%) !default;
+
+$eis-light-sidebar-menu-link-bg-color-on-hover: #F1F1F1 !default;
+$eis-light-sidebar-menu-link-bg-color-on-active: $eis-light-brand-main-color;
+
+$eis-light-sidebar-menu-arrow-color: $eis-light-sidebar-menu-link-icon-font-color !default;
+$eis-light-sidebar-menu-arrow-color-on-active: $eis-light-sidebar-menu-link-font-color-on-active !default;
+$eis-light-sidebar-menu-arrow-color-on-hover: $eis-light-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-light-sidebar-menu-sub-menu-box-shadow-color: $eis-light-sidebar-menu-link-bg-color-on-hover !default;
+$eis-light-sidebar-menu-sub-menu-link-font-color: $eis-light-sidebar-menu-link-font-color !default;
+$eis-light-sidebar-menu-sub-menu-link-icon-font-color: $eis-light-sidebar-menu-arrow-color !default;
+$eis-light-sidebar-menu-sub-menu-link-bg-color-on-hover: #F1F1F1 !default;
+$eis-light-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-light-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-light-sidebar-menu-hover-sub-menu-bg-color: darken($eis-light-sidebar-menu-link-bg-color-on-hover, 3%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-light-launcher-bg-color: darken($eis-light-bg-color, 5%) !default;
+
+// Page content
+// ==========================================================================
+$eis-light-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+$eis-light-footer-default-font-color: lighten($eis-light-bg-color, 40%) !default;
+$eis-light-footer-default-go-top-bg-color: lighten($eis-light-bg-color, 7%) !default;
+$eis-light-footer-default-go-top-icon-font-color: lighten($eis-light-bg-color, 30%) !default;
+$eis-light-footer-fixed-bg-color: darken($eis-light-bg-color, 7%) !default;
+
+// THEME PANEL
+// ==========================================================================
+$eis-light-theme-panel-bg-color: #747F8C !default;
+$eis-light-theme-panel-font-color: #c6cfda !default;
+$eis-light-theme-panel-line-color: #c5c5c5 !default;

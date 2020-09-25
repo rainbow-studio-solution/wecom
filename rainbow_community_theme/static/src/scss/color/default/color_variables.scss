@@ -1,0 +1,78 @@
+// Main settings
+// ==========================================================================
+$eis-default-theme-name: "default";
+$eis-default-brand-main-color: #d64635 !default;
+$eis-default-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-default-font-size-base-touch: 15px;
+
+// 1. Colors
+// ==========================================================================
+//$eis-default-brand: $o-enterprise-color;
+$eis-default-primary-color: #fff;
+$eis-default-primary-color-light: lighten($eis-default-primary-color, 15%);
+$eis-default-primary-color-dark: darken($eis-default-primary-color, 15%);
+
+$eis-default-brand-primary: $o-enterprise-primary-color;
+$eis-default-brand-secondary: #8f8f8f;
+$eis-default-brand-lightsecondary: #f8f9fa;
+
+// Body and header
+// ==========================================================================
+$eis-default-bg-color: #3d3d3d !default;
+$eis-default-header-navbar-bg-color: #1f1f1f;
+$eis-default-header-navbar-font-color: #c5c5c5;
+$eis-default-header-navbar-toggle-color: lighten($eis-default-header-navbar-bg-color, 40%) !default;
+$eis-default-header-navbar-toggle-bg-color: darken($eis-default-bg-color, 5%) !default;
+$eis-default-header-navbar-inverse-link-hover-bg: darken($eis-default-bg-color, 5%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-default-sidebar-menu-devider-border-color: darken(#4d4d4d, 2%) !default;
+
+$eis-default-sidebar-menu-link-font-color: #d9d9d9 !default;
+$eis-default-sidebar-menu-link-font-color-on-hover: $eis-default-sidebar-menu-link-font-color !default;
+$eis-default-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-default-sidebar-menu-link-icon-font-color: #888888 !default;
+$eis-default-sidebar-menu-link-icon-font-color-on-active: $eis-default-sidebar-menu-link-font-color-on-active !default;
+$eis-default-sidebar-menu-link-icon-font-color-on-hover: $eis-default-sidebar-menu-link-icon-font-color !default;
+
+$eis-default-sidebar-menu-link-bg-color-on-hover: #303030 !default;
+$eis-default-sidebar-menu-link-bg-color-on-active: $eis-default-brand-main-color;
+
+$eis-default-sidebar-menu-arrow-color: $eis-default-sidebar-menu-link-icon-font-color !default;
+$eis-default-sidebar-menu-arrow-color-on-active: $eis-default-sidebar-menu-link-font-color-on-active !default;
+$eis-default-sidebar-menu-arrow-color-on-hover: $eis-default-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-default-sidebar-menu-sub-menu-box-shadow-color: $eis-default-sidebar-menu-link-bg-color-on-hover !default;
+$eis-default-sidebar-menu-sub-menu-link-font-color: #bdbdbd !default;
+$eis-default-sidebar-menu-sub-menu-link-icon-font-color: $eis-default-sidebar-menu-arrow-color !default;
+$eis-default-sidebar-menu-sub-menu-link-bg-color-on-hover: lighten($eis-default-bg-color, 4%) !default;
+$eis-default-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-default-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-default-sidebar-menu-hover-sub-menu-bg-color: lighten($eis-default-sidebar-menu-link-bg-color-on-hover, 4%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-default-launcher-bg-color: darken($eis-default-bg-color, 5%) !default;
+
+// Page content
+// ==========================================================================
+$eis-default-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+// ==========================================================================
+$eis-default-footer-default-font-color: lighten($eis-default-bg-color, 40%) !default;
+$eis-default-footer-default-go-top-bg-color: lighten($eis-default-bg-color, 7%) !default;
+$eis-default-footer-default-go-top-icon-font-color: lighten($eis-default-bg-color, 30%) !default;
+$eis-default-footer-fixed-bg-color: darken($eis-default-bg-color, 7%) !default;
+
+// THEME PANEL
+// ==========================================================================
+$eis-default-theme-panel-bg-color: #3D3D3D;
+$eis-default-theme-panel-font-color: #c5c5c5 !default;
+$eis-default-theme-panel-line-color: darken($eis-default-theme-panel-bg-color, 5%) !default;

@@ -1,0 +1,295 @@
+// ------------------------------------------------------------------
+// Base layout rules, use the 'webclient.scss' file for styling
+// ------------------------------------------------------------------
+html {
+    height: 100%;
+
+    .o_web_client,
+    .o_is_superuser {
+        height: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+
+        &.o_fullscreen {
+            .o_main_navbar {
+                display: none;
+            }
+        }
+
+        .o_main_navbar {
+            flex: 0 0 auto;
+        }
+
+        >.o_action_manager {
+            direction: ltr; //Define direction attribute here so when rtlcss preprocessor run, it converts it to rtl
+            flex: 1 1 auto;
+            height: 100%;
+            overflow: hidden;
+
+            >.o_action {
+                height: 100%;
+                display: flex;
+                flex-flow: column nowrap;
+
+                >.o_cp_controller {
+                    flex: 0 0 auto;
+                }
+
+                >.o_content {
+                    flex: 1 1 auto;
+                    position: relative; // Allow to redistribute the 100% height to its child
+                    overflow: auto;
+                    height: 100%;
+                }
+            }
+        }
+
+        >.o_main {
+            flex: 1 1 auto;
+            display: flex;
+            min-height: 0; // Allow flex to shrink this element as much as it wants
+            height: 100%;
+            margin: 0;
+
+            >.o_action_manager {
+                direction: ltr; //Define direction attribute here so when rtlcss preprocessor run, it converts it to rtl
+                flex: 1 1 100%;
+                // background-color: #ffffff;
+
+                @include media-breakpoint-up(md) {
+                    overflow: hidden;
+                    // iOS fix for scroll-x element inside scroll-y element
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                >.o_action {
+                    height: 100%;
+                    display: flex;
+                    flex-flow: column nowrap;
+
+                    >.o_cp_controller {
+                        flex: 0 0 auto;
+                    }
+
+                    >.o_content {
+                        flex: 1 1 100%;
+                        position: relative; // Allow to redistribute the 100% height to its child
+
+                        @include media-breakpoint-up(md) {
+                            overflow: auto;
+                            // iOS fix for scroll-x element inside scroll-y element
+                            -webkit-overflow-scrolling: touch;
+                        }
+
+                        @include media-breakpoint-down(sm) {
+                            overflow: visible;
+                            height: auto;
+                        }
+                    }
+                }
+            }
+        }
+
+        >.o_footer {
+            padding: 8px 20px 5px 20px;
+            font-size: 13px;
+            height: $eis-footer-height;
+            z-index: $eis-zindex-footer-fixed;
+            display: flex;
+            // justify-content: center;
+            align-items: center;
+            // @include clearfix();
+
+
+            .o_footer_inner {
+                float: left;
+                display: inline-block;
+                max-width: 400px;
+
+                span {
+                    padding: 0 10px;
+                }
+
+                a {
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .scroll-to-top {
+                display: inline-block;
+                // padding: 1px;
+                text-align: center;
+                position: fixed;
+                // bottom: 13px;
+                z-index: $eis-zindex-go-to-top;
+                display: none;
+                right: 10px;
+                // width: 30px;
+
+                >i {
+                    display: inline-block;
+                    font-size: 20px;
+                    opacity: 0.6;
+                }
+
+                &:hover {
+                    cursor: pointer;
+
+                    >i {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        >.o_footer.hide {
+            padding: 0;
+            z-index: $eis-zindex-footer-fixed;
+            background-color: transparent;
+            position: fixed;
+            width: 25px;
+            // right: 20px;
+            bottom: 10px;
+
+            .scroll-to-top {
+                // display: inline-block;
+                // padding: 1px;
+                // text-align: center;
+                // position: fixed;
+                // bottom: 13px;
+                z-index: $eis-zindex-go-to-top;
+                // display: none;
+                right: 20px;
+                padding-right: 10px;
+                // width: 30px;
+
+                >i {
+                    display: inline-block;
+                    font-size: 20px;
+                    opacity: 0.6;
+                }
+
+                &:hover {
+                    cursor: pointer;
+
+                    >i {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .o_web_client {
+
+            &.modal-open {
+                .o_content {
+                    overflow: hidden;
+                }
+            }
+
+            .o_main {
+                display: none;
+                // padding-left: 0;
+                // display: block !important;
+                // height: auto !important;
+                // background: #fff !important;
+            }
+
+            .o_footer {
+                margin-top: $eis-footer-height !important;
+                padding-left: 10px;
+                padding-right: 10px;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+
+                .o_footer_inner {
+                    display: none;
+                }
+
+                .quick-menu {
+                    span {
+                        display: none;
+                    }
+                }
+
+                .scroll-to-top {
+                    right: 10px !important;
+                }
+            }
+
+            >.o_footer.hide {
+                padding: 0;
+                z-index: $eis-zindex-footer-fixed;
+                background-color: transparent;
+                position: fixed;
+                width: 25px;
+                // right: 20px;
+                bottom: 10px;
+
+                .scroll-to-top {
+                    // display: inline-block;
+                    // padding: 1px;
+                    // text-align: center;
+                    // position: fixed;
+                    // bottom: 13px;
+                    z-index: $eis-zindex-go-to-top;
+                    // display: none;
+                    right: 20px;
+                    // width: 30px;
+
+                    >i {
+                        display: inline-block;
+                        font-size: 20px;
+                        opacity: 0.6;
+                    }
+
+                    &:hover {
+                        cursor: pointer;
+
+                        >i {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .o_viewer_content .o_viewer_img_wrapper .o_viewer_zoomer {
+            overflow: scroll;
+        }
+    }
+
+    // FIXME: Fix scrolling in modal on focus input due to a bug between Chrome (Android) and Bootstrap
+    body.modal-open {
+        position: fixed;
+        // Allow vertical scrolling in modals on iOS
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .o_loading {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: $zindex-modal + 1;
+    }
+}
+
+@media print {
+    html .o_web_client {
+        .o_main_navbar {
+            display: none;
+        }
+
+        .o_content {
+            position: static;
+            overflow: visible;
+            height: auto;
+        }
+    }
+}

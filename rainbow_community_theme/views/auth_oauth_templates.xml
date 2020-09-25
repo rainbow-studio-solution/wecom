@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="rainbow_community_theme.providers" name="OAuth Providers Theme ">
+        <t t-set="wauth_oauth_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('auth_oauth')"/>
+        <t t-if="wauth_oauth_is_installed">
+            <t t-set="form_small" t-value="True" t-if="len(providers) &gt; 2"/>
+            <t t-if="len(providers) &gt; 0">
+                <em t-attf-class="d-block text-center text-muted small my-#{len(providers) if len(providers) &lt; 3 else 3}">- or -</em>
+                <div class="o_auth_oauth_providers list-group mt-1 mb-1 text-left">
+                    <a t-foreach="providers" t-as="p" class="list-group-item list-group-item-action py-2" t-att-href="p['auth_link']">
+                        <i t-att-class="p['css_class']"/>
+                        <t t-esc="p['body']"/>
+                    </a>
+                </div>
+            </t>
+        </t> 
+    </template>
+
+    <template id="rainbow_community_theme.providers1" name="OAuth Providers Theme 1">
+        <t t-set="wauth_oauth_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('auth_oauth')"/>
+        <t t-if="wauth_oauth_is_installed">
+            <div class="login-options" t-if="len(providers) &gt; 0">
+                <h4>Or login with</h4>
+                <ul class="social-icons o_login_auth">
+                    <li t-foreach="providers" t-as="p">
+                        <a t-att-href="p['auth_link']" t-att-title="p['body']">
+                            <i t-att-class="p['css_class']"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </t>
+    </template>
+
+    <template id="rainbow_community_theme.providers2" name="OAuth Providers Theme 2">
+        <t t-set="wauth_oauth_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('auth_oauth')"/>
+        <t t-if="wauth_oauth_is_installed">
+            <div class="login-options" t-if="len(providers) &gt; 0">
+                <h4 class="pull-left">Or login with</h4>
+                <ul class="social-icons pull-right o_login_auth">
+                    <li t-foreach="providers" t-as="p">
+                        <a t-att-href="p['auth_link']" t-att-title="p['body']">
+                            <i t-att-class="p['css_class']"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </t>
+    </template>
+
+    <template id="rainbow_community_theme.providers3" name="OAuth Providers Theme 3">
+        <t t-set="wauth_oauth_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('auth_oauth')"/>
+        <t t-if="wauth_oauth_is_installed">
+            <div class="login-options" t-if="len(providers) &gt; 0">
+                <h4>Or login with</h4>
+                <ul class="social-icons o_login_auth">
+                    <li t-foreach="providers" t-as="p">
+                        <a t-att-href="p['auth_link']" t-att-title="p['body']">
+                            <i t-att-class="p['css_class']"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </t>
+    </template>
+
+    <template id="rainbow_community_theme.providers5" name="OAuth Providers Theme 5">
+        <t t-set="wauth_oauth_is_installed" t-value="request and request.env['ir.module.module'].sudo().check_module_installed('auth_oauth')"/>
+        <t t-if="wauth_oauth_is_installed">
+            <div class="login-options" t-if="len(providers) &gt; 0">
+                <ul class="login-social o_login_auth">
+                    <li t-foreach="providers" t-as="p">
+                        <a t-att-href="p['auth_link']" t-att-title="p['body']">
+                            <i t-att-class="p['css_class']"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </t>
+    </template>
+
+</odoo>

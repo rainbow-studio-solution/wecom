@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="rainbow_community_theme.signup_layout" name="Sign up login">
+        <t t-call="web.login_layout">
+            <t t-set="enable_login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.enable_login_theme', '')"/>
+            <t t-set="login_theme" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.login_theme', '')"/>
+            <t t-if="enable_login_theme =='True'">
+                <t t-call="rainbow_community_theme.signup_form{{login_theme}}"/>
+            </t>
+            <t t-else="">
+                <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                    <t t-call="auth_signup.fields">
+                        <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                    </t>
+
+                    <p class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </p>
+                    <input type="hidden" name="redirect" t-att-value="redirect"/>
+                    <input type="hidden" name="token" t-att-value="token"/>
+                    <div class="text-center oe_login_buttons pt-3">
+                        <button type="submit" class="btn btn-primary btn-block"> Sign up</button>
+                        <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-link btn-sm" role="button">Already have an account?</a>
+
+                        <div class="o_login_auth">
+                            <t t-call="rainbow_community_theme.providers"/>
+                        </div>
+                    </div>
+                </form>
+            </t>
+
+        </t>
+    </template>
+
+    <template id="rainbow_community_theme.fields1" name="Auth Signup/ResetPassword form fields">
+
+        <div class="form-group field-login">
+            <label class="control-label" for="login">Your Email</label>
+            <input type="text" name="login" t-att-value="login" id="login" class="form-control placeholder-no-fix" autofocus="autofocus" placeholder="Your Email"
+                autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+        </div>
+
+        <div class="form-group field-name">
+            <label class="control-label" for="name">Your Name</label>
+            <input type="text" name="name" t-att-value="name" id="name" class="form-control placeholder-no-fix" placeholder="e.g. John Doe"
+                required="required" t-att-readonly="'readonly' if only_passwords else None"
+                t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+        </div>
+
+        <div class="form-group field-password pt-2">
+            <label class="control-label" for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password"
+                required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+        </div>
+
+        <div class="form-group field-confirm_password">
+            <label class="control-label" for="confirm_password">Confirm Password</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control placeholder-no-fix" required="required" placeholder="Re-type Your Password"/>
+        </div>
+    </template>
+
+    <template id="rainbow_community_theme.fields3" name="Auth Signup/ResetPassword form fields">
+
+        <div class="form-group field-login">
+            <label class="control-label" for="login">Your Email</label>
+            <div class="input-icon">
+                <i class="fa fa-user"></i>
+                <input type="text" name="login" t-att-value="login" id="login" class="form-control placeholder-no-fix" autofocus="autofocus" placeholder="Your Email"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+            </div>
+        </div>
+
+        <div class="form-group field-name">
+            <label class="control-label" for="name">Your Name</label>
+            <div class="input-icon">
+                <i class="fa fa-font"></i>
+                <input type="text" name="name" t-att-value="name" id="name" class="form-control placeholder-no-fix" placeholder="e.g. John Doe"
+                    required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+            </div>
+        </div>
+
+        <div class="form-group field-password pt-2">
+            <label class="control-label" for="password">Password</label>
+            <div class="input-icon">
+                <i class="fa fa-lock"></i>
+                <input type="password" name="password" id="password" class="form-control form-control-sm" placeholder="Password"
+                    required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+            </div>
+        </div>
+
+        <div class="form-group field-confirm_password">
+            <label class="control-label" for="confirm_password">Confirm Password</label>
+            <div class="input-icon">
+                <i class="fa fa-check"></i>
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control placeholder-no-fix" required="required" placeholder="Re-type Your Password"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="rainbow_community_theme.fields5" name="Auth Signup/ResetPassword form fields">
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="text" name="login" t-att-value="login" id="login" class="form-control form-control-solid placeholder-no-fix form-group" autofocus="autofocus" placeholder="Your Email"
+                    autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="e.g. John Doe"
+                    required="required" t-att-readonly="'readonly' if only_passwords else None"
+                    t-att-autofocus="'autofocus' if login and not only_passwords else None" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <input type="password" name="password" id="password" class="form-control form-control-solid placeholder-no-fix form-group" placeholder="Password"
+                    required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+            </div>
+            <div class="col-xs-6">
+                <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-solid placeholder-no-fix form-group" required="required" placeholder="Re-type Your Password"/>
+            </div>
+        </div>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form1">
+        <form class="oe_signup_form" role="form" method="post" t-if="not message">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <h3 class="font-green">Sign Up</h3>
+            <p class="hint"> Enter your account details below: </p>
+            <t t-call="rainbow_community_theme.fields1">
+                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+            </t>
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="form-actions">
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn green btn-outline">Already have an account?</a>
+                <button type="submit" class="btn btn-success uppercase pull-right">Sign up</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers1"/> 
+        </form>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form2">
+        <form class="oe_signup_form" role="form" method="post" t-if="not message">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <div class="form-title">
+                <span class="form-title">Sign Up</span>
+            </div>
+            <p class="hint"> Enter your account details below: </p>
+            <t t-call="rainbow_community_theme.fields1">
+                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+            </t>
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="form-actions">
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn btn-default">Already have an account?</a>
+                <button type="submit" class="btn red uppercase pull-right">Sign up</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers2"/> 
+        </form>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form3">
+        <form class="oe_signup_form" role="form" method="post" t-if="not message">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <h3 class="font-green">Sign Up</h3>
+            <p class="hint"> Enter your account details below: </p>
+            <t t-call="rainbow_community_theme.fields3">
+                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+            </t>
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="form-actions">
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn grey-salsa btn-outline">Already have an account?</a>
+                <button type="submit" class="btn btn-primary uppercase pull-right">Sign up</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers3"/> 
+        </form>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form4">
+        <form class="oe_signup_form" role="form" method="post" t-if="not message">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+            <h3 class="font-green">Sign Up</h3>
+            <p class="hint"> Enter your account details below: </p>
+            <t t-call="rainbow_community_theme.fields3">
+                <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+            </t>
+            <div class="alert alert-danger" t-if="error" role="alert">
+                <t t-esc="error"/>
+            </div>
+            <div class="form-actions">
+                <a t-attf-href="/web/login?{{ keep_query() }}" class="btn red btn-outline">Already have an account?</a>
+                <button type="submit" class="btn btn-primary uppercase pull-right">Sign up</button>
+            </div>
+
+            <t t-call="rainbow_community_theme.providers3"/> 
+        </form>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form5">
+        <div class="col-md-6 bs-reset mt-login-5-bsfix">
+            <div class="login-bg" style="background-image:url(/rainbow_community_theme/static/src/img/pages/login/bg1.jpg)">
+                <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" class="login-logo"/>
+            </div>
+        </div>
+        <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+            <div class="login-content">
+                <h1>Sign Up</h1>
+                <p>
+                    Enter your account details below:
+                </p>
+                <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="rainbow_community_theme.fields5">
+                        <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                    </t>
+                    <div class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </div>
+                    <div class="form-actions">
+                        <a t-attf-href="/web/login?{{ keep_query() }}" class="btn red btn-outline">Already have an account?</a>
+                        <button type="submit" class="btn btn-primary uppercase pull-right">Sign up</button>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-6 bs-reset">
+                        <t t-call="rainbow_community_theme.providers5"/>
+                    </div>
+                    <div class="col-xs-6 bs-reset">
+                        <div class="login-copyright text-right">
+                            <p>
+                                <t t-if="not disable_database_manager">
+                                    <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                </t>
+                                <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+                                <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+                                <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+                                <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                                    <t t-if="show_poweredby=='True'">
+                                        <t t-esc="poweredby_text"/>
+                                    </t>
+                                    <t t-else="">Powered by Odoo</t>
+                                </a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="rainbow_community_theme.signup_form6">
+        <div class="col-md-6 login-container bs-reset">
+            <img t-attf-src="/web/binary/company_logo{{ '?dbname='+db if db else '' }}" alt="Logo" class="login-logo"/>
+            <div class="login-content">
+                <h1>Sign Up</h1>
+                <p>
+                    Enter your account details below:
+                </p>
+                <form class="oe_signup_form" role="form" method="post" t-if="not message">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <t t-call="rainbow_community_theme.fields5">
+                        <t t-set="only_passwords" t-value="bool(token and not invalid_token)"/>
+                    </t>
+                    <div class="alert alert-danger" t-if="error" role="alert">
+                        <t t-esc="error"/>
+                    </div>
+                    <div class="form-actions">
+                        <a t-attf-href="/web/login?{{ keep_query() }}" class="btn red btn-outline">Already have an account?</a>
+                        <button type="submit" class="btn btn-primary uppercase pull-right">Sign up</button>
+                    </div>
+                </form>
+            </div>
+            <div class="login-footer">
+                <div class="row bs-reset">
+                    <div class="col-xs-6 bs-reset">
+                        <t t-call="rainbow_community_theme.providers5"/>
+                    </div>
+                    <div class="col-xs-6 bs-reset">
+                        <div class="login-copyright text-right">
+                            <p>
+                                <t t-if="not disable_database_manager">
+                                    <a class="border-right pr-2 mr-1" href="/web/database/manager">Manage Databases</a>
+                                </t>
+                                <t t-set="show_poweredby" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.show_poweredby')"/>
+                                <t t-set="poweredby_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_url')"/>
+                                <t t-set="poweredby_text" t-value="request and request.env['ir.config_parameter'].sudo().get_param('rainbow.poweredby_text')"/>
+                                <a t-attf-href="{{poweredby_url if show_poweredby=='True' else 'https://www.odoo.com?utm_source=db&amp;utm_medium=auth'}}" target="_blank">
+                                    <t t-if="show_poweredby=='True'">
+                                        <t t-esc="poweredby_text"/>
+                                    </t>
+                                    <t t-else="">Powered by Odoo</t>
+                                </a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 bs-reset ">
+            <div class="login-bg"> </div>
+        </div>
+    </template>
+</odoo>

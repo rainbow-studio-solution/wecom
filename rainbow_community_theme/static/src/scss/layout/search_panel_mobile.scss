@@ -1,0 +1,124 @@
+@mixin o-details-modal($top: 0, $bottom: 0) {
+    position: fixed;
+    z-index: $zindex-modal;
+    right: 0;
+    top: $top;
+    bottom: $bottom;
+    left: 0;
+}
+
+@mixin o-details-modal-header {
+    padding: 0.7rem 1.4rem;
+    height: $o-navbar-height;
+}
+
+@mixin o-details-hide-caret {
+    // Hide the caret. For details see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary
+    list-style-type: none;
+    &::-webkit-details-marker {
+        display: none;
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .o_controller_with_searchpanel {
+        flex-direction: column;
+
+        .o_renderer_with_searchpanel.o_list_view {
+            width: 100%;
+        }
+
+        details.o_search_panel {
+            flex-basis: auto;
+            height: auto;
+            width: 100%;
+            padding: 0;
+            border: 1px solid lightgray;
+
+            &:focus,
+            & > summary:focus {
+                outline: none;
+            }
+
+            > summary {
+                @include o-details-hide-caret();
+                padding: $o-searchpanel-p-small $o-searchpanel-p;
+
+                .o_search_panel_mobile_close, .o_search_panel_mobile_title {
+                    display: none;
+                }
+            }
+
+            &[open] {
+                @include o-details-modal();
+                padding-top: $o-navbar-height !important;
+                padding-bottom: $o-navbar-height !important;
+
+                > summary {
+                    @include o-details-modal($bottom: initial);
+                    @include o-details-modal-header();
+                    pointer-events: none;
+                    background-color: $o-brand-odoo;
+                    border-bottom: 1px solid lightgray;
+                    color: white;
+
+                    &, &:hover, &:active, &:focus, &:active:focus {
+                        box-shadow: none;
+                    }
+
+                    .o_search_panel_mobile_collapsed_only {
+                        display: none;
+                    }
+
+                    .o_search_panel_mobile_close {
+                        display: initial;
+                        pointer-events: initial;
+                    }
+
+                    .o_search_panel_mobile_title {
+                        display: initial;
+                    }
+                }
+
+                > .o_search_panel_section {
+                    margin: 0 $o-searchpanel-p;
+                }
+
+                .o_searchview_facet_label,
+                .o_facet_values {
+                    padding-right: 5px;
+                }
+
+                .o_search_panel_filter.o_searchview_facet .o_search_panel_section_icon {
+                    background-color: $o-searchpanel-filter-default-color;
+                }
+
+                .o_search_panel_category_value .o_search_panel_category_value {
+                    &:after, &:last-child::after {
+                        top: 1.3rem;
+                    }
+                    &:last-child:before {
+                        height: 1.4rem;
+                    }
+                }
+
+                .list-group-item,
+                .list-group-item .list-group-item,
+                .o_search_panel_category_value.list-group-item .list-group-item-action {
+                    padding-top: $o-searchpanel-p-small;
+                    padding-bottom: $o-searchpanel-p-small;
+                }
+
+                .list-group-item > .list-group {
+                    padding-left: $o-searchpanel-p-small;
+                }
+
+                .o_search_panel_category_value.list-group-item {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+            }
+        }
+    }
+
+}

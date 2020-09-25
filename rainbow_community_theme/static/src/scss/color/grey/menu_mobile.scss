@@ -1,0 +1,17 @@
+//------------------------------------------------------------------------------
+// Mobile Burger Menu
+//------------------------------------------------------------------------------
+.style_grey {
+    .o_burger_menu {
+        .o_burger_menu_topbar {
+            background: darken($eis-grey-header-navbar-bg-color, 10%);
+            color: white;
+        }
+
+        .o_burger_menu_content {
+            &.o_burger_menu_dark {
+                background-color: $eis-grey-bg-color;
+            }
+        }
+    }
+}

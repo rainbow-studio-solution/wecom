@@ -1,0 +1,429 @@
+.style_blue.o_sidebar_expand {
+    .o_main_sidenav_wrapper {
+        .o_main_sidebar.o_sidebar_menu_expand {
+
+            /* 1st level links */
+            >li {
+                >a {
+                    border-top: 1px solid $eis-blue-sidebar-menu-devider-border-color;
+                    color: $eis-blue-sidebar-menu-link-font-color;
+
+                    >.arrow {
+
+                        &:before,
+                        &.open:before {
+                            color: $eis-blue-sidebar-menu-arrow-color;
+                        }
+                    }
+                }
+
+                &.heading {
+                    padding: 15px 15px 15px 15px;
+
+                    >h3 {
+                        color: darken($eis-blue-sidebar-menu-link-font-color, 23%);
+                    }
+                }
+
+
+                &:hover,
+                &.open {
+                    >a {
+                        background: $eis-blue-sidebar-menu-link-bg-color-on-hover;
+                        color: $eis-blue-sidebar-menu-link-font-color-on-hover;
+
+                        >i {
+                            color: $eis-blue-sidebar-menu-link-icon-font-color-on-hover;
+                        }
+
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                            }
+                        }
+                    }
+                }
+
+                &.active {
+                    >a {
+                        >.selected {
+                            .page-container-bg-solid & {
+                                border-color: transparent $eis-blue-page-content-solid-bg-color transparent transparent;
+                            }
+
+                            .page-container-bg-solid.page-sidebar-reversed & {
+                                border-color: transparent transparent transparent $eis-blue-page-content-solid-bg-color;
+                            }
+                        }
+                    }
+                }
+
+                &.active,
+                &.active.open {
+                    >a {
+                        background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                        border-top-color: transparent;
+                        color: $eis-blue-sidebar-menu-link-font-color-on-active;
+
+                        &:hover {
+                            background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                        }
+
+                        >i {
+                            color: $eis-blue-sidebar-menu-link-icon-font-color-on-active;
+                        }
+
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color-on-active;
+                            }
+                        }
+                    }
+                }
+
+
+                &.active.open+li {
+                    >a {
+                        border-top-color: $eis-blue-sidebar-menu-devider-border-color;
+                    }
+                }
+
+            }
+
+            /* all links */
+
+            li {
+                >a {
+
+                    >.arrow {
+
+                        &:before,
+                        &.open:before {
+                            color: $eis-blue-sidebar-menu-arrow-color;
+                        }
+                    }
+                }
+
+                &:hover {
+                    >a {
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                            }
+                        }
+                    }
+                }
+
+                &.active {
+                    >a {
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color-on-active;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                .sub-menu {
+                    background-color: $eis-blue-bg-color;
+                }
+            }
+
+            .sub-menu {
+
+                >li {
+                    >a {
+                        color: $eis-blue-sidebar-menu-sub-menu-link-font-color;
+
+                        >i {
+                            color: $eis-blue-sidebar-menu-sub-menu-link-icon-font-color;
+                        }
+
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color;
+                            }
+                        }
+                    }
+
+                    &:hover,
+                    &.open,
+                    &.active {
+                        >a {
+                            background: $eis-blue-sidebar-menu-sub-menu-link-bg-color-on-hover !important;
+
+                            >i {
+                                color: $eis-blue-sidebar-menu-sub-menu-link-icon-font-color-on-hover;
+                            }
+
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            li.active {
+                >.sub-menu {
+                    display: block;
+                }
+            }
+        }
+
+
+    }
+}
+
+.style_blue.o_sidebar_collapsed {
+
+    .o_main {
+        .o_main_sidenav_wrapper {
+            background-color: $eis-blue-bg-color;
+
+            .o_main_sidebar.o_sidebar_menu_collapsed {
+
+                >li {
+                    border-top: 1px solid $eis-blue-sidebar-menu-devider-border-color !important;
+
+                    &.active {
+                        >a {
+                            >.selected {
+
+                                .page-container-bg-solid & {
+                                    border-color: transparent $eis-blue-page-content-solid-bg-color transparent transparent;
+                                }
+
+                                .page-container-bg-solid.page-sidebar-reversed & {
+                                    border-color: transparent transparent transparent $eis-blue-page-content-solid-bg-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active,
+                    &.active.open {
+                        >a {
+                            background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                            border-top-color: transparent;
+                            color: $eis-blue-sidebar-menu-link-font-color-on-active;
+
+                            &:hover {
+                                background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                            }
+
+                            >i {
+                                color: $eis-blue-sidebar-menu-link-icon-font-color-on-active;
+                            }
+
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-active;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active.open+li {
+                        >a {
+                            border-top-color: $eis-blue-sidebar-menu-devider-border-color;
+                        }
+                    }
+                }
+            }
+
+            .o_main_sidebar.o_sidebar_menu_expand {
+
+                /* 1st level links */
+                >li {
+                    >a {
+                        border-top: 1px solid $eis-blue-sidebar-menu-devider-border-color;
+                        color: $eis-blue-sidebar-menu-link-font-color;
+
+                        >.arrow {
+
+                            &:before,
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color;
+                            }
+                        }
+                    }
+
+                    &.heading {
+                        >h3 {
+                            color: darken($eis-blue-sidebar-menu-link-font-color, 23%);
+                        }
+                    }
+
+                    &:hover,
+                    &.open {
+                        >a {
+                            background: $eis-blue-sidebar-menu-link-bg-color-on-hover;
+                            color: $eis-blue-sidebar-menu-link-font-color-on-hover;
+
+                            >i {
+                                color: $eis-blue-sidebar-menu-link-icon-font-color-on-hover;
+                            }
+
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active {
+                        >a {
+                            >.selected {
+                                .page-container-bg-solid & {
+                                    border-color: transparent $eis-blue-page-content-solid-bg-color transparent transparent;
+                                }
+
+                                .page-container-bg-solid.page-sidebar-reversed & {
+                                    border-color: transparent transparent transparent $eis-blue-page-content-solid-bg-color;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active,
+                    &.active.open {
+                        >a {
+                            background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                            border-top-color: transparent;
+                            color: $eis-blue-sidebar-menu-link-font-color-on-active;
+
+                            &:hover {
+                                background: $eis-blue-sidebar-menu-link-bg-color-on-active;
+                            }
+
+                            >i {
+                                color: $eis-blue-sidebar-menu-link-icon-font-color-on-active;
+                            }
+
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-active;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active.open+li {
+                        >a {
+                            border-top-color: $eis-blue-sidebar-menu-devider-border-color;
+                        }
+                    }
+
+                }
+
+                /* all links */
+
+                li {
+                    >a {
+                        position: relative;
+
+                        >.arrow {
+                            &.open:before {
+                                color: $eis-blue-sidebar-menu-arrow-color;
+                            }
+                        }
+                    }
+
+                    &:hover {
+                        >a {
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                                }
+                            }
+                        }
+                    }
+
+                    &.active {
+                        >a {
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color-on-active;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &:hover {
+                    .sub-menu {
+                        background-color: $eis-blue-bg-color;
+                    }
+                }
+
+                .sub-menu {
+                    >li {
+                        >a {
+                            color: $eis-blue-sidebar-menu-sub-menu-link-font-color;
+
+                            >i {
+                                color: $eis-blue-sidebar-menu-sub-menu-link-icon-font-color;
+                            }
+
+                            >.arrow {
+
+                                &:before,
+                                &.open:before {
+                                    color: $eis-blue-sidebar-menu-arrow-color;
+                                }
+                            }
+                        }
+
+                        &:hover,
+                        &.open,
+                        &.active {
+                            >a {
+                                background: $eis-blue-sidebar-menu-sub-menu-link-bg-color-on-hover !important;
+
+                                >i {
+                                    color: $eis-blue-sidebar-menu-sub-menu-link-icon-font-color-on-hover;
+                                }
+
+                                >.arrow {
+
+                                    &:before,
+                                    &.open:before {
+                                        color: $eis-blue-sidebar-menu-arrow-color-on-hover;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

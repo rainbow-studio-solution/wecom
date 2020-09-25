@@ -1,0 +1,87 @@
+@include media-breakpoint-down(sm) {
+
+    .o_form_view {
+
+        .o_form_sheet {
+            padding: 16px;
+        }
+
+        .o_form_sheet_bg > .o_form_sheet {
+            border-left: 0;
+            border-right: 0;
+        }
+
+        .o_form_label:not(.o_invisible_modifier) {
+            padding-bottom: 4px;
+        }
+
+        .o_group {
+            margin-top: 0;
+
+            .o_inner_group {
+                margin-bottom: 0 !important;
+
+                div[name="carrier_selection"] {
+                    > div:not(.alert) {
+                        display: inline-flex;
+                        align-items: baseline;
+                        justify-content: space-evenly;
+
+                        &:first-child {
+                            width: 100%;
+
+                            .o_field_widget {
+                                width: 100% !important;
+                            }
+
+                            .text-success {
+                                margin: 2px 10px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .o_notebook {
+            > .tab-content {
+                > .tab-pane.active {
+                    .oe_subtotal_footer {
+                        width: 100% !important;
+                        tr {
+                            > td {
+                                width: 35% !important;
+                                &:first-child {
+                                    width: 65% !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .btn-add-record {
+            margin-left: 0 !important;
+            margin-bottom: 10px !important;
+        }
+
+        button.btn.o_external_button.fa {
+            padding-right: 0 !important;
+        }
+
+        .oe_inline.o_field_widget.o_field_many2one {
+            width: 100% !important;
+        }
+
+    }
+
+    // change the dropdown ui for mobile website
+    .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content {
+        width: 100% !important;
+        height: 80%;
+        max-height: fit-content;
+        left: 0 !important;
+        overflow-y: auto;
+    }
+}

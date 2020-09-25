@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="app_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">app.res.config.settings.view.form</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+            <field name="arch" type="xml">
+                <div id="about" position="attributes">
+                    <attribute name="class">o_hidden</attribute>
+                </div>
+            </field>
+        </record>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Rainbow Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="-1"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <div class="app_settings_block" data-string="rainbow_community_theme" string="Base Settings" data-key="rainbow_community_theme" groups="base.group_system">
+                        <h2>Base settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-info-circle"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <div class="content-group">
+                                        <label for="system_name" class="o_form_label"/>
+                                        <div class="mt16">
+                                            <field name="system_name" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                        <span class="o_form_label">Version</span>
+                                        <div class="mt16">
+                                            <div class="o_input" style="width: 100%;">13.0</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-picture-o" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <div class="content-group">
+                                        <label for="web_icon" class="o_form_label"/>
+                                        <div class="row">
+                                            <div class="text-muted col-md-12">
+                                                            Please upload the icon to the module 'rainbow_community_theme' static directory, (eg.  'static/src/img/')
+                                            </div>
+                                        </div>
+                                        <div class="mt16">
+                                            <field name="web_icon" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                        <div class="mt16">
+                                            <button string="Click to set web favicon icon" type="object" name="set_values_company_favicon" class="ml8 oe_highlight"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <h2>Global settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_poweredby"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_poweredby"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            When enable,Users can see customized technical support information on the login page.The installed website is invalid.
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('show_poweredby','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="poweredby_url" class="o_form_label"/>
+                                            <field name="poweredby_url" class="o_input" style="width: 100%;"/>
+                                            <label for="poweredby_text" class="o_form_label"/>
+                                            <field name="poweredby_text" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_lang"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_lang"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            When enable,User can quick switch language in user menu
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-picture-o" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <h3>Mobile Phone Icon Setting</h3>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+
+                                        <div class="mt16">
+                                            <label for="apple_icon" class="o_form_label"/>
+                                            <field name="apple_icon" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                        <div class="mt16">
+                                            <label for="android_icon" class="o_form_label"/>
+                                            <field name="android_icon" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                        <div class="mt16">
+                                            <label for="windows_icon" class="o_form_label"/>
+                                            <field name="windows_icon" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h2>User Menu settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_debug"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_debug"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                                        When enable,everyone login can see the debug menu
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_documentation"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_documentation"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                                        When enable,User can visit user manual
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('show_documentation','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="documentation_url" class="o_form_label"/>
+                                            <field name="documentation_url" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_documentation_dev"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_documentation_dev"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                                        When enable,User can visit development documentation
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('show_documentation_dev','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="documentation_dev_url" class="o_form_label"/>
+                                            <field name="documentation_dev_url" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_support"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_support"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                                        When enable,User can vist your support site
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('show_support','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="support_url" class="o_form_label"/>
+                                            <field name="support_url" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="show_account"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="show_account"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                                        When enable,User can login to your website
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('show_account','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="account_title" class="o_form_label"/>
+                                            <field name="account_title" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                        <div class="mt16">
+                                            <label for="account_url" class="o_form_label"/>
+                                            <field name="account_url" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                           
+                        </div>
+                        <h2>Apps settings</h2>
+                        <div class="row mt16 o_settings_container">
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-eye-slash"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Hide Enterprise Edition Apps</span>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            <span class="text-warning">
+                                                <i class="fa fa-info pr-1"/>
+                                                Hide Enterprise Edition Apps, not visible in apps board.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <button string="Click to hide" type="object" name="hide_enterprise_apps" class="ml8 oe_highlight btn btn-warning"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-eye"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Show Enterprise Edition Apps</span>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            <span class="text-warning">
+                                                <i class="fa fa-info pr-1"/>
+                                                Show Enterprise Edition Apps, visible in apps board.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <button string="Click to show" type="object" name="show_enterprise_apps" class="ml8 oe_highlight btn btn-warning"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-trash"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <span class="o_form_label">Uninstall Odoo referral program</span>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            <span class="text-warning">
+                                                <i class="fa fa-info pr-1"/>
+                                                    The Odoo referral program icon is not displayed in the navigation menu.
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <button string="Click to uninstall" type="object" name="uninstall_odoo_referral_program" class="ml8 oe_highlight btn btn-warning"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <!-- <div class="col-12 col-lg-6 o_setting_box" id="module_rainbow_auth_signup">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_rainbow_auth_signup" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label string="Install Rainwow Signup Theme" for="module_rainbow_auth_signup"/>
+                                    <div class="text-muted">
+                                        <div class="mt16 text-warning">Avoid errors, install Signup here.</div>
+                                                    Themes for allow users to register and reset passwords
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-lg-6 o_setting_box" id="module_rainbow_auth_oauth">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_rainbow_auth_oauth" />
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label string="Install Rainwow OAuth Authentication Theme" for="module_rainbow_auth_oauth"/>
+                                    <div class="text-muted">
+                                        <div class="mt16 text-warning">Avoid errors, install OAuth Authentication here.</div>
+                                                    Theme for login with external account (Google, Facebook, etc.)
+                                    </div>
+                                    <div class="content-group mt16" attrs="{'invisible': [('module_rainbow_auth_oauth','=',False)]}" id="msg_module_rainbow_auth_oauth">
+                                        <div class="mt16 text-warning">
+                                            <strong>Save</strong> this page and come back here to set up the feature.</div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </div>
+
+                        <h2>Theme settings</h2>
+                        <div class="row mt16 o_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="enable_login_theme"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="enable_login_theme"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            When enable,You can use a customized Login page. This function is invalid when "website" is installed.
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('enable_login_theme','=',False)]}">
+                                        <div class="mt16">
+                                            <label for="login_theme" class="o_form_label"/>
+                                            <field name="login_theme" class="o_input" style="width: 100%;"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record id="rainbow_config_settings_action" model="ir.actions.act_window">
+            <!-- <field name="name">rainbow</field> -->
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_id" ref="res_config_settings_view_form"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{
+                'module' : 'rainbow_community_theme',
+                }
+            </field>
+        </record>
+    </data>
+</odoo>

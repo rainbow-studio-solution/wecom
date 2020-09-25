@@ -1,0 +1,40 @@
+.style_blue.o_web_client {
+    background-color: $eis-blue-bg-color !important;
+
+    @include media-breakpoint-down(sm) {
+        background-color: #f9f9f9 !important;
+    }
+
+    >.o_main {
+        .o_action_manager {
+            background-color: $eis-blue-page-content-solid-bg-color !important;
+            // border-left: 1px solid $eis-blue-sidebar-menu-devider-border-color;
+            border-bottom: 1px solid solid $eis-blue-sidebar-menu-devider-border-color;
+        }
+    }
+
+    >.o_footer {
+        background-color: $eis-blue-footer-fixed-bg-color;
+
+        .o_footer_inner {
+            color: #747F8C;
+
+            a {
+                text-shadow: none;
+                color: #829fb8;
+
+                &:hover {
+                    color: darken(#829fb8, 7%)
+                }
+            }
+        }
+
+        .scroll-to-top {
+            >i {
+                padding: 2px;
+                border: 1px solid $eis-blue-footer-default-font-color;
+                color: $eis-blue-footer-default-font-color;
+            }
+        }
+    }
+}

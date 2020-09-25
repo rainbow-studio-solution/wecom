@@ -1,0 +1,91 @@
+@include media-breakpoint-up(sm) {
+    .o_control_panel {
+        .o_cp_left {
+            .o_cp_sidebar {
+                display: flex;
+                padding-right: 25px;
+
+                > .btn-group {
+                    margin: auto 0;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .o_control_panel {
+        padding-right: 0;
+
+        .breadcrumb  {
+            width: 100%;
+            overflow: hidden;
+
+            > li {
+                &:before {
+                    display: none;
+                }
+
+                &.o_back_button {
+                    &:before {
+                        font-family: FontAwesome;
+                        content: ""; // fa-arrow-left
+                        display: inline-block;
+
+                        padding: 0; // override bootstrap
+                        color: inherit;
+                    }
+
+                    &.btn {
+                        padding: 0.2rem 0.4rem;
+                    }
+
+                    > a {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .o_cp_searchview {
+            min-height: 35px;
+
+            &.o_searchview_quick {
+                display: flex;
+                align-items: flex-start;
+                width: 100%;
+
+                > .o_searchview {
+                    display: flex;
+                    flex: 1 1 auto;
+                    align-items: center;
+                    border-bottom: 1px solid $o-brand-secondary;
+
+                    > .o_searchview_input_container {
+                        flex: 1 1 auto;
+                    }
+                    > .o_enable_searchview {
+                        margin: 0;
+                        padding-left: 0;
+                    }
+                }
+            }
+        }
+
+        .o_cp_left, .o_cp_right {
+            flex: 1 1 auto;
+        }
+
+        .o_cp_sidebar {
+            display: none;
+        }
+
+        .o_cp_switch_buttons {
+            &.show > ul.dropdown-menu {
+                display: inline-flex;
+                min-width: 0px;
+            }
+        }
+    }
+}

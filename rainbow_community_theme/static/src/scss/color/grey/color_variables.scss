@@ -1,0 +1,78 @@
+// Main settings
+// ==========================================================================
+$eis-grey-theme-name: "grey";
+$eis-grey-brand-main-color: #31c7b2 !default;
+$eis-grey-brand-main-font-color: #ffffff !default;
+
+// Font sizes
+$eis-grey-font-size-base-touch: 15px;
+
+// 1. Colors
+// ==========================================================================
+//$eis-grey-brand: $o-enterprise-color;
+$eis-grey-primary-color: #fff;
+$eis-grey-primary-color-light: lighten($eis-grey-primary-color, 15%);
+$eis-grey-primary-color-dark: darken($eis-grey-primary-color, 15%);
+
+$eis-grey-brand-primary: $o-enterprise-primary-color;
+$eis-grey-brand-secondary: #8f8f8f;
+$eis-grey-brand-lightsecondary: #f8f9fa;
+
+// Body and header
+// ==========================================================================
+$eis-grey-bg-color: darken(#697380, 5%) !default;
+$eis-grey-header-navbar-bg-color: lighten(#444D59, 5%) !default;
+$eis-grey-header-navbar-font-color: #c5c5c5;
+$eis-grey-header-navbar-toggle-color: lighten($eis-grey-header-navbar-bg-color, 40%) !default;
+$eis-grey-header-navbar-toggle-bg-color: lighten($eis-grey-bg-color, 5%) !default;
+$eis-grey-header-navbar-inverse-link-hover-bg: lighten($eis-grey-bg-color, 5%) !default;
+
+
+// Sidebar menu
+// ==========================================================================
+$eis-grey-sidebar-menu-devider-border-color: lighten($eis-grey-bg-color, 5%) !default;
+
+$eis-grey-sidebar-menu-link-font-color: #efefef !default;
+$eis-grey-sidebar-menu-link-font-color-on-hover: $eis-grey-sidebar-menu-link-font-color !default;
+$eis-grey-sidebar-menu-link-font-color-on-active: #ffffff !default;
+
+$eis-grey-sidebar-menu-link-icon-font-color: #aab3bb !default;
+$eis-grey-sidebar-menu-link-icon-font-color-on-active: $eis-grey-sidebar-menu-link-font-color-on-active !default;
+$eis-grey-sidebar-menu-link-icon-font-color-on-hover: $eis-grey-sidebar-menu-link-icon-font-color !default;
+
+$eis-grey-sidebar-menu-link-bg-color-on-hover: lighten($eis-grey-header-navbar-bg-color, 2%) !default;
+$eis-grey-sidebar-menu-link-bg-color-on-active: $eis-grey-brand-main-color;
+
+$eis-grey-sidebar-menu-arrow-color: $eis-grey-sidebar-menu-link-icon-font-color !default;
+$eis-grey-sidebar-menu-arrow-color-on-active: $eis-grey-sidebar-menu-link-font-color-on-active !default;
+$eis-grey-sidebar-menu-arrow-color-on-hover: $eis-grey-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-grey-sidebar-menu-sub-menu-box-shadow-color: $eis-grey-sidebar-menu-link-bg-color-on-hover !default;
+$eis-grey-sidebar-menu-sub-menu-link-font-color: #eeeeee !default;
+$eis-grey-sidebar-menu-sub-menu-link-icon-font-color: $eis-grey-sidebar-menu-arrow-color !default;
+$eis-grey-sidebar-menu-sub-menu-link-bg-color-on-hover: lighten($eis-grey-bg-color, 3%) !default;
+$eis-grey-sidebar-menu-sub-menu-link-icon-font-color-on-hover: $eis-grey-sidebar-menu-link-icon-font-color-on-hover !default;
+
+$eis-grey-sidebar-menu-hover-sub-menu-bg-color: lighten($eis-grey-sidebar-menu-link-bg-color-on-hover, 4%) !default;
+
+
+// Launcher
+// ==========================================================================
+$eis-grey-launcher-bg-color: darken($eis-grey-bg-color, 5%) !default;
+;
+
+// Page content
+// ==========================================================================
+$eis-grey-page-content-solid-bg-color: #fff !default; // content solid bg color. default:#F0F2F7.
+
+// Footer
+$eis-grey-footer-default-font-color: lighten($eis-grey-bg-color, 40%) !default;
+$eis-grey-footer-default-go-top-bg-color: lighten($eis-grey-bg-color, 7%) !default;
+$eis-grey-footer-default-go-top-icon-font-color: lighten($eis-grey-bg-color, 30%) !default;
+$eis-grey-footer-fixed-bg-color: darken($eis-grey-bg-color, 7%) !default;
+
+// THEME PANEL
+// ==========================================================================
+$eis-grey-theme-panel-bg-color: darken(#697380, 5%) !default;
+$eis-grey-theme-panel-font-color: #e7ecf1 !default;
+$eis-grey-theme-panel-line-color: #e7ecf1 !default;
