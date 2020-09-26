@@ -1043,7 +1043,7 @@
           title: 'Bold',
           icon: {
             glyph: 'glyphicon glyphicon-bold',
-            fa: 'fa fa-bold',
+            fa: 'fa fa-bold fa-lg',
             'fa-3': 'icon-bold',
             'fa-5': 'fas fa-bold',
             octicons: 'octicon octicon-bold'
@@ -1080,7 +1080,7 @@
           hotkey: 'Ctrl+I',
           icon: {
             glyph: 'glyphicon glyphicon-italic',
-            fa: 'fa fa-italic',
+            fa: 'fa fa-italic fa-lg',
             'fa-3': 'icon-italic',
             'fa-5': 'fas fa-italic',
             octicons: 'octicon octicon-italic'
@@ -1117,7 +1117,7 @@
           hotkey: 'Ctrl+H',
           icon: {
             glyph: 'glyphicon glyphicon-header',
-            fa: 'fa fa-header',
+            fa: 'fa fa-header fa-lg',
             'fa-3': 'icon-font',
             'fa-5': 'fas fa-heading',
             octicons: 'octicon octicon-text-size'
@@ -1162,7 +1162,7 @@
           hotkey: 'Ctrl+L',
           icon: {
             glyph: 'glyphicon glyphicon-link',
-            fa: 'fa fa-link',
+            fa: 'fa fa-link fa-lg',
             'fa-3': 'icon-link',
             'fa-5': 'fas fa-link',
             octicons: 'octicon octicon-link'
@@ -1200,7 +1200,7 @@
           hotkey: 'Ctrl+G',
           icon: {
             glyph: 'glyphicon glyphicon-picture',
-            fa: 'fa fa-picture-o',
+            fa: 'fa fa-picture-o fa-lg',
             'fa-3': 'icon-picture',
             'fa-5': 'far fa-image',
             octicons: 'octicon octicon-file-media'
@@ -1244,7 +1244,7 @@
           title: 'Unordered List',
           icon: {
             glyph: 'glyphicon glyphicon-list',
-            fa: 'fa fa-list',
+            fa: 'fa fa-list fa-lg',
             'fa-3': 'icon-list-ul',
             'fa-5': 'fas fa-list-ul',
             octicons: 'octicon octicon-list-unordered'
@@ -1296,7 +1296,7 @@
           title: 'Ordered List',
           icon: {
             glyph: 'glyphicon glyphicon-th-list',
-            fa: 'fa fa-list-ol',
+            fa: 'fa fa-list-ol fa-lg',
             'fa-3': 'icon-list-ol',
             'fa-5': 'fas fa-list-ol',
             octicons: 'octicon octicon-list-ordered'
@@ -1350,7 +1350,7 @@
           title: 'Code',
           icon: {
             glyph: 'glyphicon glyphicon-console',
-            fa: 'fa fa-code',
+            fa: 'fa fa-code fa-lg',
             'fa-3': 'icon-code',
             'fa-5': 'fas fa-code',
             octicons: 'octicon octicon-code'
@@ -1395,7 +1395,7 @@
           title: 'Quote',
           icon: {
             glyph: 'glyphicon glyphicon-comment',
-            fa: 'fa fa-quote-left',
+            fa: 'fa fa-quote-left fa-lg',
             'fa-3': 'icon-quote-left',
             'fa-5': 'fas fa-quote-left',
             octicons: 'octicon octicon-quote'
@@ -1454,7 +1454,7 @@
           btnClass: 'btn btn-primary btn-sm',
           icon: {
             glyph: 'glyphicon glyphicon-search',
-            fa: 'fa fa-search',
+            fa: 'fa fa-search fa-lg',
             'fa-3': 'icon-search',
             'fa-5': 'fas fa-search',
             octicons: 'octicon octicon-search'
@@ -1486,7 +1486,7 @@
         fullscreenOn: {
           name: "fullscreenOn",
           icon: {
-            fa: 'fa fa-expand',
+            fa: 'fa fa-expand fa-lg',
             glyph: 'glyphicon glyphicon-fullscreen',
             'fa-3': 'icon-resize-full',
             'fa-5': 'fas fa-expand-arrows-alt',
@@ -1496,7 +1496,7 @@
         fullscreenOff: {
           name: "fullscreenOff",
           icon: {
-            fa: 'fa fa-compress',
+            fa: 'fa fa-compress fa-lg',
             glyph: 'glyphicon glyphicon-fullscreen',
             'fa-3': 'icon-resize-small',
             'fa-5': 'fas fa-compress',

@@ -66,6 +66,7 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
                     if (_t.database.multi_lang && this.field.translate) {
                         $input[1].remove();
                         var $button = this._renderTranslateButton();
+                        $button.addClass("fa fa-language fa-lg");
                         fullscreen.before($button);
                     }
                 }
@@ -95,7 +96,7 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
                         name: 'cmdHelp',
                         title: _t('Help'),
                         icon: {
-                            fa: 'fa fa-question-circle'
+                            fa: 'fa fa-question-circle fa-lg'
                         },
                         callback: this._openHelpDialog,
                     }],
