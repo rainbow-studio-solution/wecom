@@ -3,6 +3,7 @@
     <template id="assets_backend" name="wxwork markdown widget assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/wxwork_markdown_editor/static/src/js/markdown.js"/>
+            <link rel="stylesheet" type="text/scss" href="/wxwork_markdown_editor/static/src/scss/dialog.scss"/>
         </xpath>
     </template>
 </odoo>
