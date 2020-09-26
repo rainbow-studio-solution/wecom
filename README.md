@@ -35,7 +35,9 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 5. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
 
-6. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。<a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
+6. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。这本是收费的模块，这个模块对你帮助很大的话，请点击下面“捐赠”按钮，打赏一杯咖啡。 
+   1. <a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
+   2. 账号密码均为deno
 
 
 
@@ -66,4 +68,4 @@ odoo 13.0变化很大，发现不少需要改动的。
 <a href="https://apps.odoo.com/apps/themes/browse?search=RStudio" target="_blank">主题</a>
 
 
-如果我的作品能对您有所帮助，能力范围内，请不要介意点击下面“捐赠”按钮，或者点个⭐。
+如果我的作品能对您有所帮助，能力范围内，请不要介意点击下面“捐赠”按钮，或者点个⭐，开源不易，请多支持。
