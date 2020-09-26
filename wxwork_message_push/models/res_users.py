@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
-
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 from odoo.addons.auth_signup.models.res_partner import SignupError, now
 from odoo.tools import cache
 from ...wxwork_api.CorpApi import *
@@ -51,7 +51,7 @@ class Users(models.Model):
         message = {
             # "touser": "${object.wxwork_id|safe}",
             "touser": "rain.wen",
-            "msgtype": "markdown",
+            "msgtype": message_template.msgtype,
             "agentid": agentid,
             "markdown": {
                 "content": message_template.body_html,
@@ -64,16 +64,29 @@ class Users(models.Model):
             response = api.httpCall(
                 CORP_API_TYPE["MESSAGE_SEND"],
                 {
-                    "touser": "rain.wen",
-                    "msgtype": "markdown",
+                    "touser": self.wxwork_id,
+                    "msgtype": message_template.msgtype,
                     "agentid": agentid,
                     "markdown": {
                         "content": message_template.body_html,
                     },
                     "enable_duplicate_check": 0,
                     "duplicate_check_interval": 1800,
+                    "safe": 0,
                 },
             )
             print(response)
-        except:
+        except ApiException as ex:
             pass
+            # print ex.errCode, ex.errMsg
+
+        # for user in self:
+        #     if not user.wxwork_id:
+        #         raise UserError(
+        #             _("Cannot send message: user %s has no Enterprise WeChat ID.")
+        #             % user.name
+        #         )
+        #     with self.env.cr.savepoint():
+        #         message_template.with_context(lang=user.lang).send_message(
+        #             user.id, raise_exception=True
+        #         )
