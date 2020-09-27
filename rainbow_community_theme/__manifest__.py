@@ -41,7 +41,7 @@ Backend/Launcher/Multi-level menu/Theme Settings/Custom login page/
     'live_test_url':
     'https://rainbow.rstudio.xyz/',
     'license':
-    'OPL-1',
+    'AGPL-3',
     'auto_install':
     False,
     'application':
@@ -50,8 +50,4 @@ Backend/Launcher/Multi-level menu/Theme Settings/Custom login page/
     True,
     'images': ['images/main_screenshot.png'],
     'images': ['images/rainbow.png', 'images/rainbow_screenshot.png'],
-    'currency':
-    'EUR',
-    'price':
-    143,
-}
+    'currency': }
