@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     
-                    <h2>应用登录授权</h2>
+                    <h2>Application login authorization</h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
