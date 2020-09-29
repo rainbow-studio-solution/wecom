@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 from ..models.sync_contacts import *

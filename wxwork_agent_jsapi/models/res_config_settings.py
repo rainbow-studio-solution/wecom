@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 from datetime import datetime
@@ -26,8 +26,6 @@ class ResConfigSettings(models.TransientModel):
     )
 
     def get_agent_jsapi_ticket(self):
-        res = super(ResConfigSettings, self).get_values()
-
         ir_config = self.env["ir.config_parameter"].sudo()
         corpid = ir_config.get_param("wxwork.corpid")
         if corpid == False:
@@ -50,3 +48,6 @@ class ResConfigSettings(models.TransientModel):
 
             except ApiException as ex:
                 pass
+
+    def generate_signature(self):
+        pass

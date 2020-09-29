@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 import time
 import logging
 
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
 
 
 _logger = logging.getLogger(__name__)
@@ -52,8 +52,7 @@ class SyncDepartment(models.Model):
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
         debug = params.get_param("wxwork.debug_enabled")
-        sync_department_id = params.get_param(
-            "wxwork.contacts_sync_hr_department_id")
+        sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
         if debug:
             _logger.info(
                 _(
@@ -82,8 +81,7 @@ class SyncDepartment(models.Model):
             times2 = end2 - start2
 
             times = times1 + times2
-            result = _(
-                "Department synchronization is successful, it takes time")
+            result = _("Department synchronization is successful, it takes time")
             status = {"department": True}
         except BaseException as e:
             times = time.time()

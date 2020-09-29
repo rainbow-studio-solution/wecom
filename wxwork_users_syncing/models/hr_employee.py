@@ -2,7 +2,7 @@
 
 from odoo import api, fields, models, _
 
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
 
 from ..helper.common import *
 import logging
@@ -44,8 +44,7 @@ class HrEmployee(models.Model):
         "Enterprise WeChat employees", readonly=True, translate=True
     )
 
-    user_check_tick = fields.Boolean(
-        "User Check Tick", default=False, translate=True)
+    user_check_tick = fields.Boolean("User Check Tick", default=False, translate=True)
 
     def create_user_from_employee(self):
         """
@@ -103,8 +102,7 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
-        sync_department_id = params.get_param(
-            "wxwork.contacts_sync_hr_department_id")
+        sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
         debug = params.get_param("wxwork.debug_enabled")
         if debug:
             _logger.debug(
@@ -148,9 +146,12 @@ class HrEmployee(models.Model):
 
         times = times
         if debug:
-            _logger.debug(_(
-                "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds")
-                % times)
+            _logger.debug(
+                _(
+                    "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds"
+                )
+                % times
+            )
 
         return times, status, result
 
@@ -187,17 +188,14 @@ class HrEmployee(models.Model):
             )
 
         img_path = (
-            self.env["ir.config_parameter"].sudo().get_param(
-                "wxwork.contacts_img_path")
+            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
         if platform.system() == "Windows":
             avatar_file = (
-                img_path.replace("\\", "/") + "/avatar/" +
-                obj["userid"] + ".jpg"
+                img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
             )
             qr_code_file = (
-                img_path.replace("\\", "/") + "/qr_code/" +
-                obj["userid"] + ".png"
+                img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
             )
         else:
             avatar_file = img_path + "avatar/" + obj["userid"] + ".jpg"
@@ -228,15 +226,13 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Error creating employee:%s - %s") %
-                      (obj["name"], repr(e)))
+                print(_("Error creating employee:%s - %s") % (obj["name"], repr(e)))
             result = False
         return result
 
     def update_employee(self, records, obj, debug):
         params = self.env["ir.config_parameter"].sudo()
-        always = params.get_param(
-            "wxwork.contacts_always_update_avatar_enabled")
+        always = params.get_param("wxwork.contacts_always_update_avatar_enabled")
 
         department_ids = []
         for department in obj["department"]:
@@ -245,17 +241,14 @@ class HrEmployee(models.Model):
             )
 
         img_path = (
-            self.env["ir.config_parameter"].sudo().get_param(
-                "wxwork.contacts_img_path")
+            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
         if platform.system() == "Windows":
             avatar_file = (
-                img_path.replace("\\", "/") + "/avatar/" +
-                obj["userid"] + ".jpg"
+                img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
             )
             qr_code_file = (
-                img_path.replace("\\", "/") + "/qr_code/" +
-                obj["userid"] + ".png"
+                img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
             )
         else:
             avatar_file = img_path + "avatar/" + obj["userid"] + ".jpg"
@@ -283,8 +276,7 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Update employee error:%s - %s") %
-                      (obj["name"], repr(e)))
+                print(_("Update employee error:%s - %s") % (obj["name"], repr(e)))
             result = False
 
         return result
@@ -346,8 +338,7 @@ class HrEmployee(models.Model):
                 return departments.id
         except BaseException as e:
             if debug:
-                print(_("Get the employee's parent department error:%s") %
-                      (repr(e)))
+                print(_("Get the employee's parent department error:%s") % (repr(e)))
 
     def sync_leave_employee(self, response, debug):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
@@ -362,8 +353,7 @@ class HrEmployee(models.Model):
                 self = self.with_env(self.env(cr=new_cr))
                 env = self.sudo().env["hr.employee"]
                 domain = ["|", ("active", "=", False), ("active", "=", True)]
-                employees = env.search(
-                    domain + [("is_wxwork_employee", "=", True)])
+                employees = env.search(domain + [("is_wxwork_employee", "=", True)])
                 for employee in employees:
                     list_employee.append(employee.wxwork_id)
 

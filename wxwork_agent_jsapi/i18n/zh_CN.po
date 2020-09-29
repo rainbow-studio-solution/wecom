@@ -1,0 +1,104 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wxwork_agent_jsapi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-29 07:23+0000\n"
+"PO-Revision-Date: 2020-09-29 15:27+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__auth_agentid
+msgid "Agent Id"
+msgstr "Agent Id"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__agent_jsapi_ticket
+msgid "Application JS API Ticket"
+msgstr "应用 JS API Ticket"
+
+#. module: wxwork_agent_jsapi
+#: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
+msgid "Click test to get application JS API Ticket"
+msgstr "单击测试以获取应用程序JS API Ticket"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.model,name:wxwork_agent_jsapi.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wxwork_agent_jsapi
+#: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
+msgid "Enterprise WeChat Application JSAPI"
+msgstr "企业微信应用程序JSAPI"
+
+#. module: wxwork_agent_jsapi
+#: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
+msgid "Get Enterprise WeChat authentication configuration"
+msgstr "获取企业微信认证模块的配置"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid "Please fill in correctly Enterprise ID."
+msgstr "请正确填写企业ID。"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid "Please fill in the application 'secret' correctly."
+msgstr "请正确填写应用程序“secret”。"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__auth_secret
+msgid "Secret"
+msgstr "Secret"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.model.fields,help:wxwork_agent_jsapi.field_res_config_settings__auth_agentid
+msgid ""
+"The web application ID of the authorizing party, which can be viewed in the "
+"specific web application"
+msgstr "授权方的Web应用程序ID，可以在特定的Web应用程序中查看"
+
+#. module: wxwork_agent_jsapi
+#: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
+msgid ""
+"jsapi_ticket is a temporary ticket for the H5 application to call the "
+"enterprise WeChat JS interface. Under normal circumstances, the validity "
+"period of jsapi_ticket is 7200 seconds, which can be obtained through "
+"access_token. Because the number of api calls to get jsapi_ticket is very "
+"limited (a company can get up to 400 times within an hour, and a single "
+"application cannot exceed 100 times), frequent refreshing of jsapi_ticket "
+"will limit api calls and affect their own business.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: "
+"0px 16px;\">\n"
+"                                            <i class=\"fa fa-info-circle\"/"
+">\n"
+"                                            The ticket has been cached and "
+"the system will automatically refresh the ticket.\n"
+"                                        </span>"
+msgstr ""
+"sapi_ticket是H5应用调用企业微信JS接口的临时票据。正常情况下，jsapi_ticket的"
+"有效期为7200秒，通过access_token来获取。由于获取jsapi_ticket的api调用次数非"
+"常有限（一小时内，一个企业最多可获取400次，且单个应用不能超过100次），频繁刷"
+"新jsapi_ticket会导致api调用受限，影响自身业务.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: "
+"0px 16px;\">\n"
+"                                            <i class=\"fa fa-info-circle\"/"
+">\n"
+"                                            ticket已被缓存，系统将自动刷新"
+"ticket。\n"
+"                                        </span>"

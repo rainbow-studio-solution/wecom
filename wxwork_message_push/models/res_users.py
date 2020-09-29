@@ -4,7 +4,9 @@ from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.addons.auth_signup.models.res_partner import SignupError, now
 from odoo.tools import cache
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
+
+# from ...wxwork_api1.wx_api.corp_api import *
 
 
 class Users(models.Model):

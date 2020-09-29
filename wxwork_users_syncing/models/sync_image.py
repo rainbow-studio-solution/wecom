@@ -12,7 +12,7 @@ import threading
 import numpy as np
 
 from odoo import _
-from ...wxwork_api.CorpApi import *
+from ...wxwork_api1.CorpApi import *
 
 _logger = logging.getLogger(__name__)
 
@@ -33,8 +33,7 @@ class SyncImage(object):
 
     def run(self):
         if self.debug:
-            _logger.info(
-                _("Start syncing Enterprise WeChat Contact - Picture"))
+            _logger.info(_("Start syncing Enterprise WeChat Contact - Picture"))
         if platform.system() == "Windows":
             avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
             qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
