@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+# import pkgutil
+# import os.path
+# __path__ = [
+#     os.path.abspath(path)
+#     for path in pkgutil.extend_path(__path__, __name__)
+# ]
+
 from .AbstractApi import *
 
 CORP_API_TYPE = {
@@ -52,7 +59,8 @@ CORP_API_TYPE = {
     "AGENT_GET": ["/cgi-bin/agent/get?access_token=ACCESS_TOKEN", "GET"],
     "AGENT_SET": ["/cgi-bin/agent/set?access_token=ACCESS_TOKEN", "POST"],
     "AGENT_GET_LIST": ["/cgi-bin/agent/list?access_token=ACCESS_TOKEN", "GET"],
-    "MENU_CREATE": ["/cgi-bin/menu/create?access_token=ACCESS_TOKEN", "POST"],  ## TODO
+    # TODO
+    "MENU_CREATE": ["/cgi-bin/menu/create?access_token=ACCESS_TOKEN", "POST"],
     "MENU_GET": ["/cgi-bin/menu/get?access_token=ACCESS_TOKEN", "GET"],
     "MENU_DELETE": ["/cgi-bin/menu/delete?access_token=ACCESS_TOKEN", "GET"],
     "MESSAGE_SEND": ["/cgi-bin/message/send?access_token=ACCESS_TOKEN", "POST"],

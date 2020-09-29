@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 from logging import debug
@@ -6,12 +5,17 @@ from odoo import _
 from odoo.exceptions import UserError, ValidationError
 import json
 import requests
-import sys
+# import pkgutil
+# import os.path
+# __path__ = [
+#     os.path.abspath(path)
+#     for path in pkgutil.extend_path(__path__, __name__)
+# ]
 
 from odoo import api, SUPERUSER_ID
 
 
-sys.path.append("../../")
+# sys.path.append("../../")
 
 
 class ApiException(Exception):
@@ -100,9 +104,11 @@ class AbstractApi(object):
     def __httpPost(self, url, args):
         realUrl = self.__appendToken(url)
 
-        if wxwork_api.get is True:
-            # print realUrl, args
-            pass
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
+
+        if debug is True:
+            print(realUrl, args)
 
         return requests.post(
             realUrl, data=json.dumps(args, ensure_ascii=False).encode("utf-8")
@@ -111,17 +117,12 @@ class AbstractApi(object):
     def __httpGet(self, url):
         realUrl = self.__appendToken(url)
 
-        if DEBUG is True:
-            pass
-            # print realUrl
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
+        if debug is True:
+            print(realUrl)
 
         return requests.get(realUrl).json()
-
-    def get_wxwork_dubug(cr, registry):
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        params = env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-        return debug
 
     def __post_file(self, url, media_file):
         return requests.post(url, file=media_file).json()

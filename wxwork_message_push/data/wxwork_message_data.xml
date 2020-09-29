@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record id="message_agentid" model="ir.config_parameter">
+        <!-- <record id="message_agentid" model="ir.config_parameter">
             <field name="key">wxwork.message_agentid</field>
             <field name="value">0000000</field>
         </record>
         <record id="message_secret" model="ir.config_parameter">
             <field name="key">wxwork.message_secret</field>
             <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>
-        </record>
+        </record> -->
     </data>
 </odoo>

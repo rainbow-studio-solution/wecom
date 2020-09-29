@@ -5,7 +5,7 @@
     "website": "",
     "sequence": 1,
     "installable": True,
-    "application": True,
+    "application": False,
     "auto_install": False,
     "category": "wxwork",
     "version": "13.0.0.1",
