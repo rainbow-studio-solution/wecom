@@ -22,4 +22,7 @@
             </div>
         </div>
     </t>
+
+    <t t-name="WxworkScan.camera">
+    </t>
 </templates>

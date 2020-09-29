@@ -44,69 +44,23 @@ odoo.define('web.wxwrok_scan_widget', function (require) {
                 self.disableWebCamera();
             });
 
-            var show_or_hide_options_button = this.dialog.$modal.find(".modal-body").find(".show_or_hide_options_panel");
-            show_or_hide_options_button.click(function () {
-                self.show_or_hide_options_container();
-            });
+            // var show_or_hide_options_button = this.dialog.$modal.find(".modal-body").find(".show_or_hide_options_panel");
+            // show_or_hide_options_button.click(function () {
+            //     self.show_or_hide_options_container();
+            // });
 
-            this.dialog.$modal.find(".modal-body").find("input[type='checkbox']").bootstrapSwitch("size", "mini");
-            this.scannerLaser = this.dialog.$modal.find(".modal-body").find(".scanner-laser");
-            this.scan_result_format = this.dialog.$modal.find(".modal-body").find(".scan_result_format");
-            this.scan_result_value = this.dialog.$modal.find(".modal-body").find(".scan_result_value");
+            // this.dialog.$modal.find(".modal-body").find("input[type='checkbox']").bootstrapSwitch("size", "mini");
+            // this.scannerLaser = this.dialog.$modal.find(".modal-body").find(".scanner-laser");
+            // this.scan_result_format = this.dialog.$modal.find(".modal-body").find(".scan_result_format");
+            // this.scan_result_value = this.dialog.$modal.find(".modal-body").find(".scan_result_value");
 
             var sacn_options = {
-                autoBrightnessValue: 100,
-                resultFunction: function (res) {
-                    self.scannerLaser.fadeOut(0.5);
-                    setTimeout(function () {
-                        self.scannerLaser.fadeIn(0.5);
-                    });
-                    self.scan_result_format.val(_t("Type") + ": " + res.format).addClass("text-success").removeClass("text-danger").removeClass("text-info");
-                    self.scan_result_value.val(res.code).addClass("text-success");
-                },
-                getDevicesError: function (error) {
-                    var p, message = "Error detected with the following parameters:\n";
-                    for (p in error) {
-                        message += p + ": " + error[p] + "\n";
-                    }
-                    // alert(message);
-                    self.scan_result_format.val(_t("Error") + ":" + error.name).addClass("text-danger");
-                    self.scan_result_value.val(message).addClass("text-danger");
-                },
-                getUserMediaError: function (error) {
-                    var p, message = "Error detected with the following parameters:\n";
-                    for (p in error) {
-                        message += p + ": " + error[p] + "\n";
-                    }
-                    // alert(message);
 
-                    self.scan_result_format.val(_t("Error") + ":" + error.name).addClass("text-danger");
-                    self.scan_result_value.val(message).addClass("text-danger");
-                },
-                cameraError: function (error) {
-                    var p, message = "Error detected with the following parameters:\n";
-                    if (error.name == "NotSupportedError") {
-                        var ans = confirm("Your browser does not support getUserMedia via HTTP!\n(see: https:goo.gl/Y0ZkNV).\n You want to see github demo page in a new window?");
-                        if (ans) {
-                            window.open("https://andrastoth.github.io/webcodecamjs/");
-                        }
-                    } else {
-                        for (p in error) {
-                            message += p + ": " + error[p] + "\n";
-                        }
-
-                        self.scan_result_format.val(_t("Error") + ":" + error.name).addClass("text-danger");
-                        self.scan_result_value.val(message).addClass("text-danger");
-                    }
-                },
-                cameraSuccess: function () {
-                    // grabImg.classList.remove("disabled");
-                }
             };
 
-            this.decoder = new WebCodeCamJS("#webcodecam-canvas").buildSelectMenu("#camera-select", "environment|back").init(sacn_options);
-            this.decoder.play();
-            this.scan_result_format.val(_t("Scanning...")).addClass("text-info").removeClass("text-danger").removeClass("text-success");;
+            // this.decoder = new WebCodeCamJS("#webcodecam-canvas").buildSelectMenu("#camera-select", "environment|back").init(sacn_options);
+            // this.decoder.play();
+            // this.scan_result_format.val(_t("Scanning...")).addClass("text-info").removeClass("text-danger").removeClass("text-success");;
         },
         isEnterprise: function () {
             // 判断是否企业版
@@ -126,25 +80,63 @@ odoo.define('web.wxwrok_scan_widget', function (require) {
             this.$input.find("button[class*='show_scan_code_camera']").prop('disabled', true); //禁用 --变灰，且不能调用点击事件
             this.$input.find(".loading").removeClass("o_hidden")
 
-            var dialog_title = _t("QR code and Bar code Scanning");
+            var dialog_title = _t("Enterprise WeChat Scan Code");
             this.dialog = new Dialog(this, {
                 size: 'medium',
                 dialogClass: 'o_act_window',
                 title: dialog_title,
                 buttons: self.getWebButtons(),
-                $content: QWeb.render('ScanCode.camera', {
+                $content: QWeb.render('WxworkScan.camera', {
                     // cameras: res.data,
                     // active: this.activeCameraId,
                     // error: res.msg,
                 })
             });
             this.dialog.opened().then(function () {
-                // self.initWebScanner(dialog, res.data);
+                var timestamp = new Date().getTime();
+                var nonceStr = self.generateNonceStr(16);
+                //通过config接口注入权限验证配置
+                wx.config({
+                    beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+                    debug: self.get_config_parameter("wxwork.debug_enabled"), // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: self.get_config_parameter("wxwork.wxwork.auth_agentid"), // 必填，企业微信的corpID
+                    timestamp: timestamp, // 必填，生成签名的时间戳
+                    nonceStr: nonceStr, // 必填，生成签名的随机串
+                    signature: '', // 必填，签名，见 附录-JS-SDK使用权限签名算法
+                    jsApiList: [] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+                });
+
                 self.initWebScanner();
             });
             this.dialog.open();
         },
+        generateSignature: function () {
+            //生成签名
 
+        },
+        generateNonceStr: function (len) {
+            //生成签名的随机串
+            len = len || 32;
+            var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+            var maxPos = $chars.length;
+            var str = '';
+            for (i = 0; i < len; i++) {
+                str += $chars.charAt(Math.floor(Math.random() * maxPos));
+            }
+            return str;
+        },
+        get_config_parameter: function (parameter) {
+            var self = this;
+            self._rpc({
+                model: 'ir.config_parameter',
+                method: 'get_param',
+                args: [parameter],
+                lazy: false,
+            }).then(function (response) {
+                console.log(response);
+                return response;
+            })
+        },
         show_or_hide_options_container: function () {
             var camera_options_container = this.dialog.$modal.find(".modal-body").find(".o_camera_widget_options");
             var icon = this.dialog.$modal.find(".modal-body").find(".show_or_hide_options_panel").find("i");
@@ -162,7 +154,7 @@ odoo.define('web.wxwrok_scan_widget', function (require) {
         },
         disableWebCamera: function () {
             var self = this;
-            this.decoder.stop();
+            // this.decoder.stop();
             this.$input.find(".loading").addClass("o_hidden");
             this.$input.find("button[class*='show_scan_code_camera']").prop('disabled', false); //启用
 

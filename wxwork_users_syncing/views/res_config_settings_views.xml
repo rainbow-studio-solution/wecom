@@ -51,7 +51,7 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="contacts_access_token" style="word-break:break-all;width: 100%;" />
+                                        <field name="contacts_access_token" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                     </div>
                                 </div>
                             </div>
