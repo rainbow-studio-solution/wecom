@@ -50,4 +50,5 @@ Backend/Launcher/Multi-level menu/Theme Settings/Custom login page/
     True,
     'images': ['images/main_screenshot.png'],
     'images': ['images/rainbow.png', 'images/rainbow_screenshot.png'],
-    'currency': }
+
+}
