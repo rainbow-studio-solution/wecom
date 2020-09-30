@@ -21,7 +21,7 @@
         "mail",
         "hr",
         "auth_oauth",
-        "wxwork_base",
+        "wxwork_api",
         "wxwork_message_push",
     ],
     "external_dependencies": {
