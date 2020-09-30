@@ -5,6 +5,7 @@ from ...wxwork_api.wx_qy_api.CorpApi import *
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 from ..models.sync_contacts import *
+import logging
 
 _logger = logging.getLogger(__name__)
 
