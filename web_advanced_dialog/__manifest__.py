@@ -13,7 +13,7 @@
         
         """,
     "description": """
-        本模块参考了  https://loney-cao.github.io/ 的资料
+        本模块参考了  https://loney-cao.github.io/2019/11/28/odoo13_5/  的资料
 
         """,
     "depends": [
