@@ -16,7 +16,7 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 # 适配odoo13.0开发计划，随着自己的想法而变动
 
-## 开源项目 (2020-09-25)
+## 开源项目 (2020-09-30)
 
 1. wxwork_base （企业微信-基础模块）完成适配
    
@@ -32,7 +32,7 @@ odoo 13.0变化很大，发现不少需要改动的。
    
     企业微信的内置浏览器是什么:
     1. ios企业微信用的ios系统自带的WKWebview
-    2. Android的是tbs x5
+    2. Android的是tbs x51
     3. mac版的微信浏览器内核是系统的safari
     4. windows版cef核心浏览器版本是Chromium框架53
    
@@ -48,8 +48,8 @@ odoo 13.0变化很大，发现不少需要改动的。
 
 10. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。这本是收费的模块，这个模块对你帮助很大的话，请点击下面“捐赠”按钮，打赏一杯咖啡。 
     
-   1. <a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
-   2. 账号密码均为demo
+    1. <a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
+    2. 账号密码均为demo
 
 
 
