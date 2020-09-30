@@ -129,11 +129,17 @@ class AbstractApi(object):
         if errCode is 0:
             return response
         else:
-            # raise UserError(ApiException(errCode, errMsg))
-            raise UserError(
-                _("Error code: %s \nError description: %s \nError Details:\n%s")
-                % (str(errCode), Errcode.getErrcode(errCode), errMsg)
-            )
+            raise ApiException(errCode, errMsg)
+        # raise UserError(ApiException(errCode, errMsg))
+        # raise UserError(
+        #     _("Error code: %s \nError description: %s \nError Details:\n%s")
+        #     % (str(errCode), Errcode.getErrcode(errCode), errMsg)
+        # )
+        # return _("Error code: %s \nError description: %s \nError Details:\n%s") % (
+        #     str(errCode),
+        #     Errcode.getErrcode(errCode),
+        #     errMsg,
+        # )
 
     @staticmethod
     def __tokenExpired(errCode):
