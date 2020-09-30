@@ -5,7 +5,7 @@
             <field name="name">Enterprise WeChat: Pull application ticket</field>
             <field name="res_model">ir.cron</field>
             <field name="view_mode">form</field>
-            <field name="res_id" ref="ir_cron_sync_wxwork_contacts"/>
+            <field name="res_id" ref="ir_cron_pull_wxwork_application_ticket"/>
         </record>
     </data>
 </odoo>

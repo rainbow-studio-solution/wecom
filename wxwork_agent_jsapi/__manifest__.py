@@ -26,8 +26,8 @@
     "data": [
         "data/ir_cron_data.xml",
         "views/res_config_settings_views.xml",
-        "views/menu.xml",
         "views/ir_cron_views.xml",
+        "views/menu.xml",
     ],
     "qweb": [
         "static/src/xml/*.xml",
