@@ -2,9 +2,10 @@
 
 from odoo import api, fields, models, _
 
-from ...wxwork_api1.CorpApi import *
+from ...wxwork_api.wx_qy_api.CorpApi import *
+from ...wxwork_api.helper.common import *
 
-from ..helper.common import *
+
 import logging
 import platform
 import time

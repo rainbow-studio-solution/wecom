@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api1.CorpApi import *
+from ...wxwork_api.wx_qy_api.CorpApi import *
 
 
 import babel

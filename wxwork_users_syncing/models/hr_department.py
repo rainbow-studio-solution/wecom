@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 import time
 import logging
 
-from ...wxwork_api1.CorpApi import *
+from ...wxwork_api.wx_qy_api.CorpApi import *
 
 
 _logger = logging.getLogger(__name__)

@@ -12,7 +12,7 @@ import threading
 import numpy as np
 
 from odoo import _
-from ...wxwork_api1.CorpApi import *
+from ...wxwork_api.wx_qy_api.CorpApi import *
 
 _logger = logging.getLogger(__name__)
 

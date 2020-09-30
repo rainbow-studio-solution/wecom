@@ -6,7 +6,7 @@ import time
 import json
 
 from ...wxwork_api1.ErrCode import Errcode
-from ...wxwork_api1.CorpApi import CorpApi, CORP_API_TYPE, ApiException
+from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
 
 
 class ResConfigSettings(models.TransientModel):

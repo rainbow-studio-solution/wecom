@@ -29,7 +29,7 @@ import requests
 
 from werkzeug import urls
 
-from ...wxwork_api1.CorpApi import CorpApi, CORP_API_TYPE
+from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 

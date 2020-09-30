@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# from ...wxwork_api1.CorpApi import *
-# from wxwork_api.api.CorpApi import *
 from ...wxwork_api.wx_qy_api.CorpApi import *
 
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
@@ -118,6 +116,7 @@ class ResConfigSettings(models.TransientModel):
         #     raise UserError(_("请正确填写通讯录凭证密钥."))
         else:
             api = CorpApi(self.corpid, self.contacts_secret)
+            print(api)
             self.env["ir.config_parameter"].sudo().set_param(
                 "wxwork.contacts_access_token", api.getAccessToken()
             )

@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from logging import debug
-from odoo import _
+
+from odoo import api, SUPERUSER_ID, _
+
 from odoo.exceptions import UserError, ValidationError
 import json
 import requests
-# import pkgutil
-# import os.path
-# __path__ = [
-#     os.path.abspath(path)
-#     for path in pkgutil.extend_path(__path__, __name__)
-# ]
-
-from odoo import api, SUPERUSER_ID
+from .ErrorCode import *
 
 
-# sys.path.append("../../")
+def get_wxwork_debug(cr, registry):
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    debug = env["ir.config_parameter"].search(
+        [("key", "=", "wxwork.debug_enabled")], limit=1
+    )
+    return debug
 
 
 class ApiException(Exception):
@@ -104,10 +103,7 @@ class AbstractApi(object):
     def __httpPost(self, url, args):
         realUrl = self.__appendToken(url)
 
-        params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-
-        if debug is True:
+        if get_wxwork_debug is True:
             print(realUrl, args)
 
         return requests.post(
@@ -117,9 +113,7 @@ class AbstractApi(object):
     def __httpGet(self, url):
         realUrl = self.__appendToken(url)
 
-        params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-        if debug is True:
+        if get_wxwork_debug is True:
             print(realUrl)
 
         return requests.get(realUrl).json()
@@ -135,7 +129,11 @@ class AbstractApi(object):
         if errCode is 0:
             return response
         else:
-            raise UserError(ApiException(errCode, errMsg))
+            # raise UserError(ApiException(errCode, errMsg))
+            raise UserError(
+                _("Error code: %s \nError description: %s \nError Details:\n%s")
+                % (str(errCode), Errcode.getErrcode(errCode), errMsg)
+            )
 
     @staticmethod
     def __tokenExpired(errCode):
