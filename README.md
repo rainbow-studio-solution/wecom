@@ -19,11 +19,16 @@ odoo 13.0变化很大，发现不少需要改动的。
 ## 开源项目 (2020-09-25)
 
 1. wxwork_base （企业微信-基础模块）完成适配
-2. wxwork_message_push（企业微信消息推送，原名wxwork_notice，开展中）
+   
+2. wxwork_api (基于开源版本，，重新封装访问企业微信API的函数)
+   
+3. wxwork_message_push（企业微信消息推送，原名wxwork_notice，开展中）
    
     2.1. 一键复制mail.template所有内容，暂时只能复制当前页面的默认语言，复制英文的内容，暂时没有找到方法，若有其方法，请留言告知。
-3. wxwork_users_syncing （企业微信-用户同步，原名 wxwork_contacts）完成
-4. wxwork_auth_oauth （企业微信-登录授权）,初步完成。PC版本企业微信内置浏览器访问Odoo的白屏问题已经反馈给腾讯企业微信团队，希望他们能更新吧
+
+4. wxwork_users_syncing （企业微信-用户同步，原名 wxwork_contacts）完成
+   
+5. wxwork_auth_oauth （企业微信-登录授权）,初步完成。PC版本企业微信内置浏览器访问Odoo的白屏问题已经反馈给腾讯企业微信团队，希望他们能更新吧
    
     企业微信的内置浏览器是什么:
     1. ios企业微信用的ios系统自带的WKWebview
@@ -33,9 +38,15 @@ odoo 13.0变化很大，发现不少需要改动的。
    
     测试发现，在Android手机端的企业微信可以使用内置浏览器一键登录Odoo，PC版本反而不行，Chromium框架53估计太老了，Odoo的js一些新特性无法运行，导致在PC版的企业微信上打开Odoo的登录页面白屏。
 
-5. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
+6. wxwork_markdown_editor(Markdonw编辑器企业微信专用版)
 
-6. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。这本是收费的模块，这个模块对你帮助很大的话，请点击下面“捐赠”按钮，打赏一杯咖啡。 
+7. web_advanced_dialog(个性化弹窗，完成)
+
+8. wxwork_agent_jsapi(应用JSAPI：手动拉取和任务定时拉取 应用JSAPI的ticket，基本完成)
+   
+9. wxwrok_scan_widget(在企业微信内调用 扫码JS，移至到闭源库,开展中)
+
+10. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。这本是收费的模块，这个模块对你帮助很大的话，请点击下面“捐赠”按钮，打赏一杯咖啡。 
    1. <a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
    2. 账号密码均为demo
 
