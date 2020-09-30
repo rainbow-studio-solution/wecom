@@ -47,6 +47,7 @@ odoo 13.0变化很大，发现不少需要改动的。
 9. wxwrok_scan_widget(在企业微信内调用 扫码JS，移至到闭源库,开展中)
 
 10. rainbow_community_theme：8月份开发完成13.0的版本，目前在Odoo商城没有什么销量，开源给大家用吧。这本是收费的模块，这个模块对你帮助很大的话，请点击下面“捐赠”按钮，打赏一杯咖啡。 
+    
    1. <a href="https://rainbow.rstudio.xyz/" target="_blank">Demo</a>
    2. 账号密码均为demo
 
