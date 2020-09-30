@@ -3,7 +3,7 @@
 import werkzeug.urls
 import werkzeug.utils
 from odoo import models, fields, api, _
-from ..helper.common import *
+from ...wxwork_api.helper.common import *
 
 
 class ResConfigSettings(models.TransientModel):
