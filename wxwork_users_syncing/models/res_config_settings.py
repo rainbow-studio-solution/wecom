@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from ...wxwork_api.wx_qy_api.CorpApi import *
+from ...wxwork_api.wx_qy_api.ErrorCode import *
 
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
@@ -113,14 +114,27 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif self.contacts_secret == False:
             raise UserError(_("Please fill in the contact Secret correctly."))
-        # elif self.contacts_secret.strip() == '' or self.contacts_secret.isspace() == True or self.contacts_secret is None:
-        #     raise UserError(_("请正确填写通讯录凭证密钥."))
+
         else:
-            api = CorpApi(self.corpid, self.contacts_secret)
-            print(api)
-            self.env["ir.config_parameter"].sudo().set_param(
-                "wxwork.contacts_access_token", api.getAccessToken()
-            )
+            try:
+                api = CorpApi(self.corpid, self.contacts_secret)
+                self.env["ir.config_parameter"].sudo().set_param(
+                    "wxwork.contacts_access_token", api.getAccessToken()
+                )
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'dialog',
+                    'params': {
+                        'title': _("Successful operation"),
+                        '$content':  _('<div>Successfully obtained corporate WeChat contact token.</div>'),
+                        'size': 'medium',
+                    }
+                }
+            except ApiException as ex:
+                raise UserError(
+                    _("Error code: %s \nError description: %s \nError Details:\n%s")
+                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+                )
 
     def cron_sync_contacts(self):
         """
