@@ -15,7 +15,9 @@
     "description": """
 
         """,
-    "depends": [],
+    "depends": [
+        "web_advanced_dialog"
+    ],
     "data": [
         "data/ir_config_parameter.xml",
         "views/res_config_settings_views.xml",
