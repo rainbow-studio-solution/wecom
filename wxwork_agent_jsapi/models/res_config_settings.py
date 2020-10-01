@@ -36,8 +36,7 @@ class ResConfigSettings(models.TransientModel):
 
             if response["errcode"] == 0:
                 if self.agent_jsapi_ticket != response["ticket"]:
-                    ir_config.set_param(
-                        "wxwork.agent_jsapi_ticket", response["ticket"])
+                    ir_config.set_param("wxwork.agent_jsapi_ticket", response["ticket"])
                 _logger.info(
                     _(
                         "Timed task:Successfully pull the enterprise WeChat application ticket regularly"
@@ -64,8 +63,7 @@ class ResConfigSettings(models.TransientModel):
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif auth_secret == False:
-            raise UserError(
-                _("Please fill in the application 'secret' correctly."))
+            raise UserError(_("Please fill in the application 'secret' correctly."))
 
         else:
             api = CorpApi(corpid, auth_secret)
@@ -86,24 +84,29 @@ class ResConfigSettings(models.TransientModel):
                         )
 
                         return {
-                            'type': 'ir.actions.client',
-                            'tag': 'dialog',
-                            'params': {
-                                'title': _("Successful operation"),
-                                '$content':  _('<div>Successfully pull the enterprise WeChat application ticket regularly.</div>'),
-                                'size': 'medium',
-                            }
+                            "type": "ir.actions.client",
+                            "tag": "dialog",
+                            "params": {
+                                "title": _("Successful operation"),
+                                "$content": _(
+                                    "<div>Successfully pull the enterprise WeChat application ticket regularly.</div>"
+                                ),
+                                "size": "medium",
+                                "reload": "true",
+                            },
                         }
 
                     else:
                         return {
-                            'type': 'ir.actions.client',
-                            'tag': 'dialog',
-                            'params': {
-                                'title': _("Successful operation"),
-                                '$content':  _('<div>The enterprise WeChat application ticket is within the validity period and does not need to be pulled.</div>'),
-                                'size': 'medium',
-                            }
+                            "type": "ir.actions.client",
+                            "tag": "dialog",
+                            "params": {
+                                "title": _("Successful operation"),
+                                "$content": _(
+                                    "<div>The enterprise WeChat application ticket is within the validity period and does not need to be pulled.</div>"
+                                ),
+                                "size": "medium",
+                            },
                         }
             except ApiException as ex:
                 raise UserError(

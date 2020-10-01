@@ -122,13 +122,16 @@ class ResConfigSettings(models.TransientModel):
                     "wxwork.contacts_access_token", api.getAccessToken()
                 )
                 return {
-                    'type': 'ir.actions.client',
-                    'tag': 'dialog',
-                    'params': {
-                        'title': _("Successful operation"),
-                        '$content':  _('<div>Successfully obtained corporate WeChat contact token.</div>'),
-                        'size': 'medium',
-                    }
+                    "type": "ir.actions.client",
+                    "tag": "dialog",
+                    "params": {
+                        "title": _("Successful operation"),
+                        "$content": _(
+                            "<div>Successfully obtained corporate WeChat contact token.</div>"
+                        ),
+                        "size": "medium",
+                        "reload": "true",
+                    },
                 }
             except ApiException as ex:
                 raise UserError(
