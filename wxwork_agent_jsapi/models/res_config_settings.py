@@ -6,7 +6,7 @@ from ...wxwork_api.wx_qy_api.ErrorCode import *
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 from datetime import datetime
-
+import hashlib
 import time
 
 _logger = logging.getLogger(__name__)
@@ -114,5 +114,14 @@ class ResConfigSettings(models.TransientModel):
                     % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
                 )
 
-    def generate_signature(self):
-        pass
+    def generate_signature(self, domain=None, fields=None):
+        """使用sha1加密算法，生成签名"""
+        str = ("jsapi_ticket=%s&noncestr=%s&timestamp=%s&url=%s") % (
+            domain.ticket,
+            domain.noncestr,
+            domain.timestamp,
+            domain.url,
+        )
+        sha = hashlib.sha1(str.encode("utf-8"))
+        encrypts = sha.hexdigest()
+        return encrypts
