@@ -41,7 +41,7 @@
 
 -title              标题
 
--$content           弹框内容，必须使用html标签包裹
+-content           弹框内容，必须使用html标签包裹
 
 -size               大小
 
