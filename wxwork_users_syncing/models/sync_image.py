@@ -50,6 +50,9 @@ class SyncImage(object):
         限制线程的最大数量为系统最大PID数量的1/800,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
         """
         thread_max = int(os.getpid() / 1000)
+        status = {}
+        result = ""
+
         try:
             for i in range(len(user_list)):
                 remote_avatar_img = avatar_urls[i]
@@ -60,12 +63,12 @@ class SyncImage(object):
 
                 t1 = threading.Thread(
                     target=self.image_is_exists,
-                    args=[remote_avatar_img, local_avatar_img],
+                    args=[user_list[i], remote_avatar_img, local_avatar_img],
                 )
                 threads.append(t1)
                 t2 = threading.Thread(
                     target=self.image_is_exists,
-                    args=[remote_qr_code_img, local_qr_code_img],
+                    args=[user_list[i], remote_qr_code_img, local_qr_code_img],
                 )
                 threads.append(t2)
 
@@ -133,13 +136,14 @@ class SyncImage(object):
             os.makedirs(path)
         return path
 
-    def check_images(self, remote, local):
+    def check_images(self, user_name, remote, local):
         """
         比较远程图片和本地图片是否一致
         :param remote: 远程图片
         :param local: 本地图片
         :return: 布尔值
         """
+        # print(_("compare pictures %s") % user_name)
         try:
             resp = urllib.request.urlopen(remote)
             remote_img = np.asarray(bytearray(resp.read()), dtype="uint8")
@@ -153,10 +157,12 @@ class SyncImage(object):
                 return False
         except BaseException as e:
             if self.debug:
-                print(repr(e))
-            return False
+                print(
+                    _("Failed to compare pictures %s,error: %s") % (user_name, repr(e))
+                )
+            pass
 
-    def image_is_exists(self, remote_img, local_img):
+    def image_is_exists(self, user_name, remote_img, local_img):
         """
         检查是否存在本地图片，
         有：比较和更新图片
@@ -167,12 +173,12 @@ class SyncImage(object):
         """
         if os.path.exists(local_img):
             # 比较本地远程和本地图片
-            if not self.check_images(remote_img, local_img):
-                self.download_image(remote_img, local_img)
+            if not self.check_images(user_name, remote_img, local_img):
+                self.download_image(user_name, remote_img, local_img)
         else:
-            self.download_image(remote_img, local_img)
+            self.download_image(user_name, remote_img, local_img)
 
-    def download_image(self, remote_img, local_img):
+    def download_image(self, user_name, remote_img, local_img):
         """
         下载图片
         :param remote_img: 远程图片
@@ -189,4 +195,6 @@ class SyncImage(object):
             # return True
         except BaseException as e:
             if self.debug:
-                print(repr(e))
+                print(
+                    _("Failed to download image of %s error: %s") % (user_name, repr(e))
+                )

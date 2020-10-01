@@ -81,13 +81,14 @@ class SyncDepartment(models.Model):
             times2 = end2 - start2
 
             times = times1 + times2
-            result = _("Department synchronization is successful, it takes time")
+            result = _("Department synchronization successful")
             status = {"department": True}
         except BaseException as e:
             times = time.time()
-            result = _("Department synchronization failed, taking time")
+            result = _("Department synchronization failed")
             status = {"department": False}
-            print(repr(e))
+            if debug:
+                print(_("Department synchronization failed, error: %s") % repr(e))
         times = times
         if debug:
             _logger.info(

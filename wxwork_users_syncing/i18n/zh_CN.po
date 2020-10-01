@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-14 10:07+0000\n"
-"PO-Revision-Date: 2020-09-14 18:10+0800\n"
+"POT-Creation-Date: 2020-10-01 02:49+0000\n"
+"PO-Revision-Date: 2020-10-01 10:58+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,13 +15,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
 #, python-format
 msgid "%s, time spent: %s seconds"
 msgstr "%s， 所花费的时间： %s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "<div>Successfully obtained corporate WeChat contact token.</div>"
+msgstr "<div>成功获取企业微信通讯录token.</div>"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
@@ -188,19 +194,25 @@ msgstr "部门同步"
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_department.py:0
 #, python-format
-msgid "Department synchronization failed, taking time"
-msgstr "部门同步失败，花费时间"
+msgid "Department synchronization failed"
+msgstr "部门同步失败"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_department.py:0
 #, python-format
-msgid "Department synchronization is successful, it takes time"
-msgstr "部门同步成功，花费时间"
+msgid "Department synchronization failed, error: %s"
+msgstr "部门同步失败，错误：%s"
 
 #. module: wxwork_users_syncing
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__department_sync_result
 msgid "Department synchronization result"
 msgstr "部门同步结果"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Department synchronization successful"
+msgstr "部门同步成功"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_department.py:0
@@ -228,6 +240,12 @@ msgid "Elapsed time (seconds)"
 msgstr "花费时间（秒）"
 
 #. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee failed to synchronize user"
+msgstr "员工同步为系统用户失败"
+
+#. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree
 msgid "Employee synchronization"
 msgstr "员工同步"
@@ -235,8 +253,8 @@ msgstr "员工同步"
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
 #, python-format
-msgid "Employee synchronization as system user error: %s seconds"
-msgstr "员工同步为系统用户错误：%s 秒"
+msgid "Employee synchronization as system user error: %s"
+msgstr "员工同步为系统用户错误: %s"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
@@ -247,8 +265,8 @@ msgstr "员工同步错误：%s"
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
 #, python-format
-msgid "Employee synchronization failed, time spent %s seconds"
-msgstr "员工同步失败，花费 %s 秒"
+msgid "Employee synchronization failed"
+msgstr "员工同步失败"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
@@ -264,8 +282,8 @@ msgstr "员工同步结果"
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
 #, python-format
-msgid "Employee synchronization succeeded, time spent %s seconds"
-msgstr "员工同步成功，花费时间 %s 秒"
+msgid "Employee synchronization succeeded"
+msgstr "员工同步成功"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/wizard/wizard_wxwork_sync_user.py:0
@@ -304,12 +322,6 @@ msgstr ""
 "                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>危险！ 不建议！</span>"
 
 #. module: wxwork_users_syncing
-#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
-#, python-format
-msgid "End sync Enterprise WeChat  Contact, total time spent: %s seconds"
-msgstr "结束同步企业微信通讯录，花费的总时间：%s 秒"
-
-#. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_department.py:0
 #, python-format
 msgid "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
@@ -326,6 +338,12 @@ msgstr "结束同步企业微信联系人-员工同步，花费的总时间：%s
 #, python-format
 msgid "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
 msgstr "结束同步企业微信通讯录-图片，总花费时间：%s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "End sync Enterprise WeChat Contact, total time spent: %s seconds"
+msgstr "结束同步企业微信通讯录，总花费时间: %s 秒"
 
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.wxwork_view_users_form
@@ -429,6 +447,12 @@ msgid "Enterprise WeChat settings"
 msgstr "企业微信设置"
 
 #. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Enterprise WeChat synchronization failed, error: %s"
+msgstr "企业微信同步失败，错误: %s"
+
+#. module: wxwork_users_syncing
 #: model:ir.model,name:wxwork_users_syncing.model_wizard_wxwork_contacts
 msgid "Enterprise WeChat synchronization wizard"
 msgstr "企业微信同步向导"
@@ -460,10 +484,30 @@ msgid "Enterprise WeChat: Synchronize contacts regularly"
 msgstr "企业微信：定期同步通讯录"
 
 #. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Error code: %s \n"
+"Error description: %s \n"
+"Error Details:\n"
+"%s"
+msgstr ""
+"错误代码: %s \n"
+"错误描述: %s \n"
+"错误详细:\n"
+"%s"
+
+#. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
 #, python-format
 msgid "Error creating employee:%s - %s"
 msgstr "创建员工时出错：%s - %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Error creating system user from employee: %s"
+msgstr "从员工创建系统用户时出错：%s"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
@@ -474,8 +518,26 @@ msgstr "从员工创建系统用户时出错：%s"
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
 #, python-format
+msgid "Error in getting employee's parent department, error: %s"
+msgstr "获取员工的上级部门时出错，错误: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
 msgid "Errors in generating data for departing employees:%s"
 msgstr "生成离职员工数据时出错：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Failed to compare pictures %s,error: %s"
+msgstr "Failed to compare pictures %s,error: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Failed to download image of %s error: %s"
+msgstr "Failed to download image of %s error: %s"
 
 #. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/hr_employee.py:0
@@ -505,6 +567,11 @@ msgstr "从HR的企业微信员工批量生成系统用户"
 #, python-format
 msgid "Get the employee's parent department error:%s"
 msgstr "获取员工的上级部门错误：%s"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__res_users__notification_type__wxwork
+msgid "Handle by Enterprise WeChat"
+msgstr "通过企业微信处理"
 
 #. module: wxwork_users_syncing
 #: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__id
@@ -708,11 +775,6 @@ msgid "Portal users are free users and do not occupy system resources."
 msgstr "门户网站用户是免费用户，并且不占用系统资源。"
 
 #. module: wxwork_users_syncing
-#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__res_users__notification_type__wxwork
-msgid "Processing via Enterprise WeChat"
-msgstr "通过企业微信进行处理"
-
-#. module: wxwork_users_syncing
 #: code:addons/wxwork_users_syncing/models/res_users.py:0
 #, python-format
 msgid "Public"
@@ -774,6 +836,12 @@ msgstr "开始同步企业微信通讯录-部门同步"
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_sync_user_tree
 msgid "Starting time"
 msgstr "起始时间"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "Successful operation"
+msgstr "操作成功"
 
 #. module: wxwork_users_syncing
 #: model:ir.model,name:wxwork_users_syncing.model_hr_department
@@ -994,19 +1062,4 @@ msgstr "用户"
 #. module: wxwork_users_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_department_form
 msgid "wxwork"
-msgstr ""
-
-#. module: wxwork_users_syncing
-#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__9
-msgid "公共"
-msgstr ""
-
-#. module: wxwork_users_syncing
-#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__1
-msgid "内部用户"
-msgstr ""
-
-#. module: wxwork_users_syncing
-#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__user_type_change__new_type__8
-msgid "门户"
 msgstr ""

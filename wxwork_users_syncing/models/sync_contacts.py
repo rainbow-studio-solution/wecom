@@ -38,8 +38,7 @@ class SyncTask(object):
             results = []
             statuses = {}
             for i in range(len(task_name_list)):
-                thread_task = SyncTaskThread(
-                    task_func_list[i], task_name_list[i])
+                thread_task = SyncTaskThread(task_func_list[i], task_name_list[i])
                 threads.append(thread_task)
             for i in range(len(task_name_list)):
                 threads[i].start()
@@ -54,14 +53,13 @@ class SyncTask(object):
                     statuses.update(status)
                     times.append(time)
                     results.append(
-                        _("%s, time spent: %s seconds") % (
-                            result, round(time, 3))
+                        _("%s, time spent: %s seconds") % (result, round(time, 3))
                     )
             results = "\n".join(results)
             if self.debug:
-                _logger.debug(
+                _logger.info(
                     _(
-                        "End sync Enterprise WeChat  Contact, total time spent: %s seconds"
+                        "End sync Enterprise WeChat Contact, total time spent: %s seconds"
                     )
                     % sum(times)
                 )

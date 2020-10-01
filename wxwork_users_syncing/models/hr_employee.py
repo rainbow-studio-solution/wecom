@@ -132,20 +132,21 @@ class HrEmployee(models.Model):
 
             times = times1 + times2
             status = {"employee": True}
-            result = _("Employee synchronization succeeded, time spent %s seconds") % (
-                round(times, 3)
-            )
+            # result = _("Employee synchronization succeeded, time spent %s seconds") % (
+            #     round(times, 3)
+            # )
+            result = _("Employee synchronization succeeded")
         except BaseException as e:
-            times = time.time()
-            result = _("Employee synchronization failed, time spent %s seconds") % (
-                round(times, 3)
-            )
+            # times = time.time()
+            # result = _("Employee synchronization failed, time spent %s seconds") % (
+            #     round(times, 3)
+            # )
+            result = _("Employee synchronization failed")
             status = {"employee": False}
 
             if debug:
                 print(_("Employee synchronization error:%s") % (repr(e)))
 
-        times = times
         if debug:
             _logger.debug(
                 _(
@@ -177,7 +178,11 @@ class HrEmployee(models.Model):
                 else:
                     self.create_employee(records, obj, debug)
             except Exception as e:
-                print(repr(e))
+                if debug:
+                    print(
+                        _("Enterprise WeChat synchronization failed, error: %s")
+                        % repr(e)
+                    )
             new_cr.commit()
             new_cr.close()
 
@@ -304,7 +309,7 @@ class HrEmployee(models.Model):
                 return None
                 # pass+
 
-    def get_employee_parent_hr_department(self, department_obj):
+    def get_employee_parent_hr_department(self, department_obj, debug):
         """
         如果企微用户只有一个部门，则设置企业用户的HR部门
         :param department_obj: 部门json
@@ -323,8 +328,11 @@ class HrEmployee(models.Model):
             if len(departments) > 0:
                 return departments.id
         except BaseException as e:
-            pass
-            # print("获取员工上级部门错误:%s" % (repr(e)))
+            if debug:
+                print(
+                    _("Error in getting employee's parent department, error: %s")
+                    % repr(e)
+                )
 
     def get_employee_parent_wxwork_department(self, department_id, debug):
         try:
@@ -404,7 +412,7 @@ class EmployeeSyncUser(models.Model):
             _logger.info(_("Start syncing from employees to system users"))
 
         domain = ["|", ("active", "=", False), ("active", "=", True)]
-
+        start = time.time()
         try:
             with api.Environment.manage():
                 new_cr = self.pool.cursor()
@@ -421,7 +429,7 @@ class EmployeeSyncUser(models.Model):
                         ]
                     )
                 )
-                start = time.time()
+
                 result = _(
                     "There is currently no employee profile that needs to generate system users"
                 )
@@ -451,18 +459,19 @@ class EmployeeSyncUser(models.Model):
                         )
                         status = True
                     except Exception as e:
-                        result = "员工同步用户失败"
+                        result = _("Failed to synchronize employee as system user")
                         status = False
-                        print(
-                            _("Failed to synchronize employee as system user:%s")
-                            % (repr(e))
-                        )
+                        if debug:
+                            print(
+                                _("Failed to synchronize employee as system user:%s")
+                                % (repr(e))
+                            )
 
                 end = time.time()
-                times = end - start
 
                 new_cr.commit()
                 new_cr.close()
+                times = end - start
 
                 if debug:
                     _logger.info(
@@ -474,8 +483,7 @@ class EmployeeSyncUser(models.Model):
         except BaseException as e:
             if debug:
                 _logger.warning(
-                    _("Employee synchronization as system user error: %s seconds")
-                    % (repr(e))
+                    _("Employee synchronization as system user error: %s") % (repr(e))
                 )
             result = _("Failed to synchronize employee as system user")
             status = False
@@ -548,4 +556,4 @@ class EmployeeSyncUser(models.Model):
             )
         except Exception as e:
             if debug:
-                print(_("Error creating system user from employee:%s") % (repr(e)))
+                print(_("Error creating system user from employee: %s") % (repr(e)))
