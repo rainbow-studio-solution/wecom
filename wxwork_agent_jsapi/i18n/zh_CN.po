@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-29 07:23+0000\n"
-"PO-Revision-Date: 2020-09-29 15:27+0800\n"
+"POT-Creation-Date: 2020-10-01 09:19+0000\n"
+"PO-Revision-Date: 2020-10-01 17:24+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,9 +18,20 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 
 #. module: wxwork_agent_jsapi
-#: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__auth_agentid
-msgid "Agent Id"
-msgstr "Agent Id"
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"<div>Successfully pull the enterprise WeChat application ticket regularly.</"
+"div>"
+msgstr "<div>成功拉取获取企业微信应用ticket。</ div>"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"<div>The enterprise WeChat application ticket is within the validity period "
+"and does not need to be pulled.</div>"
+msgstr "<div>企业微信应用ticket在有效期内，无需拉取。</ div>"
 
 #. module: wxwork_agent_jsapi
 #: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__agent_jsapi_ticket
@@ -43,9 +54,30 @@ msgid "Enterprise WeChat Application JSAPI"
 msgstr "企业微信应用程序JSAPI"
 
 #. module: wxwork_agent_jsapi
-#: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
-msgid "Get Enterprise WeChat authentication configuration"
-msgstr "获取企业微信认证模块的配置"
+#: model:ir.actions.act_window,name:wxwork_agent_jsapi.ir_cron_act_application
+msgid "Enterprise WeChat: Pull application ticket"
+msgstr "企业微信：拉取应用Ticket"
+
+#. module: wxwork_agent_jsapi
+#: model:ir.actions.server,name:wxwork_agent_jsapi.ir_cron_pull_wxwork_application_ticket_ir_actions_server
+#: model:ir.cron,cron_name:wxwork_agent_jsapi.ir_cron_pull_wxwork_application_ticket
+#: model:ir.cron,name:wxwork_agent_jsapi.ir_cron_pull_wxwork_application_ticket
+msgid "Enterprise WeChat: Pull application ticket regularly"
+msgstr "企业微信：定时拉取应用Ticket"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Error code: %s \n"
+"Error description: %s \n"
+"Error Details:\n"
+"%s"
+msgstr ""
+"错误代码: %s \n"
+"错误描述: %s \n"
+"错误详细:\n"
+"%s"
 
 #. module: wxwork_agent_jsapi
 #: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
@@ -60,16 +92,38 @@ msgid "Please fill in the application 'secret' correctly."
 msgstr "请正确填写应用程序“secret”。"
 
 #. module: wxwork_agent_jsapi
-#: model:ir.model.fields,field_description:wxwork_agent_jsapi.field_res_config_settings__auth_secret
-msgid "Secret"
-msgstr "Secret"
+#: model:ir.ui.menu,name:wxwork_agent_jsapi.menu_wxwork_pull_application_ticket
+msgid "Pull application ticket"
+msgstr "拉取应用Ticket"
 
 #. module: wxwork_agent_jsapi
-#: model:ir.model.fields,help:wxwork_agent_jsapi.field_res_config_settings__auth_agentid
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid "Successful operation"
+msgstr "操作成功"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
 msgid ""
-"The web application ID of the authorizing party, which can be viewed in the "
-"specific web application"
-msgstr "授权方的Web应用程序ID，可以在特定的Web应用程序中查看"
+"Timed task:Failed to pull the enterprise WeChat application ticket regularly"
+msgstr "定时任务：无法定时提取企业微信应用Ticket"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Timed task:Failed to pull the enterprise WeChat application ticket "
+"regularly. Error code: %s"
+msgstr "定时任务：无法定时提取企业微信应用Ticket。错误代码: %s"
+
+#. module: wxwork_agent_jsapi
+#: code:addons/wxwork_agent_jsapi/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Timed task:Successfully pull the enterprise WeChat application ticket "
+"regularly"
+msgstr "定时任务：成功定时提取企业微信应用Ticket"
 
 #. module: wxwork_agent_jsapi
 #: model_terms:ir.ui.view,arch_db:wxwork_agent_jsapi.res_config_settings_view_form
