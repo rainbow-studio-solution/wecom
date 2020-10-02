@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Application JSAPI",
+    "name": "Enterprise WeChat JSAPI",
     "author": "RStudio",
     "website": "",
     "sequence": 1,
@@ -18,7 +18,6 @@
         """,
     "depends": [
         "wxwork_base",
-        "wxwork_auth_oauth",
     ],
     "external_dependencies": {
         "python": [],

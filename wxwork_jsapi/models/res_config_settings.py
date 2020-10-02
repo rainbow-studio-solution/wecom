@@ -6,7 +6,8 @@ from ...wxwork_api.wx_qy_api.ErrorCode import *
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 from datetime import datetime
-import hashlib
+
+import datetime
 import time
 
 _logger = logging.getLogger(__name__)
@@ -15,46 +16,72 @@ _logger = logging.getLogger(__name__)
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    corp_jsapi_ticket = fields.Char(
+        "Enterprise JS API Ticket",
+        config_parameter="wxwork.corp_jsapi_ticket",
+    )
+
     agent_jsapi_ticket = fields.Char(
         "Application JS API Ticket",
         config_parameter="wxwork.agent_jsapi_ticket",
     )
 
-    def cron_pull_application_ticket(self):
+    ticket_interval_time = fields.Integer(
+        "Pull interval time",
+        config_parameter="wxwork.ticket_interval_time",
+        default=1,
+    )
+    ticket_interval_type = fields.Selection(
+        [("minutes", "Minutes"), ("hours", "Hours")],
+        string="Pull Interval Unit",
+        default="hours",
+        config_parameter="wxwork.ticket_interval_type",
+    )
+
+    get_ticket_last_time = fields.Char(
+        "Last time to get the ticket",
+        config_parameter="wxwork.get_ticket_last_time",
+    )
+
+    def set_cron_ticket_interval_time(self):
+        pass
+
+    def get_jsapi_ticket(self):
         ir_config = self.env["ir.config_parameter"].sudo()
         corpid = ir_config.get_param("wxwork.corpid")
         auth_secret = ir_config.get_param("wxwork.auth_secret")
-        api = CorpApi(corpid, auth_secret)
-        try:
-            response = api.httpCall(
-                CORP_API_TYPE["GET_TICKET"],
-                {
-                    "access_token": api.getAccessToken(),
-                    "type": "agent_config",
-                },
-            )
+        last_time = ir_config.get_param("wxwork.get_ticket_last_time")
 
-            if response["errcode"] == 0:
-                if self.agent_jsapi_ticket != response["ticket"]:
-                    ir_config.set_param("wxwork.agent_jsapi_ticket", response["ticket"])
-                _logger.info(
-                    _(
-                        "Timed task:Successfully pull the enterprise WeChat application ticket regularly"
-                    )
-                )
+        if corpid == False:
+            raise UserError(_("Please fill in correctly Enterprise ID."))
+        elif auth_secret == False:
+            raise UserError(_("Please fill in the application 'secret' correctly."))
+
+        else:
+            if not last_time:
+                self.get_ticket()
             else:
-                _logger.warning(
-                    _(
-                        "Timed task:Failed to pull the enterprise WeChat application ticket regularly"
-                    )
-                )
-        except ApiException as ex:
-            _logger.warning(
-                _(
-                    "Timed task:Failed to pull the enterprise WeChat application ticket regularly. Error code: %s"
-                    % ex.errCode
-                )
-            )
+                self.compare_time(last_time, datetime.datetime.now())
+
+            # api = CorpApi(corpid, auth_secret)
+            # try:
+            #     response = api.httpCall(
+            #         CORP_API_TYPE["GET_JSAPI_TICKET"],
+            #         {
+            #             "access_token": api.getAccessToken(),
+            #         },
+            #     )
+            # except ApiException as ex:
+            #     raise UserError(
+            #         _("Error code: %s \nError description: %s \nError Details:\n%s")
+            #         % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+            #     )
+
+    def get_ticket(self):
+        pass
+
+    def compare_time(self, old, new):
+        print(old, new)
 
     def get_agent_jsapi_ticket(self):
         ir_config = self.env["ir.config_parameter"].sudo()
@@ -114,14 +141,5 @@ class ResConfigSettings(models.TransientModel):
                     % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
                 )
 
-    def generate_signature(self, domain=None, fields=None):
-        """使用sha1加密算法，生成签名"""
-        str = ("jsapi_ticket=%s&noncestr=%s&timestamp=%s&url=%s") % (
-            domain.ticket,
-            domain.noncestr,
-            domain.timestamp,
-            domain.url,
-        )
-        sha = hashlib.sha1(str.encode("utf-8"))
-        encrypts = sha.hexdigest()
-        return encrypts
+    def cron_pull_ticket(self):
+        pass
