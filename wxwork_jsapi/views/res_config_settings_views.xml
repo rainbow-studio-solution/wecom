@@ -2,49 +2,52 @@
 <odoo>
     <data>
         <record id="res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">Enterprise WeChat Application JSAPI Setting</field>
+            <field name="name">Enterprise WeChat Enterprise JSAPI Setting</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_corp_jsapi.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[hasclass('o_settings_container')]//div[hasclass('o_setting_box')][last()]" position="after" >
-                    <!-- <div class="row mt16 o_settings_container"> -->
-                        <!-- <div class="col-xs-12 col-md-6 o_setting_box">
+                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after">
+                    <h2 id="wxwork_jsapi" class="d-flex justify-content-between">
+                        <span class="text-left"><i class="fa fa-cloud fa-lg"/> Enterprise WeChat JSAPI</span>
+                        <span class="text-right">
+                            <i class="fa fa-angle-double-up"/>
+                        </span>
+                    </h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg"/>
+                                <i class="fa fa-info fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="auth_agentid"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Get Enterprise WeChat authentication configuration
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="auth_agentid" readonly="1" style="width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;"/>
-                                    </div>
+                                <div class="text-muted col-md-12">
+                                    jsapi_ticket is a temporary ticket for the H5 application to call the enterprise WeChat JS interface. Under normal circumstances, the validity period of jsapi_ticket is 7200 seconds, which can be obtained through access_token. Because the number of api calls to get jsapi_ticket is very limited (a company can get up to 400 times within an hour, and a single application cannot exceed 100 times), frequent refreshing of jsapi_ticket will limit api calls and affect their own business.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-key fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="auth_secret"/>
+                                <label for="corp_jsapi_ticket"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        Get Enterprise WeChat authentication configuration
+                                        <span style="color:orange;padding: 0px 16px;">
+                                            <i class="fa fa-info-circle"/>
+                                            The ticket has been cached and the system will automatically refresh the ticket.
+                                        </span>
+                                    </div>
+                                    <div class="text-muted col-md-12">
+                                        <button name="get_corp_jsapi_ticket" type="object" string="Click test to get Enterprise JS API Ticket" class="oe_highlight"/>
                                     </div>
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="auth_secret" style="width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" readonly="1"/>
+                                        <field name="corp_jsapi_ticket" readonly="1" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                     </div>
                                 </div>
                             </div>
-                        </div> -->
-
+                        </div>
                         <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-key fa-lg"/>
@@ -53,8 +56,6 @@
                                 <label for="agent_jsapi_ticket"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        jsapi_ticket is a temporary ticket for the H5 application to call the enterprise WeChat JS interface. Under normal circumstances, the validity period of jsapi_ticket is 7200 seconds, which can be obtained through access_token. Because the number of api calls to get jsapi_ticket is very limited (a company can get up to 400 times within an hour, and a single application cannot exceed 100 times), frequent refreshing of jsapi_ticket will limit api calls and affect their own business.
-                                        <br/>
                                         <span style="color:orange;padding: 0px 16px;">
                                             <i class="fa fa-info-circle"/>
                                             The ticket has been cached and the system will automatically refresh the ticket.
@@ -72,12 +73,9 @@
                                 </div>
                             </div>
                         </div>
-                    <!-- </div> -->
-                    
+                    </div>
                 </xpath>
             </field>
         </record>
-
-
     </data>
 </odoo>

@@ -9,8 +9,14 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside" >
                     <div class="app_settings_block" data-string="wxwork_base" string="Enterprise WeChat"  data-key="wxwork_base" groups="base.group_system">
-                        <!--<div id="top" class="row mt16 o_settings_container anchor_point"/>-->
-                        <h2><i class="fa fa-weixin fa-lg"/> Enterprise WeChat global settings</h2>
+                        <h2 id="wxwork_global" class="d-flex justify-content-between">  
+                            <span class="text-left">
+                                <i class="fa fa-weixin fa-lg"/> Enterprise WeChat global settings
+                            </span>
+                            <span class="text-right">
+                                <i class="fa fa-angle-double-down"/>
+                            </span>
+                        </h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
