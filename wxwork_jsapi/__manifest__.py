@@ -24,6 +24,7 @@
     },
     "data": [
         "data/ir_cron_data.xml",
+        "data/ir_config_parameter.xml",
         "views/res_config_settings_views.xml",
         "views/ir_cron_views.xml",
         "views/menu.xml",

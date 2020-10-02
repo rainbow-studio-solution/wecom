@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        
+    </data>
+    <data noupdate="1">
+        <record id="ticket_interval_time" model="ir.config_parameter">
+            <field name="key">wxwork.ticket_interval_time</field>
+            <field name="value">1</field>
+        </record>
+        <record id="ticket_interval_type" model="ir.config_parameter">
+            <field name="key">wxwork.ticket_interval_type</field>
+            <field name="value">hours</field>
+        </record>
+    </data>
+</odoo>

@@ -19,8 +19,10 @@
                                 <i class="fa fa-info fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <div class="text-muted col-md-12">
-                                    jsapi_ticket is a temporary ticket for the H5 application to call the enterprise WeChat JS interface. Under normal circumstances, the validity period of jsapi_ticket is 7200 seconds, which can be obtained through access_token. Because the number of api calls to get jsapi_ticket is very limited (a company can get up to 400 times within an hour, and a single application cannot exceed 100 times), frequent refreshing of jsapi_ticket will limit api calls and affect their own business.
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        jsapi_ticket is a temporary ticket for the H5 application to call the enterprise WeChat JS interface. Under normal circumstances, the validity period of jsapi_ticket is 7200 seconds, which can be obtained through access_token. Because the number of api calls to get jsapi_ticket is very limited (a company can get up to 400 times within an hour, and a single application cannot exceed 100 times), frequent refreshing of jsapi_ticket will limit api calls and affect their own business.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -72,11 +74,13 @@
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="get_ticket_last_time"/>
-                                <div class="text-muted col-md-12">
-                                    <span style="color:orange;">
-                                        <i class="fa fa-info-circle"/>
-                                        Validity period is 7200 seconds
-                                    </span>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        <span style="color:orange;">
+                                            <i class="fa fa-info-circle"/>
+                                            Validity period is 7200 seconds
+                                        </span>
+                                    </div>
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
@@ -91,8 +95,10 @@
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="ticket_interval_time"/>
-                                <div class="text-muted col-md-12">
-                                    <span style="color:orange;"><i class="fa fa-info-circle"/>Recommended within 2 hours.Used to detect the time interval between tickets and scheduled tasks.</span>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        <span style="color:orange;"><i class="fa fa-info-circle"/> Recommended within 2 hours.Used to detect the time interval between tickets and scheduled tasks.</span>
+                                    </div>
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">

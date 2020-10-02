@@ -57,32 +57,73 @@ class ResConfigSettings(models.TransientModel):
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif auth_secret == False:
-            raise UserError(_("Please fill in the application 'secret' correctly."))
+            raise UserError(
+                _("Please fill in the application 'secret' correctly."))
 
         else:
             if not last_time:
-                self.get_ticket()
+                self.get_corp_ticket()
+                self.get_agent_ticket()
             else:
                 self.compare_time(
                     last_time, datetime.datetime.now(), interval_time, interval_type
                 )
 
-            # api = CorpApi(corpid, auth_secret)
-            # try:
-            #     response = api.httpCall(
-            #         CORP_API_TYPE["GET_JSAPI_TICKET"],
-            #         {
-            #             "access_token": api.getAccessToken(),
-            #         },
-            #     )
-            # except ApiException as ex:
-            #     raise UserError(
-            #         _("Error code: %s \nError description: %s \nError Details:\n%s")
-            #         % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
-            #     )
+    def get_corp_ticket(self):
+        ir_config = self.env["ir.config_parameter"].sudo()
+        corpid = ir_config.get_param("wxwork.corpid")
+        auth_secret = ir_config.get_param("wxwork.auth_secret")
 
-    def get_ticket(self):
-        pass
+        api = CorpApi(corpid, auth_secret)
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE["GET_JSAPI_TICKET"],
+                {
+                    "access_token": api.getAccessToken(),
+                },
+            )
+            if self.corp_jsapi_ticket != response["ticket"]:
+                ir_config.set_param(
+                    "wxwork.corp_jsapi_ticket", response["ticket"]
+                )
+            else:
+                pass
+
+        except ApiException as ex:
+            raise UserError(
+                _("Error code: %s \nError description: %s \nError Details:\n%s")
+                % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+            )
+
+    def get_agent_ticket(self):
+        ir_config = self.env["ir.config_parameter"].sudo()
+        corpid = ir_config.get_param("wxwork.corpid")
+        auth_secret = ir_config.get_param("wxwork.auth_secret")
+
+        api = CorpApi(corpid, auth_secret)
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE["GET_TICKET"],
+                {
+                    "access_token": api.getAccessToken(),
+                    "type": "agent_config",
+                },
+            )
+            if self.agent_jsapi_ticket != response["ticket"]:
+                ir_config.set_param(
+                    "wxwork.agent_jsapi_ticket", response["ticket"]
+                )
+                ir_config.set_param(
+                    "wxwork.get_ticket_last_time", datetime.datetime.now()
+                )
+            else:
+                pass
+
+        except ApiException as ex:
+            raise UserError(
+                _("Error code: %s \nError description: %s \nError Details:\n%s")
+                % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+            )
 
     def compare_time(self, old, new, interval_time, interval_type):
         # 字符转时间格式
@@ -107,7 +148,8 @@ class ResConfigSettings(models.TransientModel):
 
         if int(difference) > interval:
             # 差异值超过间隔时间
-            self.get_ticket()
+            self.get_corp_ticket()
+            self.get_agent_ticket()
 
     def get_agent_jsapi_ticket(self):
         ir_config = self.env["ir.config_parameter"].sudo()
@@ -116,7 +158,8 @@ class ResConfigSettings(models.TransientModel):
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif auth_secret == False:
-            raise UserError(_("Please fill in the application 'secret' correctly."))
+            raise UserError(
+                _("Please fill in the application 'secret' correctly."))
 
         else:
             api = CorpApi(corpid, auth_secret)
