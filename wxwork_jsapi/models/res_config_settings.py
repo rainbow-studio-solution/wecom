@@ -51,6 +51,8 @@ class ResConfigSettings(models.TransientModel):
         corpid = ir_config.get_param("wxwork.corpid")
         auth_secret = ir_config.get_param("wxwork.auth_secret")
         last_time = ir_config.get_param("wxwork.get_ticket_last_time")
+        interval_time = ir_config.get_param("wxwork.ticket_interval_time")
+        interval_type = ir_config.get_param("wxwork.ticket_interval_type")
 
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
@@ -61,7 +63,9 @@ class ResConfigSettings(models.TransientModel):
             if not last_time:
                 self.get_ticket()
             else:
-                self.compare_time(last_time, datetime.datetime.now())
+                self.compare_time(
+                    last_time, datetime.datetime.now(), interval_time, interval_type
+                )
 
             # api = CorpApi(corpid, auth_secret)
             # try:
@@ -80,8 +84,30 @@ class ResConfigSettings(models.TransientModel):
     def get_ticket(self):
         pass
 
-    def compare_time(self, old, new):
-        print(old, new)
+    def compare_time(self, old, new, interval_time, interval_type):
+        # 字符转时间格式
+        # oldTime = datetime.datetime.strptime(old, "%Y-%m-%d %H:%M:%S.%f")
+        # 字符串转换为时间数组
+        # oldTimeArray = time.strptime(old, "%Y-%m-%d %H:%M:%S.%f")
+        # newTimeArray = time.strptime(str(new), "%Y-%m-%d %H:%M:%S.%f")
+        # 转换为时间戳
+        # oldTimeStamp = time.mktime(oldTimeArray)
+        # newTimeStamp = time.mktime(newTimeArray)
+
+        oldTime = datetime.datetime.strptime(old, "%Y-%m-%d %H:%M:%S.%f")
+        newTime = new
+        difference = (newTime - oldTime).seconds
+
+        interval = 0
+        if interval_type:
+            if interval_type == "hours":
+                interval = int(interval_time) * 3600
+            elif interval_type == "minutes":
+                interval = int(interval_time) * 60
+
+        if int(difference) > interval:
+            # 差异值超过间隔时间
+            self.get_ticket()
 
     def get_agent_jsapi_ticket(self):
         ir_config = self.env["ir.config_parameter"].sudo()
