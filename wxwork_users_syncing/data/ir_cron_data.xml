@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
+    <data noupdate="1">
 
         <record forcecreate="True" id="ir_cron_sync_wxwork_contacts" model="ir.cron">
             <field name="name">Enterprise WeChat: Synchronize contacts regularly</field>

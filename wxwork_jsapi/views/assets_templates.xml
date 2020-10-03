@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="wxwork_jsapi assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+            <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork.js"></script>
+
+        </xpath>
+    </template>
+</odoo>

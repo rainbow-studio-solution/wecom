@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg"/>
+                                <i class="fa fa-ticket fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="corp_jsapi_ticket"/>
@@ -49,7 +49,7 @@
                         </div>                        
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg"/>
+                                <i class="fa fa-ticket fa-lg"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="agent_jsapi_ticket"/>
@@ -108,14 +108,28 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="debug_enabled"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="jsapi_debug"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        <span style="color:orange;"><i class="fa fa-info-circle"/> Turn on the debugging mode, the return value of all apis called will be alert on the client. If you want to view the incoming parameters, you can open it on the PC side. The parameter information will be printed out through the log, and it will only be printed on the PC side.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_right_pane">
                                 <div class="row">
                                     <div class="text-muted col-md-6">
-                                        <button name="get_jsapi_ticket" type="object" string="Click test to get JS API Ticket" class="oe_highlight"/>
+                                        <button name="get_jsapi_ticket" type="object" string="test to get JS API Ticket" class="oe_highlight"/>
                                     </div>
                                     <div class="text-muted col-md-6">
-                                        <button name="set_cron_ticket_interval_time" type="object" string="Click to set the pull interval" class="oe_highlight"/>
+                                        <button name="update_cron_ticket_interval_time" type="object" string="Set up automatic tasks" class="oe_highlight"/>
                                     </div>
                                 </div>
                             </div>

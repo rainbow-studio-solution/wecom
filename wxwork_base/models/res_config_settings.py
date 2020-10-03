@@ -11,7 +11,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wxwork.corpid",
         default="xxxxxxxxxxxxxxxxxx",
     )
-    debug_enabled = fields.Boolean("Turn on debug mode", translate=True, default=True)
+    debug_enabled = fields.Boolean("Turn on debug mode", default=True)
     module_wxwork_auth_oauth = fields.Boolean(
         "Use enterprise weChat scan code to verify login (OAuth)", translate=True
     )

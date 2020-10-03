@@ -12,5 +12,9 @@
             <field name="key">wxwork.ticket_interval_type</field>
             <field name="value">hours</field>
         </record>
+        <record id="jsapi_debug" model="ir.config_parameter">
+            <field name="key">wxwork.jsapi_debug</field>
+            <field name="value">True</field>
+        </record>
     </data>
 </odoo>

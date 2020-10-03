@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-
+    <data noupdate="1">
+        
         <record forcecreate="True" id="ir_cron_pull_wxwork_ticket" model="ir.cron">
             <field name="name">Enterprise WeChat: Pull ticket regularly</field>
             <field name="model_id" ref="model_res_config_settings"/>
