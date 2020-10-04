@@ -21,38 +21,46 @@ odoo.define('wxwrok.wx_config', function (require) {
             this.timestamp = options.timestamp;
             this.nonceStr = options.nonceStr;
             this.signature = options.signature;
-            // this.jsApiList = options.jsApiList;
-            this.jsApiList = ['chooseImage'];
-            console.log(this.jsApiList);
+            this.jsApiList = options.jsApiList;
+
+            // self.debug_alert("init:" + this.jsApiList);
+        },
+        debug_alert: function (msg) {
+            window.alert(msg);
+            console.log(msg)
         },
         start: function () {
             /*
              * 通过config接口注入权限验证配置
              * 调用wx.agentConfig之前，必须确保先成功调用wx.config. 
              */
-            wx.config({
-                beta: this.beta,
-                debug: this.debug,
-                appId: this.appId,
-                timestamp: this.timestamp,
-                nonceStr: this.nonceStr,
-                signature: this.signature,
-                jsApiList: this.jsApiList
-            });
-            wx.ready(function () {
-                wx.checkJsApi({
-                    jsApiList: ["invoke", "scanQRCode"], // 需要检测的JS接口列表，所有JS接口列表见附录2,
-                    success: function (res) {
-                        console.log("jsApiList", res)
-                        // 以键值对的形式返回，可用的api值true，不可用为false
-                        // 如：{"checkResult":{"chooseImage":true},"errMsg":"checkJsApi:ok"}
-                    }
+            var self = this;
+            return this._super.apply(this, arguments).then(function () {
+                // self.debug_alert("start:" + self.jsApiList);
+                wx.config({
+                    beta: self.beta,
+                    debug: self.debug,
+                    appId: self.appId,
+                    timestamp: self.timestamp,
+                    nonceStr: self.nonceStr,
+                    signature: self.signature,
+                    jsApiList: self.jsApiList
+                });
+                wx.error(function (res) {
+                    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+
+                    // self.debug_alert("wx.error:" + JSON.stringify(res));
                 });
             });
-            wx.error(function (res) {
-                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-                console.log("错误：" + JSON.stringify(res));
+        },
+        ready: function () {
+            // this._super();
+            // var self = this;
+            // this.debug_alert("ready:" + this.jsApiList);
+            wx.ready({
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
             });
+            return this;
         },
         error: function () {
             // return Promise.resolve(this.configStatus)
