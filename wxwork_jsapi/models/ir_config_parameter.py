@@ -27,6 +27,10 @@ class IrConfigParameter(models.Model):
 
     def generate_signature(self, args):
         """使用sha1加密算法，生成签名"""
+        # 生成签名前，刷新ticke
+        res_config = self.env["res.config.settings"].sudo()
+        res_config.get_jsapi_ticket()
+
         url = self.get_param("web.base.url")
         ticket = self.get_param("wxwork.corp_jsapi_ticket")
         str = ("jsapi_ticket=%s&noncestr=%s&timestamp=%s&url=%s") % (
@@ -35,7 +39,7 @@ class IrConfigParameter(models.Model):
             args[1],
             url + args[2],
         )
-        print(str)
+        # print(str)
         # sha = hashlib.sha1(str.encode("utf-8"))
         # encrypts = sha.hexdigest()
         encrypts = hashlib.sha1(str.encode("utf-8")).hexdigest()

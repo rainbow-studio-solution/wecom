@@ -33,7 +33,9 @@ class ResConfigSettings(models.TransientModel):
     )
     #  widget="many2many_tags"
     js_api_list = fields.Char(
-        'JS API Inertface', config_parameter="wxwork.js_api_list",)
+        "JS API Inertface List",
+        config_parameter="wxwork.js_api_list",
+    )
     # js_api_list = fields.Selection(
     #     [
     #         ("selectEnterpriseContact", "选人接口"),
@@ -106,8 +108,7 @@ class ResConfigSettings(models.TransientModel):
         ir_config = self.env["ir.config_parameter"].sudo()
 
         jsapi_debug = (
-            True if ir_config.get_param(
-                "wxwork.jsapi_debug") == "True" else False
+            True if ir_config.get_param("wxwork.jsapi_debug") == "True" else False
         )
 
         res.update(
@@ -121,10 +122,6 @@ class ResConfigSettings(models.TransientModel):
         ir_config.set_param("wxwork.jsapi_debug", self.jsapi_debug or "False")
 
     def update_cron_ticket_interval_time(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-
-        interval_time = ir_config.get_param("wxwork.ticket_interval_time")
-        interval_type = ir_config.get_param("wxwork.ticket_interval_type")
         try:
             cron = (
                 self.env["ir.model.data"]
@@ -150,8 +147,7 @@ class ResConfigSettings(models.TransientModel):
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif auth_secret == False:
-            raise UserError(
-                _("Please fill in the application 'secret' correctly."))
+            raise UserError(_("Please fill in the application 'secret' correctly."))
 
         else:
             if not self.get_ticket_last_time:
@@ -185,8 +181,7 @@ class ResConfigSettings(models.TransientModel):
                 },
             )
             if self.corp_jsapi_ticket != response["ticket"]:
-                ir_config.set_param(
-                    "wxwork.corp_jsapi_ticket", response["ticket"])
+                ir_config.set_param("wxwork.corp_jsapi_ticket", response["ticket"])
             else:
                 pass
 
@@ -226,8 +221,7 @@ class ResConfigSettings(models.TransientModel):
                 },
             )
             if self.agent_jsapi_ticket != response["ticket"]:
-                ir_config.set_param(
-                    "wxwork.agent_jsapi_ticket", response["ticket"])
+                ir_config.set_param("wxwork.agent_jsapi_ticket", response["ticket"])
                 ir_config.set_param(
                     "wxwork.get_ticket_last_time", datetime.datetime.now()
                 )
@@ -284,8 +278,7 @@ class ResConfigSettings(models.TransientModel):
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif auth_secret == False:
-            raise UserError(
-                _("Please fill in the application 'secret' correctly."))
+            raise UserError(_("Please fill in the application 'secret' correctly."))
 
         else:
             api = CorpApi(corpid, auth_secret)

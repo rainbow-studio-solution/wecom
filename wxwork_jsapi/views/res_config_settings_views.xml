@@ -141,10 +141,10 @@
                             <div class="o_setting_right_pane">
                                 <div class="row">
                                     <div class="text-muted col-md-6">
-                                        <button name="get_jsapi_ticket" type="object" string="test to get JS API Ticket" class="oe_highlight"/>
+                                        <button name="get_jsapi_ticket" type="object" string="test to get JS API Ticket" class="oe_highlight mb-1"/>
                                     </div>
                                     <div class="text-muted col-md-6">
-                                        <button name="update_cron_ticket_interval_time" type="object" string="Set up automatic tasks" class="oe_highlight"/>
+                                        <button name="update_cron_ticket_interval_time" type="object" string="Set up automatic tasks" class="oe_highlight mb-1"/>
                                     </div>
                                 </div>
                             </div>
