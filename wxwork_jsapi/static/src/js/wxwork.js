@@ -36,7 +36,7 @@ odoo.define('wxwrok.wx_config', function (require) {
              */
             var self = this;
             return this._super.apply(this, arguments).then(function () {
-                // self.debug_alert("start:" + self.jsApiList);
+                // self.debug_alert("debug:" + self.debug);
                 wx.config({
                     beta: self.beta,
                     debug: self.debug,
