@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.module.category" id="module_category_wxwork">
+            <field name="name">Enterprise WeChat</field>
+            <field name="sequence">1</field>
+        </record>
+    </data>
+</odoo>

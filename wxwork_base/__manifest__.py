@@ -20,13 +20,10 @@
     ],
     "data": [
         "data/ir_config_parameter.xml",
+        "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
         "views/wxwork_base_views.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "qweb": ["static/src/xml/*.xml",],
+    "external_dependencies": {"python": [],},
 }
