@@ -19,6 +19,7 @@
         # "web_advanced_dialog"
     ],
     "data": [
+        'security/wxwork_security.xml',
         "data/ir_config_parameter.xml",
         "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
