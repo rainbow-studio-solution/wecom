@@ -1,0 +1,38 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wxwork_api
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-30 02:15+0000\n"
+"PO-Revision-Date: 2020-09-30 10:16+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: wxwork_api
+#: code:addons/wxwork_api/wx_qy_api/AbstractApi.py:0
+#, python-format
+msgid ""
+"Error code: %s \n"
+"Error description: %s \n"
+"Error Details:\n"
+"%s"
+msgstr ""
+"错误代码: %s \n"
+"错误描述: %s \n"
+"错误详细:\n"
+"%s"
+
+#. module: wxwork_api
+#: code:addons/wxwork_api/wx_qy_api/AbstractApi.py:0
+#, python-format
+msgid "unknown method type"
+msgstr "未知方法类型"

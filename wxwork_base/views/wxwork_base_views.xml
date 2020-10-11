@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Top menu item -->
+
+        <menuitem id="menu_wxwork" name="Enterprise WeChat" parent="base.menu_administration" sequence="100"
+                  groups="base.group_system"/>
+
+        <menuitem id="menu_wxwork_configuration" name="Settings" parent="wxwork_base.menu_wxwork" sequence="10"
+                  action="wxwork_config_settings_action" groups="base.group_system"/>
+
+        <menuitem id="menu_wxwork_sync_user" name="Sync as user" parent="wxwork_base.menu_wxwork" sequence="20"
+                  groups="base.group_system"/>
+
+        <menuitem id="menu_wxwork_cron" name="Timed task" parent="wxwork_base.menu_wxwork" sequence="30"
+                  groups="base.group_system"/>
+
+    </data>
+</odoo>
