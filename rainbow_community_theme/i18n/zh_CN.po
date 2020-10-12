@@ -232,7 +232,7 @@ msgstr "基本设置"
 #: code:addons/rainbow_community_theme/static/src/xml/theme.xml:0
 #, python-format
 msgid "Both"
-msgstr "都"
+msgstr "顶部&左边"
 
 #. module: rainbow_community_theme
 #. openerp-web
