@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "Enterprise WeChat/Base",
+    "category": "Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
         
