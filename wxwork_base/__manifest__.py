@@ -3,14 +3,14 @@
 {
     "name": "Enterprise WeChat Base",
     "author": "RStudio",
-    "sequence": 1,
+    "sequence": 666,
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "Enterprise WeChat",
+    "category": "Enterprise WeChat/Base",
     "version": "14.0.0.1",
     "summary": """
-        Enterprise WeChat Base
+        
         """,
     "description": """
 
@@ -19,7 +19,6 @@
         # "web_advanced_dialog"
     ],
     "data": [
-        'security/wxwork_security.xml',
         "data/ir_config_parameter.xml",
         "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
