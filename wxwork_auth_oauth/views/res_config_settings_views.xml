@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Enterprise WeChat OAuth authorization login method</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
+                    <h2 id="wxwork_oauth" class="d-flex justify-content-between">
+                        <span class="text-left"><i class="fa fa fa-sign-in fa-lg"/> Application login authorization</span>
+                        <span class="text-right">
+                            <i class="fa fa-angle-double-up"/>
+                        </span>
+                    </h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-list-ol fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auth_agentid"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="auth_agentid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auth_secret"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="auth_secret" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-link fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="auth_redirect_uri"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/signin<br/>
+                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>
+                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/signin
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="auth_redirect_uri" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-link fa-lg"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="qr_redirect_uri"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/qr<br/>
+                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>
+                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/qr
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="qr_redirect_uri" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        After correctly filling in "enterprise ID", "AgentId" and "Secret" that require authentication and authorization, "webpage authorization link callback link address", "scan code link callback link address",
+                                        <span style="color:orange;padding: 0px 16px;">
+                                            Click the button "One-click to set up enterprise WeChat OAuth"
+                                        </span>
+
+                                        <!-- <br/> -->
+                                        <!-- 用户中"OAuth"面板中的"OAuth服务商可以随意选择"，已在程序中做了校验。 -->
+                                        <!-- <br/>
+                                        <span style="color:red;padding: 0px 16px;"> <i class="fa fa-warning"/>
+                                            注意! 请勿修改"常规设置"→"OAuth服务商"中关于企业微信的"身份验证网址"
+                                        </span>
+                                        <br/> -->
+                                    </div>
+                                    <div class="text-muted col-md-12">
+                                        <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up enterprise WeChat OAuth" class="oe_highlight"/>
+                                        <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="View OAuth providers" icon="fa-arrow-right" class="btn-link"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

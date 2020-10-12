@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wxwork_sync_user_wizard" model="ir.ui.view">
+            <field name="name">Sync users from employees</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Sync users from employees" >
+                    <separator string="Generate system users in batches from HR's Enterprise WeChat employees"/>
+                    <group>
+                        <div>
+                            The Linux production server uses the following command to view real-time logs:<br/><br/>
+                            <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
+                                tail -f /var/log/odoo/odoo-server.log
+                            </span><br/><br/>
+                            If there is an error, please check the help file<br/>
+                        </div>
+                        <ul>
+                            <li>The generated user type belongs to the portal user by default.</li>
+                            <li>Portal users are free users and do not occupy system resources.</li>
+                            <li>Need to be converted into internal users in the user list.</li>
+                            <li>Internal users occupy system resources.</li>
+                            <li class="dropdown-divider"></li>
+                            <li>Select a user in the user list and use "Change User Type" in the action menu to change to an internal user</li>
+                            <li class="dropdown-divider"></li>
+                            <li><span style="color:orange;">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span></li>
+                        </ul>
+                    </group>
+                    <footer>
+                        <button name="action_create_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_actions_wxwork_user_wizard" model="ir.actions.act_window">
+            <field name="name">Sync users from employees</field>
+            <field name="res_model">wizard.wxwork.user</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wxwork_sync_user_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="dialog_wxwork_contacts_sync_user_result" model="ir.ui.view">
+            <field name="name">Synchronize system user results</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="type">form</field>
+            <field name="priority" eval="1"/>
+            <field name="arch" type="xml">
+                <form string="Employees generation system user case" edit="false" create="false">
+                    <group>
+                        <group>
+                            <field name="sync_user_result"/>
+                        </group>
+                        <group>
+                            <field name="create_date" string="Starting time"/>
+                            <field name="times"/>
+                            <field name="result"  />
+                        </group>
+                    </group>
+                    <footer>
+                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_wxwork_sync_user_tree" model="ir.ui.view">
+            <field name="name">Employee synchronization system user record list</field>
+            <field name="model">wizard.wxwork.user</field>
+            <field name="arch" type="xml">
+                <tree string="Synchronous recording" edit="false" create="false" delete="false">
+                    <field name="sync_user_result" string="System user generation"/>
+<!--                    <field name="employee_binding_user_result" string="员工绑定系统用户"/>-->
+                    <field name="times"/>
+                    <field name="create_date" string="Starting time"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="open_view_wxwork_sync_user_tree" model="ir.actions.act_window">
+            <field name="name">Open to generate system user record list</field>
+            <field name="res_model">wizard.wxwork.user</field>
+<!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_wxwork_sync_user_tree"/>
+        </record>
+    </data>
+</odoo>

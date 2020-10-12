@@ -1,0 +1,129 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wxwork_auth_oauth
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-28 09:00+0000\n"
+"PO-Revision-Date: 2020-09-28 17:40+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid ""
+"After correctly filling in \"enterprise ID\", \"AgentId\" and \"Secret\" that require authentication and authorization, \"webpage authorization link callback link address\", \"scan code link callback "
+"link address\",\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
+"                                            Click the button \"One-click to set up enterprise WeChat OAuth\"\n"
+"                                        </span>"
+msgstr ""
+"正确填写需要认证和授权的“企业ID”，“ AgentId”和“Secret”，“网页授权链接回调链接地址”，“扫描代码链接回调链接地址”后\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
+"                                            点击“一键设置企业微信OAuth”按钮\n"
+"                                        </span>"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_agentid
+msgid "Agent Id"
+msgstr "Agent Id"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid "Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'"
+msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“AgentId”"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid "Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'"
+msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“Secret”"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri
+msgid "Callback link address redirected after authorization"
+msgstr "授权后重定向的回调链接地址"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model,name:wxwork_auth_oauth.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wxwork_auth_oauth
+#: model:auth.oauth.provider,body:wxwork_auth_oauth.provider_wxwork_authorize
+msgid "Enterprise WeChat one-click login"
+msgstr "企业微信一键登录"
+
+#. module: wxwork_auth_oauth
+#: model:auth.oauth.provider,body:wxwork_auth_oauth.provider_wxwork_qrconnect
+msgid "Enterprise WeChat scan code login"
+msgstr "企业微信扫码登录"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model,name:wxwork_auth_oauth.model_res_users
+msgid "Enterprise WeChat system users"
+msgstr "企业微信系统用户"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid "One-click to set up enterprise WeChat OAuth"
+msgstr "一键设置企业微信OAuth"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__qr_redirect_uri
+msgid "Please use urlencode to process the link"
+msgstr "请使用urlencode处理链接"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__qr_redirect_uri
+msgid "Scan the QR code to log in and call back the link address"
+msgstr "扫描二维码登录回调链接地址"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_secret
+msgid "Secret"
+msgstr "Secret"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid ""
+"The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/qr<br/>\n"
+"                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>\n"
+"                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/qr"
+msgstr ""
+"URL格式为：http://xxx.xxx.com:port/wxwork/auth_oauth/qr<br/>\n"
+"                                        企业微信不支持数字IP地址，请使用通过网络内容服务商注册的域名。<br/>\n"
+"                                        如果回调链接地址使用https协议端口443， 请填写https协议头，如：https://xxx.xxx.com:port/wxwork/auth_oauth/qr"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid ""
+"The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/signin<br/>\n"
+"                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>\n"
+"                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/signin"
+msgstr ""
+"URL格式为：http://xxx.xxx.com:port/wxwork/auth_oauth/signin<br/>\n"
+"                                        企业微信不支持数字IP地址，请使用通过网络内容服务商注册的域名。 <br/>\n"
+"                                        如果回调链接地址使用https协议端口443， 请填写https协议头，如：https://xxx.xxx.com:port/wxwork/auth_oauth/signin"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__auth_agentid
+msgid "The web application ID of the authorizing party, which can be viewed in the specific web application"
+msgstr "授权方的Web应用程序ID，可以在特定的Web应用程序中查看"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid "View OAuth providers"
+msgstr "查看OAuth提供商"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
+msgid "Application login authorization"
+msgstr "应用登录授权"

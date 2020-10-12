@@ -1,39 +1,52 @@
-# wxwork
+<!-- [![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
+[![Install](http://img.shields.io/badge/14.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md) -->
 
-#### 介绍
-{**以下是码云平台说明，您可以替换此简介**
-码云是开源中国推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用码云实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+**请务必阅读安装说明**
 
-#### 软件架构
-软件架构说明
+**目前 同步通讯录和验证登陆可以正常使用了**  
+_使用过程中发现错误，请参考帮助_
 
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
+# 企业微信 For Odoo 14.0
 
 
-#### 码云特技
+自己不是专职开发,还要负债运维和管理,往往一个功能断断续续做出来,要花不少时间.所以请见谅项目的进展速度.
 
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+欢迎提交功能需求
+
+
+## 开源项目 
+
+1. wxwork_base （企业微信-基础模块）测试通过
+   
+
+
+
+
+
+# 帮助
+
+## 安装
+
+[![Install](http://img.shields.io/badge/13.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md)
+
+## 故障处理
+
+[![Help](http://img.shields.io/badge/13.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
+
+## 模块 介绍 
+
+## 使用说明
+
+# QQ群
+
+>若有使用问题，可以加入QQ群，寻求本人帮助
+
+![QQ群](doc/img/QQ群二维码.png)
+
+# Odoo商城付费模块
+
+<a href="https://apps.odoo.com/apps/modules/browse?search=RStudio" target="_blank">应用</a>
+<a href="https://apps.odoo.com/apps/themes/browse?search=RStudio" target="_blank">主题</a>
+
+
+如果我的作品能对您有所帮助，能力范围内，请不要介意点击下面“捐赠”按钮，或者点个⭐，开源不易，请多支持。

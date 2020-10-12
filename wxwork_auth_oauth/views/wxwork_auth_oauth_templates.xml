@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+
+        <template id="assets_frontend" inherit_id="web.assets_frontend" name="OAuth Providers Assets">
+            <xpath expr="//link[last()]" position="after">
+                <link rel="stylesheet" type="text/scss" href="/wxwork_auth_oauth/static/src/scss/wxwork.scss"/>
+                <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui-for-work.min.css"/>
+            </xpath>
+            <xpath expr="//script[last()]" position="after">
+                <!--企业微信网页登录二维码-->
+                <script type="text/javascript" src="https://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/>
+            </xpath>
+        </template>
+
+        <template id="login" inherit_id="web.login">
+            <!--企业页面显示二维码的容器id-->
+            <xpath expr='//form[hasclass("oe_login_form")]' position="attributes">
+                <attribute name="id">wx_reg</attribute>
+            </xpath>
+        </template>
+
+        
+    </data>
+</odoo>

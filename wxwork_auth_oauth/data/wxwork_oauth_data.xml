@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
+            <field name="enabled" eval="False" />
+        </record> -->
+
+        <record id="provider_wxwork_authorize" model="auth.oauth.provider">
+            <field name="name">Enterprise WeChat OAuth2</field>
+            <!--身份验证网址-->
+            <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
+            <!--作用域-->
+            <field name="scope">snsapi_base</field>
+            <!--验证网址-->
+            <field name="validation_endpoint"></field>
+            <!--数据网址-->
+            <field name="data_endpoint"></field>
+            <field name="css_class">fa fa-fw fa-wechat</field>
+            <field name="body">Enterprise WeChat one-click login</field>
+            <field name="enabled" eval="True"/>
+        </record>
+
+        <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
+            <field name="name">Enterprise WeChat OAuth2 Scan</field>
+            <field name="auth_endpoint">https://open.work.weixin.qq.com/wwopen/sso/qrConnect</field>
+            <field name="scope"></field>
+            <field name="validation_endpoint"></field>
+            <field name="data_endpoint"></field>
+            <field name="css_class">fa fa-fw fa-qrcode</field>
+            <field name="body">Enterprise WeChat scan code login</field>
+            <field name="enabled" eval="True"/>
+        </record>
+
+        <record id="auth_agentid" model="ir.config_parameter">
+            <field name="key">wxwork.auth_agentid</field>
+            <field name="value">0000000</field>
+        </record>
+        <record id="auth_secret" model="ir.config_parameter">
+            <field name="key">wxwork.auth_secret</field>
+            <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>
+        </record>
+        <record id="auth_redirect_uri" model="ir.config_parameter">
+            <field name="key">wxwork.auth_redirect_uri</field>
+            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/signin</field>
+        </record>
+        <record id="qr_redirect_uri" model="ir.config_parameter">
+            <field name="key">wxwork.qr_redirect_uri</field>
+            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/qr</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1065 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wxwork_users_syncing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-01 02:49+0000\n"
+"PO-Revision-Date: 2020-10-01 10:58+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "%s, time spent: %s seconds"
+msgstr "%s， 所花费的时间： %s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "<div>Successfully obtained corporate WeChat contact token.</div>"
+msgstr "<div>成功获取企业微信通讯录token.</div>"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid ""
+"<span style=\"color:orange;\">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate "
+"users.</span>"
+msgstr "<span style=\"color:orange;\">从员工同步生成系统用户。 建议仅在第一次上线时使用它。 生成用户需要很长时间。</span>"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure "
+"data security, the key must not be leaked."
+msgstr "通讯录同步secret。 在“管理工具”→“通讯录同步”中进行检查（需要打开“ API接口同步”）。 为确保数据安全，务必泄露密钥。"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid "Address book synchronization system user configuration"
+msgstr "通讯录同步系统用户配置"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__alias model_terms:ir.ui.view,arch_db:wxwork_users_syncing.wxwork_hr_employee_form
+msgid "Alias"
+msgstr "别名"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_edit_enabled
+msgid "Allow API to edit Enterprise WeChat contacts"
+msgstr "允许API编辑企业微信联系人"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_auto_sync_hr_enabled
+msgid "Allow Enterprise WeChat Contacts are automatically updated to HR"
+msgstr "允许企业微信通讯录自动更新为HR"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_sync_user_enabled
+msgid "Allow Enterprise WeChat contacts to automatically update system accounts"
+msgstr "允许企业微信通讯录自动更新系统帐户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_always_update_avatar_enabled
+msgid "Always update avatar"
+msgstr "一直更新头像"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
+#, python-format
+msgid "Before clicking the 'Change User Type' button, you must modify the new user type"
+msgstr "在点击 '更改用户类型' 按钮之前，您必须修改新的用户类型"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.change_type_wizard_view
+msgid "Cancel"
+msgstr "取消"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.change_type_wizard_view
+msgid "Change type"
+msgstr "变更类型"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.change_type_wizard_action model_terms:ir.ui.view,arch_db:wxwork_users_syncing.change_type_wizard_view
+msgid "Change user type"
+msgstr "变更系统用户类型"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid "Click test to get token"
+msgstr "点击测试获取token"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.actions.act_window,help:wxwork_users_syncing.open_module_tree_employee
+msgid "Click to add a new employee."
+msgstr "单击以添加新员工。"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.actions.act_window,help:wxwork_users_syncing.open_module_tree_user
+msgid "Click to add a new user."
+msgstr "单击以添加新用户。"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_secret
+msgid "Contact Secret"
+msgstr "通讯录Secret"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid "Contact synchronization ODOO HR settings"
+msgstr "通讯录同步ODOO HR设置"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_view_wxwork_contacts_sync_tree
+msgid "Contact synchronization record list"
+msgstr "通讯录同步记录列表"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_access_token
+msgid "Contact token"
+msgstr "通讯录token"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.wxwork_hr_employee_form
+msgid "Copy as system user"
+msgstr "复制为系统用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.actions.act_window,help:wxwork_users_syncing.open_module_tree_department
+msgid "Create department."
+msgstr "创建部门。"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__create_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__create_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__create_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__create_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__create_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__create_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
+msgid ""
+"Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:<br/><br/>\n"
+"                            <span style=\"background:#000;color: #fff;border-bottom: #000 1px solid;\">\n"
+"                                tail -f /var/log/odoo/odoo-server.log\n"
+"                            </span><br/><br/>\n"
+"                            If an error occurs, please check the help file.<br/>"
+msgstr ""
+"当前仅多线程用于图像下载。 Linux生产服务器使用以下命令来查看实时日志：<br/><br/>\n"
+"                            <span style=\"background:#000;color: #fff;border-bottom: #000 1px solid;\">\n"
+"                                tail -f /var/log/odoo/odoo-server.log\n"
+"                            </span><br/><br/>\n"
+"                            如果发生错误，请查看帮助文件。<br/>"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Departed employee: %s Synchronization error: %s"
+msgstr "离职员工：%s  同步错误：%s"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default"
+msgstr "部门ID。 获取指定的部门及其子部门。 如果您不填写，则默认获取完整的组织结构"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree
+msgid "Department synchronization"
+msgstr "部门同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Department synchronization failed"
+msgstr "部门同步失败"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Department synchronization failed, error: %s"
+msgstr "部门同步失败，错误：%s"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__department_sync_result
+msgid "Department synchronization result"
+msgstr "部门同步结果"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Department synchronization successful"
+msgstr "部门同步成功"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Department: The parent department setting of %s failed"
+msgstr "部门：设置上级部门  %s 失败"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__display_name
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__display_name
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__display_name
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
+msgid "Download and update local from Enterprise WeChat update: departments and employees"
+msgstr "从企业微信下载并更新本地：部门和员工"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__times
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__times
+msgid "Elapsed time (seconds)"
+msgstr "花费时间（秒）"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee failed to synchronize user"
+msgstr "员工同步为系统用户失败"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree
+msgid "Employee synchronization"
+msgstr "员工同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee synchronization as system user error: %s"
+msgstr "员工同步为系统用户错误: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee synchronization error:%s"
+msgstr "员工同步错误：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee synchronization failed"
+msgstr "员工同步失败"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee synchronization is successful as system user"
+msgstr "员工同步为系统用户成功"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__employee_sync_result
+msgid "Employee synchronization results"
+msgstr "员工同步结果"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Employee synchronization succeeded"
+msgstr "员工同步成功"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/wizard/wizard_wxwork_sync_user.py:0
+#, python-format
+msgid "Employee synchronization system user results"
+msgstr "员工同步为系统用户结果"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result
+msgid "Employees generation system user case"
+msgstr "员工生成系统用户信息"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid "Enable to allow batch generation of system accounts from employees;"
+msgstr "启用，允许从员工批量生成系统帐户;"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"Enabled, allows the enterprise WeChat address book to be read and edited through the API interface; conversely, only allows the enterprise WeChat address book to be read "
+"through the API interface.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>\n"
+"                                            Precondition: Need to enable the \"API Edit Address Book\" permission of the application \"Address Book Synchronization\"\n"
+"                                        </span>\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Danger! Not recommended!</span>"
+msgstr ""
+"启用，允许通过API接口读取和编辑企业微信通讯录； 反之，仅允许通过API接口读取企业微信通讯录。\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>\n"
+"                                                        先决条件：需要启用应用程序 \"通讯录同步\" 的 \"API编辑通讯录\" 权限\n"
+"                                                    </span>\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>危险！ 不建议！</span>"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
+msgstr "结束同步企业微信通讯录-部门同步，花费的总时间：%s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds"
+msgstr "结束同步企业微信联系人-员工同步，花费的总时间：%s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
+msgstr "结束同步企业微信通讯录-图片，总花费时间：%s 秒"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "End sync Enterprise WeChat Contact, total time spent: %s seconds"
+msgstr "结束同步企业微信通讯录，总花费时间: %s 秒"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.wxwork_view_users_form
+msgid "Enterprise WeChat"
+msgstr "企业微信"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_module_tree_department
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__is_wxwork_department
+msgid "Enterprise WeChat Department"
+msgstr "企业微信部门"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_wizard_wxwork_user
+msgid "Enterprise WeChat Generation System User Guide"
+msgstr "企业微信生成系统用户向导"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_img_path
+msgid "Enterprise WeChat Picture storage path"
+msgstr "企业微信图片存储路径"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
+msgid "Enterprise WeChat contact data synchronization"
+msgstr "企业微信通讯录数据同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__wxwork_department_id
+#: model:ir.model.fields,help:wxwork_users_syncing.field_hr_department__wxwork_department_id
+msgid "Enterprise WeChat department ID"
+msgstr "企业微信部门ID"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_config_settings__contacts_sync_hr_department_id
+msgid "Enterprise WeChat department ID to be synchronized"
+msgstr "要同步的企业微信部门ID"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.actions.act_window,help:wxwork_users_syncing.open_module_tree_department
+msgid "Enterprise WeChat department management"
+msgstr "企业微信部门管理"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__wxwork_department_order
+msgid "Enterprise WeChat department sort"
+msgstr "企业微信部门排序"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "Enterprise WeChat department synchronization"
+msgstr "企业微信部门同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_module_tree_employee
+msgid "Enterprise WeChat employee"
+msgstr "企业微信员工"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "Enterprise WeChat employee synchronization"
+msgstr "企业微信员工同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__is_wxwork_employee
+msgid "Enterprise WeChat employees"
+msgstr "企业微信员工"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_hr_employee
+msgid "Enterprise WeChat employees bind system users"
+msgstr "企业微信员工绑定系统用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__department_ids
+msgid "Enterprise WeChat multi-department"
+msgstr "企业微信多部门"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_department__wxwork_department_parent_id
+msgid "Enterprise WeChat parent department ID"
+msgstr "企业微信上级部门ID"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "Enterprise WeChat picture synchronization"
+msgstr "企业微信图片同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_users__wxwork_user_order
+msgid "Enterprise WeChat ranking"
+msgstr "企业微信排序"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.wxwork_hr_employee_form
+msgid "Enterprise WeChat settings"
+msgstr "企业微信设置"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Enterprise WeChat synchronization failed, error: %s"
+msgstr "企业微信同步失败，错误: %s"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_wizard_wxwork_contacts
+msgid "Enterprise WeChat synchronization wizard"
+msgstr "企业微信同步向导"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_res_users
+msgid "Enterprise WeChat system users"
+msgstr "企业微信系统用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_users__wxwork_id
+msgid "Enterprise WeChat user ID"
+msgstr "企业微信用户ID"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__wxwork_id
+msgid "Enterprise WeChat user Id"
+msgstr "企业微信用户ID"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__wxwork_user_order
+msgid "Enterprise WeChat user sort"
+msgstr "企业微信用户排序"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.ir_cron_act_contacts model:ir.actions.server,name:wxwork_users_syncing.ir_cron_sync_wxwork_contacts_ir_actions_server
+#: model:ir.cron,cron_name:wxwork_users_syncing.ir_cron_sync_wxwork_contacts model:ir.cron,name:wxwork_users_syncing.ir_cron_sync_wxwork_contacts
+msgid "Enterprise WeChat: Synchronize contacts regularly"
+msgstr "企业微信：定期同步通讯录"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"Error code: %s \n"
+"Error description: %s \n"
+"Error Details:\n"
+"%s"
+msgstr ""
+"错误代码: %s \n"
+"错误描述: %s \n"
+"错误详细:\n"
+"%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Error creating employee:%s - %s"
+msgstr "创建员工时出错：%s - %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Error creating system user from employee: %s"
+msgstr "从员工创建系统用户时出错：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Error creating system user from employee:%s"
+msgstr "从员工创建系统用户时出错：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Error in getting employee's parent department, error: %s"
+msgstr "获取员工的上级部门时出错，错误: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Errors in generating data for departing employees:%s"
+msgstr "生成离职员工数据时出错：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Failed to compare pictures %s,error: %s"
+msgstr "Failed to compare pictures %s,error: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Failed to download image of %s error: %s"
+msgstr "Failed to download image of %s error: %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Failed to synchronize employee as system user"
+msgstr "无法将员工同步为系统用户"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Failed to synchronize employee as system user:%s"
+msgstr "无法将员工同步为系统用户：%s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Finished synchronizing enterprise WeChat contacts - employee synchronization system users, total time spent: %s seconds"
+msgstr "完成企业微信联系人的同步-员工同步系统用户，花费的总时间：%s 秒"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Generate system users in batches from HR's Enterprise WeChat employees"
+msgstr "从HR的企业微信员工批量生成系统用户"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Get the employee's parent department error:%s"
+msgstr "获取员工的上级部门错误：%s"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields.selection,name:wxwork_users_syncing.selection__res_users__notification_type__wxwork
+msgid "Handle by Enterprise WeChat"
+msgstr "通过企业微信处理"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__id
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__id
+msgid "ID"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"If enabled, it allows to read the enterprise WeChat address book through the API interface and automatically synchronize to ODOO;\n"
+"                                        <br/>\n"
+"                                        Otherwise, you can only manually bind enterprise WeChat users."
+msgstr ""
+"如果启用，它允许通过API接口读取企业微信通讯录并自动同步到ODOO；\n"
+"                                                    <br/>\n"
+"                                                    否则，您只能手动绑定企业微信用户。"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>Suggestion: turn on when avatar synchronization "
+"fails due to various reasons</span>\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>It takes more time to update the avatar each time, "
+"and HR generally uses the official photo of the employee</span>\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>Don't want to be troubled by HR, use it with caution!</span>"
+msgstr ""
+"如果启用，则每次同步时都会同步企业微信用户头像。\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>建议：当头像同步由于各种原因而失败时打开"
+"</span>\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\"> <i class=\"fa fa-info-circle\"/>每次更新头像需要花费更多时间，并且HR通常"
+"使用员工的正式照片</span>\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:red;padding: 0px 16px;\"> <i class=\"fa fa-warning\"/>不想被HR找麻烦，请谨慎使用！</span>"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"Important notes when obtaining application \"address book\" information in the background of the enterprise WeChat, this information needs to be carried during communication "
+"to verify the access authority of the interface.\n"
+"                                        <br/>\n"
+"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
+"                                            <i class=\"fa fa-info-circle\"/>\n"
+"                                            The token has been cached and the system will automatically refresh the token.\n"
+"                                        </span>"
+msgstr ""
+"在企业微信的后台获取应用\"通讯录\"信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
+"                                                    <br/>\n"
+"                                                    <span style=\"color:orange;padding: 0px 16px;\">\n"
+"                                                        <i class=\"fa fa-info-circle\"/>\n"
+"                                                        令牌已被缓存，系统将自动刷新令牌。\n"
+"                                                    </span>"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
+#, python-format
+msgid "Internal User"
+msgstr "内部用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Internal users occupy system resources."
+msgstr "内部用户占用系统资源。"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_users__is_wxwork_user
+msgid "Is an enterprise WeChat user"
+msgstr "是企业微信用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change____last_update
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type____last_update
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts____last_update
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user____last_update
+msgid "Last Modified on"
+msgstr "最后修改时间"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__write_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__write_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__write_uid
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__write_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__write_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__write_date
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__user_login
+msgid "Login account"
+msgstr "登录帐号"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__user_name
+msgid "Login name"
+msgstr "登录名"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Need to be converted into internal users in the user list."
+msgstr "需要在用户列表中转换为内部用户。"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_users__notification_type
+msgid "Notification"
+msgstr "通知"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_view_wxwork_sync_user_tree
+msgid "Open to generate system user record list"
+msgstr "打开生成系统用户记录列表"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_hr_department__wxwork_department_order
+msgid "Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)"
+msgstr "上级部门的排序值。 高阶值首先被排序。 值范围是[0，2 ^ 32）"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_hr_department__wxwork_department_parent_id
+msgid "Parent department ID,32-bit integer.Root department is 1"
+msgstr "父部门ID，32位整数。根部门为1"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__qr_code
+msgid "Personal QR code"
+msgstr "个人二维码"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_hr_employee__qr_code
+msgid "Personal QR code, Scan can be added as external contact"
+msgstr "个人二维码，扫码可将添加为外部联系人"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Picture sync failed"
+msgstr "图片同步失败"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Picture synced successfully"
+msgstr "图片同步成功"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree
+msgid "Picture synchronization"
+msgstr "图片同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__image_sync_result
+msgid "Picture synchronization result"
+msgstr "图片同步结果"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "Please fill in correctly Enterprise ID."
+msgstr "请正确填写企业ID。"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "Please fill in the contact Secret correctly."
+msgstr "请正确填写通讯录Secret 。"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_res_users__notification_type
+msgid ""
+"Policy on how to handle Chatter notifications:\n"
+"- Handle by Emails: notifications are sent to your email address\n"
+"- Handle in Odoo: notifications appear in your Odoo Inbox"
+msgstr ""
+"处理聊天通知的规则:\n"
+"- 通过EMail处理: 通知会发送至您的EMail地址\n"
+"- 系统内部处理: 通知会出现在Odoo收件箱"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
+#, python-format
+msgid "Portal"
+msgstr "门户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Portal users are free users and do not occupy system resources."
+msgstr "门户网站用户是免费用户，并且不占用系统资源。"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_users.py:0
+#, python-format
+msgid "Public"
+msgstr "公共"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__result
+msgid "Result"
+msgstr "结果"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Select a user in the user list and use \"Change User Type\" in the action menu to change to an internal user"
+msgstr "在用户列表中选择一个用户，然后在操作菜单中使用\"更改用户类型\"更改为内部用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_users_search_inherit
+msgid "Share User"
+msgstr "共享用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_contacts_sync_wizard
+msgid "Start syncing"
+msgstr "开始同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "Start syncing Enterprise WeChat Contact"
+msgstr "开始同步企业微信通讯录"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Start syncing Enterprise WeChat Contact - Picture"
+msgstr "开始同步企业微信通讯录-图片"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Start syncing Enterprise WeChat Contact-Employee Synchronization"
+msgstr "开始同步企业微信通讯录-员工同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Start syncing from employees to system users"
+msgstr "开始从员工同步到系统用户"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
+msgstr "开始同步企业微信通讯录-部门同步"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_sync_user_tree
+msgid "Starting time"
+msgstr "起始时间"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "Successful operation"
+msgstr "操作成功"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_hr_department
+msgid "Sync Enterprise WeChat Department"
+msgstr "同步企业微信部门"
+
+#. module: wxwork_users_syncing
+#: model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_sync model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_sync_auto
+msgid "Sync contacts"
+msgstr "通讯录同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_image.py:0
+#, python-format
+msgid "Sync picture error:%s"
+msgstr "同步图片错误：%s"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.view_actions_wxwork_user_wizard model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Sync users from employees"
+msgstr "从员工同步到系统用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_sync_record model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_sync_user_record
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_contacts_sync_tree model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_sync_user_tree
+msgid "Synchronous recording"
+msgstr "同步记录"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "Synchronously generate system users"
+msgstr "同步生成系统用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_wxwork_sync_user_tree
+msgid "System user generation"
+msgstr "系统用户生成"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/res_config_settings.py:0
+#, python-format
+msgid "Task failure prompt - The task of synchronizing Enterprise WeChat contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
+msgstr "任务失败提示-无法执行定期同步Enterprise WeChat联系人的任务。 详细原因如下：%s"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid ""
+"The Linux production server uses the following command to view real-time logs:<br/><br/>\n"
+"                            <span style=\"background:#000;color: #fff;border-bottom: #000 1px solid;\">\n"
+"                                tail -f /var/log/odoo/odoo-server.log\n"
+"                            </span><br/><br/>\n"
+"                            If there is an error, please check the help file<br/>"
+msgstr ""
+"Linux生产服务器使用以下命令来查看实时日志：<br/><br/>\n"
+"                            <span style=\"background:#000;color: #fff;border-bottom: #000 1px solid;\">\n"
+"                                tail -f /var/log/odoo/odoo-server.log\n"
+"                            </span><br/><br/>\n"
+"                            如果有错误，请参考帮助文件<br/>"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/wizard/wizard_wxwork_sync_user.py:0
+#, python-format
+msgid "The current setting does not allow synchronization from employees to system users"
+msgstr "当前设置不允许从员工到系统用户的同步"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_form_wxwork_sync_user_wizard
+msgid "The generated user type belongs to the portal user by default."
+msgstr "默认情况下，生成的用户类型属于门户用户。"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.res_config_settings_view_form
+msgid ""
+"The path used to save the enterprise WeChat user avatar and QR code image<br/>\n"
+"                                        reference: D:\\img\\  <br/>\n"
+"                                        Linux：/home/odoo/img/ Note: odoo is the current system account"
+msgstr ""
+"用于保存企业微信用户头像和QR码图像的路径<br/>\n"
+"                                                    参考: D:\\img\\  <br/>\n"
+"                                                    Linux：/home/odoo/img/ Note: odoo is the current system account"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_res_users__wxwork_user_order
+msgid ""
+"The sort value in the department, the default is 0. The number must be the same as the department. The larger the number, the higher the order.The value range is [0, 2^32)"
+msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,help:wxwork_users_syncing.field_hr_employee__wxwork_user_order
+msgid ""
+"The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, "
+"2^32)"
+msgstr "部门内的排序值，默认值为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/sync_contacts.py:0
+#, python-format
+msgid "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
+msgstr "同步终止，当前设置不允许从企业微信到odoo同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "There is currently no employee profile that needs to generate system users"
+msgstr "当前没有需要生成系统用户的员工资料"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/wizard/wizard_wxwork_contacts_sync.py:0
+#, python-format
+msgid ""
+"Tip: The current setting does not allow synchronization from enterprise WeChat to HR \n"
+"\n"
+" Please generate a user manually \n"
+"\n"
+" Please modify the related settings"
+msgstr ""
+"提示：当前设置不允许从企业微信同步到HR \n"
+"\n"
+" 请手动生成用户 \n"
+"\n"
+" 请修改相关设置"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Update employee error:%s - %s"
+msgstr "更新员工错误：%s - %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/wizard/wizard_wxwork_contacts_sync.py:0
+#, python-format
+msgid "Update result"
+msgstr "更新结果"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__user_id
+msgid "User"
+msgstr "用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_hr_employee__user_check_tick
+msgid "User Check Tick"
+msgstr ""
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__new_type
+msgid "User Type"
+msgstr "用户类型"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__user_sync_result
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_user__sync_user_result
+msgid "User synchronization result"
+msgstr "用户同步结果"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_user_type_change
+msgid "User, Change Type Wizard"
+msgstr "用户，更改类型向导"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.change_type_wizard_user_tree_view
+msgid "Users"
+msgstr "用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_res_users__is_wxwork_notice
+msgid "Whether to receive reminders"
+msgstr "是否接收提醒"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_user_type_change__wizard_id
+msgid "Wizard"
+msgstr "向导"
+
+#. module: wxwork_users_syncing
+#: model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_sync_user_wizard model:ir.ui.menu,name:wxwork_users_syncing.menu_wxwork_contacts_wizard
+msgid "Wizard synchronization"
+msgstr "向导同步"
+
+#. module: wxwork_users_syncing
+#: model:ir.model,name:wxwork_users_syncing.model_wizard_change_user_type
+msgid "Wizard to change user type(Enterprise WeChat)"
+msgstr "更改用户类型的向导（企业微信）"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.view_actions_wxwork_contacts_wizard
+msgid "data synchronization"
+msgstr "数据同步"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "department: %s - %s"
+msgstr "部门： %s - %s"
+
+#. module: wxwork_users_syncing
+#: code:addons/wxwork_users_syncing/models/hr_department.py:0
+#, python-format
+msgid "department:%s - %s"
+msgstr "部门： %s - %s"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_wxwork_contacts__result
+msgid "result"
+msgstr "结果"
+
+#. module: wxwork_users_syncing
+#: model:ir.model.fields,field_description:wxwork_users_syncing.field_wizard_change_user_type__user_ids
+msgid "user"
+msgstr "用户"
+
+#. module: wxwork_users_syncing
+#: model:ir.actions.act_window,name:wxwork_users_syncing.open_module_tree_user
+msgid "users"
+msgstr "用户"
+
+#. module: wxwork_users_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_users_syncing.view_department_form
+msgid "wxwork"
+msgstr ""

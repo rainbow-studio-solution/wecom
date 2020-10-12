@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--    HR菜单    -->
+        <menuitem id="menu_wxwork_contacts_sync" name="Sync contacts" parent="hr.menu_hr_root" sequence="90"
+                  groups="hr.group_hr_manager"/>
+
+        <menuitem id="menu_wxwork_contacts_wizard" name="Wizard synchronization" parent="menu_wxwork_contacts_sync"
+                  action="view_actions_wxwork_contacts_wizard" sequence="10"/>
+
+        <menuitem id="menu_wxwork_contacts_sync_record" name="Synchronous recording" parent="menu_wxwork_contacts_sync"
+                  action="open_view_wxwork_contacts_sync_tree" sequence="20"/>
+
+        <!--    系统设置菜单    -->
+
+        <menuitem id="menu_wxwork_contacts_sync_user_wizard" name="Wizard synchronization" parent="wxwork_base.menu_wxwork_sync_user"
+                  action="view_actions_wxwork_user_wizard" sequence="10"/>
+
+        <menuitem id="menu_wxwork_contacts_sync_user_record" name="Synchronous recording" parent="wxwork_base.menu_wxwork_sync_user"
+                  action="open_view_wxwork_sync_user_tree" sequence="10"/>
+
+
+        <menuitem id="menu_wxwork_contacts_sync_auto" name="Sync contacts" parent="wxwork_base.menu_wxwork_cron"
+                  action="ir_cron_act_contacts" sequence="2"/>
+
+    </data>
+</odoo>

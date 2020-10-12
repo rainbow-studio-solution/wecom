@@ -1,0 +1,156 @@
+// 在odoo原生css的效果
+.o_auth_oauth_providers {
+
+    .fa-weixin,
+    .fa-wechat,
+    .fa-qrcode {
+        color: #0886f0 !important;
+    }
+
+    .wxwork {
+        transform: translateY(2px);
+        -webkit-transform: translateY(2px);
+        -o-transform: translateY(2px);
+        -moz-transform: translateY(2px);
+        width: 16px;
+        height: 16px;
+        background-repeat: no-repeat; //属性设置是否及如何重复背景图像
+        background-position: center; //背景位置居中
+        background-size: cover;
+        /*background-size的cover特定值会保持图像本身的宽高比例，将图片缩放到正好完全覆盖定义背景的区域。*/
+        background-image: url(/wxwork_auth_oauth/static/src/img/wxwork2.png);
+        display: inline-block; //变成块状，这个属性一定要加，要不然不显示。因为<i>标签不是块级元素
+    }
+}
+
+// .social-icons{
+//     .wxwork {
+//         background: url(/wxwork_auth_oauth/static/src/img/wxwork2.png) no-repeat;
+//     }
+// }
+// .login-social
+// {
+//     .social-icon-color {
+//         opacity: .7!important;
+//         background-position: 0 -38px!important;
+//     }
+//     .icon-social-wxwork {
+//         background: url(/wxwork_auth_oauth/static/src/img/wxwork1.png) no-repeat;
+//     }
+//     .wxwork {
+//         background: url(/wxwork_auth_oauth/static/src/img/wxwork1.png) no-repeat;
+//     }
+// }
+
+// 在RAINBOW 社区版主题下的效果
+.o_login_1 {
+    .fa-qrcode {
+        color: #3b5998;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+
+    .fa-wechat {
+        color: #3b5998;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+}
+
+.o_login_2 {
+    .fa-qrcode {
+        color: #3b5998;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+
+    .fa-wechat {
+        color: #3b5998;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+}
+
+
+.o_login_3 {
+    .fa-qrcode {
+        color: #c8c8c8;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+
+    .fa-wechat {
+        color: #c8c8c8;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+}
+
+.o_login_4 {
+    .fa-qrcode {
+        color: #eee;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+
+    .fa-wechat {
+        color: #eee;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+}
+
+.o_login_5,
+.o_login_6 {
+    .fa-qrcode {
+        // color: #eee;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+
+    .fa-wechat {
+        // color: #eee;
+        border-radius: 0 !important;
+
+        &:hover {
+            transition: all .3s ease-in-out;
+            color: darken(#3b5998, 15%);
+        }
+    }
+}
