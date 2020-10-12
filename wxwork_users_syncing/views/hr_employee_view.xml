@@ -6,14 +6,14 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
-                <field name="work_email" position="after">
+                <!-- <field name="work_email" position="after">
                     <field name="user_check_tick" invisible="1"/>
-                </field>
+                </field> -->
                 <xpath expr="//header//button[last()]" position="before">
                     <!--     “复制为系统用户”按钮仅HR管理员可见          -->
-                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight"
+                    <!-- <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight"
                             attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_manager"/> -->
                 </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <label for="alias" class="oe_edit_only"/>
@@ -29,7 +29,7 @@
                         <group>
                             <group>
                                 <field name="wxwork_id" />
-                                <field name="is_wxwork_employee" widget="checkbox"/>
+                                <!-- <field name="is_wxwork_employee" widget="checkbox"/> -->
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
                             <group>
@@ -49,7 +49,7 @@
                 <xpath expr="//field[last()]" position="after">
                     <field name="department_ids" widget="many2many_tags" />
                     <!--<field name="wxwork_department"/>-->
-                    <field name="is_wxwork_employee"/>
+                    <!-- <field name="is_wxwork_employee"/> -->
                 </xpath>
             </field>
         </record>
@@ -63,7 +63,7 @@
                     <field name="name"/>
                     <field name="wxwork_id" />
                     <field name="department_id"/>
-                    <field name="is_wxwork_employee"/>
+                    <!-- <field name="is_wxwork_employee"/> -->
                 </tree>
             </field>
         </record>

@@ -41,16 +41,16 @@ class HrEmployee(models.Model):
         readonly=True,
         translate=True,
     )
-    is_wxwork_employee = fields.Boolean(
-        string="Enterprise WeChat employees",
-        # readonly=True,
-        translate=True,
-        default=False,
-    )
+    # is_wxwork_employee = fields.Boolean(
+    #     string="Enterprise WeChat employees",
+    #     readonly=True,
+    #     translate=True,
+    #     default=False,
+    # )
 
-    user_check_tick = fields.Boolean(
-        string="User Check Tick", default=False, translate=True
-    )
+    # user_check_tick = fields.Boolean(
+    #     string="User Check Tick", default=False, translate=True
+    # )
 
     def create_user_from_employee(self):
         """
@@ -85,14 +85,15 @@ class HrEmployee(models.Model):
         )
         self.user_id = res_user_id.id
         self.address_home_id = res_user_id.partner_id.id
-        self.user_check_tick = True
+        # self.user_check_tick = True
 
     @api.onchange("address_home_id")
     def user_checking(self):
-        if self.address_home_id:
-            self.user_check_tick = True
-        else:
-            self.user_check_tick = False
+        pass
+        # if self.address_home_id:
+        #     self.user_check_tick = True
+        # else:
+        #     self.user_check_tick = False
 
     def sync_employee(self):
         params = self.env["ir.config_parameter"].sudo()
@@ -159,7 +160,7 @@ class HrEmployee(models.Model):
                 domain
                 + [
                     ("wxwork_id", "=", obj["userid"]),
-                    ("is_wxwork_employee", "=", True),
+                    # ("is_wxwork_employee", "=", True),
                 ],
                 limit=1,
             )
@@ -354,7 +355,10 @@ class HrEmployee(models.Model):
                 self = self.with_env(self.env(cr=new_cr))
                 env = self.sudo().env["hr.employee"]
                 domain = ["|", ("active", "=", False), ("active", "=", True)]
-                employees = env.search(domain + [("is_wxwork_employee", "=", True)])
+                employees = env.search(
+                    domain
+                    # + [("is_wxwork_employee", "=", True)]
+                )
                 for employee in employees:
                     list_employee.append(employee.wxwork_id)
 
@@ -414,8 +418,8 @@ class EmployeeSyncUser(models.Model):
                     .search(
                         domain
                         + [
-                            ("is_wxwork_employee", "=", True),
-                            ("user_check_tick", "=", False),
+                            # ("is_wxwork_employee", "=", True),
+                            # ("user_check_tick", "=", False),
                         ]
                     )
                 )
@@ -515,7 +519,7 @@ class EmployeeSyncUser(models.Model):
                 {
                     "user_id": user.id,
                     "address_home_id": user.partner_id.id,
-                    "user_check_tick": True,
+                    # "user_check_tick": True,
                 }
             )
         except Exception as e:
