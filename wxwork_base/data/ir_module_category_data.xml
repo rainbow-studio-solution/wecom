@@ -5,6 +5,7 @@
             <field name="name">Enterprise WeChat</field>
             <field name="sequence">1</field>
             <field name="visible" eval="1" />
-        </record>        
+        </record>     
+          
     </data>
 </odoo>

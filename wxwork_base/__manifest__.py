@@ -3,11 +3,11 @@
 {
     "name": "Enterprise WeChat Base",
     "author": "RStudio",
-    "sequence": 666,
+    "sequence": 600,
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "Enterprise WeChat",
+    "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
         
