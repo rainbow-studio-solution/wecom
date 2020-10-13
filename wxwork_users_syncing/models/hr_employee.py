@@ -5,6 +5,8 @@ from odoo import api, fields, models, _
 from ...wxwork_api.wx_qy_api.CorpApi import *
 from ...wxwork_api.helper.common import *
 
+# 代码分析
+from odoo.tools.misc import profile
 
 import logging
 import platform
@@ -313,7 +315,7 @@ class HrEmployee(models.Model):
         try:
             departments = self.env["hr.department"].search(
                 [
-                    ("wxwork_department_id", "in", department_obj),
+                    (str("wxwork_department_id"), "in", department_obj),
                     ("is_wxwork_department", "=", True),
                 ],
                 limit=1,
@@ -331,7 +333,7 @@ class HrEmployee(models.Model):
         try:
             departments = self.env["hr.department"].search(
                 [
-                    ("wxwork_department_id", "=", department_id),
+                    ("wxwork_department_id", "=", int(department_id)),
                     ("is_wxwork_department", "=", True),
                 ],
                 limit=1,

@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_contact" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-users fa-lg"/> Contact synchronization ODOO HR settings</span>
+                        <span class="text-left"><i class="fa fa-users fa-lg"/> Contact synchronization Odoo settings</span>
                         <span class="text-right">
                             <i class="fa fa-angle-double-up"/>
                         </span>

@@ -63,10 +63,7 @@ class SyncDepartment(models.Model):
         # lock = Lock()
         try:
             response = wxapi.httpCall(
-                CORP_API_TYPE["DEPARTMENT_LIST"],
-                {
-                    "id": sync_department_id,
-                },
+                CORP_API_TYPE["DEPARTMENT_LIST"], {"id": sync_department_id,},
             )
             start1 = time.time()
             for obj in response["department"]:
@@ -107,7 +104,7 @@ class SyncDepartment(models.Model):
             # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
             records = env.search(
                 [
-                    ("wxwork_department_id", "=", obj["id"]),
+                    ("wxwork_department_id", "=", int(obj["id"])),
                     ("is_wxwork_department", "=", True),
                 ],
                 limit=1,
@@ -129,7 +126,7 @@ class SyncDepartment(models.Model):
             records.create(
                 {
                     "name": obj["name"],
-                    "wxwork_department_id": obj["id"],
+                    "wxwork_department_id": int(obj["id"]),
                     "wxwork_department_parent_id": obj["parentid"],
                     "wxwork_department_order": obj["order"],
                     "is_wxwork_department": True,
