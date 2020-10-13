@@ -26,6 +26,7 @@ class ResConfigSettings(models.TransientModel):
     contacts_auto_sync_hr_enabled = fields.Boolean(
         "Allow Enterprise WeChat Contacts are automatically updated to HR",
         config_parameter="wxwork.contacts_auto_sync_hr_enabled",
+        default=True,
     )
     # contacts_sync_img_enabled = fields.Boolean(
     #     '允许同步Enterprise WeChat图片', config_parameter='wxwork.contacts_sync_img_enabled', )
@@ -36,6 +37,7 @@ class ResConfigSettings(models.TransientModel):
     contacts_sync_hr_department_id = fields.Integer(
         "Enterprise WeChat department ID to be synchronized",
         config_parameter="wxwork.contacts_sync_hr_department_id",
+        default=1,
     )
     contacts_edit_enabled = fields.Boolean(
         "Allow API to edit Enterprise WeChat contacts",
@@ -57,33 +59,46 @@ class ResConfigSettings(models.TransientModel):
     # @api.model
     # def get_values(self):
     #     res = super(ResConfigSettings, self).get_values()
+    #     # res["contacts_auto_sync_hr_enabled"] = bool(
+    #     #     self.env["ir.config_parameter"]
+    #     #     .sudo()
+    #     #     .get_param("wxwork.contacts_auto_sync_hr_enabled", default=True)
+    #     # )
 
     #     res.update(
     #         contacts_auto_sync_hr_enabled=self.contacts_auto_sync_hr_enabled,
-    #         contacts_edit_enabled=self.contacts_edit_enabled,
-    #         contacts_sync_user_enabled=self.contacts_sync_user_enabled,
-    #         contacts_always_update_avatar_enabled=self.contacts_always_update_avatar_enabled,
+    #         # if str(self.contacts_auto_sync_hr_enabled) == "True"
+    #         # else False,
+    #         contacts_edit_enabled=True
+    #         if str(self.contacts_edit_enabled) == "True"
+    #         else False,
+    #         contacts_sync_user_enabled=True
+    #         if str(self.contacts_sync_user_enabled) == "True"
+    #         else False,
+    #         contacts_always_update_avatar_enabled=True
+    #         if str(self.contacts_always_update_avatar_enabled) == "True"
+    #         else False,
     #     )
     #     return res
 
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        ir_config = self.env["ir.config_parameter"].sudo()
-        ir_config.set_param(
-            "wxwork.contacts_auto_sync_hr_enabled",
-            self.contacts_auto_sync_hr_enabled or "False",
-        )
-        ir_config.set_param(
-            "wxwork.contacts_edit_enabled", self.contacts_edit_enabled or "False"
-        )
-        ir_config.set_param(
-            "wxwork.contacts_sync_user_enabled",
-            self.contacts_sync_user_enabled or "False",
-        )
-        ir_config.set_param(
-            "wxwork.contacts_always_update_avatar_enabled",
-            self.contacts_always_update_avatar_enabled or "False",
-        )
+    # def set_values(self):
+    #     super(ResConfigSettings, self).set_values()
+    #     ir_config = self.env["ir.config_parameter"].sudo()
+    #     ir_config.set_param(
+    #         "wxwork.contacts_auto_sync_hr_enabled",
+    #         self.contacts_auto_sync_hr_enabled or "False",
+    #     )
+    #     ir_config.set_param(
+    #         "wxwork.contacts_edit_enabled", self.contacts_edit_enabled or "False"
+    #     )
+    #     ir_config.set_param(
+    #         "wxwork.contacts_sync_user_enabled",
+    #         self.contacts_sync_user_enabled or "False",
+    #     )
+    #     ir_config.set_param(
+    #         "wxwork.contacts_always_update_avatar_enabled",
+    #         self.contacts_always_update_avatar_enabled or "False",
+    #     )
 
     def get_contacts_access_token(self):
         ir_config = self.env["ir.config_parameter"].sudo()
@@ -95,41 +110,46 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_("Please fill in the contact Secret correctly."))
 
         else:
+            warning = {}
+            res = super(ResConfigSettings, self).get_values()
             try:
                 api = CorpApi(corpid, self.contacts_secret)
-                # self.env["ir.config_parameter"].sudo().set_param(
-                #     "wxwork.contacts_access_token", api.getAccessToken()
-                # )
-                self.contacts_access_token = api.getAccessToken()
-                return {
+            except ApiException as ex:
+                warning = {
+                    "title": _("Operation failed"),
+                    "dialogClass": "bg-warning",
+                    "content": _(
+                        "<div>Error code: %s </br>Error description: %s </br>Error Details:</br>%s</div>"
+                    )
+                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
+                }
+            else:
+                warning = {
+                    "title": _("Successful operation"),
+                    "dialogClass": "bg-success",
+                    "content": _(
+                        "<div>Successfully obtained corporate WeChat contact token.</div>"
+                    ),
+                }
+                self.env["ir.config_parameter"].sudo().set_param(
+                    "wxwork.contacts_access_token", api.getAccessToken()
+                )
+
+                res.update(contacts_access_token=self.contacts_access_token),
+            finally:
+                action = {
                     "type": "ir.actions.client",
-                    "tag": "display_notification",
+                    "tag": "dialog",
                     "params": {
-                        "title": _("Successful operation"),
-                        "message": _(
-                            "Successfully obtained corporate WeChat contact token."
-                        ),
-                        "sticky": False,  # 延时关闭
-                        "className": "bg-success",
+                        "title": warning["title"],
+                        "dialogClass": warning["dialogClass"],
+                        "$content": warning["content"],
+                        "size": "medium",
+                        "reload": "false",
                     },
                 }
-                # return {
-                #     "type": "ir.actions.client",
-                #     "tag": "dialog",
-                #     "params": {
-                #         "title": _("Successful operation"),
-                #         "$content": _(
-                #             "<div>Successfully obtained corporate WeChat contact token.</div>"
-                #         ),
-                #         "size": "medium",
-                #         "reload": "true",
-                #     },
-                # }
-            except ApiException as ex:
-                raise UserError(
-                    _("Error code: %s \nError description: %s \nError Details:\n%s")
-                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
-                )
+
+                return (res, action)
 
     def cron_sync_contacts(self):
         """
