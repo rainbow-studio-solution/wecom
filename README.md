@@ -1,7 +1,7 @@
 <!-- [![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 [![Install](http://img.shields.io/badge/14.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md) -->
 
-** 目前在做外包业务，14.0的适配需要等我完成外包业务。请耐心等待。
+**目前在做外包业务，14.0的适配需要等我完成外包业务。请耐心等待。
 
 **请务必阅读安装说明**
 
