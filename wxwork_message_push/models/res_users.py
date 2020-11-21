@@ -6,7 +6,7 @@ from odoo.addons.auth_signup.models.res_partner import SignupError, now
 from odoo.tools import cache
 from ...wxwork_api.wx_qy_api.CorpApi import *
 
-# from ...wxwork_api1.wx_api.corp_api import *
+# from ...wxwork_api.wx_api.corp_api import *
 
 
 class Users(models.Model):

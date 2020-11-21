@@ -5,7 +5,7 @@ import datetime
 import time
 import json
 
-from ...wxwork_api1.ErrCode import Errcode
+from ...wxwork_api.ErrCode import Errcode
 from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
 
 
