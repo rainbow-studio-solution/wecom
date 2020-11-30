@@ -15,12 +15,14 @@ class HrDepartment(models.Model):
     _description = "Enterprise WeChat Department"
     _order = "wxwork_department_id"
 
-    wxwork_department_id = fields.Integer(
-        "Enterprise WeChat department ID",
+    wxwork_department_id = fields.Many2one(
+        "hr.employee",
+        string="Enterprise WeChat department ID",
         default=1,
         help="Enterprise WeChat department ID",
         readonly=True,
         translate=True,
+        index=True,
     )
     wxwork_department_parent_id = fields.Integer(
         "Enterprise WeChat parent department ID",

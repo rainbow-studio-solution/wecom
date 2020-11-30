@@ -44,8 +44,12 @@ class HrEmployee(models.Model):
         readonly=True,
     )
     is_wxwork_employee = fields.Boolean(
-        string="Enterprise WeChat employees", readonly=True, default=False,
+        string="Enterprise WeChat employees",
+        readonly=True,
+        default=False,
     )
 
-    user_check_tick = fields.Boolean(string="User Check Tick", default=False,)
-
+    user_check_tick = fields.Boolean(
+        string="User Check Tick",
+        default=False,
+    )

@@ -29,7 +29,7 @@
                         <group>
                             <group>
                                 <field name="wxwork_id" />
-                                <!-- <field name="is_wxwork_employee" widget="checkbox"/> -->
+                                <field name="is_wxwork_employee" widget="checkbox"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
                             <group>
