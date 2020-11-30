@@ -49,7 +49,8 @@ class ResConfigSettings(models.TransientModel):
         default=False,
     )
     contacts_always_update_avatar_enabled = fields.Boolean(
-        "Always update avatar", default=False,
+        "Always update avatar",
+        default=False,
     )
 
     @api.model
@@ -115,27 +116,31 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_("Please fill in the contact Secret correctly."))
 
         else:
-            warning = {}
+            params = {}
             try:
                 api = CorpApi(corpid, self.contacts_secret)
             except ApiException as ex:
-                warning = {
-                    "title": _("Operation failed"),
-                    "dialogClass": "bg-warning",
-                    "content": _(
-                        "<div>Error code: %s </br>Error description: %s </br>Error Details:</br>%s</div>"
-                    )
-                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
-                    "reload": "false",
+                params = {
+                    "title": _("Failed"),
+                    "message": _(
+                        "Error code: %s ,Error description: %s ,Error Details: %s"
+                    ),
+                    "sticky": True,  # 不会延时关闭，需要手动关闭
+                    "className": "bg-warning",
+                    "next": {},
                 }
             else:
-                warning = {
-                    "title": _("Successful operation"),
-                    "dialogClass": "bg-success",
-                    "content": _(
-                        "<div>Successfully obtained corporate WeChat contact token.</div>"
+                params = {
+                    "title": _("Success"),
+                    "message": _(
+                        "Successfully obtained corporate WeChat contact token."
                     ),
-                    "reload": "true",
+                    "sticky": True,  # 不会延时关闭，需要手动关闭
+                    "className": "bg-success",
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 self.env["ir.config_parameter"].sudo().set_param(
                     "wxwork.contacts_access_token", api.getAccessToken()
@@ -143,13 +148,13 @@ class ResConfigSettings(models.TransientModel):
             finally:
                 action = {
                     "type": "ir.actions.client",
-                    "tag": "dialog",
+                    "tag": "display_notification",
                     "params": {
-                        "title": warning["title"],
-                        "dialogClass": warning["dialogClass"],
-                        "$content": warning["content"],
-                        "size": "medium",
-                        "reload": warning["reload"],
+                        "title": params["title"],
+                        "message": params["message"],
+                        "sticky": params["sticky"],  # 不会延时关闭，需要手动关闭
+                        "className": params["className"],
+                        "next": params["next"],
                     },
                 }
 

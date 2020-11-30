@@ -24,16 +24,23 @@
         "wxwork_api",
         # "wxwork_message_push",
     ],
-    "external_dependencies": {"python": ["numpy", "opencv-python",],},
+    "external_dependencies": {
+        "python": [
+            "numpy",
+            "opencv-python",
+        ],
+    },
     "data": [
         # "data/ir_cron_data.xml",
-        # "data/ir_config_parameter.xml",
+        "data/ir_config_parameter.xml",
         # "views/ir_cron_views.xml",
         # "views/hr_department_view.xml",
         # "views/hr_employee_view.xml",
         # "views/res_users_views.xml",
         # "views/wxwork_contacts_views.xml",
-        # "views/res_config_settings_views.xml",
+        "views/res_config_settings_views.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
 }

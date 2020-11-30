@@ -15,7 +15,6 @@ class HrDepartment(models.Model):
     _description = "Enterprise WeChat Department"
     _order = "wxwork_department_id"
 
-    # name = fields.Char('微信部门名称',help='长度限制为1~32个字符，字符不能包括\:?”<>｜')
     wxwork_department_id = fields.Integer(
         "Enterprise WeChat department ID",
         default=1,
@@ -40,4 +39,3 @@ class HrDepartment(models.Model):
     is_wxwork_department = fields.Boolean(
         "Enterprise WeChat Department", readonly=True, translate=True
     )
-
