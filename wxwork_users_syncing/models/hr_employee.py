@@ -5,9 +5,6 @@ from odoo import api, fields, models, _
 from ...wxwork_api.wx_qy_api.CorpApi import *
 from ...wxwork_api.helper.common import *
 
-# 代码分析
-from odoo.tools.misc import profile
-
 import logging
 import platform
 import time
@@ -53,3 +50,12 @@ class HrEmployee(models.Model):
         string="User Check Tick",
         default=False,
     )
+
+
+class EmployeeSyncUser(models.Model):
+    _inherit = "hr.employee"
+    _description = "Enterprise WeChat employees bind system users"
+
+    def sync_user(self):
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
