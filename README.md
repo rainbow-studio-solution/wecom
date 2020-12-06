@@ -1,11 +1,11 @@
 <!-- [![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 [![Install](http://img.shields.io/badge/14.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md) -->
 
-**目前在做外包业务，14.0的适配需要等我完成外包业务。请耐心等待。**
+
 
 **请务必阅读安装说明**
 
-**目前 同步通讯录和验证登陆可以正常使用了**  
+
 _使用过程中发现错误，请参考帮助_
 
 # 企业微信 For Odoo 14.0
