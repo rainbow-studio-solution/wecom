@@ -11,6 +11,8 @@
     "version": "14.0.0.1",
     "summary": """
         Enterprise WeChat users are synchronized to Odoo Hr and Users
+        
+        pip install numpy==1.19.3 numpy
         """,
     "description": """
 
