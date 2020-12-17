@@ -36,6 +36,7 @@
         "views/res_config_settings_views.xml",
         "wizard/wizard_wxwork_contacts_sync.xml",
         "wizard/wizard_wxwork_sync_user.xml",
+        "views/assets_templates.xml",
         "views/menu_views.xml",
         "data/hr_data.xml",
     ],

@@ -134,9 +134,9 @@ class ResConfigSettings(models.TransientModel):
                     "tag": "display_notification",
                     "params": {
                         "title": params["title"],
+                        "type": "success",
                         "message": params["message"],
                         "sticky": params["sticky"],
-                        "className": params["className"],
                         "next": params["next"],
                     },
                 }
@@ -145,21 +145,27 @@ class ResConfigSettings(models.TransientModel):
                 params = {
                     "title": _("Failed"),
                     "message": _(
-                        "Error code: %s \nError description: %s \nError Details:\n%s"
+                        "Error code: %s "
+                        + "\n"
+                        + "Error description: %s"
+                        + "\n"
+                        + "Error Details:"
+                        + "\n"
+                        + "%s"
                     )
                     % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
                     "sticky": True,  # 不会延时关闭，需要手动关闭
-                    "className": "bg-danger",
                     "next": {},
                 }
                 action = {
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
+                        # "className": "wxwork_config_notification",
                         "title": params["title"],
+                        "type": "danger",
                         "message": params["message"],
                         "sticky": params["sticky"],  # 不会延时关闭，需要手动关闭
-                        "className": params["className"],
                         "next": params["next"],
                     },
                 }
