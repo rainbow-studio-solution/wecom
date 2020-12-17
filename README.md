@@ -21,6 +21,10 @@ _使用过程中发现错误，请参考帮助_
 1. wxwork_base （企业微信-基础模块）测试通过
 
 2. wxwork_users_syncing （企业微信-同步通讯录到HR & 生成系统用户模块）开展中......
+    ```bash
+    #安装扩展
+    pip install numpy==1.19.3 numpy
+    ``` 
 
    
 
