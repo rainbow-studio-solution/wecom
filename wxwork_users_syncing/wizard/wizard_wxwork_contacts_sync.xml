@@ -8,15 +8,17 @@
             <field name="arch" type="xml">
                 <form string="Enterprise WeChat contact data synchronization" >
                     <separator string="Download and update local from Enterprise WeChat update: departments and employees"/>
-                    <group>
-                        <div>
-                            Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:<br/><br/>
-                            <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
-                                tail -f /var/log/odoo/odoo-server.log
-                            </span><br/><br/>
-                            If an error occurs, please check the help file.<br/>
-                        </div>
-                    </group>
+                    
+                    <div>
+                        Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:
+                    </div>
+                    <div class="mt16 mb16" >
+                        <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                    </div>
+                    <div>
+                        If an error occurs, please check the help file.
+                    </div>
+                    
                     <footer>
                         <button name="action_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
                     </footer>
@@ -24,8 +26,8 @@
             </field>
         </record>
 
-        <record id="view_actions_wxwork_contacts_wizard" model="ir.actions.act_window">
-            <field name="name">data synchronization</field>
+        <record id="wxwork_contacts_wizard" model="ir.actions.act_window">
+            <field name="name">Enterprise WeChat contact data synchronization</field>
             <field name="res_model">wizard.wxwork.contacts</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_form_wxwork_contacts_sync_wizard"/>
@@ -78,7 +80,6 @@
         <record id="open_view_wxwork_contacts_sync_tree" model="ir.actions.act_window">
             <field name="name">Contact synchronization record list</field>
             <field name="res_model">wizard.wxwork.contacts</field>
-<!--            <field name="view_type">form</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_wxwork_contacts_sync_tree"/>
         </record>

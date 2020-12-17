@@ -4,20 +4,7 @@
         
     </data>
     <data noupdate="1">
-        <!--删除自带部门-->
-        <!-- <delete model="hr.department" id="hr.dep_administration" />
-        <delete model="hr.department" id="hr.dep_sales" /> -->
         
-        <!--使用delete日志会报错，故使用write归档自带部门-->
-        <function model="hr.department" name="write">
-            <value eval="[ref('hr.dep_administration')]"/>
-            <value eval="{'active': False}"/>
-        </function>
-        <function model="hr.department" name="write">
-            <value eval="[ref('hr.dep_sales')]"/>
-            <value eval="{'active': False}"/>
-        </function>
-
         <!--停用使用Odoo.com账号登录方式-->
         <function model="auth.oauth.provider" name="write">
             <value eval="[ref('auth_oauth.provider_openerp')]"/>

@@ -49,8 +49,7 @@ class ResConfigSettings(models.TransientModel):
         default=False,
     )
     contacts_always_update_avatar_enabled = fields.Boolean(
-        "Always update avatar",
-        default=False,
+        "Always update avatar", default=False,
     )
 
     @api.model
@@ -114,38 +113,45 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif self.contacts_secret == False:
             raise UserError(_("Please fill in the contact Secret correctly."))
-
         else:
             params = {}
             try:
                 api = CorpApi(corpid, self.contacts_secret)
-            except ApiException as ex:
-                params = {
-                    "title": _("Failed"),
-                    "message": _(
-                        "Error code: %s ,Error description: %s ,Error Details: %s"
-                    ),
-                    "sticky": True,  # 不会延时关闭，需要手动关闭
-                    "className": "bg-warning",
-                    "next": {},
-                }
-            else:
                 params = {
                     "title": _("Success"),
                     "message": _(
                         "Successfully obtained corporate WeChat contact token."
                     ),
-                    "sticky": True,  # 不会延时关闭，需要手动关闭
+                    "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 self.env["ir.config_parameter"].sudo().set_param(
                     "wxwork.contacts_access_token", api.getAccessToken()
                 )
-            finally:
+                action = {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": params["title"],
+                        "message": params["message"],
+                        "sticky": params["sticky"],
+                        "className": params["className"],
+                        "next": params["next"],
+                    },
+                }
+                return action
+            except ApiException as ex:
+                params = {
+                    "title": _("Failed"),
+                    "message": _(
+                        "Error code: %s \nError description: %s \nError Details:\n%s"
+                    )
+                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
+                    "sticky": True,  # 不会延时关闭，需要手动关闭
+                    "className": "bg-danger",
+                    "next": {},
+                }
                 action = {
                     "type": "ir.actions.client",
                     "tag": "display_notification",
@@ -157,7 +163,6 @@ class ResConfigSettings(models.TransientModel):
                         "next": params["next"],
                     },
                 }
-
                 return action
 
     def cron_sync_contacts(self):

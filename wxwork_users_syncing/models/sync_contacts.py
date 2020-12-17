@@ -9,12 +9,14 @@ _logger = logging.getLogger(__name__)
 
 
 class SyncTask(object):
+    """
+    同步HR任务
+    """
+
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.debug = self.kwargs["debug"]
         self.sync_hr = self.kwargs["sync_hr"]
-        # self.sync_user = self.kwargs['sync_user']
-        # self.users = self.kwargs['users']
         self.department = self.kwargs["department"]
         self.employee = self.kwargs["employee"]
 
@@ -25,14 +27,14 @@ class SyncTask(object):
             threads = []
 
             task_name_list = [
-                _("Enterprise WeChat picture synchronization"),
+                # _("Enterprise WeChat picture synchronization"),
                 _("Enterprise WeChat department synchronization"),
-                _("Enterprise WeChat employee synchronization"),
+                # _("Enterprise WeChat employee synchronization"),
             ]
             task_func_list = [
-                SyncImage(self.kwargs).run,
+                # SyncImage(self.kwargs).run,
                 self.department.sync_department,
-                self.employee.sync_employee,
+                # self.employee.sync_employee,
             ]
             times = []
             results = []
@@ -52,24 +54,36 @@ class SyncTask(object):
                     time, status, result = t.result
                     statuses.update(status)
                     times.append(time)
-                    results.append(
-                        _("%s, time spent: %s seconds") % (result, round(time, 3))
+                    # results.append(
+                    #     _("%s, time spent: %s seconds") % (result, round(time, 3))
+                    # )
+                    results.append("%s, time spent: %s seconds") % (
+                        result,
+                        round(time, 3),
                     )
+
             results = "\n".join(results)
             if self.debug:
+                # _logger.info(
+                #     _(
+                #         "End sync Enterprise WeChat Contact, total time spent: %s seconds"
+                #     )
+                #     % sum(times)
+                # )
                 _logger.info(
-                    _(
-                        "End sync Enterprise WeChat Contact, total time spent: %s seconds"
-                    )
+                    "End sync Enterprise WeChat Contact, total time spent: %s seconds"
                     % sum(times)
                 )
             return sum(times), statuses, results
         else:
             if self.debug:
+                # _logger.warning(
+                #     _(
+                #         "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
+                #     )
+                # )
                 _logger.warning(
-                    _(
-                        "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
-                    )
+                    "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
                 )
 
 

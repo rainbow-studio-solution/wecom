@@ -2,14 +2,13 @@
 <odoo>
     <data>
         <!--    HR菜单    -->
-        <menuitem id="menu_wxwork_contacts_sync" name="Sync contacts" parent="hr.menu_hr_root" sequence="90"
-                 groups="hr.group_hr_manager"/>
+        <menuitem id="menu_wxwork_contacts_sync" name="Sync contacts" parent="hr.menu_hr_root" sequence="90" groups="hr.group_hr_manager"/>
 
-        <menuitem id="menu_wxwork_contacts_wizard" name="Wizard synchronization" parent="menu_wxwork_contacts_sync"
-                  action="view_actions_wxwork_contacts_wizard" groups="hr.group_hr_manager"  sequence="10"/>
+            <menuitem id="menu_wxwork_contacts_wizard" name="Wizard synchronization" parent="menu_wxwork_contacts_sync"
+                    action="wxwork_contacts_wizard" groups="hr.group_hr_manager"  sequence="10"/>
 
-        <menuitem id="menu_wxwork_contacts_sync_record" name="Synchronous recording" parent="menu_wxwork_contacts_sync"
-                  action="open_view_wxwork_contacts_sync_tree" groups="hr.group_hr_manager"  sequence="20"/>
+            <menuitem id="menu_wxwork_contacts_sync_record" name="Synchronous recording" parent="menu_wxwork_contacts_sync"
+                    action="open_view_wxwork_contacts_sync_tree" groups="hr.group_hr_manager"  sequence="20"/>
 
         <!--    系统设置菜单    -->
 

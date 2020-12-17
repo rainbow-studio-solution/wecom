@@ -11,6 +11,7 @@ import threading
 
 import numpy as np
 
+from odoo.exceptions import Warning
 from odoo import _
 from ...wxwork_api.wx_qy_api.CorpApi import *
 
@@ -34,73 +35,79 @@ class SyncImage(object):
     def run(self):
         if self.debug:
             _logger.info(_("Start syncing Enterprise WeChat Contact - Picture"))
-        if platform.system() == "Windows":
-            avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
-            qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
-        else:
-            avatar_directory = self.img_path + "avatar/"
-            qr_code_directory = self.img_path + "qr_code/"
-        self.path_is_exists(avatar_directory)
-        self.path_is_exists(qr_code_directory)
-
-        user_list, avatar_urls, qr_code_urls = self.generate_image_list()
-        start = time.time()
-        threads = []
-        """
-        限制线程的最大数量为系统最大PID数量的1/800,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
-        """
-        thread_max = int(os.getpid() / 1000)
-        status = {}
-        result = ""
-
-        try:
-            for i in range(len(user_list)):
-                remote_avatar_img = avatar_urls[i]
-                local_avatar_img = avatar_directory + user_list[i] + ".jpg"
-
-                remote_qr_code_img = qr_code_urls[i]
-                local_qr_code_img = qr_code_directory + user_list[i] + ".png"
-
-                t1 = threading.Thread(
-                    target=self.image_is_exists,
-                    args=[user_list[i], remote_avatar_img, local_avatar_img],
-                )
-                threads.append(t1)
-                t2 = threading.Thread(
-                    target=self.image_is_exists,
-                    args=[user_list[i], remote_qr_code_img, local_qr_code_img],
-                )
-                threads.append(t2)
-
-            for t in threads:
-                # 如果线程达到最大值则等待前面线程跑完空出线程位置
-                t.start()
-                while True:
-                    # 判断正在运行的线程数量,如果小于 thread_max 则退出while循环,
-                    # 进入for循环启动新的进程.否则就一直在while循环进入死循环
-                    if len(threading.enumerate()) < thread_max:
-                        break
-
-                result = _("Picture synced successfully")
-                status = {"image_1920": True}
-
-        except Exception as e:
-            result = _("Picture sync failed")
-            status = {"image_1920": False}
-            if self.debug:
-                print(_("Sync picture error:%s") % (repr(e)))
-
-        end = time.time()
-        times = end - start
-
-        if self.debug:
-            _logger.info(
-                _(
-                    "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
-                )
-                % times
+        if not self.img_path:
+            raise Warning(
+                _("The picture path does not exist, please check the configuration.")
             )
-        return times, status, result
+        else:
+            if platform.system() == "Windows":
+                avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
+                qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
+            else:
+                avatar_directory = self.img_path + "avatar/"
+                qr_code_directory = self.img_path + "qr_code/"
+
+            self.path_is_exists(avatar_directory)
+            self.path_is_exists(qr_code_directory)
+
+            user_list, avatar_urls, qr_code_urls = self.generate_image_list()
+            start = time.time()
+            threads = []
+            """
+            限制线程的最大数量为系统最大PID数量的1/800,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
+            """
+            thread_max = int(os.getpid() / 1000)
+            status = {}
+            result = ""
+
+            try:
+                for i in range(len(user_list)):
+                    remote_avatar_img = avatar_urls[i]
+                    local_avatar_img = avatar_directory + user_list[i] + ".jpg"
+
+                    remote_qr_code_img = qr_code_urls[i]
+                    local_qr_code_img = qr_code_directory + user_list[i] + ".png"
+
+                    t1 = threading.Thread(
+                        target=self.image_is_exists,
+                        args=[user_list[i], remote_avatar_img, local_avatar_img],
+                    )
+                    threads.append(t1)
+                    t2 = threading.Thread(
+                        target=self.image_is_exists,
+                        args=[user_list[i], remote_qr_code_img, local_qr_code_img],
+                    )
+                    threads.append(t2)
+
+                for t in threads:
+                    # 如果线程达到最大值则等待前面线程跑完空出线程位置
+                    t.start()
+                    while True:
+                        # 判断正在运行的线程数量,如果小于 thread_max 则退出while循环,
+                        # 进入for循环启动新的进程.否则就一直在while循环进入死循环
+                        if len(threading.enumerate()) < thread_max:
+                            break
+
+                    result = _("Picture synced successfully")
+                    status = {"image_1920": True}
+
+            except Exception as e:
+                result = _("Picture sync failed")
+                status = {"image_1920": False}
+                if self.debug:
+                    print(_("Sync picture error:%s") % (repr(e)))
+
+            end = time.time()
+            times = end - start
+
+            if self.debug:
+                _logger.info(
+                    _(
+                        "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
+                    )
+                    % times
+                )
+            return times, status, result
 
     def generate_image_list(self):
         """
@@ -111,10 +118,7 @@ class SyncImage(object):
         api = CorpApi(self.corpid, self.secret)
         response = api.httpCall(
             CORP_API_TYPE["USER_LIST"],
-            {
-                "department_id": self.department_id,
-                "fetch_child": "1",
-            },
+            {"department_id": self.department_id, "fetch_child": "1",},
         )
 
         userid_list = []
