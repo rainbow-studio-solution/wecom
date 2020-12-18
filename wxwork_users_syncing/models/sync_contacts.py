@@ -57,6 +57,7 @@ class SyncTask(object):
                     # results.append(
                     #     _("%s, time spent: %s seconds") % (result, round(time, 3))
                     # )
+
                     results.append("%s, time spent: %s seconds") % (
                         result,
                         round(time, 3),

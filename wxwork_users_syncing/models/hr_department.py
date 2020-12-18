@@ -14,20 +14,16 @@ _logger = logging.getLogger(__name__)
 class HrDepartment(models.Model):
     _inherit = "hr.department"
     _description = "Enterprise WeChat Department"
-    _order = "wxwork_department_id"
+    # _order = "wxwork_department_id"
 
-    wxwork_department_id = fields.Many2one(
-        "hr.employee",
-        string="Enterprise WeChat department ID",
-        default=1,
-        help="Enterprise WeChat department ID",
-        readonly=True,
-        translate=True,
-        index=True,
+    wxwork_department_id = fields.Integer(
+        string="Enterprise WeChat department ID", readonly=True, translate=True,
     )
+    # wxwork_employee_ids = fields.One2many(
+    #     "hr.employee", "department_id", string="Enterprise WeChat Employees",
+    # )
     wxwork_department_parent_id = fields.Integer(
         "Enterprise WeChat parent department ID",
-        default=1,
         help="Parent department ID,32-bit integer.Root department is 1",
         readonly=True,
         translate=True,
@@ -81,7 +77,7 @@ class SyncDepartment(models.Model):
             times1 = end1 - start1
 
             start2 = time.time()
-            # self.run_set(debug)
+            self.run_set(debug)
 
             end2 = time.time()
             times2 = end2 - start2
@@ -92,6 +88,7 @@ class SyncDepartment(models.Model):
             status = {"department": str(True)}
 
         except Exception as e:
+            print(e)
             times = time.time()
             # result = _("Department synchronization failed")
             result = "Department synchronization failed"
@@ -111,6 +108,9 @@ class SyncDepartment(models.Model):
                 "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
                 % times,
             )
+            print(times, type(times))
+            print(status, type(status))
+            print(result, type(result))
         return times, status, result
 
     @api.model
@@ -118,10 +118,19 @@ class SyncDepartment(models.Model):
         """
         执行同步部门
         """
-        _logger.info("执行同步部门")
+        print("执行同步部门", obj["id"], type(obj["id"]))
         # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
         domain = ["|", ("active", "=", False), ("active", "=", True)]
-        department = self.search(
+        print(" 查找数据")
+        # department = self.search(
+        #     domain
+        #     + [
+        #         ("wxwork_department_id", "=", obj["id"]),
+        #         ("is_wxwork_department", "=", True),
+        #     ],
+        #     limit=1,
+        # )
+        rec = self.search(
             domain
             + [
                 ("wxwork_department_id", "=", obj["id"]),
@@ -129,14 +138,14 @@ class SyncDepartment(models.Model):
             ],
             limit=1,
         )
-        _logger.info("查询部门")
-        if not department:
-            _logger.info("不存在部门")
-            self.create_department(department, obj, debug)
-        else:
-            _logger.info("存在部门")
+        print("查询部门", rec)
+        # if not department:
+        #     _logger.info("不存在部门")
+        #     self.create_department(department, obj, debug)
+        # else:
+        #     _logger.info("存在部门")
 
-            self.update_department(department, obj, debug)
+        #     self.update_department(department, obj, debug)
 
         # try:
         #     if len(department) > 0:
@@ -153,18 +162,23 @@ class SyncDepartment(models.Model):
         #     new_cr = self.pool.cursor()
         #     self = self.with_env(self.env(cr=new_cr))
         #     env = self.sudo().env["hr.department"]
+        #     print(" 查找数据")
         #     # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
         #     records = env.search(
-        #         [
+        #         domain
+        #         + [
         #             ("wxwork_department_id", "=", obj["id"]),
         #             ("is_wxwork_department", "=", True),
         #         ],
         #         limit=1,
         #     )
+        #     print(" 判断")
         #     try:
         #         if len(records) > 0:
+        #             print("更新部门")
         #             self.update_department(records, obj, debug)
         #         else:
+        #             print("创建部门")
         #             self.create_department(records, obj, debug)
         #     except Exception as e:
         #         if debug:
@@ -178,7 +192,7 @@ class SyncDepartment(models.Model):
             records.create(
                 {
                     "name": obj["name"],
-                    "wxwork_department_id": obj["id"],
+                    "wxwork_department_id": int(obj["id"]),
                     "wxwork_department_parent_id": obj["parentid"],
                     "wxwork_department_order": obj["order"],
                     "is_wxwork_department": True,
