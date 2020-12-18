@@ -130,22 +130,22 @@ class SyncDepartment(models.Model):
         #     ],
         #     limit=1,
         # )
-        rec = self.search(
+        department = self.search(
             domain
             + [
                 ("wxwork_department_id", "=", obj["id"]),
-                ("is_wxwork_department", "=", True),
+                # ("is_wxwork_department", "=", True),
             ],
             limit=1,
         )
-        print("查询部门", rec)
-        # if not department:
-        #     _logger.info("不存在部门")
-        #     self.create_department(department, obj, debug)
-        # else:
-        #     _logger.info("存在部门")
+        print("查询部门", department)
+        if not department:
+            _logger.info("不存在部门")
+            self.create_department(department, obj, debug)
+        else:
+            _logger.info("存在部门")
 
-        #     self.update_department(department, obj, debug)
+            self.update_department(department, obj, debug)
 
         # try:
         #     if len(department) > 0:
