@@ -17,3 +17,5 @@
 
 Share User:
 具有受限访问权限的外部用户，仅出于共享数据的目的而创建。
+
+https://www.cnblogs.com/zhumengke/articles/11457236.html

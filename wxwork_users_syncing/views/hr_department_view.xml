@@ -27,7 +27,7 @@
 <!--                    <attribute name="default_order">wxwork_department_order DESC</attribute>-->
 <!--                </xpath>-->
                 <xpath expr="//field[@name='parent_id']" position="after">
-                    <field name="is_wxwork_department"/>
+                    <!-- <field name="is_wxwork_department"/> -->
                     <!-- <field name="wxwork_department_id"/> -->
                 </xpath>
             </field>
