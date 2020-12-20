@@ -21,6 +21,7 @@ class HrDepartment(models.Model):
         readonly=True,
         translate=True,
         default="0",
+        store=True,
     )
     # wxwork_employee_ids = fields.One2many(
     #     "hr.employee", "department_id", string="Enterprise WeChat Employees",
@@ -30,6 +31,7 @@ class HrDepartment(models.Model):
         help="Parent department ID,32-bit integer.Root department is 1",
         readonly=True,
         translate=True,
+        store=True,
     )
     wxwork_department_order = fields.Char(
         "Enterprise WeChat department sort",
@@ -37,50 +39,41 @@ class HrDepartment(models.Model):
         help="Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)",
         readonly=True,
         translate=True,
+        store=True,
     )
     is_wxwork_department = fields.Boolean(
         string="Enterprise WeChat Department",
         readonly=True,
         translate=True,
         default=False,
+        store=True,
     )
-
-    @api.model
-    def get_all_wxwrok_department_list(self):
-        domain = [
-            "|",
-            ("active", "=", True),
-            ("active", "=", False),
-        ]
-        fieldNames = ["name", "wxwork_department_id", "wxwork_department_parent_id"]
-
-        departments = (
-            self.env["hr.department"]
-            .sudo()
-            .search_read(domain, fieldNames)
-            # .search(
-            #     [
-            #         # ("is_wxwork_department", "=", True),
-            #         "|",
-            #         ("active", "=", True),
-            #         ("active", "=", False),
-            #     ],
-            #     # limit=1,
-            # )
-        )
-        print(departments)
-        wxwork_department_list = []
-        if departments:
-            print("有数据")
-            wxwork_department_list = [
-                {"name": department.name} for department in departments
-            ]
-
-        return wxwork_department_list
 
 
 class SyncDepartment(models.Model):
-    _inherit = ["hr.department"]
+    _inherit = "hr.department"
+
+    def get_all_wxwrok_department_list(self):
+
+        all_departments = self.sudo().search(
+            ["|", ("active", "=", True), ("active", "=", False),],
+        )
+
+        departments_info = all_departments.sudo().read(
+            ["id", "name", "complete_name", "wxwork_department_id"]
+        )
+
+        print(departments_info)
+        wxwork_department_list = []
+
+        # if departments:
+        #     print("有数据")
+        #     wxwork_department_list = [
+        #         {"name": department.browse(department.id).name}
+        #         for department in departments
+        #     ]
+
+        return wxwork_department_list
 
     def sync_department(self):
         params = self.env["ir.config_parameter"].sudo()

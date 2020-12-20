@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wizard_wxwork_contact,access.wizard.wxwork.contact,model_wizard_wxwork_contacts,hr.group_hr_manager,1,1,1,0
+access_wizard_wxwork_contact,access.wizard.wxwork.contact,model_wizard_wxwork_contacts,hr.group_hr_manager,1,1,1,1
