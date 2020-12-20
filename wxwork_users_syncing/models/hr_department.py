@@ -48,9 +48,13 @@ class HrDepartment(models.Model):
 
 
 class SyncDepartment(models.Model):
-    
+
     _inherit = "hr.department"
 
+    # def _get_department_subtype(self):
+    #     return self.search([
+    #         ('res_model', '=', 'hr.department'),
+    #         ('parent_id', '=', self.id)])
     def get_all_wxwrok_department_list(self):
 
         all_departments = self.sudo().search(
