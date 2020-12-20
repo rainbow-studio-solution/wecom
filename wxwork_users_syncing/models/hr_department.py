@@ -4,7 +4,7 @@ from odoo import api, fields, models, _
 from odoo.exceptions import Warning
 import time
 import logging
-
+import json
 from ...wxwork_api.wx_qy_api.CorpApi import *
 
 
@@ -45,32 +45,36 @@ class HrDepartment(models.Model):
         default=False,
     )
 
+    @api.model
     def get_all_wxwrok_department_list(self):
+        domain = [
+            "|",
+            ("active", "=", True),
+            ("active", "=", False),
+        ]
+        fieldNames = ["name", "wxwork_department_id", "wxwork_department_parent_id"]
 
         departments = (
             self.env["hr.department"]
             .sudo()
-            .search(
-                [
-                    ("name", "=", "Administration"),
-                    "|",
-                    ("active", "=", True),
-                    ("active", "=", False),
-                ],
-                limit=1,
-            )
+            .search_read(domain, fieldNames)
+            # .search(
+            #     [
+            #         # ("is_wxwork_department", "=", True),
+            #         "|",
+            #         ("active", "=", True),
+            #         ("active", "=", False),
+            #     ],
+            #     # limit=1,
+            # )
         )
         print(departments)
         wxwork_department_list = []
         if departments:
             print("有数据")
-            for department in departments:
-                print(department)
-            # print(departments.browse(department["name"]))
-            # print(self.env["hr.department"].browse(department.name_get("name")))
-            # wxwork_department_list.append({"id": department.wxwork_department_id})
-        else:
-            print("没有数据")
+            wxwork_department_list = [
+                {"name": department.name} for department in departments
+            ]
 
         return wxwork_department_list
 
@@ -84,8 +88,8 @@ class SyncDepartment(models.Model):
         secret = params.get_param("wxwork.contacts_secret")
         debug = params.get_param("wxwork.debug_enabled")
 
-        # odoo_department_list = self.get_all_wxwrok_department_list()
-        # print(odoo_department_list)
+        odoo_department_list = self.get_all_wxwrok_department_list()
+        print(odoo_department_list)
         # odoo_departments = self.search(
         #     ["|", ("active", "=", False), ("active", "=", True),]
         # )
@@ -95,71 +99,72 @@ class SyncDepartment(models.Model):
         #     for odoo_department in odoo_departments
         # )
         # print(odoo_department_list)
-        # for department in odoo_departments:
+        # for department in odoo_department_list:
         #     # wxwork_department_id = department.wxwork_department_id
-        #     print(department["name"])
+        #     print(department)
         # odoo_department_list.insert({"id": department.id})
 
         sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
-        if debug:
-            # _logger.info(
-            #     _(
-            #         "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
-            #     )
-            # )
-            _logger.info(
-                "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
-            )
-        wxapi = CorpApi(corpid, secret)
 
-        try:
-            response = wxapi.httpCall(
-                CORP_API_TYPE["DEPARTMENT_LIST"], {"id": sync_department_id,},
-            )
+        # if debug:
+        #     # _logger.info(
+        #     #     _(
+        #     #         "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
+        #     #     )
+        #     # )
+        #     _logger.info(
+        #         "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
+        #     )
+        # wxapi = CorpApi(corpid, secret)
 
-            start1 = time.time()
-            wxwork_department_list = response["department"]
-            for wxwork_department in wxwork_department_list:
-                self.run_sync(wxwork_department, debug)
-            end1 = time.time()
-            times1 = end1 - start1
+        # try:
+        #     response = wxapi.httpCall(
+        #         CORP_API_TYPE["DEPARTMENT_LIST"], {"id": sync_department_id,},
+        #     )
 
-            start2 = time.time()
-            # self.run_set(debug)
+        #     start1 = time.time()
+        #     wxwork_department_list = response["department"]
+        #     for wxwork_department in wxwork_department_list:
+        #         self.run_sync(wxwork_department, debug)
+        #     end1 = time.time()
+        #     times1 = end1 - start1
 
-            end2 = time.time()
-            times2 = end2 - start2
+        #     start2 = time.time()
+        #     # self.run_set(debug)
 
-            times = times1 + times2
-            # result = _("Department synchronization successful")
-            result = "Department synchronization successful"
-            status = {"department": str(True)}
+        #     end2 = time.time()
+        #     times2 = end2 - start2
 
-        except Exception as e:
-            print(e)
-            times = time.time()
-            # result = _("Department synchronization failed")
-            result = "Department synchronization failed"
-            status = {"department": str(False)}
-            if debug:
-                # print(_("Department synchronization failed, error: %s", e))
-                print("Department synchronization failed, error: %s" % e)
-        times = times
-        if debug:
-            # _logger.info(
-            #     _(
-            #         "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds",
-            #         times,
-            #     )
-            # )
-            _logger.info(
-                "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
-                % times,
-            )
-            # print(times, type(times))
-            # print(status, type(status))
-            # print(result, type(result))
-        return times, status, result
+        #     times = times1 + times2
+        #     # result = _("Department synchronization successful")
+        #     result = "Department synchronization successful"
+        #     status = {"department": str(True)}
+
+        # except Exception as e:
+        #     print(e)
+        #     times = time.time()
+        #     # result = _("Department synchronization failed")
+        #     result = "Department synchronization failed"
+        #     status = {"department": str(False)}
+        #     if debug:
+        #         # print(_("Department synchronization failed, error: %s", e))
+        #         print("Department synchronization failed, error: %s" % e)
+        # times = times
+        # if debug:
+        #     # _logger.info(
+        #     #     _(
+        #     #         "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds",
+        #     #         times,
+        #     #     )
+        #     # )
+        #     _logger.info(
+        #         "End sync Enterprise WeChat Contact - Department Synchronization,Total time spent: %s seconds"
+        #         % times,
+        #     )
+        #     # print(times, type(times))
+        #     # print(status, type(status))
+        #     # print(result, type(result))
+        # return times, status, result
 
     @api.model
     def run_sync(self, wxwork_department, debug):
@@ -174,24 +179,24 @@ class SyncDepartment(models.Model):
             .sudo()
             .search(
                 [
-                    ("name", "=", wxwork_department["name"]),
+                    # ("name", "=", wxwork_department["name"]),
                     "|",
                     ("active", "=", True),
                     ("active", "=", False),
                 ],
-                limit=1,
+                # limit=1,
             )
         )
 
-        # print(wxwork_department_list)
+        print(department)
         # print(odoo_department_list)
         # department = self.search(domain)
 
-        if not department:
-            print("不存在部门: %s" % wxwork_department["name"])
-            # self.create_department(department, wxwork_department, debug)
-        else:
-            print("存在部门")
+        # if not department:
+        #     print("不存在部门: %s" % wxwork_department["name"])
+        #     # self.create_department(department, wxwork_department, debug)
+        # else:
+        #     print("存在部门")
 
         # self.update_department(department, obj, debug)
 
