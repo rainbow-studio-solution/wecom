@@ -41,7 +41,7 @@ class ResConfigSettings(models.TransientModel):
             )
 
         form_view = self.env.ref(
-            "wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result"
+            "wxwork_hr_syncing.dialog_wxwork_contacts_sync_user_result"
         )
         return {
             "name": _("Employee synchronization system user results"),
@@ -50,14 +50,12 @@ class ResConfigSettings(models.TransientModel):
             "res_model": "wizard.wxwork.user",
             "res_id": self.id,
             "view_id": False,
-            "views": [
-                [form_view.id, "form"],
-            ],
+            "views": [[form_view.id, "form"],],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,
             "context": {
-                "form_view_ref": "wxwork_users_syncing.dialog_wxwork_contacts_sync_user_result"
+                "form_view_ref": "wxwork_hr_syncing.dialog_wxwork_contacts_sync_user_result"
             },
             "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
             # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能

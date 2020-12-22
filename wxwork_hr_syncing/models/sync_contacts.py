@@ -27,14 +27,14 @@ class SyncTask(object):
             threads = []
 
             task_name_list = [
-                # _("Enterprise WeChat picture synchronization"),
+                _("Enterprise WeChat picture synchronization"),
                 _("Enterprise WeChat department synchronization"),
-                # _("Enterprise WeChat employee synchronization"),
+                _("Enterprise WeChat employee synchronization"),
             ]
             task_func_list = [
-                # SyncImage(self.kwargs).run,
+                SyncImage(self.kwargs).run,
                 self.department.sync_department,
-                # self.employee.sync_employee,
+                self.employee.sync_employee,
             ]
             times = []
             results = []
@@ -54,27 +54,19 @@ class SyncTask(object):
                     time, status, result = t.result
                     statuses.update(status)
                     times.append(time)
-                    # results.append(
-                    #     _("%s, time spent: %s seconds") % (result, round(time, 3))
-                    # )
-
-                    results.append("%s, time spent: %s seconds") % (
-                        result,
-                        round(time, 3),
+                    results.append(
+                        _("%s, time spent: %s seconds") % (result, round(time, 3))
                     )
 
             results = "\n".join(results)
             if self.debug:
-                # _logger.info(
-                #     _(
-                #         "End sync Enterprise WeChat Contact, total time spent: %s seconds"
-                #     )
-                #     % sum(times)
-                # )
                 _logger.info(
-                    "End sync Enterprise WeChat Contact, total time spent: %s seconds"
+                    _(
+                        "End sync Enterprise WeChat Contact, total time spent: %s seconds"
+                    )
                     % sum(times)
                 )
+
             return sum(times), statuses, results
         else:
             if self.debug:

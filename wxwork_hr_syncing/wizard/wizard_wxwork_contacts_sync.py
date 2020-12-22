@@ -86,34 +86,33 @@ class ResConfigSettings(models.TransientModel):
                 )
             )
         else:
-            self.env["hr.department"].sudo().sync_department()
-            # self.times, statuses, self.result = SyncTask(kwargs).run()
-            # print(self.times, type(self.times))
-            # print(statuses, type(statuses))
-            # print(self.result, type(self.result))
-            # self.image_sync_result = statuses["image_1920"]  # 图片同步结果
-            # self.department_sync_result = bool(statuses["department"])  # 部门同步结果
-            # self.employee_sync_result = statuses["employee"]  # 员工同步结果
+            self.times, statuses, self.result = SyncTask(kwargs).run()
+            print(self.times, type(self.times))
+            print(statuses, type(statuses))
+            print(self.result, type(self.result))
+            self.image_sync_result = statuses["image_1920"]  # 图片同步结果
+            self.department_sync_result = bool(statuses["department"])  # 部门同步结果
+            self.employee_sync_result = statuses["employee"]  # 员工同步结果
 
-            # form_view = self.env.ref(
-            #     "wxwork_users_syncing.dialog_wxwork_contacts_sync_result"
-            # )
-            # return {
-            #     "name": _("Update result"),
-            #     "view_type": "form",
-            #     "view_mode": "form",
-            #     "res_model": "wizard.wxwork.contacts",
-            #     "res_id": self.id,
-            #     "view_id": False,
-            #     "views": [[form_view.id, "form"],],
-            #     "type": "ir.actions.act_window",
-            #     # 'context': '{}',
-            #     # 'context': self.env.context,
-            #     "context": {
-            #         "form_view_ref": "wxwork_users_syncing.dialog_wxwork_contacts_sync_result"
-            #     },
-            #     "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
-            #     # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能
-            #     # 'auto_search': False, #加载默认视图后，自动搜索
-            #     # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
-            # }
+            form_view = self.env.ref(
+                "wxwork_hr_syncing.dialog_wxwork_contacts_sync_result"
+            )
+            return {
+                "name": _("Update result"),
+                "view_type": "form",
+                "view_mode": "form",
+                "res_model": "wizard.wxwork.contacts",
+                "res_id": self.id,
+                "view_id": False,
+                "views": [[form_view.id, "form"],],
+                "type": "ir.actions.act_window",
+                # 'context': '{}',
+                # 'context': self.env.context,
+                "context": {
+                    "form_view_ref": "wxwork_hr_syncing.dialog_wxwork_contacts_sync_result"
+                },
+                "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
+                # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能
+                # 'auto_search': False, #加载默认视图后，自动搜索
+                # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
+            }

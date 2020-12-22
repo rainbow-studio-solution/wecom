@@ -86,56 +86,10 @@ class SyncDepartment(models.Model):
             limit=1,
         )
 
-        # print(odoo_department_list)
-        # department = self.search(domain)
-
         if not department:
-            print("不存在部门: %s" % wxwork_department["name"])
             self.create_department(department, wxwork_department, debug)
         else:
-            print("存在部门")
-
-        # self.update_department(department, obj, debug)
-
-        # try:
-        #     if len(department) > 0:
-        #         _logger.info("存在部门")
-        #         self.update_department(department, obj, debug)
-        #     else:
-        #         _logger.info("不存在部门")
-        #         self.create_department(department, obj, debug)
-        # except Exception as e:
-        #     if debug:
-        #         print(repr(e))
-
-        # with api.Environment.manage():
-        #     new_cr = self.pool.cursor()
-        #     self = self.with_env(self.env(cr=new_cr))
-        #     env = self.sudo().env["hr.department"]
-        #     print(" 查找数据")
-        #     # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
-        #     records = env.search(
-        #         domain
-        #         + [
-        #             ("wxwork_department_id", "=", obj["id"]),
-        #             ("is_wxwork_department", "=", True),
-        #         ],
-        #         limit=1,
-        #     )
-        #     print(" 判断")
-        #     try:
-        #         if len(records) > 0:
-        #             print("更新部门")
-        #             self.update_department(records, obj, debug)
-        #         else:
-        #             print("创建部门")
-        #             self.create_department(records, obj, debug)
-        #     except Exception as e:
-        #         if debug:
-        #             print(repr(e))
-
-        #     new_cr.commit()
-        #     new_cr.close()
+            self.update_department(department, wxwork_department, debug)
 
     def create_department(self, records, obj, debug):
         try:
@@ -197,36 +151,6 @@ class SyncDepartment(models.Model):
                 )
             result = False
         return result
-
-        # with api.Environment.manage():
-        #     new_cr = self.pool.cursor()
-        #     self = self.with_env(self.env(cr=new_cr))
-        #     env = self.sudo().env["hr.department"]
-        #     departments = env.search([("is_wxwork_department", "=", True)])
-        #     try:
-        #         for dep in departments:
-        #             if not dep.wxwork_department_id:
-        #                 pass
-        #             else:
-        #                 dep.write(
-        #                     {
-        #                         "parent_id": self.get_parent_department(
-        #                             dep, departments
-        #                         ).id,
-        #                     }
-        #                 )
-        #         result = True
-        #     except BaseException as e:
-        #         if debug:
-        #             print(
-        #                 _("Department: The parent department setting of %s failed")
-        #                 % (dep.name, repr(e))
-        #             )
-        #         result = False
-        #     new_cr.commit()
-        #     new_cr.close()
-
-        # return result
 
     def get_parent_department(self, department, departments):
         """

@@ -49,7 +49,7 @@
                 <xpath expr="//field[last()]" position="after">
                     <!-- <field name="wxwork_department_ids" widget="many2many_tags" /> -->
                     <!--<field name="wxwork_department"/>-->
-                    <!-- <field name="is_wxwork_employee"/> -->
+                    <field name="is_wxwork_employee"/>
                 </xpath>
             </field>
         </record>
@@ -63,7 +63,7 @@
                     <field name="name"/>
                     <field name="wxwork_id" />
                     <field name="department_id"/>
-                    <!-- <field name="is_wxwork_employee"/> -->
+                    <field name="is_wxwork_employee"/>
                 </tree>
             </field>
         </record>
