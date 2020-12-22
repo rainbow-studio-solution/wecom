@@ -25,7 +25,6 @@ class Employee(models.Model):
         string="Personal QR code",
         help="Personal QR code, Scan can be added as external contact",
         readonly=True,
-        translate=True,
     )
     wxwork_user_order = fields.Char(
         "Enterprise WeChat user sort",
