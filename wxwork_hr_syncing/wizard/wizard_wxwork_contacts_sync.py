@@ -15,32 +15,20 @@ class ResConfigSettings(models.TransientModel):
     _order = "create_date"
 
     image_sync_result = fields.Boolean(
-        string="Picture synchronization result",
-        default=False,
-        readonly=True,
-        translate=True,
+        string="Picture synchronization result", default=False, readonly=True,
     )
     department_sync_result = fields.Boolean(
-        string="Department synchronization result",
-        default=False,
-        readonly=True,
-        translate=True,
+        string="Department synchronization result", default=False, readonly=True,
     )
     employee_sync_result = fields.Boolean(
-        string="Employee synchronization results",
-        default=False,
-        readonly=True,
-        translate=True,
+        string="Employee synchronization results", default=False, readonly=True,
     )
     user_sync_result = fields.Boolean(
-        string="User synchronization result",
-        default=False,
-        readonly=True,
-        translate=True,
+        string="User synchronization result", default=False, readonly=True,
     )
 
     times = fields.Float(
-        string="Elapsed time (seconds)", digits=(16, 3), readonly=True, translate=True
+        string="Elapsed time (seconds)", digits=(16, 3), readonly=True, 
     )
     result = fields.Text(string="Result", readonly=True)
 

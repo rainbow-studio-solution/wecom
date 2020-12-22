@@ -94,10 +94,7 @@ class HrEmployee(models.Model):
             )
             # result = _("Employee synchronization succeeded")
         except BaseException as e:
-            # times = time.time()
-            # result = _("Employee synchronization failed, time spent %s seconds") % (
-            #     round(times, 3)
-            # )
+            times = time.time()
             result = _("Employee synchronization failed")
             status = {"employee": False}
 
@@ -115,40 +112,37 @@ class HrEmployee(models.Model):
         return times, status, result
 
     def run_sync(self, obj, debug):
-        with api.Environment.manage():
-            # new_cr = self.pool.cursor()
-            # self = self.with_env(self.env(cr=new_cr))
-            # env = self.sudo().env["hr.employee"]
-            domain = ["|", ("active", "=", False), ("active", "=", True)]
-            records = self.search(
-                domain
-                + [
-                    ("wxwork_id", "=", obj["userid"]),
-                    ("is_wxwork_employee", "=", True),
-                ],
-                limit=1,
-            )
 
-            try:
-                if len(records) > 0:
-                    self.update_employee(records, obj, debug)
-                else:
-                    self.create_employee(records, obj, debug)
-            except Exception as e:
-                if debug:
-                    print(
-                        _("Enterprise WeChat synchronization failed, error: %s")
-                        % repr(e)
-                    )
-            # new_cr.commit()
-            # new_cr.close()
+        employee = self.search(
+            [
+                ("wxwork_id", "=", obj["userid"]),
+                ("is_wxwork_employee", "=", True),
+                "|",
+                ("active", "=", True),
+                ("active", "=", False),
+            ],
+            limit=1,
+        )
+
+        try:
+            if not employee:
+                print("不存在")
+                self.create_employee(employee, obj, debug)
+            else:
+                print("存在")
+                self.update_employee(employee, obj, debug)
+        except Exception as e:
+            if debug:
+                print(
+                    _("Enterprise WeChat synchronization failed, error: %s") % repr(e)
+                )
 
     def create_employee(self, records, obj, debug):
-        # wxwork_department_ids = []
-        # for department in obj["department"]:
-        #     wxwork_department_ids.append(
-        #         self.get_employee_parent_wxwork_department(department, debug)
-        #     )
+        wxwork_department_ids = []
+        for department in obj["department"]:
+            wxwork_department_ids.append(
+                self.get_employee_parent_wxwork_department(department, debug)
+            )
 
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
@@ -177,8 +171,8 @@ class HrEmployee(models.Model):
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    # 'department_id':department_id,
                     # 归属多个部门的情况下，第一个部门为默认部门
+                    "department_id": wxwork_department_ids[0],
                     # "department_id": wxwork_department_ids[0],
                     # "wxwork_department_ids": [(6, 0, wxwork_department_ids)],
                     "wxwork_user_order": obj["order"],
@@ -197,11 +191,11 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         always = params.get_param("wxwork.contacts_always_update_avatar_enabled")
 
-        # wxwork_department_ids = []
-        # for department in obj["department"]:
-        #     wxwork_department_ids.append(
-        #         self.get_employee_parent_wxwork_department(department, debug)
-        #     )
+        wxwork_department_ids = []
+        for department in obj["department"]:
+            wxwork_department_ids.append(
+                self.get_employee_parent_wxwork_department(department, debug)
+            )
 
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
@@ -227,9 +221,8 @@ class HrEmployee(models.Model):
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    # 'department_id': department_id,
                     # 归属多个部门的情况下，第一个部门为默认部门
-                    # "department_id": wxwork_department_ids[0],
+                    "department_id": wxwork_department_ids[0],
                     # "wxwork_department_ids": [(6, 0, wxwork_department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -253,8 +246,7 @@ class HrEmployee(models.Model):
             return None
 
     def encode_image_as_base64(self, image_path):
-        # if not self.sync_img:
-        #     return None
+
         if not os.path.exists(image_path):
             pass
         else:
@@ -282,7 +274,7 @@ class HrEmployee(models.Model):
                 ],
                 limit=1,
             )
-            if len(departments) > 0:
+            if departments:
                 return departments.id
         except BaseException as e:
             if debug:

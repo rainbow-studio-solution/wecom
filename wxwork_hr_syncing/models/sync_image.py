@@ -56,7 +56,11 @@ class SyncImage(object):
             """
             限制线程的最大数量为系统最大PID数量的1/800,在Linux下不做限制，很容易出现 “can't start new thread” 的错误
             """
-            thread_max = int(os.getpid() / 1000)
+            if platform.system() == "Windows":
+                thread_max = int(os.getpid())
+            else:
+                thread_max = int(os.getpid() / 1000)
+            print(thread_max)
             status = {}
             result = ""
 

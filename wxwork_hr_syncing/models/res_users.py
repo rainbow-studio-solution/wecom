@@ -72,11 +72,11 @@ class ChangeTypeUser(models.TransientModel):
     user_id = fields.Many2one(
         "res.users", string="User", required=True, ondelete="cascade"
     )
-    user_login = fields.Char(string="Login account", readonly=True, translate=True,)
+    user_login = fields.Char(string="Login account", readonly=True,)
     user_name = fields.Char(string="Login name", readonly=True)
     choices = [("1", _("Internal User")), ("8", _("Portal")), ("9", _("Public"))]
     new_type = fields.Selection(
-        choices, string="User Type", default="1", tracking=True, translate=True,
+        choices, string="User Type", default="1", tracking=True,
     )
 
     def change_type_button(self):

@@ -8,17 +8,15 @@ class Employee(models.Model):
     _description = "Enterprise WeChat employees"
     _order = "wxwork_user_order"
 
-    wxwork_id = fields.Char(
-        string="Enterprise WeChat user Id", readonly=True, translate=True
-    )
+    wxwork_id = fields.Char(string="Enterprise WeChat user Id", readonly=True,)
 
-    alias = fields.Char(string="Alias", readonly=True, translate=True)
+    alias = fields.Char(string="Alias", readonly=True,)
 
     # wxwork_department_ids = fields.Many2many(
     #     "hr.department",
     #     string="Enterprise WeChat multi-department",
     #     readonly=True,
-    #     translate=True,
+    #
     # )
 
     qr_code = fields.Binary(
