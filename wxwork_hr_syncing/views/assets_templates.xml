@@ -4,7 +4,7 @@
 
     <!-- <template id="assets_backend" name="account assets" inherit_id="web._assets_bootstrap">
         <xpath expr="//link[last()]" position="after">
-            <link rel="stylesheet" type="text/scss" href="/wxwork_users_syncing/static/src/scss/notification.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/wxwork_hr_syncing/static/src/scss/notification.scss"/>
         </xpath>
     </template> -->
 

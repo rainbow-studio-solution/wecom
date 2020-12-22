@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat User Syncing",
+    "name": "Enterprise WeChat Hr Syncing",
     "author": "RStudio",
     "website": "",
-    "sequence": 602,
+    "sequence": 603,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,29 +16,20 @@
 
 
         """,
-    "depends": [
-        "base",
-        "mail",
-        "hr",
-        "auth_oauth",
-        "wxwork_api",
-        # "wxwork_message_push",
-    ],
+    "depends": ["base", "mail", "auth_oauth", "wxwork_api", "wxwrok_organization",],
     "external_dependencies": {"python": ["numpy", "opencv-python",],},
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
-        "data/ir_config_parameter.xml",
         "views/ir_cron_views.xml",
-        "views/hr_department_view.xml",
-        "views/hr_employee_view.xml",
-        "views/res_users_views.xml",
+        # "views/hr_department_view.xml",
+        # "views/hr_employee_view.xml",
+        # "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "wizard/wizard_wxwork_contacts_sync.xml",
         "wizard/wizard_wxwork_sync_user.xml",
         "views/assets_templates.xml",
         "views/menu_views.xml",
-        "data/hr_data.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
 }

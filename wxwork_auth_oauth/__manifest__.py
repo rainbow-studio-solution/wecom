@@ -3,7 +3,7 @@
     "name": "Enterprise WeChat Authentication",
     "author": "RStudio",
     "website": "",
-    "sequence": 603,
+    "sequence": 604,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -15,7 +15,7 @@
     "description": """
 
         """,
-    "depends": ["portal", "auth_oauth", "wxwork_users_syncing",],
+    "depends": ["portal", "auth_oauth", "wxwork_hr_syncing",],
     "data": [
         "data/wxwork_oauth_data.xml",
         "views/wxwork_auth_oauth_templates.xml",
