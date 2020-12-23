@@ -15,7 +15,7 @@
     "description": """
 
         """,
-    "depends": ["web_advanced_dialog"],
+    "depends": ["wxwork_l10n"],
     "data": [
         "data/ir_config_parameter.xml",
         "data/ir_module_category_data.xml",

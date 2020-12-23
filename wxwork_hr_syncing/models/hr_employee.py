@@ -65,8 +65,9 @@ class HrEmployee(models.Model):
         secret = params.get_param("wxwork.contacts_secret")
         sync_department_id = params.get_param("wxwork.contacts_sync_hr_department_id")
         debug = params.get_param("wxwork.debug_enabled")
+
         if debug:
-            _logger.debug(
+            _logger.info(
                 _("Start syncing Enterprise WeChat Contact-Employee Synchronization")
             )
         api = CorpApi(corpid, secret)
@@ -102,7 +103,7 @@ class HrEmployee(models.Model):
                 print(_("Employee synchronization error:%s") % (repr(e)))
 
         if debug:
-            _logger.debug(
+            _logger.info(
                 _(
                     "End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: %s seconds"
                 )
@@ -126,10 +127,10 @@ class HrEmployee(models.Model):
 
         try:
             if not employee:
-                print("不存在")
+
                 self.create_employee(employee, obj, debug)
             else:
-                print("存在")
+
                 self.update_employee(employee, obj, debug)
         except Exception as e:
             if debug:
@@ -429,7 +430,7 @@ class EmployeeSyncUser(models.Model):
                     )
         except BaseException as e:
             if debug:
-                _logger.warning(
+                _logger.info(
                     _("Employee synchronization as system user error: %s") % (repr(e))
                 )
             result = _("Failed to synchronize employee as system user")

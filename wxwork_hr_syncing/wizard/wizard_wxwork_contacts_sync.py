@@ -28,7 +28,7 @@ class ResConfigSettings(models.TransientModel):
     )
 
     times = fields.Float(
-        string="Elapsed time (seconds)", digits=(16, 3), readonly=True, 
+        string="Elapsed time (seconds)", digits=(16, 3), readonly=True,
     )
     result = fields.Text(string="Result", readonly=True)
 
@@ -75,9 +75,6 @@ class ResConfigSettings(models.TransientModel):
             )
         else:
             self.times, statuses, self.result = SyncTask(kwargs).run()
-            print(self.times, type(self.times))
-            print(statuses, type(statuses))
-            print(self.result, type(self.result))
             self.image_sync_result = statuses["image_1920"]  # 图片同步结果
             self.department_sync_result = bool(statuses["department"])  # 部门同步结果
             self.employee_sync_result = statuses["employee"]  # 员工同步结果

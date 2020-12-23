@@ -60,7 +60,8 @@ class SyncImage(object):
                 thread_max = int(os.getpid())
             else:
                 thread_max = int(os.getpid() / 1000)
-            print(thread_max)
+
+            # print(thread_max)
             status = {}
             result = ""
 

@@ -31,7 +31,6 @@ class SyncDepartment(models.Model):
             )
         wxapi = CorpApi(corpid, secret)
 
-        # 获取企业微信部门LIST
         try:
             response = wxapi.httpCall(
                 CORP_API_TYPE["DEPARTMENT_LIST"], {"id": sync_department_id,},
