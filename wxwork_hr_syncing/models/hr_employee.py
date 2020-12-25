@@ -230,6 +230,7 @@ class HrEmployee(models.Model):
                     "is_wxwork_employee": True,
                 }
             )
+
             result = True
         except Exception as e:
             if debug:
@@ -301,32 +302,26 @@ class HrEmployee(models.Model):
 
     def sync_leave_employee(self, response, debug):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
+
         try:
             list_user = []
             list_employee = []
             for wxwork_employee in response["userlist"]:
                 list_user.append(wxwork_employee["userid"])
 
-            with api.Environment.manage():
-                new_cr = self.pool.cursor()
-                self = self.with_env(self.env(cr=new_cr))
-                env = self.sudo().env["hr.employee"]
-                domain = ["|", ("active", "=", False), ("active", "=", True)]
-                employees = env.search(domain + [("is_wxwork_employee", "=", True)])
-                for employee in employees:
-                    list_employee.append(employee.wxwork_id)
+            domain = ["|", ("active", "=", False), ("active", "=", True)]
+            employees = self.search(domain + [("is_wxwork_employee", "=", True)])
+            for employee in employees:
+                list_employee.append(employee.wxwork_id)
 
-                list_user_leave = list(
-                    set(list_employee).difference(set(list_user))
-                )  # 生成odoo与企微不同的员工数据列表
-                for wxwork_leave_employee in list_user_leave:
-                    leave_employee = employees.search(
-                        [("wxwork_id", "=", wxwork_leave_employee)]
-                    )
-                    self.set_employee_active(leave_employee, debug)
-                    # print(leave_employee.name + str(op))
-                new_cr.commit()
-                new_cr.close()
+            list_user_leave = list(
+                set(list_employee).difference(set(list_user))
+            )  # 生成odoo与企微不同的员工数据列表
+            for wxwork_leave_employee in list_user_leave:
+                leave_employee = employees.search(
+                    [("wxwork_id", "=", wxwork_leave_employee)]
+                )
+                self.set_employee_active(leave_employee, debug)
         except Exception as e:
             if debug:
                 print(
