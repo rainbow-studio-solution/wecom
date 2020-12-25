@@ -139,9 +139,9 @@ class HrEmployee(models.Model):
                 )
 
     def create_employee(self, records, obj, debug):
-        wxwork_department_ids = []
+        department_ids = []
         for department in obj["department"]:
-            wxwork_department_ids.append(
+            department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
 
@@ -173,9 +173,9 @@ class HrEmployee(models.Model):
                     "active": obj["enable"],
                     "alias": obj["alias"],
                     # 归属多个部门的情况下，第一个部门为默认部门
-                    "department_id": wxwork_department_ids[0],
-                    # "department_id": wxwork_department_ids[0],
-                    # "wxwork_department_ids": [(6, 0, wxwork_department_ids)],
+                    "department_id": department_ids[0],
+                    # "department_id": department_ids[0],
+                    "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
                     "is_wxwork_employee": True,
@@ -192,12 +192,12 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         always = params.get_param("wxwork.contacts_always_update_avatar_enabled")
 
-        wxwork_department_ids = []
+        department_ids = []
         for department in obj["department"]:
-            wxwork_department_ids.append(
+            department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
-
+        print(obj["name"], department_ids)
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
@@ -223,8 +223,8 @@ class HrEmployee(models.Model):
                     "active": obj["enable"],
                     "alias": obj["alias"],
                     # 归属多个部门的情况下，第一个部门为默认部门
-                    "department_id": wxwork_department_ids[0],
-                    # "wxwork_department_ids": [(6, 0, wxwork_department_ids)],
+                    "department_id": department_ids[0],
+                    "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
                     "is_wxwork_employee": True,

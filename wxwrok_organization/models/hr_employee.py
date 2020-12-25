@@ -12,12 +12,9 @@ class Employee(models.Model):
 
     alias = fields.Char(string="Alias", readonly=True,)
 
-    # wxwork_department_ids = fields.Many2many(
-    #     "hr.department",
-    #     string="Enterprise WeChat multi-department",
-    #     readonly=True,
-    #
-    # )
+    department_ids = fields.Many2many(
+        "hr.department", string="Multiple departments", readonly=True,
+    )
 
     qr_code = fields.Binary(
         string="Personal QR code",

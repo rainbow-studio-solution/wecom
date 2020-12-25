@@ -22,7 +22,7 @@
                     </h2>
                 </xpath>
                 <xpath expr="//field[@name='department_id']" position="after">
-                    <!-- <field name="wxwork_department_ids" widget="many2many_tags" /> -->
+                    <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
                     <page name="wxwork_settings" string="Enterprise WeChat settings" >
@@ -30,7 +30,7 @@
                             <group>
                                 <field name="wxwork_id" />
                                 <field name="is_wxwork_employee" widget="checkbox"/>
-                                <!-- <field name="wxwork_department_ids" widget="many2many_tags" /> -->
+                                <field name="department_ids" widget="many2many_tags" />
                             </group>
                             <group>
                                 <field name="qr_code" widget="image" class="oe_avatar" />
@@ -47,7 +47,7 @@
             <field name="inherit_id" ref="hr.view_employee_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[last()]" position="after">
-                    <!-- <field name="wxwork_department_ids" widget="many2many_tags" /> -->
+                    <!-- <field name="department_ids" widget="many2many_tags" /> -->
                     <!--<field name="wxwork_department"/>-->
                     <field name="is_wxwork_employee"/>
                 </xpath>
