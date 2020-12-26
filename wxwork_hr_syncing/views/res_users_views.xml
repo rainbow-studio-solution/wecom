@@ -3,8 +3,8 @@
     <data>
         <!--转换用户类型 wizard-->
         <record id="change_type_wizard_view" model="ir.ui.view">
-            <field name="name">Change user type wizard</field>
-            <field name="model">wizard.change.user.type</field>
+            <field name="name">Change user type</field>
+            <field name="model">change.type.wizard</field>
             <field name="arch" type="xml">
                 <form string="Change user type">
                     <field name="user_ids"/>
@@ -17,8 +17,8 @@
         </record>
 
         <record id="change_type_wizard_user_tree_view" model="ir.ui.view">
-            <field name="name">change user type tree</field>
-            <field name="model">user.type.change</field>
+            <field name="name">Change Type Users</field>
+            <field name="model">change.type.user</field>
             <field name="arch" type="xml">
                 <tree string="Users" editable="bottom" create="false" delete="false">
                     <field name="user_name" />
@@ -36,9 +36,17 @@
                     target="new"
                     groups="base.group_erp_manager"/> -->
 
-        <record id="change_type_wizard_action" model="ir.actions.act_window">
+        <!-- <record id="change_type_wizard_action" model="ir.actions.act_window">
             <field name="name">Change user type</field>
             <field name="res_model">wizard.change.user.type</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_users"/>
+            <field name="binding_view_types">form</field>
+        </record> -->
+        <record id="change_type_wizard_action" model="ir.actions.act_window">
+            <field name="name">Change Type</field>
+            <field name="res_model">change.type.wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
             <field name="binding_model_id" ref="base.model_res_users"/>

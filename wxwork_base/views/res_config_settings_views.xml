@@ -11,16 +11,16 @@
                     <div class="app_settings_block" data-string="wxwork_base" string="Enterprise WeChat"  data-key="wxwork_base" groups="base.group_system">
                         <h2 id="wxwork_global" class="d-flex justify-content-between">  
                             <span class="text-left">
-                                <i class="fa fa-weixin fa-lg"/> Enterprise WeChat global settings
+                                <i class="fa fa-weixin fa-lg" aria-label="" title=""/> Enterprise WeChat global settings
                             </span>
                             <span class="text-right">
-                                <i class="fa fa-angle-double-down"/>
+                                <i class="fa fa-angle-double-down"  aria-label="" title=""/>
                             </span>
                         </h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
-                                    <i class="fa fa-info fa-lg"/>
+                                    <i class="fa fa-info fa-lg"  aria-label="" title=""/>
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="corpid"/>

@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_contact" class="d-flex justify-content-between">
-                        <span class="text-left" alt=""><i class="fa fa-users fa-lg"/> Contact synchronization Odoo settings</span>
+                        <span class="text-left" alt=""><i class="fa fa-users fa-lg"  aria-label="" title=""/> Contact synchronization Odoo settings</span>
                         <span class="text-right" alt="">
                             <i class="fa fa-angle-double-up" />
                         </span>
@@ -16,7 +16,7 @@
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane" alt="">
-                                <i class="fa fa-lock fa-lg" />
+                                <i class="fa fa-lock fa-lg"  aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_secret"/>
@@ -35,7 +35,7 @@
 
                         <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane"  alt="">
-                                <i class="fa fa-key fa-lg" />
+                                <i class="fa fa-key fa-lg"  aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_access_token"/>
@@ -45,7 +45,7 @@
                                         Important notes when obtaining application "address book" information in the background of the enterprise WeChat, this information needs to be carried during communication to verify the access authority of the interface.
                                         <br/>
                                         <span style="color:orange;padding: 0px 16px;"  alt="">
-                                            <i class="fa fa-info-circle" />
+                                            <i class="fa fa-info-circle"  aria-label="" title=""/>
                                             The token has been cached and the system will automatically refresh the token.
                                         </span>
 
@@ -101,7 +101,7 @@
 
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane"  alt="">
-                                <i class="fa fa-building fa-lg" />
+                                <i class="fa fa-building fa-lg"  aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_sync_hr_department_id"/>
@@ -152,11 +152,11 @@
                                     <div class="text-muted col-md-12">
                                         If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.
                                         <br/>
-                                        <span style="color:orange;padding: 0px 16px; " alt=""> <i class="fa fa-info-circle" />Suggestion: turn on when avatar synchronization fails due to various reasons</span>
+                                        <span style="color:orange;padding: 0px 16px; " alt=""> <i class="fa fa-info-circle"  aria-label="" title=""/>Suggestion: turn on when avatar synchronization fails due to various reasons</span>
                                         <br/>
-                                        <span style="color:orange;padding: 0px 16px;"  alt=""> <i class="fa fa-info-circle"/>It takes more time to update the avatar each time, and HR generally uses the official photo of the employee</span>
+                                        <span style="color:orange;padding: 0px 16px;"  alt=""> <i class="fa fa-info-circle"  aria-label="" title=""/>It takes more time to update the avatar each time, and HR generally uses the official photo of the employee</span>
                                         <br/>
-                                        <span style="color:red;padding: 0px 16px;"  alt=""> <i class="fa fa-warning"/>Don't want to be troubled by HR, use it with caution!</span>
+                                        <span style="color:red;padding: 0px 16px;"  alt=""> <i class="fa fa-warning"  aria-label="" title=""/>Don't want to be troubled by HR, use it with caution!</span>
                                     </div>
                                 </div>
                             </div>

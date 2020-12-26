@@ -15,7 +15,7 @@ class Users(models.Model):
 
 
 class ChangeTypeWizard(models.TransientModel):
-    _name = "wizard.change.user.type"
+    _name = "change.type.wizard"
     _description = "Wizard to change user type(Enterprise WeChat)"
 
     def _default_user_ids(self):
@@ -34,7 +34,7 @@ class ChangeTypeWizard(models.TransientModel):
         ]
 
     user_ids = fields.One2many(
-        "user.type.change", "wizard_id", string="user", default=_default_user_ids
+        "change.type.user", "wizard_id", string="Users", default=_default_user_ids
     )
 
     def change_type_button(self):
@@ -46,18 +46,22 @@ class ChangeTypeWizard(models.TransientModel):
 
 
 class ChangeTypeUser(models.TransientModel):
-    _name = "user.type.change"
+    _name = "change.type.user"
     _description = "User, Change Type Wizard"
 
     wizard_id = fields.Many2one(
-        "wizard.change.user.type", string="Wizard", required=True, ondelete="cascade"
+        "change.type.wizard", string="Wizard", required=True, ondelete="cascade"
     )
     user_id = fields.Many2one(
         "res.users", string="User", required=True, ondelete="cascade"
     )
     user_login = fields.Char(string="Login account", readonly=True,)
     user_name = fields.Char(string="Login name", readonly=True)
-    choices = [("1", _("Internal User")), ("8", _("Portal")), ("9", _("Public"))]
+    choices = [
+        ("1", _("Internal User")),
+        ("9", _("Portal")),
+        ("10", _("Public")),
+    ]  # 参见res_group
     new_type = fields.Selection(
         choices, string="User Type", default="1", tracking=True,
     )
