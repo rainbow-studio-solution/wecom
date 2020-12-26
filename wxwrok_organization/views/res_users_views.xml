@@ -48,40 +48,7 @@
             </field>
         </record>
 
-        <!--转换用户类型 wizard-->
-        <!-- <record id="change_type_wizard_view" model="ir.ui.view">
-            <field name="name">change user type wizard</field>
-            <field name="model">wizard.change.user.type</field>
-            <field name="arch" type="xml">
-                <form string="Change user type">
-                    <field name="user_ids"/>
-                    <footer>
-                        <button string="Change type" name="change_type_button" type="object" class="btn-primary"/>
-                        <button string="Cancel" class="btn-secondary" special="cancel" />
-                    </footer>
-                </form>
-            </field>
-        </record>
-
-        <record id="change_type_wizard_user_tree_view" model="ir.ui.view">
-            <field name="name">change user type tree</field>
-            <field name="model">user.type.change</field>
-            <field name="arch" type="xml">
-                <tree string="Users" editable="bottom" create="false" delete="false">
-                    <field name="user_name" />
-                    <field name="user_login" />
-                    <field name="new_type" required="True"/>
-                </tree>
-            </field>
-        </record>
-
-        <act_window id="change_type_wizard_action"
-                    name="Change user type"
-                    binding_model="res.users"
-                    res_model="wizard.change.user.type"
-                    view_mode="form"
-                    target="new"
-                    groups="base.group_erp_manager"/> -->
+       
 
         <record id="open_module_tree_user" model="ir.actions.act_window">
             <field name="name">users</field>

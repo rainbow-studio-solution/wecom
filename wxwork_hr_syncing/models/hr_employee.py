@@ -14,50 +14,48 @@ _logger = logging.getLogger(__name__)
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-    _description = "Enterprise WeChat employees"
-    _order = "wxwork_user_order"
 
-    #     def create_user_from_employee(self):
-    #         """
-    #         从员工生成用户
-    #         :return:
-    #         """
-    #         groups_id = self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
-    #         res_user_id = self.env["res.users"].create(
-    #             {
-    #                 "name": self.name,
-    #                 "login": self.wxwork_id,
-    #                 "oauth_uid": self.wxwork_id,
-    #                 "password": Common(8).random_passwd(),
-    #                 "email": self.work_email,
-    #                 "wxwork_id": self.wxwork_id,
-    #                 "image_1920": self.image_1920,
-    #                 # 'qr_code': employee.qr_code,
-    #                 "active": self.active,
-    #                 "wxwork_user_order": self.wxwork_user_order,
-    #                 "mobile": self.mobile_phone,
-    #                 "phone": self.work_phone,
-    #                 "notification_type": "wxwork",
-    #                 "is_wxwork_user": True,
-    #                 "is_moderator": False,
-    #                 "is_company": False,
-    #                 "employee": True,
-    #                 "share": False,
-    #                 "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
-    #                 "tz": "Asia/Chongqing",
-    #                 "lang": "zh_CN",
-    #             }
-    #         )
-    #         self.user_id = res_user_id.id
-    #         self.address_home_id = res_user_id.partner_id.id
-    #         self.user_check_tick = True
+    def create_user_from_employee(self):
+        """
+        从员工生成用户
+        :return:
+        """
+        groups_id = self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+        res_user_id = self.env["res.users"].create(
+            {
+                "name": self.name,
+                "login": self.wxwork_id,
+                "oauth_uid": self.wxwork_id,
+                "password": Common(8).random_passwd(),
+                "email": self.work_email,
+                "wxwork_id": self.wxwork_id,
+                "image_1920": self.image_1920,
+                # 'qr_code': employee.qr_code,
+                "active": self.active,
+                "wxwork_user_order": self.wxwork_user_order,
+                "mobile": self.mobile_phone,
+                "phone": self.work_phone,
+                "notification_type": "wxwork",
+                "is_wxwork_user": True,
+                "is_moderator": False,
+                "is_company": False,
+                "employee": True,
+                "share": False,
+                "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
+                "tz": "Asia/Chongqing",
+                "lang": "zh_CN",
+            }
+        )
+        self.user_id = res_user_id.id
+        self.address_home_id = res_user_id.partner_id.id
+        self.user_check_tick = True
 
-    #     @api.onchange("address_home_id")
-    #     def user_checking(self):
-    #         if self.address_home_id:
-    #             self.user_check_tick = True
-    #         else:
-    #             self.user_check_tick = False
+    @api.onchange("address_home_id")
+    def user_checking(self):
+        if self.address_home_id:
+            self.user_check_tick = True
+        else:
+            self.user_check_tick = False
 
     def sync_employee(self):
         params = self.env["ir.config_parameter"].sudo()
