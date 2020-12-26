@@ -32,8 +32,11 @@ _使用过程中发现错误，请参考帮助_
 
 4. wxwork_hr_syncing （企业微信-同步功能）开展中......
     ```bash
-    #安装扩展
-    pip install numpy==1.19.3 numpy
+    #1. 安装扩展
+    pip install numpy==1.19.3 opencv-python
+
+    #2. "获取部门成员"API department字段 没有将主部门 默认排第一个，导致同步时设置主部门错误。看了下读取成员API，多了个"main_department"（主部门）的字段。已向腾讯企业微信团队提交了需求，要么在"获取部门成员"API增加"main_department"（主部门）的字段,要么修复"department"字段的排序。设置主部门错误待腾讯修复。
+
     ``` 
 
    

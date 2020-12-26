@@ -174,7 +174,6 @@ class HrEmployee(models.Model):
                     "alias": obj["alias"],
                     # 归属多个部门的情况下，第一个部门为默认部门
                     "department_id": department_ids[0],
-                    # "department_id": department_ids[0],
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -197,7 +196,7 @@ class HrEmployee(models.Model):
             department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
-        print(obj["name"], department_ids)
+        print(obj["name"], department_ids[0])
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
