@@ -50,7 +50,7 @@
             <field name="type">form</field>
             <field name="priority" eval="1"/>
             <field name="arch" type="xml">
-                <form string="Employees generation system user case" edit="false" create="false">
+                <form string="Employees generation system user results" edit="false" create="false">
                     <group>
                         <group>
                             <field name="sync_user_result"/>

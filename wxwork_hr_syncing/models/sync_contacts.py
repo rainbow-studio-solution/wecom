@@ -55,7 +55,7 @@ class SyncTask(object):
                     statuses.update(status)
                     times.append(time)
                     results.append(
-                        _("%s, time spent: %s seconds") % (result, round(time, 3))
+                        _("%s, time spent: " "%s seconds") % (result, round(time, 3))
                     )
 
             results = "\n".join(results)

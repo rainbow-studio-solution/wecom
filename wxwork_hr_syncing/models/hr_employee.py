@@ -91,7 +91,6 @@ class HrEmployee(models.Model):
             result = _("Employee synchronization succeeded, time spent %s seconds") % (
                 round(times, 3)
             )
-            # result = _("Employee synchronization succeeded")
         except BaseException as e:
             times = time.time()
             result = _("Employee synchronization failed")
@@ -107,11 +106,10 @@ class HrEmployee(models.Model):
                 )
                 % times
             )
-
+        print(times, status, result)
         return times, status, result
 
     def run_sync(self, obj, debug):
-
         employee = self.search(
             [
                 ("wxwork_id", "=", obj["userid"]),
@@ -125,10 +123,8 @@ class HrEmployee(models.Model):
 
         try:
             if not employee:
-
                 self.create_employee(employee, obj, debug)
             else:
-
                 self.update_employee(employee, obj, debug)
         except Exception as e:
             if debug:
@@ -181,7 +177,7 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Error creating employee:%s - %s") % (obj["name"], repr(e)))
+                print(_("Error creating employee:%s, %s") % (obj["name"], repr(e)))
             result = False
         return result
 
@@ -231,7 +227,7 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Update employee error:%s - %s") % (obj["name"], repr(e)))
+                print(_("Update employee error:%s, %s") % (obj["name"], repr(e)))
             result = False
 
         return result
@@ -335,7 +331,7 @@ class HrEmployee(models.Model):
         except Exception as e:
             if debug:
                 print(
-                    _("Departed employee: %s Synchronization error: %s")
+                    _("Departed employee: %s" "Synchronization error: %s")
                     % (records.name, repr(e))
                 )
 

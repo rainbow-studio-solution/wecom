@@ -104,7 +104,7 @@ class SyncDepartment(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("department: %s - %s") % (obj["name"], repr(e)))
+                print(_("department: %s, %s") % (obj["name"], repr(e)))
             result = False
         return result
 
@@ -121,7 +121,7 @@ class SyncDepartment(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("department:%s - %s") % (obj["name"], repr(e)))
+                print(_("department:%s, %s") % (obj["name"], repr(e)))
             result = False
         return result
 
