@@ -88,9 +88,7 @@ class HrEmployee(models.Model):
 
             times = times1 + times2
             status = {"employee": True}
-            result = _("Employee synchronization succeeded, time spent %s seconds") % (
-                round(times, 3)
-            )
+            result = _("Employee synchronization succeeded")
         except BaseException as e:
             times = time.time()
             result = _("Employee synchronization failed")
@@ -106,7 +104,7 @@ class HrEmployee(models.Model):
                 )
                 % times
             )
-        print(times, status, result)
+        # print(times, status, result)
         return times, status, result
 
     def run_sync(self, obj, debug):
@@ -177,7 +175,7 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Error creating employee:%s, %s") % (obj["name"], repr(e)))
+                print(_("Error creating employee:%s") % (obj["name"], repr(e)))
             result = False
         return result
 
@@ -190,7 +188,7 @@ class HrEmployee(models.Model):
             department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
-        # print(obj["name"], department_ids[0])
+
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
@@ -227,17 +225,15 @@ class HrEmployee(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Update employee error:%s, %s") % (obj["name"], repr(e)))
+                print(_("Update employee error:%s") % (obj["name"], repr(e)))
             result = False
 
         return result
 
     def check_always_update_avatar(self, always, avatar_file):
         if always:
-            # print("一直更新图片"+avatar_file)
             return self.encode_image_as_base64(avatar_file)
         else:
-            # print("不更新图片" + avatar_file)
             return None
 
     def encode_image_as_base64(self, image_path):
@@ -331,7 +327,7 @@ class HrEmployee(models.Model):
         except Exception as e:
             if debug:
                 print(
-                    _("Departed employee: %s" "Synchronization error: %s")
+                    _("Departed employee: %s, Synchronization error: %s ")
                     % (records.name, repr(e))
                 )
 
