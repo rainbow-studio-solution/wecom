@@ -21,6 +21,7 @@
             <field name="model">change.type.user</field>
             <field name="arch" type="xml">
                 <tree string="Users" editable="bottom" create="false" delete="false">
+                    <field name="user_id" invisible="1"/>
                     <field name="user_name" />
                     <field name="user_login" />
                     <field name="new_type" required="True"/>
@@ -28,22 +29,6 @@
             </field>
         </record>
 
-        <!-- <act_window id="change_type_wizard_action"
-                    name="Change user type"
-                    binding_model="res.users"
-                    res_model="wizard.change.user.type"
-                    view_mode="form"
-                    target="new"
-                    groups="base.group_erp_manager"/> -->
-
-        <!-- <record id="change_type_wizard_action" model="ir.actions.act_window">
-            <field name="name">Change user type</field>
-            <field name="res_model">wizard.change.user.type</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-            <field name="binding_model_id" ref="base.model_res_users"/>
-            <field name="binding_view_types">form</field>
-        </record> -->
         <record id="change_type_wizard_action" model="ir.actions.act_window">
             <field name="name">Change Type</field>
             <field name="res_model">change.type.wizard</field>
