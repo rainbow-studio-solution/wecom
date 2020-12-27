@@ -21,6 +21,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
+        "data/auth_oauth_data.xml",
         "views/ir_cron_views.xml",
         "views/hr_employee_view.xml",
         "views/res_users_views.xml",
