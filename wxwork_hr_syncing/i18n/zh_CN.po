@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 13:09+0000\n"
-"PO-Revision-Date: 2020-12-27 21:26+0800\n"
+"POT-Creation-Date: 2020-12-28 15:07+0000\n"
+"PO-Revision-Date: 2020-12-28 23:32+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,34 +15,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/sync_contacts.py:0
 #, python-format
 msgid "%s, time spent: %s seconds"
-msgstr "%s，花费的时间 %s 秒"
+msgstr "%s，花费的时间：%s 秒"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
+#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
 msgstr "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid ""
-"<span style=\"color:orange;\">Synchronously generate system users from "
-"employees. It is recommended to use it only when you first go online. It takes a "
-"long time to generate users.</span>"
+"<span class=\"text-danger font-weight-bold\">Synchronously generate system "
+"users from employees. It is recommended to use it only when you first go "
+"online. It takes a long time to generate users.</span>"
 msgstr ""
-"<span style=\"color:orange;\">从员工同步生成系统用户。 建议仅在第一次上线时使用"
-"它。 生成用户需要很长时间。</span>"
+"<span class=\"text-danger font-weight-bold\">从员工同步生成系统用户。 建议仅"
+"在第一次上线时使用它。 生成用户需要很长时间。</span>"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/res_users.py:0
 #, python-format
 msgid ""
-"Before clicking the 'Change User Type' button, you must modify the new user type"
+"Before clicking the 'Change User Type' button, you must modify the new user "
+"type"
 msgstr "在点击“更改用户类型”按钮之前，您必须修改新的用户类型"
 
 #. module: wxwork_hr_syncing
@@ -110,9 +112,10 @@ msgstr "创建于"
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
 msgid ""
-"Currently, only multithreading is used for image downloading. Linux production "
-"server uses the following command to view real-time logs:"
-msgstr "目前，多线程仅用于图像下载。 Linux生产服务器使用以下命令查看实时日志："
+"Currently, only multithreading is used for image downloading. Linux "
+"production server uses the following command to view real-time logs:"
+msgstr ""
+"目前，多线程仅用于图像下载。 Linux生产服务器使用以下命令查看实时日志："
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
@@ -140,7 +143,7 @@ msgstr "部门同步失败"
 #: code:addons/wxwork_hr_syncing/models/hr_department.py:0
 #, python-format
 msgid "Department synchronization failed, error: %s"
-msgstr "部门同步失败，错误：%s"
+msgstr "部门同步失败，错误： %s"
 
 #. module: wxwork_hr_syncing
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_contacts__department_sync_result
@@ -193,7 +196,7 @@ msgstr "员工同步"
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
 msgid "Employee synchronization as system user error: %s"
-msgstr "员工同步为系统用户错误： %s"
+msgstr "员工同步为系统用户错误：%s"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
@@ -247,14 +250,15 @@ msgstr "结束同步企业微信通讯录-部门同步，花费的总时间：%s
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
 msgid ""
-"End sync Enterprise WeChat Contact - Employee Synchronization,Total time spent: "
-"%s seconds"
+"End sync Enterprise WeChat Contact - Employee Synchronization,Total time "
+"spent: %s seconds"
 msgstr "结束同步企业微信通讯录-员工同步，花费的总时间：%s 秒"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/sync_image.py:0
 #, python-format
-msgid "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
+msgid ""
+"End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
 msgstr "结束同步企业微信通讯录-图片，花费的总时间：%s 秒"
 
 #. module: wxwork_hr_syncing
@@ -388,7 +392,7 @@ msgstr "无法比较图片 %s，错误：%s"
 #: code:addons/wxwork_hr_syncing/models/sync_image.py:0
 #, python-format
 msgid "Failed to download image of %s error: %s"
-msgstr "无法下载图片  %s ，错误： %s"
+msgstr "无法下载 %s 的图片，错误：%s "
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
@@ -400,15 +404,15 @@ msgstr "员工无法同步为系统用户"
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
 msgid "Failed to synchronize employee as system user:%s"
-msgstr "员工无法同步为系统用户：%s"
+msgstr "员工无法同步为系统用户:%s"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
 msgid ""
-"Finished synchronizing enterprise WeChat contacts - employee synchronization "
-"system users, total time spent: %s seconds"
-msgstr "完成企业微信通讯录同步-员工同步为系统用户，花费的总时间：%s 秒"
+"Finished synchronizing enterprise WeChat contacts - employee "
+"synchronization system users, total time spent: %s seconds"
+msgstr "完成企业微信通讯录的同步-员工同步为系统用户，花费的总时间：%s 秒"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
@@ -437,6 +441,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
 msgid "If an error occurs, please check the help file."
 msgstr "如果发生错误，请查看帮助文件。"
+
+#. module: wxwork_hr_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
+msgid "If there is an error, please check the help file"
+msgstr "如果有错误，请查阅帮助文件"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/res_users.py:0
@@ -557,9 +566,10 @@ msgstr "结果"
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid ""
-"Select a user in the user list and use \"Change User Type\" in the action menu "
-"to change to an internal user"
-msgstr "在用户列表中选择一个用户，然后在操作菜单中使用“更改用户类型”更改为内部用户"
+"Select a user in the user list and use \"Change User Type\" in the action "
+"menu to change to an internal user"
+msgstr ""
+"在用户列表中选择一个用户，然后在操作菜单中使用“更改用户类型”更改为内部用户"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
@@ -582,7 +592,7 @@ msgstr "开始同步企业微信通讯录-图片"
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
 msgid "Start syncing Enterprise WeChat Contact-Employee Synchronization"
-msgstr "开始同步企业微信通讯录-同步员工"
+msgstr "开始同步企业微信通讯录-员工同步"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
@@ -593,8 +603,9 @@ msgstr "开始从员工同步到系统用户"
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_department.py:0
 #, python-format
-msgid "Start to synchronize Enterprise WeChat Contact - Department Synchronization"
-msgstr "开始同步企业微信通讯录=同步部门"
+msgid ""
+"Start to synchronize Enterprise WeChat Contact - Department Synchronization"
+msgstr "开始同步企业微信通讯录-部门同步"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.dialog_wxwork_contacts_sync_result
@@ -636,6 +647,7 @@ msgstr "从员工同步用户"
 
 #. module: wxwork_hr_syncing
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_record
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_user_record
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_wxwork_contacts_sync_tree
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_wxwork_sync_user_tree
 msgid "Synchronous recording"
@@ -655,27 +667,24 @@ msgstr "系统用户生成"
 #: code:addons/wxwork_hr_syncing/models/res_config_settings.py:0
 #, python-format
 msgid ""
-"Task failure prompt - The task of synchronizing Enterprise WeChat contacts on a "
-"regular basis cannot be executed. The detailed reasons are as follows:%s"
-msgstr "任务失败提示-无法执行定期同步企业微信通讯录的任务。 详细原因如下：%s"
+"Task failure prompt - The task of synchronizing Enterprise WeChat contacts "
+"on a regular basis cannot be executed. The detailed reasons are as follows:"
+"%s"
+msgstr "任务失败提示-无法执行定时同步企业微信通讯录的任务。 详细原因如下：%s"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid ""
-"The Linux production server uses the following command to view real-time logs:"
-"<br/><br/>\n"
-"                            <span style=\"background:#000;color: #fff;border-"
-"bottom: #000 1px solid;\">\n"
-"                                tail -f /var/log/odoo/odoo-server.log\n"
-"                            </span><br/><br/>\n"
-"                            If there is an error, please check the help file<br/>"
-msgstr ""
+"The Linux production server uses the following command to view real-time "
+"logs:"
+msgstr "Linux生产服务器使用以下命令来查看实时日志："
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/wizard/wizard_wxwork_sync_user.py:0
 #, python-format
 msgid ""
-"The current setting does not allow synchronization from employees to system users"
+"The current setting does not allow synchronization from employees to system "
+"users"
 msgstr "当前设置不允许从员工到系统用户的同步"
 
 #. module: wxwork_hr_syncing
@@ -692,15 +701,16 @@ msgstr "图片路径不存在，请检查配置。"
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
-msgid "There is currently no employee profile that needs to generate system users"
+msgid ""
+"There is currently no employee profile that needs to generate system users"
 msgstr "当前没有需要生成系统用户的员工资料"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/wizard/wizard_wxwork_contacts_sync.py:0
 #, python-format
 msgid ""
-"Tip: The current setting does not allow synchronization from enterprise WeChat "
-"to HR \n"
+"Tip: The current setting does not allow synchronization from enterprise "
+"WeChat to HR \n"
 "\n"
 " Please generate a user manually \n"
 "\n"
@@ -763,6 +773,7 @@ msgid "Wizard"
 msgstr "向导"
 
 #. module: wxwork_hr_syncing
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_user_wizard
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_wizard
 msgid "Wizard synchronization"
 msgstr "向导同步"
