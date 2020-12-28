@@ -20,7 +20,9 @@ class HrEmployee(models.Model):
         从员工生成用户
         :return:
         """
-        groups_id = self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+        groups_id = (
+            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+        )  # id=9是门户用户
         res_user_id = self.env["res.users"].create(
             {
                 "name": self.name,
@@ -426,7 +428,7 @@ class EmployeeSyncUser(models.Model):
         try:
             groups_id = (
                 self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
-            )
+            )  # id=9是门户用户
             user = user.create(
                 {
                     "name": employee.name,

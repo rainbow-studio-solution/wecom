@@ -10,11 +10,15 @@
                     <separator string="Generate system users in batches from HR's Enterprise WeChat employees"/>
                     <group>
                         <div>
-                            The Linux production server uses the following command to view real-time logs:<br/><br/>
-                            <span style="background:#000;color: #fff;border-bottom: #000 1px solid;">
-                                tail -f /var/log/odoo/odoo-server.log
-                            </span><br/><br/>
-                            If there is an error, please check the help file<br/>
+                            <div>
+                                The Linux production server uses the following command to view real-time logs:
+                            </div>
+                            <div class="mt16 mb16" >
+                                <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                            </div>
+                            <div>
+                                If there is an error, please check the help file
+                            </div>
                         </div>
                         <ul>
                             <li>The generated user type belongs to the portal user by default.</li>
@@ -23,10 +27,11 @@
                             <li>Internal users occupy system resources.</li>
                             <li class="dropdown-divider"></li>
                             <li>Select a user in the user list and use "Change User Type" in the action menu to change to an internal user</li>
-                            <li class="dropdown-divider"></li>
-                            <li><span style="color:orange;">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span></li>
                         </ul>
                     </group>
+                    <group>
+                        <span class="text-danger font-weight-bold">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span>
+                    </group>                    
                     <footer>
                         <button name="action_create_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
                     </footer>

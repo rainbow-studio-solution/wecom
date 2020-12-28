@@ -74,6 +74,7 @@ class ChangeTypeUser(models.TransientModel):
                     )
                 )
             if (
+                # 排除初始系统自带的用户
                 line.user_id.id == 1
                 or line.user_id.id == 2
                 or line.user_id.id == 3

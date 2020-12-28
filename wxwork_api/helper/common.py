@@ -158,6 +158,15 @@ class Common(object):
             passwd = "".join(random.choice(__numlist) for i in range(8))
         else:
             passwd = "".join(random.choice(__numlist) for i in range(int(rang)))
-        self.result = CryptContext(["pbkdf2_sha512"]).encrypt(passwd)
+
+        crypt_context = CryptContext(
+            schemes=["pbkdf2_sha512", "plaintext"], deprecated=["plaintext"]
+        )
+        hash_password = (
+            crypt_context.hash
+            if hasattr(crypt_context, "hash")
+            else crypt_context.encrypt
+        )
+        self.result = hash_password(passwd)
         return self.result
 
