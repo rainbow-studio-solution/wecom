@@ -58,9 +58,7 @@
                                 <label for="auth_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/signin<br/>
-                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>
-                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/signin
+                                        
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -78,9 +76,7 @@
                                 <label for="qr_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        The URL format is: http://xxx.xxx.com:port/wxwork/auth_oauth/qr<br/>
-                                        Enterprise WeChat does not support digital IP addresses, please use the domain name registered through ICP. <br/>
-                                        If the callback link address uses the https protocol port 443, please fill in the https protocol header, such as: https://xxx.xxx.com:port/wxwork/auth_oauth/qr
+                                        
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -97,7 +93,7 @@
                             <div class="o_setting_right_pane">
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        After correctly filling in "enterprise ID", "AgentId" and "Secret" that require authentication and authorization, "webpage authorization link callback link address", "scan code link callback link address",
+                                        After correctly filling in "enterprise ID", "AgentId" and "Secret" that require authentication and authorization
                                         <span style="color:orange;padding: 0px 16px;">
                                             Click the button "One-click to set up enterprise WeChat OAuth"
                                         </span>

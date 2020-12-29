@@ -13,6 +13,7 @@ from odoo.exceptions import AccessDenied
 from odoo.http import request
 from odoo import registry as registry_get
 
+
 from odoo.addons.auth_oauth.controllers.main import (
     OAuthLogin as Home,
     OAuthController as Controller,
@@ -50,6 +51,7 @@ class OAuthLogin(Home):
                 "https://open.weixin.qq.com/connect/oauth2/authorize"
                 in provider["auth_endpoint"]
             ):
+                # 一键登录
                 return_url = request.httprequest.url_root + "wxwork/auth_oauth/signin"
                 state = self.get_state(provider)
                 params = dict(
@@ -61,13 +63,14 @@ class OAuthLogin(Home):
                 )
                 provider["auth_link"] = "%s?%s%s" % (
                     provider["auth_endpoint"],
-                    werkzeug.url_encode(params),
+                    werkzeug.urls.url_encode(params),
                     "#wechat_redirect",
                 )
             elif (
                 "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
                 in provider["auth_endpoint"]
             ):
+                # 扫描登录
                 return_url = request.httprequest.url_root + "wxwork/auth_oauth/qr"
                 state = self.get_state(provider)
                 auth_agentid = (
@@ -83,7 +86,7 @@ class OAuthLogin(Home):
                 )
                 provider["auth_link"] = "%s?%s" % (
                     provider["auth_endpoint"],
-                    werkzeug.url_encode(params),
+                    werkzeug.urls.url_encode(params),
                 )
             else:
                 return_url = request.httprequest.url_root + "auth_oauth/signin"
@@ -97,7 +100,7 @@ class OAuthLogin(Home):
                 )
                 provider["auth_link"] = "%s?%s" % (
                     provider["auth_endpoint"],
-                    werkzeug.url_encode(params),
+                    werkzeug.urls.url_encode(params),
                 )
         return providers
 
@@ -111,7 +114,7 @@ class OAuthLogin(Home):
         state = dict(
             d=request.session.db,
             p=provider["id"],
-            r=werkzeug.url_quote_plus(redirect),
+            r=werkzeug.urls.url_quote_plus(redirect),
         )
         token = request.params.get("token")
         if token:
@@ -122,6 +125,7 @@ class OAuthLogin(Home):
 class OAuthController(http.Controller):
     @http.route("/wxwork/auth_oauth/signin", type="http", auth="none")
     def wxwork_signin(self, **kw):
+
         code = kw.pop("code", None)
         corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
         secret = (
@@ -129,10 +133,7 @@ class OAuthController(http.Controller):
         )
         wxwork_api = CorpApi(corpid, secret)
         response = wxwork_api.httpCall(
-            CORP_API_TYPE["GET_USER_INFO_BY_CODE"],
-            {
-                "code": code,
-            },
+            CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},
         )
         state = json.loads(kw["state"])
         dbname = state["d"]
@@ -151,7 +152,9 @@ class OAuthController(http.Controller):
                 action = state.get("a")
                 menu = state.get("m")
                 redirect = (
-                    werkzeug.url_unquote_plus(state["r"]) if state.get("r") else False
+                    werkzeug.urls.url_unquote_plus(state["r"])
+                    if state.get("r")
+                    else False
                 )
                 url = "/web"
                 if redirect:
@@ -192,6 +195,14 @@ class OAuthController(http.Controller):
 
     @http.route("/wxwork/auth_oauth/qr", type="http", auth="none")
     def wxwork_qr_signin(self, **kw):
+        # dbname = kw.pop("db", None)
+        # if not dbname:
+        #     dbname = db_monodb()
+        # if not dbname:
+        #     return BadRequest()
+        # if not http.db_filter([dbname]):
+        #     return BadRequest()
+
         code = kw.pop("code", None)
         corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
         secret = (
@@ -199,10 +210,7 @@ class OAuthController(http.Controller):
         )
         wxwork_api = CorpApi(corpid, secret)
         response = wxwork_api.httpCall(
-            CORP_API_TYPE["GET_USER_INFO_BY_CODE"],
-            {
-                "code": code,
-            },
+            CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},
         )
         state = json.loads(kw["state"].replace("M", '"'))
         dbname = state["d"]
@@ -222,7 +230,9 @@ class OAuthController(http.Controller):
                 action = state.get("a")
                 menu = state.get("m")
                 redirect = (
-                    werkzeug.url_unquote_plus(state["r"]) if state.get("r") else False
+                    werkzeug.urls.url_unquote_plus(state["r"])
+                    if state.get("r")
+                    else False
                 )
                 url = "/web"
                 if redirect:

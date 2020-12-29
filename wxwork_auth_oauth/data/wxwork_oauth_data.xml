@@ -41,11 +41,11 @@
         </record>
         <record id="auth_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.auth_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/signin</field>
+            <field name="value">http://xxx.xxx.com:port/auth_oauth/signin</field>
         </record>
         <record id="qr_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.qr_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:port/wxwork/auth_oauth/qr</field>
+            <field name="value">http://xxx.xxx.com:port/auth_oauth/wwqr</field>
         </record>
 
     </data>
