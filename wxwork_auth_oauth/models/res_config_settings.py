@@ -40,7 +40,26 @@ class ResConfigSettings(models.TransientModel):
         qr_redirect_uri = self.env["ir.config_parameter"].get_param(
             "wxwork.qr_redirect_uri"
         )
-        print(auth_redirect_uri[0:auth_redirect_uri])
+
+        new_auth_redirect_uri = (
+            urllib.parse.urlparse(web_base_url).scheme
+            + "://"
+            + urllib.parse.urlparse(web_base_url).netloc
+            + urllib.parse.urlparse(auth_redirect_uri).path
+        )
+        new_qr_redirect_uri = (
+            urllib.parse.urlparse(web_base_url).scheme
+            + "://"
+            + urllib.parse.urlparse(web_base_url).netloc
+            + urllib.parse.urlparse(qr_redirect_uri).path
+        )
+        self.env["ir.config_parameter"].sudo().set_param(
+            "wxwork.auth_redirect_uri", new_auth_redirect_uri
+        )
+        self.env["ir.config_parameter"].sudo().set_param(
+            "wxwork.qr_redirect_uri", new_qr_redirect_uri
+        )
+
         # auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
         # qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
 
