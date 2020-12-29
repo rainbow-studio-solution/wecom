@@ -18,11 +18,11 @@ _使用过程中发现错误，请参考帮助_
 
 ## 开源项目 
 
-1. wxwork_l10n （企业微信-本地化模块）
+1. wxwork_l10n （企业微信-本地化模块） 完成
    
-2. wxwork_base （企业微信-基础模块）测试通过
+2. wxwork_base （企业微信-基础模块）完成
 
-3. wxwrok_organization （企业微信-组织架构[部门/员工/用户]模型字段）
+3. wxwrok_organization （企业微信-组织架构[部门/员工/用户]模型字段）完成
    ```
    说明：同步功能死活无法读取新增的模型字段，
    发现模型字段不能含 translate=True
@@ -30,35 +30,36 @@ _使用过程中发现错误，请参考帮助_
    弄得最后单独将将企业微信有关组织架构的字段单独一个模块处理
    ``` 
 
-4. wxwork_hr_syncing （企业微信-同步功能）开展中......
+4. wxwork_hr_syncing （企业微信-同步功能）完成......
     ```bash
     #1. 安装扩展
     pip install numpy==1.19.3 opencv-python
 
-    #2. "获取部门成员"API department字段 没有将主部门 默认排第一个，导致同步时设置主部门错误。
+    #2. 
+    "获取部门成员"API department字段 没有将主部门 默认排第一个，导致同步时设置主部门错误。
     看了下读取成员API，多了个"main_department"（主部门）的字段。已向腾讯企业微信团队提交了需求，
     要么在"获取部门成员"API增加"main_department"（主部门）的字段,要么修复"department"字段的排序。
     设置主部门错误待腾讯修复。
     ``` 
+5. wxwork_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），开展中
+6. （拉取考勤记录）   
 
-   
+## 闭源项目
 
 
-
+# 功能模块列表
 
 # 帮助
 
 ## 安装
 
-[![Install](http://img.shields.io/badge/13.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md)
+[![Install](http://img.shields.io/badge/14.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md)
 
 ## 故障处理
 
-[![Help](http://img.shields.io/badge/13.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
+[![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 
-## 模块 介绍 
 
-## 使用说明
 
 # QQ群
 

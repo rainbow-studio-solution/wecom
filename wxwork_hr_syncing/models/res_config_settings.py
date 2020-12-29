@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from ..models.hr_employee import EmployeeSyncUser
 from ...wxwork_api.wx_qy_api.CorpApi import *
 from ...wxwork_api.wx_qy_api.ErrorCode import *
 from ...wxwork_api.helper.common import *
@@ -109,3 +110,32 @@ class ResConfigSettings(models.TransientModel):
                         % (e)
                     )
                 )
+
+    def cron_sync_users(self):
+        """
+            同步系统用户任务
+            :return:
+            """
+        params = self.env["ir.config_parameter"].sudo()
+
+        if not params.get_param("wxwork.contacts_sync_user_enabled"):
+            if params.get_param("wxwork.debug_enabled"):
+                _logger.warning(
+                    _(
+                        "The current setting does not allow synchronization from employees to system users"
+                    )
+                )
+            raise UserError(
+                "The current setting does not allow synchronization from employees to system users \n\n Please check related settings"
+            )
+        else:
+            try:
+                EmployeeSyncUser.sync_user(self.env["hr.employee"])
+            except Exception as e:
+                if params.get_param("wxwork.debug_enabled"):
+                    _logger.warning(
+                        _(
+                            "Task Failure Prompt - It is impossible to perform the task of synchronizing corporate WeChat employees as system users. The detailed reasons are as follows:%s"
+                            % (e)
+                        )
+                    )

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-28 15:07+0000\n"
-"PO-Revision-Date: 2020-12-28 23:32+0800\n"
+"POT-Creation-Date: 2020-12-29 07:18+0000\n"
+"PO-Revision-Date: 2020-12-29 15:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.1\n"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/sync_contacts.py:0
@@ -325,6 +325,18 @@ msgid "Enterprise WeChat system users"
 msgstr "企业微信系统用户"
 
 #. module: wxwork_hr_syncing
+#: model:ir.actions.server,name:wxwork_hr_syncing.ir_cron_sync_wxwork_users_ir_actions_server
+#: model:ir.cron,cron_name:wxwork_hr_syncing.ir_cron_sync_wxwork_users
+#: model:ir.cron,name:wxwork_hr_syncing.ir_cron_sync_wxwork_users
+msgid "Enterprise WeChat: Synchronize User regularly"
+msgstr "企业微信：定时同步用户"
+
+#. module: wxwork_hr_syncing
+#: model:ir.actions.act_window,name:wxwork_hr_syncing.ir_cron_act_users
+msgid "Enterprise WeChat: Synchronize Users regularly"
+msgstr "企业微信：定时同步用户"
+
+#. module: wxwork_hr_syncing
 #: model:ir.actions.act_window,name:wxwork_hr_syncing.ir_cron_act_contacts
 #: model:ir.actions.server,name:wxwork_hr_syncing.ir_cron_sync_wxwork_contacts_ir_actions_server
 #: model:ir.cron,cron_name:wxwork_hr_syncing.ir_cron_sync_wxwork_contacts
@@ -628,6 +640,11 @@ msgid "Successfully obtained corporate WeChat contact token."
 msgstr "成功获取企业微信通讯录token。"
 
 #. module: wxwork_hr_syncing
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_users_sync_auto
+msgid "Sync Users"
+msgstr "同步用户"
+
+#. module: wxwork_hr_syncing
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_auto
 msgid "Sync contacts"
@@ -667,6 +684,15 @@ msgstr "系统用户生成"
 #: code:addons/wxwork_hr_syncing/models/res_config_settings.py:0
 #, python-format
 msgid ""
+"Task Failure Prompt - It is impossible to perform the task of synchronizing "
+"corporate WeChat employees as system users. The detailed reasons are as "
+"follows:%s"
+msgstr "任务失败提示-无法执行微信员工同步为系统用户的任务。 详细原因如下：%s"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork_hr_syncing/models/res_config_settings.py:0
+#, python-format
+msgid ""
 "Task failure prompt - The task of synchronizing Enterprise WeChat contacts "
 "on a regular basis cannot be executed. The detailed reasons are as follows:"
 "%s"
@@ -680,6 +706,7 @@ msgid ""
 msgstr "Linux生产服务器使用以下命令来查看实时日志："
 
 #. module: wxwork_hr_syncing
+#: code:addons/wxwork_hr_syncing/models/res_config_settings.py:0
 #: code:addons/wxwork_hr_syncing/wizard/wizard_wxwork_sync_user.py:0
 #, python-format
 msgid ""

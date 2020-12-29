@@ -7,5 +7,12 @@
             <field name="view_mode">form</field>
             <field name="res_id" ref="ir_cron_sync_wxwork_contacts"/>
         </record>
+
+        <record id="ir_cron_act_users" model="ir.actions.act_window">
+            <field name="name">Enterprise WeChat: Synchronize Users regularly</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="ir_cron_sync_wxwork_users"/>
+        </record>
     </data>
 </odoo>
