@@ -67,7 +67,9 @@ class ResConfigSettings(models.TransientModel):
 
         try:
             providers = (
-                self.env["auth.oauth.provider"].sudo().search([("enabled", "=", True)])
+                self.env["auth.oauth.provider"]
+                .sudo()
+                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
             )
         except Exception:
             providers = []

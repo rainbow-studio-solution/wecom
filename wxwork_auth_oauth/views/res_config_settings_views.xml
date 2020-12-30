@@ -29,6 +29,7 @@
                                     <div class="mt16">
                                         <field name="auth_agentid" />
                                     </div>
+                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
@@ -47,10 +48,11 @@
                                     <div class="mt16">
                                         <field name="auth_secret" style="width: 100%;"/>
                                     </div>
+                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-12 o_setting_box">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-link fa-lg"/>
                             </div>
@@ -68,7 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-12 o_setting_box">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-link fa-lg"/>
                             </div>
