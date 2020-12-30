@@ -17,7 +17,7 @@
             <field name="data_endpoint"></field>
             <field name="css_class">fa fa-fw fa-wechat</field>
             <field name="body">Enterprise WeChat one-click login</field>
-            <field name="enabled" eval="True"/>
+            <field name="enabled" eval="False"/>
         </record>
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
@@ -28,7 +28,7 @@
             <field name="data_endpoint"></field>
             <field name="css_class">fa fa-fw fa-qrcode</field>
             <field name="body">Enterprise WeChat scan code login</field>
-            <field name="enabled" eval="True"/>
+            <field name="enabled" eval="False"/>
         </record>
 
         <record id="auth_agentid" model="ir.config_parameter">

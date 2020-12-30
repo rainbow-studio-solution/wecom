@@ -53,6 +53,8 @@ class ResConfigSettings(models.TransientModel):
             + urllib.parse.urlparse(web_base_url).netloc
             + urllib.parse.urlparse(qr_redirect_uri).path
         )
+
+        # 设置回调链接地址
         self.env["ir.config_parameter"].sudo().set_param(
             "wxwork.auth_redirect_uri", new_auth_redirect_uri
         )
@@ -60,22 +62,30 @@ class ResConfigSettings(models.TransientModel):
             "wxwork.qr_redirect_uri", new_qr_redirect_uri
         )
 
-        # auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
-        # qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
+        auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
+        qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
 
-        # try:
-        #     providers = (
-        #         self.env["auth.oauth.provider"].sudo().search([("enabled", "=", True)])
-        #     )
-        # except Exception:
-        #     providers = []
+        try:
+            providers = (
+                self.env["auth.oauth.provider"].sudo().search([("enabled", "=", True)])
+            )
+        except Exception:
+            providers = []
 
-        # for provider in providers:
-        #     if auth_endpoint in provider["auth_endpoint"]:
-        #         provider.write(
-        #             {"client_id": client_id, "validation_endpoint": auth_redirect_uri,}
-        #         )
-        #     if qr_auth_endpoint in provider["auth_endpoint"]:
-        #         provider.write(
-        #             {"client_id": client_id, "validation_endpoint": qr_redirect_uri,}
-        #         )
+        for provider in providers:
+            if auth_endpoint in provider["auth_endpoint"]:
+                provider.write(
+                    {
+                        "client_id": client_id,
+                        "validation_endpoint": auth_redirect_uri,
+                        "enabled": True,
+                    }
+                )
+            if qr_auth_endpoint in provider["auth_endpoint"]:
+                provider.write(
+                    {
+                        "client_id": client_id,
+                        "validation_endpoint": qr_redirect_uri,
+                        "enabled": True,
+                    }
+                )

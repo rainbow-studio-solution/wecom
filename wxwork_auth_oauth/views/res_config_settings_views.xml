@@ -93,7 +93,7 @@
                             <div class="o_setting_right_pane">
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        After correctly filling in "enterprise ID", "AgentId" and "Secret" that require authentication and authorization
+                                        Fill in the "Enterprise ID", "AgentId" and "Secret" that require authentication and authorization, and use the domain name to access,
                                         <span style="color:orange;padding: 0px 16px;">
                                             Click the button "One-click to set up enterprise WeChat OAuth"
                                         </span>
