@@ -18,7 +18,7 @@
     "depends": ["portal", "auth_oauth", "wxwork_hr_syncing",],
     "data": [
         "data/wxwork_oauth_data.xml",
-        "views/wxwork_auth_oauth_templates.xml",
+        "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         # 'views/auth_oauth_views.xml',
     ],

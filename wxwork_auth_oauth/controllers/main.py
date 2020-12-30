@@ -122,7 +122,7 @@ class OAuthLogin(Home):
         return state
 
 
-class OAuthController(Controller):
+class OAuthController(http.Controller):
     @http.route("/auth_oauth/ww_authorize", type="http", auth="none")
     def wxwork_signin(self, **kw):
         code = kw.pop("code", None)
@@ -181,7 +181,9 @@ class OAuthController(Controller):
             except AccessDenied:
                 # oauth credentials not valid, user could be on a temporary session
                 _logger.info(
-                    "OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
+                    _(
+                        "Enterprise WeChat OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
+                    )
                 )
                 url = "/web/login?oauth_error=3"
                 redirect = werkzeug.utils.redirect(url, 303)
@@ -252,7 +254,9 @@ class OAuthController(Controller):
             except AccessDenied:
                 # oauth credentials not valid, user could be on a temporary session
                 _logger.info(
-                    "OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
+                    _(
+                        "Enterprise WeChat OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
+                    )
                 )
                 url = "/web/login?oauth_error=3"
                 redirect = werkzeug.utils.redirect(url, 303)
@@ -260,7 +264,7 @@ class OAuthController(Controller):
                 return redirect
             except Exception as e:
                 # signup error
-                _logger.exception("OAuth2: %s" % str(e))
+                _logger.exception(_("Enterprise WeChat OAuth2: %s") % str(e))
                 url = "/web/login?oauth_error=2"
 
         return set_cookie_and_redirect(url)

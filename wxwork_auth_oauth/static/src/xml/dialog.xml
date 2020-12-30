@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="wxwork_auth_oauth.QrDialog">
+        <div class="ksher_mini_dialogs modal fade" id="wxwork_qr_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
+            <div class="modal-dialog">
+                <div class="modal-content border-0" style="background-color:transparent">
+                    <main class="modal-body" style="background-color:#FFFFFF">
+                        <iframe t-att-src="url" height="400" width="500"
+                                frameborder="0"
+                                scrolling="0"
+                                style="display:block;margin: 0 auto;"
+                        ></iframe>
+                    </main>
+                    <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">
+                        <button type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
+                            <i class="fa fa-times-circle-o" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
+                        </button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </t>
+
+</templates>
