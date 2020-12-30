@@ -1,3 +1,31 @@
+@include media-breakpoint-down(sm) {
+    .wxwork_qr_dialog {
+        iframe {
+            transform: scale(0.9) !important;
+            transform-origin: -110% 50% !important;
+        }
+    }
+}
+
+@media (max-width: 320px) {
+    .wxwork_qr_dialog {
+        iframe {
+            transform: scale(0.9) !important;
+            transform-origin: -180% 50% !important;
+        }
+    }
+}
+
+.wxwork_qr_dialog {
+    iframe {
+        width: 500px;
+        height: 400px;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+
 // 在odoo原生css的效果
 .o_auth_oauth_providers {
 
