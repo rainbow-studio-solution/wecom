@@ -16,6 +16,7 @@ class ResUsers(models.Model):
 
     @api.model
     def auth_oauth_wxwork(self, provider, validation):
+        # def auth_oauth_wxwork(self, provider, params):
         """
         允许一键登录和扫码登录且标记了企业微信的用户登录系统
         :param provider:
@@ -29,6 +30,7 @@ class ResUsers(models.Model):
             self.env["auth.oauth.provider"].sudo().search([("id", "=", provider),])
         )
 
+        # print(provider, validation)
         if (
             auth_endpoint in wxwork_providers["auth_endpoint"]
             or qr_auth_endpoint in wxwork_providers["auth_endpoint"]
@@ -39,6 +41,7 @@ class ResUsers(models.Model):
             )
             if not oauth_user or len(oauth_user) > 1:
                 return AccessDenied
+            # return user credentials
             return (self.env.cr.dbname, oauth_user.login, oauth_userid)
         else:
             return AccessDenied
@@ -49,8 +52,18 @@ class ResUsers(models.Model):
         try:
             return super(ResUsers, self)._check_credentials(password, env)
         except AccessDenied:
-            res = self.sudo().search(
-                [("id", "=", self.env.uid), ("oauth_uid", "=", password)]
+            passwd_allowed = (
+                env["interactive"] or not self.env.user._rpc_api_keys_only()
             )
-            if not res:
-                raise
+            if passwd_allowed and self.env.user.active:
+                res = self.sudo().search(
+                    [("id", "=", self.env.uid), ("oauth_uid", "=", password)]
+                )
+                if res:
+                    return
+            raise
+            # res = self.sudo().search(
+            #     [("id", "=", self.env.uid), ("oauth_uid", "=", password)]
+            # )
+            # if not res:
+            #     raise

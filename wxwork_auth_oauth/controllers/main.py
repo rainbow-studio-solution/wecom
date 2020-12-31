@@ -122,7 +122,8 @@ class OAuthLogin(Home):
         return state
 
 
-class OAuthController(http.Controller):
+# class OAuthController(http.Controller):
+class OAuthController(Controller):
     @http.route("/auth_oauth/ww_authorize", type="http", auth="none")
     def wxwork_signin(self, **kw):
         code = kw.pop("code", None)
@@ -147,8 +148,8 @@ class OAuthController(http.Controller):
                 credentials = (
                     env["res.users"].sudo().auth_oauth_wxwork(provider, response)
                 )
+                # credentials = env["res.users"].sudo().auth_oauth_wxwork(provider, kw)
 
-                print(provider)
                 cr.commit()
                 action = state.get("a")
                 menu = state.get("m")
