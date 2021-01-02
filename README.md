@@ -1,19 +1,8 @@
-<!-- [![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
-[![Install](http://img.shields.io/badge/14.0-安装-875A7B.svg?style=flat&colorA=8F8F8F)](doc/install/index.md) -->
-
-
-
-**请务必阅读安装说明**
-
-
-_使用过程中发现错误，请参考帮助_
-
 # 企业微信 For Odoo 14.0
 
-
-自己不是专职开发,还要负债运维和管理,往往一个功能断断续续做出来,要花不少时间.所以请见谅项目的进展速度.
-
-欢迎提交功能需求
+## 项目地址
+[![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wxwork)
+[![Gitee](http://img.shields.io/badge/14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wxwork)
 
 
 ## 开源项目 
