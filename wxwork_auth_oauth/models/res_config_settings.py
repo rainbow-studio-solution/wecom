@@ -30,7 +30,7 @@ class ResConfigSettings(models.TransientModel):
     )
 
     def set_oauth_provider_wxwork(self):
-        client_id = self.env["ir.config_parameter"].get_param("wxwork.corpid")
+        # client_id = self.env["ir.config_parameter"].get_param("wxwork.corpid")
 
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
 
@@ -79,7 +79,7 @@ class ResConfigSettings(models.TransientModel):
                 provider.write(
                     {
                         # "client_id": client_id,
-                        # "validation_endpoint": auth_redirect_uri,
+                        "validation_endpoint": auth_redirect_uri,
                         "enabled": True,
                     }
                 )
@@ -87,7 +87,7 @@ class ResConfigSettings(models.TransientModel):
                 provider.write(
                     {
                         # "client_id": client_id,
-                        # "validation_endpoint": qr_redirect_uri,
+                        "validation_endpoint": qr_redirect_uri,
                         "enabled": True,
                     }
                 )

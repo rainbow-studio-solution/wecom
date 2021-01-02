@@ -6,4 +6,4 @@ from odoo import fields, models
 class AuthOAuthProvider(models.Model):
     _inherit = "auth.oauth.provider"
 
-    description = fields.Text(string="OAuth description")
+    description = fields.Char(string="OAuth description")

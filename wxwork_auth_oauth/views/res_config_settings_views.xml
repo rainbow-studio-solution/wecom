@@ -8,15 +8,15 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_oauth" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa fa-sign-in fa-lg"/> Application login authorization</span>
+                        <span class="text-left"><i class="fa fa-sign-in fa-lg"  aria-label="" title=""/> Application login authorization</span>
                         <span class="text-right">
-                            <i class="fa fa-angle-double-up"/>
+                            <i class="fa fa-angle-double-up" aria-label="" title=""/>
                         </span>
                     </h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg"/>
+                                <i class="fa fa-list-ol fa-lg" aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_agentid"/>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg"/>
+                                <i class="fa fa-key fa-lg" aria-label="" title="" />
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_secret"/>
@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg"/>
+                                <i class="fa fa-link fa-lg" aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_redirect_uri"/>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg"/>
+                                <i class="fa fa-link fa-lg" aria-label="" title=""/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="qr_redirect_uri"/>

@@ -20,8 +20,6 @@
         "data/wxwork_oauth_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
-        # 'views/auth_oauth_views.xml',
     ],
     "qweb": ["static/src/xml/*.xml",],
-    "external_dependencies": {"python": [],},
 }

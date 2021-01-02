@@ -18,6 +18,7 @@
             <field name="css_class">fa fa-fw fa-wechat</field>
             <field name="body">Enterprise WeChat one-click login</field>
             <field name="enabled" eval="False"/>
+            <field name="description"></field>
         </record>
 
         <record id="provider_wxwork_qrconnect" model="auth.oauth.provider">
@@ -29,6 +30,7 @@
             <field name="css_class">fa fa-fw fa-qrcode</field>
             <field name="body">Enterprise WeChat scan code login</field>
             <field name="enabled" eval="False"/>
+            <field name="description"></field>
         </record>
 
         <record id="auth_agentid" model="ir.config_parameter">
@@ -41,11 +43,11 @@
         </record>
         <record id="auth_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.auth_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:port/auth_oauth/ww_authorize</field>
+            <field name="value">http://xxx.xxx.com:port/wxowrk_auth_oauth/authorize</field>
         </record>
         <record id="qr_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.qr_redirect_uri</field>
-            <field name="value">http://xxx.xxx.com:port/auth_oauth/wwqr</field>
+            <field name="value">http://xxx.xxx.com:port/wxowrk_auth_oauth/qr</field>
         </record>
 
     </data>

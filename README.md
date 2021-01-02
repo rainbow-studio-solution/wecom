@@ -41,14 +41,15 @@ _使用过程中发现错误，请参考帮助_
     要么在"获取部门成员"API增加"main_department"（主部门）的字段,要么修复"department"字段的排序。
     设置主部门错误待腾讯修复。
     ``` 
-5. wxwork_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），开展中
+5. wxwork_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），完成
    ```bash
    #若出现链接失败的提示或其他的失败提示，尝试修改odoo.conf 以下参数，我是直接放大10倍
    db_maxconn = 640
    limit_time_cpu = 600
    limit_time_real = 1200 
    ```
-6. （拉取考勤记录）   
+6. wxwork_message_push（企业微信消息推送），开展中   
+7. 拉取考勤记录
 
 ## 闭源项目
 
