@@ -53,15 +53,10 @@ class OAuthLogin(Home):
                 in provider["auth_endpoint"]
             ):
                 # 一键登录
-                return_url = (
-                    request.httprequest.url_root + "wxowrk_auth_oauth/authorize"
-                )
-
+                return_url = request.httprequest.url_root + "wxwork_auth_oauth/signin"
                 state = self.get_state(provider)
                 params = dict(
-                    appid=request.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("wxwork.corpid"),
+                    appid=provider["client_id"],
                     redirect_uri=return_url,
                     response_type="code",
                     scope=provider["scope"],
@@ -77,8 +72,7 @@ class OAuthLogin(Home):
                 in provider["auth_endpoint"]
             ):
                 # 扫描登录
-                return_url = request.httprequest.url_root + "wxowrk_auth_oauth/qr"
-
+                return_url = request.httprequest.url_root + "wxwork_auth_oauth/signin"
                 state = self.get_state(provider)
                 auth_agentid = (
                     request.env["ir.config_parameter"]
@@ -86,9 +80,7 @@ class OAuthLogin(Home):
                     .get_param("wxwork.auth_agentid")
                 )
                 params = dict(
-                    appid=request.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("wxwork.corpid"),
+                    appid=provider["client_id"],
                     agentid=auth_agentid,
                     redirect_uri=return_url,
                     state=json.dumps(state),
@@ -115,33 +107,21 @@ class OAuthLogin(Home):
 
 
 class OAuthController(Controller):
-    @http.route(
-        "/wxowrk_auth_oauth/authorize", type="http", auth="none",
-    )
-    def wxwork_web_authorize(self, **kw):
-        code = kw.pop("code", None)
-        corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
-        secret = (
-            request.env["ir.config_parameter"].sudo().get_param("wxwork.auth_secret")
-        )
-        wxwork_api = CorpApi(corpid, secret)
-        response = wxwork_api.httpCall(
-            CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},
-        )
-
+    @http.route("/wxwork_auth_oauth/signin", type="http", auth="none")
+    @fragment_to_query_string
+    def signin(self, **kw):
         state = json.loads(kw["state"])
         dbname = state["d"]
         if not http.db_filter([dbname]):
             return BadRequest()
         provider = state["p"]
-        context = {"no_user_creation": True}
+        context = state.get("c", {})
         registry = registry_get(dbname)
         with registry.cursor() as cr:
             try:
                 env = api.Environment(cr, SUPERUSER_ID, context)
-                credentials = (
-                    env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
-                )
+                credentials = env["res.users"].sudo().wxwor_auth_oauth(provider, kw)
+
                 cr.commit()
                 action = state.get("a")
                 menu = state.get("m")
@@ -169,8 +149,8 @@ class OAuthController(Controller):
                 _logger.error(
                     _(
                         "auth_signup not installed on database %s: oauth sign up cancelled."
+                        % (dbname,)
                     )
-                    % (dbname,)
                 )
                 url = "/web/login?oauth_error=1"
             except AccessDenied:
@@ -191,73 +171,3 @@ class OAuthController(Controller):
 
         return set_cookie_and_redirect(url)
 
-    @http.route("/wxowrk_auth_oauth/qr", type="http", auth="none")
-    def wxwork_qr_authorize(self, **kw):
-        code = kw.pop("code", None)
-        corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
-        secret = (
-            request.env["ir.config_parameter"].sudo().get_param("wxwork.auth_secret")
-        )
-        wxwork_api = CorpApi(corpid, secret)
-        response = wxwork_api.httpCall(
-            CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},
-        )
-
-        state = json.loads(kw["state"].replace("M", '"'))
-        dbname = state["d"]
-        if not http.db_filter([dbname]):
-            return BadRequest()
-        provider = state["p"]
-        context = {"no_user_creation": True}
-        registry = registry_get(dbname)
-
-        with registry.cursor() as cr:
-            try:
-                env = api.Environment(cr, SUPERUSER_ID, context)
-                credentials = (
-                    env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
-                )
-                cr.commit()
-                action = state.get("a")
-                menu = state.get("m")
-                redirect = (
-                    werkzeug.urls.url_unquote_plus(state["r"])
-                    if state.get("r")
-                    else False
-                )
-                url = "/web"
-                if redirect:
-                    url = redirect
-                elif action:
-                    url = "/web#action=%s" % action
-                elif menu:
-                    url = "/web#menu_id=%s" % menu
-
-                resp = login_and_redirect(*credentials, redirect_url=url)
-                if werkzeug.urls.url_parse(
-                    resp.location
-                ).path == "/web" and not request.env.user.has_group("base.group_user"):
-                    resp.location = "/"
-                return resp
-            except AttributeError:
-                # auth_signup is not installed
-                _logger.error(
-                    "auth_signup not installed on database %s: oauth sign up cancelled."
-                    % (dbname,)
-                )
-                url = "/web/login?oauth_error=1"
-            except AccessDenied:
-                # oauth credentials not valid, user could be on a temporary session
-                _logger.info(
-                    "OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
-                )
-                url = "/web/login?oauth_error=3"
-                redirect = werkzeug.utils.redirect(url, 303)
-                redirect.autocorrect_location_header = False
-                return redirect
-            except Exception as e:
-                # signup error
-                _logger.exception("OAuth2: %s" % str(e))
-                url = "/web/login?oauth_error=2"
-
-        return set_cookie_and_redirect(url)

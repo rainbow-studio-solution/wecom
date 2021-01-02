@@ -78,16 +78,16 @@ class ResConfigSettings(models.TransientModel):
             if auth_endpoint in provider["auth_endpoint"]:
                 provider.write(
                     {
-                        "client_id": client_id,
-                        "validation_endpoint": auth_redirect_uri,
+                        # "client_id": client_id,
+                        # "validation_endpoint": auth_redirect_uri,
                         "enabled": True,
                     }
                 )
             if qr_auth_endpoint in provider["auth_endpoint"]:
                 provider.write(
                     {
-                        "client_id": client_id,
-                        "validation_endpoint": qr_redirect_uri,
+                        # "client_id": client_id,
+                        # "validation_endpoint": qr_redirect_uri,
                         "enabled": True,
                     }
                 )
