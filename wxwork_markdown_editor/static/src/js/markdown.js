@@ -56,7 +56,10 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
             var $input = this._super.apply(this, arguments);
 
             _.defer(function ($elm) {
-                $input[1].remove();
+                if ($input[1]) {
+                    $input[1].remove();
+                }
+
                 $input.removeClass(this.className);
                 $input.wrap(
                     _.str.sprintf("<div class='%s'></div>", this.className));
@@ -64,7 +67,9 @@ odoo.define("wxwork_markdown_editor.FieldTextMarkDown", function (require) {
                 var fullscreen = $elm.prev().find(".md-control-fullscreen");
                 if (this.res_id) {
                     if (_t.database.multi_lang && this.field.translate) {
-                        $input[1].remove();
+                        if ($input[1]) {
+                            $input[1].remove();
+                        }
                         var $button = this._renderTranslateButton();
                         $button.addClass("fa fa-language fa-lg");
                         fullscreen.before($button);
