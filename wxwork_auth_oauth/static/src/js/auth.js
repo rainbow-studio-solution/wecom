@@ -39,7 +39,8 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                     var logon_button = dialog.find("button:first");
                     console.log(logon_button)
                     logon_button.click(function (event) {
-                        alert("待处理")
+                        var url = self.$el.find("i.fa-wechat").parent().attr('href');
+                        window.open(url);
                     })
                 }
             }
