@@ -277,7 +277,7 @@ class MessageTemplate(models.Model):
                         "model_id": template.model_id.id,
                         # "model": template.model,
                         "lang": template.lang,
-                        "user_signature": template.user_signature,
+                        # "user_signature": template.user_signature,
                         "subject": template.subject,
                         "message_from": template.email_from,
                         "use_default_to": template.use_default_to,
@@ -301,10 +301,17 @@ class MessageTemplate(models.Model):
                         "msgtype": "markdown",
                     }
                 )
-
+        return True
         # return {
         #     "type": "ir.actions.client",
-        #     "tag": "reload",
+        #     "tag": "display_notification",
+        #     "params": {
+        #         "title": _("Copy successfully!"),
+        #         "type": "success",
+        #         "message": _("One-click copy of email template succeeded!"),
+        #         "sticky": False,  # 延时关闭
+        #         "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+        #     },
         # }
 
     def html2text_handle(self, html):
