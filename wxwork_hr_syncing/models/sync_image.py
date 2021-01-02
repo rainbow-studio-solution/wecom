@@ -59,7 +59,7 @@ class SyncImage(object):
             if platform.system() == "Windows":
                 thread_max = int(os.getpid())
             else:
-                thread_max = int(os.getpid() / 1000)
+                thread_max = int(os.getpid() / 900)
 
             # print(thread_max)
             status = {}
