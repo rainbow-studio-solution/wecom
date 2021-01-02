@@ -1,3 +1,16 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.2.1\n"
+
 #. module: base
 #: model:ir.module.category,name:base.module_category_enterprise_wechat
 #: model:ir.module.category,name:base.module_category_enterprise_wechat_enterprise_wechat
@@ -24,7 +37,6 @@ msgstr "企业微信 API"
 msgid "Enterprise WeChat Authentication"
 msgstr "企业微信验证登录"
 
-
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_syncing
 msgid "Enterprise WeChat Hr Syncing"
@@ -34,3 +46,29 @@ msgstr "企业微信同步到HR"
 #: model:ir.module.module,shortdesc:base.module_wxwrok_organization
 msgid "Enterprise WeChat Organization"
 msgstr "企业微信组织架构模型字段"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_markdown_editor
+msgid "Enterprise WeChat MarkDown Editor"
+msgstr "企业微信组MarkDown编辑器"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wxwork_markdown_editor
+msgid "Bootstrap Markdown Editor for Enterprise WeChat"
+msgstr "Bootstrap Markdown编辑器企业微信版本"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_message_push
+msgid "Enterprise WeChat Message Push"
+msgstr "企业微信消息推送"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wxwork_message_push
+msgid ""
+"\n"
+"        Odoo event notification to enterprise WeChat\n"
+"        "
+msgstr ""
+"\n"
+"        Odoo事件通知到企业微信\n"
+"        "

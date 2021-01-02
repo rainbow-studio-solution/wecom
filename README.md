@@ -48,8 +48,9 @@ _使用过程中发现错误，请参考帮助_
    limit_time_cpu = 600
    limit_time_real = 1200 
    ```
-6. wxwork_message_push（企业微信消息推送），开展中   
-7. 拉取考勤记录
+6. wxwork_markdown_editor（企业微信消息模板markdown编辑器），开展中
+7. wxwork_message_push（企业微信消息推送），开展中
+8. 拉取考勤记录
 
 ## 闭源项目
 
