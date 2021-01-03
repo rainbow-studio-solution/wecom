@@ -3,7 +3,7 @@
     <data>
         
 
-        <menuitem id="menu_wxwork_message" name="Message" parent="wxwork_base.menu_wxwork_root" sequence="40" />
+        <menuitem id="menu_wxwork_message" name="Message" parent="wxwork_base.menu_wxwork_root" sequence="98" />
 
         <menuitem id="menu_wxwork_message_template" name="Template" parent="menu_wxwork_message"
                   action="action_message_template_tree_all" sequence="10"/>
