@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-27 03:20+0000\n"
-"PO-Revision-Date: 2020-12-27 11:26+0800\n"
+"POT-Creation-Date: 2021-01-03 08:43+0000\n"
+"PO-Revision-Date: 2021-01-03 16:44+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #. module: wxwrok_organization
 #: model_terms:ir.ui.view,arch_db:wxwrok_organization.res_config_settings_view_form
@@ -93,7 +93,7 @@ msgid "Create department."
 msgstr "创建部门。"
 
 #. module: wxwrok_organization
-#: model:ir.model,name:wxwrok_organization.model_hr_department
+#: model:ir.model,name:wxwrok_organization.model_hr_department model:ir.ui.menu,name:wxwrok_organization.menu_wxwork_organization_department_kanban
 msgid "Department"
 msgstr "部门"
 
@@ -107,6 +107,11 @@ msgstr "部门编号。 获取指定的部门及其子部门。 如果您不填�
 #: model:ir.model.fields,field_description:wxwrok_organization.field_res_config_settings__display_name model:ir.model.fields,field_description:wxwrok_organization.field_res_users__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: wxwrok_organization
+#: model:ir.ui.menu,name:wxwrok_organization.menu_wxwork_organization_employee
+msgid "Employee"
+msgstr "员工"
 
 #. module: wxwrok_organization
 #: model_terms:ir.ui.view,arch_db:wxwrok_organization.res_config_settings_view_form
@@ -207,7 +212,7 @@ msgstr "企业微信处理"
 #: model:ir.model.fields,field_description:wxwrok_organization.field_hr_department__id model:ir.model.fields,field_description:wxwrok_organization.field_hr_employee__id
 #: model:ir.model.fields,field_description:wxwrok_organization.field_res_config_settings__id model:ir.model.fields,field_description:wxwrok_organization.field_res_users__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwrok_organization
 #: model_terms:ir.ui.view,arch_db:wxwrok_organization.res_config_settings_view_form
@@ -286,6 +291,11 @@ msgstr "通知"
 #: model:ir.model.fields,help:wxwrok_organization.field_hr_department__wxwork_department_order
 msgid "Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)"
 msgstr "上级部门的排序值。 高阶值首先被排序。 值范围是[0，2 ^ 32）"
+
+#. module: wxwrok_organization
+#: model:ir.ui.menu,name:wxwrok_organization.menu_wxwork_organization_main
+msgid "Organization"
+msgstr "组织架构"
 
 #. module: wxwrok_organization
 #: model:ir.model.fields,help:wxwrok_organization.field_hr_department__wxwork_department_parent_id
