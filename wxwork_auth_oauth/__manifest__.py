@@ -2,7 +2,7 @@
 {
     "name": "Enterprise WeChat Authentication",
     "author": "RStudio",
-    "website": "",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 604,
     "installable": True,
     "application": True,

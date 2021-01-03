@@ -5,6 +5,7 @@
     "author": "RStudio",
     "category": "Enterprise WeChat/Enterprise WeChat",
     "summary": "Bootstrap Markdown Editor for Enterprise WeChat",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "version": "14.0.0.1",
     "description": """ 
 

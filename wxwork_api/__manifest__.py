@@ -2,7 +2,7 @@
 {
     "name": "Enterprise WeChat API",
     "author": "RStudio",
-    "website": "",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 601,
     "installable": True,
     "application": True,

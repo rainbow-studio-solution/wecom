@@ -2,7 +2,7 @@
 {
     "name": "Enterprise WeChat Message Push",
     "author": "RStudio",
-    "website": "",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 606,
     "installable": True,
     "application": True,

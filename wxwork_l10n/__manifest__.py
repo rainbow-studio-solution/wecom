@@ -3,6 +3,7 @@
 {
     "name": "Enterprise WeChat localization",
     "author": "RStudio",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 600,
     "installable": True,
     "application": True,

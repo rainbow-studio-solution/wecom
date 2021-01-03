@@ -2,7 +2,7 @@
 {
     "name": "Enterprise WeChat Hr Syncing",
     "author": "RStudio",
-    "website": "",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 603,
     "installable": True,
     "application": True,

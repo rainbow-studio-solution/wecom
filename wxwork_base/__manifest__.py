@@ -8,6 +8,7 @@
     "application": True,
     "auto_install": False,
     "category": "Enterprise WeChat/Enterprise WeChat",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
     "version": "14.0.0.1",
     "summary": """
         
@@ -17,6 +18,8 @@
         """,
     "depends": ["wxwork_l10n"],
     "data": [
+        "security/wxwork_security.xml",
+        "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
         "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
