@@ -50,7 +50,7 @@ msgstr "企业微信组织架构模型字段"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_markdown_editor
 msgid "Enterprise WeChat MarkDown Editor"
-msgstr "企业微信组MarkDown编辑器"
+msgstr "企业微信MarkDown编辑器"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wxwork_markdown_editor

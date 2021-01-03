@@ -2,24 +2,61 @@
 <odoo>
     <data>
         <!--    HR菜单    -->
-        <menuitem id="menu_wxwork_contacts_sync" name="Sync contacts" parent="hr.menu_hr_root" sequence="90" groups="hr.group_hr_manager"/>
+        <menuitem 
+            id="menu_wxwork_contacts_sync_main" 
+            name="Sync contacts" 
+            parent="wxwrok_organization.menu_wxwork_organization_main" 
+            sequence="10" 
+            groups="wxwork_base.group_wxwork_manager"/>
 
-            <menuitem id="menu_wxwork_contacts_wizard" name="Wizard synchronization" parent="menu_wxwork_contacts_sync"
-                    action="wxwork_contacts_wizard" groups="hr.group_hr_manager"  sequence="10"/>
+            <menuitem 
+                id="menu_wxwork_contacts_wizard" 
+                name="Wizard synchronization" 
+                parent="menu_wxwork_contacts_sync_main"
+                action="wxwork_contacts_wizard" 
+                groups="wxwork_base.group_wxwork_manager" 
+                sequence="10"/>
 
-            <menuitem id="menu_wxwork_contacts_sync_record" name="Synchronous recording" parent="menu_wxwork_contacts_sync"
-                    action="open_view_wxwork_contacts_sync_tree" groups="hr.group_hr_manager"  sequence="20"/>
+            <menuitem id="menu_wxwork_contacts_sync_record" 
+                name="Synchronous recording" 
+                parent="menu_wxwork_contacts_sync_main"
+                action="open_view_wxwork_contacts_sync_tree" 
+                groups="wxwork_base.group_wxwork_manager" 
+                sequence="20"/>
 
-        <!--    系统设置菜单    -->
+        <menuitem 
+            id="menu_wxwork_users_sync_main" 
+            name="Sync User" 
+            parent="wxwrok_organization.menu_wxwork_organization_main" 
+            sequence="20" 
+            groups="wxwork_base.group_wxwork_manager"/>
 
-        <menuitem id="menu_wxwork_contacts_sync_user_wizard" name="Wizard synchronization" parent="wxwork_base.menu_wxwork_sync_user"
-                  action="view_actions_wxwork_user_wizard" sequence="10"/>
+            <menuitem 
+                id="menu_wxwork_contacts_sync_user_wizard" 
+                name="Wizard synchronization" 
+                parent="menu_wxwork_users_sync_main"
+                action="view_actions_wxwork_user_wizard" 
+                sequence="10"/>
 
-        <menuitem id="menu_wxwork_contacts_sync_user_record" name="Synchronous recording" parent="wxwork_base.menu_wxwork_sync_user"
-                  action="open_view_wxwork_sync_user_tree" sequence="10"/>
+            <menuitem 
+                id="menu_wxwork_contacts_sync_user_record" 
+                name="Synchronous recording" 
+                parent="menu_wxwork_users_sync_main"
+                action="open_view_wxwork_sync_user_tree" 
+                sequence="10"/>
 
-            <menuitem id="menu_wxwork_contacts_sync_auto" name="Sync contacts" parent="wxwork_base.menu_wxwork_cron" action="ir_cron_act_contacts" sequence="1"/>
-            <menuitem id="menu_wxwork_users_sync_auto" name="Sync Users" parent="wxwork_base.menu_wxwork_cron" action="ir_cron_act_users" sequence="2"/>
+        <menuitem 
+            id="menu_wxwork_contacts_sync_auto" 
+            name="Sync contacts" 
+            parent="wxwork_base.menu_wxwork_cron" 
+            action="ir_cron_act_contacts" 
+            sequence="1"/>
+        <menuitem 
+            id="menu_wxwork_users_sync_auto" 
+            name="Sync Users" 
+            parent="wxwork_base.menu_wxwork_cron" 
+            action="ir_cron_act_users" 
+            sequence="2"/>
 
     </data>
 </odoo>

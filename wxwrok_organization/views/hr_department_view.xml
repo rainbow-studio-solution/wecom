@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- 继承HR -->
         <record id="view_department_form" model="ir.ui.view">
             <field name="name">wxwork.department.form</field>
             <field name="model">hr.department</field>
@@ -34,14 +35,10 @@
             </field>
         </record>
 
-
-
         <record id="open_module_tree_department" model="ir.actions.act_window">
             <field name="name">Enterprise WeChat Department</field>
             <field name="res_model">hr.department</field>
             <field name="view_mode">tree,form</field>
-            <!--            <field name="view_mode">form</field>-->
-            <!--            <field name="">{'default_is_wxwork_department':True}</field>-->
             <field name="domain">[('is_wxwork_department','=',1)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -52,5 +49,6 @@
                 </p>
             </field>
         </record>
+
     </data>
 </odoo>

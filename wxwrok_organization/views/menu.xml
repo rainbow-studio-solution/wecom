@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem
+            id="menu_wxwork_organization_main"
+            name="Organization"
+            parent="wxwork_base.menu_wxwork_root"
+            sequence="0"/>
+
+        <!-- <menuitem
+            id="menu_wxwork_organization_department_tree"
+            name="Department"
+            action="wxwork_organization_department_tree_action"
+            parent="menu_wxwork_organization_main"
+            sequence="0"
+            groups="group_wxwork_user" /> -->
+
+        <menuitem
+            id="menu_wxwork_organization_department_kanban"
+            name="Department"
+            action="hr.hr_department_kanban_action"
+            parent="menu_wxwork_organization_main"
+            sequence="0" 
+            groups="wxwork_base.group_wxwork_user" />
+
+        <menuitem
+            id="menu_wxwork_organization_employee"
+            name="Employee"
+            action="hr.open_view_employee_list_my"
+            parent="menu_wxwork_organization_main"
+            sequence="1"
+            groups="wxwork_base.group_wxwork_user" />
+
+
+    </data>
+</odoo>
