@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-29 07:18+0000\n"
-"PO-Revision-Date: 2020-12-29 15:21+0800\n"
+"POT-Creation-Date: 2021-01-03 08:46+0000\n"
+"PO-Revision-Date: 2021-01-03 16:48+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.1\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork_hr_syncing/models/sync_contacts.py:0
@@ -447,7 +447,7 @@ msgstr "获取员工的上级部门错误：%s"
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_contacts__id
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_user__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
@@ -640,13 +640,18 @@ msgid "Successfully obtained corporate WeChat contact token."
 msgstr "成功获取企业微信通讯录token。"
 
 #. module: wxwork_hr_syncing
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_users_sync_main
+msgid "Sync User"
+msgstr "同步为系统用户"
+
+#. module: wxwork_hr_syncing
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_users_sync_auto
 msgid "Sync Users"
 msgstr "同步用户"
 
 #. module: wxwork_hr_syncing
-#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_auto
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_main
 msgid "Sync contacts"
 msgstr "同步通讯录"
 
