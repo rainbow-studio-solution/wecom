@@ -28,7 +28,7 @@ class ResConfigSettings(models.TransientModel):
         else:
             params = {}
             try:
-                api = CorpApi(corpid, secret)
+                wxapi = CorpApi(corpid, secret)
                 params = {
                     "title": _("Success"),
                     "message": _(
@@ -39,7 +39,7 @@ class ResConfigSettings(models.TransientModel):
                     "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 self.env["ir.config_parameter"].sudo().set_param(
-                    "wxwork.contacts_access_token", api.getAccessToken()
+                    "wxwork.contacts_access_token", wxapi.getAccessToken()
                 )
                 action = {
                     "type": "ir.actions.client",

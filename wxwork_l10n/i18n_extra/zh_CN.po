@@ -63,6 +63,11 @@ msgid "Enterprise WeChat Message Push"
 msgstr "企业微信消息推送"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_attendance
+msgid "Enterprise WeChat Attendances"
+msgstr "企业微信考勤"
+
+#. module: base
 #: model:ir.module.module,summary:base.module_wxwork_message_push
 msgid ""
 "\n"
