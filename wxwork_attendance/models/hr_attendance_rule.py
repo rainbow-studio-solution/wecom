@@ -6,6 +6,7 @@ from odoo import models, fields, api, exceptions, _
 class HrAttendanceWxwrokRule(models.Model):
     _name = "hr.attendance.wxwrok.rule"
     _description = "Enterprise WeChat attendance rule"
+    _order = "create_time"
 
     grouptype = fields.Selection(
         [("1", _("Fixed time")), ("2", _("By shift")), ("3", _("Freedom")),],
@@ -69,7 +70,7 @@ class HrAttendanceWxwrokRule(models.Model):
             ("2", _("Attendance machine")),
             ("3", _("Mobile phone + attendance machine")),
         ],
-        string="",
+        string="Check-in method",
         readonly=True,
         help="打卡方式，0:手机；2:智慧考勤机；3:手机+智慧考勤机",
     )
