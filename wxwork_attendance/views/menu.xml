@@ -21,6 +21,21 @@
                 parent="menu_wxwork_attendance_main"
                 sequence="2"/>
 
-            
+            <menuitem
+                id="menu_wxwork_attendance_pull"
+                name="Attendance pull"
+                parent="menu_wxwork_attendance_main"
+                sequence="3"/>
+
+                <menuitem
+                    id="menu_wxwork_attendance_rule_pull"
+                    name="Attendance rules pull"
+                    parent="menu_wxwork_attendance_pull"
+                    sequence="1"/>
+                <menuitem
+                    id="menu_wxwork_attendance_data_pull"
+                    name="Attendance data pull"
+                    parent="menu_wxwork_attendance_pull"
+                    sequence="2"/>
     </data>
 </odoo>

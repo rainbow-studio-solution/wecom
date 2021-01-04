@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_attendance_wxwrok_data,hr.attendance.wxwrok.data,model_hr_attendance_wxwrok_data,wxwork_base.group_wxwork_user,1,0,0,0
+access_hr_attendance_wxwrok_data,hr.attendance.wxwrok.data,model_hr_attendance_wxwrok_data,wxwork_base.group_wxwork_manager,1,0,0,0
+access_hr_attendance_wxwrok_rule,hr.attendance.wxwrok.rule,model_hr_attendance_wxwrok_rule,wxwork_base.group_wxwork_user,1,0,0,0
+access_hr_attendance_wxwrok_rule,hr.attendance.wxwrok.rule,model_hr_attendance_wxwrok_rule,wxwork_base.group_wxwork_manager,1,0,0,0
