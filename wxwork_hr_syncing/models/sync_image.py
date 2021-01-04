@@ -59,7 +59,7 @@ class SyncImage(object):
             if platform.system() == "Windows":
                 thread_max = int(os.getpid())
             else:
-                thread_max = int(os.getpid() / 900)
+                thread_max = int(os.getpid() / 800)
 
             # print(thread_max)
             status = {}
@@ -207,3 +207,4 @@ class SyncImage(object):
                 print(
                     _("Failed to download image of %s error: %s") % (user_name, repr(e))
                 )
+            pass

@@ -84,7 +84,20 @@ class HrEmployee(models.Model):
             times1 = end1 - start1
 
             start2 = time.time()
-            self.sync_leave_employee(response, debug)  # 同步离职员工
+
+            # 判断企业微信员工list为空，为空跳过同步离职员工
+            employee = self.search(
+                [
+                    ("is_wxwork_employee", "=", True),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ],
+            )
+            if not employee:
+                pass
+            else:
+                self.sync_leave_employee(response, debug)  # 同步离职员工
             end2 = time.time()
             times2 = end2 - start2
 
