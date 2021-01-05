@@ -69,6 +69,10 @@ CORP_API_TYPE = {
     ],
     "GET_TICKET": ["/cgi-bin/ticket/get?access_token=ACCESS_TOKEN", "GET"],
     "GET_JSAPI_TICKET": ["/cgi-bin/get_jsapi_ticket?access_token=ACCESS_TOKEN", "GET"],
+    "GET_CORP_CHECKIN_OPTION": [
+        "/cgi-bin/checkin/getcorpcheckinoption?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
     "GET_CHECKIN_OPTION": [
         "/cgi-bin/checkin/getcheckinoption?access_token=ACCESS_TOKEN",
         "POST",
@@ -122,9 +126,6 @@ class CorpApi(AbstractApi):
     def refreshAccessToken(self):
         response = self.httpCall(
             CORP_API_TYPE["GET_ACCESS_TOKEN"],
-            {
-                "corpid": self.corpid,
-                "corpsecret": self.secret,
-            },
+            {"corpid": self.corpid, "corpsecret": self.secret,},
         )
         self.access_token = response.get("access_token")

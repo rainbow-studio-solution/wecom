@@ -113,3 +113,4 @@ class HrAttendanceWxwrokRule(models.Model):
     offwork_interval_time = fields.Integer(
         string="Free sign in", readonly=True, help="自由签到，上班打卡后xx秒可打下班卡",
     )
+

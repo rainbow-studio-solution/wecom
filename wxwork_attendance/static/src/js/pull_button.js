@@ -17,6 +17,7 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
             // var self = this;
             this.do_action({
                 context: {},
+                name: "Wizard pull attendance rules",
                 type: "ir.actions.act_window",
                 res_id: false,
                 res_model: "wizard.attendance.rule.pull",
