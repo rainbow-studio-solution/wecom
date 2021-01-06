@@ -8,6 +8,7 @@ from ...wxwork_api.wx_qy_api.ErrorCode import Errcode
 import datetime
 import time
 import json
+import binascii
 
 
 class WizardAttendanceRulePull(models.TransientModel):
@@ -27,6 +28,7 @@ class WizardAttendanceRulePull(models.TransientModel):
 
     def create_wxwork_attendance(self, attendance, checkinoption):
         # print(json.dumps(checkinoption["group"]["checkindate"]))
+
         t = datetime.datetime.strptime(
             self.current_date.strftime("%Y-%m-%d 00:00:00"), "%Y-%m-%d %H:%M:%S"
         )
@@ -164,7 +166,7 @@ class WizardAttendanceRulePull(models.TransientModel):
         if not self.department_id:
             try:
                 response = wxapi.httpCall(CORP_API_TYPE["GET_CORP_CHECKIN_OPTION"],)
-                print(json.dumps(response))
+                # print(json.dumps(response))
                 for res in response["group"]:
                     self.pull_attendance_rule(res, debug)
             except ApiException as e:
@@ -194,36 +196,46 @@ class WizardAttendanceRulePull(models.TransientModel):
                 )
 
     def create_rule(self, rule, res, debug):
-        print(res["spe_workdays"], type(res["spe_workdays"]))
+        # print(res["groupname"])
+        # str(value).encode('ascii')
         try:
             rule.create(
                 {
-                    "grouptype": res["grouptype"],
+                    "name": res["groupname"],
                     "groupid": res["groupid"],
-                    "checkindate": self.check_json_list(res["checkindate"]),
-                    "spe_workdays": self.check_json_list(res["spe_workdays"]),
-                    "spe_offdays": self.check_json_list(res["spe_offdays"]),
-                    "sync_holidays": res["sync_holidays"],
+                    # "grouptype": res["grouptype"],#TODO
+                    "checkindate": res["checkindate"],
+                    "spe_workdays": res["spe_workdays"],
+                    # "spe_offdays": json.dumps(res["spe_offdays"]),#TODO
+                    "sync_holidays": self.check_type(res, "sync_holidays"),
                     "groupname": res["groupname"],
                     "need_photo": res["need_photo"],
-                    "wifimac_infos": self.check_json_list(res["wifimac_infos"]),
+                    "wifimac_infos": res["wifimac_infos"],
                     "note_can_use_local_pic": res["note_can_use_local_pic"],
-                    "allow_checkin_offworkday": res["allow_checkin_offworkday"],
-                    "allow_apply_offworkday": res["allow_apply_offworkday"],
-                    "loc_infos": self.check_json_list(res["loc_infos"]),
-                    "range": self.check_json_list(res["range"]),
-                    "create_time": res["create_time"],
-                    "white_users": self.check_json_list(res["white_users"]),
-                    "type": res["type"],
-                    "reporterinfo": self.check_json_list(res["reporterinfo"]),
-                    "ot_info": self.check_json_list(res["ot_info"]),
+                    "allow_checkin_offworkday": self.check_type(
+                        res, "allow_checkin_offworkday"
+                    ),
+                    "allow_apply_offworkday": self.check_type(
+                        res, "allow_apply_offworkday"
+                    ),
+                    "loc_infos": res["loc_infos"],
+                    "range": res["range"],
+                    "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
+                    "white_users": res["white_users"],
+                    # "type": res["type"],#TODO
+                    "reporterinfo": res["reporterinfo"],
+                    "ot_info": self.check_type(res, "ot_info"),
                     "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],
                     "option_out_range": res["option_out_range"],
-                    "use_face_detect": res["use_face_detect"],
-                    "allow_apply_bk_day_limit": res["allow_apply_bk_day_limit"],
-                    "update_userid": res["update_userid"],
-                    "schedulelist": self.check_json_list(res["schedulelist"]),
-                    "offwork_interval_time": res["offwork_interval_time"],
+                    "use_face_detect": self.check_type(res, "use_face_detect"),
+                    "allow_apply_bk_day_limit": self.check_type(
+                        res, "allow_apply_bk_day_limit"
+                    ),
+                    "update_userid": self.check_type(res, "update_userid"),
+                    "schedulelist": res["schedulelist"],
+                    "offwork_interval_time": self.check_type(
+                        res, "offwork_interval_time"
+                    ),
                 }
             )
         except Exception as e:
@@ -233,10 +245,64 @@ class WizardAttendanceRulePull(models.TransientModel):
                 )
 
     def update_rule(self, rule, res, debug):
-        pass
+        # print(self.check_json_data(res["spe_offdays"]))
+        try:
+            rule.write(
+                {
+                    "name": res["groupname"],
+                    # "grouptype": res["grouptype"],#TODO
+                    "checkindate": res["checkindate"],
+                    "spe_workdays": res["spe_workdays"],
+                    # "spe_offdays": json.dumps(res["spe_offdays"]),#TODO
+                    "sync_holidays": self.check_type(res, "sync_holidays"),
+                    "groupname": res["groupname"],
+                    "need_photo": res["need_photo"],
+                    "wifimac_infos": res["wifimac_infos"],
+                    "note_can_use_local_pic": res["note_can_use_local_pic"],
+                    "allow_checkin_offworkday": self.check_type(
+                        res, "allow_checkin_offworkday"
+                    ),
+                    "allow_apply_offworkday": self.check_type(
+                        res, "allow_apply_offworkday"
+                    ),
+                    "loc_infos": res["loc_infos"],
+                    "range": res["range"],
+                    "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
+                    "white_users": res["white_users"],
+                    # "type": res["type"],#TODO
+                    "reporterinfo": res["reporterinfo"],
+                    "ot_info": self.check_type(res, "ot_info"),
+                    "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],
+                    "option_out_range": res["option_out_range"],
+                    "use_face_detect": self.check_type(res, "use_face_detect"),
+                    "allow_apply_bk_day_limit": self.check_type(
+                        res, "allow_apply_bk_day_limit"
+                    ),
+                    "update_userid": self.check_type(res, "update_userid"),
+                    "schedulelist": res["schedulelist"],
+                    "offwork_interval_time": self.check_type(
+                        res, "offwork_interval_time"
+                    ),
+                }
+            )
+        except Exception as e:
+            if debug:
+                print(
+                    _("Update attendance rules error: %s") % (res["groupname"], repr(e))
+                )
 
-    def check_json_list(self, list):
+    def check_json_data(self, list):
         if not list:
             return None
         else:
             json.dumps(list)
+
+    def check_type(self, res, key):
+        """
+        由于考勤规则三个类型的字典不一样
+        故需要检查班次类型
+        """
+        if key in res.keys():
+            return res[key]
+        else:
+            return None

@@ -8,15 +8,16 @@ class HrAttendanceWxwrokRule(models.Model):
     _description = "Enterprise WeChat attendance rule"
     _order = "create_time"
 
+    name = fields.Char(string="Attendance rule name", readonly=True, help="打卡规则名称",)
+    groupid = fields.Integer(string="Attendance rule id", readonly=True, help="打卡规则id",)
+    groupname = fields.Char(
+        string="Attendance rule name", readonly=True, help="打卡规则名称",
+    )
     grouptype = fields.Selection(
         [("1", _("Fixed time")), ("2", _("By shift")), ("3", _("Freedom")),],
         string="Attendance rule type",
         readonly=True,
         help="打卡规则类型，1：固定时间上下班；2：按班次上下班；3：自由上下班",
-    )
-    groupid = fields.Integer(string="Attendance rule id", readonly=True, help="打卡规则id",)
-    groupname = fields.Char(
-        string="Attendance rule name", readonly=True, help="打卡规则名称",
     )
     checkindate = fields.Char(
         string="Attendance time data", readonly=True, help="打卡时间，当规则类型为排班时没有意义",
@@ -113,4 +114,15 @@ class HrAttendanceWxwrokRule(models.Model):
     offwork_interval_time = fields.Integer(
         string="Free sign in", readonly=True, help="自由签到，上班打卡后xx秒可打下班卡",
     )
+
+    # @api.model
+    # def create(self, values):
+    #     values["grouptype"] = "1"
+    #     line = super(HrAttendanceWxwrokRule, self).create(values)
+    #     return line
+
+    # @api.multi
+    # def write(self, vals):
+    #     vals["grouptype"] = "1"
+    #     ret = super(HrAttendanceWxwrokRule, self).write(vals)
 
