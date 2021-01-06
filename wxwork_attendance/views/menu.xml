@@ -38,5 +38,12 @@
                     name="Attendance data pull"
                     parent="menu_wxwork_attendance_pull"
                     sequence="2"/>
+
+        <menuitem 
+            id="menu_wxwork_attendance_sync_auto" 
+            name="Sync Attendance" 
+            parent="wxwork_base.menu_wxwork_cron" 
+            action="ir_cron_act_attendance" 
+            sequence="3"/>
     </data>
 </odoo>

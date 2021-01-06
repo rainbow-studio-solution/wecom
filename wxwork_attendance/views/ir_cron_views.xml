@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="ir_cron_act_attendance" model="ir.actions.act_window">
+            <field name="name">Enterprise WeChat: Pull attendance data</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="ir_cron_auto_pull_attendance_data"/>
+        </record>
+    </data>
+</odoo>

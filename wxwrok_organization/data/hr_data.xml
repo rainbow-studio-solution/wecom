@@ -12,14 +12,10 @@
         <function model="hr.department" name="write">
             <value eval="[ref('hr.dep_administration')]"/>
             <value eval="{'active': False}"/>
-            
         </function>
         <function model="hr.department" name="write">
             <value eval="[ref('hr.dep_sales')]"/>
             <value eval="{'active': False}"/>
-            
         </function>
-
-        
     </data>
 </odoo>

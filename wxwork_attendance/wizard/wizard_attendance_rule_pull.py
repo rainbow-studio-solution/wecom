@@ -24,134 +24,19 @@ class WizardAttendanceRulePull(models.TransientModel):
         required=True,
         help="规则的日期当天0点的Unix时间戳",
     )
-    status = fields.Boolean(string="Status", readonly=True)
 
-    def create_wxwork_attendance(self, attendance, checkinoption):
-        # print(json.dumps(checkinoption["group"]["checkindate"]))
+    status = fields.Boolean(
+        string="Automatically pull the task status of attendance rules",
+        readonly=True,
+        compute="compute_status",
+    )
 
-        t = datetime.datetime.strptime(
-            self.current_date.strftime("%Y-%m-%d 00:00:00"), "%Y-%m-%d %H:%M:%S"
-        )
-        try:
-            attendance.create(
-                {
-                    "grouptype": t,
-                    "wxwork_id": checkinoption["userid"],
-                    "groupid": checkinoption["group"]["groupid"],
-                    "groupname": checkinoption["group"]["groupname"],
-                    "grouptype": checkinoption["group"]["grouptype"],
-                    "checkindate_json": json.dumps(
-                        checkinoption["group"]["checkindate"]
-                    ),
-                    "spe_workdays_json": checkinoption["group"]["spe_workdays"],
-                    "spe_offdays_json": checkinoption["group"]["spe_offdays"],
-                    "sync_holidays": checkinoption["group"]["sync_holidays"],
-                    "need_photo": checkinoption["group"]["need_photo"],
-                    "wifimac_infos": checkinoption["group"]["wifimac_infos"],
-                    "note_can_use_local_pic": checkinoption["group"][
-                        "note_can_use_local_pic"
-                    ],
-                    "allow_checkin_offworkday": checkinoption["group"][
-                        "allow_checkin_offworkday"
-                    ],
-                    "allow_apply_offworkday": checkinoption["group"][
-                        "allow_apply_offworkday"
-                    ],
-                    "loc_infos": checkinoption["group"]["loc_infos"],
-                }
-            )
-        except BaseException as e:
-            print("拉取记录失败:%s - %s" % (checkinoption["userid"], repr(e)))
-
-    def get_checkin_option(self, pull_list):
-        params = self.env["ir.config_parameter"].sudo()
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.attendance_secret")
-
-        wxapi = CorpApi(corpid, secret)
-        t = datetime.datetime.strptime(
-            self.current_date.strftime("%Y-%m-%d 00:00:00"), "%Y-%m-%d %H:%M:%S"
-        )
-        try:
-            response = wxapi.httpCall(
-                CORP_API_TYPE["GET_CHECKIN_OPTION"],
-                {
-                    "datetime": str(time.mktime(t.timetuple())),
-                    "useridlist": json.loads(pull_list),
-                },
-            )
-            # print(str(time.mktime(t.timetuple())))
-            # print(response["info"])
-            for checkinoption in response["info"]:
-                with api.Environment.manage():
-                    new_cr = self.pool.cursor()
-                    self = self.with_env(self.env(cr=new_cr))
-                    env = self.sudo().env["hr.attendance.wxwrok.rule"]
-                    records = env.search(
-                        [
-                            ("wxwork_id", "=", checkinoption["userid"]),
-                            ("pull_time", "=", t),
-                        ],
-                        limit=1,
-                    )
-                    try:
-                        if len(records) > 0:
-                            pass
-                        else:
-                            self.create_wxwork_attendance(records, checkinoption)
-                    except Exception as e:
-                        print(repr(e))
-
-                    new_cr.commit()
-                    new_cr.close()
-
-        except ApiException as e:
-            raise UserError(
-                "错误：%s %s\n\n详细信息：%s"
-                % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
-            )
-
-    def get_employees_by_department(self, department_obj):
-        """
-        根据企微部门ID，通过API获取需要拉取打卡记录企业微信成员列表
-        :param department_id:部门对象
-        :return:企业微信成员UserID列表
-        """
-        if department_obj.wxwork_department_id:
-            wxwork_department_id = department_obj.wxwork_department_id
-        else:
-            wxwork_department_id = 1
-        params = self.env["ir.config_parameter"].sudo()
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.contacts_secret")
-        contacts_sync_hr_department_id = params.get_param(
-            "wxwork.contacts_sync_hr_department_id"
-        )
-
-        wxapi = CorpApi(corpid, secret)
-
-        try:
-            response = wxapi.httpCall(
-                CORP_API_TYPE["USER_LIST"],
-                {"department_id": str(wxwork_department_id), "fetch_child": "1",},
-            )
-            userlist = []
-            for obj in response["userlist"]:
-                userlist.append(obj["userid"])
-            if len(userlist) > 100:
-                batch_list = []
-                for i in range(0, int(len(userlist)) + 1, 100):
-                    tmp_list1 = json.dumps(userlist[i : i + 100])
-                    batch_list.append(tmp_list1)
-                userlist = batch_list
-                return userlist, True
-            else:
-                return json.dumps(userlist), False
-        except ApiException as e:
-            raise UserError(
-                "错误：%s %s\n\n详细信息：%s"
-                % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
-            )
+    def compute_status(self):
+        cron = self.env.ref("wxwork_attendance.ir_cron_auto_pull_attendance_data")
+        # self.status = cron.active
+        # print(cron.active)
+        for r in self:
+            r.status = cron.active
 
     def action_pull_attendance_rule(self):
         params = self.env["ir.config_parameter"].sudo()
@@ -203,10 +88,10 @@ class WizardAttendanceRulePull(models.TransientModel):
                 {
                     "name": res["groupname"],
                     "groupid": res["groupid"],
-                    # "grouptype": res["grouptype"],#TODO
+                    "grouptype": str(res["grouptype"]),
                     "checkindate": res["checkindate"],
                     "spe_workdays": res["spe_workdays"],
-                    # "spe_offdays": json.dumps(res["spe_offdays"]),#TODO
+                    "spe_offdays": res["spe_offdays"],
                     "sync_holidays": self.check_type(res, "sync_holidays"),
                     "groupname": res["groupname"],
                     "need_photo": res["need_photo"],
@@ -222,7 +107,7 @@ class WizardAttendanceRulePull(models.TransientModel):
                     "range": res["range"],
                     "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
                     "white_users": res["white_users"],
-                    # "type": res["type"],#TODO
+                    "type": str(res["type"]),
                     "reporterinfo": res["reporterinfo"],
                     "ot_info": self.check_type(res, "ot_info"),
                     "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],
@@ -250,10 +135,10 @@ class WizardAttendanceRulePull(models.TransientModel):
             rule.write(
                 {
                     "name": res["groupname"],
-                    # "grouptype": res["grouptype"],#TODO
+                    "grouptype": str(res["grouptype"]),
                     "checkindate": res["checkindate"],
                     "spe_workdays": res["spe_workdays"],
-                    # "spe_offdays": json.dumps(res["spe_offdays"]),#TODO
+                    "spe_offdays": res["spe_offdays"],
                     "sync_holidays": self.check_type(res, "sync_holidays"),
                     "groupname": res["groupname"],
                     "need_photo": res["need_photo"],
@@ -269,7 +154,7 @@ class WizardAttendanceRulePull(models.TransientModel):
                     "range": res["range"],
                     "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
                     "white_users": res["white_users"],
-                    # "type": res["type"],#TODO
+                    "type": str(res["type"]),
                     "reporterinfo": res["reporterinfo"],
                     "ot_info": self.check_type(res, "ot_info"),
                     "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],

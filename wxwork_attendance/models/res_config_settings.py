@@ -86,3 +86,6 @@ class ResConfigSettings(models.TransientModel):
                     },
                 }
                 return action
+
+    def cron_pull_attendance_data(self):
+        pass

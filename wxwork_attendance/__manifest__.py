@@ -14,7 +14,7 @@
     "depends": ["hr_attendance", "wxwork_hr_syncing",],
     "data": [
         "security/ir.model.access.csv",
-        # "data/ir_cron_data.xml",
+        "data/ir_cron_data.xml",
         # "data/wxwork_data.xml",
         # "views/ir_cron_views.xml",
         # "wizard/wizard_wxwork_attendance_data_pull.xml",
@@ -23,6 +23,7 @@
         "views/res_config_settings_views.xml",
         "views/hr_attendance_view.xml",
         "views/hr_attendance_rule_view.xml",
+        "views/ir_cron_views.xml",
         "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],

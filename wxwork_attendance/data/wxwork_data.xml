@@ -2,8 +2,17 @@
 <odoo>
     <data noupdate="1">
         <!--   隐藏  出勤模块的原生菜单   -->
-        <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances" />
-        <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode" />
+        <!-- <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances" />
+        <delete model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_kiosk_mode" /> -->
+        
+        <function model="ir.ui.menu" name="write">
+            <value eval="[ref('hr_attendance.menu_hr_attendance_my_attendances')]"/>
+            <value eval="{'active': False}"/>
+        </function>
+        <function model="ir.ui.menu" name="write">
+            <value eval="[ref('hr_attendance.menu_hr_attendance_kiosk_mode')]"/>
+            <value eval="{'active': False}"/>
+        </function>
 
         <record id="attendance_secret" model="ir.config_parameter">
             <field name="key">wxwork.attendance_secret</field>

@@ -23,9 +23,14 @@ class HrAttendanceWxwrokRule(models.Model):
         string="Attendance time data", readonly=True, help="打卡时间，当规则类型为排班时没有意义",
     )
     spe_workdays = fields.Char(
-        string="Attendance Special date",
+        string="Special date - must check in date information",
         readonly=True,
         help="特殊日期-必须打卡日期信息，timestamp表示具体时间",
+    )
+    spe_offdays = fields.Char(
+        string="Special date-no check-in date information",
+        readonly=True,
+        help="特殊日期-不用打卡日期信息， timestamp表示具体时间",
     )
     sync_holidays = fields.Boolean(
         string="Synchronize statutory holidays",
