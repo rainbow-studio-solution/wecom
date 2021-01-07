@@ -41,7 +41,8 @@
             sequence="3"/>
 
             <menuitem 
-                name="By Job Positions"            parent="menu_wxwork_hr_recruitment_main" 
+                name="By Job Positions"
+                parent="menu_wxwork_hr_recruitment_main" 
                 id="menu_wxwork_hr_job_position" 
                 action="hr_recruitment.action_hr_job" 
                 sequence="1"/>
@@ -186,6 +187,58 @@
                     groups="hr.group_hr_user"/>
     
         <!-- 招聘配置菜单 -->
+        <menuitem 
+            id="menu_wxwork_hr_recruitment_configuration" 
+            name="Recruitment Configuration" 
+            parent="wxwork_base.menu_wxwork_manager_configuration" 
+            sequence="2"/>
 
+            <menuitem 
+                id="menu_wxwork_hr_recruitment_global_settings" 
+                name="Settings"
+                parent="menu_wxwork_hr_recruitment_configuration" 
+                sequence="0" 
+                action="hr_recruitment.action_hr_recruitment_configuration"
+                groups="base.group_system"/>
+            <menuitem
+                id="menu_wxwork_hr_recruitment_stage"
+                name="Stages"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                action="hr_recruitment.hr_recruitment_stage_act"
+                groups="base.group_no_one"
+                sequence="1"/>
+            <menuitem
+                id="menu_wxwork_hr_applicant_category_menu"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                action="hr_recruitment.hr_applicant_category_action"
+                sequence="2" 
+                groups="base.group_no_one"/>
+            <menuitem
+                id="menu_wxwork_hr_recruitment_degree"
+                name="Degrees"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                action="hr_recruitment.hr_recruitment_degree_action"
+                sequence="5" 
+                groups="base.group_no_one"/>
+            <menuitem 
+                parent="menu_wxwork_hr_recruitment_configuration" id="menu_wxwork_hr_job_position_config" 
+                action="hr_recruitment.action_hr_job_config" 
+                sequence="6"/>
+            <menuitem
+                id="menu_wxwork_hr_applicant_refuse_reason"
+                action="hr_recruitment.hr_applicant_refuse_reason_action"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                sequence="7"/>
+            <menuitem
+                id="menu_wxwork_hr_recruitment_source"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                action="hr_recruitment.hr_recruitment_source_action"
+                groups="base.group_no_one"
+                sequence="8"/>
+            <menuitem 
+                id="menu_wxwork_hr_recruitment_menu_config_activity_type"
+                action="hr_recruitment.mail_activity_type_action_config_hr_applicant"
+                parent="menu_wxwork_hr_recruitment_configuration"
+                sequence="10"/>
     </data>
 </odoo>

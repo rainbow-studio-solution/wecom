@@ -24,6 +24,7 @@
         "hr_recruitment_survey",
         "hr_skills",
         "hr_work_entry",
+        "project_timesheet_holidays",
         "wxwork_base",
     ],
     "data": [

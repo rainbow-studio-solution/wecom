@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 04:53+0000\n"
-"PO-Revision-Date: 2021-01-07 12:56+0800\n"
+"POT-Creation-Date: 2021-01-07 05:46+0000\n"
+"PO-Revision-Date: 2021-01-07 13:49+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,11 @@ msgid "Activity Planning"
 msgstr "活动计划"
 
 #. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_menu_config_activity_type
+msgid "Activity Types"
+msgstr "活动类型"
+
+#. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
 msgid ""
 "Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure data security, the key must not "
@@ -82,6 +87,11 @@ msgstr "允许企业微信通讯簿自动更新系统帐户"
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings__contacts_always_update_avatar_enabled
 msgid "Always update avatar"
 msgstr "总是更新头像"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_attendance_report
+msgid "Attendance Reporting"
+msgstr "考勤报表"
 
 #. module: wxwork_hr
 #: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_gamification_badge
@@ -127,6 +137,11 @@ msgstr "通讯簿token"
 #: model_terms:ir.actions.act_window,help:wxwork_hr.open_module_tree_department
 msgid "Create department."
 msgstr "创建部门。"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_degree
+msgid "Degrees"
+msgstr "学历"
 
 #. module: wxwork_hr
 #: model:ir.model,name:wxwork_hr.model_hr_department model:ir.ui.menu,name:wxwork_hr.menu_wxwork_organization_department_kanban
@@ -232,7 +247,7 @@ msgstr "企业微信设置"
 #. module: wxwork_hr
 #: model:ir.model,name:wxwork_hr.model_res_users
 msgid "Enterprise WeChat system users"
-msgstr "企业微信统用户"
+msgstr "企业微信系统用户"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_users__wxwork_id
@@ -328,7 +343,7 @@ msgid "Is an enterprise WeChat user"
 msgstr "是企业微信用户"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_hr_job
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_job_position_config model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_hr_job
 msgid "Job Positions"
 msgstr "工作岗位"
 
@@ -400,12 +415,32 @@ msgid "Recruitment"
 msgstr "招聘"
 
 #. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.hr_applicant_report_menu
+msgid "Recruitment Analysis"
+msgstr "招聘分析"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_configuration
+msgid "Recruitment Configuration"
+msgstr "招聘配置"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_applicant_refuse_reason
+msgid "Refuse Reasons"
+msgstr "拒绝原因"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_report_main
+msgid "Reporting"
+msgstr "报表"
+
+#. module: wxwork_hr
 #: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_configuration_resume
 msgid "Resumé"
 msgstr "简历"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.hr_wxwork_menu_configuration
+#: model:ir.ui.menu,name:wxwork_hr.hr_wxwork_menu_configuration model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_global_settings
 msgid "Settings"
 msgstr "设置"
 
@@ -420,7 +455,17 @@ msgid "Skills"
 msgstr "技能"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_employee_category_form
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_source
+msgid "Sources of Applicants"
+msgstr "申请人来源"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_stage
+msgid "Stages"
+msgstr "阶段"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_applicant_category_menu model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_employee_category_form
 msgid "Tags"
 msgstr "标签"
 
