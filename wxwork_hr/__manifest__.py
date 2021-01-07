@@ -1,17 +1,26 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Organization",
+    "name": "Enterprise WeChat Human Resources",
     "summary": """
-        Enterprise WeChat Organization""",
+        Enterprise WeChat Human Resources""",
     "description": """
-         Enterprise WeChat Organization
+         Enterprise WeChat Human Resources
     """,
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     # any module necessary for this one to work correctly
-    "depends": ["hr", "wxwork_base"],
+    "depends": [
+        "hr",
+        "hr_expense",
+        "hr_holidays",
+        "hr_recruitment",
+        "hr_attendance",
+        "hr_skills",
+        "hr_contract",
+        "wxwork_base",
+    ],
     "data": [
         # 'security/ir.model.access.csv',
         "data/hr_data.xml",

@@ -43,9 +43,9 @@ msgid "Enterprise WeChat Hr Syncing"
 msgstr "企业微信同步到HR"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwrok_organization
-msgid "Enterprise WeChat Organization"
-msgstr "企业微信组织架构模型字段"
+#: model:ir.module.module,shortdesc:base.module_wxwork_hr
+msgid "Enterprise WeChat Human Resources"
+msgstr "企业微信组织人力资源"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_markdown_editor

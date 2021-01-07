@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wxwrok_hr_wxwrok_hr,wxwrok_hr.wxwrok_hr,model_wxwrok_hr_wxwrok_hr,base.group_user,1,1,1,1

@@ -8,15 +8,13 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_oauth" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-sign-in fa-lg"  aria-label="" title=""/> Application login authorization</span>
-                        <span class="text-right">
-                            <i class="fa fa-angle-double-up" aria-label="" title=""/>
-                        </span>
+                        <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" /> Application login authorization</span>
+                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg" aria-label="" title=""/>
+                                <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_agentid"/>
@@ -35,7 +33,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg" aria-label="" title="" />
+                                <i class="fa fa-key fa-lg" aria-label="Auth Secret"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_secret"/>
@@ -54,7 +52,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg" aria-label="" title=""/>
+                                <i class="fa fa-link fa-lg" aria-label="Auth redirect uri" />
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="auth_redirect_uri"/>
@@ -72,7 +70,7 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-link fa-lg" aria-label="" title=""/>
+                                <i class="fa fa-link fa-lg" aria-label="Qr redirect uri" />
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="qr_redirect_uri"/>
@@ -99,14 +97,6 @@
                                         <span style="color:orange;padding: 0px 16px;">
                                             Click the button "One-click to set up enterprise WeChat OAuth"
                                         </span>
-
-                                        <!-- <br/> -->
-                                        <!-- 用户中"OAuth"面板中的"OAuth服务商可以随意选择"，已在程序中做了校验。 -->
-                                        <!-- <br/>
-                                        <span style="color:red;padding: 0px 16px;"> <i class="fa fa-warning"/>
-                                            注意! 请勿修改"常规设置"→"OAuth服务商"中关于企业微信的"身份验证网址"
-                                        </span>
-                                        <br/> -->
                                     </div>
                                     <div class="text-muted col-md-12">
                                         <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up enterprise WeChat OAuth" class="oe_highlight"/>

@@ -14,7 +14,7 @@
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">
                         <button type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
-                            <i class="fa fa-times-circle-o" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
+                            <i class="fa fa-times-circle-o" aria-label="Close" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
                         </button>
                     </footer>
                 </div>
@@ -36,10 +36,10 @@
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">
                         <button t-if="isWxworkBrowser" type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
-                            <i class="fa fa-check text-primary" style="background-color:transparent;font-size: 36px;"/>
+                            <i class="fa fa-check text-primary" aria-label="Submit" style="background-color:transparent;font-size: 36px;"/>
                         </button>
                         <button type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
-                            <i class="fa fa-times-circle-o" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
+                            <i class="fa fa-times-circle-o" aria-label="Close" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
                         </button>
                     </footer>
                 </div>

@@ -25,7 +25,7 @@
                 id="menu_wxwork_configuration" 
                 name="Enterprise WeChat Settings" 
                 parent="menu_wxwork_manager_configuration" 
-                sequence="99"
+                sequence="900"
                 action="wxwork_config_settings_action" 
                 groups="base.group_system"/>
 

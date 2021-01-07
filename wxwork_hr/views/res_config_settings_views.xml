@@ -8,15 +8,13 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_contact" class="d-flex justify-content-between">
-                        <span class="text-left" alt=""><i class="fa fa-users fa-lg"  aria-label="" title=""/> Contact synchronization Odoo settings</span>
-                        <span class="text-right" alt="">
-                            <i class="fa fa-angle-double-up" />
-                        </span>
+                        <span class="text-left"><i class="fa fa-users fa-lg" aria-label="Contact synchronization Odoo settings"/> Contact synchronization Odoo settings</span>
+                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     <div class="row mt16 o_settings_container">
                         <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane" alt="">
-                                <i class="fa fa-lock fa-lg"  aria-label="" title=""/>
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_secret"/>
@@ -34,8 +32,8 @@
                         </div>
 
                         <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane"  alt="">
-                                <i class="fa fa-key fa-lg"  aria-label="" title=""/>
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg" aria-label="Contacts access token"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_access_token"/>
@@ -44,8 +42,8 @@
                                     <div class="text-muted col-md-12" id="contacts_access_token_text">
                                         Important notes when obtaining application "address book" information in the background of the enterprise WeChat, this information needs to be carried during communication to verify the access authority of the interface.
                                         <br/>
-                                        <span style="color:orange;padding: 0px 16px;"  alt="">
-                                            <i class="fa fa-info-circle"  aria-label="" title=""/>
+                                        <span style="color:orange;padding: 0px 16px;">
+                                            <i class="fa fa-info-circle" aria-label="info" />
                                             The token has been cached and the system will automatically refresh the token.
                                         </span>
 
@@ -100,8 +98,8 @@
                         </div>
 
                         <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane"  alt="">
-                                <i class="fa fa-building fa-lg"  aria-label="" title=""/>
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-building fa-lg" aria-label="Department"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="contacts_sync_hr_department_id"/>
@@ -119,26 +117,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <field name="contacts_edit_enabled"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="contacts_edit_enabled"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Enabled, allows the enterprise WeChat address book to be read and edited through the API interface; conversely, only allows the enterprise WeChat address book to be read through the API interface.
-                                        <br/>
-                                        <span style="color:orange;"><i class="fa fa-info-circle"/>
-                                            Precondition: Need to enable the "API Edit Address Book" permission of the application "Address Book Synchronization"
-                                        </span>
-                                        <br/>
-                                        <span style="color:red;"><i class="fa fa-warning"/>Danger! Not recommended!</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="contacts_always_update_avatar_enabled"/>
@@ -152,11 +130,11 @@
                                     <div class="text-muted col-md-12">
                                         If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.
                                         <br/>
-                                        <span style="color:orange;padding: 0px 16px; " alt=""> <i class="fa fa-info-circle"  aria-label="" title=""/>Suggestion: turn on when avatar synchronization fails due to various reasons</span>
+                                        <span style="color:orange;padding: 0px 16px; " alt=""> <i class="fa fa-info-circle" aria-label="info" />Suggestion: turn on when avatar synchronization fails due to various reasons</span>
                                         <br/>
-                                        <span style="color:orange;padding: 0px 16px;"  alt=""> <i class="fa fa-info-circle"  aria-label="" title=""/>It takes more time to update the avatar each time, and HR generally uses the official photo of the employee</span>
+                                        <span style="color:orange;padding: 0px 16px;"  alt=""> <i class="fa fa-info-circle" aria-label="info"/>It takes more time to update the avatar each time, and HR generally uses the official photo of the employee</span>
                                         <br/>
-                                        <span style="color:red;padding: 0px 16px;"  alt=""> <i class="fa fa-warning"  aria-label="" title=""/>Don't want to be troubled by HR, use it with caution!</span>
+                                        <span style="color:red;padding: 0px 16px;"  alt=""> <i class="fa fa-warning"  aria-label="warning"/>Don't want to be troubled by HR, use it with caution!</span>
                                     </div>
                                 </div>
                             </div>
