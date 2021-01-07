@@ -5,7 +5,7 @@
             id="menu_wxwork_attendance_main"
             name="Attendances"
             parent="wxwork_base.menu_wxwork_root"
-            sequence="1"/>
+            sequence="3"/>
 
             <menuitem
                 id="menu_wxwork_attendance_record"

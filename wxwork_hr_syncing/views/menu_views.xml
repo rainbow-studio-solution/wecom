@@ -5,7 +5,7 @@
         <menuitem 
             id="menu_wxwork_contacts_sync_main" 
             name="Sync contacts" 
-            parent="wxwrok_organization.menu_wxwork_organization_main" 
+            parent="wxwrok_hr.menu_wxwork_organization_main" 
             sequence="10" 
             groups="wxwork_base.group_wxwork_manager"/>
 
@@ -27,7 +27,7 @@
         <menuitem 
             id="menu_wxwork_users_sync_main" 
             name="Sync User" 
-            parent="wxwrok_organization.menu_wxwork_organization_main" 
+            parent="wxwrok_hr.menu_wxwork_organization_main" 
             sequence="20" 
             groups="wxwork_base.group_wxwork_manager"/>
 
