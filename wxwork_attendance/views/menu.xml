@@ -14,12 +14,7 @@
                 parent="menu_wxwork_attendance_main"
                 sequence="1"/>
                 
-            <menuitem
-                id="menu_wxwork_attendance_report"
-                name="Attendance Reporting"
-                action="hr_attendance.hr_attendance_action_graph"
-                parent="menu_wxwork_attendance_main"
-                sequence="2"/>
+            
 
             <menuitem
                 id="menu_wxwork_attendance_pull"

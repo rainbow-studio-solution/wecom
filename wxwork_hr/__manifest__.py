@@ -13,12 +13,17 @@
     # any module necessary for this one to work correctly
     "depends": [
         "hr",
-        "hr_expense",
-        "hr_holidays",
-        "hr_recruitment",
         "hr_attendance",
-        "hr_skills",
         "hr_contract",
+        "hr_expense",
+        "hr_gamification",
+        "hr_holidays",
+        "hr_maintenance",
+        "hr_presence",
+        "hr_recruitment",
+        "hr_recruitment_survey",
+        "hr_skills",
+        "hr_work_entry",
         "wxwork_base",
     ],
     "data": [

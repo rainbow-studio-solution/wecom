@@ -9,31 +9,22 @@
             sequence="2"/>
 
 
-
-        <!-- <menuitem id="menu_wxwork" name="Enterprise WeChat" parent="base.menu_administration" sequence="100"
-                  groups="base.group_system"/> -->
-        <menuitem id="menu_wxwork_cron" name="Timed task" parent="menu_wxwork_root" sequence="98"
-                  groups="base.group_system"/>
-
-        <menuitem 
-            id="menu_wxwork_manager_configuration" 
-            name="Settings" parent="menu_wxwork_root" 
-            sequence="99"
-            groups="base.group_system"/>
+            <menuitem id="menu_wxwork_cron" name="Timed task" parent="menu_wxwork_root" sequence="98"
+                    groups="base.group_system"/>
 
             <menuitem 
-                id="menu_wxwork_configuration" 
-                name="Enterprise WeChat Settings" 
-                parent="menu_wxwork_manager_configuration" 
-                sequence="900"
-                action="wxwork_config_settings_action" 
+                id="menu_wxwork_manager_configuration" 
+                name="Settings" parent="menu_wxwork_root" 
+                sequence="99"
                 groups="base.group_system"/>
 
-        <!-- <menuitem id="menu_wxwork_sync_user" name="Sync as user" parent="menu_wxwork_root" sequence="20"
-                  groups="base.group_system"/> -->
-
-        
-
-        
+                <menuitem 
+                    id="menu_wxwork_configuration" 
+                    name="Enterprise WeChat Settings" 
+                    parent="menu_wxwork_manager_configuration" 
+                    sequence="900"
+                    action="wxwork_config_settings_action" 
+                    groups="base.group_system"/>
+       
     </data>
 </odoo>
