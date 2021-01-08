@@ -15,28 +15,15 @@ class WizardAttendanceRulePull(models.TransientModel):
     _name = "wizard.attendance.rule.pull"
     _description = "Enterprise WeChat,Wizard pull attendance rules"
 
-    department_id = fields.Many2one(
-        "hr.department", string="Department", help="部门为空，获取企业所有打卡规则",
-    )
-    current_date = fields.Datetime(
-        string="Please select a date",
-        default=fields.Datetime.now,
-        required=True,
-        help="规则的日期当天0点的Unix时间戳",
-    )
-
     status = fields.Boolean(
-        string="Automatically pull the task status of attendance rules",
+        string="Automatically pull the task status of attendance",
         readonly=True,
-        compute="compute_status",
+        default=lambda self: self._default_status(),
     )
 
-    def compute_status(self):
+    def _default_status(self):
         cron = self.env.ref("wxwork_attendance.ir_cron_auto_pull_attendance_data")
-        # self.status = cron.active
-        # print(cron.active)
-        for r in self:
-            r.status = cron.active
+        return cron.active
 
     def action_pull_attendance_rule(self):
         params = self.env["ir.config_parameter"].sudo()

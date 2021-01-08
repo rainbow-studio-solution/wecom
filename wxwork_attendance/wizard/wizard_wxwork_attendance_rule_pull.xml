@@ -10,7 +10,7 @@
                     <separator string="Pull attendance rules from Enterprise WeChat"/>
                     <br/>
                     <span class="text-info font-weight-bold">
-                        If the task of custom pull attendance rules is on, you do not need to pull it manually.
+                        If the automatic pull attendance task is on, there is no need to pull it frequently.
                     </span>
                     <group>
                         <field name="status" />
