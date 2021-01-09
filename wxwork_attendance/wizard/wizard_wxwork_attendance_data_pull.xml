@@ -19,11 +19,11 @@
                                         <div class="o_setting_right_pane">
                                             <label for="start_time" />
                                             <div class="content-group" >
-                                                <field name="start_time" class="ml16 o_light_label"/>
+                                                <field name="start_time" widget="date" class="ml16 o_light_label"/>
                                             </div>
                                             <label for="end_time" />
                                             <div class="content-group" >
-                                                <field name="end_time" class="ml16 o_light_label"/>
+                                                <field name="end_time" widget="date" class="ml16 o_light_label"/>
                                             </div>
                                             <label for="delta" />
                                             <div class="content-group" >

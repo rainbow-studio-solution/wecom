@@ -5,10 +5,14 @@ from odoo.exceptions import UserError
 
 from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
 from ...wxwork_api.wx_qy_api.ErrorCode import Errcode
+
 import datetime
 import time
 import json
 import binascii
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class WizardAttendanceRulePull(models.TransientModel):
@@ -22,10 +26,10 @@ class WizardAttendanceRulePull(models.TransientModel):
         help="打卡类型。1：上下班打卡；2：外出打卡；3：全部打卡",
     )
     start_time = fields.Datetime(
-        string="Starting time", required=True, compute="_compute_start_time"
+        string="Starting date", required=True, compute="_compute_start_time"
     )
     end_time = fields.Datetime(
-        string="End Time", default=fields.Datetime.now, required=True
+        string="End date", required=True, default=datetime.date.today(),
     )
     delta = fields.Selection(
         ([("1", "1 day"), ("7", "7 day"), ("15", "15 day"), ("30", "30 day")]),
@@ -47,150 +51,196 @@ class WizardAttendanceRulePull(models.TransientModel):
         self.start_time = self.end_time - datetime.timedelta(int(self.delta))
 
     def action_pull_attendance_data(self):
+        """
+        拉取考勤数据
+        """
         params = self.env["ir.config_parameter"].sudo()
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.contacts_secret")
         debug = params.get_param("wxwork.debug_enabled")
         contacts_sync_hr_department_id = params.get_param(
             "wxwork.contacts_sync_hr_department_id"
         )
+        if not self.department_id:
+            department_id = contacts_sync_hr_department_id
+        else:
+            department_id = self.department_id.wxwork_department_id
+
+        pull_list, batch = self.get_employees_by_department(department_id, params)
+
+        if batch:
+            # 需要分批次拉取
+            if debug:
+                _logger.info(
+                    _(
+                        "The number of people has exceeded 100 and is processed in batches."
+                    )
+                )
+            for i in range(0, int(len(pull_list))):
+                self.get_checkin_data(pull_list[i], params)
+        else:
+            # 不需要分批次拉取
+            if debug:
+                _logger.info(
+                    _(
+                        "The quantity does not exceed 100, and batch processing is not required."
+                    )
+                )
+            self.get_checkin_data(pull_list, params)
+
+    def get_employees_by_department(self, department_id, params):
+        """
+        根据企微部门ID，通过API获取需要拉取打卡记录企业微信成员列表
+        :param department_id:部门对象
+        :return:企业微信成员UserID列表
+        """
+        corpid = params.get_param("wxwork.corpid")
+        secret = params.get_param("wxwork.contacts_secret")
+        debug = params.get_param("wxwork.debug_enabled")
 
         wxapi = CorpApi(corpid, secret)
         try:
-            response = wxapi.httpCall(CORP_API_TYPE["GET_CORP_CHECKIN_OPTION"],)
-            # print(json.dumps(response))
-            for res in response["group"]:
-                self.pull_attendance_rule(res, debug)
+            response = wxapi.httpCall(
+                CORP_API_TYPE["USER_LIST"],
+                {"department_id": str(department_id), "fetch_child": "1",},
+            )
+            userlist = []
+            for obj in response["userlist"]:
+                userlist.append(obj["userid"])
+
+            # 用户列表不超过100个。若用户超过100个，需要分批获取
+            if len(userlist) > 100:
+                # 用户列表超过100
+                batch_list = []
+                for i in range(0, int(len(userlist)) + 1, 100):
+                    tmp_list1 = json.dumps(userlist[i : i + 100])
+                    batch_list.append(tmp_list1)
+                userlist = batch_list
+                return userlist, True
+            else:
+                # 用户列表没有超过100
+                return json.dumps(userlist), False
         except ApiException as e:
+            if debug:
+                _logger.debug(
+                    _(
+                        "Failed to get the enterprise WeChat user list，error code: %s,Error description: %s,Error Details:%s"
+                        % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+                    )
+                )
             raise UserError(
-                "错误：%s %s\n\n详细信息：%s"
+                _("error: %s %s\n\ndetails: %s")
                 % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
             )
 
-    def pull_attendance_rule(self, res, debug):
-        rule = (
-            self.env["hr.attendance.wxwrok.rule"]
-            .sudo()
-            .search([("groupid", "=", res["groupid"])], limit=1,)
-        )
-        try:
-            if not rule:
-                self.create_rule(rule, res, debug)
-            else:
-                self.update_rule(rule, res, debug)
-        except Exception as e:
-            if debug:
-                print(
-                    _("Failed to pull attendance rules:%s, error: %s")
-                    % (res["groupname"], repr(e))
-                )
-
-    def create_rule(self, rule, res, debug):
-        # print(res["groupname"])
-        # str(value).encode('ascii')
-        try:
-            rule.create(
-                {
-                    "name": res["groupname"],
-                    "groupid": res["groupid"],
-                    "grouptype": str(res["grouptype"]),
-                    "checkindate": res["checkindate"],
-                    "spe_workdays": res["spe_workdays"],
-                    "spe_offdays": res["spe_offdays"],
-                    "sync_holidays": self.check_type(res, "sync_holidays"),
-                    "groupname": res["groupname"],
-                    "need_photo": res["need_photo"],
-                    "wifimac_infos": res["wifimac_infos"],
-                    "note_can_use_local_pic": res["note_can_use_local_pic"],
-                    "allow_checkin_offworkday": self.check_type(
-                        res, "allow_checkin_offworkday"
-                    ),
-                    "allow_apply_offworkday": self.check_type(
-                        res, "allow_apply_offworkday"
-                    ),
-                    "loc_infos": res["loc_infos"],
-                    "range": res["range"],
-                    "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
-                    "white_users": res["white_users"],
-                    "type": str(res["type"]),
-                    "reporterinfo": res["reporterinfo"],
-                    "ot_info": self.check_type(res, "ot_info"),
-                    "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],
-                    "option_out_range": res["option_out_range"],
-                    "use_face_detect": self.check_type(res, "use_face_detect"),
-                    "allow_apply_bk_day_limit": self.check_type(
-                        res, "allow_apply_bk_day_limit"
-                    ),
-                    "update_userid": self.check_type(res, "update_userid"),
-                    "schedulelist": res["schedulelist"],
-                    "offwork_interval_time": self.check_type(
-                        res, "offwork_interval_time"
-                    ),
-                }
-            )
-        except Exception as e:
-            if debug:
-                print(
-                    _("Create attendance rules error: %s") % (res["groupname"], repr(e))
-                )
-
-    def update_rule(self, rule, res, debug):
-        # print(self.check_json_data(res["spe_offdays"]))
-        try:
-            rule.write(
-                {
-                    "name": res["groupname"],
-                    "grouptype": str(res["grouptype"]),
-                    "checkindate": res["checkindate"],
-                    "spe_workdays": res["spe_workdays"],
-                    "spe_offdays": res["spe_offdays"],
-                    "sync_holidays": self.check_type(res, "sync_holidays"),
-                    "groupname": res["groupname"],
-                    "need_photo": res["need_photo"],
-                    "wifimac_infos": res["wifimac_infos"],
-                    "note_can_use_local_pic": res["note_can_use_local_pic"],
-                    "allow_checkin_offworkday": self.check_type(
-                        res, "allow_checkin_offworkday"
-                    ),
-                    "allow_apply_offworkday": self.check_type(
-                        res, "allow_apply_offworkday"
-                    ),
-                    "loc_infos": res["loc_infos"],
-                    "range": res["range"],
-                    "create_time": datetime.datetime.fromtimestamp(res["create_time"]),
-                    "white_users": res["white_users"],
-                    "type": str(res["type"]),
-                    "reporterinfo": res["reporterinfo"],
-                    "ot_info": self.check_type(res, "ot_info"),
-                    "allow_apply_bk_cnt": res["allow_apply_bk_cnt"],
-                    "option_out_range": res["option_out_range"],
-                    "use_face_detect": self.check_type(res, "use_face_detect"),
-                    "allow_apply_bk_day_limit": self.check_type(
-                        res, "allow_apply_bk_day_limit"
-                    ),
-                    "update_userid": self.check_type(res, "update_userid"),
-                    "schedulelist": res["schedulelist"],
-                    "offwork_interval_time": self.check_type(
-                        res, "offwork_interval_time"
-                    ),
-                }
-            )
-        except Exception as e:
-            if debug:
-                print(
-                    _("Update attendance rules error: %s") % (res["groupname"], repr(e))
-                )
-
-    def check_json_data(self, list):
-        if not list:
-            return None
-        else:
-            json.dumps(list)
-
-    def check_type(self, res, key):
+    def get_checkin_data(self, pull_list, params):
         """
-        由于考勤规则三个类型的字典不一样
-        故需要检查班次类型
+        获取打卡记录数据
+        """
+        corpid = params.get_param("wxwork.corpid")
+        secret = params.get_param("wxwork.attendance_secret")
+        debug = params.get_param("wxwork.debug_enabled")
+
+        if not self.opencheckindatatype:
+            opencheckindatatype = 3
+        else:
+            opencheckindatatype = self.opencheckindatatype
+        wxapi = CorpApi(corpid, secret)
+        try:
+            response = wxapi.httpCall(
+                CORP_API_TYPE["GET_CHECKIN_DATA"],
+                {
+                    "opencheckindatatype": str(opencheckindatatype),
+                    "starttime": str(time.mktime(self.start_time.timetuple())),
+                    "endtime": str(time.mktime(self.end_time.timetuple())),
+                    "useridlist": json.loads(pull_list),
+                },
+            )
+
+            for checkindata in response["checkindata"]:
+                record = (
+                    self.env["hr.attendance.wxwrok.data"]
+                    .sudo()
+                    .search(
+                        [
+                            ("userid", "=", checkindata["userid"]),
+                            (
+                                "checkin_time",
+                                "=",
+                                time.strftime(
+                                    "%Y-%m-%d %H:%M:%S",
+                                    time.localtime(checkindata["checkin_time"]),
+                                ),
+                            ),
+                        ],
+                        limit=1,
+                    )
+                )
+                try:
+                    if not record:
+                        if debug:
+                            _logger.debug(
+                                _("Create %s attendance records")
+                                % checkindata["userid"]
+                            )
+                        self.create_attendance_data(record, checkindata, debug)
+                except Exception as e:
+                    print(_("Failed to create attendance record, reason: %s") % repr(e))
+        except ApiException as e:
+            if debug:
+                _logger.debug(
+                    _(
+                        "Failed to pull Enterprise WeChat attendance record data.，error code: %s,Error description: %s,Error Details:%s"
+                        % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+                    )
+                )
+            raise UserError(
+                _("error: %s %s\n\ndetails: %s")
+                % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+            )
+
+    def create_attendance_data(self, record, checkindata, debug):
+        # print("创建考勤记录：" + checkindata["userid"])
+        try:
+            record.create(
+                {
+                    "name": self.sudo()
+                    .env["hr.employee"]
+                    .search([("userid", "=", checkindata["userid"])], limit=1)
+                    .name,
+                    "userid": checkindata["userid"],
+                    "groupname": checkindata["groupname"],
+                    "checkin_type": checkindata["checkin_type"],
+                    "exception_type": checkindata["exception_type"],
+                    "checkin_time": time.strftime(
+                        "%Y-%m-%d %H:%M:%S", time.localtime(checkindata["checkin_time"])
+                    ),
+                    "location_title": checkindata["location_title"],
+                    "location_detail": checkindata["location_detail"],
+                    "wifiname": checkindata["wifiname"],
+                    "notes": checkindata["notes"],
+                    "wifimac": checkindata["wifimac"],
+                    "mediaids": checkindata["mediaids"],
+                    "lat": checkindata["lat"],
+                    "lng": checkindata["lng"],
+                    "deviceid": checkindata["deviceid"],
+                    "sch_checkin_time": time.strftime(
+                        "%Y-%m-%d %H:%M:%S",
+                        time.localtime(checkindata["sch_checkin_time"]),
+                    ),
+                    "groupid": checkindata["groupid"],
+                    "schedule_id": self.check_key(checkindata, "schedule_id"),
+                    "timeline_id": self.check_key(checkindata, "timeline_id"),
+                }
+            )
+        except BaseException as e:
+            if debug:
+                print(
+                    _("Failed to create %s attendance record, reason: %s")
+                    % (checkindata["userid"], repr(e))
+                )
+
+    def check_key(self, res, key):
+        """
+        检查json数据中是否存在key
         """
         if key in res.keys():
             return res[key]

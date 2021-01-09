@@ -15,9 +15,7 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
         },
         _pull_attendance_rule: function () {
             this.do_action({
-                context: {
-
-                },
+                // context: {},
                 name: "Wizard pull attendance rules",
                 type: "ir.actions.act_window",
                 res_id: false,
@@ -32,9 +30,7 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
         },
         _pull_attendance_data: function () {
             this.do_action({
-                context: {
-
-                },
+                // context: {},
                 name: "Wizard pull attendance data",
                 type: "ir.actions.act_window",
                 res_id: false,
