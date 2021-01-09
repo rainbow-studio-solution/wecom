@@ -19,10 +19,12 @@
         # "views/ir_cron_views.xml",
         # "wizard/wizard_wxwork_attendance_data_pull.xml",
         "wizard/wizard_wxwork_attendance_rule_pull.xml",
+        "wizard/wizard_wxwork_attendance_data_pull.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
-        "views/hr_attendance_view.xml",
+
         "views/hr_attendance_rule_view.xml",
+        "views/hr_attendance_data_view.xml",
         "views/ir_cron_views.xml",
         "views/menu.xml",
     ],

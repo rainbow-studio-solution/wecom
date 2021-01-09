@@ -12,9 +12,26 @@ import binascii
 
 
 class WizardAttendanceRulePull(models.TransientModel):
-    _name = "wizard.attendance.rule.pull"
+    _name = "wizard.attendance.data.pull"
     _description = "Enterprise WeChat,Wizard pull attendance rules"
 
+    department_id = fields.Many2one("hr.department", string="Department",)
+    opencheckindatatype = fields.Selection(
+        ([("1", "Clock in/Clock out"), ("2", "Go out"), ("3", "All")]),
+        string="Clock type",
+        help="打卡类型。1：上下班打卡；2：外出打卡；3：全部打卡",
+    )
+    start_time = fields.Datetime(
+        string="Starting time", required=True, compute="_compute_start_time"
+    )
+    end_time = fields.Datetime(
+        string="End Time", default=fields.Datetime.now, required=True
+    )
+    delta = fields.Selection(
+        ([("1", "1 day"), ("7", "7 day"), ("15", "15 day"), ("30", "30 day")]),
+        string="Days",
+        default="1",
+    )
     status = fields.Boolean(
         string="Automatically pull the task status of attendance",
         readonly=True,
@@ -25,7 +42,11 @@ class WizardAttendanceRulePull(models.TransientModel):
         cron = self.env.ref("wxwork_attendance.ir_cron_auto_pull_attendance_data")
         return cron.active
 
-    def action_pull_attendance_rule(self):
+    @api.depends("end_time", "delta")
+    def _compute_start_time(self):
+        self.start_time = self.end_time - datetime.timedelta(int(self.delta))
+
+    def action_pull_attendance_data(self):
         params = self.env["ir.config_parameter"].sudo()
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")

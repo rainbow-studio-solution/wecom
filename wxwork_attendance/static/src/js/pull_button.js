@@ -10,6 +10,7 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
             this._super.apply(this, arguments);
             if (this.$buttons) {
                 this.$buttons.on('click', '.o_list_wxwork_attendance_rule_pull', this._pull_attendance_rule.bind(this));
+                this.$buttons.on('click', '.o_list_wxwork_attendance_data_pull', this._pull_attendance_data.bind(this));
             }
         },
         _pull_attendance_rule: function () {
@@ -28,6 +29,27 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
                     [false, "form"]
                 ]
             })
-        }
+        },
+        _pull_attendance_data: function () {
+            this.do_action({
+                context: {
+
+                },
+                name: "Wizard pull attendance data",
+                type: "ir.actions.act_window",
+                res_id: false,
+                res_model: "wizard.attendance.data.pull",
+                target: "new",
+                view_mode: "form",
+                view_type: "form",
+                flags: {
+                    mode: 'edit'
+                },
+                views: [
+                    [false, "form"]
+                ]
+
+            })
+        },
     });
 });

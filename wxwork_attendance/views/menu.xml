@@ -24,13 +24,14 @@
 
                 <menuitem
                     id="menu_wxwork_attendance_rule_pull"
-                    name="Attendance rules pull"
+                    name="Attendance rules"
                     action="open_module_tree_attendance_rule"
                     parent="menu_wxwork_attendance_pull"
                     sequence="1"/>
                 <menuitem
                     id="menu_wxwork_attendance_data_pull"
-                    name="Attendance data pull"
+                    name="Attendance data"
+                    action="open_module_tree_attendance_data"
                     parent="menu_wxwork_attendance_pull"
                     sequence="2"/>
 
