@@ -198,7 +198,6 @@ class WizardAttendanceRulePull(models.TransientModel):
             )
 
     def create_attendance_data(self, record, checkindata, debug):
-        # print("创建考勤记录：" + checkindata["userid"])
         try:
             record.create(
                 {
@@ -222,9 +221,8 @@ class WizardAttendanceRulePull(models.TransientModel):
                     "lat": checkindata["lat"],
                     "lng": checkindata["lng"],
                     "deviceid": checkindata["deviceid"],
-                    "sch_checkin_time": time.strftime(
-                        "%Y-%m-%d %H:%M:%S",
-                        time.localtime(checkindata["sch_checkin_time"]),
+                    "sch_checkin_time": self.timestamp_to_time(
+                        self.check_key(checkindata, "sch_checkin_time")
                     ),
                     "groupid": checkindata["groupid"],
                     "schedule_id": self.check_key(checkindata, "schedule_id"),
@@ -246,3 +244,10 @@ class WizardAttendanceRulePull(models.TransientModel):
             return res[key]
         else:
             return None
+
+    def timestamp_to_time(self, timestamp):
+        if not timestamp:
+            return None
+        else:
+            return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(timestamp),)
+
