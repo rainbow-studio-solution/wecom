@@ -8,7 +8,7 @@ class HrAttendanceWxwrokData(models.Model):
     _description = "Enterprise WeChat attendance data"
     _order = "checkin_time"
 
-    name = fields.Char(string="Name", readonly=True, compute="_compute_name",)
+    name = fields.Char(string="Name", readonly=True,)
     userid = fields.Char(string="Enterprise WeChat user ID", readonly=True)
     groupname = fields.Char(string="Attendance rule name", readonly=True)
     # checkin_type = fields.Selection(
@@ -73,18 +73,3 @@ class HrAttendanceWxwrokData(models.Model):
         help="时段id，表示打卡记录所属规则中，某一班次中的某一时段的id，如上下班时间为9:00-12:00、13:00-18:00的班次中，9:00-12:00为其中一组时段",
     )
 
-    # @api.depends("userid")
-    # def _compute_name(self):
-    #     for user in self:
-    #         user.name = (
-    #             self.env["hr.employee"]
-    #             .search(
-    #                 [
-    #                     ("wxwork_id", "=", user.userid),
-    #                     "|",
-    #                     ("active", "=", True),
-    #                     ("active", "=", False),
-    #                 ],
-    #             )
-    #             .name
-    #         )

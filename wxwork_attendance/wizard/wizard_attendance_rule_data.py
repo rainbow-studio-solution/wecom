@@ -204,7 +204,7 @@ class WizardAttendanceRulePull(models.TransientModel):
                 {
                     "name": self.sudo()
                     .env["hr.employee"]
-                    .search([("userid", "=", checkindata["userid"])], limit=1)
+                    .search([("wxwork_id", "=", checkindata["userid"])], limit=1)
                     .name,
                     "userid": checkindata["userid"],
                     "groupname": checkindata["groupname"],
