@@ -21,20 +21,11 @@ class MailTemplate(models.Model):
         email_values=None,
         notif_layout=False,
     ):
-        values = self.generate_email(
-            res_id,
-            [
-                "subject",
-                "body_html",
-                "email_from",
-                "email_to",
-                "partner_to",
-                "email_cc",
-                "reply_to",
-                "scheduled_date",
-            ],
-        )
-        print(res_id.login)
+        # res_id 是用户id
+        if self.env["res.users"].browse(res_id).notification_type == "wxwork":
+            # 拦截 用户通知类型为企业微信的发送方式
+            pass
+
         return super(MailTemplate, self).send_mail(
             res_id,
             force_send=False,
