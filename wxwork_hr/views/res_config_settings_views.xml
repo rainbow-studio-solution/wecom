@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="contacts_secret" widget="wxwork_password" />
+                                        <field name="contacts_secret" />
                                     </div>
                                 </div>
                             </div>
