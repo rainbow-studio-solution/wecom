@@ -1,5 +1,12 @@
 # 企业微信 For Odoo 14.0
 
+```bash
+load could not load template
+ValueError: 元素 '<xpath expr="//*[hasclass('o_footer_copyright_name')]">' 在母级视图中没有找到
+
+检查是portal一个视图错误，待odoo官方修复
+```
+
 ## 项目地址
 [![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wxwork)
 [![Gitee](http://img.shields.io/badge/14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wxwork)
