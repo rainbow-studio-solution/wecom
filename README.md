@@ -5,6 +5,9 @@ load could not load template
 ValueError: 元素 '<xpath expr="//*[hasclass('o_footer_copyright_name')]">' 在母级视图中没有找到
 
 检查是portal一个视图错误，待odoo官方修复
+或者使用sql删除
+
+DELETE FROM  "ir_ui_view" WHERE key='portal.footer_language_selector'
 ```
 
 ## 项目地址
