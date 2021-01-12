@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Enterprise WeChat MarkDown Editor",
+    "name": "Enterprise WeChat Widget",
     "author": "RStudio",
     "category": "Enterprise WeChat/Enterprise WeChat",
-    "summary": "Bootstrap Markdown Editor for Enterprise WeChat",
+    "summary": "Enterprise WeChat Widget",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "version": "14.0.0.1",
     "description": """ 

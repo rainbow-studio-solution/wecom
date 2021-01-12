@@ -48,14 +48,14 @@ msgid "Enterprise WeChat Human Resources"
 msgstr "企业微信人力资源"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_markdown_editor
-msgid "Enterprise WeChat MarkDown Editor"
-msgstr "企业微信MarkDown编辑器"
+#: model:ir.module.module,shortdesc:base.module_wxwork_widget
+msgid "Enterprise WeChat Widget"
+msgstr "企业微信小部件"
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_markdown_editor
-msgid "Bootstrap Markdown Editor for Enterprise WeChat"
-msgstr "Bootstrap Markdown编辑器企业微信版本"
+#: model:ir.module.module,summary:base.module_wxwork_widget
+msgid "Enterprise WeChat Widget"
+msgstr "企业微信小部件"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_message_push

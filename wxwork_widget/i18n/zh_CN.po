@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wxwork_markdown_editor
+# 	* wxwork_widget
 #
 msgid ""
 msgstr ""
@@ -17,37 +17,37 @@ msgstr ""
 "Last-Translator: \n"
 "Language: zh_CN\n"
 
-#. module: wxwork_markdown_editor
+#. module: wxwork_widget
 #. openerp-web
-#: code:addons/wxwork_markdown_editor/static/src/js/markdown.js:0
+#: code:addons/wxwork_widget/static/src/js/markdown.js:0
 #, python-format
 msgid "Can't create the attachment."
 msgstr "无法创建附件。"
 
-#. module: wxwork_markdown_editor
+#. module: wxwork_widget
 #. openerp-web
-#: code:addons/wxwork_markdown_editor/static/src/js/markdown.js:0
+#: code:addons/wxwork_widget/static/src/js/markdown.js:0
 #, python-format
 msgid "Error"
 msgstr "错误"
 
-#. module: wxwork_markdown_editor
+#. module: wxwork_widget
 #. openerp-web
-#: code:addons/wxwork_markdown_editor/static/src/js/markdown.js:0
+#: code:addons/wxwork_widget/static/src/js/markdown.js:0
 #, python-format
 msgid "MarkDown"
 msgstr "MarkDown"
 
-#. module: wxwork_markdown_editor
+#. module: wxwork_widget
 #. openerp-web
-#: code:addons/wxwork_markdown_editor/static/src/js/markdown.js:0
+#: code:addons/wxwork_widget/static/src/js/markdown.js:0
 #, python-format
 msgid "Translate:"
 msgstr "翻译："
 
-#. module: wxwork_markdown_editor
+#. module: wxwork_widget
 #. openerp-web
-#: code:addons/wxwork_markdown_editor/static/src/js/markdown.js:0
+#: code:addons/wxwork_widget/static/src/js/markdown.js:0
 #, python-format
 msgid "description"
 msgstr "描述"

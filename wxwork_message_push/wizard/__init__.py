@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import message_template_preview
+# from . import message_template_preview

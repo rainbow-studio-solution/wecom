@@ -2,5 +2,4 @@
 
 from . import res_config_settings
 from . import res_users
-from . import message_template
 from . import mail_template

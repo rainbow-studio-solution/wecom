@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="message_secret" style="width: 100%;"/>
+                                        <field name="message_secret" widget="wxwork_password" />
                                     </div>
                                 </div>
                             </div>

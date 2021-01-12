@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wxwork_message_template_tree">
+            <field name="name">email.template.tree</field>
+            <field name="model">mail.template</field>
+            <field name="arch" type="xml">
+                <tree string="Templates">
+                    <field name="mail_server_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="msgtype"/>
+                    <field name="model_id"/>
+                    <field name="subject"/>
+                    <field name="email_from"/>
+                    <field name="email_to"/>
+                    <field name="partner_to"/>
+                    <field name="report_name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wxwork_message_template_search" model="ir.ui.view">
+           <field name="name">email.template.search</field>
+           <field name="model">mail.template</field>
+           <field name="arch" type="xml">
+               <search string="Templates">
+                    <field name="name" filter_domain="['|', '|', '|',('name','ilike',self), ('report_name','ilike',self), ('subject','ilike',self), ('email_to','ilike',self)]" string="Templates"/>
+                    <field name="lang"/>
+                    <field name="model_id"/>
+                    <group expand="0" string="Group by...">
+                        <filter string="SMTP Server" name="smtpserver" domain="[]" context="{'group_by':'mail_server_id'}"/>
+                        <filter string="Model" name="model" domain="[]" context="{'group_by':'model_id'}"/>
+                    </group>
+               </search>
+           </field>
+        </record>
+
+        <record id="action_view_wxwork_message_template_tree_all" model="ir.actions.act_window">
+            <field name="name">Templates</field>
+            <field name="res_model">mail.template</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="wxwork_message_push.wxwork_message_template_tree" />
+            <field name="search_view_id" ref="wxwork_message_push.view_wxwork_message_template_search"/>
+        </record>
+
+    </data>
+</odoo>

@@ -15,7 +15,11 @@
     "description": """
 
         """,
-    "depends": ["portal", "auth_oauth", "wxwork_hr_syncing",],
+    "depends": [
+        # "portal",
+        "auth_oauth",
+        "wxwork_hr_syncing",
+    ],
     "data": [
         "data/wxwork_oauth_data.xml",
         "views/assets_templates.xml",
