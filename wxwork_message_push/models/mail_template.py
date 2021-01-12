@@ -65,7 +65,7 @@ class MailTemplate(models.Model):
         if bool(html):
             return html2text.html2text(html)
         else:
-            pass
+            return None
 
     def send_mail(
         self,
