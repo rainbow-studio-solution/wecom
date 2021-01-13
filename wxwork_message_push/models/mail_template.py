@@ -55,7 +55,7 @@ class MailTemplate(models.Model):
 
     @api.model
     def copy_body_html(self):
-        for template in self:
+        for template in self.search([]):
             if not template.wxwork_body_html:
                 # 判断企业微信消息模板为空
                 template.wxwork_body_html = self.html2text_handle(template.body_html)

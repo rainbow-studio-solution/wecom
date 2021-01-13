@@ -86,7 +86,9 @@ odoo.define("wxwork_widget.FieldTextMarkDown", function (require) {
             this._prepareInput(this.$el);
         },
         _renderReadonly: function () {
-            this.$el.html(marked(this._formatValue(this.value)));
+            if (this.value != "") {
+                this.$el.html(marked(this._formatValue(this.value)));
+            }
         },
         _getMarkdownOptions: function () {
             var markdownOpts = {

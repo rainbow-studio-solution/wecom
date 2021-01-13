@@ -17,8 +17,8 @@ odoo.define('wxwork_message_push.list_copy_button_create', function (require) {
             var self = this;
             // var records = this.getSelectedIds();
             self._rpc({
-                model: 'wxwork.message.template',
-                method: 'copy_mail_template',
+                model: 'mail.template',
+                method: 'copy_body_html',
                 args: [],
             }).then(function (res) {
                 if (res) {

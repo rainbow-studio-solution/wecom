@@ -2,8 +2,36 @@
 <odoo>
     <data>
 
+        <record model="ir.ui.view" id="wxwork_message_template_form">
+            <field name="name">wxwork.message.template.form</field>
+            <field name="model">mail.template</field>
+            <field name="arch" type="xml">
+                <form string="Templates">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"></div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" required="1"/></h1>
+                            <group>
+                                <field name="model_id" required="1" options="{'no_create': True}"/>
+                                <field name="model" invisible="1"/>
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Content" name="content">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;"><field name="subject" placeholder="Subject (placeholders may be used here)"/></h2>
+                                <field name="wxwork_body_html" widget="wxwork_markdown" options="{'style-inline': true}"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="wxwork_message_template_tree">
-            <field name="name">email.template.tree</field>
+            <field name="name">wxwork.message.template.tree</field>
             <field name="model">mail.template</field>
             <field name="arch" type="xml">
                 <tree string="Templates">
@@ -40,8 +68,13 @@
             <field name="name">Templates</field>
             <field name="res_model">mail.template</field>
             <field name="view_mode">form,tree</field>
-            <field name="view_id" ref="wxwork_message_push.wxwork_message_template_tree" />
+            <!-- <field name="view_id" ref="wxwork_message_push.wxwork_message_template_tree" /> -->
             <field name="search_view_id" ref="wxwork_message_push.view_wxwork_message_template_search"/>
+            <field name="view_ids" 
+                eval="[(5, 0, 0),
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message_push.wxwork_message_template_tree')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message_push.wxwork_message_template_form')})
+                    ]"/>
         </record>
 
     </data>
