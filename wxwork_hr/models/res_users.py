@@ -9,7 +9,9 @@ class Users(models.Model):
     _order = "wxwork_user_order"
 
     notification_type = fields.Selection(
-        [("wxwork", "Handle by Enterprise WeChat")], default="mail", required=True,
+        selection_add=[("wxwork", "Handle by Enterprise WeChat")],
+        ondelete={"wxwork": "set default"},
+        required=True,
     )
 
     wxwork_id = fields.Char(string="Enterprise WeChat user ID", readonly=True,)

@@ -79,7 +79,7 @@ class MailTemplate(models.Model):
             # res_id 是用户id
             # 拦截 用户通知类型为企业微信的发送方式
             # 根据值创建一个消息，不带附件
-            values = self.generate_message(
+            values = self.generate_wxwork_message(
                 res_id,
                 [
                     "subject",
@@ -102,7 +102,7 @@ class MailTemplate(models.Model):
             notif_layout=False,
         )
 
-    def generate_message(self, res_ids, fields):
+    def generate_wxwork_message(self, res_ids, fields):
         """
         基于由res_ids提供的记录，从给定给定模型的模板生成电子邮件。
 
@@ -128,9 +128,10 @@ class MailTemplate(models.Model):
                     results.setdefault(res_id, dict())[field] = field_value
             # 计算收件人
             if any(field in fields for field in ["email_to", "partner_to", "email_cc"]):
-                results = template.generate_message_recipients(
+                results = template.generate_wxwork_message_recipients(
                     results, template_res_ids
                 )
+                # print(results)
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
@@ -179,7 +180,7 @@ class MailTemplate(models.Model):
         return multi_mode and results or results[res_ids[0]]
         # return super(MailTemplate, self).generate_email(res_ids, fields)
 
-    def generate_message_recipients(self, results, res_ids):
+    def generate_wxwork_message_recipients(self, results, res_ids):
         """
         生成模板的收件人。 如果模板或上下文要求，则可以生成默认值而不是模板值。
         如果上下文中有要求，可以将电子邮件（email_to，email_cc）转换为合作伙伴
