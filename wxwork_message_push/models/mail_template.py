@@ -78,6 +78,7 @@ class MailTemplate(models.Model):
         if self.env["res.users"].browse(res_id).notification_type == "wxwork":
             # res_id 是用户id
             # 拦截 用户通知类型为企业微信的发送方式
+            # 根据值创建一个消息，不带附件
             values = self.generate_message(
                 res_id,
                 [
@@ -91,7 +92,7 @@ class MailTemplate(models.Model):
                     "scheduled_date",
                 ],
             )
-            print(values)
+            # print(values)
 
         return super(MailTemplate, self).send_mail(
             res_id,
@@ -102,6 +103,12 @@ class MailTemplate(models.Model):
         )
 
     def generate_message(self, res_ids, fields):
+        """
+        基于由res_ids提供的记录，从给定给定模型的模板生成电子邮件。
+
+        :param res_id: 用于呈现模板的记录的ID（模型来自模板定义）
+        :returns: 包含所有用于创建新mail.mail条目的所有相关字段的字典，带有一个额外的键 ``附件``，格式为[(report_name, data)]，其中数据是base64编码的。
+        """
         self.ensure_one()
         multi_mode = True
         if isinstance(res_ids, int):
@@ -119,10 +126,12 @@ class MailTemplate(models.Model):
                 )
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
-            # compute recipients
+            # 计算收件人
             if any(field in fields for field in ["email_to", "partner_to", "email_cc"]):
-                results = template.generate_recipients(results, template_res_ids)
-            # update values for all res_ids
+                results = template.generate_message_recipients(
+                    results, template_res_ids
+                )
+            # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
                 if values.get("wxwork_body_html"):
@@ -168,4 +177,56 @@ class MailTemplate(models.Model):
                     results[res_id]["attachments"] = attachments
 
         return multi_mode and results or results[res_ids[0]]
-        return super(MailTemplate, self).generate_email(res_ids, fields)
+        # return super(MailTemplate, self).generate_email(res_ids, fields)
+
+    def generate_message_recipients(self, results, res_ids):
+        """
+        生成模板的收件人。 如果模板或上下文要求，则可以生成默认值而不是模板值。
+        如果上下文中有要求，可以将电子邮件（email_to，email_cc）转换为合作伙伴
+        """
+        self.ensure_one()
+
+        if self.use_default_to or self._context.get("tpl_force_default_to"):
+            records = self.env[self.model].browse(res_ids).sudo()
+            default_recipients = records._message_get_default_recipients()
+            print(default_recipients)
+            for res_id, recipients in default_recipients.items():
+                results[res_id].pop("partner_to", None)
+                results[res_id].update(recipients)
+
+        records_company = None
+        if (
+            self._context.get("tpl_partners_only")
+            and self.model
+            and results
+            and "company_id" in self.env[self.model]._fields
+        ):
+            records = self.env[self.model].browse(results.keys()).read(["company_id"])
+            records_company = {
+                rec["id"]: (rec["company_id"][0] if rec["company_id"] else None)
+                for rec in records
+            }
+
+        for res_id, values in results.items():
+            partner_ids = values.get("partner_ids", list())
+            if self._context.get("tpl_partners_only"):
+                mails = tools.email_split(
+                    values.pop("email_to", "")
+                ) + tools.email_split(values.pop("email_cc", ""))
+                Partner = self.env["res.partner"]
+                if records_company:
+                    Partner = Partner.with_context(
+                        default_company_id=records_company[res_id]
+                    )
+                for mail in mails:
+                    partner = Partner.find_or_create(mail)
+                    partner_ids.append(partner.id)
+            partner_to = values.pop("partner_to", "")
+            if partner_to:
+                # placeholders could generate '', 3, 2 due to some empty field values
+                tpl_partner_ids = [int(pid) for pid in partner_to.split(",") if pid]
+                partner_ids += (
+                    self.env["res.partner"].sudo().browse(tpl_partner_ids).exists().ids
+                )
+            results[res_id]["partner_ids"] = partner_ids
+        return results
