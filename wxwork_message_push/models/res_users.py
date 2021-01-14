@@ -12,26 +12,27 @@ from ...wxwork_api.wx_qy_api.CorpApi import *
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    def action_reset_password(self):
-        if self.notification_type == "wxwork":
-            # 判断用户的通知类型为企业微信
-            # 通过注册网址向用户推送企业微信消息
-            # 准备重置密码注册
-            create_mode = bool(self.env.context.get("create_user"))
+    # def action_reset_password(self):
+    #     if self.notification_type == "wxwork":
+    #         # 判断用户的通知类型为企业微信
+    #         # 通过注册网址向用户推送企业微信消息
+    #         # 准备重置密码注册
 
-            template = False
-            if create_mode:
-                try:
-                    template = self.env["wxwork.message.template"].search(
-                        [("res_id", "=", "auth_signup.set_password_email"),], limit=1,
-                    )
-                except ValueError:
-                    pass
-            if not template:
-                template = self.env["wxwork.message.template"].search(
-                    [("res_id", "=", "auth_signup.reset_password_email"),], limit=1,
-                )
-        return super(ResUsers, self).action_reset_password()
+    #         create_mode = bool(self.env.context.get("create_user"))
+
+    #         template = False
+    #         if create_mode:
+    #             try:
+    #                 template = self.env["wxwork.message.template"].search(
+    #                     [("res_id", "=", "auth_signup.set_password_email"),], limit=1,
+    #                 )
+    #             except ValueError:
+    #                 pass
+    #         if not template:
+    #             template = self.env["wxwork.message.template"].search(
+    #                 [("res_id", "=", "auth_signup.reset_password_email"),], limit=1,
+    #             )
+    #     return super(ResUsers, self).action_reset_password()
 
     def action_reset_password_by_enterprise_wechat(self):
         """
