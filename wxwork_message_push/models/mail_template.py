@@ -104,12 +104,13 @@ class MailTemplate(models.Model):
 
     def generate_wxwork_message(self, res_ids, fields):
         """
-        基于由res_ids提供的记录，从给定给定模型的模板生成电子邮件。
+        基于由res_ids提供的记录，从给定给定模型的模板生成 企业微信消息。
 
         :param res_id: 用于呈现模板的记录的ID（模型来自模板定义）
         :returns: 包含所有用于创建新mail.mail条目的所有相关字段的字典，带有一个额外的键 ``附件``，格式为[(report_name, data)]，其中数据是base64编码的。
         """
         self.ensure_one()
+        print("生成消息", res_ids, fields)
         multi_mode = True
         if isinstance(res_ids, int):
             res_ids = [res_ids]
@@ -186,11 +187,12 @@ class MailTemplate(models.Model):
         如果上下文中有要求，可以将电子邮件（email_to，email_cc）转换为合作伙伴
         """
         self.ensure_one()
-
+        print("生成模板的收件人", results, res_ids)
         if self.use_default_to or self._context.get("tpl_force_default_to"):
             records = self.env[self.model].browse(res_ids).sudo()
+
             default_recipients = records._message_get_default_recipients()
-            print(default_recipients)
+            # print(default_recipients)
             for res_id, recipients in default_recipients.items():
                 results[res_id].pop("partner_to", None)
                 results[res_id].update(recipients)
