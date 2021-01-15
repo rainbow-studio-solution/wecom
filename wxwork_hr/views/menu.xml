@@ -7,22 +7,22 @@
             name="Organization"
             parent="wxwork_base.menu_wxwork_root"
             sequence="1"/>
-
-            <menuitem
-                id="menu_wxwork_organization_department_kanban"
-                name="Department"
-                action="hr.hr_department_kanban_action"
-                parent="menu_wxwork_organization_main"
-                sequence="0" 
-                groups="wxwork_base.group_wxwork_user" />
-
             <menuitem
                 id="menu_wxwork_organization_employee"
                 name="Employee"
                 action="hr.open_view_employee_list_my"
                 parent="menu_wxwork_organization_main"
-                sequence="1"
+                sequence="0"
                 groups="wxwork_base.group_wxwork_user" />
+            <menuitem
+                id="menu_wxwork_organization_department_kanban"
+                name="Department"
+                action="hr.hr_department_kanban_action"
+                parent="menu_wxwork_organization_main"
+                sequence="1" 
+                groups="wxwork_base.group_wxwork_user" />
+
+            
 
         <!-- 2.员工目录 -->
         <menuitem
@@ -69,13 +69,7 @@
                     parent="menu_wxwork_human_resources_configuration_employee"
                     groups="base.group_no_one"
                     sequence="1"/>
-                <!-- <menuitem
-                    id="menu_wxwork_hr_skill_type"
-                    name="Skills"
-                    action="hr_skills.hr_skill_type_action"
-                    parent="menu_wxwork_human_resources_configuration_employee"
-                    sequence="3"
-                    groups="base.group_no_one"/> -->
+                
 
             <menuitem
                 id="menu_wxwork_hr_department_tree"
@@ -84,20 +78,6 @@
                 sequence="2"
                 groups="hr.group_hr_user"/>
 
-            <!-- <menuitem
-                id="menu_wxwork_hr_configuration_resume"
-                name="Resumé"
-                parent="menu_wxwork_hr_configuration"
-                sequence="4"
-                groups="base.group_no_one"/>
-
-                <menuitem
-                    id="menu_wxwork_hr_resume_line_type_menu"
-                    name="Types"
-                    action="hr_skills.hr_resume_type_action"
-                    parent="menu_wxwork_hr_configuration_resume"
-                    sequence="3"
-                    groups="base.group_no_one"/> -->
 
             <menuitem
                 id="menu_wxwork_config_plan"
@@ -122,28 +102,7 @@
                     groups="hr.group_hr_manager"
                     sequence="100"/>
 
-            <!-- <menuitem 
-                id="menu_wxwork_hr_gamification" 
-                parent="menu_wxwork_hr_configuration" 
-                name="Challenges" 
-                sequence="100"/>
-
-                <menuitem 
-                    id="menu_wxwork_gamification_badge" 
-                    parent="menu_wxwork_hr_gamification" 
-                    action="gamification.badge_list_action" />
-
-                <menuitem 
-                    id="menu_wxwork_gamification_challenge" 
-                    parent="menu_wxwork_hr_gamification" 
-                    action="hr_gamification.challenge_list_action2" 
-                    groups="hr.group_hr_user"/>
-
-                <menuitem 
-                    id="menu_wxwork_gamification_goal" 
-                    parent="menu_wxwork_hr_gamification" 
-                    action="hr_gamification.goals_menu_groupby_action2" 
-                    groups="hr.group_hr_user"/> -->
+            
     
        
     </data>

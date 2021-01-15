@@ -49,6 +49,55 @@
 
         
     
+        <!-- 技能配置菜单 -->
+        <menuitem
+            id="menu_wxwork_hr_skill_type"
+            name="Skills"
+            action="hr_skills.hr_skill_type_action"
+            parent="wxwork_hr.menu_wxwork_human_resources_configuration_employee"
+            sequence="3"
+            groups="base.group_no_one"/>
+
+        <!-- 简历配置菜单 -->
+        <menuitem
+            id="menu_wxwork_hr_configuration_resume"
+            name="Resumé"
+            parent="wxwork_hr.menu_wxwork_hr_configuration"
+            sequence="4"
+            groups="base.group_no_one"/>
+
+            <menuitem
+                id="menu_wxwork_hr_resume_line_type_menu"
+                name="Types"
+                action="hr_skills.hr_resume_type_action"
+                parent="menu_wxwork_hr_configuration_resume"
+                sequence="3"
+                groups="base.group_no_one"/>
+
+        <!-- 激励配置配置菜单 -->
+        <menuitem 
+            id="menu_wxwork_hr_gamification" 
+            parent="wxwork_hr.menu_wxwork_hr_configuration" 
+            name="Challenges" 
+            sequence="100"/>
+
+            <menuitem 
+                id="menu_wxwork_gamification_badge" 
+                parent="menu_wxwork_hr_gamification" 
+                action="gamification.badge_list_action" />
+
+            <menuitem 
+                id="menu_wxwork_gamification_challenge" 
+                parent="menu_wxwork_hr_gamification" 
+                action="hr_gamification.challenge_list_action2" 
+                groups="hr.group_hr_user"/>
+
+            <menuitem 
+                id="menu_wxwork_gamification_goal" 
+                parent="menu_wxwork_hr_gamification" 
+                action="hr_gamification.goals_menu_groupby_action2" 
+                groups="hr.group_hr_user"/>
+
         <!-- 招聘配置菜单 -->
         <menuitem 
             id="menu_wxwork_hr_recruitment_configuration" 

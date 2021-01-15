@@ -30,6 +30,6 @@
         "hr_work_entry",
         "project_timesheet_holidays",
     ],
-    "data": [],
+    "data": ["views/menu.xml",],
     "qweb": ["static/src/xml/*.xml",],
 }
