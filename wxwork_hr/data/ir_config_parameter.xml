@@ -7,6 +7,7 @@
 
         <!--开启访问权限，设置新用户访问权限为门户用户-->
         <function model="ir.config_parameter" name="set_param" eval="('base_setup.default_user_rights', 'True')"/>
+
         <function model="ir.config_parameter" name="set_param" eval="('base.template_portal_user_id', '5')"/>
 
         <record id="contacts_secret" model="ir.config_parameter">

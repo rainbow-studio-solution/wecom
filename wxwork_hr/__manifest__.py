@@ -11,22 +11,7 @@
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     # any module necessary for this one to work correctly
-    "depends": [
-        "hr",
-        "hr_attendance",
-        "hr_contract",
-        "hr_expense",
-        "hr_gamification",
-        "hr_holidays",
-        "hr_maintenance",
-        "hr_presence",
-        "hr_recruitment",
-        "hr_recruitment_survey",
-        "hr_skills",
-        "hr_work_entry",
-        "project_timesheet_holidays",
-        "wxwork_base",
-    ],
+    "depends": ["hr", "wxwork_base",],
     "data": [
         # 'security/ir.model.access.csv',
         "data/hr_data.xml",

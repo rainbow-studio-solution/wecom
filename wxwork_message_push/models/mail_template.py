@@ -36,9 +36,7 @@ class MailTemplate(models.Model):
         "- Handle in Odoo: notifications appear in your Odoo Inbox",
     )
     safe = fields.Boolean(string="Confidential message", default=False)
-    wxwork_body_html = fields.Html(
-        "Enterprise WeChat Message Body", translate=True, sanitize=False
-    )
+    wxwork_body_html = fields.Html("Enterprise WeChat Message Body", sanitize=False)
     enable_id_trans = fields.Boolean(
         string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
     )
@@ -55,10 +53,15 @@ class MailTemplate(models.Model):
 
     @api.model
     def copy_body_html(self):
+        """
+        复制邮件模板为企业微信消息模板
+        """
         for template in self.search([]):
             if not template.wxwork_body_html:
                 # 判断企业微信消息模板为空
                 template.wxwork_body_html = self.html2text_handle(template.body_html)
+            else:
+                template.wxwork_body_html = None
 
     def html2text_handle(self, html):
         # 转换markdown格式
@@ -93,16 +96,96 @@ class MailTemplate(models.Model):
                 ],
             )
             # print(values)
+        else:
+            # Grant access to send_mail only if access to related document
+            self.ensure_one()
+            self._send_check_access([res_id])
 
-        return super(MailTemplate, self).send_mail(
-            res_id,
-            force_send=False,
-            raise_exception=False,
-            email_values=None,
-            notif_layout=False,
-        )
+            Attachment = self.env[
+                "ir.attachment"
+            ]  # TDE FIXME: should remove default_type from context
+
+            # create a mail_mail based on values, without attachments
+            values = self.generate_email(
+                res_id,
+                [
+                    "subject",
+                    "body_html",
+                    "email_from",
+                    "email_to",
+                    "partner_to",
+                    "email_cc",
+                    "reply_to",
+                    "scheduled_date",
+                ],
+            )
+            values["recipient_ids"] = [
+                (4, pid) for pid in values.get("partner_ids", list())
+            ]
+            values["attachment_ids"] = [
+                (4, aid) for aid in values.get("attachment_ids", list())
+            ]
+            values.update(email_values or {})
+            attachment_ids = values.pop("attachment_ids", [])
+            attachments = values.pop("attachments", [])
+            # add a protection against void email_from
+            if "email_from" in values and not values.get("email_from"):
+                values.pop("email_from")
+            # encapsulate body
+            if notif_layout and values["body_html"]:
+                try:
+                    template = self.env.ref(notif_layout, raise_if_not_found=True)
+                except ValueError:
+                    _logger.warning(
+                        "QWeb template %s not found when sending template %s. Sending without layouting."
+                        % (notif_layout, self.name)
+                    )
+                else:
+                    record = self.env[self.model].browse(res_id)
+                    template_ctx = {
+                        "message": self.env["mail.message"]
+                        .sudo()
+                        .new(
+                            dict(
+                                body=values["body_html"],
+                                record_name=record.display_name,
+                            )
+                        ),
+                        "model_description": self.env["ir.model"]
+                        ._get(record._name)
+                        .display_name,
+                        "company": "company_id" in record
+                        and record["company_id"]
+                        or self.env.company,
+                        "record": record,
+                    }
+                    body = template._render(
+                        template_ctx, engine="ir.qweb", minimal_qcontext=True
+                    )
+                    values["body_html"] = self.env[
+                        "mail.render.mixin"
+                    ]._replace_local_links(body)
+            mail = self.env["mail.mail"].sudo().create(values)
+
+            # manage attachments
+            for attachment in attachments:
+                attachment_data = {
+                    "name": attachment[0],
+                    "datas": attachment[1],
+                    "type": "binary",
+                    "res_model": "mail.message",
+                    "res_id": mail.mail_message_id.id,
+                }
+                attachment_ids.append((4, Attachment.create(attachment_data).id))
+            if attachment_ids:
+                mail.write({"attachment_ids": attachment_ids})
+
+            if force_send:
+                mail.send(raise_exception=raise_exception)
+            return mail.id  # TDE CLEANME: return mail + api.returns ?
 
     def generate_wxwork_message(self, res_ids, fields):
+
         """
         基于由res_ids提供的记录，从给定给定模型的模板生成 企业微信消息。
 
@@ -110,7 +193,7 @@ class MailTemplate(models.Model):
         :returns: 包含所有用于创建新mail.mail条目的所有相关字段的字典，带有一个额外的键 ``附件``，格式为[(report_name, data)]，其中数据是base64编码的。
         """
         self.ensure_one()
-        print("生成消息", res_ids, fields)
+
         multi_mode = True
         if isinstance(res_ids, int):
             res_ids = [res_ids]
@@ -125,20 +208,27 @@ class MailTemplate(models.Model):
                 generated_field_values = template._render_field(
                     field, template_res_ids, post_process=(field == "wxwork_body_html")
                 )
+
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
+
             # 计算收件人
             if any(field in fields for field in ["email_to", "partner_to", "email_cc"]):
                 results = template.generate_wxwork_message_recipients(
                     results, template_res_ids
                 )
-                # print(results)
+
             # 更新所有res_id的值
+
             for res_id in template_res_ids:
+
                 values = results[res_id]
+                # print("更新所有res_id的值", results[res_id])
                 if values.get("wxwork_body_html"):
-                    values["body"] = tools.html_sanitize(values["wxwork_body_html"])
-                # technical settings
+                    # values["body"] = tools.html_sanitize(values["wxwork_body_html"])
+                    values["body"] = values["wxwork_body_html"]
+
+                # 技术设置
                 values.update(
                     mail_server_id=template.mail_server_id.id or False,
                     auto_delete=template.auto_delete,
@@ -148,38 +238,37 @@ class MailTemplate(models.Model):
                 )
 
             # Add report in attachments: generate once for all template_res_ids
-            if template.report_template:
-                for res_id in template_res_ids:
-                    attachments = []
-                    report_name = self._render_field("report_name", [res_id])[res_id]
-                    report = template.report_template
-                    report_service = report.report_name
+            # if template.report_template:
+            #     for res_id in template_res_ids:
+            #         attachments = []
+            #         report_name = self._render_field("report_name", [res_id])[res_id]
+            #         report = template.report_template
+            #         report_service = report.report_name
 
-                    if report.report_type in ["qweb-html", "qweb-pdf"]:
-                        result, format = report._render_qweb_pdf([res_id])
-                    else:
-                        res = report._render([res_id])
-                        if not res:
-                            raise UserError(
-                                _(
-                                    "Unsupported report type %s found.",
-                                    report.report_type,
-                                )
-                            )
-                        result, format = res
+            #         if report.report_type in ["qweb-html", "qweb-pdf"]:
+            #             result, format = report._render_qweb_pdf([res_id])
+            #         else:
+            #             res = report._render([res_id])
+            #             if not res:
+            #                 raise UserError(
+            #                     _(
+            #                         "Unsupported report type %s found.",
+            #                         report.report_type,
+            #                     )
+            #                 )
+            #             result, format = res
 
-                    # TODO in trunk, change return format to binary to match message_post expected format
-                    result = base64.b64encode(result)
-                    if not report_name:
-                        report_name = "report." + report_service
-                    ext = "." + format
-                    if not report_name.endswith(ext):
-                        report_name += ext
-                    attachments.append((report_name, result))
-                    results[res_id]["attachments"] = attachments
-
+            #         # TODO in trunk, change return format to binary to match message_post expected format
+            #         result = base64.b64encode(result)
+            #         if not report_name:
+            #             report_name = "report." + report_service
+            #         ext = "." + format
+            #         if not report_name.endswith(ext):
+            #             report_name += ext
+            #         attachments.append((report_name, result))
+            #         results[res_id]["attachments"] = attachments
+        # print("生成消息", multi_mode, results, results[res_ids[0]])
         return multi_mode and results or results[res_ids[0]]
-        # return super(MailTemplate, self).generate_email(res_ids, fields)
 
     def generate_wxwork_message_recipients(self, results, res_ids):
         """
@@ -187,7 +276,7 @@ class MailTemplate(models.Model):
         如果上下文中有要求，可以将电子邮件（email_to，email_cc）转换为合作伙伴
         """
         self.ensure_one()
-        print("生成模板的收件人", results, res_ids)
+
         if self.use_default_to or self._context.get("tpl_force_default_to"):
             records = self.env[self.model].browse(res_ids).sudo()
 
@@ -211,9 +300,11 @@ class MailTemplate(models.Model):
             }
 
         for res_id, values in results.items():
+
+            # print("生成模板的收件人2", results.items())
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
-                mails = tools.email_split(
+                messages = tools.email_split(
                     values.pop("email_to", "")
                 ) + tools.email_split(values.pop("email_cc", ""))
                 Partner = self.env["res.partner"]
@@ -221,8 +312,8 @@ class MailTemplate(models.Model):
                     Partner = Partner.with_context(
                         default_company_id=records_company[res_id]
                     )
-                for mail in mails:
-                    partner = Partner.find_or_create(mail)
+                for message in messages:
+                    partner = Partner.find_or_create(message)
                     partner_ids.append(partner.id)
             partner_to = values.pop("partner_to", "")
             if partner_to:
@@ -231,5 +322,10 @@ class MailTemplate(models.Model):
                 partner_ids += (
                     self.env["res.partner"].sudo().browse(tpl_partner_ids).exists().ids
                 )
+
+            results[res_id]["email_to"] = (
+                self.env["res.users"].sudo().browse(res_ids).wxwork_id
+            )
             results[res_id]["partner_ids"] = partner_ids
+
         return results

@@ -32,49 +32,8 @@
             parent="wxwork_base.menu_wxwork_root"
             sequence="2"/>
 
-        <!-- 3.招聘 -->
-        <menuitem
-            name="Recruitment"
-            id="menu_wxwork_hr_recruitment_main"
-            parent="wxwork_base.menu_wxwork_root"
-            groups="hr_recruitment.group_hr_recruitment_user"
-            sequence="3"/>
-
-            <menuitem 
-                name="By Job Positions"
-                parent="menu_wxwork_hr_recruitment_main" 
-                id="menu_wxwork_hr_job_position" 
-                action="hr_recruitment.action_hr_job" 
-                sequence="1"/>
-
-            <menuitem
-                name="All Applications"
-                parent="menu_wxwork_hr_recruitment_main"
-                id="menu_wxwork_crm_case_categ_all_app" 
-                action="hr_recruitment.crm_case_categ0_act_job" 
-                sequence="2"/>
-
-        <!-- 90.报表菜单 -->
-        <menuitem
-            name="Reporting"
-            id="menu_wxwork_report_main"
-            parent="wxwork_base.menu_wxwork_root"
-            groups="hr_recruitment.group_hr_recruitment_user"
-            sequence="90"/>
-
-            <menuitem 
-                name="Recruitment Analysis" 
-                id="hr_applicant_report_menu" 
-                parent="menu_wxwork_report_main"
-                sequence="5" 
-                action="hr_recruitment.hr_applicant_action_analysis"/>
-
-            <menuitem
-                id="menu_wxwork_attendance_report"
-                name="Attendance Reporting"
-                action="hr_attendance.hr_attendance_action_graph"
-                parent="menu_wxwork_report_main"
-                sequence="10"/>
+        
+  
 
         <!-- HR配置菜单 -->
         <menuitem 
@@ -110,13 +69,13 @@
                     parent="menu_wxwork_human_resources_configuration_employee"
                     groups="base.group_no_one"
                     sequence="1"/>
-                <menuitem
+                <!-- <menuitem
                     id="menu_wxwork_hr_skill_type"
                     name="Skills"
                     action="hr_skills.hr_skill_type_action"
                     parent="menu_wxwork_human_resources_configuration_employee"
                     sequence="3"
-                    groups="base.group_no_one"/>
+                    groups="base.group_no_one"/> -->
 
             <menuitem
                 id="menu_wxwork_hr_department_tree"
@@ -125,7 +84,7 @@
                 sequence="2"
                 groups="hr.group_hr_user"/>
 
-            <menuitem
+            <!-- <menuitem
                 id="menu_wxwork_hr_configuration_resume"
                 name="Resumé"
                 parent="menu_wxwork_hr_configuration"
@@ -138,7 +97,7 @@
                     action="hr_skills.hr_resume_type_action"
                     parent="menu_wxwork_hr_configuration_resume"
                     sequence="3"
-                    groups="base.group_no_one"/>
+                    groups="base.group_no_one"/> -->
 
             <menuitem
                 id="menu_wxwork_config_plan"
@@ -163,7 +122,7 @@
                     groups="hr.group_hr_manager"
                     sequence="100"/>
 
-            <menuitem 
+            <!-- <menuitem 
                 id="menu_wxwork_hr_gamification" 
                 parent="menu_wxwork_hr_configuration" 
                 name="Challenges" 
@@ -184,61 +143,8 @@
                     id="menu_wxwork_gamification_goal" 
                     parent="menu_wxwork_hr_gamification" 
                     action="hr_gamification.goals_menu_groupby_action2" 
-                    groups="hr.group_hr_user"/>
+                    groups="hr.group_hr_user"/> -->
     
-        <!-- 招聘配置菜单 -->
-        <menuitem 
-            id="menu_wxwork_hr_recruitment_configuration" 
-            name="Recruitment Configuration" 
-            parent="wxwork_base.menu_wxwork_manager_configuration" 
-            sequence="2"/>
-
-            <menuitem 
-                id="menu_wxwork_hr_recruitment_global_settings" 
-                name="Settings"
-                parent="menu_wxwork_hr_recruitment_configuration" 
-                sequence="0" 
-                action="hr_recruitment.action_hr_recruitment_configuration"
-                groups="base.group_system"/>
-            <menuitem
-                id="menu_wxwork_hr_recruitment_stage"
-                name="Stages"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                action="hr_recruitment.hr_recruitment_stage_act"
-                groups="base.group_no_one"
-                sequence="1"/>
-            <menuitem
-                id="menu_wxwork_hr_applicant_category_menu"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                action="hr_recruitment.hr_applicant_category_action"
-                sequence="2" 
-                groups="base.group_no_one"/>
-            <menuitem
-                id="menu_wxwork_hr_recruitment_degree"
-                name="Degrees"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                action="hr_recruitment.hr_recruitment_degree_action"
-                sequence="5" 
-                groups="base.group_no_one"/>
-            <menuitem 
-                parent="menu_wxwork_hr_recruitment_configuration" id="menu_wxwork_hr_job_position_config" 
-                action="hr_recruitment.action_hr_job_config" 
-                sequence="6"/>
-            <menuitem
-                id="menu_wxwork_hr_applicant_refuse_reason"
-                action="hr_recruitment.hr_applicant_refuse_reason_action"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                sequence="7"/>
-            <menuitem
-                id="menu_wxwork_hr_recruitment_source"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                action="hr_recruitment.hr_recruitment_source_action"
-                groups="base.group_no_one"
-                sequence="8"/>
-            <menuitem 
-                id="menu_wxwork_hr_recruitment_menu_config_activity_type"
-                action="hr_recruitment.mail_activity_type_action_config_hr_applicant"
-                parent="menu_wxwork_hr_recruitment_configuration"
-                sequence="10"/>
+       
     </data>
 </odoo>

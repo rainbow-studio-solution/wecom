@@ -16,13 +16,7 @@
 
 
         """,
-    "depends": [
-        "mail",
-        "mass_mailing",
-        "wxwork_base",
-        "wxwork_widget",
-        "wxwork_auth_oauth",
-    ],
+    "depends": ["mail", "wxwork_base", "wxwork_widget", "wxwork_auth_oauth",],
     "external_dependencies": {"python": ["html2text"],},
     "data": [
         # 'data/wxwork_data.xml',

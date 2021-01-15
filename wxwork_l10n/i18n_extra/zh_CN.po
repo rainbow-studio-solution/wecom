@@ -48,6 +48,11 @@ msgid "Enterprise WeChat Human Resources"
 msgstr "企业微信人力资源"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.wxwork_hr_extension
+msgid "Enterprise WeChat Hr Extension"
+msgstr "企业微信人力资源扩展"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget
 msgid "Enterprise WeChat Widget"
 msgstr "企业微信小部件"
