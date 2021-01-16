@@ -3,8 +3,9 @@
     <data noupdate="1">        
 
         <!-- 重置密码的消息模板-->
-        <function model="mail.template" name="write" eval="[ref('auth_signup.set_password_email')]">
-            <value name="wxwork_body_html" eval="
+        <function model="mail.template" name="write">
+            <value eval="[ref('auth_signup.set_password_email')]"/>
+            <value eval="['wxwork_body_html': '
 # Your Account
 
 Dear ${object.name},  
@@ -36,7 +37,7 @@ ${object.company_id.phone}
         <!-- 新用户的消息模板-->
         <function model="mail.template" name="write">
             <value eval="[ref('auth_signup.set_password_email')]"/>
-            <value name="wxwork_body_html" eval="
+            <value eval="['wxwork_body_html': '
 Welcome to Odoo
 # ${object.name}
 
@@ -68,13 +69,13 @@ ${object.company_id.phone}
 % if object.company_id.website 
     | [${object.company_id.website}]('%s' %${object.company_id.website}) 
 % endif
-            "/>
+            ']"/>
         </function>
 
         <!-- 使用注册令牌的新用户的消息模板-->
         <function model="mail.template" name="write">
             <value eval="[ref('auth_signup.mail_template_user_signup_account_created')]"/>
-            <value name="wxwork_body_html" eval="
+            <value eval="['wxwork_body_html': '
 Your Account
 # ${object.name}
 
@@ -111,7 +112,7 @@ ${object.company_id.phone}
         <!-- 用于提醒未注册用户的消息模板-->
         <function model="mail.template" name="write">
             <value eval="[ref('auth_signup.mail_template_data_unregistered_users')]"/>
-            <value name="wxwork_body_html" eval="
+            <value eval="['wxwork_body_html': '
 % set invited_users = ctx['invited_users']
 # Pending Invitations
 

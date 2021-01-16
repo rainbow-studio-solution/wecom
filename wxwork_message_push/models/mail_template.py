@@ -52,6 +52,10 @@ class MailTemplate(models.Model):
     )
 
     @api.model
+    def create_wxwork_wxwork_template(self, vals_list):
+        return super().create(vals_list)
+
+    @api.model
     def copy_body_html(self):
         """
         复制邮件模板为企业微信消息模板
@@ -87,6 +91,7 @@ class MailTemplate(models.Model):
                 [
                     "subject",
                     "wxwork_body_html",
+                    # "body_html",
                     "email_from",
                     "email_to",
                     "partner_to",
@@ -205,9 +210,12 @@ class MailTemplate(models.Model):
         ).items():
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
-                generated_field_values = template._render_field(
+                generated_field_values = template._render_wxwork_message_field(
                     field, template_res_ids, post_process=(field == "wxwork_body_html")
                 )
+                # generated_field_values = template._render_wxwork_message_field(
+                #     field, template_res_ids, post_process=(field == "body_html")
+                # )
 
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
@@ -219,14 +227,12 @@ class MailTemplate(models.Model):
                 )
 
             # 更新所有res_id的值
-
             for res_id in template_res_ids:
-
                 values = results[res_id]
-                # print("更新所有res_id的值", results[res_id])
                 if values.get("wxwork_body_html"):
-                    # values["body"] = tools.html_sanitize(values["wxwork_body_html"])
-                    values["body"] = values["wxwork_body_html"]
+                    values["body"] = tools.html_sanitize(values["wxwork_body_html"])
+                # if values.get("body_html"):
+                #     values["body"] = tools.html_sanitize(values["body_html"])
 
                 # 技术设置
                 values.update(
@@ -322,7 +328,7 @@ class MailTemplate(models.Model):
                 partner_ids += (
                     self.env["res.partner"].sudo().browse(tpl_partner_ids).exists().ids
                 )
-
+            # TODO 获取企业微信用户id
             results[res_id]["email_to"] = (
                 self.env["res.users"].sudo().browse(res_ids).wxwork_id
             )
