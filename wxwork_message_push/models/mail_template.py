@@ -36,7 +36,7 @@ class MailTemplate(models.Model):
         "- Handle in Odoo: notifications appear in your Odoo Inbox",
     )
     safe = fields.Boolean(string="Confidential message", default=False)
-    wxwork_body_html = fields.Html("Enterprise WeChat Message Body", sanitize=False)
+    wxwork_body_html = fields.Text("Enterprise WeChat Message Body", sanitize=False)
     enable_id_trans = fields.Boolean(
         string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
     )

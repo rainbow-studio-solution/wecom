@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">        
+    <data noupdate="0">        
 
         <!-- 重置密码的消息模板-->
-        <record id="auth_signup.reset_password_email" model="mail.template">
-            <field name="wxwork_body_html" type="html">
+        <function model="mail.template" name="write">
+            <value eval="[ref('auth_signup.reset_password_email')]"/>
+            <value name="wxwork_body_html" eval="
 # Your Account
 
 Dear ${object.name},  
@@ -29,13 +30,14 @@ ${object.company_id.phone}
 % endif
 % if object.company_id.website 
     | [${object.company_id.website}]('%s' %${object.company_id.website}) 
-% endif             
-            </field>
-        </record>
+% endif  
+            ']"/>
+        </function>
 
         <!-- 新用户的消息模板-->
-        <record id="auth_signup.set_password_email" model="mail.template">
-            <field name="wxwork_body_html" type="html">
+        <function model="mail.template" name="write">
+            <value eval="[ref('auth_signup.set_password_email')]"/>
+            <value name="wxwork_body_html" eval="
 Welcome to Odoo
 # ${object.name}
 
@@ -47,11 +49,11 @@ You have been invited by ${object.create_uid.name} of ${object.company_id.name} 
 
 % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url') Your Odoo domain is: **[${website_url}](${website_url})**
 
-Your sign in email is: <a target='_blank' href='/web/login?login=${object.email}'>${object.email}</a>
+Your sign in email is: [${object.email}]('/web/login?login=${object.email}'){:target='_blank'}
 
 Never heard of Odoo? It’s an all-in-one business software loved by 3+ million users. It will considerably improve your experience at work and increase your productivity.
 
-Have a look at the <font color='warning'><a href='https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth' target='_blank'>Odoo Tour</a></font> to discover the tool.
+Have a look at the &lt;font color='warning'&gt;[Odoo Tour]('https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth'){:target='_blank'}&lt;/font&gt; to discover the tool.
 
 Enjoy Odoo!
 
@@ -66,14 +68,14 @@ ${object.company_id.phone}
 % endif
 % if object.company_id.website 
     | [${object.company_id.website}]('%s' %${object.company_id.website}) 
-% endif            
-            </field>
-        </record>
-        
+% endif
+            "/>
+        </function>
 
         <!-- 使用注册令牌的新用户的消息模板-->
-        <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
-            <field name="wxwork_body_html" type="html">
+        <function model="mail.template" name="write">
+            <value eval="[ref('auth_signup.mail_template_user_signup_account_created')]"/>
+            <value name="wxwork_body_html" eval="
 Your Account
 # ${object.name}
 
@@ -85,7 +87,7 @@ Your login is **${object.email}**
 
 To gain access to your account, you can use the following link:
 
-<font color='warning'>[Go to My Account](/web/login?auth_login=${object.email})</font>
+&lt;font color='warning'&gt;[Go to My Account](/web/login?auth_login=${object.email})&lt;/font&gt;
 
 Thanks,
 
@@ -103,14 +105,14 @@ ${object.company_id.phone}
 % endif
 % if object.company_id.website 
     | [${object.company_id.website}]('%s' %${object.company_id.website}) 
-% endif           
-            </field>
-        </record>
-
-
+% endif
+            ']"/>
+        </function>
+  
         <!-- 用于提醒未注册用户的消息模板-->
-        <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
-            <field name="wxwork_body_html" type="html">
+        <function model="mail.template" name="write">
+            <value eval="[ref('auth_signup.mail_template_data_unregistered_users')]"/>
+            <value name="wxwork_body_html" eval="
 % set invited_users = ctx['invited_users']
 # Pending Invitations
 
@@ -127,10 +129,9 @@ Follow up with them so they can access your database and start working with you.
 Have a nice day!
 
 The ${object.company_id.name} Team
-#          
-            </field>
-        </record>
-
+# 
+            ']"/>
+        </function>
 
     </data>
 </odoo>

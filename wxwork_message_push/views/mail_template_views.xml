@@ -15,6 +15,8 @@
                             <group>
                                 <field name="model_id" required="1" options="{'no_create': True}"/>
                                 <field name="model" invisible="1"/>
+                                <field name="msgtype" />
+                                <field name="enable_duplicate_check" />
                             </group>
                         </div>
                         <notebook>
