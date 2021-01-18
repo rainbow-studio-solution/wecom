@@ -69,6 +69,10 @@ DELETE FROM  "ir_ui_view" WHERE key='portal.footer_language_selector'
 
 [![Help](http://img.shields.io/badge/14.0-帮助-4cb648.svg?style=flat&colorA=8F8F8F)](doc/help/index.md)
 
+## CentOS问题
+
+[![Help](http://img.shields.io/badge/14.0-CentOS-4cb648.svg?style=flat&colorA=8F8F8F)](doc/centos_index.md)
+
 
 
 # QQ群
