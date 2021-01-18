@@ -11,6 +11,8 @@
     "version": "14.0.0.1",
     "summary": """
         Enterprise WeChat API
+
+        https://github.com/sbzhu/weworkapi_python
         """,
     "description": """
 

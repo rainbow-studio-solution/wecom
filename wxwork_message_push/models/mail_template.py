@@ -91,8 +91,7 @@ class MailTemplate(models.Model):
                 res_id,
                 [
                     "subject",
-                    # "wxwork_body_html",
-                    # "body_html",
+                    "wxwork_body_html",
                     "email_from",
                     "email_to",
                     "partner_to",
@@ -101,25 +100,40 @@ class MailTemplate(models.Model):
                     "scheduled_date",
                 ],
             )
-            pass
-            # print("send_mail", values)
-            # params = self.env["ir.config_parameter"].sudo()
-            # corpid = params.get_param("wxwork.corpid")
-            # secret = params.get_param("wxwork.contacts_secret")
-            # debug = params.get_param("wxwork.debug_enabled")
-            # wxapi = CORP_API_TYPE(corpid, secret)
-            # try:
-            #     response = wxapi.httpCall(
-            #         CORP_API_TYPE["MESSAGE_SEND"], {"touser": values["email_to"],},
-            #     )
-            # except ApiException as e:
-            #     if debug:
-            #         print(
-            #             _(
-            #                 "发送错误, error: %s",
-            #                 (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-            #             )
-            #         )
+
+            params = self.env["ir.config_parameter"].sudo()
+            corpid = params.get_param("wxwork.corpid")
+            secret = params.get_param("wxwork.message_secret")
+            message_agentid = params.get_param("wxwork.message_agentid")
+            debug = params.get_param("wxwork.debug_enabled")
+            wxapi = CorpApi(corpid, secret)
+            try:
+                response = wxapi.httpCall(
+                    CORP_API_TYPE["MESSAGE_SEND"],
+                    {
+                        "touser": values["email_to"],
+                        "msgtype": "markdown",
+                        "agentid": int(message_agentid),
+                        "markdown": {
+                            "content": "%s %s "
+                            % (
+                                "# " + values["subject"] + "\n",
+                                values["wxwork_body_html"],
+                            )
+                        },
+                        "enable_duplicate_check": 0,
+                        "duplicate_check_interval": 1800,
+                    },
+                )
+                # TODO 待处理发送失败的信息
+            except ApiException as e:
+                if debug:
+                    print(
+                        _(
+                            "发送错误, error: %s",
+                            (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
+                        )
+                    )
         else:
             # Grant access to send_mail only if access to related document
             self.ensure_one()
@@ -229,11 +243,8 @@ class MailTemplate(models.Model):
         ).items():
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
-                # generated_field_values = template._render_wxwork_message_field(
-                #     field, template_res_ids, post_process=(field == "wxwork_body_html")
-                # )
                 generated_field_values = template._render_wxwork_message_field(
-                    field, template_res_ids
+                    field, template_res_ids, post_process=(field == "wxwork_body_html")
                 )
 
                 for res_id, field_value in generated_field_values.items():
@@ -248,8 +259,8 @@ class MailTemplate(models.Model):
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
-                # if values.get("wxwork_body_html"):
-                #     values["body"] = tools.html_sanitize(values["wxwork_body_html"])
+                if values.get("wxwork_body_html"):
+                    values["body"] = tools.html_sanitize(values["wxwork_body_html"])
                 # if values.get("body_html"):
                 #     values["body"] = tools.html_sanitize(values["body_html"])
 
@@ -262,37 +273,6 @@ class MailTemplate(models.Model):
                     attachment_ids=[attach.id for attach in template.attachment_ids],
                 )
 
-            # Add report in attachments: generate once for all template_res_ids
-            # if template.report_template:
-            #     for res_id in template_res_ids:
-            #         attachments = []
-            #         report_name = self._render_field("report_name", [res_id])[res_id]
-            #         report = template.report_template
-            #         report_service = report.report_name
-
-            #         if report.report_type in ["qweb-html", "qweb-pdf"]:
-            #             result, format = report._render_qweb_pdf([res_id])
-            #         else:
-            #             res = report._render([res_id])
-            #             if not res:
-            #                 raise UserError(
-            #                     _(
-            #                         "Unsupported report type %s found.",
-            #                         report.report_type,
-            #                     )
-            #                 )
-            #             result, format = res
-
-            #         # TODO in trunk, change return format to binary to match message_post expected format
-            #         result = base64.b64encode(result)
-            #         if not report_name:
-            #             report_name = "report." + report_service
-            #         ext = "." + format
-            #         if not report_name.endswith(ext):
-            #             report_name += ext
-            #         attachments.append((report_name, result))
-            #         results[res_id]["attachments"] = attachments
-        # print("生成消息", multi_mode, results, results[res_ids[0]])
         return multi_mode and results or results[res_ids[0]]
 
     def generate_wxwork_message_recipients(self, results, res_ids):
@@ -306,7 +286,7 @@ class MailTemplate(models.Model):
             records = self.env[self.model].browse(res_ids).sudo()
 
             default_recipients = records._message_get_default_recipients()
-            # print(default_recipients)
+
             for res_id, recipients in default_recipients.items():
                 results[res_id].pop("partner_to", None)
                 results[res_id].update(recipients)
@@ -325,8 +305,6 @@ class MailTemplate(models.Model):
             }
 
         for res_id, values in results.items():
-
-            # print("生成模板的收件人2", results.items())
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
                 messages = tools.email_split(

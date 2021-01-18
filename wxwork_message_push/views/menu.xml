@@ -10,10 +10,16 @@
             sequence="97" />
 
             <menuitem 
+                id="menu_wxwork_message_send" 
+                name="Send Message" parent="menu_wxwork_message"
+                action="action_view_wxwork_message_send" 
+                sequence="10"/>
+
+            <menuitem 
                 id="menu_wxwork_message_template" 
                 name="Template" parent="menu_wxwork_message"
                 action="action_view_wxwork_message_template_tree_all" 
-                sequence="10"/>
+                sequence="20"/>
 
     </data>
 </odoo>

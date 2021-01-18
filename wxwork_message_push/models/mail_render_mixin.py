@@ -14,24 +14,20 @@ from odoo.tools import safe_eval
 _logger = logging.getLogger(__name__)
 
 try:
-    # We use a jinja2 sandboxed environment to render mako templates.
-    # Note that the rendering does not cover all the mako syntax, in particular
-    # arbitrary Python statements are not accepted, and not all expressions are
-    # allowed: only "public" attributes (not starting with '_') of objects may
-    # be accessed.
-    # This is done on purpose: it prevents incidental or malicious execution of
-    # Python code that may break the security of the server.
+    # 我们使用jinja2沙盒环境渲染mako模板。
+    # 请注意，渲染并未涵盖所有的mako语法，尤其是不接受任意的Python语句，并且不允许使用所有表达式：只能访问对象的“公共”属性（不是以“ _”开头）。
+    # 这样做是有目的的：它可以防止偶然或恶意执行可能破坏服务器安全性的Python代码。
     from jinja2.sandbox import SandboxedEnvironment
 
     jinja_template_env = SandboxedEnvironment(
-        block_start_string="<%",
-        block_end_string="%>",
+        # block_start_string="<%",
+        # block_end_string="%>",
         variable_start_string="${",
         variable_end_string="}",
         comment_start_string="<%doc>",
         comment_end_string="</%doc>",
         line_statement_prefix="%",
-        line_comment_prefix="##",
+        # line_comment_prefix="##",
         trim_blocks=True,  # do not output newline after blocks
         autoescape=True,  # XML/HTML automatic escaping
     )
@@ -50,9 +46,7 @@ try:
             "reduce": functools.reduce,
             "map": map,
             "round": round,
-            # dateutil.relativedelta is an old-style class and cannot be directly
-            # instanciated wihtin a jinja2 expression, so a lambda "proxy" is
-            # is needed, apparently.
+            # dateutil.relativedelta是一个老式的类，不能在jinja2表达式中直接实例化，因此显然需要lambda“ proxy”。
             "relativedelta": lambda *a, **kw: relativedelta.relativedelta(*a, **kw),
         }
     )
@@ -97,7 +91,6 @@ class MailRenderMixin(models.AbstractModel):
                     _("Failed to render template : %s (%d)") % (template_src, view.id)
                 )
             results[record.id] = render_result
-        print("qweb", results)
         return results
 
     @api.model
@@ -124,7 +117,6 @@ class MailRenderMixin(models.AbstractModel):
 
         # try to load the template
         try:
-            print("jinja template_txt", template_txt)
             jinja_env = jinja_safe_template_env if no_autoescape else jinja_template_env
             template = jinja_env.from_string(tools.ustr(template_txt))
         except Exception:
@@ -152,7 +144,6 @@ class MailRenderMixin(models.AbstractModel):
             if render_result == u"False":
                 render_result = u""
             results[record.id] = render_result
-        print("jinja", results)
         return results
 
     @api.model
@@ -189,18 +180,15 @@ class MailRenderMixin(models.AbstractModel):
 
         :return dict: {res_id: 根据记录呈现的模板字符串}
         """
-        # print(res_ids, template_src)
-        print(template_src, model, res_ids, add_context)
+
         if not isinstance(res_ids, (list, tuple)):
             raise ValueError(
                 _("Template rendering should be called only using on a list of IDs.")
             )
         if engine not in ("jinja", "qweb"):
-            # print("no qweb jinja")
             raise ValueError(_("Template rendering supports only jinja or qweb."))
 
         if engine == "qweb":
-            # print("qweb")
             rendered = self._render_wxwork_message_template_qweb(
                 template_src, model, res_ids, add_context=add_context
             )
@@ -210,7 +198,6 @@ class MailRenderMixin(models.AbstractModel):
                 template_src, model, res_ids, add_context=add_context
             )
         if post_process:
-            # print("post_process")
             rendered = self._render_wxwork_message_template_postprocess(rendered)
 
         return rendered
