@@ -27,7 +27,7 @@ class HrEmployee(models.Model):
             {
                 "name": self.name,
                 "login": self.wxwork_id,
-                "oauth_uid": self.wxwork_id,
+                # "oauth_uid": self.wxwork_id,
                 "password": Common(8).random_passwd(),
                 "email": self.work_email,
                 "wxwork_id": self.wxwork_id,
@@ -446,7 +446,7 @@ class EmployeeSyncUser(models.Model):
                 {
                     "name": employee.name,
                     "login": employee.wxwork_id,
-                    "oauth_uid": employee.wxwork_id,
+                    # "oauth_uid": employee.wxwork_id,
                     "password": Common(8).random_passwd(),  # 随机密码
                     "email": employee.work_email,
                     "wxwork_id": employee.wxwork_id,
@@ -484,7 +484,7 @@ class EmployeeSyncUser(models.Model):
             user.write(
                 {
                     "name": employee.name,
-                    "oauth_uid": employee.wxwork_id,
+                    # "oauth_uid": employee.wxwork_id,
                     # 'email': employee.work_email,
                     "image_1920": employee.image_1920,
                     "wxwork_user_order": employee.wxwork_user_order,

@@ -39,7 +39,8 @@ class ResUsers(models.Model):
             oauth_userid = params["UserId"]
             oauth_user = self.search(
                 [
-                    ("oauth_uid", "=", oauth_userid),
+                    # ("oauth_uid", "=", oauth_userid),
+                    ("wxwork_id", "=", oauth_userid),
                     ("is_wxwork_user", "=", True),
                     ("active", "=", True),
                 ]
