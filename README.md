@@ -8,6 +8,10 @@ ValueError: 元素 '<xpath expr="//*[hasclass('o_footer_copyright_name')]">' 在
 或者在未安装website相关模块下使用sql删除
 
 DELETE FROM  "ir_ui_view" WHERE key='portal.footer_language_selector'
+
+不会写sql的，可以开启debug模式(url地址的web后面增加’?debug=1‘);
+打开odoo的设置-技术-用户菜单--视图，搜索：Footer Language Selector，找到外部id为：portal.footer_language_selector
+编辑设置有效为False
 ```
 
 ## 项目地址
