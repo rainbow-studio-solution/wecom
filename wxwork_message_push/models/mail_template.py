@@ -2,6 +2,7 @@
 
 import base64
 import logging
+from ...wxwork_api.wx_qy_api.CorpApi import *
 
 
 from odoo import _, api, fields, models, tools
@@ -90,7 +91,7 @@ class MailTemplate(models.Model):
                 res_id,
                 [
                     "subject",
-                    "wxwork_body_html",
+                    # "wxwork_body_html",
                     # "body_html",
                     "email_from",
                     "email_to",
@@ -100,7 +101,25 @@ class MailTemplate(models.Model):
                     "scheduled_date",
                 ],
             )
-            # print(values)
+            pass
+            # print("send_mail", values)
+            # params = self.env["ir.config_parameter"].sudo()
+            # corpid = params.get_param("wxwork.corpid")
+            # secret = params.get_param("wxwork.contacts_secret")
+            # debug = params.get_param("wxwork.debug_enabled")
+            # wxapi = CORP_API_TYPE(corpid, secret)
+            # try:
+            #     response = wxapi.httpCall(
+            #         CORP_API_TYPE["MESSAGE_SEND"], {"touser": values["email_to"],},
+            #     )
+            # except ApiException as e:
+            #     if debug:
+            #         print(
+            #             _(
+            #                 "发送错误, error: %s",
+            #                 (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
+            #             )
+            #         )
         else:
             # Grant access to send_mail only if access to related document
             self.ensure_one()
@@ -210,12 +229,12 @@ class MailTemplate(models.Model):
         ).items():
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
-                generated_field_values = template._render_wxwork_message_field(
-                    field, template_res_ids, post_process=(field == "wxwork_body_html")
-                )
                 # generated_field_values = template._render_wxwork_message_field(
-                #     field, template_res_ids, post_process=(field == "body_html")
+                #     field, template_res_ids, post_process=(field == "wxwork_body_html")
                 # )
+                generated_field_values = template._render_wxwork_message_field(
+                    field, template_res_ids
+                )
 
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
@@ -229,8 +248,8 @@ class MailTemplate(models.Model):
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
-                if values.get("wxwork_body_html"):
-                    values["body"] = tools.html_sanitize(values["wxwork_body_html"])
+                # if values.get("wxwork_body_html"):
+                #     values["body"] = tools.html_sanitize(values["wxwork_body_html"])
                 # if values.get("body_html"):
                 #     values["body"] = tools.html_sanitize(values["body_html"])
 

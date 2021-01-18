@@ -97,7 +97,7 @@ class MailRenderMixin(models.AbstractModel):
                     _("Failed to render template : %s (%d)") % (template_src, view.id)
                 )
             results[record.id] = render_result
-
+        print("qweb", results)
         return results
 
     @api.model
@@ -123,14 +123,14 @@ class MailRenderMixin(models.AbstractModel):
             return results
 
         # try to load the template
-        # try:
-        #     print("jinja", template_txt)
-        #     jinja_env = jinja_safe_template_env if no_autoescape else jinja_template_env
-        #     template = jinja_env.from_string(tools.ustr(template_txt))
-        # except Exception:
-        #     _logger.info("Failed to load template %r", template_txt, exc_info=True)
-        #     return results
-        template = template_txt
+        try:
+            print("jinja template_txt", template_txt)
+            jinja_env = jinja_safe_template_env if no_autoescape else jinja_template_env
+            template = jinja_env.from_string(tools.ustr(template_txt))
+        except Exception:
+            _logger.info("Failed to load template %r", template_txt, exc_info=True)
+            return results
+
         # prepare template variables
         variables = self._render_jinja_eval_context()
         if add_context:

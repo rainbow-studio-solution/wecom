@@ -27,7 +27,7 @@ DELETE FROM  "ir_ui_view" WHERE key='portal.footer_language_selector'
 4. wxwork_hr_syncing （企业微信-同步功能）完成......
     ```bash
     #1. 安装扩展
-    pip install numpy==1.19.3 opencv-python
+    pip install numpy==1.19.3 opencv-python==4.4.0.46
 
     #2. 
     "获取部门成员"API department字段 没有将主部门 默认排第一个，导致同步时设置主部门错误。
