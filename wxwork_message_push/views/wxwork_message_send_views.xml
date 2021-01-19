@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wxwork_message_send_form">
+            <field name="name">wxwork.message.send.form</field>
+            <field name="model">wxwork.message.sending</field>
+            <field name="arch" type="xml">
+                <form string="Templates">
+                    <sheet>
+                        <!-- <div class="oe_button_box" name="button_box"></div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name" required="1"/></h1>
+                            <group>
+                                <field name="model_id" required="1" options="{'no_create': True}"/>
+                                <field name="model" invisible="1"/>
+                                <field name="msgtype" />
+                                <field name="enable_duplicate_check" />
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Content" name="content">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;"><field name="subject" placeholder="Subject (placeholders may be used here)"/></h2>
+                                <field name="wxwork_body_html" widget="wxwork_markdown" options="{'style-inline': true}"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </page>
+                        </notebook> -->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="wxwork_message_send_tree">
+            <field name="name">wxwork.message.send.tree</field>
+            <field name="model">wxwork.message.sending</field>
+            <field name="arch" type="xml">
+                <tree string="Sending List">
+                    <field name="subject" />
+                    <field name="to_user"/>
+                    <field name="to_party"/>
+                    <field name="to_tag"/>
+                    <field name="use_templates"/>
+                    <field name="msgtype"/>
+                    <field name="enable_id_trans"/>
+                    <field name="enable_duplicate_check"/>
+                    <field name="duplicate_check_interval"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_wxwork_message_send" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">wxwork.message.sending</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

@@ -4,7 +4,7 @@ from odoo import api, fields, models, tools, _
 
 
 class MassMailing(models.Model):
-    _name = "wxwoke.message.sending"
+    _name = "wxwork.message.sending"
     _description = "Enterprise WeChat message sending"
 
     subject = fields.Char(

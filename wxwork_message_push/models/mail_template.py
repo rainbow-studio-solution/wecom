@@ -98,6 +98,11 @@ class MailTemplate(models.Model):
                     "email_cc",
                     "reply_to",
                     "scheduled_date",
+                    "msgtype",
+                    "safe",
+                    "enable_id_trans",
+                    "enable_duplicate_check",
+                    "duplicate_check_interval",
                 ],
             )
 
@@ -107,23 +112,29 @@ class MailTemplate(models.Model):
             message_agentid = params.get_param("wxwork.message_agentid")
             debug = params.get_param("wxwork.debug_enabled")
             wxapi = CorpApi(corpid, secret)
+            print(self.generate_wxwork_body_content(values, message_agentid))
             try:
                 response = wxapi.httpCall(
                     CORP_API_TYPE["MESSAGE_SEND"],
-                    {
-                        "touser": values["email_to"],
-                        "msgtype": "markdown",
-                        "agentid": int(message_agentid),
-                        "markdown": {
-                            "content": "%s %s "
-                            % (
-                                "# " + values["subject"] + "\n",
-                                values["wxwork_body_html"],
-                            )
-                        },
-                        "enable_duplicate_check": 0,
-                        "duplicate_check_interval": 1800,
-                    },
+                    self.generate_wxwork_body_content(values, message_agentid)
+                    # {
+                    # "touser": values["email_to"],
+                    # "msgtype": values["msgtype"],
+                    # "agentid": int(message_agentid),
+                    # "markdown": {
+                    #     "content": "%s %s "
+                    #     % (
+                    #         "## " + values["subject"] + "\n",
+                    #         values["wxwork_body_html"],
+                    #     )
+                    # },
+                    # "enable_duplicate_check": 0,
+                    # # if values["enable_duplicate_check"] is None
+                    # # else int(values["enable_duplicate_check"]),
+                    # "duplicate_check_interval": int(
+                    #     values["duplicate_check_interval"]
+                    # ),
+                    # },
                 )
                 # TODO 待处理发送失败的信息
             except ApiException as e:
@@ -222,6 +233,65 @@ class MailTemplate(models.Model):
                 mail.send(raise_exception=raise_exception)
             return mail.id  # TDE CLEANME: return mail + api.returns ?
 
+    def generate_wxwork_body_content(self, values, agentid):
+        message = {}
+        message = {
+            "touser": values["email_to"],
+            "msgtype": values["msgtype"],
+            "agentid": int(agentid),
+            "duplicate_check_interval": int(values["duplicate_check_interval"]),
+        }
+
+        # 处理是否开启重复消息检查，0表示否，1表示是，默认0
+        duplicate_check_interval = {"duplicate_check_interval": 0}
+        if values["duplicate_check_interval"] is True:
+            duplicate_check_interval = {"duplicate_check_interval": 1}
+        message.update(duplicate_check_interval)
+
+        # 处理消息类型，暂时只处理了markdown消息
+        text = {"text": {}}
+        image = {"image": {}}
+        voice = {"voice": {}}
+        video = {"video": {}}
+        file = {"file": {}}
+        textcard = {"textcard": {}}
+        news = {"news": {}}
+        mpnews = {"mpnews": {}}
+        markdown = {"markdown": {}}
+        miniprogram_notice = {"miniprogram_notice": {}}
+        taskcard = {"taskcard": {}}
+
+        if values["msgtype"] == "text":
+            pass
+        if values["msgtype"] == "image":
+            pass
+        if values["msgtype"] == "voice":
+            pass
+        if values["msgtype"] == "video":
+            pass
+        if values["msgtype"] == "file":
+            pass
+        if values["msgtype"] == "textcard":
+            pass
+        if values["msgtype"] == "news":
+            pass
+        if values["msgtype"] == "mpnews":
+            pass
+        if values["msgtype"] == "markdown":
+            markdown = {
+                "markdown": {
+                    "content": "%s %s "
+                    % ("## " + values["subject"] + "\n", values["wxwork_body_html"],)
+                }
+            }
+        if values["msgtype"] == "miniprogram_notice":
+            pass
+        if values["msgtype"] == "taskcard":
+            pass
+
+        message.update(markdown)
+        return message
+
     def generate_wxwork_message(self, res_ids, fields):
 
         """
@@ -241,6 +311,7 @@ class MailTemplate(models.Model):
         for lang, (template, template_res_ids) in self._classify_per_lang(
             res_ids
         ).items():
+
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
                 generated_field_values = template._render_wxwork_message_field(
@@ -260,9 +331,8 @@ class MailTemplate(models.Model):
             for res_id in template_res_ids:
                 values = results[res_id]
                 if values.get("wxwork_body_html"):
-                    values["body"] = tools.html_sanitize(values["wxwork_body_html"])
-                # if values.get("body_html"):
-                #     values["body"] = tools.html_sanitize(values["body_html"])
+                    # values["body"] = tools.html_sanitize(values["wxwork_body_html"])
+                    values["body"] = values["wxwork_body_html"]
 
                 # 技术设置
                 values.update(
@@ -272,7 +342,7 @@ class MailTemplate(models.Model):
                     res_id=res_id or False,
                     attachment_ids=[attach.id for attach in template.attachment_ids],
                 )
-
+            # print("生成消息results", results)
         return multi_mode and results or results[res_ids[0]]
 
     def generate_wxwork_message_recipients(self, results, res_ids):
