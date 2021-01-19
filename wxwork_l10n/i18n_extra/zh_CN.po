@@ -18,6 +18,12 @@ msgstr ""
 "Language: zh_CN\n"
 
 #. module: base
+#: model:ir.module.category,name:base.module_category_enterprise_wechat
+#: model:ir.module.category,name:base.module_category_enterprise_wechat_enterprise_wechat
+msgid "Enterprise WeChat"
+msgstr "企业微信"
+
+#. module: base
 #: model:ir.module.module,description:base.module_wxwork_hr
 msgid ""
 "\n"
