@@ -61,8 +61,7 @@ You have been invited by ${object.create_uid.name} of ${object.company_id.name} 
 Your Odoo domain is: [${website_url}](${website_url}})\n
 Your login ID is: **${object.login}**\n
 You can log in with one-click in the enterprise WeChat app, or open the webpage to log in with the enterprise WeChat scan code.\n
-Never heard of Odoo? It\&apos;s an all-in-one business software loved by 3+ million users. It will considerably improve your experience at work and increase your productivity.\n\n
-Enjoy Odoo!
+Enjoy Odoo!\n
 The ${object.company_id.name} Team\n\n
 # ${object.company_id.name}\n\n
 ${object.company_id.phone} \n
