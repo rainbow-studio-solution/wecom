@@ -29,6 +29,6 @@
         "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
-    "post_init_hook": "_auto_install_lang",
+    # "post_init_hook": "_auto_install_lang",
     # 'external_dependencies': {'python': ['skimage']},
 }
