@@ -13,17 +13,25 @@ class MassMailing(models.Model):
 
     to_user = fields.Many2many(
         "hr.employee",
-        string="To Users",
-        context={"active": True},
+        string="To Employees",
+        domain="[('active', '=', True), ('is_wxwork_employee', '=', True)]",
         help="Message recipients (users)",
     )
     to_party = fields.Many2many(
         "hr.department",
         string="To Departments",
-        context={"active": True},
+        domain="[('active', '=', True), ('is_wxwork_department', '=', True)]",
         help="Message recipients (departments)",
     )
-    to_tag = fields.Text("To Tags", help="Message recipients (tags)")
+    to_tag = fields.Many2many(
+        "hr.employee.category",
+        # "employee_category_rel",
+        # "emp_id",
+        # "category_id",
+        string="To Tags",
+        domain="[('is_wxwork_category', '=', True)]",
+        help="Message recipients (tags)",
+    )
 
     use_templates = fields.Boolean("Use templates", translate=True)
     msgtype = fields.Selection(

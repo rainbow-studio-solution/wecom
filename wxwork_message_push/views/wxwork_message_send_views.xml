@@ -14,8 +14,9 @@
                         <label for="subject" class="oe_edit_only"/>
                         <h2><field name="subject"/></h2>
                         <group>
-                            <field name="to_user" widget="many2many_tags"/>
-                            <field name="to_party" widget="many2many_tags"/>
+                            <field name="to_user" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="to_party" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="to_tag" widget="many2many_tags" options="{'no_create': True}"/>
                         </group>
                     </sheet>
                 </form>
