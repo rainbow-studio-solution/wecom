@@ -3,8 +3,6 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
-# from ..models.sync_user import *
-
 from ..models.hr_employee import EmployeeSyncUser
 import logging
 

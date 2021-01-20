@@ -23,7 +23,6 @@
                 groups="wxwork_base.group_wxwork_user" />
 
             
-
         <!-- 2.员工目录 -->
         <menuitem
             id="menu_wxwork_employee"

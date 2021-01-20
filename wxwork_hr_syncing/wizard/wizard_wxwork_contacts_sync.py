@@ -8,7 +8,7 @@ from odoo.exceptions import UserError, Warning
 from ..models.sync_contacts import *
 
 
-class ResConfigSettings(models.TransientModel):
+class WizardSyncContacts(models.TransientModel):
     # class ResConfigSettings(models.Model):
     _name = "wizard.wxwork.contacts"
     _description = "Enterprise WeChat synchronization wizard"

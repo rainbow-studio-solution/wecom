@@ -18,6 +18,7 @@
         "data/ir_config_parameter.xml",
         "views/hr_department_view.xml",
         "views/hr_employee_view.xml",
+        "views/hr_employee_category_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/menu.xml",

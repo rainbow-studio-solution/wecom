@@ -46,6 +46,15 @@
                 sequence="10"/>
 
         <menuitem 
+            id="menu_wxwork_tags_sync_main" 
+            name="Sync User" 
+            parent="wxwork_hr.menu_wxwork_organization_main" 
+            sequence="20" 
+            action="open_view_wxwork_sync_tag_tree" 
+            groups="wxwork_base.group_wxwork_manager"/>
+
+
+        <menuitem 
             id="menu_wxwork_contacts_sync_auto" 
             name="Sync contacts" 
             parent="wxwork_base.menu_wxwork_cron" 
