@@ -28,6 +28,7 @@
                     <field name="id" invisible="1"/>
                 </field>
                 <field name="name" position="after">
+                    <field name="tagid" attrs="{'invisible': [('is_wxwork_category', '=', True)]}"/>
                     <field name="is_wxwork_category"/>
                 </field>
                 

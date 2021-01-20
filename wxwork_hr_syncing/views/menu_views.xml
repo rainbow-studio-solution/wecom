@@ -47,11 +47,11 @@
 
         <menuitem 
             id="menu_wxwork_tags_sync_main" 
-            name="Sync User" 
+            name="Sync tags" 
             parent="wxwork_hr.menu_wxwork_organization_main" 
-            sequence="20" 
-            action="open_view_wxwork_sync_tag_tree" 
-            groups="wxwork_base.group_wxwork_manager"/>
+            sequence="30" 
+            groups="wxwork_base.group_wxwork_manager"
+            action="view_actions_wxwork_tag_wizard" />
 
 
         <menuitem 

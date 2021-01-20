@@ -45,26 +45,32 @@ class WizardSyncTags(models.TransientModel):
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
 
-        (
-            self.times,
-            self.sync_tag_result,
-            self.result,
-        ) = EmployeeCategory.sync_wxwork_contacts_tags(self.env["hr.employee.category"])
+        if not self.check_api(corpid, secret):
+            raise Warning(_("Enterprise WeChat configuration is wrong, please check."))
+        else:
 
-        form_view = self.env.ref(
-            "wxwork_hr_syncing.dialog_wxwork_contacts_sync_tag_result"
-        )
-        return {
-            "name": _("Enterprise WeChat tags synchronization results"),
-            "view_type": "form",
-            "view_mode": "form",
-            "res_model": "wizard.wxwork.tag",
-            "res_id": self.id,
-            "view_id": False,
-            "views": [[form_view.id, "form"],],
-            "type": "ir.actions.act_window",
-            "context": {
-                "form_view_ref": "wxwork_hr_syncing.dialog_wxwork_contacts_sync_tag_result"
-            },
-            "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打
-        }
+            (
+                self.times,
+                self.sync_tag_result,
+                self.result,
+            ) = EmployeeCategory.sync_wxwork_contacts_tags(
+                self.env["hr.employee.category"]
+            )
+
+            form_view = self.env.ref(
+                "wxwork_hr_syncing.dialog_wxwork_contacts_sync_tag_result"
+            )
+            return {
+                "name": _("Enterprise WeChat tags synchronization results"),
+                "view_type": "form",
+                "view_mode": "form",
+                "res_model": "wizard.wxwork.tag",
+                "res_id": self.id,
+                "view_id": False,
+                "views": [[form_view.id, "form"],],
+                "type": "ir.actions.act_window",
+                "context": {
+                    "form_view_ref": "wxwork_hr_syncing.dialog_wxwork_contacts_sync_tag_result"
+                },
+                "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打
+            }

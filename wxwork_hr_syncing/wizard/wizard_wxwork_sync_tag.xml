@@ -6,8 +6,8 @@
             <field name="model">wizard.wxwork.tag</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Sync users from employees" >
-                    <separator string="Generate system users in batches from HR's Enterprise WeChat employees"/>
+                <form string="Synchronize contacts tags" >
+                    <separator string="Synchronize contacts tags from Enterprise WeChat"/>
                     <group>
                         <div>
                             <div>
