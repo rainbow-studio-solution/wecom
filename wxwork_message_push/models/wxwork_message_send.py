@@ -11,8 +11,18 @@ class MassMailing(models.Model):
         "Subject", help="Subject of your Mailing", required=True, translate=True
     )
 
-    to_user = fields.Text("To Users", help="Message recipients (users)")
-    to_party = fields.Text("To Departments", help="Message recipients (departments)")
+    to_user = fields.Many2many(
+        "hr.employee",
+        string="To Users",
+        context={"active": True},
+        help="Message recipients (users)",
+    )
+    to_party = fields.Many2many(
+        "hr.department",
+        string="To Departments",
+        context={"active": True},
+        help="Message recipients (departments)",
+    )
     to_tag = fields.Text("To Tags", help="Message recipients (tags)")
 
     use_templates = fields.Boolean("Use templates", translate=True)
@@ -155,3 +165,18 @@ class MassMailing(models.Model):
         help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时",
         default="1800",
     )
+
+    state = fields.Selection(
+        [
+            ("outgoing", "Outgoing"),
+            ("sent", "Sent"),
+            ("received", "Received"),
+            ("exception", "Delivery Failed"),
+            ("cancel", "Cancelled"),
+        ],
+        "Status",
+        readonly=True,
+        copy=False,
+        default="outgoing",
+    )
+

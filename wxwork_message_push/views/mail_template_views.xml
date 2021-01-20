@@ -11,7 +11,7 @@
                         <div class="oe_button_box" name="button_box"></div>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name" required="1"/></h1>
+                            <h1 class="oe_highlight"><field name="name" class="oe_highlight" required="1" readonly="1"/></h1>
                             <group>
                                 <field name="model_id" required="1" options="{'no_create': True}"/>
                                 <field name="model" invisible="1"/>
@@ -22,7 +22,7 @@
                         <notebook>
                             <page string="Content" name="content">
                                 <label for="subject"/>
-                                <h2 style="display: inline-block;"><field name="subject" placeholder="Subject (placeholders may be used here)"/></h2>
+                                <h2 class="oe_highlight" ><field name="subject" class="oe_highlight" placeholder="Subject (placeholders may be used here)"/></h2>
                                 <field name="wxwork_body_html" widget="wxwork_markdown" options="{'style-inline': true}"/>
                                 <field name="attachment_ids" widget="many2many_binary"/>
                             </page>
