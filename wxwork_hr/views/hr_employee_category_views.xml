@@ -17,19 +17,11 @@
             <field name="name">hr.employee.category.list</field>
             <field name="model">hr.employee.category</field>
             <field name="inherit_id" ref="hr.view_employee_category_list"/>
-            <field name="arch" type="xml">
-                <!-- <xpath expr="//tree" position="inside">
-                    <header>
-                        <button name="sync_wxwork_contacts_tags" type="object" string="Synchronize Tags" class="oe_highlight" invisible="not context.get('id')" />
-                    </header>
-                </xpath> -->
-                
-                <field name="name" position="before">
-                    <field name="id" invisible="1"/>
-                </field>
+            <field name="arch" type="xml">               
                 <field name="name" position="after">
-                    <field name="tagid" attrs="{'invisible': [('is_wxwork_category', '=', True)]}"/>
                     <field name="is_wxwork_category"/>
+                    <field name="tagid" />                    
+                    <button name="update_to_wxwork" type="object" string="Update Tags" class="oe_highlight" attrs="{'invisible': [('is_wxwork_category','=',False),('tagid','=',0)]}"/>
                 </field>
                 
             </field>
