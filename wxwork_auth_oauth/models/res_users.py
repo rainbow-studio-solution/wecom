@@ -58,7 +58,7 @@ class ResUsers(models.Model):
             return super(ResUsers, self)._check_credentials(password, env)
         except AccessDenied:
             res = self.sudo().search(
-                [("id", "=", self.env.uid), ("oauth_uid", "=", password)]
+                [("id", "=", self.env.uid), ("wxwork_id", "=", password)]
             )
             if not res:
                 raise
