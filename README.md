@@ -31,7 +31,9 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
 3. wxwork_hr （企业微信-HR模块）完成
 
 
-4. wxwork_hr_syncing （企业微信-同步功能）完成......
+4. wxwork_hr_syncing （企业微信-同步功能）完成
+   
+   *功能：同步通讯录的部门、人员、标签到odoo的hr；从HR企业微信员工生成系统用户；定时同步任务。*
     ```bash
     #1. 安装扩展
     pip install numpy==1.19.3 opencv-python==4.4.0.46

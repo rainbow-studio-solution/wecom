@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_form_wxwork_sync_tag_wizard" model="ir.ui.view">
-            <field name="name">Sync tags</field>
+            <field name="name">wizard.wxwork.tag</field>
             <field name="model">wizard.wxwork.tag</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
@@ -31,7 +31,7 @@
         </record>
 
         <record id="view_actions_wxwork_tag_wizard" model="ir.actions.act_window">
-            <field name="name">Sync tag </field>
+            <field name="name">Sync tag</field>
             <field name="res_model">wizard.wxwork.tag</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="view_form_wxwork_sync_tag_wizard"/>
@@ -57,13 +57,13 @@
                         </group>
                     </group>
                     <footer>
-                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                        <button name="refresh_tags" string="Close and refresh" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
         </record>
 
-        <record id="view_wxwork_sync_tag_tree" model="ir.ui.view">
+        <!-- <record id="view_wxwork_sync_tag_tree" model="ir.ui.view">
             <field name="name">Synchronization tag record list</field>
             <field name="model">wizard.wxwork.tag</field>
             <field name="arch" type="xml">
@@ -79,6 +79,6 @@
             <field name="res_model">wizard.wxwork.tag</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_wxwork_sync_tag_tree"/>
-        </record>
+        </record> -->
     </data>
 </odoo>

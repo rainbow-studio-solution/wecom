@@ -21,9 +21,9 @@
                 <field name="name" position="after">
                     <field name="is_wxwork_category"/>
                     <field name="tagid" />                    
-                    <button name="update_to_wxwork" type="object" string="Update Tags" class="oe_highlight" attrs="{'invisible': [('is_wxwork_category','=',False),('tagid','=',0)]}"/>
-                </field>
-                
+                    <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wxwork_category','=',False)]}"/>
+                    <button name="delete_to_wxwork" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wxwork_category','=',False), ('tagid','=',0)]}"/>
+                </field>                
             </field>
         </record>
 

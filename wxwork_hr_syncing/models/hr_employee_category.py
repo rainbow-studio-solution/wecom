@@ -24,19 +24,25 @@ class EmployeeCategory(models.Model):
             start = time.time()
 
             wxapi = CorpApi(corpid, secret)
+            status = True
             response = wxapi.httpCall(CORP_API_TYPE["TAG_GET_LIST"])
             # 同步企业微信标签
             for obj in response["taglist"]:
-                self.run_sync(obj, debug)
+                sync = self.run_sync(obj, debug)
+                if sync == False:
+                    status = False
 
-            tags = self.search([("is_wxwork_category", "=", True)])
-            # TODO 待处理移除无效企业微信标签
+            # 处理移除无效企业微信标签
+            tags = self.search([("is_wxwork_category", "=", True), ("tagid", "!=", 0)])
+            if not tags:
+                pass
+            else:
+                self.handling_invalid_tags(response, tags, debug)  # 处理移除无效企业微信标签
 
             end = time.time()
             times = end - start
             status = True
             result = _("Enterprise WeChat tags sync successfully")
-            print(response)
         except BaseException as e:
             if debug:
                 _logger.info(_("Contacts tags synchronization  error: %s") % (repr(e)))
@@ -44,13 +50,15 @@ class EmployeeCategory(models.Model):
             status = False
         return times, status, result
 
+    @api.model
     def run_sync(self, obj, debug):
         tag = self.search([("tagid", "=", obj["tagid"])], limit=1,)
         try:
             if not tag:
-                self.create_tag(tag, obj, debug)
+                status = self.create_tag(tag, obj, debug)
             else:
-                self.update_tag(tag, obj, debug)
+                status = self.update_tag(tag, obj, debug)
+            return status
         except Exception as e:
             if debug:
                 print(
@@ -59,12 +67,14 @@ class EmployeeCategory(models.Model):
                     )
                     % repr(e)
                 )
+            return False
 
-    def create_employee(self, records, obj, debug):
+    def create_tag(self, records, obj, debug):
         try:
             records.create(
                 {
-                    "name": obj["name"],
+                    "name": obj["tagname"],
+                    "color": self._get_default_color(),
                     "tagid": obj["tagid"],
                     "is_wxwork_category": True,
                 }
@@ -79,7 +89,7 @@ class EmployeeCategory(models.Model):
     def update_tag(self, records, obj, debug):
         try:
             records.write(
-                {"name": obj["name"],}
+                {"name": obj["tagname"],}
             )
             result = True
         except Exception as e:
@@ -89,3 +99,27 @@ class EmployeeCategory(models.Model):
 
         return result
 
+    def handling_invalid_tags(self, wxwork, odoo, debug):
+        """比较企业微信和odoo的标签数据"""
+
+        try:
+            list_wxwork_tags = []
+            list_odoo_tags = []
+
+            for wxwork_tag in wxwork["taglist"]:
+                list_wxwork_tags.append(wxwork_tag["tagid"])
+
+            for odoo_tag in odoo:
+                list_odoo_tags.append(odoo_tag.tagid)
+
+            # 生成odoo与企业微信不同的标签列表
+            invalid_tags = list(set(list_odoo_tags).difference(set(list_wxwork_tags)))
+
+            # 移除无效的标签
+            for invalid_tag in invalid_tags:
+                invalid_odoo_tag = self.search([[("tagid", "=", invalid_tag)]])
+                if invalid_odoo_tag:
+                    invalid_odoo_tag.unlink()
+        except Exception as e:
+            if debug:
+                print(_("Failed to remove invalid tag: %s") % (repr(e)))

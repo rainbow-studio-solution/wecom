@@ -45,13 +45,13 @@
                 action="open_view_wxwork_sync_user_tree" 
                 sequence="10"/>
 
-        <menuitem 
+        <!-- <menuitem 
             id="menu_wxwork_tags_sync_main" 
             name="Sync tags" 
             parent="wxwork_hr.menu_wxwork_organization_main" 
             sequence="30" 
             groups="wxwork_base.group_wxwork_manager"
-            action="view_actions_wxwork_tag_wizard" />
+            action="view_actions_wxwork_tag_wizard" /> -->
 
 
         <menuitem 

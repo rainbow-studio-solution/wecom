@@ -37,6 +37,12 @@ class WizardSyncTags(models.TransientModel):
         except ApiException as ex:
             return False
 
+    def refresh_tags(self):
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
+
     def action_sync_tags(self):
         """
         启动同步
