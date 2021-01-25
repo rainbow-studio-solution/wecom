@@ -20,6 +20,9 @@ class WizardSyncContacts(models.TransientModel):
     department_sync_result = fields.Boolean(
         string="Department synchronization result", default=False, readonly=True,
     )
+    tag_sync_result = fields.Boolean(
+        string="Tag synchronization results", default=False, readonly=True,
+    )
     employee_sync_result = fields.Boolean(
         string="Employee synchronization results", default=False, readonly=True,
     )
@@ -63,6 +66,7 @@ class WizardSyncContacts(models.TransientModel):
             "img_path": params.get_param("wxwork.contacts_img_path"),
             "department": self.env["hr.department"],
             "employee": self.env["hr.employee"],
+            "category": self.env["hr.employee.category"],
         }
 
         if not self.check_api(corpid, secret):
@@ -77,6 +81,7 @@ class WizardSyncContacts(models.TransientModel):
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses["image_1920"]  # 图片同步结果
             self.department_sync_result = bool(statuses["department"])  # 部门同步结果
+            self.tag_sync_result = bool(statuses["category"])  # 标签同步结果
             self.employee_sync_result = statuses["employee"]  # 员工同步结果
 
             form_view = self.env.ref(

@@ -7,7 +7,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Enterprise WeChat contact data synchronization" >
-                    <separator string="Download and update local from Enterprise WeChat update: departments and employees"/>
+                    <separator string="Download data (department, tag, employee) from enterprise WeChat to local."/>
                     
                     <div>
                         Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:
@@ -46,6 +46,7 @@
                         <group>
                             <field name="image_sync_result"/>
                             <field name="department_sync_result"/>
+                            <field name="tag_sync_result"/>
                             <field name="employee_sync_result"/>
                         </group>
                         <group>
@@ -68,6 +69,7 @@
                 <tree string="Synchronous recording" edit="false" create="false" delete="false">
                     <field name="image_sync_result" string="Picture synchronization"/>
                     <field name="department_sync_result" string="Department synchronization"/>
+                    <field name="tag_sync_result" string="Tag synchronization"/>
                     <field name="employee_sync_result" string="Employee synchronization" />
                     <!--<field name="user_sync_result" string="用户同步"/>-->
 <!--                    <field name="employee_binding_user_result" string="用户绑定"/>-->

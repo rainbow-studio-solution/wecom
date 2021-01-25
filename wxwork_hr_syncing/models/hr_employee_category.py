@@ -11,17 +11,17 @@ _logger = logging.getLogger(__name__)
 class EmployeeCategory(models.Model):
     _inherit = "hr.employee.category"
 
-    def sync_wxwork_contacts_tags(self):
+    def sync_tags(self):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wxwork.debug_enabled")
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
         if debug:
-            _logger.info(_("Start synchronizing contacts tags from Enterprise WeChat"))
+            _logger.info(_("Start syncing Enterprise WeChat Contact - Tags"))
 
         times = time.time()
         try:
-            start = time.time()
+            start1 = time.time()
 
             wxapi = CorpApi(corpid, secret)
             status = True
@@ -31,23 +31,35 @@ class EmployeeCategory(models.Model):
                 sync = self.run_sync(obj, debug)
                 if sync == False:
                     status = False
+            end1 = time.time()
+            times1 = end1 - start1
 
+            start2 = time.time()
             # 处理移除无效企业微信标签
             tags = self.search([("is_wxwork_category", "=", True), ("tagid", "!=", 0)])
             if not tags:
                 pass
             else:
                 self.handling_invalid_tags(response, tags, debug)  # 处理移除无效企业微信标签
+            end2 = time.time()
+            times2 = end2 - start2
 
-            end = time.time()
-            times = end - start
-            status = True
+            times = times1 + times2
+            status = {"category": True}
             result = _("Enterprise WeChat tags sync successfully")
         except BaseException as e:
             if debug:
                 _logger.info(_("Contacts tags synchronization  error: %s") % (repr(e)))
             result = _("Failed to synchronize contacts tags")
-            status = False
+            status = {"category": False}
+
+        if debug:
+            _logger.info(
+                _(
+                    "End sync Enterprise WeChat Contact - Tags,Total time spent: %s seconds"
+                )
+                % times
+            )
         return times, status, result
 
     @api.model

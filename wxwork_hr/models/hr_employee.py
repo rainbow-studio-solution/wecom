@@ -3,7 +3,7 @@
 from odoo import api, fields, models, _
 
 
-class Employee(models.Model):
+class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
     _description = "Enterprise WeChat employees"
     _order = "wxwork_user_order"
@@ -33,3 +33,27 @@ class Employee(models.Model):
 
     user_check_tick = fields.Boolean(string="User Check Tick", default=False,)
 
+    # TODO 待处理 增加标签成员 和 删除标签成员
+    # @api.onchange("category_ids")
+    # def _onchange_category_ids(self):
+    #     print(self.category_ids)
+
+    @api.model
+    def create(self, vals):
+        employee = super(HrEmployeePrivate, self).create(vals)
+
+    def write(self, vals):
+        res = super(HrEmployeePrivate, self).write(vals)
+
+        if self.is_wxwork_employee:
+            # 检测是企业微信员工
+            if len(self.category_ids) > 0:
+                # 选择了标签，
+                print(self.category_ids)
+            else:
+                # 未选择了标签，
+                pass
+        return res
+
+    def unlink(self):
+        super(HrEmployeePrivate, self).unlink()

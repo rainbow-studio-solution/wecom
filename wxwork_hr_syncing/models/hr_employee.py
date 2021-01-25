@@ -101,6 +101,9 @@ class HrEmployee(models.Model):
             end2 = time.time()
             times2 = end2 - start2
 
+            # 设置员工的标签
+            category = self.env["hr.employee.category"].search([])
+
             times = times1 + times2
             status = {"employee": True}
             result = _("Employee synchronization succeeded")
@@ -179,8 +182,11 @@ class HrEmployee(models.Model):
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    # 归属多个部门的情况下，第一个部门为默认部门
-                    "department_id": department_ids[0],
+                    # 归属多个部门的情况下，第一个部门为默认部门 obj["main_department"]
+                    # "department_id": department_ids[0],
+                    "department_id": self.get_main_department(
+                        obj["main_department"], debug
+                    ),
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -203,7 +209,13 @@ class HrEmployee(models.Model):
             department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
-
+        # print(
+        #     obj["name"],
+        #     department_ids[0],
+        #     type(department_ids[0]),
+        #     obj["main_department"],
+        #     type(obj["main_department"]),
+        # )
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
@@ -229,7 +241,10 @@ class HrEmployee(models.Model):
                     "active": obj["enable"],
                     "alias": obj["alias"],
                     # 归属多个部门的情况下，第一个部门为默认部门
-                    "department_id": department_ids[0],
+                    # "department_id": department_ids[0],
+                    "department_id": self.get_main_department(
+                        obj["main_department"], debug
+                    ),
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": self.encode_image_as_base64(qr_code_file),
@@ -303,6 +318,24 @@ class HrEmployee(models.Model):
         except BaseException as e:
             if debug:
                 print(_("Get the employee's parent department error:%s") % (repr(e)))
+
+    def get_main_department(self, main_department, debug):
+        """
+        获取员工的主部门
+        """
+        try:
+            departments = self.env["hr.department"].search(
+                [
+                    ("wxwork_department_id", "=", main_department),
+                    ("is_wxwork_department", "=", True),
+                ],
+                limit=1,
+            )
+            if len(departments) > 0:
+                return departments.id
+        except BaseException as e:
+            if debug:
+                print(_("Get the employee's main department error:%s") % (repr(e)))
 
     def sync_leave_employee(self, response, debug):
         """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""

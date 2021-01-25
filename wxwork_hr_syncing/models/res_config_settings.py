@@ -98,6 +98,7 @@ class ResConfigSettings(models.TransientModel):
             "img_path": params.get_param("wxwork.contacts_img_path"),
             "department": self.env["hr.department"],
             "employee": self.env["hr.employee"],
+            "category": self.env["hr.employee.category"],
         }
 
         try:

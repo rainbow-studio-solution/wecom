@@ -59,9 +59,7 @@ class WizardSyncTags(models.TransientModel):
                 self.times,
                 self.sync_tag_result,
                 self.result,
-            ) = EmployeeCategory.sync_wxwork_contacts_tags(
-                self.env["hr.employee.category"]
-            )
+            ) = EmployeeCategory.sync_tags(self.env["hr.employee.category"])
 
             form_view = self.env.ref(
                 "wxwork_hr_syncing.dialog_wxwork_contacts_sync_tag_result"

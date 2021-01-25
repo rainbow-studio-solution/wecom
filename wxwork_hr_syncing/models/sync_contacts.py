@@ -19,6 +19,7 @@ class SyncTask(object):
         self.sync_hr = self.kwargs["sync_hr"]
         self.department = self.kwargs["department"]
         self.employee = self.kwargs["employee"]
+        self.category = self.kwargs["category"]
 
     def run(self):
         if self.debug:
@@ -29,11 +30,13 @@ class SyncTask(object):
             task_name_list = [
                 _("Enterprise WeChat picture synchronization"),
                 _("Enterprise WeChat department synchronization"),
+                _("Enterprise WeChat tag synchronization"),
                 _("Enterprise WeChat employee synchronization"),
             ]
             task_func_list = [
                 SyncImage(self.kwargs).run,
                 self.department.sync_department,
+                self.category.sync_tags,
                 self.employee.sync_employee,
             ]
             times = []

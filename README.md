@@ -43,6 +43,8 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
     看了下读取成员API，多了个"main_department"（主部门）的字段。已向腾讯企业微信团队提交了需求，
     要么在"获取部门成员"API增加"main_department"（主部门）的字段,要么修复"department"字段的排序。
     设置主部门错误待腾讯修复。
+    
+    目前腾讯已经在"获取部门成员详情"API中增加了"main_department"（主部门）的字段
     ``` 
 5. wxwork_hr_extension（企业微信-HR扩展模块）完成
    ```
