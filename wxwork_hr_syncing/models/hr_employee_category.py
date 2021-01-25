@@ -44,7 +44,13 @@ class EmployeeCategory(models.Model):
             end2 = time.time()
             times2 = end2 - start2
 
-            times = times1 + times2
+            # 标签绑定员工
+            start3 = time.time()
+            self.bind_employees(response, corpid, secret, debug)
+            end3 = time.time()
+            times3 = end3 - start3
+
+            times = times1 + times2 + times3
             status = {"category": True}
             result = _("Enterprise WeChat tags sync successfully")
         except BaseException as e:
@@ -135,3 +141,21 @@ class EmployeeCategory(models.Model):
         except Exception as e:
             if debug:
                 print(_("Failed to remove invalid tag: %s") % (repr(e)))
+
+    def bind_employees(self, response, corpid, secret, debug):
+        """
+        标签绑定员工
+        """
+        for res in response["taglist"]:
+            wxapi = CorpApi(corpid, secret)
+            tag_users = wxapi.httpCall(
+                CORP_API_TYPE["TAG_GET_USER"], {"tagid": res["tagid"]}
+            )
+            for tag_user in tag_users["userlist"]:
+                employee = self.env["hr.employee"].search(
+                    [("tagid", "=", tag_user["userid"]),]
+                )
+
+                category = self.search([("wxwork_id", "=", res["tagid"]),])
+                employee.write({"category_ids": [(6, 0, category)]})
+
