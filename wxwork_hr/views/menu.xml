@@ -22,9 +22,16 @@
                 sequence="1" 
                 groups="wxwork_base.group_wxwork_user" />
             <menuitem
-                id="menu_wxwork_organization_tag"
-                name="Tags"
+                id="menu_wxwork_organization_employee_tag"
+                name="Employee Tags"
                 action="hr.open_view_categ_form"
+                parent="menu_wxwork_organization_main"
+                sequence="1" 
+                groups="wxwork_base.group_wxwork_user" />
+            <menuitem
+                id="menu_wxwork_organization_department_tag"
+                name="Department Tags"
+                action="open_view_department_categ_form"
                 parent="menu_wxwork_organization_main"
                 sequence="1" 
                 groups="wxwork_base.group_wxwork_user" />

@@ -21,8 +21,6 @@ class EmployeeCategory(models.Model):
     )
     is_wxwork_category = fields.Boolean(string="Enterprise WeChat Tag", default=False,)
 
-    
-
     def update_to_wxwork(self):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wxwork.debug_enabled")

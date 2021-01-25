@@ -49,7 +49,8 @@ class HrEmployeePrivate(models.Model):
             # 检测是企业微信员工
             if len(self.category_ids) > 0:
                 # 选择了标签，
-                print(self.category_ids)
+                pass
+                # print(self.category_ids)
             else:
                 # 未选择了标签，
                 pass

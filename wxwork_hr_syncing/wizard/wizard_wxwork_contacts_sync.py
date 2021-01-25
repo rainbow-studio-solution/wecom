@@ -20,11 +20,14 @@ class WizardSyncContacts(models.TransientModel):
     department_sync_result = fields.Boolean(
         string="Department synchronization result", default=False, readonly=True,
     )
-    tag_sync_result = fields.Boolean(
-        string="Tag synchronization results", default=False, readonly=True,
+    department_tag_sync_result = fields.Boolean(
+        string="Department Tag synchronization results", default=False, readonly=True,
     )
     employee_sync_result = fields.Boolean(
         string="Employee synchronization results", default=False, readonly=True,
+    )
+    employee_tag_sync_result = fields.Boolean(
+        string="Employee Tag synchronization results", default=False, readonly=True,
     )
     user_sync_result = fields.Boolean(
         string="User synchronization result", default=False, readonly=True,
@@ -65,8 +68,9 @@ class WizardSyncContacts(models.TransientModel):
             "sync_hr": params.get_param("wxwork.contacts_auto_sync_hr_enabled"),
             "img_path": params.get_param("wxwork.contacts_img_path"),
             "department": self.env["hr.department"],
+            "department_category": self.env["hr.department.category"],
             "employee": self.env["hr.employee"],
-            "category": self.env["hr.employee.category"],
+            "employee_category": self.env["hr.employee.category"],
         }
 
         if not self.check_api(corpid, secret):
@@ -81,8 +85,9 @@ class WizardSyncContacts(models.TransientModel):
             self.times, statuses, self.result = SyncTask(kwargs).run()
             self.image_sync_result = statuses["image_1920"]  # 图片同步结果
             self.department_sync_result = bool(statuses["department"])  # 部门同步结果
-            self.tag_sync_result = bool(statuses["category"])  # 标签同步结果
+            self.department_tag_sync_result = bool(statuses["department_category"])
             self.employee_sync_result = statuses["employee"]  # 员工同步结果
+            self.employee_tag_sync_result = bool(statuses["employee_category"])
 
             form_view = self.env.ref(
                 "wxwork_hr_syncing.dialog_wxwork_contacts_sync_result"

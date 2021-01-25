@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wxwrok_hr,wxwork_hr,model_wxwrok_hr,base.group_user,1,1,1,1
+access_hr_department_category_user,hr.department.category.user,model_hr_department_category,hr.group_hr_user,1,1,1,1
+access_hr_department_category_dmp,hr.department.category.dmp,model_hr_department_category,base.group_user,1,0,0,0

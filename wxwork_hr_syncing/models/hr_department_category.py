@@ -8,16 +8,16 @@ import time
 _logger = logging.getLogger(__name__)
 
 
-class EmployeeCategory(models.Model):
-    _inherit = "hr.employee.category"
+class DepartmentCategory(models.Model):
+    _inherit = "hr.department.category"
 
-    def sync_employee_tags(self):
+    def sync_department_tags(self):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wxwork.debug_enabled")
         corpid = params.get_param("wxwork.corpid")
         secret = params.get_param("wxwork.contacts_secret")
         if debug:
-            _logger.info(_("Start syncing Enterprise WeChat Contact - Employee Tags"))
+            _logger.info(_("Start syncing Enterprise WeChat Contact - Department Tags"))
 
         times = time.time()
         try:
@@ -46,25 +46,25 @@ class EmployeeCategory(models.Model):
 
             # 标签绑定员工
             start3 = time.time()
-            self.employee_binding_tag(response, params)
+            self.department_binding_tag(response, params)
             end3 = time.time()
             times3 = end3 - start3
 
             times = times1 + times2 + times3
-            status = {"employee_category": True}
-            result = _("Enterprise WeChat employee tags sync successfully")
+            status = {"department_category": True}
+            result = _("Enterprise WeChat department tags sync successfully")
         except BaseException as e:
             if debug:
                 _logger.info(
-                    _("Contacts employee tags synchronization error: %s") % (repr(e))
+                    _("Contacts department tags synchronization error: %s") % (repr(e))
                 )
-            result = _("Failed to synchronize employee tags")
-            status = {"employee_category": False}
+            result = _("Failed to synchronize department tags")
+            status = {"department_category": False}
 
         if debug:
             _logger.info(
                 _(
-                    "End sync Enterprise WeChat Contact - Employee Tags,Total time spent: %s seconds"
+                    "End sync Enterprise WeChat Contact - Department Tags,Total time spent: %s seconds"
                 )
                 % times
             )
@@ -75,21 +75,21 @@ class EmployeeCategory(models.Model):
         tag = self.search([("tagid", "=", obj["tagid"])], limit=1,)
         try:
             if not tag:
-                status = self.create_employee_tag(tag, obj, debug)
+                status = self.create_department_tag(tag, obj, debug)
             else:
-                status = self.update_employee_tag(tag, obj, debug)
+                status = self.update_department_tag(tag, obj, debug)
             return status
         except Exception as e:
             if debug:
                 print(
                     _(
-                        "Enterprise WeChat contacts employee tags synchronization failed, error: %s"
+                        "Enterprise WeChat contacts department tags synchronization failed, error: %s"
                     )
                     % repr(e)
                 )
             return False
 
-    def create_employee_tag(self, records, obj, debug):
+    def create_department_tag(self, records, obj, debug):
         try:
             records.create(
                 {
@@ -102,11 +102,11 @@ class EmployeeCategory(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Error creating employee tag: %s") % (obj["name"], repr(e)))
+                print(_("Error creating department tag: %s") % (obj["name"], repr(e)))
             result = False
         return result
 
-    def update_employee_tag(self, records, obj, debug):
+    def update_department_tag(self, records, obj, debug):
         try:
             records.write(
                 {"name": obj["tagname"],}
@@ -114,7 +114,7 @@ class EmployeeCategory(models.Model):
             result = True
         except Exception as e:
             if debug:
-                print(_("Update employee tag error: %s") % (obj["name"], repr(e)))
+                print(_("Update department tag error: %s") % (obj["name"], repr(e)))
             result = False
 
         return result
@@ -142,10 +142,10 @@ class EmployeeCategory(models.Model):
                     invalid_odoo_tag.unlink()
         except Exception as e:
             if debug:
-                print(_("Failed to remove invalid employee tag: %s") % (repr(e)))
+                print(_("Failed to remove invalid department tag: %s") % (repr(e)))
 
     @api.model
-    def employee_binding_tag(self, response, params):
+    def department_binding_tag(self, response, params):
         """
         HR绑定标签
         """
@@ -159,14 +159,20 @@ class EmployeeCategory(models.Model):
                 tags = wxapi.httpCall(
                     CORP_API_TYPE["TAG_GET_USER"], {"tagid": str(res["tagid"]),},
                 )
-                userlist = tags["userlist"]  # 标签中包含的成员列表
-                if not userlist:
-                    for tag_employee in userlist:
-                        employee = self.env["hr.employee"].search(
-                            [("wxwork_id", "=", tag_employee["userid"]),]
+
+                partylist = tags["partylist"]  # 标签中包含的部门id列表
+
+                if not partylist:
+                    for tag_department in partylist:
+                        department = self.env["hr.department"].search(
+                            [("wxwork_department_id", "=", tag_department),]
                         )
-                        employee_category = self.search([("tagid", "=", res["tagid"]),])
-                        employee.write({"category_ids": [(6, 0, employee_category)]})
+                        department_category = self.env["hr.department.category"].search(
+                            [("tagid", "=", res["tagid"]),]
+                        )
+                        department.write(
+                            {"category_ids": [(6, 0, department_category)]}
+                        )
             except BaseException as e:
                 if debug:
-                    _logger.info(_("Set employee Tag error: %s") % (repr(e)))
+                    _logger.info(_("Set department Tag error: %s") % (repr(e)))

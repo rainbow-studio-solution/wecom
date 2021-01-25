@@ -97,8 +97,9 @@ class ResConfigSettings(models.TransientModel):
             "sync_hr": params.get_param("wxwork.contacts_auto_sync_hr_enabled"),
             "img_path": params.get_param("wxwork.contacts_img_path"),
             "department": self.env["hr.department"],
+            "department_category": self.env["hr.department.category"],
             "employee": self.env["hr.employee"],
-            "category": self.env["hr.employee.category"],
+            "employee_category": self.env["hr.employee.category"],
         }
 
         try:

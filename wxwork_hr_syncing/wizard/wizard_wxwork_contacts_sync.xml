@@ -46,8 +46,9 @@
                         <group>
                             <field name="image_sync_result"/>
                             <field name="department_sync_result"/>
-                            <field name="tag_sync_result"/>
+                            <field name="department_tag_sync_result"/>
                             <field name="employee_sync_result"/>
+                            <field name="employee_tag_sync_result"/>
                         </group>
                         <group>
                             <field name="create_date" string="Starting time"/>
@@ -69,8 +70,9 @@
                 <tree string="Synchronous recording" edit="false" create="false" delete="false">
                     <field name="image_sync_result" string="Picture synchronization"/>
                     <field name="department_sync_result" string="Department synchronization"/>
-                    <field name="tag_sync_result" string="Tag synchronization"/>
+                    <field name="department_tag_sync_result" string="Department Tag synchronization"/>
                     <field name="employee_sync_result" string="Employee synchronization" />
+                    <field name="employee_tag_sync_result" string="Employee Tag synchronization" />
                     <!--<field name="user_sync_result" string="用户同步"/>-->
 <!--                    <field name="employee_binding_user_result" string="用户绑定"/>-->
                     <field name="times"/>

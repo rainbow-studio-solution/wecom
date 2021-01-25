@@ -13,10 +13,11 @@
     # any module necessary for this one to work correctly
     "depends": ["hr", "wxwork_base",],
     "data": [
-        # 'security/ir.model.access.csv',
+        "security/ir.model.access.csv",
         "data/hr_data.xml",
         "data/ir_config_parameter.xml",
         "views/hr_department_view.xml",
+        "views/hr_department_category_views.xml",
         "views/hr_employee_view.xml",
         "views/hr_employee_category_views.xml",
         "views/res_users_views.xml",

@@ -6,7 +6,16 @@ from odoo import api, fields, models, _
 class Department(models.Model):
 
     _inherit = "hr.department"
-    _order = "complete_name "
+    _order = "complete_name"
+
+    category_ids = fields.Many2many(
+        "hr.department.category",
+        "department_category_rel",
+        "dmp_id",
+        "category_id",
+        groups="hr.group_hr_manager",
+        string="Tags",
+    )
 
     wxwork_department_id = fields.Integer(
         string="Enterprise WeChat department ID", readonly=True, default="0",
