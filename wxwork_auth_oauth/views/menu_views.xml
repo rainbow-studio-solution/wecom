@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem 
+            id="menu_wxwork_cron_get_join_qrcode" 
+            name="Get the QR code to join the enterprise" 
+            parent="wxwork_base.menu_wxwork_cron" 
+            action="ir_cron_act_get_join_qrcode" 
+            sequence="3"/>
+    </data>
+</odoo>

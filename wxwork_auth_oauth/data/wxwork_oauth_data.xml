@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
+        <record id="wxwork_enabled_join_qrcode" model="ir.config_parameter">
+            <field name="key">wxwork.enabled_join_qrcode</field>
+            <field name="value">True</field>
+        </record>
+        <record id="wxwork_join_qrcode_size_type" model="ir.config_parameter">
+            <field name="key">wxwork.join_qrcode_size_type</field>
+            <field name="value">2</field>
+        </record>
+        
         <!-- <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
             <field name="enabled" eval="False" />
         </record> -->

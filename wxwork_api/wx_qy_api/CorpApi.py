@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+# @Date 2021-01-28
 
 from .AbstractApi import *
 
@@ -88,6 +89,10 @@ CORP_API_TYPE = {
     "GET_INVOICE_INFO": [
         "/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=ACCESS_TOKEN",
         "POST",
+    ],
+    "GET_JOIN_QRCODE": [
+        "/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN",
+        "GET",
     ],
     "UPDATE_INVOICE_STATUS": [
         "/cgi-bin/card/invoice/reimburse/updateinvoicestatus?access_token=ACCESS_TOKEN",

@@ -15,15 +15,14 @@
     "description": """
 
         """,
-    "depends": [
-        # "portal",
-        "auth_oauth",
-        "wxwork_hr_syncing",
-    ],
+    "depends": ["auth_oauth", "wxwork_hr_syncing",],
     "data": [
         "data/wxwork_oauth_data.xml",
+        "data/ir_cron_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
+        "views/ir_cron_views.xml",
+        "views/menu_views.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
 }
