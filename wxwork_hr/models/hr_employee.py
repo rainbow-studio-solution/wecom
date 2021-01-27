@@ -5,12 +5,22 @@ from odoo import api, fields, models, _
 
 class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
-    _description = "Enterprise WeChat employees"
     _order = "wxwork_user_order"
+
+    category_ids = fields.Many2many(
+        "hr.employee.category",
+        "employee_category_rel",
+        "emp_id",
+        "category_id",
+        groups="hr.group_hr_manager",
+        string="Tags",
+        domain="[('is_wxwork_category', '=',False)]",
+    )
 
     wxwork_id = fields.Char(string="Enterprise WeChat user Id", readonly=True,)
 
     alias = fields.Char(string="Alias", readonly=True,)
+    english_name = fields.Char(string="English Name", readonly=True,)
 
     department_ids = fields.Many2many(
         "hr.department", string="Multiple departments", readonly=True,
@@ -38,23 +48,20 @@ class HrEmployeePrivate(models.Model):
     # def _onchange_category_ids(self):
     #     print(self.category_ids)
 
-    @api.model
-    def create(self, vals):
-        employee = super(HrEmployeePrivate, self).create(vals)
+    # @api.model
+    # def create(self, vals):
+    #     employee = super(HrEmployeePrivate, self).create(vals)
 
-    def write(self, vals):
-        res = super(HrEmployeePrivate, self).write(vals)
+    # def write(self, vals):
+    #     res = super(HrEmployeePrivate, self).write(vals)
 
-        if self.is_wxwork_employee:
-            # 检测是企业微信员工
-            if len(self.category_ids) > 0:
-                # 选择了标签，
-                pass
-                # print(self.category_ids)
-            else:
-                # 未选择了标签，
-                pass
-        return res
+    #     if self.is_wxwork_employee:
+    #         # 检测是企业微信员工
+    #         if len(self.category_ids) > 0:
+    #             pass
+    #         else:
+    #             pass
+    #     return res
 
-    def unlink(self):
-        super(HrEmployeePrivate, self).unlink()
+    # def unlink(self):
+    #     super(HrEmployeePrivate, self).unlink()

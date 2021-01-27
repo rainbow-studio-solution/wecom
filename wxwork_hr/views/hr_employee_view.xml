@@ -5,21 +5,19 @@
             <field name="name">wxwork employee form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-                <!-- <field name="work_email" position="after">
-                    <field name="user_check_tick" invisible="1"/>
-                </field> -->
-                <xpath expr="//header//button[last()]" position="before">
-                    <!--     “复制为系统用户”按钮仅HR管理员可见          -->
-                    <!-- <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight"
-                            attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
-                            groups="hr.group_hr_manager"/> -->
-                </xpath>
+            <field name="arch" type="xml"> 
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
-                    <label for="alias" class="oe_edit_only"/>
-                    <h2>
+                    <label for="alias" class="oe_edit_only" attrs="{'invisible': [('is_wxwork_employee','=',False)]}"/>
+                    <h2 attrs="{'invisible': [('is_wxwork_employee','=',False)]}">
                         <field name="alias" placeholder="Alias"/>
                     </h2>
+                    <label for="english_name" class="oe_edit_only" attrs="{'invisible': [('is_wxwork_employee','=',False)]}"/>
+                    <h2 attrs="{'invisible': [('is_wxwork_employee','=',False)]}">
+                        <field name="english_name" placeholder="English Name"/>
+                    </h2>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]//field[@name='category_ids']" position="attributes">
+                    <attribute name="attrs">{'readonly': [('is_wxwork_employee', '=', True)]}</attribute>
                 </xpath>
                 <xpath expr="//field[@name='department_id']" position="after">
                     <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>

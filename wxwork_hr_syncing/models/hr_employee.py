@@ -122,7 +122,7 @@ class HrEmployee(models.Model):
                 )
                 % times
             )
-        # print(times, status, result)
+
         return times, status, result
 
     def run_sync(self, obj, debug):
@@ -174,6 +174,7 @@ class HrEmployee(models.Model):
                 {
                     "wxwork_id": obj["userid"],
                     "name": obj["name"],
+                    "english_name": obj["english_name"],
                     "gender": Common(obj["gender"]).gender(),
                     "marital": None,  # 不生成婚姻状况
                     "image_1920": self.encode_image_as_base64(avatar_file),
@@ -209,13 +210,7 @@ class HrEmployee(models.Model):
             department_ids.append(
                 self.get_employee_parent_wxwork_department(department, debug)
             )
-        # print(
-        #     obj["name"],
-        #     department_ids[0],
-        #     type(department_ids[0]),
-        #     obj["main_department"],
-        #     type(obj["main_department"]),
-        # )
+
         img_path = (
             self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
         )
@@ -233,6 +228,7 @@ class HrEmployee(models.Model):
             records.write(
                 {
                     "name": obj["name"],
+                    "english_name": obj["english_name"],
                     "gender": Common(obj["gender"]).gender(),
                     "image_1920": self.check_always_update_avatar(always, avatar_file),
                     "mobile_phone": obj["mobile"],

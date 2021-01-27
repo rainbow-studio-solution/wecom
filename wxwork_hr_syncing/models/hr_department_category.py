@@ -144,7 +144,6 @@ class DepartmentCategory(models.Model):
             if debug:
                 print(_("Failed to remove invalid department tag: %s") % (repr(e)))
 
-    @api.model
     def department_binding_tag(self, response, params):
         """
         HR绑定标签
@@ -154,6 +153,10 @@ class DepartmentCategory(models.Model):
         secret = params.get_param("wxwork.contacts_secret")
 
         for res in response["taglist"]:
+            department_category = self.env["hr.department.category"].search(
+                [("tagid", "=", res["tagid"]),]
+            )
+            departments = []
             try:
                 wxapi = CorpApi(corpid, secret)
                 tags = wxapi.httpCall(
@@ -163,16 +166,14 @@ class DepartmentCategory(models.Model):
                 partylist = tags["partylist"]  # 标签中包含的部门id列表
 
                 if not partylist:
+                    pass
+                else:
                     for tag_department in partylist:
                         department = self.env["hr.department"].search(
                             [("wxwork_department_id", "=", tag_department),]
                         )
-                        department_category = self.env["hr.department.category"].search(
-                            [("tagid", "=", res["tagid"]),]
-                        )
-                        department.write(
-                            {"category_ids": [(6, 0, department_category)]}
-                        )
+                        departments.append(department.id)
+                    department_category.write({"department_ids": [(6, 0, departments)]})
             except BaseException as e:
                 if debug:
                     _logger.info(_("Set department Tag error: %s") % (repr(e)))

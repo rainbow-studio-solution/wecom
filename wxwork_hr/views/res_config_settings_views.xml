@@ -84,7 +84,7 @@
                                 <label for="contacts_img_path"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        The path used to save the enterprise WeChat user avatar and QR code image<br/>
+                                        The path used to save the enterprise WeChat user avatar and QR code image,<span class="text-danger">Need to have read and write permissions on the path.</span><br/>
                                         reference:Windows: D:\img\  <br/>
                                         Linux：/home/odoo/img/ Note: odoo is the current system account
                                     </div>

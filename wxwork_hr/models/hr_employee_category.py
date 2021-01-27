@@ -129,7 +129,7 @@ class EmployeeCategory(models.Model):
                 tag.unlink()
             else:
                 params = {
-                    "title": _("SuFailedccess"),
+                    "title": _("Failed"),
                     "type": "danger",
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭

@@ -154,19 +154,24 @@ class EmployeeCategory(models.Model):
         secret = params.get_param("wxwork.contacts_secret")
 
         for res in response["taglist"]:
+            employee_category = self.search([("tagid", "=", res["tagid"]),])
+            employees = []
             try:
                 wxapi = CorpApi(corpid, secret)
                 tags = wxapi.httpCall(
                     CORP_API_TYPE["TAG_GET_USER"], {"tagid": str(res["tagid"]),},
                 )
                 userlist = tags["userlist"]  # 标签中包含的成员列表
+
                 if not userlist:
+                    pass
+                else:
                     for tag_employee in userlist:
                         employee = self.env["hr.employee"].search(
                             [("wxwork_id", "=", tag_employee["userid"]),]
                         )
-                        employee_category = self.search([("tagid", "=", res["tagid"]),])
-                        employee.write({"category_ids": [(6, 0, employee_category)]})
+                        employees.append(employee.id)
+                    employee_category.write({"employee_ids": [(6, 0, employees)]})
             except BaseException as e:
                 if debug:
                     _logger.info(_("Set employee Tag error: %s") % (repr(e)))

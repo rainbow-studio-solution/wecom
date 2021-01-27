@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 05:46+0000\n"
-"PO-Revision-Date: 2021-01-07 13:49+0800\n"
+"POT-Creation-Date: 2021-01-27 05:38+0000\n"
+"PO-Revision-Date: 2021-01-27 13:41+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
@@ -47,11 +47,6 @@ msgid "Activity Planning"
 msgstr "活动计划"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_menu_config_activity_type
-msgid "Activity Types"
-msgstr "活动类型"
-
-#. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
 msgid ""
 "Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure data security, the key must not "
@@ -62,11 +57,6 @@ msgstr "通讯簿同步机密。 在“管理工具”→“地址簿同步”�
 #: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__alias model_terms:ir.ui.view,arch_db:wxwork_hr.wxwork_hr_employee_form
 msgid "Alias"
 msgstr "别名"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_crm_case_categ_all_app
-msgid "All Applications"
-msgstr "全部申请"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings__contacts_edit_enabled
@@ -89,26 +79,6 @@ msgid "Always update avatar"
 msgstr "总是更新头像"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_attendance_report
-msgid "Attendance Reporting"
-msgstr "考勤报表"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_gamification_badge
-msgid "Badges"
-msgstr "徽章"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_job_position
-msgid "By Job Positions"
-msgstr "按工作岗位"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_gamification_challenge model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_gamification
-msgid "Challenges"
-msgstr "挑战"
-
-#. module: wxwork_hr
 #: model_terms:ir.actions.act_window,help:wxwork_hr.open_module_tree_employee
 msgid "Click to add a new employee."
 msgstr "单击以添加新员工。"
@@ -117,6 +87,11 @@ msgstr "单击以添加新员工。"
 #: model_terms:ir.actions.act_window,help:wxwork_hr.open_module_tree_user
 msgid "Click to add a new user."
 msgstr "单击以添加新用户。"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__color
+msgid "Color Index"
+msgstr "颜色索引"
 
 #. module: wxwork_hr
 #: model:ir.model,name:wxwork_hr.model_res_config_settings
@@ -134,14 +109,36 @@ msgid "Contact token"
 msgstr "通讯簿token"
 
 #. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Create contacts tags: %s to Enterprise WeChat"
+msgstr "创建通讯录标签：%s 到企业微信"
+
+#. module: wxwork_hr
 #: model_terms:ir.actions.act_window,help:wxwork_hr.open_module_tree_department
 msgid "Create department."
 msgstr "创建部门。"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_degree
-msgid "Degrees"
-msgstr "学历"
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: wxwork_hr
+#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_employee_category_list
+msgid "Delete Tags"
+msgstr "删除标签"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Delete contacts tags: %s to Enterprise WeChat"
+msgstr "删除通讯录标签：%s 到企业微信"
 
 #. module: wxwork_hr
 #: model:ir.model,name:wxwork_hr.model_hr_department model:ir.ui.menu,name:wxwork_hr.menu_wxwork_organization_department_kanban
@@ -149,17 +146,29 @@ msgid "Department"
 msgstr "部门"
 
 #. module: wxwork_hr
+#: model:ir.model,name:wxwork_hr.model_hr_department_category
+msgid "Department Category"
+msgstr "部门标签"
+
+#. module: wxwork_hr
+#: model:ir.actions.act_window,name:wxwork_hr.open_view_department_categ_form model:ir.ui.menu,name:wxwork_hr.menu_wxwork_organization_department_tag
+#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_department_category_form model_terms:ir.ui.view,arch_db:wxwork_hr.view_department_category_list
+msgid "Department Tags"
+msgstr "部门标签"
+
+#. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
 msgid "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default"
 msgstr "部门编号。 获取指定的部门及其子部门。 如果您不填写，则默认获取完整的组织结构"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_department_tree
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__department_ids model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_department_tree
 msgid "Departments"
 msgstr "部门"
 
 #. module: wxwork_hr
-#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__display_name model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__display_name model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__display_name
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__display_name model:ir.model.fields,field_description:wxwork_hr.field_hr_employee_category__display_name
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings__display_name model:ir.model.fields,field_description:wxwork_hr.field_res_users__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -170,9 +179,19 @@ msgid "Employee"
 msgstr "员工"
 
 #. module: wxwork_hr
+#: model:ir.model,name:wxwork_hr.model_hr_employee_category
+msgid "Employee Category"
+msgstr "员工类别"
+
+#. module: wxwork_hr
 #: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_employee
 msgid "Employee Directory"
 msgstr "员工目录"
+
+#. module: wxwork_hr
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_organization_employee_tag
+msgid "Employee Tags"
+msgstr "员工标签"
 
 #. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
@@ -180,7 +199,7 @@ msgid "Enable to allow batch generation of system accounts from employees;"
 msgstr "启用，允许从员工批量生成系统帐户;"
 
 #. module: wxwork_hr
-#: model_terms:ir.ui.view,arch_db:wxwork_hr.wxwork_view_users_form
+#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_department_form model_terms:ir.ui.view,arch_db:wxwork_hr.wxwork_view_users_form
 msgid "Enterprise WeChat"
 msgstr "企业微信"
 
@@ -193,6 +212,16 @@ msgstr "企业微信部门"
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings__contacts_img_path
 msgid "Enterprise WeChat Picture storage path"
 msgstr "企业微信图片存储路径"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__is_wxwork_category model:ir.model.fields,field_description:wxwork_hr.field_hr_employee_category__is_wxwork_category
+msgid "Enterprise WeChat Tag"
+msgstr "企业微信标签"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__tagid model:ir.model.fields,field_description:wxwork_hr.field_hr_employee_category__tagid
+msgid "Enterprise WeChat Tag ID"
+msgstr "企业微信标签ID"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_users__wxwork_user_order
@@ -232,7 +261,7 @@ msgstr "企业微信员工"
 #. module: wxwork_hr
 #: model:ir.model,name:wxwork_hr.model_hr_employee
 msgid "Enterprise WeChat employees bind system users"
-msgstr "企业微信员工绑定系统用户"
+msgstr "企业微信员工绑定系统用户 "
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__wxwork_department_parent_id
@@ -265,9 +294,24 @@ msgid "Enterprise WeChat user sort"
 msgstr "企业微信用户排序"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_gamification_goal
-msgid "Goals History"
-msgstr "历史目标"
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid ""
+"Error code: %s \n"
+"Error description: %s\n"
+"Error Details:\n"
+"%s"
+msgstr ""
+"错误代码： %s \n"
+"错误说明： %s\n"
+"错误详情： \n"
+"%s"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Failed"
+msgstr "失败"
 
 #. module: wxwork_hr
 #: model:ir.model.fields.selection,name:wxwork_hr.selection__res_users__notification_type__wxwork
@@ -280,7 +324,8 @@ msgid "Human Resources Configuration"
 msgstr "HR配置"
 
 #. module: wxwork_hr
-#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__id model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__id
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__id model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__id
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__id model:ir.model.fields,field_description:wxwork_hr.field_hr_employee_category__id
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings__id model:ir.model.fields,field_description:wxwork_hr.field_res_users__id
 msgid "ID"
 msgstr "ID"
@@ -343,15 +388,26 @@ msgid "Is an enterprise WeChat user"
 msgstr "是企业微信用户"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_job_position_config model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_hr_job
+#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_hr_job
 msgid "Job Positions"
 msgstr "工作岗位"
 
 #. module: wxwork_hr
-#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department____last_update model:ir.model.fields,field_description:wxwork_hr.field_hr_employee____last_update
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department____last_update model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category____last_update
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee____last_update model:ir.model.fields,field_description:wxwork_hr.field_hr_employee_category____last_update
 #: model:ir.model.fields,field_description:wxwork_hr.field_res_config_settings____last_update model:ir.model.fields,field_description:wxwork_hr.field_res_users____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__department_ids model_terms:ir.ui.view,arch_db:wxwork_hr.wxwork_hr_employee_form
@@ -410,37 +466,7 @@ msgstr ""
 "- 系统内部处理: 通知会出现在Odoo收件箱"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_main
-msgid "Recruitment"
-msgstr "招聘"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.hr_applicant_report_menu
-msgid "Recruitment Analysis"
-msgstr "招聘分析"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_configuration
-msgid "Recruitment Configuration"
-msgstr "招聘配置"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_applicant_refuse_reason
-msgid "Refuse Reasons"
-msgstr "拒绝原因"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_report_main
-msgid "Reporting"
-msgstr "报表"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_configuration_resume
-msgid "Resumé"
-msgstr "简历"
-
-#. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.hr_wxwork_menu_configuration model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_global_settings
+#: model:ir.ui.menu,name:wxwork_hr.hr_wxwork_menu_configuration
 msgid "Settings"
 msgstr "设置"
 
@@ -450,35 +476,61 @@ msgid "Share User"
 msgstr "共享用户"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_skill_type
-msgid "Skills"
-msgstr "技能"
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Success"
+msgstr "成功"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_source
-msgid "Sources of Applicants"
-msgstr "申请人来源"
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Successfully updated tag."
+msgstr "成功更新标签。"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_recruitment_stage
-msgid "Stages"
-msgstr "阶段"
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department_category__name
+msgid "Tag Name"
+msgstr "标签名称"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_applicant_category_menu model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_employee_category_form
+#: model:ir.model.constraint,message:wxwork_hr.constraint_hr_department_category_name_uniq
+msgid "Tag name already exists !"
+msgstr "标签名称已经存在！"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag successfully created."
+msgstr "标签创建成功。"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag: %s deleted successfully."
+msgstr "标签：%s 已成功删除。"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag: %s deletion failed."
+msgstr "标签：%s删除失败。"
+
+#. module: wxwork_hr
+#: model:ir.model.fields,field_description:wxwork_hr.field_hr_department__category_ids model:ir.ui.menu,name:wxwork_hr.menu_wxwork_view_employee_category_form
+#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_department_form
 msgid "Tags"
 msgstr "标签"
 
 #. module: wxwork_hr
 #: model_terms:ir.ui.view,arch_db:wxwork_hr.res_config_settings_view_form
 msgid ""
-"The path used to save the enterprise WeChat user avatar and QR code image<br/>\n"
+"The path used to save the enterprise WeChat user avatar and QR code image,<span class=\"text-danger\">Need to have read and write permissions on the path.</span><br/>\n"
 "                                        reference:Windows: D:\\img\\  <br/>\n"
 "                                        Linux：/home/odoo/img/ Note: odoo is the current system account"
 msgstr ""
-"用于保存企业微信用户头像和二维码图像的路径<br/>\n"
-"                                         参考：Windows：D:\\img\\  <br/>\n"
-"                                         Linux：：/home/odoo/img/ 注意：odoo是当前系统帐户"
+"用于保存企业微信用户头像和QR码图片的路径， <span class=\"text-danger\">需要对路径具有读写权限。 </span><br/>\n"
+"                                        参考：Windows：D:\\img\\  <br/>\n"
+"                                        Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,help:wxwork_hr.field_res_users__wxwork_user_order
@@ -491,9 +543,15 @@ msgid "The sort value within the department, the default is 0. The quantity must
 msgstr "部门的排序值，默认为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
 
 #. module: wxwork_hr
-#: model:ir.ui.menu,name:wxwork_hr.menu_wxwork_hr_resume_line_type_menu
-msgid "Types"
-msgstr "类型"
+#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_employee_category_list
+msgid "Update Tags"
+msgstr "更新标签"
+
+#. module: wxwork_hr
+#: code:addons/wxwork/wxwork_hr/models/hr_employee_category.py:0 code:addons/wxwork_hr/models/hr_employee_category.py:0
+#, python-format
+msgid "Update contacts tags: %s to Enterprise WeChat"
+msgstr "更新通讯录标签：%s 到企业微信"
 
 #. module: wxwork_hr
 #: model:ir.model.fields,field_description:wxwork_hr.field_hr_employee__user_check_tick
@@ -511,6 +569,6 @@ msgid "users"
 msgstr "用户"
 
 #. module: wxwork_hr
-#: model_terms:ir.ui.view,arch_db:wxwork_hr.view_department_form
-msgid "wxwork"
-msgstr "企业微信"
+#: model:ir.model.fields,help:wxwork_hr.field_hr_department_category__tagid model:ir.model.fields,help:wxwork_hr.field_hr_employee_category__tagid
+msgid "标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。"
+msgstr ""

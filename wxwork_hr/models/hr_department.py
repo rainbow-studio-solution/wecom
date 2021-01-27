@@ -15,6 +15,7 @@ class Department(models.Model):
         "category_id",
         groups="hr.group_hr_manager",
         string="Tags",
+        readonly=True,
     )
 
     wxwork_department_id = fields.Integer(
