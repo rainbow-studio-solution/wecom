@@ -8,16 +8,32 @@
             <field name="arch" type="xml">
                 <form string="Message">
                     <header>
-                        
+                        <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
                     </header>
                     <sheet>
                         <label for="subject" class="oe_edit_only"/>
                         <h2><field name="subject"/></h2>
-                        <group>
-                            <field name="to_user" widget="many2many_tags" options="{'no_create': True}"/>
+                        <group string="Send to">
+                            <field name="to_user" widget="many2many_tags"  options="{'no_create': True}"/>
                             <field name="to_party" widget="many2many_tags" options="{'no_create': True}"/>
                             <field name="to_tag" widget="many2many_tags" options="{'no_create': True}"/>
                         </group>
+                        <group>
+                            <group string="Send using template">
+                                <field name="use_templates" widget="boolean_toggle"/>
+                                <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/>
+                            </group>
+                            <group string="">
+                                <field name="msgtype"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Body" name="body">
+                                <group  attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
+                                    <field name="markdown_content" widget="wxwork_markdown" options="{'style-inline': true}" style="height: 300px;" />
+                                </group>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>

@@ -34,6 +34,7 @@ class MassMailing(models.Model):
     )
 
     use_templates = fields.Boolean("Use templates", translate=True)
+    templates_id = fields.Many2one("mail.template", string="Message template")
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -123,9 +124,7 @@ class MassMailing(models.Model):
         help="图文消息的描述，不超过512个字节，超过会自动截断（支持id转译）",
     )
 
-    markdown_content = fields.Text(
-        "Markdown message content", help="markdown内容，最长不超过2048个字节，必须是utf8编码"
-    )
+    markdown_content = fields.Text("Content", help="markdown内容，最长不超过2048个字节，必须是utf8编码")
 
     miniprogram_notice_appid = fields.Char(
         "Mini Program appid", help="小程序appid，必须是与当前小程序应用关联的小程序"
