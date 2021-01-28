@@ -22,6 +22,7 @@
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/ir_cron_views.xml",
+        "views/join_qrcode.xml",
         "views/menu_views.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
