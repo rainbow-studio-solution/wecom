@@ -38,13 +38,8 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
     #1. 安装扩展
     pip install numpy==1.19.3 opencv-python==4.4.0.46
 
-    #2. 
-    "获取部门成员"API department字段 没有将主部门 默认排第一个，导致同步时设置主部门错误。
-    看了下读取成员API，多了个"main_department"（主部门）的字段。已向腾讯企业微信团队提交了需求，
-    要么在"获取部门成员"API增加"main_department"（主部门）的字段,要么修复"department"字段的排序。
-    设置主部门错误待腾讯修复。
-    
-    目前腾讯已经在"获取部门成员详情"API中增加了"main_department"（主部门）的字段
+    #2. ImportError: libGL.so.1: cannot open shared object file: No such file or directory.解决方案：
+    apt-get install -y libgl1-mesa-dev   或  yum install mesa-libGL.x86_64
     ``` 
 5. wxwork_hr_extension（企业微信-HR扩展模块）完成
    ```
