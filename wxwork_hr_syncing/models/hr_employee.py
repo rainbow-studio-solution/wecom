@@ -102,7 +102,7 @@ class HrEmployee(models.Model):
             times2 = end2 - start2
 
             # 设置员工的标签
-            category = self.env["hr.employee.category"].search([])
+            # category = self.env["hr.employee.category"].search([])
 
             times = times1 + times2
             status = {"employee": True}
@@ -145,7 +145,8 @@ class HrEmployee(models.Model):
         except Exception as e:
             if debug:
                 print(
-                    _("Enterprise WeChat synchronization failed, error: %s") % repr(e)
+                    _("Enterprise WeChat employee synchronization failed, error: %s")
+                    % repr(e)
                 )
 
     def create_employee(self, records, obj, debug):
@@ -334,8 +335,12 @@ class HrEmployee(models.Model):
                 print(_("Get the employee's main department error:%s") % (repr(e)))
 
     def sync_leave_employee(self, response, debug):
-        """比较企业微信和odoo的员工数据，且设置离职odoo员工active状态"""
-
+        """
+        比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
+        激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。
+        已激活代表已激活企业微信或已关注微工作台（原企业号）。未激活代表既未激活企业微信又未关注微工作台（原企业号）。
+        TODO:待重构
+        """
         try:
             list_user = []
             list_employee = []

@@ -462,8 +462,8 @@ msgstr "企业微信图片同步"
 #: code:addons/wxwork/wxwork_hr_syncing/models/hr_employee.py:0
 #: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
 #, python-format
-msgid "Enterprise WeChat synchronization failed, error: %s"
-msgstr "企业微信同步失败，错误：%s"
+msgid "Enterprise WeChat employee synchronization failed, error: %s"
+msgstr "企业微信员工同步失败，错误：%s"
 
 #. module: wxwork_hr_syncing
 #: model:ir.model,name:wxwork_hr_syncing.model_wizard_wxwork_tag
