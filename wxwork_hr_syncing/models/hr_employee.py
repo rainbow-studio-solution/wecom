@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _
-
+from odoo.modules.module import get_module_resource
 from ...wxwork_api.wx_qy_api.CorpApi import *
 from ...wxwork_api.helper.common import *
 
@@ -161,10 +161,18 @@ class HrEmployee(models.Model):
         )
         if platform.system() == "Windows":
             avatar_file = (
-                img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
+                # img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
+                img_path.replace("\\", "/")
+                + "avatar/"
+                + obj["userid"]
+                + ".jpg"
             )
             qr_code_file = (
-                img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
+                # img_path.replace("\\", "/") + "/qr_code/" + obj["userid"] + ".png"
+                img_path.replace("\\", "/")
+                + "qr_code/"
+                + obj["userid"]
+                + ".png"
             )
         else:
             avatar_file = img_path + "avatar/" + obj["userid"] + ".jpg"
@@ -175,7 +183,9 @@ class HrEmployee(models.Model):
                 {
                     "wxwork_id": obj["userid"],
                     "name": obj["name"],
-                    "english_name": obj["english_name"],
+                    "english_name": Common(
+                        (obj, "english_name")
+                    ).check_dictionary_keywords(),
                     "gender": Common(obj["gender"]).gender(),
                     "marital": None,  # 不生成婚姻状况
                     "image_1920": self.encode_image_as_base64(avatar_file),
@@ -229,7 +239,9 @@ class HrEmployee(models.Model):
             records.write(
                 {
                     "name": obj["name"],
-                    "english_name": obj["english_name"],
+                    "english_name": Common(
+                        (obj, "english_name")
+                    ).check_dictionary_keywords(),
                     "gender": Common(obj["gender"]).gender(),
                     "image_1920": self.check_always_update_avatar(always, avatar_file),
                     "mobile_phone": obj["mobile"],
@@ -264,17 +276,21 @@ class HrEmployee(models.Model):
             return None
 
     def encode_image_as_base64(self, image_path):
-
         if not os.path.exists(image_path):
-            pass
+            if "avatar/" in image_path:
+                image_path = get_module_resource(
+                    "hr", "static/src/img", "default_image.png"
+                )
+                return base64.b64encode(open(image_path, "rb").read())
+            else:
+                pass
         else:
             try:
                 with open(image_path, "rb") as f:
                     encoded_string = base64.b64encode(f.read())
                 return encoded_string
             except BaseException as e:
-                return None
-                # pass+
+                print(_("Image encoding error:" + repr(e)))
 
     def get_employee_parent_hr_department(self, department_obj, debug):
         """

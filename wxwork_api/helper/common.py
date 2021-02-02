@@ -30,6 +30,17 @@ class Common(object):
         else:
             return False
 
+    def check_dictionary_keywords(self):
+        """
+        检查字典中是否存在key
+        """
+        dictionary, key = (self.value[0], self.value[1])
+        if key in dictionary.keys():
+            self.result = dictionary[key]
+        else:
+            self.result = None
+        return self.result
+
     def wxwork_user_enable(self):
         """
         企业微信用户是否启用
@@ -52,7 +63,7 @@ class Common(object):
 
     def gender(self):
         """
-            性别转换
+        性别转换
         """
         if self.value == "1":
             self.result = "male"
