@@ -8,30 +8,39 @@
             <field name="arch" type="xml">
                 <form string="Message">
                     <header>
+                        <button name="send" string="Send Now" type="object" states='outgoing' class="oe_highlight"/>
+                        <button name="cancel" string="Cancel" type="object" states='outgoing'/>
                         <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
                     </header>
                     <sheet>
-                        <label for="subject" class="oe_edit_only"/>
-                        <h2><field name="subject"/></h2>
-                        <group string="Send to">
-                            <field name="to_user" widget="many2many_tags"  options="{'no_create': True}"/>
-                            <field name="to_party" widget="many2many_tags" options="{'no_create': True}"/>
-                            <field name="to_tag" widget="many2many_tags" options="{'no_create': True}"/>
-                        </group>
+                        <label for="name" class="oe_edit_only"/>
+                        <h2><field name="name"/></h2>
                         <group>
-                            <group string="Send using template">
+                            <group>
+                                <separator string="Send to"/>
+                                <field name="to_all" widget="boolean_toggle" />
+                                <!-- <span attrs="{'invisible': [('to_all','!=',True)]}">@all</span> -->
+                                <field name="to_user" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
+                                <field name="to_party" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=', True)]}"/>
+                                <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
+                                <separator string="Send using template"/>
                                 <field name="use_templates" widget="boolean_toggle"/>
                                 <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/>
                             </group>
-                            <group string="">
-                                <field name="msgtype"/>
-                            </group>
+                            <group string="Options">
+                                <field name="msgtype" attrs="{'invisible': [('use_templates','=',True)]}"/>
+                                <field name="safe" attrs="{'invisible': [('use_templates','=',True)]}"/>
+                                <field name="enable_id_trans" attrs="{'invisible': [('use_templates','=',True)]}"/>
+                                <field name="enable_duplicate_check" />
+                                <field name="duplicate_check_interval"  options="{'format': false}"/>
+                            </group>  
                         </group>
+                                                               
                         <notebook>
                             <page string="Body" name="body">
-                                <group  attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
-                                    <field name="markdown_content" widget="wxwork_markdown" options="{'style-inline': true}" style="height: 300px;" />
-                                </group>
+                                <group attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
+                                     <field name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
+                                </group>                               
                             </page>
                         </notebook>
                     </sheet>
@@ -44,7 +53,7 @@
             <field name="model">wxwork.message.sending</field>
             <field name="arch" type="xml">
                 <tree string="Sending List">
-                    <field name="subject" />
+                    <field name="name" />
                     <field name="to_user"/>
                     <field name="to_party"/>
                     <field name="to_tag"/>
@@ -52,7 +61,7 @@
                     <field name="msgtype"/>
                     <field name="enable_id_trans"/>
                     <field name="enable_duplicate_check"/>
-                    <field name="duplicate_check_interval"/>
+                    <field name="duplicate_check_interval" options="{'format': false}"/>
                 </tree>
             </field>
         </record>

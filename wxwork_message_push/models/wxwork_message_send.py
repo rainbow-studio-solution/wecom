@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, tools, _
+from odoo.exceptions import UserError
 
 
 class MassMailing(models.Model):
     _name = "wxwork.message.sending"
     _description = "Enterprise WeChat message sending"
 
-    subject = fields.Char(
-        "Subject", help="Subject of your Mailing", required=True, translate=True
-    )
-
+    name = fields.Char("Subject", help="Subject of your Mailing", required=True,)
+    to_all = fields.Boolean("To all members", readonly=True,)
     to_user = fields.Many2many(
         "hr.employee",
         string="To Employees",
@@ -33,7 +32,7 @@ class MassMailing(models.Model):
         help="Message recipients (tags)",
     )
 
-    use_templates = fields.Boolean("Use templates", translate=True)
+    use_templates = fields.Boolean("Use templates",)
     templates_id = fields.Many2one("mail.template", string="Message template")
     msgtype = fields.Selection(
         [
@@ -52,6 +51,7 @@ class MassMailing(models.Model):
         string="Message type",
         required=True,
         default="markdown",
+        readonly=True,
     )
 
     text_content = fields.Text(
@@ -124,7 +124,9 @@ class MassMailing(models.Model):
         help="图文消息的描述，不超过512个字节，超过会自动截断（支持id转译）",
     )
 
-    markdown_content = fields.Text("Content", help="markdown内容，最长不超过2048个字节，必须是utf8编码")
+    markdown_content = fields.Text(
+        "Content", sanitize=False, store=True, help="markdown内容，最长不超过2048个字节，必须是utf8编码"
+    )
 
     miniprogram_notice_appid = fields.Char(
         "Mini Program appid", help="小程序appid，必须是与当前小程序应用关联的小程序"
@@ -159,6 +161,19 @@ class MassMailing(models.Model):
     )
     taskcard_btn = fields.Char("Task card button list", help="按钮列表，按钮个数为1~2个。",)
 
+    safe = fields.Selection(
+        [
+            ("0", "Shareable"),
+            ("1", "Cannot share and content shows watermark"),
+            ("2", "Only share within the company "),
+        ],
+        string="Secret message",
+        required=True,
+        default="1",
+        readonly=True,
+        help="表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持",
+    )
+
     enable_id_trans = fields.Boolean(
         string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
     )
@@ -186,4 +201,68 @@ class MassMailing(models.Model):
         copy=False,
         default="outgoing",
     )
+
+    @api.onchange("templates_id")
+    def _onchange_templates_id(self):
+        if self.templates_id:
+            mail_template_info = (
+                self.env["mail.template"]
+                .browse(self.templates_id.id)
+                .read(["id", "wxwork_body_html"])
+            )
+            self.markdown_content = mail_template_info[0]["wxwork_body_html"]
+
+    def send(self):
+        """
+        发送消息
+        """
+        touser, toparty, totag = self.get_message_recipient_data()
+
+    def get_message_recipient_data(self):
+        """
+        获取接收人数据：
+        :returns:
+            touser：成员ID列表（消息接收者，多个接收者用‘|’分隔，最多支持1000个）。特殊情况：指定为@all，则向关注该企业应用的全部成员发送
+            toparty：部门ID列表，多个接收者用‘|’分隔，最多支持100个。当touser为@all时忽略本参数
+            totag：标签ID列表，多个接收者用‘|’分隔，最多支持100个。当touser为@all时忽略本参数
+        """
+        touser = ""
+        toparty = ""
+        totag = ""
+
+        if len(self.to_user) == 1:
+            touser = self.to_user.wxwork_id
+        else:
+            for employee in self.to_user:
+                touser += employee.wxwork_id + "|"
+            touser = touser[:-1]  # 移除最后一个字符
+
+        if len(self.to_party) == 1:
+            toparty = str(self.to_party.wxwork_department_id)
+        else:
+            for department in self.to_party:
+                toparty += str(department.wxwork_department_id) + "|"
+            toparty = toparty[:-1]  # 移除最后一个字符
+
+        if len(self.to_tag) == 1:
+            totag = str(self.to_tag.tagid)
+        else:
+            for category in self.to_tag:
+                totag += str(category.tagid) + "|"
+            totag = totag[:-1]  # 移除最后一个字符
+
+        if self.to_all:
+            touser = "@all"
+            toparty = ""
+            totag = ""
+        else:
+            if touser == "" and toparty == "" and totag == "":
+                raise UserError(
+                    _("Employee, department, and tag cannot be empty at the same time.")
+                )
+
+        return touser, toparty, totag
+
+    def cancel(self):
+        return self.write({"state": "cancel"})
 
