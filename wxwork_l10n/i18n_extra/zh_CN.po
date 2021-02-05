@@ -77,7 +77,7 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_message_push
+#: model:ir.module.module,summary:base.module_wxwork_message
 msgid ""
 "\n"
 "        Odoo event notification to enterprise WeChat\n"

@@ -1,4 +1,4 @@
-odoo.define('wxwork_message_push.list_copy_button_create', function (require) {
+odoo.define('wxwork_message.list_copy_button_create', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;

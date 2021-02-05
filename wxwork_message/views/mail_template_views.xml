@@ -70,12 +70,12 @@
             <field name="name">Templates</field>
             <field name="res_model">mail.template</field>
             <field name="view_mode">form,tree</field>
-            <!-- <field name="view_id" ref="wxwork_message_push.wxwork_message_template_tree" /> -->
-            <field name="search_view_id" ref="wxwork_message_push.view_wxwork_message_template_search"/>
+            <!-- <field name="view_id" ref="wxwork_message.wxwork_message_template_tree" /> -->
+            <field name="search_view_id" ref="wxwork_message.view_wxwork_message_template_search"/>
             <field name="view_ids" 
                 eval="[(5, 0, 0),
-                    (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message_push.wxwork_message_template_tree')}),
-                    (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message_push.wxwork_message_template_form')})
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message.wxwork_message_template_tree')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message.wxwork_message_template_form')})
                     ]"/>
         </record>
 

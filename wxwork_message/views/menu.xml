@@ -13,7 +13,7 @@
                 id="menu_wxwork_message_send" 
                 name="Send Message" 
                 parent="menu_wxwork_message"
-                action="action_view_wxwork_message_send" 
+                action="action_view_wxwork_message" 
                 sequence="10"/>
 
             <menuitem 

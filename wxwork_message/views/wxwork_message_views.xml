@@ -2,9 +2,9 @@
 <odoo>
     <data>
 
-        <record model="ir.ui.view" id="wxwork_message_send_form">
+        <record model="ir.ui.view" id="wxwork_message_form">
             <field name="name">wxwork.message.form</field>
-            <field name="model">wxwork.messageing</field>
+            <field name="model">wxwork.message</field>
             <field name="arch" type="xml">
                 <form string="Message">
                     <header>
@@ -48,9 +48,9 @@
             </field>
         </record>
         
-        <record model="ir.ui.view" id="wxwork_message_send_tree">
+        <record model="ir.ui.view" id="wxwork_message_tree">
             <field name="name">wxwork.message.tree</field>
-            <field name="model">wxwork.messageing</field>
+            <field name="model">wxwork.message</field>
             <field name="arch" type="xml">
                 <tree string="Sending List">
                     <field name="name"/>
@@ -67,9 +67,9 @@
             </field>
         </record>
 
-        <record id="action_view_wxwork_message_send" model="ir.actions.act_window">
+        <record id="action_view_wxwork_message" model="ir.actions.act_window">
             <field name="name">Messages</field>
-            <field name="res_model">wxwork.messageing</field>
+            <field name="res_model">wxwork.message</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{}</field>
         </record>
