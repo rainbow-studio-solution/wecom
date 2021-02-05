@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_push" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-envelope-o fa-lg" aria-label="Enterprise WeChat Message Push"/> Enterprise WeChat Message Push</span>
+                        <span class="text-left"><i class="fa fa-envelope-o fa-lg" aria-label="Enterprise WeChat Message"/> Enterprise WeChat Message</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     <div class="row mt16 o_settings_container">

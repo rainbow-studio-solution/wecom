@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Message Push",
+    "name": "Enterprise WeChat Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 606,
@@ -26,7 +26,7 @@
         "views/res_users_views.xml",
         "views/mail_template_views.xml",
         "views/res_config_settings_views.xml",
-        "views/wxwork_message_send_views.xml",
+        "views/wxwork_message_views.xml",
         "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],

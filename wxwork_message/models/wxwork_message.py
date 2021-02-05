@@ -5,8 +5,8 @@ from odoo.exceptions import UserError
 
 
 class MassMailing(models.Model):
-    _name = "wxwork.message.sending"
-    _description = "Enterprise WeChat message sending"
+    _name = "wxwork.message"
+    _description = "Enterprise WeChat Outgoing message"
 
     name = fields.Char("Subject", help="Subject of your Mailing", required=True,)
     to_all = fields.Boolean("To all members", readonly=True,)
@@ -125,7 +125,7 @@ class MassMailing(models.Model):
     )
 
     markdown_content = fields.Text(
-        "Content", sanitize=False, store=True, help="markdown内容，最长不超过2048个字节，必须是utf8编码"
+        "Content", sanitize=False, help="markdown内容，最长不超过2048个字节，必须是utf8编码"
     )
 
     miniprogram_notice_appid = fields.Char(

@@ -3,8 +3,8 @@
     <data>
 
         <record model="ir.ui.view" id="wxwork_message_send_form">
-            <field name="name">wxwork.message.send.form</field>
-            <field name="model">wxwork.message.sending</field>
+            <field name="name">wxwork.message.form</field>
+            <field name="model">wxwork.messageing</field>
             <field name="arch" type="xml">
                 <form string="Message">
                     <header>
@@ -39,7 +39,7 @@
                         <notebook>
                             <page string="Body" name="body">
                                 <group attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
-                                     <field name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
+                                     <field name="markdown_content" force_save="1" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
                                 </group>                               
                             </page>
                         </notebook>
@@ -49,11 +49,12 @@
         </record>
         
         <record model="ir.ui.view" id="wxwork_message_send_tree">
-            <field name="name">wxwork.message.send.tree</field>
-            <field name="model">wxwork.message.sending</field>
+            <field name="name">wxwork.message.tree</field>
+            <field name="model">wxwork.messageing</field>
             <field name="arch" type="xml">
                 <tree string="Sending List">
-                    <field name="name" />
+                    <field name="name"/>
+                    <field name="state"/>
                     <field name="to_user"/>
                     <field name="to_party"/>
                     <field name="to_tag"/>
@@ -68,7 +69,7 @@
 
         <record id="action_view_wxwork_message_send" model="ir.actions.act_window">
             <field name="name">Messages</field>
-            <field name="res_model">wxwork.message.sending</field>
+            <field name="res_model">wxwork.messageing</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{}</field>
         </record>

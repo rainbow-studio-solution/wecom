@@ -123,9 +123,9 @@ msgid "Enterprise WeChat Human Resources"
 msgstr "企业微信人力资源"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_message_push
-msgid "Enterprise WeChat Message Push"
-msgstr "企业微信消息推送"
+#: model:ir.module.module,shortdesc:base.module_wxwork_message
+msgid "Enterprise WeChat Message"
+msgstr "企业微信消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget

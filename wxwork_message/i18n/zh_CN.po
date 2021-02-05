@@ -31,11 +31,11 @@ msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"消息推送应用ID\"/>"
 #: model_terms:ir.ui.view,arch_db:wxwork_message_push.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message Push\"/> Enterprise WeChat Message Push</span>\n"
+"Message\"/> Enterprise WeChat Message</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message Push\"/> 企业微信消息推送</span>\n"
+"Message\"/> 企业微信消息</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部 "
 "\"/>"
 
@@ -160,9 +160,9 @@ msgid "Enterprise WeChat Message Body"
 msgstr "企业微信消息正文"
 
 #. module: wxwork_message_push
-#: model:ir.model,name:wxwork_message_push.model_wxwork_message_sending
-msgid "Enterprise WeChat message sending"
-msgstr "企业微信消息发送"
+#: model:ir.model,name:wxwork_message_push.model_wxwork_message
+msgid "Enterprise WeChat message"
+msgstr "企业微信消息"
 
 #. module: wxwork_message_push
 #: model:ir.model,name:wxwork_message_push.model_res_users

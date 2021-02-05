@@ -106,8 +106,8 @@ msgid "Enterprise WeChat Human Resources"
 msgstr ""
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_message_push
-msgid "Enterprise WeChat Message Push"
+#: model:ir.module.module,shortdesc:base.module_wxwork_message
+msgid "Enterprise WeChat Message"
 msgstr ""
 
 #. module: base
