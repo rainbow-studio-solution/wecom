@@ -7,6 +7,7 @@ import urllib
 import os
 
 import random
+import html2text
 from passlib.context import CryptContext
 
 
@@ -14,6 +15,14 @@ class Common(object):
     def __init__(self, value):
         self.value = value
         self.result = None
+
+    def html2text_handle(self):
+        # 转换markdown格式
+        if bool(self.value):
+            self.result = html2text.html2text(self.value)
+        else:
+            self.result = None
+        return self.result
 
     def str2bool(self):
         """

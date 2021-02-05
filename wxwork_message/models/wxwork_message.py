@@ -4,7 +4,11 @@ from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
 
 
-class MassMailing(models.Model):
+class WxWorkMessage(models.Model):
+    """
+    参考模型 'mail.mail'
+    """
+
     _name = "wxwork.message"
     _description = "Enterprise WeChat Outgoing message"
 
@@ -32,7 +36,7 @@ class MassMailing(models.Model):
         help="Message recipients (tags)",
     )
 
-    use_templates = fields.Boolean("Use templates",)
+    use_templates = fields.Boolean("Test template message",)
     templates_id = fields.Many2one("mail.template", string="Message template")
     msgtype = fields.Selection(
         [
@@ -202,6 +206,46 @@ class MassMailing(models.Model):
         default="outgoing",
     )
 
+    @api.model_create_multi
+    def create(self, values_list):
+        for values in values_list:
+            if values.get("use_templates") and len(values.get("to_user")) > 1:
+                raise UserError(
+                    _(
+                        "In the test template message mode, only one user is allowed to send."
+                    )
+                )
+
+        new_mails = super(WxWorkMessage, self).create(values_list)
+
+        return new_mails
+
+    def write(self, vals):
+        res = super(WxWorkMessage, self).write(vals)
+        if self.use_templates and len(self.to_user) > 1:
+            raise UserError(
+                _(
+                    "In the test template message mode, only one user is allowed to send."
+                )
+            )
+        return res
+
+    @api.onchange("use_templates")
+    def _onchange_use_templates(self):
+        if self.use_templates:
+            self.to_party = None
+            self.to_tag = None
+            if len(self.to_user) > 1:
+                raise UserError(
+                    _(
+                        "In the test template message mode, only one user is allowed to send."
+                    )
+                )
+            else:
+                pass
+        else:
+            self.markdown_content = None
+
     @api.onchange("templates_id")
     def _onchange_templates_id(self):
         if self.templates_id:
@@ -214,9 +258,22 @@ class MassMailing(models.Model):
 
     def send(self):
         """
-        发送消息
+        立即发送选定的消息，而忽略它们的当前状态（除非已被重新发送，否则不应传递已发送的消息）。
+        成功发送的消息被标记为“已发送”，而失败发送的消息被标记为“例外”，并且相应的错误邮件将输出到服务器日志中。
+        :param bool auto_commit: 发送每封消息后是否强制提交消息状态（仅用于调度程序处理）；
+                                在正常传递中，绝对不能为True（默认值：False）
+        :param bool raise_exception: 如果消息发送过程失败，是否引发异常
+        :return: True
         """
         touser, toparty, totag = self.get_message_recipient_data()
+        if self.use_templates:
+            # 使用模板消息，暂时只使用MACKDOWN类型的消息模板
+            template = self.markdown_content
+            if template:
+                pass
+        else:
+            # 不使用模板消息
+            pass
 
     def get_message_recipient_data(self):
         """

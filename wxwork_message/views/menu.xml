@@ -18,7 +18,14 @@
 
             <menuitem 
                 id="menu_wxwork_message_template" 
-                name="Template" 
+                name="Template(Message)" 
+                parent="menu_wxwork_message"
+                action="action_wxwork_message_template_tree_all" 
+                sequence="15"/>
+
+            <menuitem 
+                id="menu_message_template" 
+                name="Template(EMail)" 
                 parent="menu_wxwork_message"
                 action="action_view_wxwork_message_template_tree_all" 
                 sequence="20"/>

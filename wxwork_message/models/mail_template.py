@@ -112,7 +112,7 @@ class MailTemplate(models.Model):
             message_agentid = params.get_param("wxwork.message_agentid")
             debug = params.get_param("wxwork.debug_enabled")
             wxapi = CorpApi(corpid, secret)
-            print(self.generate_wxwork_body_content(values, message_agentid))
+            # print(self.generate_wxwork_body_content(values, message_agentid))
             try:
                 response = wxapi.httpCall(
                     CORP_API_TYPE["MESSAGE_SEND"],

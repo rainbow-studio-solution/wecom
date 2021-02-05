@@ -21,10 +21,10 @@
                                 <field name="to_all" widget="boolean_toggle" />
                                 <!-- <span attrs="{'invisible': [('to_all','!=',True)]}">@all</span> -->
                                 <field name="to_user" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
-                                <field name="to_party" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=', True)]}"/>
-                                <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
+                                <field name="to_party" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': ['|',('to_all','=', True),('use_templates','=',True)]}" />
+                                <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=', True),('use_templates','=',True)]}"/>
                                 <separator string="Send using template"/>
-                                <field name="use_templates" widget="boolean_toggle"/>
+                                <field name="use_templates"/>
                                 <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/>
                             </group>
                             <group string="Options">

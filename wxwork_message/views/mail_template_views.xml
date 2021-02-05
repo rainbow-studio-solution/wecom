@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record model="ir.ui.view" id="wxwork_message_template_form">
+        <record model="ir.ui.view" id="wxwork_message_template_form1">
             <field name="name">wxwork.message.template.form</field>
             <field name="model">mail.template</field>
             <field name="arch" type="xml">
@@ -32,7 +32,7 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="wxwork_message_template_tree">
+        <record model="ir.ui.view" id="wxwork_message_template_tree1">
             <field name="name">wxwork.message.template.tree</field>
             <field name="model">mail.template</field>
             <field name="arch" type="xml">
@@ -50,7 +50,7 @@
             </field>
         </record>
 
-        <record id="view_wxwork_message_template_search" model="ir.ui.view">
+        <record id="view_wxwork_message_template_search1" model="ir.ui.view">
            <field name="name">email.template.search</field>
            <field name="model">mail.template</field>
            <field name="arch" type="xml">
@@ -71,11 +71,11 @@
             <field name="res_model">mail.template</field>
             <field name="view_mode">form,tree</field>
             <!-- <field name="view_id" ref="wxwork_message.wxwork_message_template_tree" /> -->
-            <field name="search_view_id" ref="wxwork_message.view_wxwork_message_template_search"/>
+            <field name="search_view_id" ref="wxwork_message.view_wxwork_message_template_search1"/>
             <field name="view_ids" 
                 eval="[(5, 0, 0),
-                    (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message.wxwork_message_template_tree')}),
-                    (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message.wxwork_message_template_form')})
+                    (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message.wxwork_message_template_tree1')}),
+                    (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message.wxwork_message_template_form1')})
                     ]"/>
         </record>
 
