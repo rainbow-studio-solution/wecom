@@ -56,8 +56,8 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
    limit_time_real = 1200 
    ```
 7. wxwork_widget（企业微信消息模板markdown编辑器,密码显示等小部件），完成
-8. wxwork_message_push（企业微信消息推送），开展中
-9.  wxwork_attendance（拉取考勤记录），开展中
+8. wxwork_message（企业微信消息），开展中
+9. wxwork_attendance（拉取考勤记录），开展中
 
 ## 闭源项目
 
