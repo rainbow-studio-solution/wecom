@@ -20,54 +20,74 @@ class ResUsers(models.Model):
             return
         if self.filtered(lambda user: not user.active):
             raise UserError(_("You cannot perform this action on an archived user."))
-        # prepare reset password signup
+        # 准备重置密码注册
         create_mode = bool(self.env.context.get("create_user"))
 
-        # no time limit for initial invitation, only for reset password
+        # 初次邀请没有时间限制，仅重设密码
         expiration = False if create_mode else now(days=+1)
 
         self.mapped("partner_id").signup_prepare(
             signup_type="reset", expiration=expiration
         )
 
-        # send email to users with their signup url
         template = False
-        if create_mode:
-            try:
-                template = self.env.ref(
-                    "auth_signup.set_password_email", raise_if_not_found=False
-                )
-            except ValueError:
-                pass
-        if not template:
-            template = self.env.ref("auth_signup.reset_password_email")
-        assert template._name == "mail.template"
+        if self.notification_type != "wxwork":
+            # 通过注册网址向用户发送电子邮件
+            if create_mode:
+                try:
+                    template = self.env.ref(
+                        "auth_signup.set_password_email", raise_if_not_found=False
+                    )
+                except ValueError:
+                    pass
+            if not template:
+                template = self.env.ref("auth_signup.reset_password_email")
+            assert template._name == "mail.template"
 
-        template_values = {
-            "email_to": "${object.email|safe}",
-            "email_cc": False,
-            "auto_delete": True,
-            "partner_to": False,
-            "scheduled_date": False,
-        }
-        template.write(template_values)
+            template_values = {
+                "email_to": "${object.email|safe}",
+                "email_cc": False,
+                "auto_delete": True,
+                "partner_to": False,
+                "scheduled_date": False,
+            }
+            template.write(template_values)
+        else:
+            # 通过注册网址向用户发送企业微信消息
+            if create_mode:
+                try:
+                    template = self.env.ref(
+                        "wxwork_message.wxwork_set_password_message",
+                        raise_if_not_found=False,
+                    )
+                except ValueError:
+                    pass
+            if not template:
+                template = self.env.ref("wxwork_message.wxwork_reset_password_message")
+            assert template._name == "wxwork.message.template"
+
+            template_values = {
+                "message_to": "${object.email|safe}",
+                "message_cc": False,
+                "auto_delete": True,
+                "partner_to": False,
+                "scheduled_date": False,
+            }
+            template.write(template_values)
+
         for user in self:
-            if not user.email and user.notification_type != "wxwork":
-                raise UserError(
-                    _("Cannot send email: user %s has no email address.", user.name)
-                )
-
-            # TDE FIXME: make this template technical (qweb)
-            with self.env.cr.savepoint():
-                force_send = not (self.env.context.get("import_file", False))
-                template.send_mail(user.id, force_send=force_send, raise_exception=True)
             if user.notification_type != "wxwork":
-                _logger.info(
-                    _("Password reset email sent for user <%s> to <%s>"),
-                    user.login,
-                    user.email,
-                )
-            else:
+                if not user.email:
+                    raise UserError(
+                        _("Cannot send email: user %s has no email address.", user.name)
+                    )
+
+                # TDE FIXME：使此模板具有技术性（qweb）
+                with self.env.cr.savepoint():
+                    force_send = not (self.env.context.get("import_file", False))
+                    template.send_mail(
+                        user.id, force_send=force_send, raise_exception=True
+                    )
                 _logger.info(
                     _(
                         "Password reset Enterprise WeChat message sent to the user <%s> to <%s>"
@@ -75,4 +95,22 @@ class ResUsers(models.Model):
                     user.login,
                     user.email,
                 )
-
+            else:
+                # 通过注册网址向用户发送企业微信消息
+                if not user.wxwork_id:
+                    raise UserError(
+                        _(
+                            "Cannot send user %s has no Enterprise WeChat user id.",
+                            user.name,
+                        )
+                    )
+                with self.env.cr.savepoint():
+                    force_send = not (self.env.context.get("import_file", False))
+                    template.send_message(
+                        user.id, force_send=force_send, raise_exception=True
+                    )
+                _logger.info(
+                    _("Password reset email sent for user <%s> to <%s>"),
+                    user.login,
+                    user.wxwork_id,
+                )

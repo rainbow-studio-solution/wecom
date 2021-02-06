@@ -19,9 +19,7 @@
     "depends": ["mail", "wxwork_base", "wxwork_widget", "wxwork_auth_oauth",],
     "external_dependencies": {"python": ["html2text"],},
     "data": [
-        # 'data/wxwork_data.xml',
         "data/wxwork_message_data.xml",
-        "data/wxwork_message_data2.xml",
         "security/ir.model.access.csv",
         "views/assets_templates.xml",
         "views/res_users_views.xml",

@@ -11,6 +11,9 @@ class WxWorkMessage(models.Model):
 
     _name = "wxwork.message"
     _description = "Enterprise WeChat Outgoing message"
+    _inherits = {"mail.message": "mail_message_id"}
+    _order = "id desc"
+    _rec_name = "subject"
 
     name = fields.Char("Subject", help="Subject of your Mailing", required=True,)
     to_all = fields.Boolean("To all members", readonly=True,)
@@ -209,6 +212,8 @@ class WxWorkMessage(models.Model):
     @api.model_create_multi
     def create(self, values_list):
         for values in values_list:
+            if "notification" not in values and values.get("mail_message_id"):
+                values["notification"] = True
             if values.get("use_templates") and len(values.get("to_user")) > 1:
                 raise UserError(
                     _(
@@ -216,12 +221,21 @@ class WxWorkMessage(models.Model):
                     )
                 )
 
-        new_mails = super(WxWorkMessage, self).create(values_list)
+        new_messages = super(WxWorkMessage, self).create(values_list)
+        new_messages_w_attach = self
+        for mail, values in zip(new_messages, values_list):
+            if values.get("attachment_ids"):
+                new_messages_w_attach += mail
+        if new_messages_w_attach:
+            new_messages_w_attach.mapped("attachment_ids").check(mode="read")
 
-        return new_mails
+        return new_messages
 
     def write(self, vals):
         res = super(WxWorkMessage, self).write(vals)
+        if vals.get("attachment_ids"):
+            for mail in self:
+                mail.attachment_ids.check(mode="read")
         if self.use_templates and len(self.to_user) > 1:
             raise UserError(
                 _(
@@ -229,6 +243,16 @@ class WxWorkMessage(models.Model):
                 )
             )
         return res
+
+    # def unlink(self):
+    #     # cascade-delete the parent message for all mails that are not created for a notification
+    #     mail_msg_cascade_ids = [
+    #         mail.mail_message_id.id for mail in self if not mail.notification
+    #     ]
+    #     res = super(WxWorkMessage, self).unlink()
+    #     if mail_msg_cascade_ids:
+    #         self.env["wxwork.message"].browse(mail_msg_cascade_ids).unlink()
+    #     return res
 
     @api.onchange("use_templates")
     def _onchange_use_templates(self):
@@ -252,9 +276,9 @@ class WxWorkMessage(models.Model):
             mail_template_info = (
                 self.env["mail.template"]
                 .browse(self.templates_id.id)
-                .read(["id", "wxwork_body_html"])
+                .read(["id", "body_html"])
             )
-            self.markdown_content = mail_template_info[0]["wxwork_body_html"]
+            self.markdown_content = mail_template_info[0]["body_html"]
 
     def send(self):
         """

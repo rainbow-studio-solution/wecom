@@ -34,6 +34,24 @@ class WxWorkMessageTemplate(models.Model):
     )
     # subject = fields.Char("Subject", translate=True, help="主题（此处可以使用占位符） ")
     subject = fields.Char("Subject", translate=True, help="主题（此处可以使用占位符） ")
+    msgtype = fields.Selection(
+        [
+            ("text", "Text message"),
+            ("image", "Picture message"),
+            ("voice", "Voice messages"),
+            ("video", "Video message"),
+            ("file", "File message"),
+            ("textcard", "Text card message"),
+            ("news", "Graphic message"),
+            ("mpnews", "Graphic message（mpnews）"),
+            ("markdown", "Markdown message"),
+            ("miniprogram", "Mini Program Notification Message"),
+            ("taskcard", "Task card message"),
+        ],
+        string="Message type",
+        required=True,
+        default="markdown",
+    )
     message_from = fields.Char(
         "From", help="发件人地址（此处可以使用占位符）。 如果未设置，则默认值将是作者的电子邮件别名（如果已配置）或电子邮件地址。 ",
     )
@@ -49,7 +67,7 @@ class WxWorkMessageTemplate(models.Model):
     message_cc = fields.Char("Cc", help="抄送收件人（可在此处使用占位符） ")
     reply_to = fields.Char("Reply-To", help="首选回复地址（此处可以使用占位符） ")
     # content
-    body_html = fields.Html("Body", sanitize=False)
+    body_html = fields.Text("Body", translate=True)
     attachment_ids = fields.Many2many(
         "ir.attachment",
         "message_template_attachment_rel",
@@ -75,6 +93,33 @@ class WxWorkMessageTemplate(models.Model):
         default=True,
         help="此选项会在发送电子邮件后永久删除所有电子邮件跟踪，包括从“设置”中的“技术”菜单中删除，以保留Odoo数据库的存储空间。",
     )
+    safe = fields.Selection(
+        [
+            ("0", "Shareable"),
+            ("1", "Cannot share and content shows watermark"),
+            ("2", "Only share within the company "),
+        ],
+        string="Secret message",
+        required=True,
+        default="1",
+        readonly=True,
+        help="表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持",
+    )
+
+    enable_id_trans = fields.Boolean(
+        string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
+    )
+    enable_duplicate_check = fields.Boolean(
+        string="Turn on duplicate message checking",
+        help="表示是否开启重复消息检查，0表示否，1表示是，默认0",
+        default=False,
+    )
+    duplicate_check_interval = fields.Integer(
+        string="Time interval for repeated message checking",
+        help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时",
+        default="1800",
+    )
+
     # contextual action
     ref_ir_act_window = fields.Many2one(
         "ir.actions.act_window",

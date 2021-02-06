@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-05 05:03+0000\n"
-"PO-Revision-Date: 2021-02-05 13:13+0800\n"
+"POT-Creation-Date: 2021-02-06 05:05+0000\n"
+"PO-Revision-Date: 2021-02-06 13:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,45 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.4.2\n"
+
+#. module: wxwork_message
+#: model:wxwork.message.template,subject:wxwork_message.wxwork_set_password_message
+msgid "${object.create_uid.name} from ${object.company_id.name} invites you to connect to Odoo"
+msgstr "来自${object.company_id.name} 的 ${object.create_uid.name} 邀请你连接到Odoo"
+
+#. module: wxwork_message
+#: model:wxwork.message.template,body_html:wxwork_message.wxwork_template_data_unregistered_users
+msgid ""
+"% set invited_users = ctx[\\'invited_users\\']\n"
+"#### Pending Invitations\n"
+"Dear ${object.name or \\'\\'},\n"
+"You added the following user(s) to your database but they haven\\'t registered yet:\n"
+"% for invited_user in invited_users:\n"
+"> ${invited_user}\n"
+"% endfor\n"
+"Follow up with them so they can access your database and start working with you.\n"
+"Have a nice day!\n"
+"The ${object.company_id.name} Team\n"
+"####        "
+msgstr ""
+"% set invited_users = ctx[\\'invited_users\\']\n"
+"#### 待定邀请s\n"
+"亲爱的 ${object.name or \\'\\'},\n"
+"您已将以下用户添加到数据库，但他们尚未注册：\n"
+"% for invited_user in invited_users:\n"
+"> ${invited_user}\n"
+"% endfor\n"
+"跟踪他们，这样他们就可以访问你的数据库并开始与你合作。\n"
+"祝您有个美好的一天！\n"
+"${object.company_id.name} 团队\n"
+"####        "
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_template.py:0
+#: code:addons/wxwork_message/models/wxwork_message_template.py:0
+#, python-format
+msgid "%s (copy)"
+msgstr "%s (复制)"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.res_config_settings_view_form
@@ -30,14 +69,13 @@ msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"消息推送应用ID\"/>"
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.res_config_settings_view_form
 msgid ""
-"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message\"/> Enterprise WeChat Message</span>\n"
+"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat Message\"/> "
+"Enterprise WeChat Message</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
-"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message\"/> 企业微信消息</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部 "
-"\"/>"
+"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat Message\"/> 企业微"
+"信消息</span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部 \"/>"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__message_agentid
@@ -47,16 +85,30 @@ msgstr "应用ID"
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.res_config_settings_view_form
 msgid ""
-"Application Management→Application→Open the application that needs to be verified and "
-"authorized, copy 'AgentId'"
+"Application Management→Application→Open the application that needs to be verified and authorized, copy "
+"'AgentId'"
 msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“ AgentId”"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.res_config_settings_view_form
 msgid ""
-"Application Management→Application→Open the application that needs to be verified and "
-"authorized, copy 'Secret'"
+"Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'"
 msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“Secret”"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__model_id
+msgid "Applies to"
+msgstr "应用于"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__attachment_ids
+msgid "Attachments"
+msgstr "附件"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__auto_delete
+msgid "Auto Delete"
+msgstr "自动删除"
 
 #. module: wxwork_message
 #: model:ir.model,name:wxwork_message.model_base
@@ -64,6 +116,7 @@ msgid "Base"
 msgstr "基础"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__body_html
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
 msgid "Body"
 msgstr "正文"
@@ -79,16 +132,20 @@ msgid "Cancelled"
 msgstr "已取消"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/res_users.py:0
-#: code:addons/wxwork_message/models/res_users.py:0
+#: code:addons/wxwork/wxwork_message/models/res_users.py:0 code:addons/wxwork_message/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
-msgstr "无法发送电子邮件：%s 用户没有电子邮件地址。"
+msgstr "无法发送电子邮件：用户 %s 没有电子邮件地址。"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__wxwork_message__safe__1
 msgid "Cannot share and content shows watermark"
 msgstr "不能分享且内容显示水印"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__message_cc
+msgid "Cc"
+msgstr "抄送"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template__safe
@@ -103,6 +160,7 @@ msgstr "配置设置"
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__markdown_content
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form1
 msgid "Content"
 msgstr "内容"
 
@@ -132,13 +190,26 @@ msgstr "复制成功！"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__create_uid
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__create_uid
 msgid "Created by"
 msgstr "创建者"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__create_date
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__create_date
 msgid "Created on"
 msgstr "创建于"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__null_value
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__null_value
+msgid "Default Value"
+msgstr "默认值"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__use_default_to
+msgid "Default recipients"
+msgstr "默认收件人"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__wxwork_message__state__exception
@@ -151,6 +222,8 @@ msgstr "投递失败"
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__display_name
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__display_name
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__display_name
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -177,23 +250,38 @@ msgid "Enterprise WeChat Outgoing message"
 msgstr "企业微信外发消息"
 
 #. module: wxwork_message
+#: model:ir.model,name:wxwork_message.model_wxwork_message_template
+msgid "Enterprise WeChat message Templates"
+msgstr "企业微信消息模板"
+
+#. module: wxwork_message
 #: model:ir.model,name:wxwork_message.model_res_users
 msgid "Enterprise WeChat system users"
-msgstr "企业微信系统消息"
+msgstr "企业微信系统用户"
 
 #. module: wxwork_message
 #: code:addons/wxwork/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s"
 msgstr "无法渲染模板：%s"
 
 #. module: wxwork_message
 #: code:addons/wxwork/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s (%d)"
 msgstr "无法渲染模板：%s (%d)"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__model_object_field
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__model_object_field
+msgid "Field"
+msgstr "字段"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__file
@@ -205,6 +293,17 @@ msgstr "文件消息"
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__file_media_id
 msgid "File message media id"
 msgstr "文件消息文件id"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__copyvalue
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__copyvalue
+msgid "Final placeholder expression, to be copy-pasted in the desired template field."
+msgstr "最终占位符表达式，将复制粘贴到所需的模板字段中。"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__message_from
+msgid "From"
+msgstr "从"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__news
@@ -270,6 +369,7 @@ msgstr "图文消息（mpnews）"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search1
 msgid "Group by..."
 msgstr "分组..."
 
@@ -279,8 +379,23 @@ msgstr "分组..."
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__id
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__id
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__id
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__id
 msgid "ID"
 msgstr ""
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message.py:0
+#: code:addons/wxwork_message/models/wxwork_message.py:0
+#, python-format
+msgid "In the test template message mode, only one user is allowed to send."
+msgstr "在测试模板消息模式下，仅允许发送一个用户。"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__lang
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__lang
+msgid "Language"
+msgstr "语言"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_render_mixin____last_update
@@ -288,16 +403,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message____last_update
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin____last_update
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__write_uid
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__write_date
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -317,6 +436,23 @@ msgstr "Markdown消息"
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
 msgid "Message"
 msgstr "消息推送"
+
+#. module: wxwork_message
+#: model:ir.model,name:wxwork_message.model_wxwork_message_render_mixin
+msgid "Message Render Mixin"
+msgstr "消息渲染混入"
+
+#. module: wxwork_message
+#: model:ir.actions.act_window,name:wxwork_message.action_wxwork_message_template_tree_all
+msgid "Message Template"
+msgstr "消息模板"
+
+#. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_tree
+msgid "Message Templates"
+msgstr "消息模板"
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__to_party
@@ -370,7 +506,7 @@ msgstr "小程序appid"
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__miniprogram_notice_description
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__miniprogram_notice_emphasis_first_item
 msgid "Mini Program description"
-msgstr "Mini Program description"
+msgstr "小程序说明"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__miniprogram_notice_title
@@ -379,13 +515,48 @@ msgstr "小程序消息标题"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search1
 msgid "Model"
 msgstr "模型"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__name
+msgid "Name"
+msgstr "名称"
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/wizard/wxwork_compose_message.py:0
+#: code:addons/wxwork_message/wizard/wxwork_compose_message.py:0
+#, python-format
+msgid "No recipient found."
+msgstr "找不到收件人。"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__wxwork_message__safe__2
 msgid "Only share within the company "
 msgstr "仅限在企业内分享 "
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__report_template
+msgid "Optional report to print and attach"
+msgstr "可选的报表打印，并附"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__lang
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__lang
+msgid ""
+"Optional translation language (ISO code) to select when sending out an email. If not set, the english version "
+"will be used. This should usually be a placeholder expression that provides the appropriate language, e.g. "
+"${object.partner_id.lang}."
+msgstr ""
+"发送电子邮件时选择的可选翻译语言（ISO代码）。 如果未设置，将使用英语版本。 这通常应该是一个占位符表达式，提供适"
+"当的语言，例如： ${object.partner_id.lang}."
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__null_value
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__null_value
+msgid "Optional value to use if the target field is empty"
+msgstr "目标字段为空时使用的可选值"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
@@ -395,18 +566,21 @@ msgstr "选项"
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__wxwork_message__state__outgoing
 msgid "Outgoing"
-msgstr "Outgoing"
+msgstr "发出"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/res_users.py:0
-#: code:addons/wxwork_message/models/res_users.py:0
+#: model:wxwork.message.template,subject:wxwork_message.wxwork_reset_password_message
+msgid "Password reset"
+msgstr "密码重置"
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/res_users.py:0 code:addons/wxwork_message/models/res_users.py:0
 #, python-format
 msgid "Password reset Enterprise WeChat message sent to the user <%s> to <%s>"
 msgstr "为用户 <%s> 发送到 <%s>的密码重置企业微信消息"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/res_users.py:0
-#: code:addons/wxwork_message/models/res_users.py:0
+#: code:addons/wxwork/wxwork_message/models/res_users.py:0 code:addons/wxwork_message/models/res_users.py:0
 #, python-format
 msgid "Password reset email sent for user <%s> to <%s>"
 msgstr "为用户 <%s> 发送到 <%s>的密码重置电子邮件"
@@ -423,6 +597,12 @@ msgid "Picture message media id"
 msgstr "图片消息媒体文件id"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__copyvalue
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__copyvalue
+msgid "Placeholder Expression"
+msgstr "占位符表达式"
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_mail_template__msgtype
 msgid ""
 "Policy on how to handle Chatter notifications:\n"
@@ -434,24 +614,66 @@ msgstr ""
 "- 通过Odoo处理：通知会显示在Odoo收件箱中"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/wizard/wxwork_compose_message.py:0
+#: code:addons/wxwork_message/wizard/wxwork_compose_message.py:0
+#, python-format
+msgid "Re:"
+msgstr "回复："
+
+#. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__wxwork_message__state__received
 msgid "Received"
 msgstr "已接收"
 
 #. module: wxwork_message
-#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__model
+msgid "Related Document Model"
+msgstr "相关文件模型"
+
+#. module: wxwork_message
+#: model:wxwork.message.template,subject:wxwork_message.wxwork_template_data_unregistered_users
+msgid "Reminder for unregistered users"
+msgstr "对未注册用户的提醒"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__reply_to
+msgid "Reply-To"
+msgstr "回复至"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__report_name
+msgid "Report Filename"
+msgstr "报表文件名"
+
+#. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search1
 msgid "SMTP Server"
 msgstr "SMTP服务器"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__scheduled_date
+msgid "Scheduled Date"
+msgstr "安排的发送日期"
+
+#. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__message_secret
 msgid "Secret"
-msgstr "Secret"
+msgstr "保密"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__safe
 msgid "Secret message"
 msgstr "保密消息"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__model_object_field
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__model_object_field
+msgid ""
+"Select target field from the related document model.\n"
+"If it is a relationship field you will be able to select a target field at the destination of the relationship."
+msgstr ""
+"从相关文档模型中选择目标字段。 \n"
+"如果它是一个关系字段，您将能够在关系的目的地选择一个目标字段。"
 
 #. module: wxwork_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_send
@@ -489,17 +711,36 @@ msgid "Shareable"
 msgstr "可对外分享"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__ref_ir_act_window
+msgid "Sidebar action"
+msgstr "侧边栏动作"
+
+#. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__state
 msgid "Status"
 msgstr "状态"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__sub_model_object_field
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__sub_model_object_field
+msgid "Sub-field"
+msgstr "子字段"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_render_mixin__sub_object
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__sub_object
+msgid "Sub-model"
+msgstr "子模型"
+
+#. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__name
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__subject
 msgid "Subject"
 msgstr "标题"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form1
 msgid "Subject (placeholders may be used here)"
 msgstr "标题（此处可以使用占位符）"
 
@@ -540,31 +781,53 @@ msgid "Task card message url"
 msgstr "任务卡片消息链接"
 
 #. module: wxwork_message
-#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_template
-msgid "Template"
-msgstr "模板"
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
+#, python-format
+msgid "Template rendering for language should be called with a list of IDs."
+msgstr "语言的模板渲染应使用ID列表进行调用。"
 
 #. module: wxwork_message
 #: code:addons/wxwork/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering should be called only using on a list of IDs."
 msgstr "只能使用ID列表来调用模板渲染。"
 
 #. module: wxwork_message
 #: code:addons/wxwork/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering supports only jinja or qweb."
 msgstr "模板渲染仅支持jinja或qweb。"
 
 #. module: wxwork_message
+#: model:ir.ui.menu,name:wxwork_message.menu_message_template
+msgid "Template(EMail)"
+msgstr "模板（邮件）"
+
+#. module: wxwork_message
+#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_template
+msgid "Template(Message)"
+msgstr "模板（消息）"
+
+#. module: wxwork_message
 #: model:ir.actions.act_window,name:wxwork_message.action_view_wxwork_message_template_tree_all
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search
-#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form
-#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_tree
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_message_template_search1
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_form1
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_tree1
 msgid "Templates"
 msgstr "模板"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__use_templates
+msgid "Test template message"
+msgstr "测试模板消息"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__textcard
@@ -610,6 +873,16 @@ msgid "Time interval for repeated message checking"
 msgstr "重复消息检查的时间间隔"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__message_to
+msgid "To (Message)"
+msgstr "到"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__partner_to
+msgid "To (Partners)"
+msgstr "致（合作伙伴）"
+
+#. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__to_party
 msgid "To Departments"
 msgstr "发送至部门"
@@ -642,16 +915,20 @@ msgid "Turn on id translation"
 msgstr "开启id转译"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_template.py:0
+#: code:addons/wxwork_message/models/wxwork_message_template.py:0
+#, python-format
+msgid "Unsupported report type %s found."
+msgstr "找到了不支持的报告类型%s。"
+
+#. module: wxwork_message
 #: code:addons/wxwork/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/mail_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Unsuspected None"
 msgstr "未知的"
-
-#. module: wxwork_message
-#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message__use_templates
-msgid "Use templates"
-msgstr "使用模板"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__video
@@ -686,11 +963,158 @@ msgid "Voice messages"
 msgstr "语音消息"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/res_users.py:0
-#: code:addons/wxwork_message/models/res_users.py:0
+#: model:wxwork.message.template,subject:wxwork_message.wxwork_template_user_signup_account_created
+msgid "Welcome to ${object.company_id.name}!"
+msgstr "欢迎访问 ${object.company_id.name}!"
+
+#. module: wxwork_message
+#: model:wxwork.message.template,body_html:wxwork_message.wxwork_set_password_message
+msgid ""
+"Welcome to Odoo\n"
+"#### ${object.name}\n"
+"Dear ${object.name},\n"
+"You have been invited by ${object.create_uid.name} of ${object.company_id.name} to connect on Odoo\n"
+"> **[Accept invitation](${object.signup_url})**\n"
+"% set website_url = object.env[\\'ir.config_parameter\\'].sudo().get_param(\\'web.base.url\\')\n"
+"\n"
+"Your Odoo domain is: [${website_url}](${website_url}})\n"
+"Your login ID is: **${object.login}**\n"
+"You can log in with one-click in the enterprise WeChat app, or open the webpage to log in with the enterprise "
+"WeChat scan code.\n"
+"Enjoy Odoo!\n"
+"The ${object.company_id.name} Team\n"
+"#### ${object.company_id.name}\n"
+"${object.company_id.phone} \n"
+"% if object.company_id.email \n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \n"
+"% endif \n"
+"% if object.company_id.website \n"
+"| [${object.company_id.website}](${object.company_id.website}) \n"
+"% endif     "
+msgstr ""
+"欢迎来到Odoo\n"
+"#### ${object.name}\n"
+"亲爱的 ${object.name},\n"
+"${object.create_uid.name} 的 ${object.company_id.name} 邀请您连接Odoo\n"
+"> **[接受邀请](${object.signup_url})**\n"
+"% set website_url = object.env[\\'ir.config_parameter\\'].sudo().get_param(\\'web.base.url\\')\n"
+"\n"
+"您的域名是: [${website_url}](${website_url}})\n"
+"您的登录账号是: **${object.login}**\n"
+"从没听说过Odoo？这是一款集功能于一体的商务软件，深受300多万用户的喜爱。这将大大改善你的工作经验，提高你的工作效"
+"率。\n"
+"享受 Odoo!\n"
+"${object.company_id.name} 团队\n"
+"#### ${object.company_id.name}\n"
+"${object.company_id.phone} \n"
+"% if object.company_id.email \n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \n"
+"% endif \n"
+"% if object.company_id.website \n"
+"| [${object.company_id.website}](${object.company_id.website}) \n"
+"% endif     "
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__sub_model_object_field
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__sub_model_object_field
+msgid ""
+"When a relationship field is selected as first field, this field lets you select the target field within the "
+"destination document model (sub-model)."
+msgstr "当将关系字段选择为第一字段时，可使用此字段在目标文档模型（子模型）中选择目标字段。"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__sub_object
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__sub_object
+msgid ""
+"When a relationship field is selected as first field, this field shows the document model the relationship "
+"goes to."
+msgstr "当将关系字段选择为第一个字段时，该字段将显示关系所涉及的文档模型。"
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/res_users.py:0 code:addons/wxwork_message/models/res_users.py:0
 #, python-format
 msgid "You cannot perform this action on an archived user."
 msgstr "您无法对已归档的用户执行此操作。"
+
+#. module: wxwork_message
+#: model:wxwork.message.template,body_html:wxwork_message.wxwork_template_user_signup_account_created
+msgid ""
+"Your Account\n"
+"#### ${object.name}\n"
+"Dear ${object.name},\n"
+"Your account has been successfully created!\n"
+"Your login is **${object.email}**\n"
+"To gain access to your account, you can use the following link:\n"
+"[Go to My Account](/web/login?auth_login=${object.email})\n"
+"Thanks,\n"
+"#### ${object.company_id.name}\n"
+"${object.company_id.phone} \n"
+"% if object.company_id.email \n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \n"
+"% endif \n"
+"% if object.company_id.website \n"
+"| [${object.company_id.website}](${object.company_id.website}) \n"
+"% endif     "
+msgstr ""
+"您的帐户 \n"
+"#### ${object.name}\n"
+"亲爱的 ${object.name},\n"
+"您的帐户已经创建成功！\n"
+"您的登录名是 **${object.email}**\n"
+"要访问您的帐户，可以使用以下链接：\n"
+"[转至我的账户 ](/web/login?auth_login=${object.email})\n"
+"谢谢,\n"
+"#### ${object.company_id.name}\n"
+"${object.company_id.phone} \n"
+"% if object.company_id.email \n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \n"
+"% endif \n"
+"% if object.company_id.website \n"
+"| [${object.company_id.website}](${object.company_id.website}) \n"
+"% endif     "
+
+#. module: wxwork_message
+#: model:wxwork.message.template,body_html:wxwork_message.wxwork_reset_password_message
+msgid ""
+"Your Account\\n\n"
+"#### ${object.name}\\n\\n\n"
+"Dear ${object.name},\\n\\n\n"
+"A password reset was requested for the Odoo account linked to this email.\\n\n"
+"You may change your password by following this link which will remain valid during 24 hours:\\n\n"
+"[Change password](${object.signup_url})\\n\n"
+"If you do not expect this, you can safely ignore this email.\\n\\n\n"
+"Thanks\\n\\n\n"
+"#### ${object.company_id.name}\\n\\n\n"
+"${object.company_id.phone} \\n\n"
+"% if object.company_id.email \\n\n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \\n\n"
+"% endif \\n\n"
+"% if object.company_id.website \\n\n"
+"| [${object.company_id.website}](${object.company_id.website}) \\n\n"
+"% endif     "
+msgstr ""
+"您的账号\\n\n"
+"#### ${object.name}\\n\\n\n"
+"亲爱的 ${object.name},\\n\\n\n"
+"已请求为关联到此企业微信的Odoo帐户重置密码。 您可以通过以下链接更改密码，该链接将在24小时内保持有效:\\n\n"
+"[更改密码](${object.signup_url})\\n\n"
+"如果您不希望这样做，您可以安全地忽略此消息.\\n\\n\n"
+"谢谢\\n\\n\n"
+"#### ${object.company_id.name}\\n\\n\n"
+"${object.company_id.phone} \\n\n"
+"% if object.company_id.email \\n\n"
+"| [${object.company_id.email}](mailto:${object.company_id.email}) \\n\n"
+"% endif \\n\n"
+"% if object.company_id.website \\n\n"
+"| [${object.company_id.website}](${object.company_id.website}) \\n\n"
+"% endif     "
+
+#. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
+#: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
+#, python-format
+msgid "jinja2 not available, templating features will not work!"
+msgstr "jinja2不可用，模板功能不起作用！"
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__markdown_content
@@ -698,10 +1122,19 @@ msgid "markdown内容，最长不超过2048个字节，必须是utf8编码"
 msgstr ""
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__subject
+msgid "主题（此处可以使用占位符） "
+msgstr ""
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__taskcard_task_id
+msgid "任务id，同一个应用发送的任务卡片消息的任务id不能重复，只能由数字、字母和“_-@”组成，最长支持128字节"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__message_from
 msgid ""
-"任务id，同一个应用发送的任务卡片消息的任务id不能重复，只能由数字、字母和“_-@”组成，最长支持128"
-"字节"
+"发件人地址（此处可以使用占位符）。 如果未设置，则默认值将是作者的电子邮件别名（如果已配置）或电子邮件地址。 "
 msgstr ""
 
 #. module: wxwork_message
@@ -709,6 +1142,11 @@ msgstr ""
 #: code:addons/wxwork_message/models/mail_template.py:0
 #, python-format
 msgid "发送错误, error: %s"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__model_id
+msgid "可以与该模板一起使用的文档类型"
 msgstr ""
 
 #. module: wxwork_message
@@ -738,8 +1176,7 @@ msgstr ""
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__mpnews_articles_thumb_media_id
-msgid ""
-"图文消息缩略图的media_id, 可以通过素材管理接口获得。此处thumb_media_id即上传接口返回的media_id"
+msgid "图文消息缩略图的media_id, 可以通过素材管理接口获得。此处thumb_media_id即上传接口返回的media_id"
 msgstr ""
 
 #. module: wxwork_message
@@ -748,8 +1185,24 @@ msgid "图片媒体文件id，可以调用上传临时素材接口获取"
 msgstr ""
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__scheduled_date
+msgid ""
+"如果设置，队列管理器将在该日期之后发送电子邮件。 如果未设置，则将立即发送电子邮件。 可以使用Jinja2占位符。 "
+msgstr ""
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__miniprogram_notice_appid
 msgid "小程序appid，必须是与当前小程序应用关联的小程序"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__attachment_ids
+msgid "您可以将文件附加到此模板，以添加到使用此模板创建的所有电子邮件中 "
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__message_cc
+msgid "抄送收件人（可在此处使用占位符） "
 msgstr ""
 
 #. module: wxwork_message
@@ -770,6 +1223,11 @@ msgid "描述，不超过512个字节，超过会自动截断（支持id转译�
 msgstr ""
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__partner_to
+msgid "收件人合作伙伴的ID（以逗号分隔）（此处可以使用占位符） "
+msgstr ""
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__file_media_id
 msgid "文件id，可以调用上传临时素材接口获取"
 msgstr ""
@@ -785,6 +1243,13 @@ msgstr ""
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__taskcard_title
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__textcard_title
 msgid "标题，不超过128个字节，超过会自动截断（支持id转译）"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__auto_delete
+msgid ""
+"此选项会在发送电子邮件后永久删除所有电子邮件跟踪，包括从“设置”中的“技术”菜单中删除，以保留Odoo数据库的存储空"
+"间。"
 msgstr ""
 
 #. module: wxwork_message
@@ -824,6 +1289,13 @@ msgid "点击消息卡片后的小程序页面，仅限本小程序内的页面�
 msgstr ""
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__report_name
+msgid ""
+"用于生成的报告文件的名称（可能包含占位符）\n"
+"该扩展名可以省略，然后将来自报告类型。 "
+msgstr ""
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_mail_template__enable_id_trans
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__enable_id_trans
 msgid "表示是否开启id转译，0表示否，1表示是，默认0"
@@ -838,8 +1310,8 @@ msgstr ""
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__safe
 msgid ""
-"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为"
-"0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持"
+"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews"
+"类型的消息支持safe值为2，其他消息类型不支持"
 msgstr ""
 
 #. module: wxwork_message
@@ -864,6 +1336,29 @@ msgid "视频消息的标题，不超过128个字节，超过会自动截断"
 msgstr ""
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__use_default_to
+msgid ""
+"记录的默认收件人： \n"
+"- 合作伙伴（在合作伙伴上使用ID或partner_id字段）或 \n"
+"- 电子邮件（使用message_from或电子邮件字段） "
+msgstr ""
+
+#. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message__voice_media_id
 msgid "语音文件id，可以调用上传临时素材接口获取"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__ref_ir_act_window
+msgid "边栏操作，使此模板可在相关文档模型的记录上使用"
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__message_to
+msgid "逗号分隔的收件人地址（此处可以使用占位符） "
+msgstr ""
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__reply_to
+msgid "首选回复地址（此处可以使用占位符） "
 msgstr ""
