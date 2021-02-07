@@ -539,7 +539,7 @@ msgstr "仅限在企业内分享 "
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__report_template
 msgid "Optional report to print and attach"
-msgstr "可选的报表打印，并附"
+msgstr "可选的打印和附加报表"
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message_render_mixin__lang

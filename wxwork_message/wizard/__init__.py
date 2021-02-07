@@ -1,3 +1,4 @@
 # -*- coding: utf-8 -*-
 
-# from . import message_template_preview
+from . import wxwork_message_composer
+from . import wxwork_message_template_preview

@@ -10,21 +10,36 @@ _logger = logging.getLogger(__name__)
 
 
 class WxWorkMessageTemplate(models.Model):
-    "Template for sending message"
+    "Template for sending Enterprise WeChat message"
     _name = "wxwork.message.template"
-    _inherit = ["wxwork.message.render.mixin"]
+    # _inherit = ["wxwork.message.render.mixin"]
+    _inherit = ["mail.render.mixin"]
     _description = "Enterprise WeChat message Templates"
     _order = "name"
 
     @api.model
     def default_get(self, fields):
         res = super(WxWorkMessageTemplate, self).default_get(fields)
-        if res.get("model"):
-            res["model_id"] = self.env["ir.model"]._get(res.pop("model")).id
+        if (
+            not fields
+            or "model_id" in fields
+            and not res.get("model_id")
+            and res.get("model")
+        ):
+            res["model_id"] = self.env["ir.model"]._get(res["model"]).id
         return res
 
     name = fields.Char("Name")
-    model_id = fields.Many2one("ir.model", "Applies to", help="可以与该模板一起使用的文档类型",)
+    subject = fields.Char("Subject", translate=True, help="主题（此处可以使用占位符） ")
+    # model_id = fields.Many2one("ir.model", "Applies to", help="可以与该模板一起使用的文档类型",)
+    model_id = fields.Many2one(
+        "ir.model",
+        string="Applies to",
+        required=True,
+        domain=["&", ("is_mail_thread_wxwork", "=", True), ("transient", "=", False)],
+        help="可以与该模板一起使用的文档类型",
+        ondelete="cascade",
+    )
     model = fields.Char(
         "Related Document Model",
         related="model_id.model",
@@ -32,8 +47,7 @@ class WxWorkMessageTemplate(models.Model):
         store=True,
         readonly=True,
     )
-    # subject = fields.Char("Subject", translate=True, help="主题（此处可以使用占位符） ")
-    subject = fields.Char("Subject", translate=True, help="主题（此处可以使用占位符） ")
+
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -52,47 +66,44 @@ class WxWorkMessageTemplate(models.Model):
         required=True,
         default="markdown",
     )
-    message_from = fields.Char(
-        "From", help="发件人地址（此处可以使用占位符）。 如果未设置，则默认值将是作者的电子邮件别名（如果已配置）或电子邮件地址。 ",
+
+    email_to_all = fields.Boolean("To all members", readonly=True,)
+    email_to_user = fields.Many2many(
+        "hr.employee",
+        string="To Employees",
+        domain="[('active', '=', True), ('is_wxwork_employee', '=', True)]",
+        help="Message recipients (users)",
     )
-    # recipients
-    use_default_to = fields.Boolean(
-        "Default recipients",
-        help="记录的默认收件人： \n"
-        "- 合作伙伴（在合作伙伴上使用ID或partner_id字段）或 \n"
-        "- 电子邮件（使用message_from或电子邮件字段） ",
+    email_to_party = fields.Many2many(
+        "hr.department",
+        string="To Departments",
+        domain="[('active', '=', True), ('is_wxwork_department', '=', True)]",
+        help="Message recipients (departments)",
     )
-    message_to = fields.Char("To (Message)", help="逗号分隔的收件人地址（此处可以使用占位符） ",)
-    partner_to = fields.Char("To (Partners)", help="收件人合作伙伴的ID（以逗号分隔）（此处可以使用占位符） ",)
-    message_cc = fields.Char("Cc", help="抄送收件人（可在此处使用占位符） ")
-    reply_to = fields.Char("Reply-To", help="首选回复地址（此处可以使用占位符） ")
+    email_to_tag = fields.Many2many(
+        "hr.employee.category",
+        # "employee_category_rel",
+        # "emp_id",
+        # "category_id",
+        string="To Tags",
+        domain="[('is_wxwork_category', '=', True)]",
+        help="Message recipients (tags)",
+    )
+
     # content
-    body_html = fields.Text("Body", translate=True)
-    attachment_ids = fields.Many2many(
-        "ir.attachment",
-        "message_template_attachment_rel",
-        "message_template_id",
-        "attachment_id",
-        "Attachments",
-        help="您可以将文件附加到此模板，以添加到使用此模板创建的所有电子邮件中 ",
-    )
-    report_name = fields.Char(
-        "Report Filename", help="用于生成的报告文件的名称（可能包含占位符）\n" "该扩展名可以省略，然后将来自报告类型。 ",
-    )
-    report_template = fields.Many2one(
-        "ir.actions.report", "Optional report to print and attach"
+    body = fields.Char("Body", translate=True, required=True)
+    # 用于创建上下文操作（与电子邮件模板相同）
+    sidebar_action_id = fields.Many2one(
+        "ir.actions.act_window",
+        "Sidebar action",
+        readonly=True,
+        copy=False,
+        help="Sidebar action to make this template available on records "
+        "of the related document model",
     )
 
     # options
-    scheduled_date = fields.Char(
-        "Scheduled Date",
-        help="如果设置，队列管理器将在该日期之后发送电子邮件。 如果未设置，则将立即发送电子邮件。 可以使用Jinja2占位符。 ",
-    )
-    auto_delete = fields.Boolean(
-        "Auto Delete",
-        default=True,
-        help="此选项会在发送电子邮件后永久删除所有电子邮件跟踪，包括从“设置”中的“技术”菜单中删除，以保留Odoo数据库的存储空间。",
-    )
+
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -120,52 +131,43 @@ class WxWorkMessageTemplate(models.Model):
         default="1800",
     )
 
-    # contextual action
-    ref_ir_act_window = fields.Many2one(
-        "ir.actions.act_window",
-        "Sidebar action",
-        readonly=True,
-        copy=False,
-        help="边栏操作，使此模板可在相关文档模型的记录上使用",
-    )
-
-    def unlink(self):
-        self.unlink_action()
-        return super(WxWorkMessageTemplate, self).unlink()
-
     @api.returns("self", lambda value: value.id)
     def copy(self, default=None):
         default = dict(default or {}, name=_("%s (copy)", self.name))
         return super(WxWorkMessageTemplate, self).copy(default=default)
 
-    def unlink_action(self):
+    def unlink(self):
+        self.sudo().mapped("sidebar_action_id").unlink()
+        return super(WxWorkMessageTemplate, self).unlink()
+
+    def action_create_sidebar_action(self):
+        ActWindow = self.env["ir.actions.act_window"]
+        view = self.env.ref("sms.sms_composer_view_form")
+
         for template in self:
-            if template.ref_ir_act_window:
-                template.ref_ir_act_window.unlink()
+            button_name = _("Send SMS (%s)", template.name)
+            action = ActWindow.create(
+                {
+                    "name": button_name,
+                    "type": "ir.actions.act_window",
+                    "res_model": "sms.composer",
+                    # Add default_composition_mode to guess to determine if need to use mass or comment composer
+                    "context": "{'default_template_id' : %d, 'sms_composition_mode': 'guess', 'default_res_ids': active_ids, 'default_res_id': active_id}"
+                    % (template.id),
+                    "view_mode": "form",
+                    "view_id": view.id,
+                    "target": "new",
+                    "binding_model_id": template.model_id.id,
+                }
+            )
+            template.write({"sidebar_action_id": action.id})
         return True
 
-    # def create_action(self):
-    #     ActWindow = self.env["ir.actions.act_window"]
-    #     view = self.env.ref("mail.email_compose_message_wizard_form")
-
-    #     for template in self:
-    #         button_name = _("Send Mail (%s)", template.name)
-    #         action = ActWindow.create(
-    #             {
-    #                 "name": button_name,
-    #                 "type": "ir.actions.act_window",
-    #                 "res_model": "mail.compose.message",
-    #                 "context": "{'default_composition_mode': 'mass_mail', 'default_template_id' : %d, 'default_use_template': True}"
-    #                 % (template.id),
-    #                 "view_mode": "form,tree",
-    #                 "view_id": view.id,
-    #                 "target": "new",
-    #                 "binding_model_id": template.model_id.id,
-    #             }
-    #         )
-    #         template.write({"ref_ir_act_window": action.id})
-
-    #     return True
+    def action_unlink_sidebar_action(self):
+        for template in self:
+            if template.sidebar_action_id:
+                template.sidebar_action_id.unlink()
+        return True
 
     # ------------------------------------------------------------
     # 企业微信消息 值的生成
@@ -174,7 +176,7 @@ class WxWorkMessageTemplate(models.Model):
     def generate_recipients(self, results, res_ids):
         """
         生成模板的收件人。 如果模板或上下文要求，则可以生成默认值而不是模板值。
-        如果上下文中有要求，可以将电子邮件（message_to，message_cc）转换为合作伙伴。 
+        如果上下文中有要求，可以将电子邮件（email_to，email_cc）转换为合作伙伴。 
         """
         self.ensure_one()
 
@@ -202,8 +204,8 @@ class WxWorkMessageTemplate(models.Model):
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
                 mails = tools.email_split(
-                    values.pop("message_to", "")
-                ) + tools.email_split(values.pop("message_cc", ""))
+                    values.pop("message_email_to", "")
+                ) + tools.email_split(values.pop("email_cc", ""))
                 Partner = self.env["res.partner"]
                 if records_company:
                     Partner = Partner.with_context(
@@ -220,7 +222,7 @@ class WxWorkMessageTemplate(models.Model):
                     self.env["res.partner"].sudo().browse(tpl_partner_ids).exists().ids
                 )
 
-            results[res_id]["message_to"] = (
+            results[res_id]["message_email_to"] = (
                 self.env["res.users"].sudo().browse(res_ids).wxwork_id
             )
             results[res_id]["partner_ids"] = partner_ids
@@ -231,7 +233,7 @@ class WxWorkMessageTemplate(models.Model):
         根据res_ids给定的记录，从给定给定模型的模板生成企业微信消息。 
 
         :param res_id: 用于呈现模板的记录的ID（模型来自模板定义） 
-        :returns: 包含所有用于创建新 wxwork.message 条目的所有相关字段的字典，带有一个额外的键``attachments``，格式为[(report_name, data)]，其中数据是base64编码的。 
+        :returns: 包含所有用于创建新 wxwork.mail 条目的所有相关字段的字典，带有一个额外的键``attachments``，格式为[(report_name, data)]，其中数据是base64编码的。 
         """
         self.ensure_one()
         multi_mode = True
@@ -252,7 +254,8 @@ class WxWorkMessageTemplate(models.Model):
                     results.setdefault(res_id, dict())[field] = field_value
             # 计算接收人
             if any(
-                field in fields for field in ["message_to", "partner_to", "message_cc"]
+                field in fields
+                for field in ["message_email_to", "partner_to", "email_cc"]
             ):
                 results = template.generate_recipients(results, template_res_ids)
             # 更新所有res_id的值
@@ -343,10 +346,10 @@ class WxWorkMessageTemplate(models.Model):
             [
                 "subject",
                 "body_html",
-                "message_from",
-                "message_to",
+                "email_from",
+                "message_email_to",
                 "partner_to",
-                "message_cc",
+                "email_cc",
                 "reply_to",
                 "scheduled_date",
             ],
@@ -360,9 +363,9 @@ class WxWorkMessageTemplate(models.Model):
         values.update(email_values or {})
         attachment_ids = values.pop("attachment_ids", [])
         attachments = values.pop("attachments", [])
-        # 添加防止无效的message_from的保护措施
-        if "message_from" in values and not values.get("message_from"):
-            values.pop("message_from")
+        # 添加防止无效的email_from的保护措施
+        if "email_from" in values and not values.get("email_from"):
+            values.pop("email_from")
         # 封装 body
         if notif_layout and values["body_html"]:
             try:
@@ -394,7 +397,7 @@ class WxWorkMessageTemplate(models.Model):
                 values["body_html"] = self.env[
                     "mail.render.mixin"
                 ]._replace_local_links(body)
-        message = self.env["wxwork.message"].sudo().create(values)
+        message = self.env["wxwork.mail"].sudo().create(values)
 
         # 管理附件
         for attachment in attachments:
@@ -426,11 +429,11 @@ class WxWorkMessageTemplate(models.Model):
                         "model_id": template.model_id,
                         "model": template.model,
                         "subject": template.subject,
-                        "message_from": template.email_from,
+                        "email_from": template.email_from,
                         "use_default_to": template.use_default_to,
-                        "message_to": template.email_to,
+                        "message_email_to": template.message_email_to,
                         "partner_to": template.partner_to,
-                        "message_cc": template.email_cc,
+                        "email_cc": template.email_cc,
                         "reply_to": template.reply_to,
                         "body_html": Common(template.body_html).html2text_handle(),
                         "attachment_ids": template.attachment_ids,

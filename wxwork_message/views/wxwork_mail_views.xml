@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wxwork_mail_form">
+            <field name="name">wxwork.mail.form</field>
+            <field name="model">wxwork.mail</field>
+            <field name="arch" type="xml">
+                <form string="Message">
+                    <header>
+                        
+                    </header>
+                    <sheet>
+                        <field name="mail_message_id" required="0" invisible="1"/>
+                        <label for="subject" class="oe_edit_only"/>
+                        <h2><field name="subject"/></h2>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="wxwork_mail_tree">
+            <field name="name">wxwork.mail.tree</field>
+            <field name="model">wxwork.mail</field>
+            <field name="arch" type="xml">
+                <tree string="Sending List">
+                    <field name="subject"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_wxwork_mail" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">wxwork.mail</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

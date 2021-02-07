@@ -19,7 +19,6 @@
                             <group>
                                 <separator string="Send to"/>
                                 <field name="to_all" widget="boolean_toggle" />
-                                <!-- <span attrs="{'invisible': [('to_all','!=',True)]}">@all</span> -->
                                 <field name="to_user" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
                                 <field name="to_party" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': ['|',('to_all','=', True),('use_templates','=',True)]}" />
                                 <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=', True),('use_templates','=',True)]}"/>
