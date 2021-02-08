@@ -46,7 +46,7 @@
                             <page string="Content" name="content">
                                 <label for="subject"/>
                                 <h2 style="display: inline-block;"><field name="subject" placeholder="Subject (placeholders may be used here)"/></h2>
-                                <field name="body" widget="text" nolabel="1"/>
+                                <field name="body" widget="wxwork_message_widget" nolabel="1" />
                                 <!-- <field name="attachment_ids" widget="many2many_binary"/> -->
                             </page>
                             <page string="Dynamic Placeholder Generator" name="dynamic_placeholder_generator" groups="base.group_no_one">

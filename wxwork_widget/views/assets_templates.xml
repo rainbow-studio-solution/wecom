@@ -4,6 +4,7 @@
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/wxwork_widget/static/src/js/markdown.js"/>
             <script type="text/javascript" src="/wxwork_widget/static/src/js/show_password.js"/>
+            <script type="text/javascript" src="/wxwork_widget/static/src/js/fields_wxwork_message_widget.js"/>
             <link rel="stylesheet" type="text/scss" href="/wxwork_widget/static/src/scss/dialog.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wxwork_widget/static/src/scss/showpassword.scss"/>
         </xpath>

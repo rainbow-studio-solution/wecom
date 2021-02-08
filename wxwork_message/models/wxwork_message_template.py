@@ -57,7 +57,7 @@ class WxWorkMessageTemplate(models.Model):
             ("file", "File message"),
             ("textcard", "Text card message"),
             ("news", "Graphic message"),
-            ("mpnews", "Graphic message（mpnews）"),
+            ("mpnews", "Graphic message(mpnews)"),
             ("markdown", "Markdown message"),
             ("miniprogram", "Mini Program Notification Message"),
             ("taskcard", "Task card message"),
