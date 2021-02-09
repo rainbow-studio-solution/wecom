@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_buttons" t-operation="append">
+
+            <t t-if="widget and widget.modelName == 'mail.template'">
+                <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
+                <button class="btn btn-info o_list_wxwork_copy_email_template" type="button">Copy email template with one click</button>
+            </t>
+            <t t-if="widget and widget.modelName == 'wxwork.message.template'">
+                <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
+                <button class="btn btn-info o_list_wxwork_copy_email_template_to_message" type="button">Copy email template with one click</button>
+            </t>
+        </t>
+    </t>
+</templates>

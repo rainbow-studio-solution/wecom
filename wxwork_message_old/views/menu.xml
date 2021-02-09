@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+
+        <menuitem 
+            id="menu_wxwork_message" 
+            name="Message" 
+            parent="wxwork_base.menu_wxwork_root" 
+            sequence="97" />
+
+            <menuitem 
+                id="menu_wxwork_message_send" 
+                name="Send Message" 
+                parent="menu_wxwork_message"
+                action="action_view_wxwork_mail" 
+                sequence="10"/>
+
+            <menuitem 
+                id="menu_wxwork_message_template" 
+                name="Template(Message)" 
+                parent="menu_wxwork_message"
+                action="action_wxwork_message_template_tree_all" 
+                sequence="15"/>
+
+            <menuitem 
+                id="menu_message_template" 
+                name="Template(EMail)" 
+                parent="menu_wxwork_message"
+                action="action_view_wxwork_message_template_tree_all" 
+                sequence="20"/>
+
+    </data>
+</odoo>

@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class WxWorkMessage(models.Model):
     _name = "wxwork.message"
     _description = "Outgoing Enterprise WeChat Message"
-    _rec_name = "number"
+    # _rec_name = "number"
     _order = "id DESC"
 
     to_user = fields.Many2many(
