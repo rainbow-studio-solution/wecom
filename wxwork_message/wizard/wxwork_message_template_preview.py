@@ -24,10 +24,15 @@ class WxWorkMessageTemplatePreview(models.TransientModel):
         )
         if not wxwork_message_template_id or "resource_ref" not in fields:
             return result
-        wxwork_message = self.env["wxwork.message"].browse(wxwork_message_template_id)
-        res = self.env[wxwork_message.model_id.model].search([], limit=1)
+        wxwork_message_template = self.env["wxwork.message.template"].browse(
+            wxwork_message_template_id
+        )
+        res = self.env[wxwork_message_template.model_id.model].search([], limit=1)
         if res:
-            result["resource_ref"] = "%s,%s" % (wxwork_message.model_id.model, res.id)
+            result["resource_ref"] = "%s,%s" % (
+                wxwork_message_template.model_id.model,
+                res.id,
+            )
         return result
 
     wxwork_message_template_id = fields.Many2one(

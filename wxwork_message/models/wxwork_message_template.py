@@ -14,7 +14,7 @@ class WxWorkMessageTemplate(models.Model):
     _name = "wxwork.message.template"
     # _inherit = ["wxwork.message.render.mixin"]
     _inherit = ["mail.render.mixin"]
-    _description = "Enterprise WeChat message Templates"
+    _description = "Enterprise WeChat Message Templates"
     _order = "name"
 
     @api.model
@@ -41,11 +41,7 @@ class WxWorkMessageTemplate(models.Model):
         ondelete="cascade",
     )
     model = fields.Char(
-        "Related Document Model",
-        related="model_id.model",
-        index=True,
-        store=True,
-        readonly=True,
+        "Related Document Model", related="model_id.model", index=True, store=True,
     )
 
     msgtype = fields.Selection(
@@ -67,7 +63,7 @@ class WxWorkMessageTemplate(models.Model):
         default="markdown",
     )
 
-    email_to_all = fields.Boolean("To all members", readonly=True,)
+    email_to_all = fields.Boolean("To all members",)
     email_to_user = fields.Many2many(
         "hr.employee",
         string="To Employees",
@@ -96,7 +92,6 @@ class WxWorkMessageTemplate(models.Model):
     sidebar_action_id = fields.Many2one(
         "ir.actions.act_window",
         "Sidebar action",
-        readonly=True,
         copy=False,
         help="Sidebar action to make this template available on records "
         "of the related document model",
@@ -113,7 +108,6 @@ class WxWorkMessageTemplate(models.Model):
         string="Secret message",
         required=True,
         default="1",
-        readonly=True,
         help="表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持",
     )
 

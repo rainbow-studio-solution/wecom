@@ -18,9 +18,9 @@
 
             <menuitem 
                 id="menu_wxwork_message_template" 
-                name="Template(Message)" 
+                name="Message Template" 
                 parent="menu_wxwork_message"
-                action="action_wxwork_message_template_tree_all" 
+                action="wxwork_template_action" 
                 sequence="15"/>
 
             <!-- <menuitem 

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- SMS Template Preview -->
+     
         <record model="ir.ui.view" id="wxwork_message_template_preview_form">
             <field name="name">wxwork.message.template.preview.form</field>
             <field name="model">wxwork.message.template.preview</field>
             <field name="arch" type="xml">
-                <form string="SMS Preview">
+                <form string="Enterprise WeChat Message Preview">
                     <h3>Preview of <field name="wxwork_message_template_id" readonly="1" nolabel="1" class="oe_inline"/></h3>
                     <field name="no_record" invisible="1"/>
                     <div class="o_row">
@@ -30,12 +30,12 @@
 
         <record id="wxwork_message_template_preview_action" model="ir.actions.act_window">
             <field name="name">Template Preview</field>
-            <field name="res_model">wxwork.message.template</field>
+            <field name="res_model">wxwork.message.template.preview</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="wxwork_message_template_preview_form"/>
             <field name="target">new</field>
-            <field name="context">{'default_sms_template_id':active_id}</field>
+            <field name="context">{'default_wxwork_message_template_id':active_id}</field>
         </record>
 
     </data>
