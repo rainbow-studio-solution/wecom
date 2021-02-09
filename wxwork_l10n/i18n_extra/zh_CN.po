@@ -77,10 +77,21 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_message
+#: model:ir.module.module,summary:base.module_wxwork_mass_message
 msgid ""
 "\n"
 "        Odoo event notification to enterprise WeChat\n"
+"        "
+msgstr ""
+"\n"
+"        设计，发送和跟踪企业微信消息\n"
+"        "
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wxwork_message
+msgid ""
+"\n"
+"        Design, send and track Enterprise WeChat Message\n"
 "        "
 msgstr ""
 "\n"
@@ -126,6 +137,11 @@ msgstr "企业微信人力资源"
 #: model:ir.module.module,shortdesc:base.module_wxwork_message
 msgid "Enterprise WeChat Message"
 msgstr "企业微信消息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_mass_message
+msgid "Enterprise WeChat MassMessage"
+msgstr "企业微信消息群发"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget
