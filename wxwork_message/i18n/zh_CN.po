@@ -23,7 +23,7 @@ msgid "${object.create_uid.name} from ${object.company_id.name} invites you to c
 msgstr "来自${object.company_id.name} 的 ${object.create_uid.name} 邀请你连接到Odoo"
 
 #. module: wxwork_message
-#: model:wxwork.message.template,body_html:wxwork_message.wxwork_template_data_unregistered_users
+#: model:wxwork.message.template,body:wxwork_message.wxwork_template_data_unregistered_users
 msgid ""
 "% set invited_users = ctx[\\'invited_users\\']\n"
 "#### Pending Invitations\n"
@@ -968,7 +968,7 @@ msgid "Welcome to ${object.company_id.name}!"
 msgstr "欢迎访问 ${object.company_id.name}!"
 
 #. module: wxwork_message
-#: model:wxwork.message.template,body_html:wxwork_message.wxwork_set_password_message
+#: model:wxwork.message.template,body:wxwork_message.wxwork_set_password_message
 msgid ""
 "Welcome to Odoo\n"
 "#### ${object.name}\n"
@@ -1037,7 +1037,7 @@ msgid "You cannot perform this action on an archived user."
 msgstr "您无法对已归档的用户执行此操作。"
 
 #. module: wxwork_message
-#: model:wxwork.message.template,body_html:wxwork_message.wxwork_template_user_signup_account_created
+#: model:wxwork.message.template,body:wxwork_message.wxwork_template_user_signup_account_created
 msgid ""
 "Your Account\n"
 "#### ${object.name}\n"
@@ -1074,7 +1074,7 @@ msgstr ""
 "% endif     "
 
 #. module: wxwork_message
-#: model:wxwork.message.template,body_html:wxwork_message.wxwork_reset_password_message
+#: model:wxwork.message.template,body:wxwork_message.wxwork_reset_password_message
 msgid ""
 "Your Account\\n\n"
 "#### ${object.name}\\n\\n\n"

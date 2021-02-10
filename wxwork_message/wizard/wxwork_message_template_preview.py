@@ -42,7 +42,7 @@ class WxWorkMessageTemplatePreview(models.TransientModel):
     model_id = fields.Many2one(
         "ir.model", related="wxwork_message_template_id.model_id"
     )
-    body = fields.Char("Body", compute="_compute_wxwork_template_fields")
+    body = fields.Char("Body", compute="_compute_wxwork_message_template_fields")
     resource_ref = fields.Reference(
         string="Record reference", selection="_selection_target_model"
     )
@@ -58,7 +58,7 @@ class WxWorkMessageTemplatePreview(models.TransientModel):
             )
 
     @api.depends("lang", "resource_ref")
-    def _compute_wxwork_template_fields(self):
+    def _compute_wxwork_message_template_fields(self):
         for wizard in self:
             if wizard.wxwork_message_template_id and wizard.resource_ref:
                 wizard.body = wizard.wxwork_message_template_id._render_field(
