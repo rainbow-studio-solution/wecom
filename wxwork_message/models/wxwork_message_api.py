@@ -2,7 +2,9 @@
 
 import logging
 from odoo import api, models, _
-from ...wxwork_api.wx_qy_api.CorpApi import *
+
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+
 
 _logger = logging.getLogger(__name__)
 
@@ -89,3 +91,10 @@ class WxWorkMessageApi(models.AbstractModel):
         """
         批量模式发送企业微信消息
         """
+        params = {
+            "recipient": messages.recipient,
+            "msgtype": messages.msgtype,
+            "message": messages.message,
+            "options": messages.options,
+        }
+        return self._wxwork_message_send_api(params)

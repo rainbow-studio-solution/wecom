@@ -6,9 +6,9 @@ from odoo.exceptions import UserError
 
 # from ..models.sync_user import *
 
-from ...wxwork_api.wx_qy_api.ErrorCode import ERRCODE, Errcode
-from ...wxwork_api.wx_qy_api.AbstractApi import ApiException
-from ...wxwork_api.wx_qy_api.CorpApi import CorpApi
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 import logging
 
 _logger = logging.getLogger(__name__)

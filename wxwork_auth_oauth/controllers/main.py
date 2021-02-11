@@ -31,7 +31,8 @@ import requests
 
 from werkzeug import urls
 
-from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+
 
 _logger = logging.getLogger(__name__)
 

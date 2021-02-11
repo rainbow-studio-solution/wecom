@@ -2,7 +2,8 @@
 
 import base64
 import logging
-from ...wxwork_api.wx_qy_api.CorpApi import *
+
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
 
 from odoo import _, api, fields, models, tools

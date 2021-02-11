@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     "name": "Enterprise WeChat MassMessage",
+    "summary": "Design, send and track Enterprise WeChat Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 607,
@@ -9,9 +10,6 @@
     "auto_install": False,
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
-    "summary": """
-        Design, send and track Enterprise WeChat Message
-        """,
     "description": """
 
 

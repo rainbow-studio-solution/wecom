@@ -5,7 +5,7 @@
         <menuitem
             id="menu_wxwork_organization_main"
             name="Organization"
-            parent="wxwork_base.menu_wxwork_root"
+            parent="wxwork_base_hr.menu_wxwork_root"
             sequence="1"/>
             <menuitem
                 id="menu_wxwork_organization_employee"
@@ -13,28 +13,28 @@
                 action="hr.open_view_employee_list_my"
                 parent="menu_wxwork_organization_main"
                 sequence="0"
-                groups="wxwork_base.group_wxwork_user" />
+                groups="wxwork_base_hr.group_wxwork_user" />
             <menuitem
                 id="menu_wxwork_organization_department_kanban"
                 name="Department"
                 action="hr.hr_department_kanban_action"
                 parent="menu_wxwork_organization_main"
                 sequence="1" 
-                groups="wxwork_base.group_wxwork_user" />
+                groups="wxwork_base_hr.group_wxwork_user" />
             <menuitem
                 id="menu_wxwork_organization_employee_tag"
                 name="Employee Tags"
                 action="hr.open_view_categ_form"
                 parent="menu_wxwork_organization_main"
                 sequence="1" 
-                groups="wxwork_base.group_wxwork_user" />
+                groups="wxwork_base_hr.group_wxwork_user" />
             <menuitem
                 id="menu_wxwork_organization_department_tag"
                 name="Department Tags"
                 action="open_view_department_categ_form"
                 parent="menu_wxwork_organization_main"
                 sequence="1" 
-                groups="wxwork_base.group_wxwork_user" />
+                groups="wxwork_base_hr.group_wxwork_user" />
 
             
         <!-- 2.员工目录 -->
@@ -42,7 +42,7 @@
             id="menu_wxwork_employee"
             name="Employee Directory"
             action="hr.hr_employee_public_action"
-            parent="wxwork_base.menu_wxwork_root"
+            parent="wxwork_base_hr.menu_wxwork_root"
             sequence="2"/>
 
         
@@ -52,7 +52,7 @@
         <menuitem 
             id="menu_wxwork_hr_configuration" 
             name="Human Resources Configuration" 
-            parent="wxwork_base.menu_wxwork_manager_configuration" 
+            parent="wxwork_base_hr.menu_wxwork_manager_configuration" 
             sequence="1"
             groups="hr.group_hr_manager"/>
             

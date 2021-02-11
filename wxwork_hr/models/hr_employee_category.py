@@ -3,9 +3,9 @@
 from odoo import api, fields, models, _
 import logging
 import time
-from ...wxwork_api.wx_qy_api.CorpApi import CORP_API_TYPE, CorpApi
-from ...wxwork_api.wx_qy_api.AbstractApi import ApiException
-from ...wxwork_api.wx_qy_api.ErrorCode import *
+
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 

@@ -4,9 +4,9 @@
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">Enterprise WeChat Contact Settings</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_base_hr.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
+                <xpath expr="//div[@data-key='wxwork_base_hr']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_contact" class="d-flex justify-content-between">
                         <span class="text-left"><i class="fa fa-users fa-lg" aria-label="Contact synchronization Odoo settings"/> Contact synchronization Odoo settings</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api.wx_qy_api.ErrorCode import ERRCODE, Errcode
-from ...wxwork_api.wx_qy_api.AbstractApi import ApiException
-from ...wxwork_api.wx_qy_api.CorpApi import CorpApi
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, Warning
 from ..models.sync_contacts import *

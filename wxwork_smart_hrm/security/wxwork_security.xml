@@ -2,10 +2,10 @@
 <odoo>
     <data noupdate="0">
 
-        <record id="base.module_category_enterprise_wechat" model="ir.module.category">
+        <!-- <record id="base.module_category_enterprise_wechat" model="ir.module.category">
             <field name="description">Helps you manage your Enterprise WeChat.</field>
             <field name="sequence">9</field>
-        </record>
+        </record> -->
 
         <record id="group_wxwork_user" model="res.groups">
             <field name="name">Officer</field>

@@ -3,9 +3,9 @@
     <data>
         <menuitem 
             id="menu_wxwork_root" 
-            name="Enterprise WeChat" 
+            name="Smart HRM" 
             groups="group_wxwork_manager,group_wxwork_user,base.group_user" 
-            web_icon="wxwork_base,static/description/icon.png" 
+            web_icon="wxwork_base_hr,static/description/icon.png" 
             sequence="2"/>
 
 

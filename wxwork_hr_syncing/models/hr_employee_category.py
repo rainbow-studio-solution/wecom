@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api.wx_qy_api.CorpApi import CORP_API_TYPE, CorpApi
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo import api, fields, models, _
 import logging
 import time
@@ -171,7 +171,8 @@ class EmployeeCategory(models.Model):
                             [("wxwork_id", "=", tag_employee["userid"]),]
                         )
                         employees.append(employee.id)
-                    employee_category.write({"employee_ids": [(6, 0, employees)]})
+                    if len(employees) > 0:
+                        employee_category.write({"employee_ids": [(6, 0, employees)]})
             except BaseException as e:
                 if debug:
                     _logger.info(_("Set employee Tag error: %s") % (repr(e)))

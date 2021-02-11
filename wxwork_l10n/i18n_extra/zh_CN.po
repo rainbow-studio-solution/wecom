@@ -17,11 +17,7 @@ msgstr ""
 "Last-Translator: \n"
 "Language: zh_CN\n"
 
-#. module: base
-#: model:ir.module.category,name:base.module_category_enterprise_wechat
-#: model:ir.module.category,name:base.module_category_enterprise_wechat_enterprise_wechat
-msgid "Enterprise WeChat"
-msgstr "企业微信"
+
 
 #. module: base
 #: model:ir.module.module,description:base.module_wxwork_hr
@@ -95,7 +91,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        Odoo事件通知到企业微信\n"
+"        Odoo通知到企业微信\n"
 "        "
 
 #. module: base
@@ -114,9 +110,9 @@ msgid "Enterprise WeChat Authentication"
 msgstr "企业微信认证"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_base
-msgid "Enterprise WeChat Base"
-msgstr "企业微信基础"
+#: model:ir.module.module,shortdesc:base.module_wxwork_base_hr
+msgid "Enterprise WeChat Hr Base"
+msgstr "企业微信HR基础"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_extension

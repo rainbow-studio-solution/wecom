@@ -13,7 +13,7 @@ import numpy as np
 
 from odoo.exceptions import Warning
 from odoo import _
-from ...wxwork_api.wx_qy_api.CorpApi import *
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 

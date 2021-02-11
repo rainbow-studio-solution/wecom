@@ -3,8 +3,10 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
-from ...wxwork_api.wx_qy_api.CorpApi import CorpApi, CORP_API_TYPE, ApiException
-from ...wxwork_api.wx_qy_api.ErrorCode import Errcode
+
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 import datetime
 import time

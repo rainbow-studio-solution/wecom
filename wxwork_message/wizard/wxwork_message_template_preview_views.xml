@@ -19,7 +19,7 @@
                     <p>Choose a language: <field name="lang" class="oe_inline ml8"/></p>
                     <label for="body" string="Enterprise WeChat message content"/>
                     <hr/>
-                        <field name="body" readonly="1" nolabel="1" options='{"safe": True}'/>
+                        <field name="body" widget="text" readonly="1" nolabel="1" options='{"safe": True}'/>
                     <hr/>
                     <footer>
                         <button string="Discard" class="btn-secondary" special="cancel"/>

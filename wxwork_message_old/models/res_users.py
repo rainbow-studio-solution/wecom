@@ -4,7 +4,10 @@ import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.tools import cache
-from ...wxwork_api.wx_qy_api.CorpApi import *
+
+fr
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+
 
 from odoo.addons.auth_signup.models.res_partner import SignupError, now
 

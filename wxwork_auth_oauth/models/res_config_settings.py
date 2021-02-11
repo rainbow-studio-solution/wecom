@@ -4,8 +4,10 @@ import werkzeug.urls
 import werkzeug.utils
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from ...wxwork_api.wx_qy_api.CorpApi import *
-from ...wxwork_api.helper.common import *
+
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+
 import urllib
 import datetime
 

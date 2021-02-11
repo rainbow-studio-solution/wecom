@@ -124,13 +124,15 @@ class WxWorkMessage(models.Model):
         """ 
         此方法在检查消息（状态和格式）后尝试发送消息。
         """
-        iap_data = [
+        message_data = [
             {"res_id": record.id, "number": record.number, "content": record.body,}
             for record in self
         ]
 
         try:
-            iap_results = self.env["wxwork.message"]._send_sms_batch(iap_data)
+            api_results = self.env["wxwork.message.api"]._send_wxwork_message_batch(
+                message_data
+            )
         except Exception as e:
             _logger.info(
                 _(
@@ -142,12 +144,59 @@ class WxWorkMessage(models.Model):
             )
             if raise_exception:
                 raise
-            self._postprocess_iap_sent_sms(
+            self._postprocess_api_sent_sms(
                 [{"res_id": sms.id, "state": "server_error"} for sms in self],
                 delete_all=delete_all,
             )
         else:
             _logger.info(
-                "Send batch %s SMS: %s: gave %s", len(self.ids), self.ids, iap_results
+                "Send batch %s SMS: %s: gave %s", len(self.ids), self.ids, api_results
             )
-            self._postprocess_iap_sent_sms(iap_results, delete_all=delete_all)
+            self._postprocess_api_sent_sms(api_results, delete_all=delete_all)
+
+    def _postprocess_api_sent_sms(
+        self, api_results, failure_reason=None, delete_all=False
+    ):
+        if delete_all:
+            todelete_sms_ids = [item["res_id"] for item in api_results]
+        else:
+            todelete_sms_ids = [
+                item["res_id"] for item in api_results if item["state"] == "success"
+            ]
+
+        for state in self.IAP_TO_SMS_STATE.keys():
+            sms_ids = [item["res_id"] for item in api_results if item["state"] == state]
+            if sms_ids:
+                if state != "success" and not delete_all:
+                    self.env["sms.sms"].sudo().browse(sms_ids).write(
+                        {"state": "error", "error_code": self.IAP_TO_SMS_STATE[state],}
+                    )
+                notifications = (
+                    self.env["mail.notification"]
+                    .sudo()
+                    .search(
+                        [
+                            ("notification_type", "=", "sms"),
+                            ("sms_id", "in", sms_ids),
+                            ("notification_status", "not in", ("sent", "canceled")),
+                        ]
+                    )
+                )
+                if notifications:
+                    notifications.write(
+                        {
+                            "notification_status": "sent"
+                            if state == "success"
+                            else "exception",
+                            "failure_type": self.IAP_TO_SMS_STATE[state]
+                            if state != "success"
+                            else False,
+                            "failure_reason": failure_reason
+                            if failure_reason
+                            else False,
+                        }
+                    )
+        self.mail_message_id._notify_message_notification_update()
+
+        if todelete_sms_ids:
+            self.browse(todelete_sms_ids).sudo().unlink()

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from ...wxwork_api.wx_qy_api.CorpApi import CORP_API_TYPE, CorpApi
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo import api, fields, models, _
 import logging
 import time
@@ -173,7 +173,10 @@ class DepartmentCategory(models.Model):
                             [("wxwork_department_id", "=", tag_department),]
                         )
                         departments.append(department.id)
-                    department_category.write({"department_ids": [(6, 0, departments)]})
+                    if len(departments) > 0:
+                        department_category.write(
+                            {"department_ids": [(6, 0, departments)]}
+                        )
             except BaseException as e:
                 if debug:
                     _logger.info(_("Set department Tag error: %s") % (repr(e)))

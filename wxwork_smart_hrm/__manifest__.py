@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Enterprise WeChat Base",
+    "name": "Enterprise WeChat Smart HRM",
     "author": "RStudio",
     "sequence": 600,
     "installable": True,
@@ -23,7 +23,7 @@
         "data/ir_config_parameter.xml",
         "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
-        "views/wxwork_base_views.xml",
+        "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
     "external_dependencies": {"python": [],},

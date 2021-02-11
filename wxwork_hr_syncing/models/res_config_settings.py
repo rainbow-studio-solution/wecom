@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from ..models.hr_employee import EmployeeSyncUser
-from ...wxwork_api.wx_qy_api.CorpApi import *
-from ...wxwork_api.wx_qy_api.ErrorCode import *
-from ...wxwork_api.helper.common import *
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
