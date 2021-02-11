@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# @Date 2021-01-28
 
-from .AbstractApi import *
+from odoo import api, models, fields, _
+from .abstract_api import *
 
 CORP_API_TYPE = {
     "GET_ACCESS_TOKEN": ["/cgi-bin/gettoken", "GET"],

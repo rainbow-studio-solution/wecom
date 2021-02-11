@@ -3,15 +3,12 @@
 from PIL import Image
 
 import base64
-import urllib
-import os
-
 import random
 import html2text
 from passlib.context import CryptContext
 
 
-class Common(object):
+class WxTools(object):
     def __init__(self, value):
         self.value = value
         self.result = None

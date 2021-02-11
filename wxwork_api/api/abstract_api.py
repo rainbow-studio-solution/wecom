@@ -6,7 +6,7 @@ from odoo import api, SUPERUSER_ID, _
 from odoo.exceptions import UserError, ValidationError
 import json
 import requests
-from .ErrorCode import *
+from .error_code import *
 
 
 def get_wxwork_debug(cr, registry):
