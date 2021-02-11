@@ -4,9 +4,12 @@
         
     </data>
     <data noupdate="1">
-        <!--删除自带部门-->
-        <!-- <delete model="hr.department" id="hr.dep_administration" />
-        <delete model="hr.department" id="hr.dep_sales" /> -->
+                
+        <!--使用write归档Administrator员工-->
+        <function model="hr.employee" name="write">
+            <value eval="[ref('hr.employee_admin')]"/>
+            <value eval="{'active': False}"/>
+        </function>
         
         <!--使用delete日志会报错，故使用write归档自带部门-->
         <function model="hr.department" name="write">

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!--  ROOT   -->
         <menuitem 
             id="menu_wxwork_root" 
             name="Smart HRM" 
@@ -8,10 +9,54 @@
             web_icon="wxwork_base_hr,static/description/icon.png" 
             sequence="2"/>
 
+            <!-- 1.组织架构 -->
+            <menuitem
+                id="menu_wxwork_organization_main"
+                name="Organization"
+                parent="menu_wxwork_root"
+                sequence="1"/>
+                <menuitem
+                    id="menu_wxwork_organization_employee"
+                    name="Employee"
+                    action="hr.open_view_employee_list_my"
+                    parent="menu_wxwork_organization_main"
+                    sequence="0"
+                    groups="group_wxwork_user" />
+                <menuitem
+                    id="menu_wxwork_organization_department_kanban"
+                    name="Department"
+                    action="hr.hr_department_kanban_action"
+                    parent="menu_wxwork_organization_main"
+                    sequence="1" 
+                    groups="group_wxwork_user" />
+                <menuitem
+                    id="menu_wxwork_organization_employee_tag"
+                    name="Employee Tags"
+                    action="hr.open_view_categ_form"
+                    parent="menu_wxwork_organization_main"
+                    sequence="1" 
+                    groups="group_wxwork_user" />
+                <menuitem
+                    id="menu_wxwork_organization_department_tag"
+                    name="Department Tags"
+                    action="open_view_department_categ_form"
+                    parent="menu_wxwork_organization_main"
+                    sequence="1" 
+                    groups="group_wxwork_user" />
 
+            <!-- 2.员工目录 -->
+            <menuitem
+                id="menu_wxwork_employee"
+                name="Employee Directory"
+                action="hr.hr_employee_public_action"
+                parent="menu_wxwork_root"
+                sequence="2"/>
+
+            <!-- 自动任务-->
             <menuitem id="menu_wxwork_cron" name="Timed task" parent="menu_wxwork_root" sequence="98"
                     groups="base.group_system"/>
 
+            <!-- HR配置菜单 -->
             <menuitem 
                 id="menu_wxwork_manager_configuration" 
                 name="Settings" parent="menu_wxwork_root" 
@@ -19,11 +64,77 @@
                 groups="base.group_system"/>
 
                 <menuitem 
+                    id="menu_wxwork_hr_configuration" 
+                    name="Human Resources Configuration" 
+                    parent="menu_wxwork_manager_configuration" 
+                    sequence="1"
+                    groups="hr.group_hr_manager"/>
+                    
+                    <menuitem
+                        id="hr_wxwork_menu_configuration"
+                        action="hr.hr_config_settings_action"
+                        parent="menu_wxwork_hr_configuration"
+                        groups="base.group_system"
+                        sequence="0"/>            
+                    <menuitem
+                        id="menu_wxwork_view_hr_job"
+                        action="hr.action_hr_job"
+                        parent="menu_wxwork_hr_configuration"
+                        sequence="1"/>
+
+                    <menuitem
+                        id="menu_wxwork_human_resources_configuration_employee"
+                        name="Employee"
+                        parent="menu_wxwork_hr_configuration"
+                        groups="base.group_no_one"
+                        sequence="1"/>
+
+                        <menuitem
+                            id="menu_wxwork_view_employee_category_form"
+                            name="Tags"
+                            action="hr.open_view_categ_form"
+                            parent="menu_wxwork_human_resources_configuration_employee"
+                            groups="base.group_no_one"
+                            sequence="1"/>
+                        
+
+                    <menuitem
+                        id="menu_wxwork_hr_department_tree"
+                        action="hr.hr_department_tree_action"
+                        parent="menu_wxwork_hr_configuration"
+                        sequence="2"
+                        groups="hr.group_hr_user"/>
+
+
+                    <menuitem
+                        id="menu_wxwork_config_plan"
+                        name="Activity Planning"
+                        parent="menu_wxwork_hr_configuration"
+                        groups="hr.group_hr_manager"
+                        sequence="100"/>
+
+                        <menuitem
+                            id="menu_wxwork_config_plan_types"
+                            name="Planning Types"
+                            action="hr.hr_plan_activity_type_action"
+                            parent="menu_wxwork_config_plan"
+                            groups="base.group_no_one"
+                            sequence="99"/>
+
+                        <menuitem
+                            id="menu_wxwork_config_plan_plan"
+                            name="Plans"
+                            action="hr.hr_plan_action"
+                            parent="menu_wxwork_config_plan"
+                            groups="hr.group_hr_manager"
+                            sequence="100"/>
+
+                <menuitem 
                     id="menu_wxwork_configuration" 
                     name="Enterprise WeChat Settings" 
                     parent="menu_wxwork_manager_configuration" 
                     sequence="900"
-                    action="wxwork_config_settings_action" 
+                    action="wxwork_base.wxwork_config_settings_action" 
                     groups="base.group_system"/>
        
     </data>

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Enterprise WeChat Smart HRM",
+    "name": "Enterprise WeChat Base",
     "author": "RStudio",
     "sequence": 600,
     "installable": True,
-    "application": True,
+    "application": False,
     "auto_install": False,
     "category": "Enterprise WeChat/Enterprise WeChat",
     "website": "https://gitee.com/rainbowstudio/wxwork",
@@ -16,19 +16,10 @@
     "description": """
 
         """,
-    "depends": ["hr", "wxwork_base"],
+    "depends": ["wxwork_l10n", "wxwork_api"],
     "data": [
-        "security/wxwork_security.xml",
-        "security/ir.model.access.csv",
-        "data/ir_config_parameter.xml",
-        "data/hr_data.xml",
+        "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
-        "views/res_users_views.xml",
-        "views/hr_department_category_views.xml",
-        "views/hr_department_view.xml",
-        "views/hr_employee_category_views.xml",
-        "views/hr_employee_view.xml",
-        "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
     "external_dependencies": {"python": [],},

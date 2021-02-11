@@ -3,10 +3,10 @@
     "name": "Enterprise WeChat API",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 601,
+    "sequence": 600,
     "installable": True,
-    "application": True,
-    "auto_install": False,
+    "application": False,
+    "auto_install": True,
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
@@ -18,7 +18,7 @@
 
 
         """,
-    "depends": ["wxwork_base",],
+    "depends": [],
     "external_dependencies": {"python": [],},
     "qweb": [
         # "static/src/xml/*.xml",

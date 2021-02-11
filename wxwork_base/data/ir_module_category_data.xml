@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record model="ir.module.category" id="module_category_wxwork_smart_hrm">
-            <field name="name">Smart HRM</field>
+        <record model="ir.module.category" id="module_category_wxwork">
+            <field name="name">Enterprise WeChat</field>
             <field name="sequence">1</field>
             <field name="visible" eval="1" />
         </record>     

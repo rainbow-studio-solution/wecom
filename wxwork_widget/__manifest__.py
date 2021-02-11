@@ -16,5 +16,5 @@
     "sequence": 605,
     "installable": True,
     "auto_install": True,
-    "application": True,
+    "application": False,
 }

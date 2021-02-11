@@ -6,39 +6,30 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-16 03:44+0000\n"
-"PO-Revision-Date: 2021-01-16 11:59+0800\n"
+"POT-Creation-Date: 2021-02-11 17:45+0000\n"
+"PO-Revision-Date: 2021-02-12 01:52+0800\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.2\n"
-"Last-Translator: \n"
+"Plural-Forms: \n"
 "Language: zh_CN\n"
-
-
-
-#. module: base
-#: model:ir.module.module,description:base.module_wxwork_hr
-msgid ""
-"\n"
-"         Enterprise WeChat Human Resources\n"
-"    "
-msgstr ""
-"\n"
-"         企业微信人力资源\n"
-"    "
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wxwork_api
 msgid ""
 "\n"
 "        Enterprise WeChat API\n"
+"\n"
+"        https://github.com/sbzhu/weworkapi_python\n"
 "        "
 msgstr ""
 "\n"
 "        企业微信API\n"
+"\n"
+"        https://github.com/sbzhu/weworkapi_python\n"
 "        "
 
 #. module: base
@@ -53,15 +44,6 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_hr
-msgid ""
-"\n"
-"        Enterprise WeChat Human Resources"
-msgstr ""
-"\n"
-"        企业微信人力资源"
-
-#. module: base
 #: model:ir.module.module,summary:base.module_wxwork_hr_syncing
 msgid ""
 "\n"
@@ -73,26 +55,20 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_mass_message
+#: model:ir.module.module,summary:base.module_wxwork_message
 msgid ""
 "\n"
 "        Odoo event notification to enterprise WeChat\n"
 "        "
 msgstr ""
 "\n"
-"        设计，发送和跟踪企业微信消息\n"
+"        Odoo事件通知到企业微信\n"
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wxwork_message
-msgid ""
-"\n"
-"        Design, send and track Enterprise WeChat Message\n"
-"        "
-msgstr ""
-"\n"
-"        Odoo通知到企业微信\n"
-"        "
+#: model:ir.module.module,summary:base.module_mass_mailing_wxwork_message
+msgid "Design, send and track Enterprise WeChat Message"
+msgstr "设计，发送和跟踪企业微信消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_api
@@ -110,9 +86,9 @@ msgid "Enterprise WeChat Authentication"
 msgstr "企业微信认证"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_base_hr
-msgid "Enterprise WeChat Hr Base"
-msgstr "企业微信HR基础"
+#: model:ir.module.module,shortdesc:base.module_wxwork_base
+msgid "Enterprise WeChat Base"
+msgstr "企业微信基础"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_extension
@@ -125,9 +101,9 @@ msgid "Enterprise WeChat Hr Syncing"
 msgstr "企业微信人力资源同步"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_hr
-msgid "Enterprise WeChat Human Resources"
-msgstr "企业微信人力资源"
+#: model:ir.module.module,shortdesc:base.module_mass_mailing_wxwork_message
+msgid "Enterprise WeChat MassMessage"
+msgstr "企业微信群发消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_message
@@ -135,9 +111,9 @@ msgid "Enterprise WeChat Message"
 msgstr "企业微信消息"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wxwork_mass_message
-msgid "Enterprise WeChat MassMessage"
-msgstr "企业微信消息群发"
+#: model:ir.module.module,shortdesc:base.module_wxwork_smart_hrm
+msgid "Enterprise WeChat Smart HRM"
+msgstr "企业微信智慧人事"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget
