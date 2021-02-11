@@ -54,7 +54,7 @@
             id="menu_wxwork_hr_skill_type"
             name="Skills"
             action="hr_skills.hr_skill_type_action"
-            parent="wxwork_hr.menu_wxwork_human_resources_configuration_employee"
+            parent="wxwork_smart_hrm.menu_wxwork_human_resources_configuration_employee"
             sequence="3"
             groups="base.group_no_one"/>
 
@@ -62,7 +62,7 @@
         <menuitem
             id="menu_wxwork_hr_configuration_resume"
             name="Resumé"
-            parent="wxwork_hr.menu_wxwork_hr_configuration"
+            parent="wxwork_smart_hrm.menu_wxwork_hr_configuration"
             sequence="4"
             groups="base.group_no_one"/>
 
@@ -77,7 +77,7 @@
         <!-- 激励配置配置菜单 -->
         <menuitem 
             id="menu_wxwork_hr_gamification" 
-            parent="wxwork_hr.menu_wxwork_hr_configuration" 
+            parent="wxwork_smart_hrm.menu_wxwork_hr_configuration" 
             name="Challenges" 
             sequence="100"/>
 

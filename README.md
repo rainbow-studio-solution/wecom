@@ -28,7 +28,7 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
    
 2. wxwork_base （企业微信-基础模块）完成
 
-3. wxwork_hr （企业微信-HR模块）完成
+3. wxwork_smart_hrm （企业微信-HR模块）完成
 
 
 4. wxwork_hr_syncing （企业微信-同步功能）完成

@@ -5,7 +5,7 @@
         <menuitem 
             id="menu_wxwork_contacts_sync_main" 
             name="Sync contacts" 
-            parent="wxwork_hr.menu_wxwork_organization_main" 
+            parent="wxwork_smart_hrm.menu_wxwork_organization_main" 
             sequence="10" 
             groups="wxwork_base.group_wxwork_manager"/>
 
@@ -27,7 +27,7 @@
         <menuitem 
             id="menu_wxwork_users_sync_main" 
             name="Sync User" 
-            parent="wxwork_hr.menu_wxwork_organization_main" 
+            parent="wxwork_smart_hrm.menu_wxwork_organization_main" 
             sequence="20" 
             groups="wxwork_base.group_wxwork_manager"/>
 
@@ -48,7 +48,7 @@
         <!-- <menuitem 
             id="menu_wxwork_tags_sync_main" 
             name="Sync tags" 
-            parent="wxwork_hr.menu_wxwork_organization_main" 
+            parent="wxwork_smart_hrm.menu_wxwork_organization_main" 
             sequence="30" 
             groups="wxwork_base.group_wxwork_manager"
             action="view_actions_wxwork_tag_wizard" /> -->
