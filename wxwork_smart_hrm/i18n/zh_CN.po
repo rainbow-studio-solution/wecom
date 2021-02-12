@@ -554,7 +554,7 @@ msgid "Share User"
 msgstr "共享用户"
 
 #. module: wxwork_smart_hrm
-#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_root
+#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_hrm_root
 msgid "Smart HRM"
 msgstr "智慧HRM"
 

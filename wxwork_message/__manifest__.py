@@ -5,7 +5,7 @@
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 606,
     "installable": True,
-    "application": True,
+    "application": False,
     "auto_install": False,
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",

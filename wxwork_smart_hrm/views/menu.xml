@@ -3,17 +3,17 @@
     <data>
         <!--  ROOT   -->
         <menuitem 
-            id="menu_wxwork_root" 
+            id="menu_wxwork_hrm_root" 
             name="Smart HRM" 
-            groups="group_wxwork_manager,group_wxwork_user,base.group_user" 
-            web_icon="wxwork_base_hr,static/description/icon.png" 
+            groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" 
+            web_icon="wxwork_smart_hrm,static/description/icon.png" 
             sequence="2"/>
 
             <!-- 1.组织架构 -->
             <menuitem
                 id="menu_wxwork_organization_main"
                 name="Organization"
-                parent="menu_wxwork_root"
+                parent="menu_wxwork_hrm_root"
                 sequence="1"/>
                 <menuitem
                     id="menu_wxwork_organization_employee"
@@ -21,45 +21,45 @@
                     action="hr.open_view_employee_list_my"
                     parent="menu_wxwork_organization_main"
                     sequence="0"
-                    groups="group_wxwork_user" />
+                    groups="hr.group_hr_manager" />
                 <menuitem
                     id="menu_wxwork_organization_department_kanban"
                     name="Department"
                     action="hr.hr_department_kanban_action"
                     parent="menu_wxwork_organization_main"
                     sequence="1" 
-                    groups="group_wxwork_user" />
+                    groups="hr.group_hr_manager" />
                 <menuitem
                     id="menu_wxwork_organization_employee_tag"
                     name="Employee Tags"
                     action="hr.open_view_categ_form"
                     parent="menu_wxwork_organization_main"
                     sequence="1" 
-                    groups="group_wxwork_user" />
+                    groups="hr.group_hr_manager" />
                 <menuitem
                     id="menu_wxwork_organization_department_tag"
                     name="Department Tags"
                     action="open_view_department_categ_form"
                     parent="menu_wxwork_organization_main"
                     sequence="1" 
-                    groups="group_wxwork_user" />
+                    groups="hr.group_hr_manager" />
 
             <!-- 2.员工目录 -->
             <menuitem
                 id="menu_wxwork_employee"
                 name="Employee Directory"
                 action="hr.hr_employee_public_action"
-                parent="menu_wxwork_root"
+                parent="menu_wxwork_hrm_root"
                 sequence="2"/>
 
             <!-- 自动任务-->
-            <menuitem id="menu_wxwork_cron" name="Timed task" parent="menu_wxwork_root" sequence="98"
+            <menuitem id="menu_wxwork_cron" name="Timed task" parent="menu_wxwork_hrm_root" sequence="98"
                     groups="base.group_system"/>
 
             <!-- HR配置菜单 -->
             <menuitem 
                 id="menu_wxwork_manager_configuration" 
-                name="Settings" parent="menu_wxwork_root" 
+                name="Settings" parent="menu_wxwork_hrm_root" 
                 sequence="99"
                 groups="base.group_system"/>
 

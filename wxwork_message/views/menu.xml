@@ -1,13 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        
-
+        <!--  ROOT   -->
         <menuitem 
+            id="menu_wxwork_message_root" 
+            name="Message" 
+            groups="group_wxwork_manager,group_wxwork_user,base.group_user" 
+            web_icon="wxwork_message,static/description/icon.png" 
+            sequence="3"/>
+            
+            <menuitem 
+                id="menu_wxwork_message_template" 
+                name="Message Template" 
+                parent="menu_wxwork_message_root"
+                action="wxwork_template_action" 
+                sequence="15"/>
+
+        <!-- <menuitem 
             id="menu_wxwork_message" 
             name="Message" 
-            parent="wxwork_base.menu_wxwork_root" 
-            sequence="97" />
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root" 
+            sequence="97" /> -->
 
             <!-- <menuitem 
                 id="menu_wxwork_message_send" 
@@ -16,12 +29,12 @@
                 action="action_view_wxwork_mail" 
                 sequence="10"/> -->
 
-            <menuitem 
+            <!-- <menuitem 
                 id="menu_wxwork_message_template" 
                 name="Message Template" 
                 parent="menu_wxwork_message"
                 action="wxwork_template_action" 
-                sequence="15"/>
+                sequence="15"/> -->
 
             <!-- <menuitem 
                 id="menu_message_template" 

@@ -6,7 +6,7 @@
         <menuitem 
             id="menu_wxwork_message" 
             name="Message" 
-            parent="wxwork_base.menu_wxwork_root" 
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root" 
             sequence="97" />
 
             <menuitem 

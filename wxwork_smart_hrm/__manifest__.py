@@ -18,7 +18,6 @@
         """,
     "depends": ["hr", "wxwork_base"],
     "data": [
-        "security/wxwork_security.xml",
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
         "data/hr_data.xml",

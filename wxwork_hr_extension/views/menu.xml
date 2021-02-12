@@ -7,7 +7,7 @@
         <menuitem
             name="Recruitment"
             id="menu_wxwork_hr_recruitment_main"
-            parent="wxwork_base.menu_wxwork_root"
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root"
             groups="hr_recruitment.group_hr_recruitment_user"
             sequence="3"/>
 
@@ -29,7 +29,7 @@
         <menuitem
             name="Reporting"
             id="menu_wxwork_report_main"
-            parent="wxwork_base.menu_wxwork_root"
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root"
             groups="hr_recruitment.group_hr_recruitment_user"
             sequence="90"/>
 

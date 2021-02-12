@@ -18,6 +18,12 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: base
+#: model:ir.module.category,name:base.module_category_enterprise_wechat
+#: model:ir.module.category,name:base.module_category_enterprise_wechat_enterprise_wechat
+msgid "Enterprise WeChat"
+msgstr "企业微信"
+
+#. module: base
 #: model:ir.module.module,summary:base.module_wxwork_api
 msgid ""
 "\n"

@@ -18,6 +18,7 @@
         """,
     "depends": ["wxwork_l10n", "wxwork_api"],
     "data": [
+        "security/wxwork_security.xml",
         "data/ir_module_category_data.xml",
         "views/res_config_settings_views.xml",
     ],

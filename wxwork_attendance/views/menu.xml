@@ -4,7 +4,7 @@
         <menuitem
             id="menu_wxwork_attendance_main"
             name="Attendances"
-            parent="wxwork_base.menu_wxwork_root"
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root"
             sequence="3"/>
 
             <menuitem

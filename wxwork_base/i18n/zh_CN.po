@@ -82,7 +82,7 @@ msgstr "企业ID"
 
 #. module: wxwork_base
 #: model:ir.module.category,name:wxwork_base.module_category_wxwork
-#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_root
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_hrm_root
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid "Enterprise WeChat"
 msgstr "企业微信"
