@@ -4,9 +4,9 @@
         <record id="res_config_settings_view_form" model="ir.ui.view">
             <field name="name">Enterprise WeChat OAuth authorization login method</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
+                <xpath expr="//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_oauth" class="d-flex justify-content-between">
                         <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" /> Application login authorization</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 

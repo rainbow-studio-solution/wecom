@@ -4,8 +4,8 @@
         <!--  ROOT   -->
         <menuitem 
             id="menu_wxwork_message_root" 
-            name="Message" 
-            groups="group_wxwork_manager,group_wxwork_user,base.group_user" 
+            name="Enterprise WeChat Message" 
+            groups="base.group_user" 
             web_icon="wxwork_message,static/description/icon.png" 
             sequence="3"/>
             
@@ -15,6 +15,14 @@
                 parent="menu_wxwork_message_root"
                 action="wxwork_template_action" 
                 sequence="15"/>
+
+            <menuitem 
+                    id="menu_wxwork_configuration" 
+                    name="Enterprise WeChat Settings" 
+                    parent="menu_wxwork_message_root" 
+                    sequence="900"
+                    action="wxwork_base.wxwork_config_settings_action" 
+                    groups="base.group_system"/>
 
         <!-- <menuitem 
             id="menu_wxwork_message" 

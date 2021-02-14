@@ -14,7 +14,7 @@
 
 
         """,
-    "depends": ["wxwork_message"],
+    "depends": ["portal", "mass_mailing", "wxwork_message"],
     "external_dependencies": {},
     "data": [],
     "qweb": ["static/src/xml/*.xml",],
