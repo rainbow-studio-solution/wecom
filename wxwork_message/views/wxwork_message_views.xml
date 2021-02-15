@@ -10,26 +10,28 @@
                     <header>
                         <button name="send" string="Send Now" type="object" states='outgoing' class="oe_highlight"/>
                         <button name="cancel" string="Cancel" type="object" states='outgoing'/>
-                        <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
+                        <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
                         <label for="name" class="oe_edit_only"/>
                         <h2><field name="name"/></h2>
                         <group>
+                            <field name="mail_message_id" readonly="1" />
                             <group>
                                 <separator string="Send to"/>
                                 <field name="to_all" widget="boolean_toggle" />
                                 <field name="to_user" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=',True)]}"/>
                                 <field name="to_party" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': ['|',('to_all','=', True),('use_templates','=',True)]}" />
-                                <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': [('to_all','=', True),('use_templates','=',True)]}"/>
+                                <field name="to_tag" widget="many2many_tags" options="{'no_create': True}" attrs="{'invisible': ['|',('to_all','=', True),('use_templates','=',True)]}" />
+                                <field name="error_code" readonly="1" />
                                 <separator string="Send using template"/>
                                 <field name="use_templates"/>
                                 <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/>
                             </group>
                             <group string="Options">
-                                <field name="msgtype" attrs="{'invisible': [('use_templates','=',True)]}"/>
-                                <field name="safe" attrs="{'invisible': [('use_templates','=',True)]}"/>
-                                <field name="enable_id_trans" attrs="{'invisible': [('use_templates','=',True)]}"/>
+                                <field name="msgtype" attrs="{'readonly': [('use_templates','=',True)]}"/>
+                                <field name="safe" attrs="{'readonly': [('use_templates','=',True)]}"/>
+                                <field name="enable_id_trans" attrs="{'readonly': [('use_templates','=',True)]}"/>
                                 <field name="enable_duplicate_check" />
                                 <field name="duplicate_check_interval"  options="{'format': false}"/>
                             </group>  
@@ -38,7 +40,7 @@
                         <notebook>
                             <page string="Body" name="body">
                                 <group attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
-                                     <field name="markdown_content" force_save="1" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
+                                     <field name="body" force_save="1" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
                                 </group>                               
                             </page>
                         </notebook>
@@ -52,16 +54,16 @@
             <field name="model">wxwork.message</field>
             <field name="arch" type="xml">
                 <tree string="Sending List">
-                    <field name="name"/>
-                    <field name="state"/>
                     <field name="to_user"/>
                     <field name="to_party"/>
                     <field name="to_tag"/>
-                    <field name="use_templates"/>
-                    <field name="msgtype"/>
-                    <field name="enable_id_trans"/>
+                    <field name="state"/>
+                    <field name="error_code"/>
+                    <!-- <field name="use_templates"/> -->
+                    <!-- <field name="msgtype"/> -->
+                    <!-- <field name="enable_id_trans"/>
                     <field name="enable_duplicate_check"/>
-                    <field name="duplicate_check_interval" options="{'format': false}"/>
+                    <field name="duplicate_check_interval" options="{'format': false}"/> -->
                 </tree>
             </field>
         </record>

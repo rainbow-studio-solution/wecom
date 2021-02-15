@@ -77,7 +77,10 @@ class MailMessage(models.Model):
             customer_sms_data = [
                 (
                     notif.id,
-                    notif.res_partner_id.display_name or notif.sms_number,
+                    notif.res_partner_id.display_name
+                    or notif.message_to_user
+                    or notif.message_to_party
+                    or notif.message_to_tag,
                     notif.notification_status,
                 )
                 for notif in msgid_to_notif.get(message["id"], [])

@@ -10,14 +10,16 @@ class MailNotification(models.Model):
         selection_add=[("wxwork", "Enterprise WeChat Message")],
         ondelete={"wxwork": "set default"},
     )
-    sms_id = fields.Many2one(
+    message_id = fields.Many2one(
         "wxwork.message",
         string="Enterprise WeChat Message",
         index=True,
         ondelete="set null",
     )
-    # TODO sms_number
-    sms_number = fields.Char("SMS Number")
+
+    message_to_user = fields.Char(string="To Employees",)
+    message_to_party = fields.Char(string="To Departments",)
+    message_to_tag = fields.Char(string="To Tags",)
     failure_type = fields.Selection(
         selection_add=[
             ("invalid_user", "Invalid User"),

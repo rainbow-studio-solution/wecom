@@ -10,15 +10,30 @@
             sequence="3"/>
             
             <menuitem 
-                id="menu_wxwork_message_template" 
-                name="Message Template" 
+                id="menu_wxwork_message" 
+                name="Message" 
+                groups="base.group_user" 
                 parent="menu_wxwork_message_root"
-                action="wxwork_template_action" 
-                sequence="15"/>
+                sequence="1"/>
+            
+                <menuitem 
+                    id="menu_wxwork_message_test_sending" 
+                    name="Test sending message " 
+                    parent="menu_wxwork_message"
+                    action="action_view_wxwork_message" 
+                    groups="base.group_no_one"
+                    sequence="10"/>
+                
+                <menuitem 
+                    id="menu_wxwork_message_template" 
+                    name="Message Template" 
+                    parent="menu_wxwork_message"
+                    action="wxwork_template_action" 
+                    sequence="15"/>
 
             <menuitem 
                     id="menu_wxwork_configuration" 
-                    name="Enterprise WeChat Settings" 
+                    name="Settings" 
                     parent="menu_wxwork_message_root" 
                     sequence="900"
                     action="wxwork_base.wxwork_config_settings_action" 

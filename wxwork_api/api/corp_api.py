@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
+# 更新时间 2021-2-15
 
-
-from odoo import api, models, fields, _
 from .abstract_api import *
 
 CORP_API_TYPE = {
     "GET_ACCESS_TOKEN": ["/cgi-bin/gettoken", "GET"],
+    "GET_API_DOMAIN_IP": [
+        "/cgi-bin/get_api_domain_ip?access_token=ACCESS_TOKEN",
+        "GET",
+    ],
     "USER_CREATE": ["/cgi-bin/user/create?access_token=ACCESS_TOKEN", "POST"],
     "USER_GET": ["/cgi-bin/user/get?access_token=ACCESS_TOKEN", "GET"],
     "USER_UPDATE": ["/cgi-bin/user/update?access_token=ACCESS_TOKEN", "POST"],
@@ -59,6 +62,10 @@ CORP_API_TYPE = {
     "MENU_DELETE": ["/cgi-bin/menu/delete?access_token=ACCESS_TOKEN", "GET"],
     "MESSAGE_SEND": ["/cgi-bin/message/send?access_token=ACCESS_TOKEN", "POST"],
     "MESSAGE_REVOKE": ["/cgi-bin/message/revoke?access_token=ACCESS_TOKEN", "POST"],
+    "GET_STATISTICS": [
+        "/cgi-bin/message/get_statistics?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
     "MEDIA_GET": ["/cgi-bin/media/get?access_token=ACCESS_TOKEN", "GET"],
     "GET_USER_INFO_BY_CODE": [
         "/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN",

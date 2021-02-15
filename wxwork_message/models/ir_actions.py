@@ -49,7 +49,7 @@ class ServerActions(models.Model):
             return False
 
         composer = (
-            self.env["sms.composer"]
+            self.env["wxwork.message.composer"]
             .with_context(
                 default_res_model=records._name,
                 default_res_ids=records.ids,

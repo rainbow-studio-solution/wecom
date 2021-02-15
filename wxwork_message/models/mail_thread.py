@@ -202,7 +202,7 @@ class MailThread(models.AbstractModel):
             create_vals.update(composer_values)
 
         composer = (
-            self.env["sms.composer"]
+            self.env["wxwork.message.composer"]
             .with_context(**composer_context)
             .create(create_vals)
         )
@@ -413,7 +413,7 @@ class MailThread(models.AbstractModel):
                     "res_partner_id": sms.partner_id.id,
                     "sms_number": sms.number,
                     "notification_type": "sms",
-                    "sms_id": sms.id,
+                    "message_id": sms.id,
                     "is_read": True,  # discard Inbox notification
                     "notification_status": "ready"
                     if sms.state == "outgoing"
@@ -450,7 +450,7 @@ class MailThread(models.AbstractModel):
                             {
                                 "notification_type": "sms",
                                 "notification_status": "ready",
-                                "sms_id": sms.id,
+                                "message_id": sms.id,
                                 "sms_number": sms.number,
                             }
                         )
