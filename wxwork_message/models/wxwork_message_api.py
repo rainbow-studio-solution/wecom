@@ -15,7 +15,7 @@ class WxWorkMessageApi(models.AbstractModel):
     _description = "Enterprise WeChat Message API"
 
     def _wxwork_message_send_api(self, params):
-        print(params)
+        # print(params)
         sys_params = self.env["ir.config_parameter"].sudo()
         corpid = sys_params.get_param("wxwork.corpid")
         agentid = sys_params.get_param("wxwork.message_agentid")

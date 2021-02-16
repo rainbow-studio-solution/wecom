@@ -21,6 +21,7 @@
         "security/ir.model.access.csv",
         "data/material_data.xml",
         "views/material_views.xml",
+        "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],

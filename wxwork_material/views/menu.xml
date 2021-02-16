@@ -18,6 +18,13 @@
                 sequence="1"/>
             
                
+            <menuitem 
+                id="menu_wxwork_configuration" 
+                name="Settings" 
+                parent="menu_wxwork_material_root" 
+                sequence="900"
+                action="wxwork_base.wxwork_config_settings_action" 
+                groups="base.group_system"/>
 
     </data>
 </odoo>
