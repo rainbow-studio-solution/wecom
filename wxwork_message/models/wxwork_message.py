@@ -63,8 +63,7 @@ class WxWorkMessage(models.Model):
         ],
         string="Message type",
         required=True,
-        default="markdown",
-        readonly=True,
+        default="text",
     )
     body = fields.Text()
     partner_id = fields.Many2one("res.partner", "Customer")
@@ -140,10 +139,34 @@ class WxWorkMessage(models.Model):
             mail_template_info = (
                 self.env["wxwork.message.template"]
                 .browse(self.templates_id.id)
-                .read(["id", "body"])
+                .read(
+                    [
+                        "id",
+                        "subject",
+                        "body",
+                        "msgtype",
+                        "safe",
+                        "enable_id_trans",
+                        "enable_duplicate_check",
+                        "duplicate_check_interval",
+                    ]
+                )
             )
-            # print(mail_template_info)
-            self.body = mail_template_info[0]["body"]
+
+            self.body = (
+                mail_template_info[0]["subject"]
+                + "\n\n"
+                + mail_template_info[0]["body"]
+            )
+            self.msgtype = mail_template_info[0]["msgtype"]
+            self.safe = mail_template_info[0]["safe"]
+            self.enable_id_trans = mail_template_info[0]["enable_id_trans"]
+            self.enable_duplicate_check = mail_template_info[0][
+                "enable_duplicate_check"
+            ]
+            self.duplicate_check_interval = mail_template_info[0][
+                "duplicate_check_interval"
+            ]
 
     def send(self, delete_all=False, auto_commit=False, raise_exception=False):
         """ 

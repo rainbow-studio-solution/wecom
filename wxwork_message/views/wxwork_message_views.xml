@@ -39,9 +39,11 @@
                                                                
                         <notebook>
                             <page string="Body" name="body">
-                                <group attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
-                                     <field name="body" force_save="1" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
-                                </group>                               
+                                <field name="body" force_save="1" attrs="{'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
+                                <!-- <group attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)]}">
+        
+                                    <field name="body" force_save="1" attrs="{'invisible': [('msgtype','!=','markdown'),('use_templates','=',False)],'readonly': [('use_templates', '=', True)]}" widget="text" options="{'style-inline': true}" style="height: 300px;" />
+                                </group>                                -->
                             </page>
                         </notebook>
                     </sheet>

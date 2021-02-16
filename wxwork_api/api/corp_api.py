@@ -67,6 +67,8 @@ CORP_API_TYPE = {
         "POST",
     ],
     "MEDIA_GET": ["/cgi-bin/media/get?access_token=ACCESS_TOKEN", "GET"],
+    "MEDIA_UPLOAD": ["/cgi-bin/media/upload?access_token=ACCESS_TOKEN", "POST"],
+    "MEDIA_UPLOADIMG": ["/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN", "POST"],
     "GET_USER_INFO_BY_CODE": [
         "/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN",
         "GET",

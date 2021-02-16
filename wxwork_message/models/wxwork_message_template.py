@@ -60,7 +60,7 @@ class WxWorkMessageTemplate(models.Model):
         ],
         string="Message type",
         required=True,
-        default="markdown",
+        default="text",
     )
 
     email_to_all = fields.Boolean("To all members",)

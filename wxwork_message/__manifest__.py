@@ -16,7 +16,13 @@
 
 
         """,
-    "depends": ["mail", "wxwork_base", "wxwork_widget", "wxwork_auth_oauth",],
+    "depends": [
+        "mail",
+        "wxwork_base",
+        "wxwork_widget",
+        "wxwork_auth_oauth",
+        "wxwork_material",
+    ],
     "external_dependencies": {"python": ["html2text"],},
     "data": [
         "security/ir.model.access.csv",

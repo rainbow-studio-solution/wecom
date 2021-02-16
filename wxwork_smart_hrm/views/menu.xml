@@ -7,7 +7,7 @@
             name="Smart HRM" 
             groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" 
             web_icon="wxwork_smart_hrm,static/description/icon.png" 
-            sequence="2"/>
+            sequence="3"/>
 
             <!-- 1.组织架构 -->
             <menuitem

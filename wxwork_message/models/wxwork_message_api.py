@@ -57,7 +57,16 @@ class WxWorkMessageApi(models.AbstractModel):
                     "duplicate_check_interval"
                 ]
 
-            # TODO 消息内容,暂时只处理markdown类型
+            # TODO 消息内容,暂时只处理text,textcard,markdown类型
+            if msgtype == "text":
+                message_json["text"] = {"content": content}
+            if msgtype == "textcard":
+                message_json["textcard"] = {
+                    "title": content,
+                    "description": content,
+                    "url": content,
+                    "btntxt": content,
+                }
             if msgtype == "markdown":
                 message_json["markdown"] = {"content": content}
 
