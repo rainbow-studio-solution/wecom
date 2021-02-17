@@ -156,3 +156,19 @@ msgstr "使用企业微信扫码来验证登录(OAuth)"
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid "Use enterprise wechat scan code to verify login"
 msgstr "使用企业微信扫码来验证登录"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__contacts_img_path
+msgid "Enterprise WeChat Picture storage path"
+msgstr "企业微信图片存储路径"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid ""
+"The path used to save enterprise wechat pictures,<span class=\"text-danger\">Need to have read and write permissions on the path.</span><br/>\n"
+"                                        reference:Windows: D:\\img\\  <br/>\n"
+"                                        Linux：/home/odoo/img/ Note: odoo is the current system account"
+msgstr ""
+"用于保存企业微信图片的路径， <span class=\"text-danger\">需要对路径具有读写权限。 </span><br/>\n"
+"                                        参考：Windows：D:\\img\\  <br/>\n"
+"                                        Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"

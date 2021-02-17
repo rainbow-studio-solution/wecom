@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
 import os
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError, ValidationError
+import base64
+import platform
+
+from odoo import _, api, fields, models, tools
+from odoo.exceptions import UserError, ValidationError, Warning
+
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
+from odoo.addons.wxwork_api.tools.wx_tools import WxTools
 
 
 class WxWorkMaterial(models.Model):
@@ -34,8 +39,8 @@ class WxWorkMaterial(models.Model):
         string="Media file upload timestamp", readonly=True, help="媒体文件上传时间戳"
     )
 
-    img_file = fields.Binary(string="Picture file", help="图片文件大小应在 5B ~ 2MB 之间")
-    img_file_filenam = fields.Char()
+    img_file = fields.Image(string="Picture file", help="图片文件大小应在 5B ~ 2MB 之间")
+    img_file_filename = fields.Char()
 
     voice_file = fields.Binary(string="Voice file", help="格式支持amr，文件大小应在 5B ~ 2MB 之间")
     voice_file_filename = fields.Char()
@@ -59,7 +64,7 @@ class WxWorkMaterial(models.Model):
     @api.onchange("img_file")
     def _onchange_img_file(self):
         if self.img_file:
-            file_extension = os.path.splitext(self.img_file_filenam)[1]
+            file_extension = os.path.splitext(self.img_file_filename)[1]
             if file_extension not in [".jpg", ".png"]:
                 raise ValidationError(_("Allowed file formats are jpg or png"))
             file_size = int(len(self.img_file) * 3 / 4)  # 以字节为单位计算file_size
@@ -101,6 +106,11 @@ class WxWorkMaterial(models.Model):
             corpid = sys_params.get_param("wxwork.corpid")
             secret = sys_params.get_param("wxwork.material_secret")
             wxapi = CorpApi(corpid, secret)
+            img_file_extension = os.path.splitext(self.img_file_filename)[1]
+            file_path = self._check_file_path(
+                self.img_file, "material", self.img_file_filename
+            )
+            print(file_path)
             if self.temporary:
                 # 上传临时素材
                 pass
@@ -110,18 +120,44 @@ class WxWorkMaterial(models.Model):
                 返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
                 每个企业每天最多可上传100张图片
                 """
-                try:
-                    response = wxapi.httpCall(
-                        CORP_API_TYPE["MEDIA_UPLOADIMG"], {"data": "", "headers": "",},
-                    )
+                # img_base64 = (
+                #     "data:image/"
+                #     + img_file_extension.split(".")[-1]
+                #     + ";base64,"
+                #     + str(self.img_file).split("'")[1],
+                # )
 
-                except ApiException as e:
-                    raise UserError(
-                        _(
-                            "Upload error, error: %s",
-                            (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-                        )
-                    )
+                # post_file = "---------------------------acebdf13572468" + "\n"
+                # post_file += (
+                #     "Content-Disposition: form-data; name="
+                #     + '"'
+                #     + self.img_file_filename.split(".")[0]
+                #     + '";'
+                # )
+                # post_file += "filename=" + '"' + self.img_file_filename + '";' + "\n"
+
+                # post_file += (
+                #     "Content-Type: image/" + img_file_extension.split(".")[-1] + "\n"
+                # )
+                # post_file += "Content-Length: 220" + "\n"
+                # post_file += "<@INCLUDE *" + file_path
+                # post_file += "*@>" + "\n"
+                # post_file += "---------------------------acebdf13572468--"
+                # print(post_file)
+        try:
+            response = wxapi.httpCall(
+                CORP_API_TYPE["MEDIA_UPLOADIMG"], {"media": open(file_path, "rb")},
+            )
+            print(response)
+            if response["errcode"] == 0:
+                self.img_url = response["url"]
+        except ApiException as e:
+            raise Warning(
+                _(
+                    "Upload error! \nError code: %s, \nError description:%s, \nError details:%s"
+                )
+                % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+            )
         else:
             raise UserError(_("Please upload files!"))
 
@@ -135,14 +171,28 @@ class WxWorkMaterial(models.Model):
         return res
 
     @api.model
-    def _check_img_file_requirements(self, content, filename):
-        file_extension = os.path.splitext(filename)[1]
-        file_size = int(len(content) * 3 / 4)  # 以字节为单位计算file_size
-        if file_extension not in [".jpg", ".png"]:
-            raise ValidationError(_("Allowed file formats are jpg or png"))
-        print(file_size)
+    def _check_file_path(self, file, subpath, filename):
+        sys_params = self.env["ir.config_parameter"].sudo()
+        path = sys_params.get_param("wxwork.img_path")
+        file_path = self.env["wxwork.tools"].path_is_exists(path, subpath)
+        full_path = file_path + filename
+
+        if not os.path.exists(full_path):
+            try:
+                with open(full_path, "wb") as fp:
+                    fp.write(base64.b64decode(file))
+                    fp.close()
+                    # return full_path
+            except IOError:
+                raise UserError(_("file_write writing %s!"), full_path)
+
+        if platform.system() == "Windows":
+            full_path = full_path.replace("/", "\\")
+
+        return full_path
 
     # def unlink(self):
     #     resources = self.mapped('resource_id')
     #     super(WxWorkMaterial, self).unlink()
     #     return resources.unlink()
+

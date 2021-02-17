@@ -20,10 +20,7 @@ class ResConfigSettings(models.TransientModel):
     )
     # contacts_sync_img_enabled = fields.Boolean(
     #     '允许同步Enterprise WeChat图片', config_parameter='wxwork.contacts_sync_img_enabled', )
-    contacts_img_path = fields.Char(
-        "Enterprise WeChat Picture storage path",
-        config_parameter="wxwork.contacts_img_path",
-    )
+
     contacts_sync_hr_department_id = fields.Integer(
         "Enterprise WeChat department ID to be synchronized",
         config_parameter="wxwork.contacts_sync_hr_department_id",

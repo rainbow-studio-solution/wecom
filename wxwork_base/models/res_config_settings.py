@@ -13,6 +13,9 @@ class ResConfigSettings(models.TransientModel):
     module_wxwork_auth_oauth = fields.Boolean(
         "Use Enterprise weChat scan code to verify login (OAuth)",
     )
+    img_path = fields.Char(
+        "Enterprise WeChat Picture storage path", config_parameter="wxwork.img_path",
+    )
 
     @api.model
     def get_values(self):

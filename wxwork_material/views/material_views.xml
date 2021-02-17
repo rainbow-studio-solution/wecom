@@ -17,8 +17,9 @@
                                 <field name="type" />
                                 <field name="temporary" force_save="1" attrs="{'readonly': [('type', '!=', 'image')]}"/>
                                  
-                                <field name="img_file" filename="img_file_filenam" widget="binary" options="{'accepted_file_extensions': '.jpg,.png'}" attrs="{'invisible': [('type','!=','image')]}"/>
-                                <field name="img_file_filenam" invisible="1"/> 
+                                <field name="img_file" filename="img_file_filename" widget="binary" options="{'accepted_file_extensions': '.jpg,.png'}" attrs="{'invisible': [('type','!=','image')]}"/>
+                                <field name="img_file_filename" /> 
+                                <!-- <field name="img_file_filename" invisible="1"/>  -->
                                  
                                 <field name="voice_file" filename="voice_file_filename" widget="binary" options="{'accepted_file_extensions': '.amr'}" attrs="{'invisible': [('type','!=','voice')]}"/> 
                                 <field name="voice_file_filename" invisible="1"/> 

@@ -66,7 +66,7 @@ class WizardSyncContacts(models.TransientModel):
             "debug": params.get_param("wxwork.debug_enabled"),
             "department_id": params.get_param("wxwork.contacts_sync_hr_department_id"),
             "sync_hr": params.get_param("wxwork.contacts_auto_sync_hr_enabled"),
-            "img_path": params.get_param("wxwork.contacts_img_path"),
+            "img_path": params.get_param("wxwork.img_path"),
             "department": self.env["hr.department"],
             "department_category": self.env["hr.department.category"],
             "employee": self.env["hr.employee"],

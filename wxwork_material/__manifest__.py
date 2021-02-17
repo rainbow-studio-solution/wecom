@@ -24,5 +24,6 @@
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
+    "external_dependencies": {"python": ["requests-toolbelt"],},
     "qweb": ["static/src/xml/*.xml",],
 }

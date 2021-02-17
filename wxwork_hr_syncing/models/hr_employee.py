@@ -159,9 +159,7 @@ class HrEmployee(models.Model):
                 self.get_employee_parent_wxwork_department(department, debug)
             )
 
-        img_path = (
-            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
-        )
+        img_path = self.env["ir.config_parameter"].sudo().get_param("wxwork.img_path")
         if platform.system() == "Windows":
             avatar_file = (
                 # img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"
@@ -225,9 +223,7 @@ class HrEmployee(models.Model):
                 self.get_employee_parent_wxwork_department(department, debug)
             )
 
-        img_path = (
-            self.env["ir.config_parameter"].sudo().get_param("wxwork.contacts_img_path")
-        )
+        img_path = self.env["ir.config_parameter"].sudo().get_param("wxwork.img_path")
         if platform.system() == "Windows":
             avatar_file = (
                 img_path.replace("\\", "/") + "/avatar/" + obj["userid"] + ".jpg"

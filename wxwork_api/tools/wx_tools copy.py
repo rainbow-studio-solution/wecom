@@ -7,22 +7,22 @@ import random
 import html2text
 import platform
 from passlib.context import CryptContext
+from odoo import tools
 
-from odoo import api, models, tools
+from odoo import api, models
 
 
-class WxTools(models.AbstractModel):
-    _name = "wxwork.tools"
-    _description = "Enterprise WeChat Tools"
-    # def __init__(self, value):
-    #     self.value = value
-    #     self.result = None
+class WxTools(object):
+    def __init__(self, value):
+        self.value = value
+        self.result = None
 
-    def path_is_exists(self, path, subpath):
+    def path_is_exists(self, path=None, subpath=None):
         """
         检文件夹路径是否存在，不存在则创建路径
         return:返回路径
         """
+        print(path, subpath)
         if platform.system() == "Windows":
             filepath = path.replace("\\", "/") + subpath + "/"
         else:

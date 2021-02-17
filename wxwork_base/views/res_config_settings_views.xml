@@ -67,6 +67,27 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="img_path"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            The path used to save enterprise wechat pictures,<span class="text-danger">Need to have read and write permissions on the path.</span><br/>
+                                            reference:Windows: D:\img\  <br/>
+                                            Linux：/home/odoo/img/ Note: odoo is the current system account
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="img_path" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </xpath>
