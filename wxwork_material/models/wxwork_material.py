@@ -3,7 +3,8 @@
 import os
 import base64
 import platform
-
+import json
+import requests
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError, Warning
 
@@ -11,6 +12,7 @@ from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
 from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+from requests_toolbelt import MultipartEncoder
 
 
 class WxWorkMaterial(models.Model):
@@ -120,44 +122,32 @@ class WxWorkMaterial(models.Model):
                 返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
                 每个企业每天最多可上传100张图片
                 """
-                # img_base64 = (
-                #     "data:image/"
-                #     + img_file_extension.split(".")[-1]
-                #     + ";base64,"
-                #     + str(self.img_file).split("'")[1],
-                # )
 
-                # post_file = "---------------------------acebdf13572468" + "\n"
-                # post_file += (
-                #     "Content-Disposition: form-data; name="
-                #     + '"'
-                #     + self.img_file_filename.split(".")[0]
-                #     + '";'
-                # )
-                # post_file += "filename=" + '"' + self.img_file_filename + '";' + "\n"
+                try:
+                    # access_token = wxapi.getAccessToken()
+                    # url = (
+                    #     "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token=%s"
+                    #     % (access_token)
+                    # )
+                    files = {"media": open(file_path, "rb")}
+                    # response = requests.post(url=url, files=files)
+                    # res = json.loads(response.text)
+                    # print(res)
+                    # if res["errcode"] == 0:
+                    #     self.img_url = res["url"]
+                    response = wxapi.httpPostFile(
+                        CORP_API_TYPE["MEDIA_UPLOADIMG"], files,
+                    )
 
-                # post_file += (
-                #     "Content-Type: image/" + img_file_extension.split(".")[-1] + "\n"
-                # )
-                # post_file += "Content-Length: 220" + "\n"
-                # post_file += "<@INCLUDE *" + file_path
-                # post_file += "*@>" + "\n"
-                # post_file += "---------------------------acebdf13572468--"
-                # print(post_file)
-        try:
-            response = wxapi.httpCall(
-                CORP_API_TYPE["MEDIA_UPLOADIMG"], {"media": open(file_path, "rb")},
-            )
-            print(response)
-            if response["errcode"] == 0:
-                self.img_url = response["url"]
-        except ApiException as e:
-            raise Warning(
-                _(
-                    "Upload error! \nError code: %s, \nError description:%s, \nError details:%s"
-                )
-                % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
-            )
+                    if response["errcode"] == 0:
+                        self.img_url = response["url"]
+                except ApiException as e:
+                    raise Warning(
+                        _(
+                            "Upload error! \nError code: %s, \nError description:%s, \nError details:%s"
+                        )
+                        % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+                    )
         else:
             raise UserError(_("Please upload files!"))
 
