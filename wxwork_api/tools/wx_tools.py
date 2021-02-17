@@ -31,13 +31,12 @@ class WxTools(models.AbstractModel):
             os.makedirs(filepath)
         return filepath
 
-    def html2text_handle(self):
+    def html2text_handle(self, body_html):
         # 转换markdown格式
-        if bool(self.value):
-            self.result = html2text.html2text(self.value)
+        if bool(body_html):
+            return html2text.html2text(body_html)
         else:
-            self.result = None
-        return self.result
+            return None
 
     def str2bool(self):
         """
@@ -54,16 +53,15 @@ class WxTools(models.AbstractModel):
         else:
             return False
 
-    def check_dictionary_keywords(self):
+    def check_dictionary_keywords(self, dictionary, key):
         """
         检查字典中是否存在key
         """
-        dictionary, key = (self.value[0], self.value[1])
+        # dictionary, key = (self.value[0], self.value[1])
         if key in dictionary.keys():
-            self.result = dictionary[key]
+            return dictionary[key]
         else:
-            self.result = None
-        return self.result
+            return None
 
     def wxwork_user_enable(self):
         """
@@ -85,17 +83,16 @@ class WxTools(models.AbstractModel):
                 encoded_string = base64.b64encode(f.read())
             return encoded_string
 
-    def gender(self):
+    def gender(self, sex):
         """
         性别转换
         """
-        if self.value == "1":
-            self.result = "male"
-        elif self.value == "2":
-            self.result = "female"
+        if sex == "1":
+            return "male"
+        elif sex == "2":
+            return "female"
         else:
-            self.result = "other"
-        return self.result
+            return "other"
 
     def is_exists(self):
         """
@@ -119,7 +116,7 @@ class WxTools(models.AbstractModel):
             self.result = self.value
         return self.result
 
-    def random_passwd(self):
+    def random_passwd(self, num):
         """
         生成随机密码
         :return:
@@ -188,7 +185,7 @@ class WxTools(models.AbstractModel):
             "Y",
             "Z",
         ]
-        rang = self.value
+        rang = num
         if rang == None:
             passwd = "".join(random.choice(__numlist) for i in range(8))
         else:

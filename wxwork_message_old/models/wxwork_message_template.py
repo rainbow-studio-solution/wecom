@@ -2,7 +2,6 @@
 
 import base64
 import logging
-from odoo.addons.wxwork_api.tools.wx_tools import WxTools
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
@@ -452,7 +451,9 @@ class WxWorkMessageTemplate(models.Model):
                         "partner_to": template.partner_to,
                         "email_cc": template.email_cc,
                         "reply_to": template.reply_to,
-                        "body_html": WxTools(template.body_html).html2text_handle(),
+                        "body_html": self.env["wxwork.tools"].html2text_handle(
+                            template.body_html
+                        ),
                         "attachment_ids": template.attachment_ids,
                         "report_name": template.report_name,
                         "report_template": template.report_template,

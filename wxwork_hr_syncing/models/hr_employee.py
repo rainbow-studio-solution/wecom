@@ -4,7 +4,7 @@ from odoo import api, models, _
 from odoo.modules.module import get_module_resource
 
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+
 
 import base64
 import os
@@ -31,7 +31,7 @@ class HrEmployee(models.Model):
                 "name": self.name,
                 "login": self.wxwork_id,
                 # "oauth_uid": self.wxwork_id,
-                "password": WxTools(8).random_passwd(),
+                "password": self.env["wxwork.tools"].random_passwd(8),
                 "email": self.work_email,
                 "wxwork_id": self.wxwork_id,
                 "image_1920": self.image_1920,
@@ -184,10 +184,10 @@ class HrEmployee(models.Model):
                 {
                     "wxwork_id": obj["userid"],
                     "name": obj["name"],
-                    "english_name": WxTools(
-                        (obj, "english_name")
-                    ).check_dictionary_keywords(),
-                    "gender": WxTools(obj["gender"]).gender(),
+                    "english_name": self.env["wxwork.tools"].check_dictionary_keywords(
+                        obj, "english_name"
+                    ),
+                    "gender": self.env["wxwork.tools"].gender(obj["gender"]),
                     "marital": None,  # 不生成婚姻状况
                     "image_1920": self.encode_image_as_base64(avatar_file),
                     "mobile_phone": obj["mobile"],
@@ -238,10 +238,10 @@ class HrEmployee(models.Model):
             records.write(
                 {
                     "name": obj["name"],
-                    "english_name": WxTools(
-                        (obj, "english_name")
-                    ).check_dictionary_keywords(),
-                    "gender": WxTools(obj["gender"]).gender(),
+                    "english_name": self.env["wxwork.tools"].check_dictionary_keywords(
+                        obj, "english_name"
+                    ),
+                    "gender": self.env["wxwork.tools"].gender(obj["gender"]),
                     "image_1920": self.check_always_update_avatar(always, avatar_file),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
@@ -496,7 +496,7 @@ class EmployeeSyncUser(models.Model):
                     "name": employee.name,
                     "login": employee.wxwork_id,
                     # "oauth_uid": employee.wxwork_id,
-                    "password": WxTools(8).random_passwd(),  # 随机密码
+                    "password": self.env["wxwork.tools"].random_passwd(8),  # 随机密码
                     "email": employee.work_email,
                     "wxwork_id": employee.wxwork_id,
                     "image_1920": employee.image_1920,

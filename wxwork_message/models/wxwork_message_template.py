@@ -2,7 +2,7 @@
 
 import base64
 import logging
-from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
 

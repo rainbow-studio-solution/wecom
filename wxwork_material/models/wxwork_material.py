@@ -11,7 +11,7 @@ from odoo.exceptions import UserError, ValidationError, Warning
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
-from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+
 from requests_toolbelt import MultipartEncoder
 
 

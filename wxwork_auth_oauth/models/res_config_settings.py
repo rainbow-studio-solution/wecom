@@ -6,7 +6,7 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wxwork_api.tools.wx_tools import WxTools
+
 
 import urllib
 import datetime
