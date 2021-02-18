@@ -6,40 +6,40 @@
             <field name="name">Welcome</field>
             <field name="type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="img_file" type="base64" file="wxwork_material/static/src/img/welcome.png"/>
-            <field name="img_file_filename">welcome.png</field>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/welcome.png"/>
+            <field name="media_filename">welcome.png</field>
         </record>
 
         <record id="wxwork_material_image_account_created" model="wxwork.material">
             <field name="name">Account Created</field>
             <field name="type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="img_file" type="base64" file="wxwork_material/static/src/img/account_created.png"/>
-            <field name="img_file_filename">account_created.png</field>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/account_created.png"/>
+            <field name="media_filename">account_created.png</field>
         </record>
 
         <record id="wxwork_material_image_message" model="wxwork.material">
             <field name="name">Message</field>
             <field name="type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="img_file" type="base64" file="wxwork_material/static/src/img/message.png"/>
-            <field name="img_file_filename">message.png</field>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/message.png"/>
+            <field name="media_filename">message.png</field>
         </record>
 
         <record id="wxwork_material_image_reset_password" model="wxwork.material">
             <field name="name">Reset Password</field>
             <field name="type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="img_file" type="base64" file="wxwork_material/static/src/img/reset_password.png"/>
-            <field name="img_file_filename">reset_password.png</field>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/reset_password.png"/>
+            <field name="media_filename">reset_password.png</field>
         </record>
 
         <record id="wxwork_material_image_warn" model="wxwork.material">
             <field name="name">Warning</field>
             <field name="type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="img_file" type="base64" file="wxwork_material/static/src/img/warn.png"/>
-            <field name="img_file_filename">warn.png</field>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/warn.png"/>
+            <field name="media_filename">warn.png</field>
         </record>
 
 

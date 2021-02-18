@@ -13,9 +13,28 @@
         Enterprise WeChat material management 
         """,
     "description": """
+please make sure ffmpeg, sox, and mediainfo are installed on your system, e.g.
 
+DOC:
+=============
 
-        """,
+* https://github.com/jiaaro/pydub
+
+Install:
+=============
+
+::
+
+    # libav
+    apt-get install libav-tools libavcodec-extra
+
+    # ffmpeg
+    apt-get install ffmpeg libavcodec-extra
+
+    # pydub
+    pip install pydub
+
+""",
     "depends": ["attachment_indexation", "wxwork_base"],
     "data": [
         "security/ir.model.access.csv",
@@ -24,6 +43,6 @@
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {"python": ["requests-toolbelt"],},
+    "external_dependencies": {"python": ["ffmpy", "pydub"],},
     "qweb": ["static/src/xml/*.xml",],
 }

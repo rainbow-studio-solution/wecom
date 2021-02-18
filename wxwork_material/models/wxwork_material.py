@@ -3,8 +3,9 @@
 import os
 import base64
 import platform
-import json
-import requests
+import subprocess
+import logging
+from pydub import AudioSegment
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError, Warning
 
@@ -12,7 +13,14 @@ from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
 
-from requests_toolbelt import MultipartEncoder
+_logger = logging.getLogger(__name__)
+
+extensions_and_size = {
+    "image": {"extensions": [".jpg", ".png"], "size": [5, 2 * 1024 * 1024]},
+    "voice": {"extensions": [".amr"], "size": [5, 2 * 1024 * 1024], "duration": 60},
+    "video": {"extensions": [".mp4"], "size": [0, 10 * 1024 * 1024]},
+    "file": {"extensions": [], "size": [0, 20 * 1024 * 1024]},
+}
 
 
 class WxWorkMaterial(models.Model):
@@ -41,81 +49,62 @@ class WxWorkMaterial(models.Model):
         string="Media file upload timestamp", readonly=True, help="媒体文件上传时间戳"
     )
 
-    img_file = fields.Image(string="Picture file", help="图片文件大小应在 5B ~ 2MB 之间")
-    img_file_filename = fields.Char()
-
-    voice_file = fields.Binary(string="Voice file", help="格式支持amr，文件大小应在 5B ~ 2MB 之间")
-    voice_file_filename = fields.Char()
-
-    video_file = fields.Binary(
-        string="Video file", help="不超过10M, 文件格式:  mp4,文件大小应在 5B ~ 10MB 之间"
+    media_file = fields.Binary(
+        string="Media files",
+        help="图片文件大小应在 5B ~ 2MB 之间;"
+        "语音文件格式支持amr，文件大小应在 5B ~ 2MB 之间"
+        "视频文件不超过10M, 文件格式:  mp4,文件大小应在 5B ~ 10MB 之间"
+        "普通文件大小不超过20M",
     )
-    video_file_filename = fields.Char()
-
-    file_file = fields.Binary(string="Ordinary file", help="文件大小不超过20M")
-    file_file_filename = fields.Char()
+    media_filename = fields.Char()
 
     @api.onchange("type")
     def _onchange_type(self):
         # addons\adyen_platforms\models\adyen_account.py
+
         if self.type != "image":
             self.temporary = True
         else:
             self.temporary = False
 
-    @api.onchange("img_file")
-    def _onchange_img_file(self):
-        if self.img_file:
-            file_extension = os.path.splitext(self.img_file_filename)[1]
-            if file_extension not in [".jpg", ".png"]:
-                raise ValidationError(_("Allowed file formats are jpg or png"))
-            file_size = int(len(self.img_file) * 3 / 4)  # 以字节为单位计算file_size
-            if file_size >> 2 * 1024 * 1024 < 5:
-                raise ValidationError(_("Picture file size must be between 5B and 2MB"))
-
-    @api.onchange("voice_file")
-    def _onchange_voice_file(self):
-        if self.voice_file:
-            file_extension = os.path.splitext(self.voice_file_filename)[1]
-            if file_extension not in [".arm"]:
-                raise ValidationError(_("Allowed file formats are arm"))
-            file_size = int(len(self.voice_file) * 3 / 4)  # 以字节为单位计算file_size
-            if file_size >> 2 * 1024 * 1024 < 5:
-                raise ValidationError(_("Voice file size must be between 5B and 2MB"))
-
-    @api.onchange("video_file")
-    def _onchange_video_file(self):
-        if self.video_file:
-            file_extension = os.path.splitext(self.video_file_filename)[1]
-            if file_extension not in [".mp4"]:
-                raise ValidationError(_("Allowed file formats are mp4"))
-            file_size = int(len(self.video_file) * 3 / 4)  # 以字节为单位计算file_size
-            if file_size >> 10 * 1024 * 1024 < 5:
-                raise ValidationError(_("Video file size must be between 5B and 2MB"))
-
-    @api.onchange("file_file")
-    def _onchange_file_file(self):
-        if self.file_file:
-            file_size = int(len(self.file_file) * 3 / 4)  # 以字节为单位计算file_size
-            if file_size >> 20 * 1024 * 1024 < 5:
-                raise ValidationError(
-                    _("Ordinary file size must be between 5B and 2MB")
-                )
+    @api.onchange("media_file")
+    def _onchange_media_file(self):
+        if self.media_file:
+            self._check_file_size_and_extension(
+                self.type, self.media_file, self.media_filename
+            )
 
     def upload_media(self):
-        if self.img_file or self.voice_file or self.video_file or self.file_file:
+        if self.media_file or self.voice_file or self.video_file or self.file_file:
             sys_params = self.env["ir.config_parameter"].sudo()
             corpid = sys_params.get_param("wxwork.corpid")
             secret = sys_params.get_param("wxwork.material_secret")
             wxapi = CorpApi(corpid, secret)
-            img_file_extension = os.path.splitext(self.img_file_filename)[1]
+
             file_path = self._check_file_path(
-                self.img_file, "material", self.img_file_filename
+                self.media_file, "material", self.media_filename
             )
-            print(file_path)
+
             if self.temporary:
-                # 上传临时素材
-                pass
+                """
+                素材上传得到media_id，该media_id仅三天内有效
+                media_id在同一企业内应用之间可以共享
+                """
+                try:
+                    files = {"media": open(file_path, "rb")}
+                    response = wxapi.httpPostFile(
+                        CORP_API_TYPE["MEDIA_UPLOAD"], {"type": self.type}, files,
+                    )
+
+                    if response["errcode"] == 0:
+                        self.img_url = response["url"]
+                except ApiException as e:
+                    raise Warning(
+                        _(
+                            "Failed to upload picture! \nError code: %s, \nError description:%s, \nError details:%s"
+                        )
+                        % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
+                    )
             else:
                 """
                 上传图片得到图片URL，该URL永久有效
@@ -124,19 +113,9 @@ class WxWorkMaterial(models.Model):
                 """
 
                 try:
-                    # access_token = wxapi.getAccessToken()
-                    # url = (
-                    #     "https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token=%s"
-                    #     % (access_token)
-                    # )
                     files = {"media": open(file_path, "rb")}
-                    # response = requests.post(url=url, files=files)
-                    # res = json.loads(response.text)
-                    # print(res)
-                    # if res["errcode"] == 0:
-                    #     self.img_url = res["url"]
                     response = wxapi.httpPostFile(
-                        CORP_API_TYPE["MEDIA_UPLOADIMG"], files,
+                        CORP_API_TYPE["MEDIA_UPLOADIMG"], {}, files,
                     )
 
                     if response["errcode"] == 0:
@@ -144,7 +123,7 @@ class WxWorkMaterial(models.Model):
                 except ApiException as e:
                     raise Warning(
                         _(
-                            "Upload error! \nError code: %s, \nError description:%s, \nError details:%s"
+                            "Failed to upload picture! \nError code: %s, \nError description:%s, \nError details:%s"
                         )
                         % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
                     )
@@ -153,11 +132,29 @@ class WxWorkMaterial(models.Model):
 
     @api.model
     def create(self, vals):
+        if vals.get("media_file"):
+            # 检查文件的大小和格式，语音文件检查时长
+            self._check_file_size_and_extension(
+                vals.get("type"), vals.get("media_file"), vals.get("media_filename")
+            )
+            # 检查文件路径
+            self._check_file_path(
+                vals.get("media_file"), "material", vals.get("media_filename")
+            )
         material = super(WxWorkMaterial, self).create(vals)
         return material
 
     def write(self, vals):
         res = super(WxWorkMaterial, self).write(vals)
+        if vals.get("media_file"):
+            # 检查文件的大小和格式，语音文件检查时长
+            self._check_file_size_and_extension(
+                vals.get("type"), vals.get("media_file"), vals.get("media_filename")
+            )
+            # 检查文件路径
+            self._check_file_path(
+                vals.get("media_file"), "material", vals.get("media_filename")
+            )
         return res
 
     @api.model
@@ -180,6 +177,86 @@ class WxWorkMaterial(models.Model):
             full_path = full_path.replace("/", "\\")
 
         return full_path
+
+    @api.model
+    def _check_file_size_and_extension(self, filetype, file, filename):
+        file_extension_list = []
+        file_size_list = []
+        file_extension = os.path.splitext(filename)[1]
+        file_size = int(len(file) * 3 / 4)  # 以字节为单位计算file_size
+
+        if filetype == "image":
+            file_extension_list = extensions_and_size["image"]["extensions"]
+            file_size_list = extensions_and_size["image"]["size"]
+        if filetype == "voice":
+            file_extension_list = extensions_and_size["voice"]["extensions"]
+            file_size_list = extensions_and_size["voice"]["size"]
+            # 语音文件先上传到本地文件夹进行时长检查
+            file_path = self._check_file_path(file, "material", filename)
+            duration, path = self.get_amr_duration(file_path)
+            print(duration, path)
+            if int(duration) > 60:
+                # 语音文件时长超过了60秒
+                raise ValidationError(
+                    _("The duration of the voice file exceeds 60 seconds!")
+                )
+
+        if filetype == "video":
+            file_extension_list = extensions_and_size["video"]["extensions"]
+            file_size_list = extensions_and_size["video"]["size"]
+        if filetype == "file":
+            file_extension_list = extensions_and_size["file"]["extensions"]
+            file_size_list = extensions_and_size["file"]["size"]
+        if filetype is None:
+            raise ValidationError(_("Unknown type of media file!"))
+
+        if len(file_extension_list) > 0 and file_extension not in file_extension_list:
+            raise ValidationError(
+                _("Allowed file formats are %s")
+                % (" or ".join(str(x) for x in file_extension_list))
+            )
+        if file_size_list[0] != 0:
+            if file_size > file_size_list[1] or file_size_list[1] < file_size_list[0]:
+                raise ValidationError(
+                    _("Media file size must be between %sB and %sMB")
+                    % (file_size_list[0], file_size_list[1] / 1024 / 1024)
+                )
+        elif file_size > file_size_list[1]:
+            raise ValidationError(
+                _("Media file size cannot be larger than %sMB")
+                % (file_size_list[1] / 1024 / 1024)
+            )
+
+    def get_amr_duration(self, filepath):
+        """
+        获取.amr语音文件的时长
+        """
+        path = os.path.split(filepath)[0]
+        filename = os.path.split(filepath)[1].split(".")[0]
+        mp3_audio_filepath = os.path.join(path, filename + ".mp3")
+
+        mp3_transformat_path = self.amr_transformat_mp3(
+            os.path.abspath(filepath), mp3_audio_filepath
+        )
+        if os.path.exists(mp3_transformat_path):
+            mp3_audio = AudioSegment.from_file(
+                os.path.abspath(mp3_transformat_path), format="mp3"
+            )
+            return mp3_audio.duration_seconds, mp3_transformat_path
+
+    @classmethod
+    def amr_transformat_mp3(self, amr_path, mp3_path=None):
+        path, name = os.path.split(amr_path)
+        if name.split(".")[-1] != "amr":
+            print("not a amr file")
+            return 0
+        if mp3_path is None or mp3_path.split(".")[-1] != "mp3":
+            mp3_path = os.path.join(path, name + ".mp3")
+        error = subprocess.call(["ffmpeg", "-i", amr_path, mp3_path])
+        if error:
+            _logger.info("[Convert Error]:Convert file-%s to mp3 failed" % amr_path)
+            return 0
+        return mp3_path
 
     # def unlink(self):
     #     resources = self.mapped('resource_id')
