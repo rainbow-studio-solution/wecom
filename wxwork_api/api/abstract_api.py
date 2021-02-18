@@ -70,13 +70,13 @@ class AbstractApi(object):
 
         return self.__checkResponse(response)
 
-    def httpPostFile(self, urlType, postfiles=None):
+    def httpPostFile(self, urlType, args=None, postfiles=None):
         shortUrl = urlType[0]
         files = postfiles
         response = {}
         for retryCnt in range(0, 3):
             url = self.__makeUrl(shortUrl)
-            response = self.__httpPostFile(url, files)
+            response = self.__httpPostFile(url, args, files)
 
             # check if token expired
             if self.__tokenExpired(response.get("errcode")):
@@ -128,12 +128,13 @@ class AbstractApi(object):
             realUrl, data=json.dumps(args, ensure_ascii=False).encode("utf-8")
         ).json()
 
-    def __httpPostFile(self, url, postfiles):
+    def __httpPostFile(self, url, args, postfiles):
         realUrl = self.__appendToken(url)
         if get_wxwork_debug is True:
-            print("POSTFILE", realUrl, postfiles)
+            print("POSTFILE", realUrl, args, postfiles)
 
-        response = requests.post(url=realUrl, files=postfiles).json()
+        # response = requests.post(url=realUrl, files=postfiles).json()
+        response = requests.post(url=realUrl, data=args, files=postfiles,).json()
         # res = json.loads(response.text)
         return response
 
