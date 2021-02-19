@@ -47,7 +47,9 @@ class WxWorkMaterial(models.Model):
     )
     temporary = fields.Boolean(string="Temporary material", default=False)
     img_url = fields.Char(string="Picture URL", readonly=True, help="上传后得到的图片URL。永久有效")
-    media_id = fields.Char(string="", readonly=True, help="媒体文件上传后获取的唯一标识，3天内有效")
+    media_id = fields.Char(
+        string="Media file identification", readonly=True, help="媒体文件上传后获取的唯一标识，3天内有效"
+    )
     created_at = fields.Datetime(
         string="Upload time", readonly=True, help="媒体文件上传时间戳(北京时间)"
     )

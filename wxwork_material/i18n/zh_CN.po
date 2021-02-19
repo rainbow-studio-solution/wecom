@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 09:25+0000\n"
-"PO-Revision-Date: 2021-02-19 17:40+0800\n"
+"POT-Creation-Date: 2021-02-19 09:45+0000\n"
+"PO-Revision-Date: 2021-02-19 17:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -131,6 +131,12 @@ msgstr "企业威胁你素材"
 #. module: wxwork_material
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
+msgid "Error saving file to path %s!"
+msgstr "文件保存到路径 %s 错误!"
+
+#. module: wxwork_material
+#: code:addons/wxwork_material/models/wxwork_material.py:0
+#, python-format
 msgid ""
 "Failed to upload picture! \n"
 "Error code: %s, \n"
@@ -171,14 +177,14 @@ msgid "Material"
 msgstr "素材"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_id
-msgid "Media"
-msgstr "媒体"
-
-#. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_filename
 msgid "Media Filename"
 msgstr "媒体文件名"
+
+#. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_id
+msgid "Media file identification"
+msgstr "媒体文件标识"
 
 #. module: wxwork_material
 #: code:addons/wxwork_material/models/wxwork_material.py:0
@@ -225,7 +231,7 @@ msgstr "请上传文件！"
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_secret
 msgid "Secret"
-msgstr "Secret"
+msgstr ""
 
 #. module: wxwork_material
 #: model:ir.ui.menu,name:wxwork_material.menu_wxwork_configuration
@@ -268,12 +274,6 @@ msgstr "视频"
 #: model:ir.model.fields.selection,name:wxwork_material.selection__wxwork_material__media_type__voice
 msgid "Voice"
 msgstr "语音"
-
-#. module: wxwork_material
-#: code:addons/wxwork_material/models/wxwork_material.py:0
-#, python-format
-msgid "Error saving file to path %s!"
-msgstr "文件保存到路径 %s 错误!"
 
 #. module: wxwork_material
 #: model:ir.model.fields,help:wxwork_material.field_wxwork_material__img_url
