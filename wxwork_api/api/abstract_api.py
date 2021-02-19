@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 
-
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 from odoo import api, SUPERUSER_ID, _
 
 from odoo.exceptions import UserError, ValidationError
 import json
 import requests
 from .error_code import *
+
+# from urllib.parse import urlencode
 
 
 def get_wxwork_debug(cr, registry):
@@ -70,13 +72,13 @@ class AbstractApi(object):
 
         return self.__checkResponse(response)
 
-    def httpPostFile(self, urlType, args=None, postfiles=None):
+    def httpPostFile(self, urlType, args=None, data=None, headers=None):
         shortUrl = urlType[0]
-        files = postfiles
         response = {}
         for retryCnt in range(0, 3):
             url = self.__makeUrl(shortUrl)
-            response = self.__httpPostFile(url, args, files)
+            url = self.__appendArgs(url, args)
+            response = self.__httpPostFile(url, data, headers)
 
             # check if token expired
             if self.__tokenExpired(response.get("errcode")):
@@ -128,14 +130,14 @@ class AbstractApi(object):
             realUrl, data=json.dumps(args, ensure_ascii=False).encode("utf-8")
         ).json()
 
-    def __httpPostFile(self, url, args, postfiles):
+    def __httpPostFile(self, url, data, headers):
         realUrl = self.__appendToken(url)
-        if get_wxwork_debug is True:
-            print("POSTFILE", realUrl, args, postfiles)
 
-        # response = requests.post(url=realUrl, files=postfiles).json()
-        response = requests.post(url=realUrl, data=args, files=postfiles,).json()
-        # res = json.loads(response.text)
+        if get_wxwork_debug is True:
+            print("POSTFILE", realUrl, data, headers)
+
+        response = requests.post(url=realUrl, data=data, headers=headers).json()
+
         return response
 
     def __httpGet(self, url):
