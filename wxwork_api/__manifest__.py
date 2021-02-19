@@ -10,16 +10,14 @@
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
-        Enterprise WeChat API
-
-        https://github.com/sbzhu/weworkapi_python
+        Enterprise WeChat API               
         """,
     "description": """
-
+        Reconstruction based on project "https://github.com/sbzhu/weworkapi_python"
 
         """,
     "depends": [],
-    "external_dependencies": {"python": [],},
+    "external_dependencies": {"python": ["requests_toolbelt"],},
     "qweb": [
         # "static/src/xml/*.xml",
     ],

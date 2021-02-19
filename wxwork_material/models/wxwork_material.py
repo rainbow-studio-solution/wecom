@@ -5,6 +5,7 @@ import base64
 import platform
 import subprocess
 import logging
+import time
 from pydub import AudioSegment
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError, Warning
@@ -12,14 +13,16 @@ from odoo.exceptions import UserError, ValidationError, Warning
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+
 
 _logger = logging.getLogger(__name__)
 
 extensions_and_size = {
     "image": {"extensions": [".jpg", ".png"], "size": [5, 2 * 1024 * 1024]},
     "voice": {"extensions": [".amr"], "size": [5, 2 * 1024 * 1024], "duration": 60},
-    "video": {"extensions": [".mp4"], "size": [0, 10 * 1024 * 1024]},
-    "file": {"extensions": [], "size": [0, 20 * 1024 * 1024]},
+    "video": {"extensions": [".mp4"], "size": [5, 10 * 1024 * 1024]},
+    "file": {"extensions": [], "size": [5, 20 * 1024 * 1024]},
 }
 
 
@@ -31,7 +34,7 @@ class WxWorkMaterial(models.Model):
     _order = "name"
 
     name = fields.Char("Name", required=True,)
-    type = fields.Selection(
+    media_type = fields.Selection(
         [
             ("image", "Picture"),
             ("voice", "Voice"),
@@ -45,8 +48,8 @@ class WxWorkMaterial(models.Model):
     temporary = fields.Boolean(string="Temporary material", default=False)
     img_url = fields.Char(string="Picture URL", readonly=True, help="上传后得到的图片URL。永久有效")
     media_id = fields.Char(string="", readonly=True, help="媒体文件上传后获取的唯一标识，3天内有效")
-    created_at = fields.Date(
-        string="Media file upload timestamp", readonly=True, help="媒体文件上传时间戳"
+    created_at = fields.Datetime(
+        string="Upload time", readonly=True, help="媒体文件上传时间戳(北京时间)"
     )
 
     media_file = fields.Binary(
@@ -58,11 +61,11 @@ class WxWorkMaterial(models.Model):
     )
     media_filename = fields.Char()
 
-    @api.onchange("type")
-    def _onchange_type(self):
+    @api.onchange("media_type")
+    def _onchange_media_type(self):
         # addons\adyen_platforms\models\adyen_account.py
 
-        if self.type != "image":
+        if self.media_type != "image":
             self.temporary = True
         else:
             self.temporary = False
@@ -71,11 +74,17 @@ class WxWorkMaterial(models.Model):
     def _onchange_media_file(self):
         if self.media_file:
             self._check_file_size_and_extension(
-                self.type, self.media_file, self.media_filename
+                self.media_type, self.media_file, self.media_filename
             )
 
     def upload_media(self):
-        if self.media_file or self.voice_file or self.video_file or self.file_file:
+        if self.media_id or self.img_url:
+            raise UserError(
+                _(
+                    "Already uploaded, please do not upload again! You can create a new record to upload the file."
+                )
+            )
+        if self.media_file:
             sys_params = self.env["ir.config_parameter"].sudo()
             corpid = sys_params.get_param("wxwork.corpid")
             secret = sys_params.get_param("wxwork.material_secret")
@@ -91,13 +100,28 @@ class WxWorkMaterial(models.Model):
                 media_id在同一企业内应用之间可以共享
                 """
                 try:
-                    files = {"media": open(file_path, "rb")}
+                    multipart_encoder = MultipartEncoder(
+                        fields={
+                            self.media_filename: (
+                                "file",
+                                open(file_path, "rb"),
+                                "text/plain",
+                            )
+                        },
+                    )
+                    headers = {"Content-Type": multipart_encoder.content_type}
                     response = wxapi.httpPostFile(
-                        CORP_API_TYPE["MEDIA_UPLOAD"], {"type": self.type}, files,
+                        CORP_API_TYPE["MEDIA_UPLOAD"],
+                        {"type": self.media_type},
+                        multipart_encoder,
+                        headers,
                     )
 
                     if response["errcode"] == 0:
-                        self.img_url = response["url"]
+                        self.media_id = response["media_id"]
+                        timeStamp = int(response["created_at"])
+                        timeArray = time.localtime(timeStamp)
+                        self.created_at = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
                 except ApiException as e:
                     raise Warning(
                         _(
@@ -111,15 +135,28 @@ class WxWorkMaterial(models.Model):
                 返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
                 每个企业每天最多可上传100张图片
                 """
-
                 try:
-                    files = {"media": open(file_path, "rb")}
+                    # files = {"media": open(file_path, "rb")}
+                    multipart_encoder = MultipartEncoder(
+                        fields={
+                            self.media_filename: (
+                                "file",
+                                open(file_path, "rb"),
+                                "text/plain",
+                            )
+                        },
+                    )
+                    headers = {"Content-Type": multipart_encoder.content_type}
                     response = wxapi.httpPostFile(
-                        CORP_API_TYPE["MEDIA_UPLOADIMG"], {}, files,
+                        CORP_API_TYPE["MEDIA_UPLOADIMG"],
+                        {},
+                        multipart_encoder,
+                        headers,
                     )
 
                     if response["errcode"] == 0:
                         self.img_url = response["url"]
+                        self.created_at = fields.Datetime.now()
                 except ApiException as e:
                     raise Warning(
                         _(
@@ -132,10 +169,12 @@ class WxWorkMaterial(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get("media_file"):
+        if vals.get("media_type") and vals.get("media_file"):
             # 检查文件的大小和格式，语音文件检查时长
             self._check_file_size_and_extension(
-                vals.get("type"), vals.get("media_file"), vals.get("media_filename")
+                vals.get("media_type"),
+                vals.get("media_file"),
+                vals.get("media_filename"),
             )
             # 检查文件路径
             self._check_file_path(
@@ -145,11 +184,20 @@ class WxWorkMaterial(models.Model):
         return material
 
     def write(self, vals):
+        # if vals.get("media_id") or vals.get("img_url"):
+        #     raise UserError(
+        #         _(
+        #             "Already uploaded, please do not upload again! You can create a new record to upload the file."
+        #         )
+        #     )
         res = super(WxWorkMaterial, self).write(vals)
-        if vals.get("media_file"):
+
+        if vals.get("media_type") and vals.get("media_file"):
             # 检查文件的大小和格式，语音文件检查时长
             self._check_file_size_and_extension(
-                vals.get("type"), vals.get("media_file"), vals.get("media_filename")
+                vals.get("media_type"),
+                vals.get("media_file"),
+                vals.get("media_filename"),
             )
             # 检查文件路径
             self._check_file_path(
@@ -171,7 +219,7 @@ class WxWorkMaterial(models.Model):
                     fp.close()
                     # return full_path
             except IOError:
-                raise UserError(_("file_write writing %s!"), full_path)
+                raise UserError(_("Error saving file to path %s!"), full_path)
 
         if platform.system() == "Windows":
             full_path = full_path.replace("/", "\\")
@@ -194,9 +242,9 @@ class WxWorkMaterial(models.Model):
             # 语音文件先上传到本地文件夹进行时长检查
             file_path = self._check_file_path(file, "material", filename)
             duration, path = self.get_amr_duration(file_path)
-            print(duration, path)
             if int(duration) > 60:
-                # 语音文件时长超过了60秒
+                # 语音文件时长超过了60秒,删除mp3文件
+                os.remove(os.path.abspath(path))
                 raise ValidationError(
                     _("The duration of the voice file exceeds 60 seconds!")
                 )
@@ -215,17 +263,17 @@ class WxWorkMaterial(models.Model):
                 _("Allowed file formats are %s")
                 % (" or ".join(str(x) for x in file_extension_list))
             )
-        if file_size_list[0] != 0:
-            if file_size > file_size_list[1] or file_size_list[1] < file_size_list[0]:
-                raise ValidationError(
-                    _("Media file size must be between %sB and %sMB")
-                    % (file_size_list[0], file_size_list[1] / 1024 / 1024)
-                )
-        elif file_size > file_size_list[1]:
+        # if file_size_list[0] != 0:
+        if file_size > file_size_list[1] or file_size_list[1] < file_size_list[0]:
             raise ValidationError(
-                _("Media file size cannot be larger than %sMB")
-                % (file_size_list[1] / 1024 / 1024)
+                _("Media file size must be between %sB and %sMB")
+                % (file_size_list[0], file_size_list[1] / 1024 / 1024)
             )
+        # elif file_size > file_size_list[1]:
+        #     raise ValidationError(
+        #         _("Media file size cannot be larger than %sMB")
+        #         % (file_size_list[1] / 1024 / 1024)
+        #     )
 
     def get_amr_duration(self, filepath):
         """

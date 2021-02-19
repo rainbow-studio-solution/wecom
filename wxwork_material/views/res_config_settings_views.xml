@@ -50,6 +50,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-key fa-lg" aria-label="Material access token"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="material_access_token"/>
+                                <div class="row">
+                                <!-- 在企业微信的后台获取应用"通讯录"信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。 -->
+                                    <div class="text-muted col-md-12" id="material_access_token_text">
+                                        
+                                        <span style="color:orange;padding: 0px 16px;">
+                                            <i class="fa fa-info-circle" aria-label="info" />
+                                            The token has been cached and the system will automatically refresh the token.
+                                        </span>
+
+                                    </div>
+        
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="material_access_token" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </xpath>
             </field>

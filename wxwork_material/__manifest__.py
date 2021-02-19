@@ -43,6 +43,6 @@ Install:
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {"python": ["ffmpy", "pydub"],},
+    "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
     "qweb": ["static/src/xml/*.xml",],
 }

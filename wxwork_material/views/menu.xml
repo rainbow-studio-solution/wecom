@@ -4,7 +4,7 @@
         <!--  ROOT   -->
         <menuitem 
             id="menu_wxwork_material_root" 
-            name="Enterprise WeChat Material management" 
+            name="Enterprise WeChat Material Management" 
             groups="base.group_user" 
             web_icon="wxwork_material,static/description/icon.png" 
             sequence="3"/>
