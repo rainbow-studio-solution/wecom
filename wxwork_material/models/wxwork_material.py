@@ -33,7 +33,7 @@ class WxWorkMaterial(models.Model):
     _description = "Enterprise WeChat material"
     _order = "name"
 
-    name = fields.Char("Name", required=True,)
+    name = fields.Char("Name", required=True, translate=True,)
     media_type = fields.Selection(
         [
             ("image", "Picture"),
@@ -65,7 +65,6 @@ class WxWorkMaterial(models.Model):
 
     @api.onchange("media_type")
     def _onchange_media_type(self):
-        # addons\adyen_platforms\models\adyen_account.py
 
         if self.media_type != "image":
             self.temporary = True

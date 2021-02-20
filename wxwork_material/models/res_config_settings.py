@@ -14,8 +14,3 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wxwork.material_secret",
         default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     )
-    material_access_token = fields.Char(
-        "Access Token",
-        config_parameter="wxwork.material_access_token",
-        default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    )

@@ -87,6 +87,11 @@ class WxWorkMessageTemplate(models.Model):
     )
 
     # content
+    media_id = fields.Many2one(
+        string="Media file id",
+        comodel_name="wxwork.material",
+        help="媒体文件Id,可以调用上传临时素材接口获取",
+    )
     body_text = fields.Text("Body", translate=True,)
     body_html = fields.Html("Body", translate=True, sanitize=False)
     # 用于创建上下文操作（与电子邮件模板相同）
