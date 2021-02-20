@@ -65,7 +65,7 @@ class WxWorkMessage(models.Model):
         required=True,
         default="text",
     )
-    body = fields.Text()
+    body_text = fields.Text()
     partner_id = fields.Many2one("res.partner", "Customer")
     mail_message_id = fields.Many2one("mail.message", index=True)
     state = fields.Selection(
@@ -131,7 +131,7 @@ class WxWorkMessage(models.Model):
             else:
                 pass
         else:
-            self.body = None
+            self.body_text = None
 
     @api.onchange("templates_id")
     def _onchange_templates_id(self):
@@ -143,7 +143,7 @@ class WxWorkMessage(models.Model):
                     [
                         "id",
                         "subject",
-                        "body",
+                        "body_text",
                         "msgtype",
                         "safe",
                         "enable_id_trans",
@@ -153,10 +153,10 @@ class WxWorkMessage(models.Model):
                 )
             )
 
-            self.body = (
+            self.body_text = (
                 mail_template_info[0]["subject"]
                 + "\n\n"
-                + mail_template_info[0]["body"]
+                + mail_template_info[0]["body_text"]
             )
             self.msgtype = mail_template_info[0]["msgtype"]
             self.safe = mail_template_info[0]["safe"]
@@ -242,7 +242,7 @@ class WxWorkMessage(models.Model):
                     "to_tag": record.to_tag.tagid,
                 },
                 "msgtype": record.msgtype,
-                "message": record.body,
+                "message": record.body_text,
                 "options": {
                     "safe": int(record.safe),
                     "enable_id_trans": int(record.enable_id_trans),

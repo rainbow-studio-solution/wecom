@@ -3,7 +3,7 @@
     "name": "Enterprise WeChat Hr Extension",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 602,
+    "sequence": 603,
     "installable": True,
     "application": True,
     "auto_install": False,

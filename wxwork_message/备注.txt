@@ -1,0 +1,8 @@
+addons\mail\models\mail_mail.py         send
+addons\mail\models\mail_thread.py       message_notify
+addons\mail\models\mail_thread.py       _notify_thread
+addons\mail\models\mail_thread.py       _notify_record_by_inbox
+
+
+
+.notification_type 

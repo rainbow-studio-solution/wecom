@@ -17,9 +17,13 @@
                         </div>
                     </div>
                     <p>Choose a language: <field name="lang" class="oe_inline ml8"/></p>
-                    <label for="body" string="Enterprise WeChat message content"/>
+                    <field name="msgtype" invisible="1"/>
                     <hr/>
-                        <field name="body" widget="text" readonly="1" nolabel="1" options='{"safe": True}'/>
+                    <label for="body_text" string="Enterprise WeChat message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                    <label for="body_html" string="Enterprise WeChat message html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> 
+                    <hr/>
+                    <field name="body_text" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>                     
+                    <field name="body_html" widget="html" readonly="1" nolabel="1" options='{"safe": True}'  attrs="{'invisible': [('msgtype','!=','mpnews')]}" />
                     <hr/>
                     <footer>
                         <button string="Discard" class="btn-secondary" special="cancel"/>

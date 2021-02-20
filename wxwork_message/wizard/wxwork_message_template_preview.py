@@ -42,7 +42,15 @@ class WxWorkMessageTemplatePreview(models.TransientModel):
     model_id = fields.Many2one(
         "ir.model", related="wxwork_message_template_id.model_id"
     )
-    body = fields.Char("Body", compute="_compute_wxwork_message_template_fields")
+    msgtype = fields.Char(
+        string="Message type", compute="_compute_wxwork_message_template_msgtype_fields"
+    )
+    body_text = fields.Text(
+        "Body", compute="_compute_wxwork_message_template_text_fields"
+    )
+    body_html = fields.Html(
+        "Body", compute="_compute_wxwork_message_template_html_fields"
+    )
     resource_ref = fields.Reference(
         string="Record reference", selection="_selection_target_model"
     )
@@ -58,12 +66,32 @@ class WxWorkMessageTemplatePreview(models.TransientModel):
             )
 
     @api.depends("lang", "resource_ref")
-    def _compute_wxwork_message_template_fields(self):
+    def _compute_wxwork_message_template_text_fields(self):
         for wizard in self:
             if wizard.wxwork_message_template_id and wizard.resource_ref:
-                wizard.body = wizard.wxwork_message_template_id._render_field(
-                    "body", [wizard.resource_ref.id], set_lang=wizard.lang
+                wizard.body_text = wizard.wxwork_message_template_id._render_field(
+                    "body_text", [wizard.resource_ref.id], set_lang=wizard.lang
                 )[wizard.resource_ref.id]
             else:
-                wizard.body = wizard.wxwork_message_template_id.body
+                wizard.body_text = wizard.wxwork_message_template_id.body_text
+
+    @api.depends("lang", "resource_ref")
+    def _compute_wxwork_message_template_html_fields(self):
+        for wizard in self:
+            if wizard.wxwork_message_template_id and wizard.resource_ref:
+                wizard.body_html = wizard.wxwork_message_template_id._render_field(
+                    "body_html", [wizard.resource_ref.id], set_lang=wizard.lang
+                )[wizard.resource_ref.id]
+            else:
+                wizard.body_html = wizard.wxwork_message_template_id.body_html
+
+    @api.depends("lang", "resource_ref")
+    def _compute_wxwork_message_template_msgtype_fields(self):
+        for wizard in self:
+            if wizard.wxwork_message_template_id and wizard.resource_ref:
+                wizard.msgtype = wizard.wxwork_message_template_id._render_field(
+                    "msgtype", [wizard.resource_ref.id], set_lang=wizard.lang
+                )[wizard.resource_ref.id]
+            else:
+                wizard.msgtype = wizard.wxwork_message_template_id.msgtype
 

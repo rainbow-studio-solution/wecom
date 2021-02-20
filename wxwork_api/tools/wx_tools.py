@@ -199,6 +199,5 @@ class WxTools(models.AbstractModel):
             if hasattr(crypt_context, "hash")
             else crypt_context.encrypt
         )
-        self.result = hash_password(passwd)
-        return self.result
+        return hash_password(passwd)
 

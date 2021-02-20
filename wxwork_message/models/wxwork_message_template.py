@@ -87,7 +87,8 @@ class WxWorkMessageTemplate(models.Model):
     )
 
     # content
-    body = fields.Char("Body", translate=True, required=True)
+    body_text = fields.Text("Body", translate=True,)
+    body_html = fields.Html("Body", translate=True, sanitize=False)
     # 用于创建上下文操作（与电子邮件模板相同）
     sidebar_action_id = fields.Many2one(
         "ir.actions.act_window",
@@ -139,7 +140,7 @@ class WxWorkMessageTemplate(models.Model):
         view = self.env.ref("sms.sms_composer_view_form")
 
         for template in self:
-            button_name = _("Send SMS (%s)", template.name)
+            button_name = _("Send Message (%s)", template.name)
             action = ActWindow.create(
                 {
                     "name": button_name,
