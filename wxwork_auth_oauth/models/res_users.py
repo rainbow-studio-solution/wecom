@@ -125,7 +125,6 @@ class ResUsers(models.Model):
         message_template_values = {
             "message_to_user": "${object.wxwork_id|safe}",
             "auto_delete": True,
-            # "msgtype": True,
             "scheduled_date": False,
         }
         message_template.write(message_template_values)

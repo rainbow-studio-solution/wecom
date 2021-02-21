@@ -6,6 +6,12 @@ from odoo import _, api, fields, models
 class MailMail(models.Model):
     _inherit = "mail.mail"
 
+    message_to_all = fields.Boolean("To all members", readonly=True,)
+    message_to_user = fields.Char(string="To User",)
+    message_to_party = fields.Char(string="To Departments",)
+    message_to_tag = fields.Char(string="To Tags",)
+    body_text = fields.Text("Text Contents",)
+
     def send(self, auto_commit=False, raise_exception=False):
         """
         立即发送选定的电子邮件，而忽略它们的当前状态（除非已被重新发送，否则不应传递已发送的电子邮件）。
@@ -15,6 +21,6 @@ class MailMail(models.Model):
         :param bool raise_exception：如果电子邮件发送过程失败，是否引发异常 
         :return: True
         """
-        # print(self)
+        print("mail.mail", self)
 
         return super(MailMail, self).send(auto_commit=False, raise_exception=False)

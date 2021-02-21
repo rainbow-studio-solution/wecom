@@ -33,6 +33,7 @@
         "views/res_config_settings_views.xml",
         # "views/wxwork_mail_views.xml",
         "views/wxwork_message_template_views.xml",
+        "views/mail_mail_views.xml",
         "views/menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],

@@ -9,7 +9,7 @@ from odoo.exceptions import UserError
 _logger = logging.getLogger(__name__)
 
 
-class WxWorkMessage(models.Model):
+class Message(models.Model):
     """ 
     系统通知（替换res.log通知），
 评论（OpenChatter讨论）和收到的电子邮件。 
@@ -19,7 +19,7 @@ class WxWorkMessage(models.Model):
     # _name = "wxwork.message"
     # _description = "Outgoing Enterprise WeChat Message"
     # _rec_name = "number"
-    _order = "id DESC"
+    # _order = "id DESC"
 
     API_TO_MESSAGE_STATE = {
         "success": "sent",
@@ -29,6 +29,24 @@ class WxWorkMessage(models.Model):
         "api_error": "Api error",
     }
 
+    message_type = fields.Selection(
+        selection_add=[("wxwork", "Enterprise WeChat Message")],
+        ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
+    )
+    notification_type = fields.Selection(
+        [
+            ("email", "Handle by Emails"),
+            ("inbox", "Handle in Odoo"),
+            ("wxwork", "Handle in Enterprise WeChat"),
+        ],
+        "Notification",
+        required=True,
+        default="email",
+        help="Policy on how to handle Chatter notifications:\n"
+        "- Handle by Emails: notifications are sent to your email address\n"
+        "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
+        "- Handle in Enterprise WeChat: notifications appear in your Enterprise WeChat",
+    )
     message_to_all = fields.Boolean("To all members", readonly=True,)
     message_to_user = fields.Many2many(
         "hr.employee",
@@ -161,6 +179,32 @@ class WxWorkMessage(models.Model):
             self.duplicate_check_interval = mail_template_info[0][
                 "duplicate_check_interval"
             ]
+
+    def _compute_description(self):
+        for message in self:
+            if message.subject:
+                message.description = message.subject
+            else:
+                plaintext_ct = (
+                    ""
+                    if not message.body_html
+                    else tools.html2plaintext(message.body_html)
+                )
+                message.description = plaintext_ct[:30] + "%s" % (
+                    " [...]" if len(plaintext_ct) >= 30 else ""
+                )
+        return super(Message, self)._compute_description()
+
+    # ------------------------------------------------------
+    # CRUD / ORM
+    # ------------------------------------------------------
+    @api.model_create_multi
+    def create(self, values_list):
+        for values in values_list:
+            if "body_html" in values:
+                print("body_html", values["body_html"])
+        messages = super(Message, self).create(values_list)
+        return messages
 
     def send(self, delete_all=False, auto_commit=False, raise_exception=False):
         """ 

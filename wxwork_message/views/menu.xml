@@ -15,6 +15,12 @@
                 groups="base.group_user" 
                 parent="menu_wxwork_message_root"
                 sequence="1"/>
+
+                <menuitem id="menu_mail_mail" 
+                    name="Message Send" 
+                    parent="menu_wxwork_message"
+                    action="action_view_wxwrok_mail" 
+                    sequence="1"/>
             
                 <menuitem 
                     id="menu_wxwork_message_test_sending" 

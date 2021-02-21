@@ -88,7 +88,6 @@ class WxWorkMessageTemplate(models.Model):
     )
 
     # options
-
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -123,15 +122,30 @@ class WxWorkMessageTemplate(models.Model):
         default=True,
         help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.",
     )
+    # contextual action
+    ref_ir_act_window = fields.Many2one(
+        "ir.actions.act_window",
+        "Sidebar action",
+        readonly=True,
+        copy=False,
+        help="Sidebar action to make this template available on records "
+        "of the related document model",
+    )
+
+    def unlink(self):
+        self.sudo().mapped("sidebar_action_id").unlink()
+        return super(WxWorkMessageTemplate, self).unlink()
 
     @api.returns("self", lambda value: value.id)
     def copy(self, default=None):
         default = dict(default or {}, name=_("%s (copy)", self.name))
         return super(WxWorkMessageTemplate, self).copy(default=default)
 
-    def unlink(self):
-        self.sudo().mapped("sidebar_action_id").unlink()
-        return super(WxWorkMessageTemplate, self).unlink()
+    def unlink_action(self):
+        for template in self:
+            if template.ref_ir_act_window:
+                template.ref_ir_act_window.unlink()
+        return True
 
     def action_create_sidebar_action(self):
         ActWindow = self.env["ir.actions.act_window"]
@@ -233,7 +247,7 @@ class WxWorkMessageTemplate(models.Model):
         for lang, (template, template_res_ids) in self._classify_per_lang(
             res_ids
         ).items():
-            print("template", template)
+            # print("template", template)
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
                 generated_field_values = template._render_field(
@@ -311,9 +325,10 @@ class WxWorkMessageTemplate(models.Model):
                 "scheduled_date",
             ],
         )
-
+        values["notification_type"] = "wxwork"  # 指定通知方式
+        values["message_type"] = "wxwork"  # 指定邮件消息类型
         values.update(message_values or {})
-
+        print("values", values)
         # 封装消息内容
         if values["msgtype"] == "mpnews":
             if notif_layout and values["body_html"]:
@@ -352,5 +367,9 @@ class WxWorkMessageTemplate(models.Model):
         else:
             pass
 
-        message = self.env["wxwork.message"].sudo().create(values)
+        message = self.env["mail.mail"].sudo().create(values)
+        # print("message", message)
 
+        if force_send:
+            message.send(raise_exception=raise_exception)
+        return message.id  # TDE CLEANME: return mail + api.returns ?
