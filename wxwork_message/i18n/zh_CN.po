@@ -100,10 +100,7 @@ msgstr "应用程序管理→应用程序→打开需要验证和授权的应用
 msgid "Applies to"
 msgstr "应用于"
 
-#. module: wxwork_message
-#: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__attachment_ids
-msgid "Attachments"
-msgstr "附件"
+
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_template__auto_delete
@@ -1329,10 +1326,6 @@ msgstr ""
 msgid "小程序appid，必须是与当前小程序应用关联的小程序"
 msgstr ""
 
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__attachment_ids
-msgid "您可以将文件附加到此模板，以添加到使用此模板创建的所有电子邮件中 "
-msgstr ""
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_wxwork_message_template__message_cc

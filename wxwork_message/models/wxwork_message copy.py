@@ -12,12 +12,12 @@ _logger = logging.getLogger(__name__)
 class WxWorkMessage(models.Model):
     """ 
     系统通知（替换res.log通知），
-评论（OpenChatter讨论）和收到的电子邮件。 
+    评论（OpenChatter讨论）和收到的消息。 
     """
 
-    _inherit = "mail.message"
-    # _name = "wxwork.message"
-    # _description = "Outgoing Enterprise WeChat Message"
+    _name = "wxwork.message"
+    _description = "Outgoing Enterprise WeChat Message"
+    _inherits = "mail.message"
     # _rec_name = "number"
     _order = "id DESC"
 
@@ -28,7 +28,8 @@ class WxWorkMessage(models.Model):
         "invalidtag": "Invalid tag",
         "api_error": "Api error",
     }
-
+    name = fields.Char(string="Name", required=True,)
+    subject = fields.Char("Subject")
     message_to_all = fields.Boolean("To all members", readonly=True,)
     message_to_user = fields.Many2many(
         "hr.employee",
@@ -68,23 +69,31 @@ class WxWorkMessage(models.Model):
         required=True,
         default="text",
     )
-    body_text = fields.Text("Body")
-    body_html = fields.Html("Body", sanitize=False)
-    # partner_id = fields.Many2one("res.partner", "Customer")
-
-    # state = fields.Selection(
-    #     [
-    #         ("outgoing", "In Queue"),
-    #         ("sent", "Sent"),
-    #         ("error", "Error"),
-    #         ("canceled", "Canceled"),
-    #     ],
-    #     "SMS Status",
-    #     readonly=True,
-    #     copy=False,
-    #     default="outgoing",
-    #     required=True,
-    # )
+    body_text = fields.Text("Contents", default="",)
+    body_html = fields.Html("Contents", default="", sanitize=False)
+    partner_id = fields.Many2one("res.partner", "Customer")
+    mail_message_id = fields.Many2one("mail.message", index=True)
+    state = fields.Selection(
+        [
+            ("outgoing", "In Queue"),
+            ("sent", "Sent"),
+            ("error", "Error"),
+            ("canceled", "Canceled"),
+        ],
+        "SMS Status",
+        readonly=True,
+        copy=False,
+        default="outgoing",
+        required=True,
+    )
+    error_code = fields.Selection(
+        [
+            ("invaliduser", "Invalid User"),
+            ("invalidparty", "Invalid Department"),
+            ("invalidtag", "Invalid Tag"),
+        ],
+        copy=False,
+    )
 
     safe = fields.Selection(
         [
@@ -112,13 +121,25 @@ class WxWorkMessage(models.Model):
         help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时",
         default="1800",
     )
+    scheduled_date = fields.Char(
+        "Scheduled Send Date",
+        help="If set, the queue manager will send the email after the date. If not set, the email will be send as soon as possible.",
+    )
+    auto_delete = fields.Boolean(
+        "Auto Delete",
+        help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.",
+    )
+    model = fields.Char("Related Document Model", index=True)
+    res_id = fields.Many2oneReference(
+        "Related Document ID", index=True, model_field="model"
+    )
 
     @api.onchange("use_templates")
     def _onchange_use_templates(self):
         if self.use_templates:
-            self.message_to_party = None
-            self.message_to_tag = None
-            if len(self.message_to_user) > 1:
+            self.to_party = None
+            self.to_tag = None
+            if len(self.to_user) > 1:
                 raise UserError(
                     _(
                         "In the test template message mode, only one user is allowed to send."
@@ -140,7 +161,6 @@ class WxWorkMessage(models.Model):
                         "id",
                         "subject",
                         "body_text",
-                        "body_html",
                         "msgtype",
                         "safe",
                         "enable_id_trans",
@@ -149,9 +169,12 @@ class WxWorkMessage(models.Model):
                     ]
                 )
             )
-            self.subject = mail_template_info[0]["subject"]
-            self.body_text = mail_template_info[0]["body_text"]
-            self.body_html = mail_template_info[0]["body_html"]
+
+            self.body_text = (
+                mail_template_info[0]["subject"]
+                + "\n\n"
+                + mail_template_info[0]["body_text"]
+            )
             self.msgtype = mail_template_info[0]["msgtype"]
             self.safe = mail_template_info[0]["safe"]
             self.enable_id_trans = mail_template_info[0]["enable_id_trans"]

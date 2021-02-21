@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-
+access_wxwork_message,access.wxwork.message,model_wxwork_message,base.group_user,1,1,1,1
 access_wxwork_message_template,access.wxwork.message.template,model_wxwork_message_template,base.group_user,1,1,1,1
 access_wxwork_message_template_preview,access.wxwork.message.template.preview,model_wxwork_message_template_preview,base.group_user,1,1,1,0
 

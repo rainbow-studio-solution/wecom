@@ -91,13 +91,11 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
 1. wxwork_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），完成
 
    > 功能：
-
       1. 网页扫码登录
-
-      1. 应用内一键登录
+      2. 应用内一键登录
+      3. 用户消息模板
       
    > 故障处理：
-
    ```bash
    #若出现链接失败的提示或其他的失败提示，尝试修改odoo.conf 以下参数，我是直接放大10倍
    db_maxconn = 640

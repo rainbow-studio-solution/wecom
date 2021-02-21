@@ -210,6 +210,12 @@ class WxWorkMaterial(models.Model):
     def _check_file_path(self, file, subpath, filename):
         sys_params = self.env["ir.config_parameter"].sudo()
         path = sys_params.get_param("wxwork.img_path")
+        if path:
+            pass
+        else:
+            raise UserError(
+                _("Enterprise WeChat storage path has not been configured yet!")
+            )
         file_path = self.env["wxwork.tools"].path_is_exists(path, subpath)
         full_path = file_path + filename
 

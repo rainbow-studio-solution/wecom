@@ -3,7 +3,7 @@
     "name": "Enterprise WeChat Material",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 610,
+    "sequence": 606,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -35,7 +35,7 @@ Install:
     pip install pydub
 
 """,
-    "depends": ["attachment_indexation", "wxwork_base"],
+    "depends": ["attachment_indexation", "wxwork_smart_hrm"],
     "data": [
         "security/ir.model.access.csv",
         "data/material_data.xml",

@@ -3,7 +3,7 @@
     "name": "Enterprise WeChat Authentication",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 604,
+    "sequence": 608,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -15,9 +15,10 @@
     "description": """
 
         """,
-    "depends": ["auth_oauth", "wxwork_hr_syncing",],
+    "depends": ["auth_oauth", "wxwork_hr_syncing", "wxwork_message",],
     "data": [
         "data/wxwork_oauth_data.xml",
+        "data/wxwork_message_data.xml",
         "data/ir_cron_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",

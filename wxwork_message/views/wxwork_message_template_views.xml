@@ -53,7 +53,24 @@
 
                                 <field name="body_text" widget="wxwork_message_widget" nolabel="1" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
                                 <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
-                                <!-- <field name="attachment_ids" widget="many2many_binary"/> -->
+                            </page>                            
+                            <page string="Message Configuration" name="message_configuration">
+                                <group>
+                                    <field name="message_to_all" />
+                                    <field name="message_to_user" />
+                                    <field name="message_to_party" />
+                                    <field name="message_to_tag" />
+                                    <field name="scheduled_date" string="Scheduled Send Date"/>
+                                </group>
+                            </page>
+                            <page string="Advanced Settings" name="advanced_settings">
+                                <group>                                                                      
+                                    <field name="safe"/>
+                                    <field name="enable_id_trans"/>
+                                    <field name="enable_duplicate_check"/>
+                                    <field name="duplicate_check_interval"/>
+                                    <field name="auto_delete"/>                                    
+                                </group>
                             </page>
                             <page string="Dynamic Placeholder Generator" name="dynamic_placeholder_generator" groups="base.group_no_one">
                                 <group>
@@ -65,18 +82,6 @@
                                             attrs="{'readonly':[('sub_object','=',False)],'required':[('sub_object','!=',False)]}"/>
                                     <field name="null_value"/>
                                     <field name="copyvalue"/>
-                                </group>
-                            </page>
-                            <page string="Advanced Settings" name="advanced_settings">
-                                <group>
-                                                                      
-                                    <field name="safe"/>
-                                    <field name="enable_id_trans"/>
-                                    <field name="enable_duplicate_check"/>
-                                    <field name="duplicate_check_interval"/>
-                                    <!-- <field name="auto_delete"/>
-                                    <field name="report_template" domain="[('model','=',model)]"/>
-                                    <field name="report_name" attrs="{'invisible':[('report_template','=',False)]}"/> -->
                                 </group>
                             </page>
                          </notebook>

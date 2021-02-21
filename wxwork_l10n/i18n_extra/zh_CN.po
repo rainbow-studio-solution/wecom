@@ -72,6 +72,17 @@ msgstr ""
 "        "
 
 #. module: base
+#: model:ir.module.module,summary:base.module_wxwork_material
+msgid ""
+"\n"
+"        Enterprise WeChat material management\n"
+"        "
+msgstr ""
+"\n"
+"        企业微信素材管理\n"
+"        "
+
+#. module: base
 #: model:ir.module.module,summary:base.module_mass_mailing_wxwork_message
 msgid "Design, send and track Enterprise WeChat Message"
 msgstr "设计，发送和跟踪企业微信消息"
@@ -115,6 +126,11 @@ msgstr "企业微信群发消息"
 #: model:ir.module.module,shortdesc:base.module_wxwork_message
 msgid "Enterprise WeChat Message"
 msgstr "企业微信消息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_material
+msgid "Enterprise WeChat Material"
+msgstr "企业微信素材管理"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_smart_hrm

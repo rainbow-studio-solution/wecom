@@ -13,5 +13,3 @@ from . import mail_thread
 from . import wxwork_message_api
 from . import wxwork_message
 from . import wxwork_message_template
-
-from . import res_users

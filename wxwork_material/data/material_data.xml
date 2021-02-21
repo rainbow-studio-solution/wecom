@@ -42,7 +42,5 @@
             <field name="media_filename">warn.png</field>
         </record>
 
-
-
     </data>
 </odoo>

@@ -25,6 +25,7 @@ from odoo.addons.web.controllers.main import (
     set_cookie_and_redirect,
     login_and_redirect,
 )
+from odoo.addons.auth_signup.controllers.main import AuthSignupHome as SignupHome
 
 import urllib
 import requests
@@ -35,6 +36,14 @@ from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
 
 _logger = logging.getLogger(__name__)
+
+
+class AuthSignupHome(SignupHome):
+    def web_auth_signup(self, *args, **kw):
+        """
+        消息模板用户注册帐户已创建 
+        """
+        # TODO
 
 
 class OAuthLogin(Home):
