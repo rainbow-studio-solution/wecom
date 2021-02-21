@@ -115,7 +115,17 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
 
       3. 永久图片仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
 
+   > 安装前置需求：
+   ```bash
+   # libav
+   apt-get install libav-tools libavcodec-extra
 
+   # ffmpeg
+   apt-get install ffmpeg libavcodec-extra
+
+   # pydub
+   pip install pydub
+   ```
 
 ### 企业微信消息推送
 
