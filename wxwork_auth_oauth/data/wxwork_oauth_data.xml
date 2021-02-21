@@ -44,7 +44,7 @@
 
         <record id="auth_agentid" model="ir.config_parameter">
             <field name="key">wxwork.auth_agentid</field>
-            <field name="value">0000000</field>
+            <field name="value">1000002</field>
         </record>
         <record id="auth_secret" model="ir.config_parameter">
             <field name="key">wxwork.auth_secret</field>

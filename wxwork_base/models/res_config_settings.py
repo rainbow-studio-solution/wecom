@@ -10,12 +10,17 @@ class ResConfigSettings(models.TransientModel):
         "Enterprise ID", config_parameter="wxwork.corpid", default="xxxxxxxxxxxxxxxxxx",
     )
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)
-    module_wxwork_auth_oauth = fields.Boolean(
-        "Use Enterprise weChat scan code to verify login (OAuth)",
-    )
+
     img_path = fields.Char(
         "Enterprise WeChat Picture storage path", config_parameter="wxwork.img_path",
     )
+
+    # module_wxwork_auth_oauth = fields.Boolean(
+    #     "Use Enterprise weChat scan code to verify login (OAuth)",
+    # )
+    # module_wxwork_hr_syncing = fields.Boolean(
+    #     "Installation Enterprise WeChat HR synchronization function",
+    # )
 
     @api.model
     def get_values(self):
@@ -24,12 +29,6 @@ class ResConfigSettings(models.TransientModel):
 
         debug_enabled = (
             True if ir_config.get_param("wxwork.debug_enabled") == "True" else False
-        )
-
-        contacts_auto_sync_hr_enabled = (
-            True
-            if ir_config.get_param("wxwork.contacts_auto_sync_hr_enabled") == "True"
-            else False
         )
 
         res.update(debug_enabled=debug_enabled,)

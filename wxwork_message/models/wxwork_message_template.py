@@ -367,9 +367,9 @@ class WxWorkMessageTemplate(models.Model):
         else:
             pass
 
-        message = self.env["mail.mail"].sudo().create(values)
+        mail = self.env["mail.mail"].sudo().create(values)
         # print("message", message)
 
         if force_send:
-            message.send(raise_exception=raise_exception)
-        return message.id  # TDE CLEANME: return mail + api.returns ?
+            mail.send_wxwork_message(raise_exception=raise_exception)
+        return mail.id  # TDE CLEANME: return mail + api.returns ?
