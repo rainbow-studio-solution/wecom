@@ -23,13 +23,14 @@ class WxWorkMessageApi(models.AbstractModel):
         totag=None,
         subject=None,
         media_id=None,
+        description=None,
+        author_id=None,
         body_html=None,
         body_text=None,
         safe=None,
         enable_id_trans=None,
         enable_duplicate_check=None,
         duplicate_check_interval=None,
-        message_id=None,
     ):
         """
         构建消息
@@ -53,7 +54,7 @@ class WxWorkMessageApi(models.AbstractModel):
         """
 
         messages_content = self.get_messages_content(
-            msgtype, body_html, body_text, subject, media_id
+            msgtype, description, author_id, body_html, body_text, subject, media_id
         )
         messages_options = self.get_messages_options(
             msgtype,
@@ -122,7 +123,14 @@ class WxWorkMessageApi(models.AbstractModel):
         return self._wxwork_message_send_api(params)
 
     def get_messages_content(
-        self, msgtype, body_html=None, body_text=None, subject=None, media_id=None
+        self,
+        msgtype,
+        description=None,
+        author_id=None,
+        body_html=None,
+        body_text=None,
+        subject=None,
+        media_id=None,
     ):
         messages_content = {}
         if msgtype == "text":
@@ -138,9 +146,9 @@ class WxWorkMessageApi(models.AbstractModel):
                         {
                             "title": subject,
                             "thumb_media_id": media_id,
-                            "author": "Author",
+                            "author": author_id.display_name,
                             "content": body_html,
-                            "digest": "Digest description",
+                            "digest": description,
                         }
                     ]
                 },

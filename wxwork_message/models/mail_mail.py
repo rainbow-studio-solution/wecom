@@ -147,15 +147,15 @@ class MailMail(models.Model):
     # ------------------------------------------------------
     # 消息格式、工具和发送机制
     # ------------------------------------------------------
-    def _send_prepare_values(self, partner=None):
+    def _send_wxwork_prepare_values(self, partner=None):
         """
         根据合作伙伴返回有关特定电子邮件值的字典，或者对整个邮件都是通用的。对于特定电子邮件值取决于对伙伴的字典，或者对mail.email_to给出的整个收件人来说都是通用的。 
 
         :param Model partner: 具体的收件人合作伙伴 
         """
         self.ensure_one()
-        body = self._send_prepare_body()
-        body_alternative = tools.html2plaintext(body)
+        body_html = self._send_prepare_body()
+        # body_alternative = tools.html2plaintext(body_html)
         if partner:
             email_to = [
                 tools.formataddr((partner.name or "False", partner.email or "False"))
@@ -169,12 +169,11 @@ class MailMail(models.Model):
             email_to = tools.email_split_and_format(self.email_to)
             message_to_user = tools.email_split_and_format(self.message_to_user)
         res = {
-            "body": body,
-            "body_alternative": body_alternative,
-            "email_to": email_to,
-            "message_to_user": message_to_user,
+            # "subject": subject,
+            "body_html": body_html,
+            # "message_to_user": message_to_user,
         }
-        print("_send_prepare_values", res)
+
         return res
 
     def send_wxwork_message(self, auto_commit=False, raise_exception=False):
@@ -211,6 +210,7 @@ class MailMail(models.Model):
         else:
             for batch_ids in self._split_by_server():
                 # TODO 待处理多公司-企业微信互联功能
+
                 self.browse(batch_ids)._send_wxwork_message(
                     auto_commit=auto_commit, raise_exception=raise_exception,
                 )
@@ -221,136 +221,32 @@ class MailMail(models.Model):
     def _send_wxwork_message(
         self, auto_commit=False, raise_exception=False,
     ):
-        print("发送消息")
+        # print("发送消息")
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
-            success_pids = []
-            failure_type = None
-            processing_pid = None
-            mail = None
-            try:
-                mail = self.browse(mail_id)
-                if mail.state != "outgoing":
-                    if mail.state != "exception" and mail.auto_delete:
-                        mail.sudo().unlink()
-                    continue
+            mail = self.browse(mail_id)
+            if mail.state != "outgoing":
+                if mail.state != "exception" and mail.auto_delete:
+                    mail.sudo().unlink()
+                continue
 
-                # 如果用户发送带有access_token的链接，则删除附件
-                # body_html = mail.body_html or ""
-                # body_text = mail.body_text or ""
-
-                email_list = []
-                if mail.message_to_user:
-                    email_list.append(mail._send_prepare_values())
-                for partner in mail.recipient_ids:
-                    values = mail._send_prepare_values(partner=partner)
-                    values["partner_id"] = partner
-                    email_list.append(values)
-                # 在邮件对象上写入可能会失败（例如，锁定用户），这会在实际发送电子邮件后*触发回滚。
-                # 为避免发送两次相同的电子邮件，请尽早引发故障
-                mail.write(
-                    {
-                        "state": "exception",
-                        "failure_reason": _(
-                            "Error without exception. Probably due do sending an email without computed recipients."
-                        ),
-                    }
-                )
-                # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时邮件退回的情况下并发更新。
-                notifs = self.env["mail.notification"].search(
-                    [
-                        ("notification_type", "=", "wxwork"),
-                        ("mail_id", "in", mail.ids),
-                        ("notification_status", "not in", ("sent", "canceled")),
-                    ]
-                )
-                if notifs:
-                    notif_msg = _(
-                        "Error without exception. Probably due do concurrent access update of notification records. Please see with an administrator."
-                    )
-                    notifs.sudo().write(
-                        {
-                            "notification_status": "exception",
-                            "failure_type": "UNKNOWN",
-                            "failure_reason": notif_msg,
-                        }
-                    )
-                    # `test_mail_bounce_during_send`，强制立即更新以获取锁。
-                    # see rev. 56596e5240ef920df14d99087451ce6f06ac6d36
-                    notifs.flush(
-                        fnames=[
-                            "notification_status",
-                            "failure_type",
-                            "failure_reason",
-                        ],
-                        records=notifs,
-                    )
-
-                # 构建一个email.message.Message对象并发送它而不排队
-                res = None
-                for email in email_list:
-                    msg = IrWxWorkMessageApi.build_message(
-                        msgtype=mail.msgtype,
-                        toall=mail.message_to_all,
-                        touser=mail.message_to_user,
-                        toparty=mail.message_to_party,
-                        totag=mail.message_to_tag,
-                        subject=mail.subject,
-                        media_id=email.get("media_id"),
-                        body_html=email.get("body_html"),
-                        body_text=email.get("body_text"),
-                        safe=email.get("safe"),
-                        enable_id_trans=email.get("enable_id_trans"),
-                        enable_duplicate_check=email.get("enable_duplicate_check"),
-                        duplicate_check_interval=email.get("duplicate_check_interval"),
-                        message_id=mail.message_id,
-                    )
-                    print("构建消息", msg)
-                    processing_pid = email.pop("partner_id", None)
-                    try:
-                        res = IrWxWorkMessageApi.send_message(msg,)
-                        if processing_pid:
-                            success_pids.append(processing_pid)
-                        processing_pid = None
-                    except AssertionError as error:
-                        if str(error) == IrWxWorkMessageApi.NO_VALID_RECIPIENT:
-                            failure_type = "RECIPIENT"
-                            # No valid recipient found for this particular
-                            # mail item -> ignore error to avoid blocking
-                            # delivery to next recipients, if any. If this is
-                            # the only recipient, the mail will show as failed.
-                            _logger.info(
-                                "Ignoring invalid recipients for mail.mail %s: %s",
-                                mail.message_id,
-                                email.get("email_to"),
-                            )
-                        else:
-                            raise
-                if res:  # mail has been sent at least once, no major exception occured
-                    mail.write(
-                        {"state": "sent", "message_id": res, "failure_reason": False}
-                    )
-                    _logger.info(
-                        "Mail with ID %r and Message-Id %r successfully sent",
-                        mail.id,
-                        mail.message_id,
-                    )
-                    # /!\ can't use mail.state here, as mail.refresh() will cause an error
-                    # see revid:odo@openerp.com-20120622152536-42b2s28lvdv3odyr in 6.1
-                mail._postprocess_sent_wxwork_message(
-                    success_pids=success_pids, failure_type=failure_type
-                )
-            except MemoryError:
-                # 防止捕获短暂的MemoryErrors，冒泡通知用户或中止cron作业，而不是将邮件标记为失败
-                _logger.exception(
-                    "MemoryError while processing mail with ID %r and Msg-Id %r. Consider raising the --limit-memory-hard startup option",
-                    mail.id,
-                    mail.message_id,
-                )
-                # mail status will stay on ongoing since transaction will be rollback
-                raise
-
-            if auto_commit is True:
-                self._cr.commit()
+            msg = IrWxWorkMessageApi.build_message(
+                msgtype=mail.msgtype,
+                toall=mail.message_to_all,
+                touser=mail.message_to_user,
+                toparty=mail.message_to_party,
+                totag=mail.message_to_tag,
+                subject=mail.subject,
+                media_id=mail.media_id,
+                description=mail.description,
+                author_id=mail.author_id,
+                body_html=mail.body_html,
+                body_text=mail.body_text,
+                safe=mail.safe,
+                enable_id_trans=mail.enable_id_trans,
+                enable_duplicate_check=mail.enable_duplicate_check,
+                duplicate_check_interval=mail.duplicate_check_interval,
+            )
+            print("_send_wxwork_message", msg)
 
         return True

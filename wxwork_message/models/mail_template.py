@@ -328,7 +328,7 @@ class WxWorkMessageTemplate(models.Model):
         values["notification_type"] = "wxwork"  # 指定通知方式
         values["message_type"] = "wxwork"  # 指定邮件消息类型
         values.update(message_values or {})
-        print("values", values)
+        # print("values", values)
         # 封装消息内容
         if values["msgtype"] == "mpnews":
             if notif_layout and values["body_html"]:

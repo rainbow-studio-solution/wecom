@@ -140,6 +140,7 @@ class ResUsers(models.Model):
                     )
                 with self.env.cr.savepoint():
                     force_send = not (self.env.context.get("import_file", False))
+
                     message_template.send_message(
                         user.id, force_send=force_send, raise_exception=True
                     )
