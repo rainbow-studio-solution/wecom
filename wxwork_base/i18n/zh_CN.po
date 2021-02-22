@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-07 04:05+0000\n"
-"PO-Revision-Date: 2021-01-07 12:06+0800\n"
+"POT-Creation-Date: 2021-02-22 07:01+0000\n"
+"PO-Revision-Date: 2021-02-22 15:03+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
@@ -26,28 +26,20 @@ msgstr "<i class=\"fa fa-info fa-lg\" aria-label=\"企业ID\"/>"
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label="
-"\"Enterprise WeChat global settings\"/> Enterprise WeChat global settings\n"
+"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"Enterprise WeChat global "
+"settings\"/> Enterprise WeChat global settings\n"
 "                            </span>\n"
 "                            <span class=\"text-right\">\n"
-"                                <i class=\"fa fa-angle-double-down\" aria-"
-"label=\"GoBottom\"/>\n"
+"                                <i class=\"fa fa-angle-double-down\" aria-label=\"GoBottom\"/>\n"
 "                            </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label="
-"\"企业微信全局设置\"/> 企业微信全局设置\n"
+"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信"
+"全局设置\n"
 "                            </span>\n"
 "                            <span class=\"text-right\">\n"
-"                                <i class=\"fa fa-angle-double-down\" aria-"
-"label=\"向下\"/>\n"
+"                                <i class=\"fa fa-angle-double-down\" aria-label=\"向下\"/>\n"
 "                            </span>"
-
-#. module: wxwork_base
-#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid ""
-"<strong>Save</strong> this page and come back here to set up the feature."
-msgstr "<strong>保存</strong> 此页面并返回此处以设置该功能。"
 
 #. module: wxwork_base
 #: model:res.groups,name:wxwork_base.group_wxwork_manager
@@ -66,51 +58,61 @@ msgstr ""
 "                                            用于调试"
 
 #. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: wxwork_base
 #: model:ir.model,name:wxwork_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__corpid
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__corpid
 msgid "Enterprise ID"
 msgstr "企业ID"
 
 #. module: wxwork_base
 #: model:ir.module.category,name:wxwork_base.module_category_wxwork
-#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_hrm_root
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid "Enterprise WeChat"
 msgstr "企业微信"
 
 #. module: wxwork_base
-#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid "Enterprise WeChat OAuth Authentication"
-msgstr "企业微信OAuth认证"
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "Enterprise WeChat Information"
+msgstr "企业微信信息"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__img_path
+msgid "Enterprise WeChat Picture storage path"
+msgstr "企业微信图片存储路径"
 
 #. module: wxwork_base
 #: model:ir.actions.act_window,name:wxwork_base.wxwork_config_settings_action
-#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_configuration
 msgid "Enterprise WeChat Settings"
 msgstr "企业微信设置"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid ""
-"Fill in: Enterprise WeChat management background → \"Enterprise Information"
-"\" → \"Enterprise ID\""
+msgid "Fill in: Enterprise WeChat management background → \"Enterprise Information\" → \"Enterprise ID\""
 msgstr "填写：企业微信管理后台→“企业信息”→“企业ID”"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
@@ -121,9 +123,17 @@ msgid "Officer"
 msgstr "主管"
 
 #. module: wxwork_base
-#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_manager_configuration
-msgid "Settings"
-msgstr "设置"
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid ""
+"The path used to save enterprise wechat pictures,<span class=\"text-danger\">Need to have read and write "
+"permissions on the path.</span><br/>\n"
+"                                            reference:Windows: D:\\img\\  <br/>\n"
+"                                            Linux：/home/odoo/img/ Note: odoo is the current system "
+"account"
+msgstr ""
+"企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
+"                                            参考:Windows: D:\\img\\  <br/>\n"
+"                                            Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
 
 #. module: wxwork_base
 #: model:res.groups,comment:wxwork_base.group_wxwork_user
@@ -132,43 +142,10 @@ msgstr "此用户将有权限审批员工创建的文档。"
 
 #. module: wxwork_base
 #: model:res.groups,comment:wxwork_base.group_wxwork_manager
-msgid ""
-"The user will have access to the Enterprise WeChat configuration as well as "
-"statistic reports."
+msgid "The user will have access to the Enterprise WeChat configuration as well as statistic reports."
 msgstr "此用户将有权限访问企业微信配置以及统计报表。"
-
-#. module: wxwork_base
-#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_cron
-msgid "Timed task"
-msgstr "定时任务"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__debug_enabled
 msgid "Turn on debug mode"
 msgstr "开启调试模式"
-
-#. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__module_wxwork_auth_oauth
-msgid "Use Enterprise weChat scan code to verify login (OAuth)"
-msgstr "使用企业微信扫码来验证登录(OAuth)"
-
-#. module: wxwork_base
-#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid "Use enterprise wechat scan code to verify login"
-msgstr "使用企业微信扫码来验证登录"
-
-#. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__contacts_img_path
-msgid "Enterprise WeChat Picture storage path"
-msgstr "企业微信图片存储路径"
-
-#. module: wxwork_base
-#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid ""
-"The path used to save enterprise wechat pictures,<span class=\"text-danger\">Need to have read and write permissions on the path.</span><br/>\n"
-"                                        reference:Windows: D:\\img\\  <br/>\n"
-"                                        Linux：/home/odoo/img/ Note: odoo is the current system account"
-msgstr ""
-"用于保存企业微信图片的路径， <span class=\"text-danger\">需要对路径具有读写权限。 </span><br/>\n"
-"                                        参考：Windows：D:\\img\\  <br/>\n"
-"                                        Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"

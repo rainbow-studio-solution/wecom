@@ -4,6 +4,7 @@ import datetime
 import logging
 import threading
 from odoo import _, api, fields, models
+from odoo import tools
 from odoo.exceptions import UserError
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
@@ -13,6 +14,15 @@ _logger = logging.getLogger(__name__)
 class MailMail(models.Model):
     _inherit = "mail.mail"
 
+    API_TO_MESSAGE_STATE = {
+        "success": "sent",
+        "invaliduser": "Invalid user",
+        "invalidparty": "Invalid Department",
+        "invalidtag": "Invalid Tag",
+        "other": "Other",
+    }
+    msgtype = fields.Char(string="Message type",)
+    media_id = fields.Char(string="Media file id",)
     message_to_all = fields.Boolean("To all members",)
     message_to_user = fields.Char(string="To User",)
     message_to_party = fields.Char(string="To Departments",)
@@ -83,6 +93,90 @@ class MailMail(models.Model):
             _logger.exception(_("Failed processing mail queue"))
         return res
 
+    def _postprocess_sent_wxwork_message(
+        self, success_pids, failure_reason=False, failure_type=None
+    ):
+        """
+        成功发送``mail``后，请执行所有必要的后处理，包括如果已设置邮件的auto_delete标志，则将其及其附件完全删除。
+        被子类覆盖，以实现额外的后处理行为。 
+
+        :return: True
+        """
+        notif_mails_ids = [mail.id for mail in self if mail.notification]
+        if notif_mails_ids:
+            notifications = self.env["mail.notification"].search(
+                [
+                    ("notification_type", "=", "wxwork"),
+                    ("mail_id", "in", notif_mails_ids),
+                    ("notification_status", "not in", ("sent", "canceled")),
+                ]
+            )
+            if notifications:
+                # 查找所有链接到失败的通知
+                failed = self.env["mail.notification"]
+                if failure_type:
+                    failed = notifications.filtered(
+                        lambda notif: notif.res_partner_id not in success_pids
+                    )
+                (notifications - failed).sudo().write(
+                    {
+                        "notification_status": "sent",
+                        "failure_type": "",
+                        "failure_reason": "",
+                    }
+                )
+                if failed:
+                    failed.sudo().write(
+                        {
+                            "notification_status": "exception",
+                            "failure_type": failure_type,
+                            "failure_reason": failure_reason,
+                        }
+                    )
+                    messages = notifications.mapped("mail_message_id").filtered(
+                        lambda m: m.is_thread_message()
+                    )
+                    # TDE TODO: 通知基于消息而不是基于通知的通知，以减少通知数量可能会很棒
+                    messages._notify_message_notification_update()  # 通知用户我们失败了
+            if not failure_type or failure_type == "RECIPIENT":  # 如果还有另一个错误，我们要保留邮件。
+                mail_to_delete_ids = [mail.id for mail in self if mail.auto_delete]
+                self.browse(mail_to_delete_ids).sudo().unlink()
+
+        return True
+
+    # ------------------------------------------------------
+    # 消息格式、工具和发送机制
+    # ------------------------------------------------------
+    def _send_prepare_values(self, partner=None):
+        """
+        根据合作伙伴返回有关特定电子邮件值的字典，或者对整个邮件都是通用的。对于特定电子邮件值取决于对伙伴的字典，或者对mail.email_to给出的整个收件人来说都是通用的。 
+
+        :param Model partner: 具体的收件人合作伙伴 
+        """
+        self.ensure_one()
+        body = self._send_prepare_body()
+        body_alternative = tools.html2plaintext(body)
+        if partner:
+            email_to = [
+                tools.formataddr((partner.name or "False", partner.email or "False"))
+            ]
+            message_to_user = [
+                tools.formataddr(
+                    (partner.name or "False", partner.message_to_user or "False")
+                )
+            ]
+        else:
+            email_to = tools.email_split_and_format(self.email_to)
+            message_to_user = tools.email_split_and_format(self.message_to_user)
+        res = {
+            "body": body,
+            "body_alternative": body_alternative,
+            "email_to": email_to,
+            "message_to_user": message_to_user,
+        }
+        print("_send_prepare_values", res)
+        return res
+
     def send_wxwork_message(self, auto_commit=False, raise_exception=False):
         """
         立即发送选定的电子邮件，而忽略它们的当前状态（除非已被重新发送，否则不应传递已发送的电子邮件）。
@@ -98,29 +192,37 @@ class MailMail(models.Model):
         secret = sys_params.get_param("wxwork.message_secret")
         message_agentid = sys_params.get_param("wxwork.message_agentid")
 
-        if "xxxxxxxxxxxxxxxxxx" in corpid:
+        if "xxxxxxxxxxxxxxxxxx" in corpid or corpid is None or corpid is False:
             raise UserError(_("Please fill in the company ID"))
-        elif "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" in secret:
+        elif (
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" in secret
+            or secret is None
+            or secret is False
+        ):
             raise UserError(
                 _("Please fill in the application secret of the message push")
             )
-        elif "0000000" in message_agentid:
+        elif (
+            "0000000" in message_agentid
+            or message_agentid is None
+            or message_agentid is False
+        ):
             raise UserError(_("Please fill in the application ID of the message push"))
         else:
-            wxapi = CorpApi(corpid, secret)
             for batch_ids in self._split_by_server():
+                # TODO 待处理多公司-企业微信互联功能
                 self.browse(batch_ids)._send_wxwork_message(
-                    auto_commit=auto_commit,
-                    raise_exception=raise_exception,
-                    wxapi=wxapi,
+                    auto_commit=auto_commit, raise_exception=raise_exception,
                 )
                 _logger.info(
                     _("Sent batch %s messages"), len(batch_ids),
                 )
 
     def _send_wxwork_message(
-        self, auto_commit=False, raise_exception=False, wxapi=None
+        self, auto_commit=False, raise_exception=False,
     ):
+        print("发送消息")
+        IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
             success_pids = []
             failure_type = None
@@ -138,7 +240,7 @@ class MailMail(models.Model):
                 # body_text = mail.body_text or ""
 
                 email_list = []
-                if mail.email_to:
+                if mail.message_to_user:
                     email_list.append(mail._send_prepare_values())
                 for partner in mail.recipient_ids:
                     values = mail._send_prepare_values(partner=partner)
@@ -186,6 +288,58 @@ class MailMail(models.Model):
 
                 # 构建一个email.message.Message对象并发送它而不排队
                 res = None
+                for email in email_list:
+                    msg = IrWxWorkMessageApi.build_message(
+                        msgtype=mail.msgtype,
+                        toall=mail.message_to_all,
+                        touser=mail.message_to_user,
+                        toparty=mail.message_to_party,
+                        totag=mail.message_to_tag,
+                        subject=mail.subject,
+                        media_id=email.get("media_id"),
+                        body_html=email.get("body_html"),
+                        body_text=email.get("body_text"),
+                        safe=email.get("safe"),
+                        enable_id_trans=email.get("enable_id_trans"),
+                        enable_duplicate_check=email.get("enable_duplicate_check"),
+                        duplicate_check_interval=email.get("duplicate_check_interval"),
+                        message_id=mail.message_id,
+                    )
+                    print("构建消息", msg)
+                    processing_pid = email.pop("partner_id", None)
+                    try:
+                        res = IrWxWorkMessageApi.send_message(msg,)
+                        if processing_pid:
+                            success_pids.append(processing_pid)
+                        processing_pid = None
+                    except AssertionError as error:
+                        if str(error) == IrWxWorkMessageApi.NO_VALID_RECIPIENT:
+                            failure_type = "RECIPIENT"
+                            # No valid recipient found for this particular
+                            # mail item -> ignore error to avoid blocking
+                            # delivery to next recipients, if any. If this is
+                            # the only recipient, the mail will show as failed.
+                            _logger.info(
+                                "Ignoring invalid recipients for mail.mail %s: %s",
+                                mail.message_id,
+                                email.get("email_to"),
+                            )
+                        else:
+                            raise
+                if res:  # mail has been sent at least once, no major exception occured
+                    mail.write(
+                        {"state": "sent", "message_id": res, "failure_reason": False}
+                    )
+                    _logger.info(
+                        "Mail with ID %r and Message-Id %r successfully sent",
+                        mail.id,
+                        mail.message_id,
+                    )
+                    # /!\ can't use mail.state here, as mail.refresh() will cause an error
+                    # see revid:odo@openerp.com-20120622152536-42b2s28lvdv3odyr in 6.1
+                mail._postprocess_sent_wxwork_message(
+                    success_pids=success_pids, failure_type=failure_type
+                )
             except MemoryError:
                 # 防止捕获短暂的MemoryErrors，冒泡通知用户或中止cron作业，而不是将邮件标记为失败
                 _logger.exception(
@@ -195,3 +349,8 @@ class MailMail(models.Model):
                 )
                 # mail status will stay on ongoing since transaction will be rollback
                 raise
+
+            if auto_commit is True:
+                self._cr.commit()
+
+        return True

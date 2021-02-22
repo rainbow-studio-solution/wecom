@@ -42,14 +42,7 @@
             <field name="description"></field>
         </record>
 
-        <record id="auth_agentid" model="ir.config_parameter">
-            <field name="key">wxwork.auth_agentid</field>
-            <field name="value">1000002</field>
-        </record>
-        <record id="auth_secret" model="ir.config_parameter">
-            <field name="key">wxwork.auth_secret</field>
-            <field name="value">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</field>
-        </record>
+     
         <record id="auth_redirect_uri" model="ir.config_parameter">
             <field name="key">wxwork.auth_redirect_uri</field>
             <field name="value">http://xxx.xxx.com:port/wxowrk_auth_oauth/authorize</field>

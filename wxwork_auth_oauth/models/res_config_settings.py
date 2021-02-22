@@ -21,10 +21,15 @@ class ResConfigSettings(models.TransientModel):
 
     auth_agentid = fields.Char(
         "Agent Id",
+        default="0000000",
         help="The web application ID of the authorizing party, which can be viewed in the specific web application",
         config_parameter="wxwork.auth_agentid",
     )
-    auth_secret = fields.Char("Secret", config_parameter="wxwork.auth_secret",)
+    auth_secret = fields.Char(
+        "Secret",
+        config_parameter="wxwork.auth_secret",
+        default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    )
     auth_redirect_uri = fields.Char(
         "Callback link address redirected after authorization",
         help="Please use urlencode to process the link",

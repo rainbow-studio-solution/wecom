@@ -42,11 +42,6 @@
                                         <field name="model"/>
                                         <field name="res_id"/>
                                     </group>
-                                    <group string="Headers">
-                                        <field name="message_id"/>
-                                        <field name="references"/>
-                                        <field name="headers"/>
-                                    </group>
                                     <group string="Message options ">
                                         <field name="safe"/>
                                         <field name="enable_id_trans"/>

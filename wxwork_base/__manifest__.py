@@ -20,6 +20,7 @@
     "data": [
         "security/wxwork_security.xml",
         "data/ir_module_category_data.xml",
+        "views/res_company_views.xml",
         "views/res_config_settings_views.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
