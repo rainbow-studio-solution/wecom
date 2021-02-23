@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-
+import logging
 import json
 import requests
+
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -9,7 +12,6 @@ from odoo.addons.auth_signup.models.res_partner import SignupError, now
 
 from odoo.exceptions import AccessDenied
 
-import logging
 
 _logger = logging.getLogger(__name__)
 
@@ -161,7 +163,7 @@ class ResUsers(models.Model):
                         user.id, force_send=force_send, raise_exception=True
                     )
                 _logger.info(
-                    "Password reset email sent for user <%s> to <%s>",
+                    _("Password reset email sent for user <%s> to <%s>"),
                     user.login,
                     user.email,
                 )
@@ -170,3 +172,46 @@ class ResUsers(models.Model):
         """
         发送未注册的用户提醒 消息
         """
+        datetime_min = fields.Datetime.today() - relativedelta(days=after_days)
+        datetime_max = datetime_min + relativedelta(hours=23, minutes=59, seconds=59)
+
+        res_users_with_details = self.env["res.users"].search_read(
+            [
+                ("share", "=", False),
+                ("create_uid.email", "!=", False),
+                ("create_date", ">=", datetime_min),
+                ("create_date", "<=", datetime_max),
+                ("log_ids", "=", False),
+            ],
+            ["create_uid", "name", "login"],
+        )
+
+        # 分组邀请
+        invited_users = defaultdict(list)
+        for user in res_users_with_details:
+            invited_users[user.get("create_uid")[0]].append(
+                "%s (%s)" % (user.get("name"), user.get("login"))
+            )
+
+        # 用于向所有邀请者发送有关其邀请用户的邮件
+        for user in invited_users:
+            if user.notification_type == "wxwork":
+                # 通知方式为企业微信
+                message_template = self.env.ref(
+                    "wxwork_auth_oauth.message_template_data_unregistered_users"
+                ).with_context(
+                    dbname=self._cr.dbname, invited_users=invited_users[user]
+                )
+                message_template.send_message(
+                    user, notif_layout="mail.mail_notification_light", force_send=False
+                )(user, notif_layout="mail.mail_notification_light", force_send=False)
+            else:
+                mail_template = self.env.ref(
+                    "auth_signup.mail_template_data_unregistered_users"
+                ).with_context(
+                    dbname=self._cr.dbname, invited_users=invited_users[user]
+                )
+                mail_template.send_mail(
+                    user, notif_layout="mail.mail_notification_light", force_send=False
+                )
+

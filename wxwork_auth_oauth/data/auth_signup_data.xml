@@ -24,7 +24,7 @@
                         ${object.name}
                     </span>
                 </td><td valign="middle" align="right">
-                    <img src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
+                    <img id="logo" src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
                 </td></tr>
                 <tr><td colspan="2" style="text-align:center;">
                   <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
@@ -108,7 +108,7 @@
             <field name="name">Auth Signup: Odoo Connection</field>
             <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
-            <field name="media_id" ref="wxwork_material.wxwork_material_image_reset_password"/>
+            <field name="media_id" ref="wxwork_material.message_template_user_signup_account_created"/>
             <field name="subject">${object.create_uid.name} from ${object.company_id.name} invites you to connect to Odoo</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="body_html" type="html">
@@ -125,7 +125,7 @@
                         ${object.name}
                     </span>
                 </td><td valign="middle" align="right">
-                    <img src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
+                    <img id="logo" src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
                 </td></tr>
                 <tr><td colspan="2" style="text-align:center;">
                   <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>
@@ -206,7 +206,7 @@
         </record>
 
         <!-- 用于提醒未注册用户的消息模板-->
-        <record id="mail_template_data_unregistered_users" model="wxwork.message.template">
+        <record id="message_template_data_unregistered_users" model="wxwork.message.template">
             <field name="name">Auth Signup: Unregistered Users</field>
             <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
@@ -283,7 +283,7 @@
                         ${object.name}
                     </span>
                 </td><td valign="middle" align="right">
-                    <img src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
+                    <img id="logo" src="/logo.png?company=${object.company_id.id}" style="padding: 0px; margin: 0px; height: auto; width: 80px;" alt="${object.company_id.name}"/>
                 </td></tr>
                 <tr><td colspan="2" style="text-align:center;">
                   <hr width="100%" style="background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;"/>

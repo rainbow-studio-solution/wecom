@@ -6,6 +6,8 @@ from odoo import api, models, _
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
+from datetime import datetime, timedelta
+import pytz
 
 _logger = logging.getLogger(__name__)
 
@@ -72,38 +74,37 @@ class WxWorkMessageApi(models.AbstractModel):
             "toparty": "" if toall else toparty,
             "totag": "" if toall else totag,
             "msgtype": msgtype,
-            "agentid": agentid,
+            "agentid": int(agentid),
         }
         messages.update(messages_content)
         messages.update(messages_options)
         return messages
 
-    def send_by_api(self, message_):
-        # print(params)
+    def send_by_api(self, message):
+        # print("message", message)
         sys_params = self.env["ir.config_parameter"].sudo()
         corpid = sys_params.get_param("wxwork.corpid")
-        agentid = sys_params.get_param("wxwork.message_agentid")
         secret = sys_params.get_param("wxwork.message_secret")
-        debug = sys_params.get_param("wxwork.debug_enabled")
         wxapi = CorpApi(corpid, secret)
-
-        try:
-            response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message_)
-            return response.get("errcode")
-        except ApiException as e:
-            _logger.exception(
-                _(
-                    "Send Error , error: %s",
-                    (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-                )
-            )
-            if debug:
-                print(
-                    _(
-                        "Send Error , error: %s",
-                        (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-                    )
-                )
+        response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
+        return response
+        # try:
+        #     response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
+        #     return response
+        # except ApiException as e:
+        #     _logger.exception(
+        #         _(
+        #             "Send message error, error: %s",
+        #             (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
+        #         )
+        # )
+        # if debug:
+        #     print(
+        #         _(
+        #             "Send Error , error: %s",
+        #             (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
+        #         )
+        #     )
 
     @api.model
     def send_message(self, message):
@@ -132,6 +133,8 @@ class WxWorkMessageApi(models.AbstractModel):
         subject=None,
         media_id=None,
     ):
+        if media_id:
+            media_id = self.check_material_file_expiration(media_id)
         messages_content = {}
         if msgtype == "text":
             # 文本消息
@@ -170,9 +173,9 @@ class WxWorkMessageApi(models.AbstractModel):
         duplicate_check_interval=None,
     ):
         messages_options = {
-            "safe": safe,
-            "enable_id_trans": enable_id_trans,
-            "enable_duplicate_check": enable_duplicate_check,
+            "safe": int(safe),
+            "enable_id_trans": int(enable_id_trans),
+            "enable_duplicate_check": int(enable_duplicate_check),
             "duplicate_check_interval": duplicate_check_interval,
         }
 
@@ -182,3 +185,36 @@ class WxWorkMessageApi(models.AbstractModel):
             del messages_options[enable_id_trans]
 
         return messages_options
+
+    def check_material_file_expiration(self, media_id):
+        """
+        检查素材文件是否过期
+        """
+        material_info = (
+            self.env["wxwork.material"]
+            .sudo()
+            .browse(int(media_id))
+            .read(["media_id", "created_at"])
+        )
+
+        material_id = material_info[0]["media_id"]
+
+        MAX_FAIL_TIME = 3
+        created_time = str(material_info[0]["created_at"])
+
+        tz = self.env.user.tz or "Asia/Shanghai"
+        now_local_time = datetime.now(pytz.timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
+
+        print(created_time, now_local_time)
+        overdue = self.env["wxwork.tools"].cheeck_overdue(
+            created_time, str(now_local_time), MAX_FAIL_TIME
+        )
+        if overdue:
+            # 临时素材超期处理
+            material = (
+                self.env["wxwork.material"].sudo().browse(int(media_id)).upload_media()
+            )
+
+            return material.media_id
+        return material_id
+

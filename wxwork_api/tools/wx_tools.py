@@ -9,6 +9,7 @@ import platform
 from passlib.context import CryptContext
 
 from odoo import api, models, tools
+from datetime import datetime, timedelta
 
 
 class WxTools(models.AbstractModel):
@@ -17,6 +18,22 @@ class WxTools(models.AbstractModel):
     # def __init__(self, value):
     #     self.value = value
     #     self.result = None
+
+    def cheeck_overdue(self, datetime_start_str, datetime_end_str, maxtime):
+        """
+        检查是否超期
+        :return: True: 超期
+                 False：未超期
+        """
+        DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+        start_time = datetime.strptime(datetime_start_str, DATETIME_FORMAT)
+        end_time = datetime.strptime(datetime_end_str, DATETIME_FORMAT)
+        print(start_time, end_time)
+        diff = end_time - start_time
+        if diff < timedelta(days=maxtime):
+            return True
+        else:
+            return False
 
     def path_is_exists(self, path, subpath):
         """

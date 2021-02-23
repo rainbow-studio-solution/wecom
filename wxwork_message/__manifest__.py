@@ -23,7 +23,7 @@
         "wxwork_material",
         "wxwork_hr_syncing",
     ],
-    "external_dependencies": {"python": ["html2text"],},
+    "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
         "security/ir.model.access.csv",
         # "data/wxwork_message_data.xml",

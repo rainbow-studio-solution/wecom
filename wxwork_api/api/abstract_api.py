@@ -159,7 +159,8 @@ class AbstractApi(object):
         if errCode is 0:
             return response
         else:
-            raise ApiException(errCode, errMsg)
+            return response
+            # return ApiException(errCode, errMsg)
         # raise UserError(ApiException(errCode, errMsg))
         # raise UserError(
         #     _("Error code: %s \nError description: %s \nError Details:\n%s")

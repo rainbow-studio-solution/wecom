@@ -18,7 +18,7 @@
     "depends": ["auth_oauth", "wxwork_hr_syncing", "wxwork_message",],
     "data": [
         "data/wxwork_oauth_data.xml",
-        "data/wxwork_message_data.xml",
+        "data/auth_signup_data.xml",
         "data/ir_cron_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",

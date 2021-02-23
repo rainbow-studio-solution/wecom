@@ -7,6 +7,9 @@ import subprocess
 import logging
 import time
 from pydub import AudioSegment
+from datetime import datetime, timedelta
+import pytz
+
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError, Warning
 
@@ -79,12 +82,29 @@ class WxWorkMaterial(models.Model):
             )
 
     def upload_media(self):
-        if self.media_id or self.img_url:
+        if self.img_url:
             raise UserError(
                 _(
                     "Already uploaded, please do not upload again! You can create a new record to upload the file."
                 )
             )
+        if self.created_at:
+            created_time = self.created_at
+            tz = self.env.user.tz or "Asia/Shanghai"
+            now_local_time = datetime.now(pytz.timezone(tz)).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
+            overdue = self.env["wxwork.tools"].cheeck_overdue(
+                str(created_time), str(now_local_time), 3
+            )
+            if overdue:
+                pass
+            else:
+                raise UserError(
+                    _(
+                        "The temporary material has not expired, please do not upload it repeatedly."
+                    )
+                )
         if self.media_file:
             sys_params = self.env["ir.config_parameter"].sudo()
             corpid = sys_params.get_param("wxwork.corpid")
@@ -167,6 +187,8 @@ class WxWorkMaterial(models.Model):
                     )
         else:
             raise UserError(_("Please upload files!"))
+
+        return self
 
     @api.model
     def create(self, vals):

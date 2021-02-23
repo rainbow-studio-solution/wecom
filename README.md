@@ -123,8 +123,8 @@ UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector'
    # ffmpeg
    apt-get install ffmpeg libavcodec-extra
 
-   # pydub
-   pip install pydub
+   # pip
+   pip install ffmpy pydub requests_toolbelt
    ```
 
 ### 企业微信消息推送

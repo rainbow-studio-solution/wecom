@@ -2,7 +2,9 @@
 
 import base64
 import logging
-
+from lxml import etree, html
+from html.parser import HTMLParser
+import lxml.html
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
 
@@ -247,7 +249,6 @@ class WxWorkMessageTemplate(models.Model):
         for lang, (template, template_res_ids) in self._classify_per_lang(
             res_ids
         ).items():
-            # print("template", template)
             for field in fields:
                 template = template.with_context(safe=(field == "subject"))
                 generated_field_values = template._render_field(
@@ -266,6 +267,11 @@ class WxWorkMessageTemplate(models.Model):
             for res_id in template_res_ids:
                 values = results[res_id]
                 if values.get("body_html"):
+                    # 替换html文本的中的logo图片为企业微信永久图片URL
+                    logo_stc = '<img id="logo"'
+                    self.replace_body_html_logo(logo_stc, values["body_html"])
+
+                    # 删除html标记内的编码属性
                     values["body_html"] = tools.html_sanitize(values["body_html"])
 
                 # 技术设置
@@ -276,6 +282,46 @@ class WxWorkMessageTemplate(models.Model):
                 )
 
         return multi_mode and results or results[res_ids[0]]
+
+    def replace_body_html_logo(self, logo, body):
+        if logo in body:
+            # 获取LOGO 素材
+            ir_model_data = self.env["ir.model.data"]
+            material_id = ir_model_data.get_object_reference(
+                "wxwork_material", "wxwork_material_image_logo"
+            )[1]
+
+            material_info = (
+                self.env["wxwork.material"].sudo().browse(material_id).read(["img_url"])
+            )
+            img_url = material_info[0]["img_url"]
+
+            if img_url:
+                material_logo = img_url
+            else:
+                material_logo = (
+                    self.env["wxwork.material"]
+                    .sudo()
+                    .browse(material_id)
+                    .upload_media()
+                    .img_url
+                )
+
+            # 替换包含 'id="logo"'的HTML IMG 标签
+            logo_str = 'str="%s"' % material_logo
+
+            # html = etree.HTML(body)
+            tree = html.fromstring(body)
+            img_src = tree.xpath("//img[@id='logo']")
+            logo_element = tree.xpath("//img[@id='logo']")[0]
+
+            for attribute in logo_element:
+                pass
+            logo_element_text = HTMLParser().unescape(
+                html.tostring(logo_element).decode()
+            )
+
+            print(logo_element_text, type(logo_element_text))
 
     # ------------------------------------------------------------
     # 企业微信消息
@@ -328,8 +374,11 @@ class WxWorkMessageTemplate(models.Model):
         )
         values["notification_type"] = "wxwork"  # 指定通知方式
         values["message_type"] = "wxwork"  # 指定邮件消息类型
+        if values.get("media_id"):
+            values["media_id"] = self.media_id.id  # 指定对应的素材id
+
         values.update(message_values or {})
-        # print("values", values)
+
         # 封装消息内容
         if values["msgtype"] == "mpnews":
             if notif_layout and values["body_html"]:
@@ -366,6 +415,7 @@ class WxWorkMessageTemplate(models.Model):
                         "mail.render.mixin"
                     ]._replace_local_links(body)
         else:
+            # TODO:待处理文本格式
             pass
 
         mail = self.env["mail.mail"].sudo().create(values)

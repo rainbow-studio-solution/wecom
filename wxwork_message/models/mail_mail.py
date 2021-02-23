@@ -221,7 +221,7 @@ class MailMail(models.Model):
     def _send_wxwork_message(
         self, auto_commit=False, raise_exception=False,
     ):
-        # print("发送消息")
+
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
             mail = self.browse(mail_id)
@@ -247,6 +247,23 @@ class MailMail(models.Model):
                 enable_duplicate_check=mail.enable_duplicate_check,
                 duplicate_check_interval=mail.duplicate_check_interval,
             )
-            print("_send_wxwork_message", msg)
+            try:
+                res = IrWxWorkMessageApi.send_by_api(msg)
+                if res.get("errcode"):
+                    print("发送成功", res)
+                    if res.get("errcode") == 0:
+                        print("发送成功", res)
+                        # 发送成功
+                        pass
+                    else:
+                        print("发送错误1", res)
+                        # 发送错误
+                        pass
+                else:
+                    print("发送错误2", res)
+                    pass
+
+            except AssertionError as error:
+                pass
 
         return True

@@ -2,6 +2,14 @@
 <odoo>
     <data noupdate="1">
 
+        <record id="wxwork_material_image_logo" model="wxwork.material">
+            <field name="name">Logo</field>
+            <field name="media_type">image</field>
+            <field name="temporary" eval="False"/>
+            <field name="media_file" type="base64" file="wxwork_material/static/src/img/logo.png"/>
+            <field name="media_filename">logo.png</field>
+        </record>
+
         <record id="wxwork_material_image_welcome" model="wxwork.material">
             <field name="name">Welcome</field>
             <field name="media_type">image</field>
