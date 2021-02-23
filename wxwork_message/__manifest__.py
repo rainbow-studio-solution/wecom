@@ -26,7 +26,7 @@
     "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
         "security/ir.model.access.csv",
-        # "data/wxwork_message_data.xml",
+
         "wizard/wxwork_message_template_preview_views.xml",
         "views/assets_templates.xml",
         "views/wxwork_message_views.xml",
