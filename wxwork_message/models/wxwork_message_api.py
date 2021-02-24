@@ -199,22 +199,33 @@ class WxWorkMessageApi(models.AbstractModel):
 
         material_id = material_info[0]["media_id"]
 
-        MAX_FAIL_TIME = 3
-        created_time = str(material_info[0]["created_at"])
-
-        tz = self.env.user.tz or "Asia/Shanghai"
-        now_local_time = datetime.now(pytz.timezone(tz)).strftime("%Y-%m-%d %H:%M:%S")
-
-        print(created_time, now_local_time)
-        overdue = self.env["wxwork.tools"].cheeck_overdue(
-            created_time, str(now_local_time), MAX_FAIL_TIME
-        )
-        if overdue:
-            # 临时素材超期处理
+        if material_info[0]["created_at"]:
+            # 有创建日期
+            created_time = str(material_info[0]["created_at"])
+            MAX_FAIL_TIME = 3
+            tz = self.env.user.tz or "Asia/Shanghai"
+            now_local_time = datetime.now(pytz.timezone(tz)).strftime(
+                "%Y-%m-%d %H:%M:%S"
+            )
+            print(created_time, now_local_time)
+            # 检查是否超过3天
+            overdue = self.env["wxwork.tools"].cheeck_overdue(
+                created_time, str(now_local_time), MAX_FAIL_TIME
+            )
+            if overdue:
+                # 临时素材超期，重新上传
+                material = (
+                    self.env["wxwork.material"]
+                    .sudo()
+                    .browse(int(media_id))
+                    .upload_media()
+                )
+                material_id = material.media_id
+        else:
+            # 无创建日期，执行第一次上传临时素材
             material = (
                 self.env["wxwork.material"].sudo().browse(int(media_id)).upload_media()
             )
-
-            return material.media_id
+            material_id = material.media_id
         return material_id
 

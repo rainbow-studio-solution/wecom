@@ -266,10 +266,11 @@ class WxWorkMessageTemplate(models.Model):
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
+
                 if values.get("body_html"):
-                    # 替换html文本的中的logo图片为企业微信永久图片URL
-                    logo_stc = '<img id="logo"'
-                    self.replace_body_html_logo(logo_stc, values["body_html"])
+                    # TODO: 替换html文本的中的logo图片为企业微信永久图片URL
+                    # logo_stc = '<img id="logo"'
+                    # self.replace_body_html_logo(logo_stc, values["body_html"])
 
                     # 删除html标记内的编码属性
                     values["body_html"] = tools.html_sanitize(values["body_html"])
