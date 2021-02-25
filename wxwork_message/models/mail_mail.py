@@ -6,7 +6,7 @@ import threading
 from odoo import _, api, fields, models
 from odoo import tools
 from odoo.exceptions import UserError
-from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 _logger = logging.getLogger(__name__)
 
@@ -14,13 +14,6 @@ _logger = logging.getLogger(__name__)
 class MailMail(models.Model):
     _inherit = "mail.mail"
 
-    API_TO_MESSAGE_STATE = {
-        "success": "sent",
-        "invaliduser": "Invalid user",
-        "invalidparty": "Invalid Department",
-        "invalidtag": "Invalid Tag",
-        "other": "Other",
-    }
     msgtype = fields.Char(string="Message type",)
     media_id = fields.Char(string="Media file id",)
     message_to_all = fields.Boolean("To all members",)
@@ -147,6 +140,36 @@ class MailMail(models.Model):
     # ------------------------------------------------------
     # 消息格式、工具和发送机制
     # ------------------------------------------------------
+    def _send_message_prepare_body(self):
+        """
+        返回特定的ir_email正文。 继承此方法的主要目的是根据某些模块添加自定义内容。 
+        """
+        self.ensure_one()
+        return self.body_html or ""
+
+    def _send_message_prepare_values(self, partner=None):
+        """
+        根据合作伙伴返回特定电子邮件值的字典，或者返回由mail.message_to_user mail.message_to_party  mail.message_to_tag 给出的整个收件人通用的字典。
+        :param Model partner: 具体的收件人合作伙伴 
+        """
+        self.ensure_one()
+        body = self._send_message_prepare_body()
+        body_alternative = tools.html2plaintext(body)
+        if partner:
+            message_to_user = [
+                tools.formataddr(
+                    (partner.name or "False", partner.wxwork_id or "False")
+                )
+            ]
+        else:
+            message_to_user = tools.email_split_and_format(self.email_to)
+        res = {
+            "body": body,
+            "body_alternative": body_alternative,
+            "message_to_user": message_to_user,
+        }
+        return res
+
     def _send_wxwork_prepare_values(self, partner=None):
         """
         根据合作伙伴返回有关特定电子邮件值的字典，或者对整个邮件都是通用的。对于特定电子邮件值取决于对伙伴的字典，或者对mail.email_to给出的整个收件人来说都是通用的。 
@@ -221,49 +244,169 @@ class MailMail(models.Model):
     def _send_wxwork_message(
         self, auto_commit=False, raise_exception=False,
     ):
-
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
-            mail = self.browse(mail_id)
-            if mail.state != "outgoing":
-                if mail.state != "exception" and mail.auto_delete:
-                    mail.sudo().unlink()
-                continue
-
-            msg = IrWxWorkMessageApi.build_message(
-                msgtype=mail.msgtype,
-                toall=mail.message_to_all,
-                touser=mail.message_to_user,
-                toparty=mail.message_to_party,
-                totag=mail.message_to_tag,
-                subject=mail.subject,
-                media_id=mail.media_id,
-                description=mail.description,
-                author_id=mail.author_id,
-                body_html=mail.body_html,
-                body_text=mail.body_text,
-                safe=mail.safe,
-                enable_id_trans=mail.enable_id_trans,
-                enable_duplicate_check=mail.enable_duplicate_check,
-                duplicate_check_interval=mail.duplicate_check_interval,
-            )
+            success_pids = []
+            failure_type = None
+            processing_pid = None
+            mail = None
             try:
-                res = IrWxWorkMessageApi.send_by_api(msg)
-                if res.get("errcode"):
-                    print("发送成功", res)
-                    if res.get("errcode") == 0:
-                        print("发送成功", res)
-                        # 发送成功
+                mail = self.browse(mail_id)
+                if mail.state != "outgoing":
+                    if mail.state != "exception" and mail.auto_delete:
+                        mail.sudo().unlink()
+                    continue
+                # 为通知的合作伙伴自定义发送电子邮件的特定行为
+                email_list = []
+                if mail.message_to_user or mail.message_to_party or mail.message_to_tag:
+                    email_list.append(mail._send_message_prepare_values())
+                for partner in mail.recipient_ids:
+                    values = mail._send_message_prepare_values(partner=partner)
+                    values["partner_id"] = partner
+                    email_list.append(values)
+
+                # 在邮件对象上写入可能会失败（例如锁定用户），这将在*实际发送电子邮件后触发回滚。
+                # 为了避免两次发送同一封电子邮件，请尽早引发失败
+                mail.write(
+                    {
+                        "state": "exception",
+                        "failure_reason": _(
+                            "Error without exception. Probably due do sending an email without computed recipients."
+                        ),
+                    }
+                )
+                # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
+                notifs = self.env["mail.notification"].search(
+                    [
+                        ("notification_type", "=", "wxwork"),
+                        ("mail_id", "in", mail.ids),
+                        ("notification_status", "not in", ("sent", "canceled")),
+                    ]
+                )
+                if notifs:
+                    notif_msg = _(
+                        "Error without exception. Probably due do concurrent access update of notification records. Please see with an administrator."
+                    )
+                    notifs.sudo().write(
+                        {
+                            "notification_status": "exception",
+                            "failure_type": "UNKNOWN",
+                            "failure_reason": notif_msg,
+                        }
+                    )
+                    # `test_mail_bounce_during_send`，强制立即更新以获取锁定。
+                    # 见修订版。56596e5240ef920df14d99087451ce6f06ac6d36
+                    notifs.flush(
+                        fnames=[
+                            "notification_status",
+                            "failure_type",
+                            "failure_reason",
+                        ],
+                        records=notifs,
+                    )
+                # 建立电子邮件.message.message对象并在不排队的情况下发送它
+                res = None
+                for email in email_list:
+                    msg = IrWxWorkMessageApi.build_message(
+                        msgtype=mail.msgtype,
+                        toall=mail.message_to_all,
+                        touser=mail.message_to_user,
+                        toparty=mail.message_to_party,
+                        totag=mail.message_to_tag,
+                        subject=mail.subject,
+                        media_id=mail.media_id,
+                        description=mail.description,
+                        author_id=mail.author_id,
+                        body_html=mail.body_html,
+                        body_text=mail.body_text,
+                        safe=mail.safe,
+                        enable_id_trans=mail.enable_id_trans,
+                        enable_duplicate_check=mail.enable_duplicate_check,
+                        duplicate_check_interval=mail.duplicate_check_interval,
+                    )
+                    processing_pid = email.pop("partner_id", None)
+                    try:
+                        res = IrWxWorkMessageApi.send_by_api(msg)
+                        if processing_pid:
+                            success_pids.append(processing_pid)
+                        processing_pid = None
+                    except AssertionError as error:
                         pass
-                    else:
-                        print("发送错误1", res)
-                        # 发送错误
-                        pass
+
+                if res:  # 消息已至少发送一次，未发生重大异常
+                    if "errcode" in res:
+                        if res.get("errcode") == 0:
+                            failure_reason = ""
+                            # 处理无效的接收人
+                            if "invaliduser" in res:
+                                if res.get("invaliduser") != "":
+                                    failure_reason += _(
+                                        "Unable to send to invalid user: %s\n"
+                                    ) % res.get("invaliduser")
+                            if "invalidparty" in res:
+                                if res.get("invalidparty") != "":
+                                    failure_reason += _(
+                                        "Unable to send to invalid department: %s\n"
+                                    ) % res.get("invalidparty")
+                            if "invalidtag" in res:
+                                if res.get("invalidtag") != "":
+                                    failure_reason += _(
+                                        "Unable to send to invalid tag: %s"
+                                    ) % res.get("invalidtag")
+                            mail.write(
+                                {
+                                    "state": "sent",
+                                    "message_id": res,
+                                    "failure_reason": failure_reason,
+                                }
+                            )
+
+                            _logger.info(
+                                _(
+                                    "Message with ID %r and Message-Id %r successfully sent",
+                                    mail.id,
+                                    mail.message_id,
+                                )
+                            )
+                        else:
+                            failure_reason = _(
+                                "Error code: %s,\nError description: %s,\nError Details: %s"
+                            ) % (
+                                str(res.get("errcode")),
+                                Errcode.getErrcode(res.get("errcode")),
+                                res.get("errmsg"),
+                            )
+                            _logger.exception(
+                                _("failed sending message (id: %s) due to %s")
+                                % (mail.id, failure_reason,)
+                            )
+                            mail.write(
+                                {
+                                    "state": "exception",
+                                    "failure_reason": failure_reason,
+                                }
+                            )
                 else:
-                    print("发送错误2", res)
-                    pass
+                    failure_reason = _("Unknown reason")
+                    _logger.exception(
+                        _("failed sending message (id: %s) due to %s")
+                        % (mail.id, failure_reason,)
+                    )
+                    mail.write(
+                        {"state": "exception", "failure_reason": failure_reason,}
+                    )
+            except MemoryError:
+                # prevent catching transient MemoryErrors, bubble up to notify user or abort cron job
+                # instead of marking the mail as failed
+                _logger.exception(
+                    "MemoryError while processing mail with ID %r and Msg-Id %r. Consider raising the --limit-memory-hard startup option",
+                    mail.id,
+                    mail.message_id,
+                )
+                # mail status will stay on ongoing since transaction will be rollback
+                raise
 
-            except AssertionError as error:
-                pass
-
+            if auto_commit is True:
+                self._cr.commit()
         return True
+

@@ -81,30 +81,13 @@ class WxWorkMessageApi(models.AbstractModel):
         return messages
 
     def send_by_api(self, message):
-        # print("message", message)
+
         sys_params = self.env["ir.config_parameter"].sudo()
         corpid = sys_params.get_param("wxwork.corpid")
         secret = sys_params.get_param("wxwork.message_secret")
         wxapi = CorpApi(corpid, secret)
         response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
         return response
-        # try:
-        #     response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
-        #     return response
-        # except ApiException as e:
-        #     _logger.exception(
-        #         _(
-        #             "Send message error, error: %s",
-        #             (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-        #         )
-        # )
-        # if debug:
-        #     print(
-        #         _(
-        #             "Send Error , error: %s",
-        #             (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg),
-        #         )
-        #     )
 
     @api.model
     def send_message(self, message):
@@ -207,7 +190,7 @@ class WxWorkMessageApi(models.AbstractModel):
             now_local_time = datetime.now(pytz.timezone(tz)).strftime(
                 "%Y-%m-%d %H:%M:%S"
             )
-            print(created_time, now_local_time)
+
             # 检查是否超过3天
             overdue = self.env["wxwork.tools"].cheeck_overdue(
                 created_time, str(now_local_time), MAX_FAIL_TIME
