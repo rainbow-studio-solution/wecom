@@ -2,6 +2,8 @@
 
 **不知道如何使用，请看帮助文件或者Wiki**
 
+**目前在Wiki中，逐步完善使用文档**
+
 
 ## 项目地址
 [![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wxwork)
