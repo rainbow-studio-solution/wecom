@@ -14,7 +14,7 @@
                                 groups="base.group_system"
                                 class="oe_stat_button"
                                 attrs="{'invisible':[('sidebar_action_id','!=',False)]}" icon="fa-plus"
-                                help="Add a contextual action on the related model to open a sms composer with this template">
+                                help="Add a contextual action on the related model to open a message composer with this template">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Add</span>
                                     <span class="o_stat_text">Context Action</span>

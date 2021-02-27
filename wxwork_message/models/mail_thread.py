@@ -77,6 +77,175 @@ class MailThread(models.AbstractModel):
     # MESSAGE POST API
     # ------------------------------------------------------
 
+    @api.returns("mail.message", lambda value: value.id)
+    def message_post(
+        self,
+        *,
+        body="",
+        subject=None,
+        message_type="notification",
+        email_from=None,
+        author_id=None,
+        parent_id=False,
+        subtype_xmlid=None,
+        subtype_id=False,
+        partner_ids=None,
+        channel_ids=None,
+        attachments=None,
+        attachment_ids=None,
+        add_sign=True,
+        record_name=False,
+        **kwargs
+    ):
+        """ 
+        在现有线程中发布新消息，并返回新的mail.message ID。 
+        :param str body: 邮件正文，通常是原始HTML，将被清理消毒
+        :param str subject: 消息的主题 
+        :param str message_type: 请参阅mail_message.message_type字段。 可以是user_notification以外的任何内容，保留给message_notify 
+        :param int parent_id: 处理线程队列
+        :param int subtype_id: 消息的subtype_id，主要用于关注者机制 
+        :param list(int) partner_ids: partner_ids通知 
+        :param list(int) channel_ids: channel_ids通知 
+        :param list(tuple(str,str), tuple(str,str, dict) or int) attachments : 以``(name,content)``或 ``(name,content, info)`` 形式的附件元组列表，其中content不是base64编码的 
+        :param list id attachment_ids: 链接到此消息的现有附件列表 
+            - 只能由聊天设定 
+            - 附加到mail.compose.message（0）的附件对象将被附加到相关文档。 
+        额外的关键字参数将用作新mail.message记录的默认列值。 
+        :return int: ID of newly created mail.message
+        """
+        self.ensure_one()  # 应始终记录在记录上，如果没有记录，请使用message_notify
+        # 从通知附加值中拆分消息附加值
+        msg_kwargs = dict(
+            (key, val)
+            for key, val in kwargs.items()
+            if key in self.env["mail.message"]._fields
+        )
+        notif_kwargs = dict(
+            (key, val) for key, val in kwargs.items() if key not in msg_kwargs
+        )
+
+        if (
+            self._name == "mail.thread"
+            or not self.id
+            or message_type == "user_notification"
+        ):
+            raise ValueError(
+                "message_post should only be call to post message on record. Use message_notify instead"
+            )
+
+        if "model" in msg_kwargs or "res_id" in msg_kwargs:
+            raise ValueError(
+                "message_post doesn't support model and res_id parameters anymore. Please call message_post on record."
+            )
+        if "subtype" in kwargs:
+            raise ValueError(
+                "message_post doesn't support subtype parameter anymore. Please give a valid subtype_id or subtype_xmlid value instead."
+            )
+
+        self = self._fallback_lang()  # 立即将lang添加到上下文中，因为在以后的各种流程中它将很有用。
+
+        # 显式访问权限检查，因为display_name计算为sudo。
+        self.check_access_rights("read")
+        self.check_access_rule("read")
+        record_name = record_name or self.display_name
+
+        partner_ids = set(partner_ids or [])
+        channel_ids = set(channel_ids or [])
+
+        if any(not isinstance(pc_id, int) for pc_id in partner_ids | channel_ids):
+            raise ValueError(
+                "message_post partner_ids and channel_ids must be integer list, not commands"
+            )
+
+        # if self.wxwork_id:
+        #     print("message_post", self.wxwork_id)
+        # else:
+        # 查找邮件的作者
+        author_id, email_from = self._message_compute_author(
+            author_id, email_from, raise_exception=True
+        )
+
+        if subtype_xmlid:
+            subtype_id = self.env["ir.model.data"].xmlid_to_res_id(subtype_xmlid)
+        if not subtype_id:
+            subtype_id = self.env["ir.model.data"].xmlid_to_res_id("mail_mt_note")
+
+        # 根据要求自动订阅收件人
+        if self._context.get("mail_post_autofollow") and partner_ids:
+            self.message_subscribe(list(partner_ids))
+
+        MailMessage_sudo = self.env["mail.message"].sudo()
+        if self._mail_flat_thread and not parent_id:
+            parent_message = MailMessage_sudo.search(
+                [
+                    ("res_id", "=", self.id),
+                    ("model", "=", self._name),
+                    ("message_type", "!=", "user_notification"),
+                ],
+                order="id ASC",
+                limit=1,
+            )
+            # parent_message在sudo中搜索性能，仅用于id。
+            # 请注意，使用sudo我们将使消息与内部子类型匹配。
+            parent_id = parent_message.id if parent_message else False
+        elif parent_id:
+            old_parent_id = parent_id
+            parent_message = MailMessage_sudo.search(
+                [("id", "=", parent_id), ("parent_id", "!=", False)], limit=1
+            )
+            # avoid loops when finding ancestors
+            processed_list = []
+            if parent_message:
+                new_parent_id = parent_message.parent_id and parent_message.parent_id.id
+                while new_parent_id and new_parent_id not in processed_list:
+                    processed_list.append(new_parent_id)
+                    parent_message = parent_message.parent_id
+                parent_id = parent_message.id
+
+        values = dict(msg_kwargs)
+        values.update(
+            {
+                "author_id": author_id,
+                "email_from": email_from,
+                "model": self._name,
+                "res_id": self.id,
+                "body": body,
+                "subject": subject or False,
+                "message_type": message_type,
+                "parent_id": parent_id,
+                "subtype_id": subtype_id,
+                "partner_ids": partner_ids,
+                "channel_ids": channel_ids,
+                "add_sign": add_sign,
+                "record_name": record_name,
+            }
+        )
+        attachments = attachments or []
+        attachment_ids = attachment_ids or []
+        attachement_values = self._message_post_process_attachments(
+            attachments, attachment_ids, values
+        )
+        values.update(attachement_values)  # attachement_ids, [body]
+
+        new_message = self._message_create(values)
+
+        # 如有必要，设置主附件字段
+        self._message_set_main_attachment_id(values["attachment_ids"])
+
+        if (
+            values["author_id"]
+            and values["message_type"] != "notification"
+            and not self._context.get("mail_create_nosubscribe")
+        ):
+            if (
+                self.env["res.partner"].browse(values["author_id"]).active
+            ):  # 我们不想将odoobot / inactive添加为关注者
+                self._message_subscribe([values["author_id"]])
+
+        self._message_post_after_hook(new_message, values)
+        self._notify_thread(new_message, values, **notif_kwargs)
+        return new_message
+
     # ------------------------------------------------------
     # 消息发布工具
     # MESSAGE POST TOOLS

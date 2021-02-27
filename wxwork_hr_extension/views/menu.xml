@@ -102,7 +102,7 @@
         <menuitem 
             id="menu_wxwork_hr_recruitment_configuration" 
             name="Recruitment Configuration" 
-            parent="wxwork_base.menu_wxwork_manager_configuration" 
+            parent="wxwork_smart_hrm.menu_wxwork_manager_configuration" 
             sequence="2"/>
 
             <menuitem 
