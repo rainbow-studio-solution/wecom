@@ -23,36 +23,51 @@ class ResConfigSettings(models.TransientModel):
         # debug = ir_config.get_param("wxwork.debug_enabled")
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
-        elif self.contacts_secret == False:
+        elif (
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" in secret
+            or self.contacts_secret == False
+        ):
             raise UserError(_("Please fill in the contact Secret correctly."))
         else:
             params = {}
+            wxapi = CorpApi(corpid, secret)
             try:
-                wxapi = CorpApi(corpid, secret)
-                params = {
-                    "title": _("Success"),
-                    "message": _(
-                        "Successfully obtained corporate WeChat contact token."
-                    ),
-                    "sticky": False,  # 延时关闭
-                    "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                }
-                self.env["ir.config_parameter"].sudo().set_param(
-                    "wxwork.contacts_access_token", wxapi.getAccessToken()
+                response = wxapi.httpCall(
+                    CORP_API_TYPE["GET_ACCESS_TOKEN"],
+                    {"corpid": corpid, "corpsecret": secret,},
                 )
-                action = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": params["title"],
-                        "type": "success",
-                        "message": params["message"],
-                        "sticky": params["sticky"],
-                        "next": params["next"],
-                    },
-                }
-                return action
+                if "errcode" in str(response):
+                    if response["errcode"] == 0:
+                        params = {
+                            "title": _("Success"),
+                            "message": _(
+                                "Successfully obtained corporate WeChat contact token."
+                            ),
+                            "sticky": False,  # 延时关闭
+                            "className": "bg-success",
+                            "next": {
+                                "type": "ir.actions.client",
+                                "tag": "reload",
+                            },  # 刷新窗体
+                        }
+                        self.env["ir.config_parameter"].sudo().set_param(
+                            "wxwork.contacts_access_token", wxapi.getAccessToken()
+                        )
+                        action = {
+                            "type": "ir.actions.client",
+                            "tag": "display_notification",
+                            "params": {
+                                "title": params["title"],
+                                "type": "success",
+                                "message": params["message"],
+                                "sticky": params["sticky"],
+                                "next": params["next"],
+                            },
+                        }
+                        return action
+                else:
+                    raise UserError(_("Please fill in the contact Secret correctly."))
+
             except ApiException as ex:
                 params = {
                     "title": _("Failed"),

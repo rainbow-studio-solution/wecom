@@ -8,8 +8,6 @@ import json
 import requests
 from .error_code import *
 
-# from urllib.parse import urlencode
-
 
 def get_wxwork_debug(cr, registry):
     env = api.Environment(cr, SUPERUSER_ID, {})
@@ -159,8 +157,8 @@ class AbstractApi(object):
         if errCode is 0:
             return response
         else:
-            return response
-            # return ApiException(errCode, errMsg)
+            # return response
+            return ApiException(errCode, errMsg)
         # raise UserError(ApiException(errCode, errMsg))
         # raise UserError(
         #     _("Error code: %s \nError description: %s \nError Details:\n%s")
