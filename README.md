@@ -1,26 +1,12 @@
-`  # 企业微信 For Odoo 14.0
+# 企业微信 For Odoo 14.0
 
 **不知道如何使用，请看帮助文件或者Wiki**
 
-```bash
-load could not load template
-ValueError: 元素 '<xpath expr="//*[hasclass('o_footer_copyright_name')]">' 在母级视图中没有找到
-
-检查是portal一个视图错误，待odoo官方修复
-或者在未安装website相关模块下使用sql删除：
-DELETE FROM  "ir_ui_view" WHERE key='portal.footer_language_selector';
-在未安装website相关模块下使用sql更新：
-UPDATE "ir_ui_view" SET active = 'f' WHERE key='portal.footer_language_selector';
-
-不会写sql的，可以开启debug模式(url地址的web后面增加’?debug=1‘);
-打开odoo的设置-技术-用户菜单--视图，搜索：Footer Language Selector，找到外部id为：portal.footer_language_selector
-编辑设置有效为False
-```
 
 ## 项目地址
 [![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wxwork)
 [![Gitee](http://img.shields.io/badge/14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wxwork)
-[![WIKI](http://img.shields.io/badge/14.0-WIKI-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wxwork/wikis/%E5%89%8D%E8%A8%80?sort_id=3426654)
+[![WIKI](http://img.shields.io/badge/14.0-WIKI-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wxwork/wikis/pages/preview?sort_id=3640278&doc_id=424732)
 
 ## 项目介绍
 
