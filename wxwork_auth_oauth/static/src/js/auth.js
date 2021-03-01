@@ -4,8 +4,9 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
     var publicWidget = require('web.public.widget');
 
     var core = require('web.core');
-    var _t = core._t;
+
     var qweb = core.qweb;
+    var _t = core._t;
 
     publicWidget.registry.WxWorkAuth = publicWidget.Widget.extend({
         selector: '.o_login_auth',
@@ -24,8 +25,10 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
         is_wxwork_browser: function () {
             var self = this;
             var ua = navigator.userAgent.toLowerCase();
+            this.msg = "";
             let isWx = ua.match(/MicroMessenger/i) == "micromessenger";
             if (!isWx) {
+                this.msg = _t("The current browser is not an enterprise WeChat built-in browser, so the one-click login function cannot be used.");
                 return false;
             } else {
                 var dialog;
@@ -33,8 +36,10 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                 if (ua.match(/WxWork/i) == "wxwork") {
                     // 检测到是企业微信内置浏览器
                     this.isWxworkBrowser = true;
+                    this.msg = _t("Detected in the enterprise WeChat built-in browser to open the page, whether to sign in with one click.");
                     dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
-                        isWxworkBrowser: true
+                        isWxworkBrowser: true,
+                        msg: this.msg
                     }));
                     if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
                         dialog.appendTo($(document.body));
@@ -57,6 +62,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var self = this;
             var url = $(ev.target).attr('href');
             var icon = $(ev.target).find("i")
+            var msg = "";
             if (icon.hasClass("fa-qrcode")) {
                 var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
                     url: url
@@ -71,7 +77,8 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                     window.open(url);
                 } else {
                     var dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
-                        isWxworkBrowser: self.isWxworkBrowser
+                        isWxworkBrowser: self.isWxworkBrowser,
+                        msg: this.msg
                     }));
                     if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
                         dialog.appendTo($(document.body));

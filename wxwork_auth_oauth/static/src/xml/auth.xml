@@ -27,11 +27,8 @@
             <div class="modal-dialog" style="top:100px;">
                 <div class="modal-content border-0" style="background-color:transparent">
                     <main class="modal-body" style="background-color:#FFFFFF">
-                        <div t-if="isWxworkBrowser" class="text-center font-weight-bold text-success">
-                            Detected in the enterprise WeChat built-in browser to open the page, whether to sign in with one click.
-                        </div>
-                        <div t-else="" class="text-center font-weight-bold text-danger">
-                            The current browser is not an enterprise WeChat built-in browser, so the one-click login function cannot be used.
+                        <div t-att-class="'text-center font-weight-bold text-'+ (isWxworkBrowser ? ' success' : 'danger')">
+                            <t t-esc="msg"/>
                         </div>
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">

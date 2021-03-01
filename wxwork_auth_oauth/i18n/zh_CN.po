@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-24 17:29+0000\n"
-"PO-Revision-Date: 2021-02-25 01:50+0800\n"
+"POT-Creation-Date: 2021-03-01 10:00+0000\n"
+"PO-Revision-Date: 2021-03-01 18:18+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -364,8 +364,6 @@ msgid ""
 "align:left;\">\n"
 "                                                        <br/>\n"
 "                                                        Dear ${object.name},<br/><br/>\n"
-"                                                        You may change your password by "
-"following this link which will\n"
 "                                                        You have been invited by ${object."
 "create_uid.name} of ${object.company_id.name} to connect on Odoo.<br/>\n"
 "                                                        <div style=\"margin: 16px 0px 16px 0px;"
@@ -374,7 +372,7 @@ msgid ""
 "style=\"background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: "
 "#fff; border-radius: 0px; font-size:13px;\">Accept invitation</a>\n"
 "                                                        </div>\n"
-"                                                         % set website_url = object.env['ir."
+"                                                        % set website_url = object.env['ir."
 "config_parameter'].sudo().get_param('web.base.url')\n"
 "                                                        Your Odoo domain is: <b><a href="
 "\"${website_url}\">${website_url}</a></b><br/>\n"
@@ -485,13 +483,13 @@ msgstr ""
 "\">\n"
 "                                                            <a href=\"${object.signup_url}\" "
 "style=\"background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: "
-"#fff; border-radius: 0px; font-size:13px;\">接受邀请</a>\n"
+"#fff; border-radius: 0px; font-size:13px;\">Accept invitation</a>\n"
 "                                                        </div>\n"
-"                                                         % set website_url = object.env['ir."
+"                                                        % set website_url = object.env['ir."
 "config_parameter'].sudo().get_param('web.base.url')\n"
-"                                                        您访问的域名是： <b><a href="
+"                                                        您访问的域名是：<b><a href="
 "\"${website_url}\">${website_url}</a></b><br/>\n"
-"                                                        您的登录账号是： <b><a href=\"/web/"
+"                                                        您的登录账号是：<b><a href=\"/web/"
 "login?login=${object.login}\" target=\"_blank\">${object.login}</a></b><br/><br/>\n"
 "                                                        从没听说过Odoo？这是一款集功能于一体的"
 "商务软件，深受300多万用户的喜爱。这将大大改善你的工作经验，提高你的工作效率。\n"
@@ -602,8 +600,7 @@ msgid ""
 "#fff; border-radius: 0px; font-size:13px;\">Change password</a>\n"
 "                                                        </div>\n"
 "                                                        If you do not expect this, you can "
-"safely ignore this\n"
-"                                                        email.<br/><br/>\n"
+"safely ignore this email.<br/><br/>\n"
 "                                                        Thanks,\n"
 "                                                        % if user.signature:\n"
 "                                                        <br/>\n"
@@ -703,11 +700,10 @@ msgstr ""
 "\">\n"
 "                                                            <a href=\"${object.signup_url}\" "
 "style=\"background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: "
-"#fff; border-radius: 0px; font-size:13px;\">更改密码</a>\n"
+"#fff; border-radius: 0px; font-size:13px;\">Change password</a>\n"
 "                                                        </div>\n"
 "                                                        如果您不希望这样做，您可以安全地忽略此"
-"消息。\n"
-"                                                        <br/><br/>\n"
+"消息。<br/><br/>\n"
 "                                                        谢谢,\n"
 "                                                        % if user.signature:\n"
 "                                                        <br/>\n"
@@ -1038,7 +1034,7 @@ msgstr "授权后重定向的回调链接地址"
 #: code:addons/wxwork_auth_oauth/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
-msgstr "无法发送电子邮件：用户 %s没有电子邮件地址。"
+msgstr "无法发送电子邮件：%s 用户没有电子邮件地址。"
 
 #. module: wxwork_auth_oauth
 #: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
@@ -1076,8 +1072,8 @@ msgstr "无法创建新帐户。"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/auth.xml:0
-#: code:addons/wxwork_auth_oauth/static/src/xml/auth.xml:0
+#: code:addons/wxwork/wxwork_auth_oauth/static/src/js/auth.js:0
+#: code:addons/wxwork_auth_oauth/static/src/js/auth.js:0
 #, python-format
 msgid ""
 "Detected in the enterprise WeChat built-in browser to open the page, whether to sign in with "
@@ -1135,7 +1131,7 @@ msgid ""
 "%s"
 msgstr ""
 "错误代码：%s \n"
-"错误描述：%s\n"
+"错误描述： %s\n"
 "错误详细信息：\n"
 "%s"
 
@@ -1300,7 +1296,7 @@ msgstr "扫描二维码登录回调链接地址"
 #. module: wxwork_auth_oauth
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_secret
 msgid "Secret"
-msgstr "Secret"
+msgstr ""
 
 #. module: wxwork_auth_oauth
 #: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
@@ -1361,8 +1357,8 @@ msgstr "任务：开始获取加入企业二维码"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/auth.xml:0
-#: code:addons/wxwork_auth_oauth/static/src/xml/auth.xml:0
+#: code:addons/wxwork/wxwork_auth_oauth/static/src/js/auth.js:0
+#: code:addons/wxwork_auth_oauth/static/src/js/auth.js:0
 #, python-format
 msgid ""
 "The current browser is not an enterprise WeChat built-in browser, so the one-click login "
