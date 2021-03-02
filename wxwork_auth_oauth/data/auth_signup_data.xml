@@ -10,7 +10,7 @@
             <field name="media_id" ref="wxwork_material.wxwork_material_image_reset_password"/>
             <field name="subject">Password reset</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
-            <field name="body_html" type="html">
+            <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
     <tr>
@@ -116,7 +116,7 @@
             <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
             <field name="subject">${object.create_uid.name} from ${object.company_id.name} invites you to connect to Odoo</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
-            <field name="body_html" type="html">
+            <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
     <tr>
@@ -225,7 +225,7 @@
             <field name="media_id" ref="wxwork_material.wxwork_material_image_warn"/>
             <field name="subject">Reminder for unregistered users</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
-            <field name="body_html" type="html">
+            <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
     <tr>
@@ -348,7 +348,7 @@
             <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
             <field name="subject">Welcome to ${object.company_id.name}!</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
-            <field name="body_html" type="html">
+            <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
     <tr>
