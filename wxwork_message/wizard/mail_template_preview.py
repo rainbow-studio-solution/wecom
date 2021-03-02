@@ -15,6 +15,7 @@ class MailTemplatePreview(models.TransientModel):
         "email_to",
         "email_cc",
         "reply_to",
+        "msgtype",
         "message_to_all",
         "message_to_user",
         "message_to_party",
