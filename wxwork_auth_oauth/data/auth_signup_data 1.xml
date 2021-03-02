@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        
 
         <!-- 1. 重置密码的消息模板-->
-        <record id="auth_signup.reset_password_email" model="mail.template">
+        <record id="reset_password_message" model="wxwork.message.template">
+            <field name="name">Auth Signup: Reset Password</field>
+            <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_reset_password"/>
+            <field name="subject">Password reset</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -98,17 +100,21 @@
     </tr>
 </table>
             </field>
+            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
+            <field name="auto_delete" eval="True"/>
         </record>
 
-
         <!-- 2. 新用户的消息模板-->
-        <record id="auth_signup.set_password_email" model="mail.template">
+        <record id="set_password_message" model="wxwork.message.template">
+            <field name="name">Auth Signup: Odoo Connection</field>
+            <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
+            <field name="subject">${object.create_uid.name} from ${object.company_id.name} invites you to connect to Odoo</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -203,16 +209,21 @@
     </tr>
 </table>
             </field>
+            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
+            <field name="auto_delete" eval="True"/>
         </record>
 
-        <!-- 3 用于提醒未注册用户的消息模板-->
-        <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
+         <!-- 3 用于提醒未注册用户的消息模板-->
+        <record id="message_template_data_unregistered_users" model="wxwork.message.template">
+            <field name="name">Auth Signup: Unregistered Users</field>
+            <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
-            <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
+            <field name="media_id" ref="wxwork_material.wxwork_material_image_warn"/>
+            <field name="subject">Reminder for unregistered users</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -320,16 +331,22 @@
     </tr>
 </table>
             </field>
+            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
+            <field name="auto_delete" eval="True"/>
         </record>
 
+
         <!-- 4. 使用注册令牌的新用户的消息模板-->
-        <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
+        <record id="mail_template_user_signup_account_created" model="wxwork.message.template">
+            <field name="name">Auth Signup: Odoo Account Created</field>
+            <field name="model_id" ref="base.model_res_users"/>
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
+            <field name="subject">Welcome to ${object.company_id.name}!</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -422,10 +439,12 @@
     </tr>
 </table>
             </field>
+            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
+            <field name="auto_delete" eval="True"/>
         </record>
 
     </data>
