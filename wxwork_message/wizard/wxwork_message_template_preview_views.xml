@@ -4,10 +4,10 @@
      
         <record model="ir.ui.view" id="wxwork_message_template_preview_form">
             <field name="name">wxwork.message.template.preview.form</field>
-            <field name="model">wxwork.message.template.preview</field>
+            <field name="model">mail.template.preview</field>
             <field name="arch" type="xml">
                 <form string="Enterprise WeChat Message Preview">
-                    <h3>Preview of <field name="wxwork_message_template_id" readonly="1" nolabel="1" class="oe_inline"/></h3>
+                    <h3>Preview of <field name="mail_template_id" readonly="1" nolabel="1" class="oe_inline"/></h3>
                     <field name="no_record" invisible="1"/>
                     <div class="o_row">
                         <span>Choose an example <field name="model_id" readonly="1"/> record:</span>
@@ -19,11 +19,11 @@
                     <p>Choose a language: <field name="lang" class="oe_inline ml8"/></p>
                     <field name="msgtype" invisible="1"/>
                     <hr/>
-                    <label for="body_text" string="Enterprise WeChat message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
-                    <label for="body_html" string="Enterprise WeChat message html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> 
+                    <label for="message_body_text" string="Enterprise WeChat message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                    <label for="message_body_html" string="Enterprise WeChat message html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> 
                     <hr/>
-                    <field name="body_text" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>                     
-                    <field name="body_html" widget="html" readonly="1" nolabel="1" options='{"safe": True}'  attrs="{'invisible': [('msgtype','!=','mpnews')]}" />
+                    <field name="message_body_text" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>                     
+                    <field name="message_body_html" widget="html" readonly="1" nolabel="1" options='{"safe": True}'  attrs="{'invisible': [('msgtype','!=','mpnews')]}" />
                     <hr/>
                     <footer>
                         <button string="Discard" class="btn-secondary" special="cancel"/>
@@ -34,12 +34,12 @@
 
         <record id="wxwork_message_template_preview_action" model="ir.actions.act_window">
             <field name="name">Template Preview</field>
-            <field name="res_model">wxwork.message.template.preview</field>
+            <field name="res_model">mail.template.preview</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="wxwork_message_template_preview_form"/>
             <field name="target">new</field>
-            <field name="context">{'default_wxwork_message_template_id':active_id}</field>
+            <field name="context">{'default_mail_template_id':active_id}</field>
         </record>
 
     </data>

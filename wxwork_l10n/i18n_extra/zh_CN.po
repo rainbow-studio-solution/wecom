@@ -147,3 +147,8 @@ msgstr "企业微信小部件"
 #: model:ir.module.module,shortdesc:base.module_wxwork_l10n
 msgid "Enterprise WeChat localization"
 msgstr "企业微信本地化"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.hr_message
+msgid "Enterprise WeChat Hr Message"
+msgstr "企业微信消息-HR"

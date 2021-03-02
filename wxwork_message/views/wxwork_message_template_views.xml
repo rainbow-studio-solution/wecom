@@ -4,27 +4,27 @@
 
         <record model="ir.ui.view" id="wxwork_message_template_view_form">
             <field name="name">wxwork.message.template.view.form</field>
-            <field name="model">wxwork.message.template</field>
+            <field name="model">mail.template</field>
             <field name="arch" type="xml">
                 <form string="Message Templates">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <field name="sidebar_action_id" invisible="1"/>
-                            <button name="action_create_sidebar_action" type="object"
-                                groups="base.group_system"
-                                class="oe_stat_button"
-                                attrs="{'invisible':[('sidebar_action_id','!=',False)]}" icon="fa-plus"
-                                help="Add a contextual action on the related model to open a message composer with this template">
+                            <field name="ref_ir_act_window" invisible="1"/>
+                            <button class="oe_stat_button"
+                                    groups="base.group_system"
+                                    name="create_action" type="object"
+                                    attrs="{'invisible':[('ref_ir_act_window','!=',False)]}" icon="fa-plus"
+                                    help="Display an option on related documents to open a composition wizard with this template">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Add</span>
                                     <span class="o_stat_text">Context Action</span>
                                 </div>
                             </button>
-                            <button name="action_unlink_sidebar_action" type="object"
+                            <button name="unlink_action" type="object"
                                     groups="base.group_system"
                                     class="oe_stat_button" icon="fa-minus"
-                                    attrs="{'invisible':[('sidebar_action_id','=',False)]}"
-                                    help="Remove the contextual action of the related model" widget="statinfo">
+                                    attrs="{'invisible':[('ref_ir_act_window','=',False)]}"
+                                    help="Remove the contextual action to use this template on related documents" widget="statinfo">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Remove</span>
                                     <span class="o_stat_text">Context Action</span>
@@ -51,8 +51,8 @@
                                 <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
                                 </p>
 
-                                <field name="body_text" widget="wxwork_message_widget" nolabel="1" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
-                                <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
+                                <field name="message_body_text" widget="wxwork_message_widget" nolabel="1" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                                <field name="message_body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                             </page>                            
                             <page string="Message Configuration" name="message_configuration">
                                 <group>
@@ -92,7 +92,7 @@
 
         <record model="ir.ui.view" id="wxwork_message_template_tree">
             <field name="name">wxwork.message.template.tree</field>
-            <field name="model">wxwork.message.template</field>
+            <field name="model">mail.template</field>
             <field name="arch" type="xml">
                 <tree string="Message Templates">
                     <field name="name"/>
@@ -108,21 +108,24 @@
             </field>
         </record>
 
-        <record id="view_wxwork_message_template_search" model="ir.ui.view">
+        <!-- <record id="view_wxwork_message_template_search" model="ir.ui.view">
            <field name="name">wxwork.message.template.search</field>
-           <field name="model">wxwork.message.template</field>
+           <field name="model">mail.template</field>
            <field name="arch" type="xml">
                <search string="Message Templates">
                     <field name="name"/>
                     <field name="model_id"/>
                </search>
            </field>
-        </record>
+        </record> -->
 
         <record id="wxwork_template_action" model="ir.actions.act_window">
             <field name="name">Message Templates</field>
-            <field name="res_model">wxwork.message.template</field>
+            <field name="res_model">mail.template</field>
             <field name="view_mode">tree,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('wxwork_message_template_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('wxwork_message_template_view_form')})]"/>
         </record>
 
         <!-- <record model="ir.actions.act_window" id="action_wxwork_message_template_tree_all">

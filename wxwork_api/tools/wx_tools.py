@@ -28,7 +28,7 @@ class WxTools(models.AbstractModel):
         DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
         start_time = datetime.strptime(datetime_start_str, DATETIME_FORMAT)
         end_time = datetime.strptime(datetime_end_str, DATETIME_FORMAT)
-        print(start_time, end_time)
+        # print(start_time, end_time)
         diff = end_time - start_time
         if diff < timedelta(days=maxtime):
             return True

@@ -250,6 +250,47 @@ class MailThread(models.AbstractModel):
     # 消息发布工具
     # MESSAGE POST TOOLS
     # ------------------------------------------------------
+    def message_post_with_template(
+        self, template_id, email_layout_xmlid=None, auto_commit=False, **kwargs
+    ):
+        """ 
+        使用模板发送邮件的辅助方法 
+        :param template_id : 要呈现以创建消息正文的模板的ID 
+        :param **kwargs : 创建mail.compose.message woaerd的参数（继承自mail.message） 
+        """
+        # 获取合成模式，或根据自身中的记录数强制使用
+        if not kwargs.get("composition_mode"):
+            kwargs["composition_mode"] = (
+                "comment" if len(self.ids) == 1 else "mass_mail"
+            )
+        if not kwargs.get("message_type"):
+            kwargs["message_type"] = "notification"
+        res_id = kwargs.get("res_id", self.ids and self.ids[0] or 0)
+        res_ids = kwargs.get("res_id") and [kwargs["res_id"]] or self.ids
+
+        # Create the composer
+        composer = (
+            self.env["mail.compose.message"]
+            .with_context(
+                active_id=res_id,
+                active_ids=res_ids,
+                active_model=kwargs.get("model", self._name),
+                default_composition_mode=kwargs["composition_mode"],
+                default_model=kwargs.get("model", self._name),
+                default_res_id=res_id,
+                default_template_id=template_id,
+                custom_layout=email_layout_xmlid,
+            )
+            .create(kwargs)
+        )
+        # 仅当模板处于单一电子邮件模式时，才模拟onchange（如窗体视图中的触发器）
+        if template_id:
+            update_values = composer.onchange_template_id(
+                template_id, kwargs["composition_mode"], self._name, res_id
+            )["value"]
+            composer.write(update_values)
+
+        return composer.send_mail(auto_commit=auto_commit)
 
     def _message_compute_author(
         self, author_id=None, email_from=None, raise_exception=True
