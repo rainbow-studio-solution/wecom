@@ -93,7 +93,7 @@ class ResUsers(models.Model):
         template = False
         if create_mode:
             try:
-                mail_template = self.env.ref(
+                template = self.env.ref(
                     "auth_signup.set_password_email", raise_if_not_found=False
                 )
             except ValueError:
@@ -113,26 +113,6 @@ class ResUsers(models.Model):
         template.write(template_values)
 
         for user in self:
-            # if user.notification_type == "wxwork":
-            #     if not user.wxwork_id:
-            #         raise UserError(
-            #             _(
-            #                 "Cannot send user %s has no Enterprise WeChat user id.",
-            #                 user.name,
-            #             )
-            #         )
-            #     with self.env.cr.savepoint():
-            #         force_send = not (self.env.context.get("import_file", False))
-
-            #         template.send_message(
-            #             user.id, force_send=force_send, raise_exception=True
-            #         )
-            #     _logger.info(
-            #         _("Password reset message sent for user: %s, %s"),
-            #         user.name,
-            #         user.wxwork_id,
-            #     )
-            # else:
             if not user.email and not user.wxwork_id:
                 raise UserError(
                     _(
@@ -143,11 +123,15 @@ class ResUsers(models.Model):
             # TDE FIXME: make this template technical (qweb)
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
+                if not user.wxwork_id:
+                    is_wxwork_message = False
+                else:
+                    is_wxwork_message = True
                 template.send_mail(
                     user.id,
                     force_send=force_send,
                     raise_exception=True,
-                    is_wxwork_message=True,
+                    is_wxwork_message=is_wxwork_message,
                 )
             _logger.info(
                 _("Password reset email or message sent for user <%s> to <%s> <%s>"),
@@ -156,50 +140,45 @@ class ResUsers(models.Model):
                 user.wxwork_id,
             )
 
-    # def send_unregistered_user_reminder(self, after_days=5):
-    #     """
-    #     发送未注册的用户提醒 消息
-    #     """
-    #     datetime_min = fields.Datetime.today() - relativedelta(days=after_days)
-    #     datetime_max = datetime_min + relativedelta(hours=23, minutes=59, seconds=59)
+    def send_unregistered_user_reminder(self, after_days=5):
+        """
+        发送未注册的用户提醒 消息
+        """
+        datetime_min = fields.Datetime.today() - relativedelta(days=after_days)
+        datetime_max = datetime_min + relativedelta(hours=23, minutes=59, seconds=59)
 
-    #     res_users_with_details = self.env["res.users"].search_read(
-    #         [
-    #             ("share", "=", False),
-    #             ("create_uid.email", "!=", False),
-    #             ("create_date", ">=", datetime_min),
-    #             ("create_date", "<=", datetime_max),
-    #             ("log_ids", "=", False),
-    #         ],
-    #         ["create_uid", "name", "login"],
-    #     )
+        res_users_with_details = self.env["res.users"].search_read(
+            [
+                ("share", "=", False),
+                ("create_uid.email", "!=", False),
+                ("create_date", ">=", datetime_min),
+                ("create_date", "<=", datetime_max),
+                ("log_ids", "=", False),
+            ],
+            ["create_uid", "name", "login"],
+        )
 
-    #     # 分组邀请
-    #     invited_users = defaultdict(list)
-    #     for user in res_users_with_details:
-    #         invited_users[user.get("create_uid")[0]].append(
-    #             "%s (%s)" % (user.get("name"), user.get("login"))
-    #         )
+        # 分组邀请
+        invited_users = defaultdict(list)
+        for user in res_users_with_details:
+            invited_users[user.get("create_uid")[0]].append(
+                "%s (%s)" % (user.get("name"), user.get("login"))
+            )
 
-    #     # 用于向所有邀请者发送有关其邀请用户的邮件
-    #     for user in invited_users:
-    #         if user.notification_type == "wxwork":
-    #             # 通知方式为企业微信
-    #             message_template = self.env.ref(
-    #                 "wxwork_auth_oauth.message_template_data_unregistered_users"
-    #             ).with_context(
-    #                 dbname=self._cr.dbname, invited_users=invited_users[user]
-    #             )
-    #             message_template.send_message(
-    #                 user, notif_layout="mail.mail_notification_light", force_send=False
-    #             )(user, notif_layout="mail.mail_notification_light", force_send=False)
-    #         else:
-    #             mail_template = self.env.ref(
-    #                 "auth_signup.mail_template_data_unregistered_users"
-    #             ).with_context(
-    #                 dbname=self._cr.dbname, invited_users=invited_users[user]
-    #             )
-    #             mail_template.send_mail(
-    #                 user, notif_layout="mail.mail_notification_light", force_send=False
-    #             )
+        # 用于向所有邀请者发送有关其邀请用户的邮件
+        for user in invited_users:
+            if not user.wxwork_id:
+                is_wxwork_message = False
+            else:
+                is_wxwork_message = True
 
+            template = self.env.ref(
+                "auth_signup.mail_template_data_unregistered_users"
+            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
+
+            template.send_mail(
+                user,
+                notif_layout="mail.mail_notification_light",
+                force_send=False,
+                is_wxwork_message=is_wxwork_message,
+            )

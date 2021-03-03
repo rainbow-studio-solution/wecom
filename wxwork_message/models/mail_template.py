@@ -228,7 +228,7 @@ class MailTemplate(models.Model):
         raise_exception=False,
         email_values=None,
         notif_layout=False,
-        is_wxwork_message=False,
+        is_wxwork_message=None,
     ):
         """ 
         生成一个新的mail.mail.  模板在由res_id和来自模板的模型给定的记录中呈现。
@@ -237,6 +237,7 @@ class MailTemplate(models.Model):
         :param bool force_send: 立即强制发送邮件； 否则使用邮件队列（推荐）
         :param dict email_values: 使用这些值更新生成的邮件，以进一步自定义邮件；
         :param str notif_layout: 可选的通知布局，用于封装生成的邮件。企业微信消息仅用于mpnews消息格式，其他格式无效； 
+        :param bool is_wxwork_message: True-通过企业微信发送消息；
         :returns: 创建的 mail.mail 的ID  """
         # 仅在访问相关文档时才授予对 send_message 的访问权限
         self.ensure_one()

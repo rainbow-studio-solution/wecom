@@ -61,24 +61,21 @@ class AuthSignupHome(SignupHome):
                         limit=1,
                     )
 
-                    if User.notification_type == "wxwork":
-                        message_template = request.env.ref(
-                            "wxwork_auth_oauth.message_template_user_signup_account_created",
-                            raise_if_not_found=False,
-                        )
-                        if user_sudo and message_template:
-                            message_template.sudo().send_message(
-                                user_sudo.id, force_send=True
-                            )
+                    if not user_sudo.wxwork_id:
+                        is_wxwork_message = False
                     else:
-                        mail_template = request.env.ref(
-                            "auth_signup.mail_template_user_signup_account_created",
-                            raise_if_not_found=False,
+                        is_wxwork_message = True
+
+                    template = request.env.ref(
+                        "auth_signup.mail_template_user_signup_account_created",
+                        raise_if_not_found=False,
+                    )
+                    if user_sudo and template:
+                        template.sudo().send_mail(
+                            user_sudo.id,
+                            force_send=True,
+                            is_wxwork_message=is_wxwork_message,
                         )
-                        if user_sudo and mail_template:
-                            mail_template.sudo().send_mail(
-                                user_sudo.id, force_send=True
-                            )
                 return self.web_login(*args, **kw)
             except UserError as e:
                 qcontext["error"] = e.args[0]
@@ -98,6 +95,56 @@ class AuthSignupHome(SignupHome):
         response = request.render("auth_signup.signup", qcontext)
         response.headers["X-Frame-Options"] = "DENY"
         return response
+
+        # if "error" not in qcontext and request.httprequest.method == "POST":
+        #     try:
+        #         self.do_signup(qcontext)
+        #         # 发送帐户创建确认电子邮件
+        #         if qcontext.get("token"):
+        #             User = request.env["res.users"]
+        #             user_sudo = User.sudo().search(
+        #                 User._get_login_domain(qcontext.get("login")),
+        #                 order=User._get_login_order(),
+        #                 limit=1,
+        #             )
+
+        #             if User.notification_type == "wxwork":
+        #                 message_template = request.env.ref(
+        #                     "wxwork_auth_oauth.message_template_user_signup_account_created",
+        #                     raise_if_not_found=False,
+        #                 )
+        #                 if user_sudo and message_template:
+        #                     message_template.sudo().send_message(
+        #                         user_sudo.id, force_send=True
+        #                     )
+        #             else:
+        #                 mail_template = request.env.ref(
+        #                     "auth_signup.mail_template_user_signup_account_created",
+        #                     raise_if_not_found=False,
+        #                 )
+        #                 if user_sudo and mail_template:
+        #                     mail_template.sudo().send_mail(
+        #                         user_sudo.id, force_send=True
+        #                     )
+        #         return self.web_login(*args, **kw)
+        #     except UserError as e:
+        #         qcontext["error"] = e.args[0]
+        #     except (SignupError, AssertionError) as e:
+        #         if (
+        #             request.env["res.users"]
+        #             .sudo()
+        #             .search([("login", "=", qcontext.get("login"))])
+        #         ):
+        #             qcontext["error"] = _(
+        #                 "Another user is already registered using this email address or Enterprise WeChat id."
+        #             )
+        #         else:
+        #             _logger.error("%s", e)
+        #             qcontext["error"] = _("Could not create a new account.")
+
+        # response = request.render("auth_signup.signup", qcontext)
+        # response.headers["X-Frame-Options"] = "DENY"
+        # return response
 
 
 class OAuthLogin(Home):

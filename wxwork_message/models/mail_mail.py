@@ -146,7 +146,7 @@ class MailMail(models.Model):
     # 消息格式、工具和发送机制
     # ------------------------------------------------------
 
-    def send(self, auto_commit=False, raise_exception=False, is_wxwork_message=False):
+    def send(self, auto_commit=False, raise_exception=False, is_wxwork_message=None):
         """ 
         立即发送选定的电子邮件，而忽略它们的当前状态（除非已被重新发送，否则不应该传递已经发送的电子邮件）。
         成功发送的电子邮件被标记为“已发送”，未发送成功的电子邮件被标记为“例外”，并且相应的错误邮件将输出到服务器日志中。
@@ -154,23 +154,31 @@ class MailMail(models.Model):
         :param bool auto_commit: 在发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
             在正常传递中，永远不应该为True（默认值：False） 
         :param bool raise_exception: 如果电子邮件发送过程失败，将引发异常 
+        :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-        print("is_wxwork_message", is_wxwork_message)
-        for server_id, batch_ids in self._split_by_server():
 
+        for server_id, batch_ids in self._split_by_server():
             smtp_session = None
             try:
-                smtp_session = self.env["ir.mail_server"].connect(
-                    mail_server_id=server_id
-                )
+                if is_wxwork_message:
+                    self.browse(batch_ids)._send_wxwork_message(
+                        auto_commit=auto_commit, raise_exception=raise_exception,
+                    )
+                    _logger.info(
+                        _("Sent batch %s message via enterprise WeChat "),
+                        len(batch_ids),
+                    )
+                else:
+                    smtp_session = self.env["ir.mail_server"].connect(
+                        mail_server_id=server_id
+                    )
             except Exception as exc:
                 if is_wxwork_message:
-                    continue
+                    pass
                 else:
                     if raise_exception:
                         # 为了与mail_mail.send（）引发的异常保持一致并向后兼容，将其封装到Odoo MailDeliveryException中
-
                         raise MailDeliveryException(
                             _("Unable to connect to SMTP Server"), exc
                         )
@@ -181,14 +189,9 @@ class MailMail(models.Model):
                             success_pids=[], failure_type="SMTP"
                         )
             else:
+                # 当没有异常发生时,执行else
                 if is_wxwork_message:
-                    self.browse(batch_ids).send_wxwork_message(
-                        auto_commit=auto_commit, raise_exception=raise_exception,
-                    )
-                    _logger.info(
-                        _("Sent batch %s message via enterprise WeChat "),
-                        len(batch_ids),
-                    )
+                    pass
                 else:
                     self.browse(batch_ids)._send(
                         auto_commit=auto_commit,
@@ -308,6 +311,12 @@ class MailMail(models.Model):
     def _send_wxwork_message(
         self, auto_commit=False, raise_exception=False,
     ):
+        """
+        :param bool auto_commit: 发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
+                 在正常发送绝对不能为True（默认值：False） 
+        :param bool raise_exception: 如果电子邮件发送过程失败，是否引发异常 
+        :return: True
+        """
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
             success_pids = []
