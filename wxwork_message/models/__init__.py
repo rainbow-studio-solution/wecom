@@ -9,7 +9,8 @@ from . import mail_message
 from . import mail_notification
 from . import mail_mail
 from . import mail_thread
+from . import mail_template
 
 # from . import mail_thread_wxworkid
 from . import wxwork_message_api
-from . import wxwork_message_template
+

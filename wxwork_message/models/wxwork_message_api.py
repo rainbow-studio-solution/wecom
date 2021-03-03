@@ -173,6 +173,7 @@ class WxWorkMessageApi(models.AbstractModel):
         """
         检查素材文件是否过期
         """
+        print("media_id", media_id)
         material_info = (
             self.env["wxwork.material"]
             .sudo()

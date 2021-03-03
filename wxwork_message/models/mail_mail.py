@@ -5,7 +5,9 @@ import logging
 import threading
 from odoo import _, api, fields, models
 from odoo import tools
+from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 from odoo.exceptions import UserError
+
 from odoo.addons.wxwork_api.api.error_code import Errcode
 
 _logger = logging.getLogger(__name__)
@@ -20,7 +22,8 @@ class MailMail(models.Model):
     message_to_user = fields.Char(string="To User",)
     message_to_party = fields.Char(string="To Departments",)
     message_to_tag = fields.Char(string="To Tags",)
-    body_text = fields.Text("Text Contents",)
+    message_body_text = fields.Text("Text Contents",)
+    message_body_html = fields.Text("Text Contents",)
 
     safe = fields.Selection(
         [
@@ -49,42 +52,44 @@ class MailMail(models.Model):
         default="1800",
     )
 
-    @api.model
-    def process_email_queue(self, ids=None):
-        """
-        立即发送排队的消息，在每条消息发送后提交-这不是事务性的，不应在另一个事务中调用！ 
+    # @api.model
+    # def process_email_queue(self, ids=None):
+    #     """
+    #     立即发送排队的消息，在每条消息发送后提交-这不是事务性的，不应在另一个事务中调用！
 
-        :param list ids: 要发送的电子邮件ID的可选列表。 如果通过，则不执行搜索，而是使用这些ID。 
-        :param dict context: 如果上下文中存在“过滤器”键，则此值将用作附加过滤器，以进一步限制要发送的传出消息（默认情况下，所有“传出”消息都已发送）。 
-        """
-        filters = [
-            "&",
-            ("state", "=", "outgoing"),
-            "|",
-            ("scheduled_date", "<", datetime.datetime.now()),
-            ("scheduled_date", "=", False),
-        ]
-        if "filters" in self._context:
-            filters.extend(self._context["filters"])
-        # TODO: make limit configurable
-        filtered_ids = self.search(filters, limit=10000).ids
-        if not ids:
-            ids = filtered_ids
-        else:
-            ids = list(set(filtered_ids) & set(ids))
-        ids.sort()
+    #     :param list ids: 要发送的电子邮件ID的可选列表。 如果通过，则不执行搜索，而是使用这些ID。
+    #     :param dict context: 如果上下文中存在“过滤器”键，则此值将用作附加过滤器，以进一步限制要发送的传出消息（默认情况下，所有“传出”消息都已发送）。
+    #     """
+    #     filters = [
+    #         "&",
+    #         ("state", "=", "outgoing"),
+    #         "|",
+    #         ("scheduled_date", "<", datetime.datetime.now()),
+    #         ("scheduled_date", "=", False),
+    #     ]
+    #     if "filters" in self._context:
+    #         filters.extend(self._context["filters"])
+    #     # TODO: make limit configurable
+    #     filtered_ids = self.search(filters, limit=10000).ids
+    #     if not ids:
+    #         ids = filtered_ids
+    #     else:
+    #         ids = list(set(filtered_ids) & set(ids))
+    #     ids.sort()
+    #     res = None
+    #     try:
+    #         # 自动提交（测试模式除外）
+    #         auto_commit = not getattr(threading.currentThread(), "testing", False)
+    #         if self.message_type == "wxwork":
+    #             print("发送消息")
+    #             res = self.browse(ids).send_wxwork_message(auto_commit=auto_commit)
+    #         else:
+    #             print("发送邮件")
+    #             res = self.browse(ids).send(auto_commit=auto_commit)
+    #     except Exception:
+    #         _logger.exception(_("Failed processing message queue"))
 
-        res = None
-        try:
-            # 自动提交（测试模式除外）
-            auto_commit = not getattr(threading.currentThread(), "testing", False)
-            if self.notification_type == "wxwork":
-                res = self.browse(ids).send_wxwork_message(auto_commit=auto_commit)
-            else:
-                res = self.browse(ids).send(auto_commit=auto_commit)
-        except Exception:
-            _logger.exception(_("Failed processing mail queue"))
-        return res
+    #     return res
 
     def _postprocess_sent_wxwork_message(
         self, success_pids, failure_reason=False, failure_type=None
@@ -140,6 +145,65 @@ class MailMail(models.Model):
     # ------------------------------------------------------
     # 消息格式、工具和发送机制
     # ------------------------------------------------------
+
+    def send(self, auto_commit=False, raise_exception=False, is_wxwork_message=False):
+        """ 
+        立即发送选定的电子邮件，而忽略它们的当前状态（除非已被重新发送，否则不应该传递已经发送的电子邮件）。
+        成功发送的电子邮件被标记为“已发送”，未发送成功的电子邮件被标记为“例外”，并且相应的错误邮件将输出到服务器日志中。
+
+        :param bool auto_commit: 在发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
+            在正常传递中，永远不应该为True（默认值：False） 
+        :param bool raise_exception: 如果电子邮件发送过程失败，将引发异常 
+        :return: True
+        """
+        print("is_wxwork_message", is_wxwork_message)
+        for server_id, batch_ids in self._split_by_server():
+
+            smtp_session = None
+            try:
+                smtp_session = self.env["ir.mail_server"].connect(
+                    mail_server_id=server_id
+                )
+            except Exception as exc:
+                if is_wxwork_message:
+                    continue
+                else:
+                    if raise_exception:
+                        # 为了与mail_mail.send（）引发的异常保持一致并向后兼容，将其封装到Odoo MailDeliveryException中
+
+                        raise MailDeliveryException(
+                            _("Unable to connect to SMTP Server"), exc
+                        )
+                    else:
+                        batch = self.browse(batch_ids)
+                        batch.write({"state": "exception", "failure_reason": exc})
+                        batch._postprocess_sent_message(
+                            success_pids=[], failure_type="SMTP"
+                        )
+            else:
+                if is_wxwork_message:
+                    self.browse(batch_ids).send_wxwork_message(
+                        auto_commit=auto_commit, raise_exception=raise_exception,
+                    )
+                    _logger.info(
+                        _("Sent batch %s message via enterprise WeChat "),
+                        len(batch_ids),
+                    )
+                else:
+                    self.browse(batch_ids)._send(
+                        auto_commit=auto_commit,
+                        raise_exception=raise_exception,
+                        smtp_session=smtp_session,
+                    )
+                    _logger.info(
+                        _("Sent batch %s emails via mail server ID #%s"),
+                        len(batch_ids),
+                        server_id,
+                    )
+            finally:
+                if smtp_session:
+                    smtp_session.quit()
+
     def _send_message_prepare_body(self):
         """
         返回特定的ir_email正文。 继承此方法的主要目的是根据某些模块添加自定义内容。 
@@ -317,13 +381,14 @@ class MailMail(models.Model):
                         media_id=mail.media_id,
                         description=mail.description,
                         author_id=mail.author_id,
-                        body_html=mail.body_html,
-                        body_text=mail.body_text,
+                        body_html=mail.message_body_html,
+                        body_text=mail.message_body_text,
                         safe=mail.safe,
                         enable_id_trans=mail.enable_id_trans,
                         enable_duplicate_check=mail.enable_duplicate_check,
                         duplicate_check_interval=mail.duplicate_check_interval,
                     )
+
                     processing_pid = email.pop("partner_id", None)
                     try:
                         res = IrWxWorkMessageApi.send_by_api(msg)
