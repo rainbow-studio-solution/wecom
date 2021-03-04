@@ -3,12 +3,9 @@
     <data noupdate="0">
 
         <!-- 1. 目标：提醒目标更新 -->
-        <record id="message_template_goal_reminder" model="wxwork.message.template">
-            <field name="name">Goal: Reminder for Goal Update</field>
-            <field name="model_id" ref="gamification.model_gamification_goal"/>
+        <record id="gamification.email_template_goal_reminder"  model="mail.template">
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_message"/>
-            <field name="subject"></field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -94,22 +91,17 @@
     </tr>
 </table>
             </field>
-            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
-            <field name="auto_delete" eval="True"/>
         </record>
 
         
         <!-- 2. 挑战：简单的挑战报告进度  -->
-        <record id="simple_report_template" model="wxwork.message.template">
-            <field name="name">Challenge: Simple Challenge Report Progress</field>
-            <field name="model_id" ref="gamification.model_gamification_challenge"/>
+        <record id="gamification.simple_report_template"  model="mail.template">
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_message"/>
-            <field name="subject"></field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -380,21 +372,17 @@
   </tr>
 </table>
             </field>
-            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
-            <field name="auto_delete" eval="True"/>
         </record>
 
         <!-- 3. 用户：达到新排名  -->
-        <record id="message_template_data_new_rank_reached" model="wxwork.message.template">
-            <field name="name">User: New rank reached</field>
-            <field name="model_id" ref="gamification.model_gamification_challenge"/>
+        <record id="gamification.mail_template_data_new_rank_reached"  model="mail.template">
+   
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_message"/>
-            <field name="subject">New rank: ${object.rank_id.name}</field>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
@@ -440,19 +428,14 @@
   </table>
 </div>
             </field>
-            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
-            <field name="auto_delete" eval="True"/>
         </record>
 
         <!-- 4. 收到的徽章   -->
-        <record id="message_template_badge_received" model="wxwork.message.template">
-            <field name="name">Received Badge</field>
-            <field name="subject">New badge ${object.badge_id.name} granted</field>
-            <field name="model_id" ref="gamification.model_gamification_badge_user"/>
+        <record id="gamification.email_template_badge_received"  model="mail.template">
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_message"/>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
@@ -618,12 +601,11 @@
   </tr>
 </table>
             </field>
-            <field name="lang">${object.lang}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
-            <field name="auto_delete" eval="True"/>
+
         </record>
 
     </data>

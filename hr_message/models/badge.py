@@ -23,13 +23,8 @@ class BadgeUser(models.Model):
         notification_type = user_info[0]["notification_type"]
         wxwork_id = user_info[0]["wxwork_id"]
         print("通知类型", notification_type)
-        if notification_type == "wxwork":
-            # 消息模板
-            template = self.env.ref("hr_message.message_template_badge_received")
 
-        else:
-            # 邮件模板
-            template = self.env.ref("gamification.email_template_badge_received")
+        template = self.env.ref("gamification.email_template_badge_received")
 
         for badge_user in self:
             self.env["mail.thread"].message_post_with_template(
