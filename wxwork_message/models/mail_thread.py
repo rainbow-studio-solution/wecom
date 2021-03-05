@@ -41,6 +41,82 @@ class MailThread(models.AbstractModel):
     """
 
     _inherit = "mail.thread"
+    notification_type = fields.Selection(
+        [
+            ("email", "Handle by Emails"),
+            ("inbox", "Handle in Odoo"),
+            ("wxwork", "Handle in Enterprise WeChat"),
+        ],
+        "Notification",
+        required=True,
+        default="email",
+        help="Policy on how to handle Chatter notifications:\n"
+        "- Handle by Emails: notifications are sent to your email address\n"
+        "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
+        "- Handle in Enterprise WeChat: notifications appear in your Enterprise WeChat",
+    )
+    msgtype = fields.Selection(
+        [
+            ("text", "Text message"),
+            ("image", "Picture message"),
+            ("voice", "Voice messages"),
+            ("video", "Video message"),
+            ("file", "File message"),
+            ("textcard", "Text card message"),
+            ("news", "Graphic message"),
+            ("mpnews", "Graphic message(mpnews)"),
+            ("markdown", "Markdown message"),
+            ("miniprogram", "Mini Program Notification Message"),
+            ("taskcard", "Task card message"),
+        ],
+        string="Message type",
+        required=True,
+        default="text",
+    )
+
+    # is_wxwork_message = fields.Boolean("Enterprise WeChat Message",)
+    message_to_all = fields.Boolean("To all members",)
+    message_to_user = fields.Char(string="To Users", help="Message recipients (users)",)
+    message_to_party = fields.Char(
+        string="To Departments", help="Message recipients (departments)",
+    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
+
+    # content
+    media_id = fields.Many2one(
+        string="Media file id",
+        comodel_name="wxwork.material",
+        help="媒体文件Id,可以调用上传临时素材接口获取",
+    )
+    message_body_text = fields.Text("Body", translate=True,)
+    message_body_html = fields.Html("Body", translate=True, sanitize=False)
+
+    # options
+    safe = fields.Selection(
+        [
+            ("0", "Shareable"),
+            ("1", "Cannot share and content shows watermark"),
+            ("2", "Only share within the company "),
+        ],
+        string="Secret message",
+        required=True,
+        default="1",
+        help="表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持",
+    )
+
+    enable_id_trans = fields.Boolean(
+        string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
+    )
+    enable_duplicate_check = fields.Boolean(
+        string="Turn on duplicate message checking",
+        help="表示是否开启重复消息检查，0表示否，1表示是，默认0",
+        default=False,
+    )
+    duplicate_check_interval = fields.Integer(
+        string="Time interval for repeated message checking",
+        help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时",
+        default="1800",
+    )
 
     # ------------------------------------------------------
     # 增加、查询、修改、删除
@@ -95,6 +171,19 @@ class MailThread(models.AbstractModel):
         attachment_ids=None,
         add_sign=True,
         record_name=False,
+        msgtype=None,
+        notification_type=None,
+        message_to_all=False,
+        message_to_user=None,
+        message_to_party=None,
+        message_to_tag=None,
+        media_id=None,
+        message_body_html="",
+        message_body_text="",
+        safe=None,
+        enable_id_trans=False,
+        enable_duplicate_check=False,
+        duplicate_check_interval=1800,
         **kwargs
     ):
         """ 
@@ -218,6 +307,19 @@ class MailThread(models.AbstractModel):
                 "channel_ids": channel_ids,
                 "add_sign": add_sign,
                 "record_name": record_name,
+                "msgtype": msgtype,
+                "notification_type": notification_type,
+                "message_to_all": message_to_all,
+                "message_to_user": message_to_user,
+                "message_to_party": message_to_party,
+                "message_to_tag": message_to_tag,
+                "media_id": media_id,
+                "message_body_html": message_body_html,
+                "message_body_text": message_body_text,
+                "safe": safe,
+                "enable_id_trans": enable_id_trans,
+                "enable_duplicate_check": enable_duplicate_check,
+                "duplicate_check_interval": duplicate_check_interval,
             }
         )
         attachments = attachments or []
@@ -258,6 +360,7 @@ class MailThread(models.AbstractModel):
         :param template_id : 要呈现以创建消息正文的模板的ID 
         :param **kwargs : 创建mail.compose.message woaerd的参数（继承自mail.message） 
         """
+
         # 获取合成模式，或根据自身中的记录数强制使用
         if not kwargs.get("composition_mode"):
             kwargs["composition_mode"] = (
@@ -265,6 +368,11 @@ class MailThread(models.AbstractModel):
             )
         if not kwargs.get("message_type"):
             kwargs["message_type"] = "notification"
+
+        if not kwargs.get("is_wxwork_message"):
+            kwargs["is_wxwork_message"] = False
+        else:
+            kwargs["is_wxwork_message"] = kwargs.get("is_wxwork_message")
         res_id = kwargs.get("res_id", self.ids and self.ids[0] or 0)
         res_ids = kwargs.get("res_id") and [kwargs["res_id"]] or self.ids
 
@@ -288,9 +396,12 @@ class MailThread(models.AbstractModel):
             update_values = composer.onchange_template_id(
                 template_id, kwargs["composition_mode"], self._name, res_id
             )["value"]
+            # print("update_values", update_values)
             composer.write(update_values)
 
-        return composer.send_mail(auto_commit=auto_commit)
+        return composer.send_mail(
+            auto_commit=auto_commit, is_wxwork_message=kwargs["is_wxwork_message"]
+        )
 
     def _message_compute_author(
         self, author_id=None, email_from=None, raise_exception=True
@@ -323,6 +434,50 @@ class MailThread(models.AbstractModel):
     # 通知API
     # NOTIFICATION API
     # ------------------------------------------------------
+    def _notify_thread(self, message, msg_vals=False, notify_by_email=True, **kwargs):
+        """ 
+        主要通知方法。 此方法主要做两件事 
+
+        * 调用``_notify_compute_recipients``来计算接收者以基于消息记录或消息创建值（如果给定的话）进行通知（以优化性能（如果我们已经计算出数据的话））； 
+        * 通过调用实现的各种通知方法来执行通知过程； 
+
+        可以重写此方法以拦截和延迟通知机制，例如mail.channel审核。 
+
+        :param message: mail.message记录通知； 
+        :param msg_vals: 用于创建消息的值的字典。 如果给定了它，则在实际上不需要通知的一些简单情况下，使用它代替访问``self``来减少查询数量； 
+
+        Kwarg允许传递给子通知方法的各种参数。 有关其他参数的更多详细信息，请参见那些方法。
+        用于电子邮件样式通知的参数 
+        """
+        # print("_notify_thread", kwargs)
+        msg_vals = msg_vals if msg_vals else {}
+        rdata = self._notify_compute_recipients(message, msg_vals)
+        if not rdata:
+            return False
+
+        message_values = {}
+        if rdata["channels"]:
+            message_values["channel_ids"] = [
+                (6, 0, [r["id"] for r in rdata["channels"]])
+            ]
+
+        self._notify_record_by_inbox(message, rdata, msg_vals=msg_vals, **kwargs)
+        if notify_by_email:
+            self._notify_record_by_email(message, rdata, msg_vals=msg_vals, **kwargs)
+
+        return rdata
+
+    def _notify_record_by_wxwork(
+        self, message, recipients_data, msg_vals=False, **kwargs
+    ):
+        """ 
+        通知方式：企业微信。 做两件事 
+          * 为用户创建企业微信通知； 
+          * 创建频道/消息链接（mail.message的channel_ids字段）；
+          * 发送总线通知； 
+
+        TDE/XDO TODO:直接标记rdata，例如使用r ['notif'] ='ocn_client' 和 r ['needaction'] = False并正确覆盖notify_recipients 
+        """
 
     # ------------------------------------------------------
     # 关注者API

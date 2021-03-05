@@ -78,6 +78,7 @@ class WxWorkMessageApi(models.AbstractModel):
         }
         messages.update(messages_content)
         messages.update(messages_options)
+        print("messages", messages)
         return messages
 
     def send_by_api(self, message):

@@ -8,6 +8,19 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError
 
 
+def _reopen(self, res_id, model, context=None):
+    # 在上下文中保存原始模型，因为选择可用模板列表需要上下文中的模型
+    context = dict(context or {}, default_model=model)
+    return {
+        "type": "ir.actions.act_window",
+        "view_mode": "form",
+        "res_id": res_id,
+        "res_model": self._name,
+        "target": "new",
+        "context": context,
+    }
+
+
 class MailComposer(models.TransientModel):
     """
     通用消息组合向导。您可以在模型和视图级别继承此向导以提供特定功能。
@@ -18,6 +31,7 @@ class MailComposer(models.TransientModel):
     """
 
     _inherit = "mail.compose.message"
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message",)
 
     message_to_user = fields.Char(
         string="To Employees", help="Message recipients (users)",
@@ -29,6 +43,11 @@ class MailComposer(models.TransientModel):
     message_type = fields.Selection(
         selection_add=[("wxwork", "Enterprise WeChat Message")],
         ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
+    )
+    media_id = fields.Many2one(
+        string="Media file id",
+        comodel_name="wxwork.material",
+        help="媒体文件Id,可以调用上传临时素材接口获取",
     )
     msgtype = fields.Selection(
         [
@@ -48,6 +67,8 @@ class MailComposer(models.TransientModel):
         required=True,
         default="text",
     )
+    message_body_html = fields.Html("Contents", default="", sanitize_style=True)
+    message_body_text = fields.Text("Contents", default="", sanitize_style=True)
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -80,11 +101,10 @@ class MailComposer(models.TransientModel):
     # ACTIONS
     # ------------------------------------------------------------
 
-    def send_mail(self, auto_commit=False):
+    def send_mail(self, auto_commit=False, is_wxwork_message=False):
         """ 
         处理向导的内容，然后继续发送相关的电子邮件，并在需要时动态呈现任何模板模式。
         """
-        info = self
         notif_layout = self._context.get("custom_layout")
         # 几种自定义布局在渲染时会使用模型描述，例如 在“查看<document>”按钮中。 某些模型用于不同的业务概念，例如用于RFQ和PO的'purchase.order'。 为避免混淆，我们必须根据对象的状态使用不同的措词。
         # 因此，我们可以从一开始就在上下文中设置描述，以避免退回到在'_notify_prepare_template_context'中检索到的常规display_name上。
@@ -112,6 +132,11 @@ class MailComposer(models.TransientModel):
                         new_attachment_ids.append(attachment.id)
                 new_attachment_ids.reverse()
                 wizard.write({"attachment_ids": [(6, 0, new_attachment_ids)]})
+                # 指定通知方式
+                # if wizard.is_wxwork_message:
+                #     wizard.write(
+                #         {"notification_type": "wxwork", "msgtype": "wxwork",}
+                #     )
 
             # 群发邮件
             mass_mode = wizard.composition_mode in ("mass_mail", "mass_post")
@@ -165,9 +190,18 @@ class MailComposer(models.TransientModel):
                 # to compute mail values. If people have access to the records they have rights
                 # to create lots of emails in sudo as it is consdiered as a technical model.
                 # 批量邮件模式：邮件被伪装，因为通过get_mail_values进行浏览时，将检查相关记录的标准访问权限以计算邮件值。 如果人们可以访问记录，则他们有权使用sudo创建大量电子邮件，因为这被认为是一种技术模型。
+
                 batch_mails_sudo = self.env["mail.mail"].sudo()
-                all_mail_values = wizard.get_mail_values(res_ids)
+                all_mail_values = wizard.get_mail_values(
+                    res_ids
+                )  # 生成send_mail用来创建mail_messages或mail_mails的值。
                 for res_id, mail_values in all_mail_values.items():
+                    # 指定通知方式
+                    if wizard.is_wxwork_message:
+                        notification_type = "wxwork"
+                    else:
+                        notification_type = "email"
+
                     if wizard.composition_mode == "mass_mail":
                         batch_mails_sudo |= (
                             self.env["mail.mail"].sudo().create(mail_values)
@@ -175,6 +209,8 @@ class MailComposer(models.TransientModel):
                     else:
                         post_params = dict(
                             message_type=wizard.message_type,
+                            is_wxwork_message=wizard.is_wxwork_message,
+                            notification_type=notification_type,
                             subtype_id=subtype_id,
                             email_layout_xmlid=notif_layout,
                             add_sign=not bool(wizard.template_id),
@@ -190,13 +226,148 @@ class MailComposer(models.TransientModel):
                                 post_params["model"] = wizard.model
                                 post_params["res_id"] = res_id
                             if not ActiveModel.message_notify(**post_params):
-                                # if message_notify returns an empty record set, no recipients where found.
+                                # 如果message_notify返回空记录集，则找不到收件人。
                                 raise UserError(_("No recipient found."))
                         else:
+                            pri
                             ActiveModel.browse(res_id).message_post(**post_params)
 
                 if wizard.composition_mode == "mass_mail":
-                    batch_mails_sudo.send(auto_commit=auto_commit)
+                    # 群发模式
+                    batch_mails_sudo.send(
+                        auto_commit=auto_commit, is_wxwork_message=is_wxwork_message
+                    )
+
+    def get_mail_values(self, res_ids):
+        """
+        生成send_mail用来创建mail_messages或mail_mails的值。
+        """
+        self.ensure_one()
+        results = dict.fromkeys(res_ids, False)
+        rendered_values = {}
+        mass_mail_mode = self.composition_mode == "mass_mail"
+
+        # 一次呈现所有基于模板的值
+        if mass_mail_mode and self.model:
+            rendered_values = self.render_message(res_ids)
+        # 批量计算基于别名的回复
+        reply_to_value = dict.fromkeys(res_ids, None)
+        if mass_mail_mode and not self.no_auto_thread:
+            records = self.env[self.model].browse(res_ids)
+            reply_to_value = records._notify_get_reply_to(default=self.email_from)
+
+        blacklisted_rec_ids = set()
+        if mass_mail_mode and issubclass(
+            type(self.env[self.model]), self.pool["mail.thread.blacklist"]
+        ):
+            self.env["mail.blacklist"].flush(["email"])
+            self._cr.execute("SELECT email FROM mail_blacklist")
+            blacklist = {x[0] for x in self._cr.fetchall()}
+            if blacklist:
+                targets = (
+                    self.env[self.model].browse(res_ids).read(["email_normalized"])
+                )
+                # 首先从收件人中提取电子邮件，然后再与黑名单进行比较
+                blacklisted_rec_ids.update(
+                    target["id"]
+                    for target in targets
+                    if target["email_normalized"] in blacklist
+                )
+
+        for res_id in res_ids:
+            # 静态向导（mail.message）值
+            mail_values = {
+                "subject": self.subject,
+                "body": self.body or "",
+                "parent_id": self.parent_id and self.parent_id.id,
+                "partner_ids": [partner.id for partner in self.partner_ids],
+                "attachment_ids": [attach.id for attach in self.attachment_ids],
+                "author_id": self.author_id.id,
+                "email_from": self.email_from,
+                "record_name": self.record_name,
+                "no_auto_thread": self.no_auto_thread,
+                "mail_server_id": self.mail_server_id.id,
+                "mail_activity_type_id": self.mail_activity_type_id.id,
+                "msgtype": self.msgtype,
+                "media_id": self.media_id.id,
+                # "message_to_user": self.message_to_user,
+                # "message_to_party": self.message_to_party,
+                # "message_to_tag": self.message_to_tag,
+                "message_body_html": self.message_body_html,
+                "message_body_text": self.message_body_text,
+                "safe": self.safe,
+                "enable_id_trans": self.enable_id_trans,
+                "enable_duplicate_check": self.enable_duplicate_check,
+                "duplicate_check_interval": self.duplicate_check_interval,
+            }
+
+            # 群发邮件：呈现替代向导的静态值
+            if mass_mail_mode and self.model:
+                record = self.env[self.model].browse(res_id)
+                mail_values["headers"] = record._notify_email_headers()
+                # keep a copy unless specifically requested, reset record name (avoid browsing records)
+                mail_values.update(
+                    notification=not self.auto_delete_message,
+                    model=self.model,
+                    res_id=res_id,
+                    record_name=False,
+                )
+                # auto deletion of mail_mail
+                if self.auto_delete or self.template_id.auto_delete:
+                    mail_values["auto_delete"] = True
+                # rendered values using template
+                email_dict = rendered_values[res_id]
+                mail_values["partner_ids"] += email_dict.pop("partner_ids", [])
+                mail_values.update(email_dict)
+                if not self.no_auto_thread:
+                    mail_values.pop("reply_to")
+                    if reply_to_value.get(res_id):
+                        mail_values["reply_to"] = reply_to_value[res_id]
+                if self.no_auto_thread and not mail_values.get("reply_to"):
+                    mail_values["reply_to"] = mail_values["email_from"]
+                # mail_mail values: body -> body_html, partner_ids -> recipient_ids
+                mail_values["body_html"] = mail_values.get("body", "")
+                mail_values["message_body_html"] = mail_values.get(
+                    "message_body_html", ""
+                )
+                mail_values["message_body_text"] = mail_values.get(
+                    "message_body_text", ""
+                )
+                mail_values["recipient_ids"] = [
+                    (4, id) for id in mail_values.pop("partner_ids", [])
+                ]
+
+                # process attachments: should not be encoded before being processed by message_post / mail_mail create
+                mail_values["attachments"] = [
+                    (name, base64.b64decode(enc_cont))
+                    for name, enc_cont in email_dict.pop("attachments", list())
+                ]
+                attachment_ids = []
+                for attach_id in mail_values.pop("attachment_ids"):
+                    new_attach_id = (
+                        self.env["ir.attachment"]
+                        .browse(attach_id)
+                        .copy({"res_model": self._name, "res_id": self.id})
+                    )
+                    attachment_ids.append(new_attach_id.id)
+                attachment_ids.reverse()
+                mail_values["attachment_ids"] = self.env[
+                    "mail.thread"
+                ]._message_post_process_attachments(
+                    mail_values.pop("attachments", []),
+                    attachment_ids,
+                    {"model": "mail.message", "res_id": 0},
+                )[
+                    "attachment_ids"
+                ]
+                # Filter out the blacklisted records by setting the mail state to cancel -> Used for Mass Mailing stats
+                if res_id in blacklisted_rec_ids:
+                    mail_values["state"] = "cancel"
+                    # Do not post the mail into the recipient's chatter
+                    mail_values["notification"] = False
+
+            results[res_id] = mail_values
+        return results
 
     # ------------------------------------------------------------
     # 模板
@@ -210,20 +381,22 @@ class MailComposer(models.TransientModel):
         /!\ 对于x2many字段，此onchange返回命令而不是id 
         """
         if template_id and composition_mode == "mass_mail":
-            template_info = template_id
+            # template_info = template_id
             # 邮件模板
             template = self.env["mail.template"].browse(template_id)
             fields = [
                 "subject",
-                "message_to_user",
-                "message_to_party",
-                "message_to_tag",
-                "msgtype",
                 "media_id",
                 "body_html",
                 "email_from",
                 "reply_to",
                 "mail_server_id",
+                "message_to_user",
+                "message_to_party",
+                "message_to_tag",
+                "msgtype",
+                "message_body_html",
+                "message_body_text",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
@@ -234,35 +407,41 @@ class MailComposer(models.TransientModel):
                 for field in fields
                 if getattr(template, field)
             )
+
             if template.attachment_ids:
                 values["attachment_ids"] = [att.id for att in template.attachment_ids]
+
             if template.mail_server_id:
                 values["mail_server_id"] = template.mail_server_id.id
+            # print("mass_mail values", values)
         elif template_id:
             values = self.generate_email_for_composer(
                 template_id,
                 [res_id],
                 [
                     "subject",
-                    "msgtype",
-                    "media_id",
                     "body_html",
                     "email_from",
                     "email_to",
-                    "message_to_user",
-                    "message_to_party",
-                    "message_to_tag",
                     "partner_to",
                     "email_cc",
                     "reply_to",
                     "attachment_ids",
                     "mail_server_id",
+                    "msgtype",
+                    "media_id",
+                    "message_to_user",
+                    "message_to_party",
+                    "message_to_tag",
+                    "message_body_html",
+                    "message_body_text",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
                     "duplicate_check_interval",
                 ],
             )[res_id]
+
             # 将附件转换为attachment_ids； 未附加到文档，因为这将在发布过程中进一步完成，如果未发送电子邮件，则允许清除数据库
             attachment_ids = []
             Attachment = self.env["ir.attachment"]
@@ -292,16 +471,18 @@ class MailComposer(models.TransientModel):
                     "parent_id",
                     "partner_ids",
                     "subject",
-                    "message_to_user",
-                    "message_to_party",
-                    "message_to_tag",
-                    "msgtype",
-                    "media_id",
                     "body",
                     "email_from",
                     "reply_to",
                     "attachment_ids",
                     "mail_server_id",
+                    "msgtype",
+                    "media_id",
+                    "message_to_user",
+                    "message_to_party",
+                    "message_to_tag",
+                    "message_body_html",
+                    "message_body_text",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
@@ -312,17 +493,19 @@ class MailComposer(models.TransientModel):
                 (key, default_values[key])
                 for key in [
                     "subject",
-                    "message_to_user",
-                    "message_to_party",
-                    "message_to_tag",
-                    "msgtype",
-                    "media_id",
                     "body",
                     "partner_ids",
                     "email_from",
                     "reply_to",
                     "attachment_ids",
                     "mail_server_id",
+                    "msgtype",
+                    "media_id",
+                    "message_to_user",
+                    "message_to_party",
+                    "message_to_tag",
+                    "message_body_html",
+                    "message_body_text",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
@@ -333,11 +516,48 @@ class MailComposer(models.TransientModel):
 
         if values.get("body_html"):
             values["body"] = values.pop("body_html")
+        if values.get("message_body_html"):
+            values["message_body_html"] = values.pop("message_body_html")
+        if values.get("message_body_text"):
+            values["message_body_text"] = values.pop("message_body_text")
 
         # 此onchange应该返回命令，而不是x2many字段的ID。
         values = self._convert_to_write(values)
 
         return {"value": values}
+
+    def save_as_template(self):
+        """
+        点击“另存为模板”按钮：当前表单值将是附加到当前文档的新模板。 
+        """
+        for record in self:
+            model = self.env["ir.model"]._get(record.model or "mail.message")
+            model_name = model.name or ""
+            template_name = "%s: %s" % (model_name, tools.ustr(record.subject))
+            values = {
+                "name": template_name,
+                "subject": record.subject or False,
+                "body_html": record.body or False,
+                "model_id": model.id or False,
+                "attachment_ids": [(6, 0, [att.id for att in record.attachment_ids])],
+                "msgtype": record.msgtype or False,
+                "message_to_all": record.message_to_all or False,
+                "message_to_user": record.message_to_user or False,
+                "message_to_party": record.message_to_party or False,
+                "message_to_tag": record.message_to_tag or False,
+                "media_id": record.media_id or False,
+                "message_body_html": record.message_body_html or False,
+                "message_body_text": record.message_body_text or False,
+                "safe": record.safe or False,
+                "enable_id_trans": record.enable_id_trans or False,
+                "enable_duplicate_check": record.enable_duplicate_check or False,
+                "duplicate_check_interval": record.duplicate_check_interval or False,
+            }
+            template = self.env["mail.template"].create(values)
+            # generate the saved template
+            record.write({"template_id": template.id})
+            record.onchange_template_id_wrapper()
+            return _reopen(self, record.id, record.model, context=self._context)
 
     # ------------------------------------------------------------
     # 渲染
@@ -369,11 +589,26 @@ class MailComposer(models.TransientModel):
         bodies = self.env["mail.render.mixin"]._render_template(
             self.body, self.model, res_ids, post_process=True
         )
+        bodies_html = self.env["mail.render.mixin"]._render_template(
+            self.message_body_html, self.model, res_ids, post_process=True
+        )
+        bodies_text = self.env["mail.render.mixin"]._render_template(
+            self.message_body_text, self.model, res_ids, post_process=True
+        )
         emails_from = self.env["mail.render.mixin"]._render_template(
             self.email_from, self.model, res_ids
         )
         replies_to = self.env["mail.render.mixin"]._render_template(
             self.reply_to, self.model, res_ids
+        )
+        message_to_user = self.env["mail.render.mixin"]._render_template(
+            self.message_to_user, self.model, res_ids
+        )
+        message_to_party = self.env["mail.render.mixin"]._render_template(
+            self.message_to_party, self.model, res_ids
+        )
+        message_to_tag = self.env["mail.render.mixin"]._render_template(
+            self.message_to_tag, self.model, res_ids
         )
         default_recipients = {}
         if not self.partner_ids:
@@ -385,8 +620,13 @@ class MailComposer(models.TransientModel):
             results[res_id] = {
                 "subject": subjects[res_id],
                 "body": bodies[res_id],
+                "message_body_html": bodies_html[res_id],
+                "message_body_text": bodies_text[res_id],
                 "email_from": emails_from[res_id],
                 "reply_to": replies_to[res_id],
+                "message_to_user": message_to_user[res_id],
+                "message_to_party": message_to_party[res_id],
+                "message_to_tag": message_to_tag[res_id],
             }
             results[res_id].update(default_recipients.get(res_id, dict()))
 
@@ -399,11 +639,11 @@ class MailComposer(models.TransientModel):
                     "email_to",
                     "partner_to",
                     "email_cc",
+                    "attachment_ids",
+                    "mail_server_id",
                     "message_to_user",
                     "message_to_party",
                     "message_to_tag",
-                    "attachment_ids",
-                    "mail_server_id",
                 ],
             )
         else:
@@ -411,18 +651,18 @@ class MailComposer(models.TransientModel):
 
         for res_id in res_ids:
             if template_values.get(res_id):
-                # recipients are managed by the template
+                # 收件人由模板管理
                 results[res_id].pop("partner_ids", None)
                 results[res_id].pop("email_to", None)
                 results[res_id].pop("email_cc", None)
                 results[res_id].pop("message_to_user", None)
                 results[res_id].pop("message_to_party", None)
                 results[res_id].pop("message_to_tag", None)
-                # remove attachments from template values as they should not be rendered
+                # 从模板值中删除附件，因为它们不应呈现
                 template_values[res_id].pop("attachment_ids", None)
             else:
                 template_values[res_id] = dict()
-            # update template values by composer values
+            # 通过composer值更新模板值
             template_values[res_id].update(results[res_id])
 
         return multi_mode and template_values or template_values[res_ids[0]]
@@ -446,6 +686,7 @@ class MailComposer(models.TransientModel):
             .browse(template_id)
             .generate_email(res_ids, fields)
         )
+
         for res_id in res_ids:
             res_id_values = dict(
                 (field, template_values[res_id][field])
@@ -453,6 +694,12 @@ class MailComposer(models.TransientModel):
                 if template_values[res_id].get(field)
             )
             res_id_values["body"] = res_id_values.pop("body_html", "")
+            res_id_values["message_body_html"] = res_id_values.pop(
+                "message_body_html", ""
+            )
+            res_id_values["message_body_text"] = res_id_values.pop(
+                "message_body_text", ""
+            )
             values[res_id] = res_id_values
 
         return multi_mode and values or values[res_ids[0]]

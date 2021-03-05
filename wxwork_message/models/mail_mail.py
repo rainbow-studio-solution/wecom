@@ -52,45 +52,6 @@ class MailMail(models.Model):
         default="1800",
     )
 
-    # @api.model
-    # def process_email_queue(self, ids=None):
-    #     """
-    #     立即发送排队的消息，在每条消息发送后提交-这不是事务性的，不应在另一个事务中调用！
-
-    #     :param list ids: 要发送的电子邮件ID的可选列表。 如果通过，则不执行搜索，而是使用这些ID。
-    #     :param dict context: 如果上下文中存在“过滤器”键，则此值将用作附加过滤器，以进一步限制要发送的传出消息（默认情况下，所有“传出”消息都已发送）。
-    #     """
-    #     filters = [
-    #         "&",
-    #         ("state", "=", "outgoing"),
-    #         "|",
-    #         ("scheduled_date", "<", datetime.datetime.now()),
-    #         ("scheduled_date", "=", False),
-    #     ]
-    #     if "filters" in self._context:
-    #         filters.extend(self._context["filters"])
-    #     # TODO: make limit configurable
-    #     filtered_ids = self.search(filters, limit=10000).ids
-    #     if not ids:
-    #         ids = filtered_ids
-    #     else:
-    #         ids = list(set(filtered_ids) & set(ids))
-    #     ids.sort()
-    #     res = None
-    #     try:
-    #         # 自动提交（测试模式除外）
-    #         auto_commit = not getattr(threading.currentThread(), "testing", False)
-    #         if self.message_type == "wxwork":
-    #             print("发送消息")
-    #             res = self.browse(ids).send_wxwork_message(auto_commit=auto_commit)
-    #         else:
-    #             print("发送邮件")
-    #             res = self.browse(ids).send(auto_commit=auto_commit)
-    #     except Exception:
-    #         _logger.exception(_("Failed processing message queue"))
-
-    #     return res
-
     def _postprocess_sent_wxwork_message(
         self, success_pids, failure_reason=False, failure_type=None
     ):
@@ -157,18 +118,12 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-
+        print("mail.mail.send()", auto_commit, raise_exception, is_wxwork_message)
         for server_id, batch_ids in self._split_by_server():
             smtp_session = None
             try:
                 if is_wxwork_message:
-                    self.browse(batch_ids)._send_wxwork_message(
-                        auto_commit=auto_commit, raise_exception=raise_exception,
-                    )
-                    _logger.info(
-                        _("Sent batch %s message via enterprise WeChat "),
-                        len(batch_ids),
-                    )
+                    pass
                 else:
                     smtp_session = self.env["ir.mail_server"].connect(
                         mail_server_id=server_id
@@ -204,8 +159,17 @@ class MailMail(models.Model):
                         server_id,
                     )
             finally:
-                if smtp_session:
-                    smtp_session.quit()
+                if is_wxwork_message:
+                    self.browse(batch_ids)._send_wxwork_message(
+                        auto_commit=auto_commit, raise_exception=raise_exception,
+                    )
+                    _logger.info(
+                        _("Sent batch %s message via enterprise WeChat "),
+                        len(batch_ids),
+                    )
+                else:
+                    if smtp_session:
+                        smtp_session.quit()
 
     def _send_message_prepare_body(self):
         """
@@ -317,6 +281,7 @@ class MailMail(models.Model):
         :param bool raise_exception: 如果电子邮件发送过程失败，是否引发异常 
         :return: True
         """
+
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
             success_pids = []
@@ -325,6 +290,7 @@ class MailMail(models.Model):
             mail = None
             try:
                 mail = self.browse(mail_id)
+                print("mail", mail)
                 if mail.state != "outgoing":
                     if mail.state != "exception" and mail.auto_delete:
                         mail.sudo().unlink()
@@ -342,6 +308,7 @@ class MailMail(models.Model):
                 # 为了避免两次发送同一封电子邮件，请尽早引发失败
                 mail.write(
                     {
+                        "message_type": "wxwork",
                         "state": "exception",
                         "failure_reason": _(
                             "Error without exception. Probably due do sending an email without computed recipients."
@@ -349,6 +316,7 @@ class MailMail(models.Model):
                     }
                 )
                 # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
+                # ("notification_type", "=", "wxwork"),
                 notifs = self.env["mail.notification"].search(
                     [
                         ("notification_type", "=", "wxwork"),
@@ -406,7 +374,7 @@ class MailMail(models.Model):
                         processing_pid = None
                     except AssertionError as error:
                         pass
-
+                print("res", res)
                 if res:  # 消息已至少发送一次，未发生重大异常
                     if "errcode" in res:
                         if res.get("errcode") == 0:
@@ -429,6 +397,7 @@ class MailMail(models.Model):
                                     ) % res.get("invalidtag")
                             mail.write(
                                 {
+                                    "message_type": "wxwork",
                                     "state": "sent",
                                     "message_id": res,
                                     "failure_reason": failure_reason,
@@ -456,6 +425,7 @@ class MailMail(models.Model):
                             )
                             mail.write(
                                 {
+                                    "message_type": "wxwork",
                                     "state": "exception",
                                     "failure_reason": failure_reason,
                                 }
@@ -467,7 +437,11 @@ class MailMail(models.Model):
                         % (mail.id, failure_reason,)
                     )
                     mail.write(
-                        {"state": "exception", "failure_reason": failure_reason,}
+                        {
+                            "message_type": "wxwork",
+                            "state": "exception",
+                            "failure_reason": failure_reason,
+                        }
                     )
             except MemoryError:
                 # prevent catching transient MemoryErrors, bubble up to notify user or abort cron job
