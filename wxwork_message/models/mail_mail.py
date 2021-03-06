@@ -105,6 +105,7 @@ class MailMail(models.Model):
 
     # ------------------------------------------------------
     # 消息格式、工具和发送机制
+    # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
 
     def send(self, auto_commit=False, raise_exception=False, is_wxwork_message=None):
@@ -118,7 +119,7 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-        print("mail.mail.send()", auto_commit, raise_exception, is_wxwork_message)
+        # print("mail.mail.send()", auto_commit, raise_exception, is_wxwork_message)
         for server_id, batch_ids in self._split_by_server():
             smtp_session = None
             try:
@@ -216,18 +217,19 @@ class MailMail(models.Model):
             ]
             message_to_user = [
                 tools.formataddr(
-                    (partner.name or "False", partner.message_to_user or "False")
+                    (partner.name or "False", partner.wxwork_id or "False")
                 )
             ]
         else:
             email_to = tools.email_split_and_format(self.email_to)
-            message_to_user = tools.email_split_and_format(self.message_to_user)
+            message_to_user = self.message_to_user
         res = {
-            # "subject": subject,
-            "body_html": body_html,
-            # "message_to_user": message_to_user,
+            # "message_body_text": message_body_text,
+            # "message_body_html": message_body_html,
+            "email_to": email_to,
+            "message_to_user": message_to_user,
         }
-
+        # print("res", res)
         return res
 
     def send_wxwork_message(self, auto_commit=False, raise_exception=False):
@@ -290,7 +292,6 @@ class MailMail(models.Model):
             mail = None
             try:
                 mail = self.browse(mail_id)
-                print("mail", mail)
                 if mail.state != "outgoing":
                     if mail.state != "exception" and mail.auto_delete:
                         mail.sudo().unlink()
@@ -298,9 +299,11 @@ class MailMail(models.Model):
                 # 为通知的合作伙伴自定义发送电子邮件的特定行为
                 email_list = []
                 if mail.message_to_user or mail.message_to_party or mail.message_to_tag:
-                    email_list.append(mail._send_message_prepare_values())
+                    # email_list.append(mail._send_message_prepare_values())
+                    email_list.append(mail._send_wxwork_prepare_values())
                 for partner in mail.recipient_ids:
-                    values = mail._send_message_prepare_values(partner=partner)
+                    # values = mail._send_message_prepare_values(partner=partner)
+                    values = mail._send_wxwork_prepare_values(partner=partner)
                     values["partner_id"] = partner
                     email_list.append(values)
 
@@ -374,7 +377,7 @@ class MailMail(models.Model):
                         processing_pid = None
                     except AssertionError as error:
                         pass
-                print("res", res)
+                # print("res", res)
                 if res:  # 消息已至少发送一次，未发生重大异常
                     if "errcode" in res:
                         if res.get("errcode") == 0:

@@ -56,6 +56,8 @@
                             </page>                            
                             <page string="Message Configuration" name="message_configuration">
                                 <group>
+                                    <field name="use_default_to" invisible="1"/>
+                                    <field name="partner_to" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Comma-separated ids of recipient partners"/>
                                     <field name="message_to_all" />
                                     <field name="message_to_user" />
                                     <field name="message_to_party" />

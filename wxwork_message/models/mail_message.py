@@ -86,23 +86,8 @@ class Message(models.Model):
         required=True,
         default="text",
     )
-    body_text = fields.Text("Body")
-    body_html = fields.Html("Body", sanitize=False)
-    # partner_id = fields.Many2one("res.partner", "Customer")
-
-    # state = fields.Selection(
-    #     [
-    #         ("outgoing", "In Queue"),
-    #         ("sent", "Sent"),
-    #         ("error", "Error"),
-    #         ("canceled", "Canceled"),
-    #     ],
-    #     "SMS Status",
-    #     readonly=True,
-    #     copy=False,
-    #     default="outgoing",
-    #     required=True,
-    # )
+    message_body_text = fields.Text("Body")
+    message_body_html = fields.Html("Body", sanitize=False)
 
     safe = fields.Selection(
         [

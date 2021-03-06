@@ -396,9 +396,9 @@ class MailThread(models.AbstractModel):
             update_values = composer.onchange_template_id(
                 template_id, kwargs["composition_mode"], self._name, res_id
             )["value"]
-            # print("update_values", update_values)
-            composer.write(update_values)
 
+            composer.write(update_values)
+        # print("update_values", update_values)
         return composer.send_mail(
             auto_commit=auto_commit, is_wxwork_message=kwargs["is_wxwork_message"]
         )
