@@ -119,6 +119,14 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
+        print("send", self)
+        if is_wxwork_message is None:
+            if self.message_to_user:
+                print("send 企微用户", self)
+                is_wxwork_message = True
+            else:
+                print("send 非企微用户", self)
+                is_wxwork_message = False
         # print("mail.mail.send()", auto_commit, raise_exception, is_wxwork_message)
         for server_id, batch_ids in self._split_by_server():
             smtp_session = None
@@ -306,16 +314,17 @@ class MailMail(models.Model):
                     values = mail._send_wxwork_prepare_values(partner=partner)
                     values["partner_id"] = partner
                     email_list.append(values)
-
+                print("send", email_list)
                 # 在邮件对象上写入可能会失败（例如锁定用户），这将在*实际发送电子邮件后触发回滚。
                 # 为了避免两次发送同一封电子邮件，请尽早引发失败
                 mail.write(
                     {
                         "message_type": "wxwork",
-                        "state": "exception",
-                        "failure_reason": _(
-                            "Error without exception. Probably due do sending an email without computed recipients."
-                        ),
+                        "state": "sent",
+                        # "state": "exception",
+                        # "failure_reason": _(
+                        #     "Error without exception. Probably due do sending an message without computed recipients."
+                        # ),
                     }
                 )
                 # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
@@ -446,15 +455,17 @@ class MailMail(models.Model):
                             "failure_reason": failure_reason,
                         }
                     )
+                mail._postprocess_sent_wxwork_message(
+                    success_pids=success_pids, failure_type=failure_type
+                )
             except MemoryError:
-                # prevent catching transient MemoryErrors, bubble up to notify user or abort cron job
-                # instead of marking the mail as failed
+                # 防止捕获短暂的MemoryErrors，冒泡通知用户或中止cron作业，而不是将邮件标记为失败
                 _logger.exception(
                     "MemoryError while processing mail with ID %r and Msg-Id %r. Consider raising the --limit-memory-hard startup option",
                     mail.id,
                     mail.message_id,
                 )
-                # mail status will stay on ongoing since transaction will be rollback
+                # 邮件状态将保持为正在进行状态，因为事务将被回滚
                 raise
 
             if auto_commit is True:

@@ -45,6 +45,11 @@ class Digest(models.Model):
             rendered_body,
             add_context={"company": user.company_id, "user": user,},
         )
+        # 获取素材
+        ir_model_data = self.env["ir.model.data"]
+        material = ir_model_data.get_object_reference(
+            "wxwork_material", "wxwork_material_image_kpi"
+        )
         # 根据值创建一个mail_mail，不带附件
         mail_values = {
             "subject": "%s: %s" % (user.company_id.name, self.name),
@@ -52,8 +57,16 @@ class Digest(models.Model):
             if self.company_id
             else self.env.user.email_formatted,
             "email_to": user.email_formatted,
-            "body_html": full_mail,
             "auto_delete": True,
+            "message_to_user": user.wxwork_id,
+            "msgtype": "mpnews",
+            "body_html": full_mail,
+            "media_id": material,
+            "message_body_html": full_mail,
+            "safe": "1",
+            "enable_id_trans": False,
+            "enable_duplicate_check": False,
+            "duplicate_check_interval": 1800,
         }
         mail = self.env["mail.mail"].sudo().create(mail_values)
         mail.send(raise_exception=False)

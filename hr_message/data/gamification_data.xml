@@ -446,7 +446,7 @@
       <table cellspacing="0" cellpadding="0" width="100%">
         <thead>
           <tr>
-            <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+            <td style="border-bottom: 3px solid #3bcdc3;" width="100%">
               <center>
                 <table cellspacing="0" cellpadding="0" width="500" class="w320">
                   <tr>
@@ -465,7 +465,7 @@
               <center>
                 <table cellspacing="0" cellpadding="30" width="500" class="w320">
                   <tr>
-                    <td valign="top" style="border-bottom:3px solid #a1a1a1;">
+                    <td valign="top" style="border-bottom:1px solid #a1a1a1;">
                       <table cellspacing="0" cellpadding="0" width="100%">
                         <tr>
                           <td style="text-align: center;">
