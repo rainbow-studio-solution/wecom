@@ -86,6 +86,7 @@ class Message(models.Model):
         required=True,
         default="text",
     )
+    media_id = fields.Char(string="Media file id",)
     message_body_text = fields.Text("Body")
     message_body_html = fields.Html("Body", sanitize=False)
 
@@ -183,11 +184,11 @@ class Message(models.Model):
     # ------------------------------------------------------
     # CRUD / ORM
     # ------------------------------------------------------
-    @api.model_create_multi
-    def create(self, values_list):
-        for values in values_list:
-            if "body_html" in values:
-                print("body_html", values["body_html"])
-        messages = super(Message, self).create(values_list)
-        return messages
+    # @api.model_create_multi
+    # def create(self, values_list):
+    #     for values in values_list:
+    #         if "body_html" in values:
+    #             print("body_html", values["body_html"])
+    #     messages = super(Message, self).create(values_list)
+    #     return messages
 
