@@ -152,3 +152,29 @@ msgstr "企业微信本地化"
 #: model:ir.module.module,shortdesc:base.hr_message
 msgid "Enterprise WeChat Hr Message"
 msgstr "企业微信消息-HR"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_mass_message
+msgid "Enterprise WeChat MassMessage"
+msgstr "企业微信群发消息"
+
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wxwork_mass_message
+msgid "Design, send and track Enterprise WeChat Message"
+msgstr "设计、发送和跟踪企业微信信息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_hr_gamification_message
+msgid "Enterprise WeChat Gamification Message"
+msgstr "企业微信积分管理消息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxowrk_digest_message
+msgid "Enterprise WeChat KPI Digests Message"
+msgstr "企业微信KPI概述消息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_event_message
+msgid "Enterprise WeChat Events Message"
+msgstr "企业微信活动"
