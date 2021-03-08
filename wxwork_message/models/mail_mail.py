@@ -126,10 +126,8 @@ class MailMail(models.Model):
 
         if is_wxwork_message is None:
             if self.message_to_user:
-                print("send 企微用户", self)
                 is_wxwork_message = True
             else:
-                print("send 非企微用户", self)
                 is_wxwork_message = False
 
         for server_id, batch_ids in self._split_by_server():
@@ -250,7 +248,7 @@ class MailMail(models.Model):
             "email_to": email_to,
             "message_to_user": message_to_user,
         }
-        # print("res", res)
+
         return res
 
     def send_wxwork_message(self, auto_commit=False, raise_exception=False):
@@ -341,7 +339,7 @@ class MailMail(models.Model):
                         # ),
                     }
                 )
-                print("mail1", mail)
+
                 # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
 
                 notifs = self.env["mail.notification"].search(

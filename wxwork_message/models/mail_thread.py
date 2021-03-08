@@ -248,9 +248,7 @@ class MailThread(models.AbstractModel):
                 "message_post partner_ids and channel_ids must be integer list, not commands"
             )
 
-        # if self.wxwork_id:
-        #     print("message_post", self.wxwork_id)
-        # else:
+
         # 查找邮件的作者
         author_id, email_from = self._message_compute_author(
             author_id, email_from, raise_exception=True
@@ -673,7 +671,7 @@ class MailThread(models.AbstractModel):
         Kwarg允许传递给子通知方法的各种参数。 有关其他参数的更多详细信息，请参见那些方法。
         用于电子邮件样式通知的参数 
         """
-        # print("_notify_thread", kwargs)
+ 
         msg_vals = msg_vals if msg_vals else {}
         rdata = self._notify_compute_recipients(message, msg_vals)
         if not rdata:

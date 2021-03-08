@@ -78,7 +78,6 @@ class WxWorkMessageApi(models.AbstractModel):
         }
         messages.update(messages_content)
         messages.update(messages_options)
-        # print("messages", messages)
         return messages
 
     def send_by_api(self, message):
@@ -174,7 +173,6 @@ class WxWorkMessageApi(models.AbstractModel):
         """
         检查素材文件是否过期
         """
-        print("media_id", media_id)
         material_info = (
             self.env["wxwork.material"]
             .sudo()

@@ -357,8 +357,6 @@ class MailComposer(models.TransientModel):
                     mail_values["notification"] = False
 
             results[res_id] = mail_values
-
-            # print("mail_values", mail_values)
         return results
 
     # ------------------------------------------------------------
@@ -405,7 +403,7 @@ class MailComposer(models.TransientModel):
 
             if template.mail_server_id:
                 values["mail_server_id"] = template.mail_server_id.id
-            # print("mass_mail values", values)
+ 
         elif template_id:
             values = self.generate_email_for_composer(
                 template_id,
@@ -549,7 +547,7 @@ class MailComposer(models.TransientModel):
             # generate the saved template
             record.write({"template_id": template.id})
             record.onchange_template_id_wrapper()
-            print()
+
             return _reopen(self, record.id, record.model, context=self._context)
 
     # ------------------------------------------------------------
