@@ -745,7 +745,7 @@ msgstr "已成功发送ID为 %r 的邮件"
 #: model:ir.actions.act_window,name:wxwork_message.action_view_wxwrok_mail
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_tree
 msgid "Messages"
-msgstr "消息消息"
+msgstr "消息"
 
 #. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__miniprogram
