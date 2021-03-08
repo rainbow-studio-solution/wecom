@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Hr Message",
+    "name": "Enterprise WeChat Gamification Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 613,

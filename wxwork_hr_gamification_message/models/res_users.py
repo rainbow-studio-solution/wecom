@@ -15,10 +15,15 @@ class Users(models.Model):
         )
         if template:
             for u in self:
+                if not u.wxwork_id:
+                    is_wxwork_message = False
+                else:
+                    is_wxwork_message = True
                 if u.rank_id.karma_min > 0:
                     template.send_mail(
                         u.id,
                         force_send=False,
                         notif_layout="mail.mail_notification_light",
+                        is_wxwork_message=is_wxwork_message,
                     )
 

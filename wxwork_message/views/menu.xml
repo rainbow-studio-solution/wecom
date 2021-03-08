@@ -42,7 +42,7 @@
                     name="Settings" 
                     parent="menu_wxwork_message_root" 
                     sequence="900"
-                    action="wxwork_base.wxwork_config_settings_action" 
+                    action="wxwork_message.wxwork_message_config_settings_action" 
                     groups="base.group_system"/>
 
         <!-- <menuitem 

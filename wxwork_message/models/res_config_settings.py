@@ -14,3 +14,13 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wxwork.message_secret",
         default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     )
+
+    module_gamification = fields.Boolean("",)
+    module_wxwork_hr_gamification_message = fields.Boolean(
+        "Send messages to motivate users via Enterprise WeChat",
+    )
+
+    module_digest = fields.Boolean("",)
+    module_wxowrk_digest_message = fields.Boolean(
+        "Send KPI Digests periodically via Enterprise WeChat",
+    )

@@ -12,9 +12,3 @@ class Challenge(models.Model):
 
     _inherit = "gamification.challenge"
 
-    def _get_report_template(self):
-        template = self.env.ref(
-            "gamification.simple_report_template", raise_if_not_found=False
-        )
-
-        return template.id if template else False

@@ -41,20 +41,22 @@ class MailThread(models.AbstractModel):
     """
 
     _inherit = "mail.thread"
-    notification_type = fields.Selection(
-        [
-            ("email", "Handle by Emails"),
-            ("inbox", "Handle in Odoo"),
-            ("wxwork", "Handle in Enterprise WeChat"),
-        ],
-        "Notification",
-        required=True,
-        default="email",
-        help="Policy on how to handle Chatter notifications:\n"
-        "- Handle by Emails: notifications are sent to your email address\n"
-        "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
-        "- Handle in Enterprise WeChat: notifications appear in your Enterprise WeChat",
-    )
+
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message",)
+    # notification_type = fields.Selection(
+    #     [
+    #         ("email", "Handle by Emails"),
+    #         ("inbox", "Handle in Odoo"),
+    #         ("wxwork", "Handle in Enterprise WeChat"),
+    #     ],
+    #     "Notification",
+    #     required=True,
+    #     default="email",
+    #     help="Policy on how to handle Chatter notifications:\n"
+    #     "- Handle by Emails: notifications are sent to your email address\n"
+    #     "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
+    #     "- Handle in Enterprise WeChat: notifications appear in your Enterprise WeChat",
+    # )
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -172,7 +174,7 @@ class MailThread(models.AbstractModel):
         add_sign=True,
         record_name=False,
         msgtype=None,
-        notification_type=None,
+        is_wxwork_message=None,
         message_to_all=False,
         message_to_user=None,
         message_to_party=None,
@@ -308,7 +310,7 @@ class MailThread(models.AbstractModel):
                 "add_sign": add_sign,
                 "record_name": record_name,
                 "msgtype": msgtype,
-                # "notification_type": notification_type,
+                "is_wxwork_message": is_wxwork_message,
                 "message_to_all": message_to_all,
                 "message_to_user": message_to_user,
                 "message_to_party": message_to_party,
@@ -402,6 +404,228 @@ class MailThread(models.AbstractModel):
         return composer.send_mail(
             auto_commit=auto_commit, is_wxwork_message=kwargs["is_wxwork_message"]
         )
+
+    def message_notify(
+        self,
+        *,
+        partner_ids=False,
+        parent_id=False,
+        model=False,
+        res_id=False,
+        author_id=None,
+        email_from=None,
+        body="",
+        subject=False,
+        msgtype=None,
+        is_wxwork_message=None,
+        message_to_all=False,
+        message_to_user=None,
+        message_to_party=None,
+        message_to_tag=None,
+        media_id=None,
+        message_body_html="",
+        message_body_text="",
+        safe=None,
+        enable_id_trans=False,
+        enable_duplicate_check=False,
+        duplicate_check_interval=1800,
+        **kwargs
+    ):
+        """ 
+        允许通知合作伙伴有关不应在文档上显示的消息的快捷方式。 像其他通知一样，它会根据用户配置将通知推送到收件箱或通过电子邮件发送。  
+        """
+        if self:
+            self.ensure_one()
+        # split message additional values from notify additional values
+        msg_kwargs = dict(
+            (key, val)
+            for key, val in kwargs.items()
+            if key in self.env["mail.message"]._fields
+        )
+        notif_kwargs = dict(
+            (key, val) for key, val in kwargs.items() if key not in msg_kwargs
+        )
+
+        author_id, email_from = self._message_compute_author(
+            author_id, email_from, raise_exception=True
+        )
+
+        if not partner_ids:
+            _logger.warning("Message notify called without recipient_ids, skipping")
+            return self.env["mail.message"]
+
+        if not (
+            model and res_id
+        ):  # both value should be set or none should be set (record)
+            model = False
+            res_id = False
+
+        MailThread = self.env["mail.thread"]
+        values = {
+            "parent_id": parent_id,
+            "model": self._name if self else False,
+            "res_id": self.id if self else False,
+            "message_type": "user_notification",
+            "subject": subject,
+            "body": body,
+            "author_id": author_id,
+            "email_from": email_from,
+            "partner_ids": partner_ids,
+            "subtype_id": self.env["ir.model.data"].xmlid_to_res_id("mail.mt_note"),
+            "is_internal": True,
+            "record_name": False,
+            "reply_to": MailThread._notify_get_reply_to(
+                default=email_from, records=None
+            )[False],
+            "message_id": tools.generate_tracking_message_id("message-notify"),
+            "msgtype": msgtype,
+            "is_wxwork_message": is_wxwork_message,
+            "message_to_all": message_to_all,
+            "message_to_user": message_to_user,
+            "message_to_party": message_to_party,
+            "message_to_tag": message_to_tag,
+            "media_id": media_id,
+            "message_body_html": message_body_html,
+            "message_body_text": message_body_text,
+            "safe": safe,
+            "enable_id_trans": enable_id_trans,
+            "enable_duplicate_check": enable_duplicate_check,
+            "duplicate_check_interval": duplicate_check_interval,
+        }
+        values.update(msg_kwargs)
+        new_message = MailThread._message_create(values)
+        MailThread._notify_thread(new_message, values, **notif_kwargs)
+        return new_message
+
+    def _message_log(
+        self,
+        *,
+        body="",
+        author_id=None,
+        email_from=None,
+        subject=False,
+        message_type="notification",
+        msgtype=None,
+        is_wxwork_message=None,
+        message_to_all=False,
+        message_to_user=None,
+        message_to_party=None,
+        message_to_tag=None,
+        media_id=None,
+        message_body_html="",
+        message_body_text="",
+        safe=None,
+        enable_id_trans=False,
+        enable_duplicate_check=False,
+        duplicate_check_interval=1800,
+        **kwargs
+    ):
+        """ 
+        允许在文档上发布注释的快捷方式。 它不执行任何通知，并预先计算一些值以使短代码尽可能优化。 该方法是私有的，因为它不检查访问权限，并且以sudo的身份执行消息创建，以加快日志处理速度。 应该在已经授予访问权限的方法中调用此方法，以避免特权升级。
+        """
+        self.ensure_one()
+        author_id, email_from = self._message_compute_author(
+            author_id, email_from, raise_exception=False
+        )
+
+        message_values = {
+            "subject": subject,
+            "body": body,
+            "author_id": author_id,
+            "email_from": email_from,
+            "message_type": message_type,
+            "model": kwargs.get("model", self._name),
+            "res_id": self.ids[0] if self.ids else False,
+            "subtype_id": self.env["ir.model.data"].xmlid_to_res_id("mail.mt_note"),
+            "is_internal": True,
+            "record_name": False,
+            "reply_to": self.env["mail.thread"]._notify_get_reply_to(
+                default=email_from, records=None
+            )[False],
+            "message_id": tools.generate_tracking_message_id(
+                "message-notify"
+            ),  # 为什么？ 这只是一个通知
+            "msgtype": msgtype,
+            "is_wxwork_message": is_wxwork_message,
+            "message_to_all": message_to_all,
+            "message_to_user": message_to_user,
+            "message_to_party": message_to_party,
+            "message_to_tag": message_to_tag,
+            "media_id": media_id,
+            "message_body_html": message_body_html,
+            "message_body_text": message_body_text,
+            "safe": safe,
+            "enable_id_trans": enable_id_trans,
+            "enable_duplicate_check": enable_duplicate_check,
+            "duplicate_check_interval": duplicate_check_interval,
+        }
+        message_values.update(kwargs)
+        return self.sudo()._message_create(message_values)
+
+    def _message_log_batch(
+        self,
+        bodies,
+        author_id=None,
+        email_from=None,
+        subject=False,
+        message_type="notification",
+        msgtype=None,
+        is_wxwork_message=None,
+        message_to_all=False,
+        message_to_user=None,
+        message_to_party=None,
+        message_to_tag=None,
+        media_id=None,
+        message_body_html="",
+        message_body_text="",
+        safe=None,
+        enable_id_trans=False,
+        enable_duplicate_check=False,
+        duplicate_check_interval=1800,
+    ):
+        """ 
+        快捷方式允许在一批文档上发布注释。 它实现了与_message_log相同的目的，该目的通过批量完成以加快快速注释日志的速度。
+
+        :param bodies: dict {record_id: body}
+        """
+        author_id, email_from = self._message_compute_author(
+            author_id, email_from, raise_exception=False
+        )
+
+        base_message_values = {
+            "subject": subject,
+            "author_id": author_id,
+            "email_from": email_from,
+            "message_type": message_type,
+            "model": self._name,
+            "subtype_id": self.env["ir.model.data"].xmlid_to_res_id("mail.mt_note"),
+            "is_internal": True,
+            "record_name": False,
+            "reply_to": self.env["mail.thread"]._notify_get_reply_to(
+                default=email_from, records=None
+            )[False],
+            "message_id": tools.generate_tracking_message_id(
+                "message-notify"
+            ),  # why? this is all but a notify
+            "msgtype": msgtype,
+            "is_wxwork_message": is_wxwork_message,
+            "message_to_all": message_to_all,
+            "message_to_user": message_to_user,
+            "message_to_party": message_to_party,
+            "message_to_tag": message_to_tag,
+            "media_id": media_id,
+            "message_body_html": message_body_html,
+            "message_body_text": message_body_text,
+            "safe": safe,
+            "enable_id_trans": enable_id_trans,
+            "enable_duplicate_check": enable_duplicate_check,
+            "duplicate_check_interval": duplicate_check_interval,
+        }
+        values_list = [
+            dict(base_message_values, res_id=record.id, body=bodies.get(record.id, ""))
+            for record in self
+        ]
+        return self.sudo()._message_create(values_list)
 
     def _message_compute_author(
         self, author_id=None, email_from=None, raise_exception=True
