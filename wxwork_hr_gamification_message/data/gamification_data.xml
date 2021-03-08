@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <!-- 1. 目标：提醒目标更新 -->
         <record id="gamification.email_template_goal_reminder"  model="mail.template">
