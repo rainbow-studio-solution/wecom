@@ -20,13 +20,13 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     auth_agentid = fields.Char(
-        "Agent Id",
+        "Auth gent Id",
         default="0000000",
         help="The web application ID of the authorizing party, which can be viewed in the specific web application",
         config_parameter="wxwork.auth_agentid",
     )
     auth_secret = fields.Char(
-        "Secret",
+        "Auth Secret",
         config_parameter="wxwork.auth_secret",
         default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     )
