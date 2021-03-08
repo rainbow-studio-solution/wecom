@@ -28,25 +28,12 @@ class Message(models.Model):
         "invalidtag": "Invalid tag",
         "api_error": "Api error",
     }
-
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message")
     message_type = fields.Selection(
         selection_add=[("wxwork", "Enterprise WeChat Message")],
         ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
     )
-    notification_type = fields.Selection(
-        [
-            ("email", "Handle by Emails"),
-            ("inbox", "Handle in Odoo"),
-            ("wxwork", "Handle in Enterprise WeChat"),
-        ],
-        "Notification",
-        required=True,
-        default="email",
-        help="Policy on how to handle Chatter notifications:\n"
-        "- Handle by Emails: notifications are sent to your email address\n"
-        "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
-        "- Handle in Enterprise WeChat: notifications appear in your Enterprise WeChat",
-    )
+
     message_to_all = fields.Boolean("To all members", readonly=True,)
     message_to_user = fields.Many2many(
         "hr.employee",
@@ -87,8 +74,8 @@ class Message(models.Model):
         default="text",
     )
     media_id = fields.Char(string="Media file id",)
-    message_body_text = fields.Text("Body")
-    message_body_html = fields.Html("Body", sanitize=False)
+    message_body_text = fields.Text("Text Body")
+    message_body_html = fields.Html("Html Body", sanitize=False)
 
     safe = fields.Selection(
         [

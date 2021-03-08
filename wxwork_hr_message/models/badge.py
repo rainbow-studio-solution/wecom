@@ -19,11 +19,12 @@ class BadgeUser(models.Model):
         template = self.env.ref("gamification.email_template_badge_received")
 
         for badge_user in self:
-            wxwork_id = badge_user.user_id
-            if not wxwork_id:
+            user = badge_user.user_id
+            if not user.wxwork_id:
                 is_wxwork_message = False
             else:
                 is_wxwork_message = True
+
             self.env["mail.thread"].message_post_with_template(
                 template.id,
                 model=badge_user._name,

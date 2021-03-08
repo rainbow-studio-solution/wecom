@@ -88,8 +88,8 @@ class MailThread(models.AbstractModel):
         comodel_name="wxwork.material",
         help="媒体文件Id,可以调用上传临时素材接口获取",
     )
-    message_body_text = fields.Text("Body", translate=True,)
-    message_body_html = fields.Html("Body", translate=True, sanitize=False)
+    message_body_text = fields.Text("Text Body", translate=True,)
+    message_body_html = fields.Html("Html Body", translate=True, sanitize=False)
 
     # options
     safe = fields.Selection(
@@ -308,7 +308,7 @@ class MailThread(models.AbstractModel):
                 "add_sign": add_sign,
                 "record_name": record_name,
                 "msgtype": msgtype,
-                "notification_type": notification_type,
+                # "notification_type": notification_type,
                 "message_to_all": message_to_all,
                 "message_to_user": message_to_user,
                 "message_to_party": message_to_party,
@@ -398,7 +398,7 @@ class MailThread(models.AbstractModel):
             )["value"]
 
             composer.write(update_values)
-        # print("update_values", update_values)
+
         return composer.send_mail(
             auto_commit=auto_commit, is_wxwork_message=kwargs["is_wxwork_message"]
         )

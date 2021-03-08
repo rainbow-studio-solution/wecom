@@ -50,6 +50,11 @@ class Digest(models.Model):
         material = ir_model_data.get_object_reference(
             "wxwork_material", "wxwork_material_image_kpi"
         )
+        if user.wxwork_id:
+            is_wxwork_message = True
+        else:
+            is_wxwork_message = False
+
         # 根据值创建一个mail_mail，不带附件
         mail_values = {
             "subject": "%s: %s" % (user.company_id.name, self.name),
@@ -58,10 +63,11 @@ class Digest(models.Model):
             else self.env.user.email_formatted,
             "email_to": user.email_formatted,
             "auto_delete": True,
+            "is_wxwork_message": is_wxwork_message,
             "message_to_user": user.wxwork_id,
             "msgtype": "mpnews",
             "body_html": full_mail,
-            "media_id": material,
+            "media_id": material[1],
             "message_body_html": full_mail,
             "safe": "1",
             "enable_id_trans": False,
@@ -69,6 +75,6 @@ class Digest(models.Model):
             "duplicate_check_interval": 1800,
         }
         mail = self.env["mail.mail"].sudo().create(mail_values)
-        mail.send(raise_exception=False)
+        mail.send(raise_exception=False, is_wxwork_message=is_wxwork_message)
         return True
 

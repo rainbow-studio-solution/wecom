@@ -49,8 +49,8 @@ class MailTemplate(models.Model):
         comodel_name="wxwork.material",
         help="媒体文件Id,可以调用上传临时素材接口获取",
     )
-    message_body_text = fields.Text("Body", translate=True,)
-    message_body_html = fields.Html("Body", translate=True, sanitize=False)
+    message_body_text = fields.Text("Text Body", translate=True,)
+    message_body_html = fields.Html("Html Body", translate=True, sanitize=False)
 
     # options
     safe = fields.Selection(
@@ -368,8 +368,7 @@ class MailTemplate(models.Model):
                 or values.get("message_to_party")
                 or values.get("message_to_tag")
             ):
-                values["notification_type"] = "wxwork"  # 指定通知方式
-                values["message_type"] = "wxwork"  # 指定邮件消息类型
+                values["is_wxwork_message"] = True  # 指定是企业微信消息
 
         mail = self.env["mail.mail"].sudo().create(values)
 

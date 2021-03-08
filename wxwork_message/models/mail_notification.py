@@ -6,6 +6,7 @@ from odoo import fields, models
 class MailNotification(models.Model):
     _inherit = "mail.notification"
 
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message")
     notification_type = fields.Selection(
         selection_add=[("wxwork", "Enterprise WeChat Message")],
         ondelete={"wxwork": "set default"},

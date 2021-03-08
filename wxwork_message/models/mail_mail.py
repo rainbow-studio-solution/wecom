@@ -16,6 +16,7 @@ _logger = logging.getLogger(__name__)
 class MailMail(models.Model):
     _inherit = "mail.mail"
 
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message")
     msgtype = fields.Char(string="Message type",)
     media_id = fields.Char(string="Media file id",)
     message_to_all = fields.Boolean("To all members",)
@@ -23,7 +24,7 @@ class MailMail(models.Model):
     message_to_party = fields.Char(string="To Departments",)
     message_to_tag = fields.Char(string="To Tags",)
     message_body_text = fields.Text("Text Contents",)
-    message_body_html = fields.Text("Text Contents",)
+    message_body_html = fields.Text("Html Contents",)
 
     safe = fields.Selection(
         [
@@ -65,7 +66,8 @@ class MailMail(models.Model):
         if notif_mails_ids:
             notifications = self.env["mail.notification"].search(
                 [
-                    ("notification_type", "=", "wxwork"),
+                    ("notification_type", "=", "email"),
+                    ("is_wxwork_message", "=", True),
                     ("mail_id", "in", notif_mails_ids),
                     ("notification_status", "not in", ("sent", "canceled")),
                 ]
@@ -80,6 +82,7 @@ class MailMail(models.Model):
                 (notifications - failed).sudo().write(
                     {
                         "notification_status": "sent",
+                        "is_wxwork_message": True,
                         "failure_type": "",
                         "failure_reason": "",
                     }
@@ -88,6 +91,7 @@ class MailMail(models.Model):
                     failed.sudo().write(
                         {
                             "notification_status": "exception",
+                            "is_wxwork_message": True,
                             "failure_type": failure_type,
                             "failure_reason": failure_reason,
                         }
@@ -119,7 +123,7 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-        print("send", self)
+
         if is_wxwork_message is None:
             if self.message_to_user:
                 print("send 企微用户", self)
@@ -127,7 +131,7 @@ class MailMail(models.Model):
             else:
                 print("send 非企微用户", self)
                 is_wxwork_message = False
-        # print("mail.mail.send()", auto_commit, raise_exception, is_wxwork_message)
+
         for server_id, batch_ids in self._split_by_server():
             smtp_session = None
             try:
@@ -172,6 +176,15 @@ class MailMail(models.Model):
                     self.browse(batch_ids)._send_wxwork_message(
                         auto_commit=auto_commit, raise_exception=raise_exception,
                     )
+                    # if raise_exception:
+                    #     self.browse(batch_ids)._send_wxwork_message(
+                    #         auto_commit=auto_commit, raise_exception=raise_exception,
+                    #     )
+
+                    # else:
+                    #     batch = self.browse(batch_ids)
+                    #     batch.write({"state": "exception", "failure_reason": ""})
+                    #     batch._postprocess_sent_wxwork_message(success_pids=[],)
                     _logger.info(
                         _("Sent batch %s message via enterprise WeChat "),
                         len(batch_ids),
@@ -314,12 +327,13 @@ class MailMail(models.Model):
                     values = mail._send_wxwork_prepare_values(partner=partner)
                     values["partner_id"] = partner
                     email_list.append(values)
-                print("send", email_list)
+
                 # 在邮件对象上写入可能会失败（例如锁定用户），这将在*实际发送电子邮件后触发回滚。
                 # 为了避免两次发送同一封电子邮件，请尽早引发失败
+
                 mail.write(
                     {
-                        "message_type": "wxwork",
+                        "is_wxwork_message": True,
                         "state": "sent",
                         # "state": "exception",
                         # "failure_reason": _(
@@ -327,24 +341,28 @@ class MailMail(models.Model):
                         # ),
                     }
                 )
+                print("mail1", mail)
                 # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
-                # ("notification_type", "=", "wxwork"),
+
                 notifs = self.env["mail.notification"].search(
                     [
-                        ("notification_type", "=", "wxwork"),
+                        ("notification_type", "=", "email"),
+                        ("is_wxwork_message", "=", True),
                         ("mail_id", "in", mail.ids),
                         ("notification_status", "not in", ("sent", "canceled")),
                     ]
                 )
                 if notifs:
+                    # TODO: 待处理
                     notif_msg = _(
                         "Error without exception. Probably due do concurrent access update of notification records. Please see with an administrator."
                     )
                     notifs.sudo().write(
                         {
-                            "notification_status": "exception",
-                            "failure_type": "UNKNOWN",
-                            "failure_reason": notif_msg,
+                            # "notification_status": "exception",
+                            "notification_status": "send",
+                            # "failure_type": "UNKNOWN",
+                            # "failure_reason": notif_msg,
                         }
                     )
                     # `test_mail_bounce_during_send`，强制立即更新以获取锁定。
@@ -386,7 +404,7 @@ class MailMail(models.Model):
                         processing_pid = None
                     except AssertionError as error:
                         pass
-                # print("res", res)
+
                 if res:  # 消息已至少发送一次，未发生重大异常
                     if "errcode" in res:
                         if res.get("errcode") == 0:
@@ -409,19 +427,15 @@ class MailMail(models.Model):
                                     ) % res.get("invalidtag")
                             mail.write(
                                 {
-                                    "message_type": "wxwork",
+                                    "is_wxwork_message": True,
                                     "state": "sent",
                                     "message_id": res,
-                                    "failure_reason": failure_reason,
+                                    "failure_reason": False,
                                 }
                             )
 
                             _logger.info(
-                                _(
-                                    "Message with ID %r and Message-Id %r successfully sent",
-                                    mail.id,
-                                    mail.message_id,
-                                )
+                                _("Message with ID %r successfully sent", mail.id,)
                             )
                         else:
                             failure_reason = _(
@@ -437,7 +451,8 @@ class MailMail(models.Model):
                             )
                             mail.write(
                                 {
-                                    "message_type": "wxwork",
+                                    "message_type": "email",
+                                    "is_wxwork_message": True,
                                     "state": "exception",
                                     "failure_reason": failure_reason,
                                 }
@@ -450,14 +465,15 @@ class MailMail(models.Model):
                     )
                     mail.write(
                         {
-                            "message_type": "wxwork",
+                            "message_type": "email",
+                            "is_wxwork_message": True,
                             "state": "exception",
                             "failure_reason": failure_reason,
                         }
                     )
-                mail._postprocess_sent_wxwork_message(
-                    success_pids=success_pids, failure_type=failure_type
-                )
+                # mail._postprocess_sent_wxwork_message(
+                #     success_pids=success_pids, failure_type=failure_type
+                # )
             except MemoryError:
                 # 防止捕获短暂的MemoryErrors，冒泡通知用户或中止cron作业，而不是将邮件标记为失败
                 _logger.exception(

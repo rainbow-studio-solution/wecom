@@ -67,7 +67,7 @@
                 <tree string="Enterprise WeChat Message" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'" decoration-danger="state=='exception'">
                     <field name="date"/>
                     <field name="state" />
-                    <field name="notification_type"/>
+                    <field name="is_wxwork_message"/>
                     <field name="message_type"/>
                     <field name="subject"/>
                     <field name="author_id" string="User"/>
@@ -91,7 +91,7 @@
                     <attribute name="invisible">0</attribute>
                 </xpath>              
                 <xpath expr="//field[@name='message_type']" position="after">
-                    <field name="notification_type" />
+                    <field name="is_wxwork_message" />
                 </xpath>                
             </field>
         </record>
@@ -132,7 +132,7 @@
             <field name="res_model">mail.mail</field>
             <field name="view_mode">tree,form</field>
             <!-- <field name="domain">[('notification_type','=', ('wxwork'))]</field> -->
-            <field name="domain">[('message_type','=', ('wxwork'))]</field>
+            <field name="domain">[('is_wxwork_message','=', True)]</field>
             <field name="context">{}</field>         
             <field name="search_view_id" ref="view_wxwork_mail_search"/>
             <field name="view_ids" eval="[(5, 0, 0),

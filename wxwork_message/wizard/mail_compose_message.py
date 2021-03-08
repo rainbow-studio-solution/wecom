@@ -31,8 +31,8 @@ class MailComposer(models.TransientModel):
     """
 
     _inherit = "mail.compose.message"
-    is_wxwork_message = fields.Boolean("Enterprise WeChat Message",)
 
+    is_wxwork_message = fields.Boolean("Enterprise WeChat Message",)
     message_to_user = fields.Char(
         string="To Employees", help="Message recipients (users)",
     )
@@ -40,10 +40,7 @@ class MailComposer(models.TransientModel):
         string="To Departments", help="Message recipients (departments)",
     )
     message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
-    message_type = fields.Selection(
-        selection_add=[("wxwork", "Enterprise WeChat Message")],
-        ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
-    )
+
     media_id = fields.Many2one(
         string="Media file id",
         comodel_name="wxwork.material",
@@ -67,8 +64,8 @@ class MailComposer(models.TransientModel):
         required=True,
         default="text",
     )
-    message_body_html = fields.Html("Contents", default="", sanitize_style=True)
-    message_body_text = fields.Text("Contents", default="", sanitize_style=True)
+    message_body_html = fields.Html("Html Contents", default="", sanitize_style=True)
+    message_body_text = fields.Text("Text Contents", default="", sanitize_style=True)
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -105,6 +102,7 @@ class MailComposer(models.TransientModel):
         """ 
         处理向导的内容，然后继续发送相关的电子邮件，并在需要时动态呈现任何模板模式。
         """
+
         notif_layout = self._context.get("custom_layout")
         # 几种自定义布局在渲染时会使用模型描述，例如 在“查看<document>”按钮中。 某些模型用于不同的业务概念，例如用于RFQ和PO的'purchase.order'。 为避免混淆，我们必须根据对象的状态使用不同的措词。
         # 因此，我们可以从一开始就在上下文中设置描述，以避免退回到在'_notify_prepare_template_context'中检索到的常规display_name上。
@@ -132,6 +130,10 @@ class MailComposer(models.TransientModel):
                         new_attachment_ids.append(attachment.id)
                 new_attachment_ids.reverse()
                 wizard.write({"attachment_ids": [(6, 0, new_attachment_ids)]})
+
+            # 指定是企业微信消息
+            if is_wxwork_message:
+                wizard.is_wxwork_message = True
 
             # 群发邮件
             mass_mode = wizard.composition_mode in ("mass_mail", "mass_post")
@@ -204,7 +206,7 @@ class MailComposer(models.TransientModel):
                             model_description=model_description,
                         )
                         post_params.update(mail_values)
-                        # print("post_params", post_params)
+
                         if ActiveModel._name == "mail.thread":
                             if wizard.model:
                                 post_params["model"] = wizard.model
@@ -271,6 +273,7 @@ class MailComposer(models.TransientModel):
                 "no_auto_thread": self.no_auto_thread,
                 "mail_server_id": self.mail_server_id.id,
                 "mail_activity_type_id": self.mail_activity_type_id.id,
+                "is_wxwork_message": self.is_wxwork_message,
                 "msgtype": self.msgtype,
                 "media_id": self.media_id.id,
                 "message_to_user": self.message_to_user,
@@ -285,8 +288,8 @@ class MailComposer(models.TransientModel):
             }
 
             # 指定通知方式
-            if self.is_wxwork_message:
-                mail_values.update(notification_type="wxwork")
+            # if self.is_wxwork_message:
+            #     mail_values.update(notification_type="wxwork")
 
             # 群发邮件：呈现替代向导的静态值
             if mass_mail_mode and self.model:

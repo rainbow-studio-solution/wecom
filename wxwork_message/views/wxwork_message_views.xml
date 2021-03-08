@@ -24,9 +24,7 @@
                                 <field name="record_name"/>
                                 <field name="parent_id"/>
                                 <field name="moderation_status"/>
-                                <field name="notification_type"/>
-                                <field name="moderator_id"/>
-                                <field name="moderator_id"/>                                
+                                <field name="moderator_id"/>                              
                             </group>
                         </group>
                         <group string="Message">
@@ -99,7 +97,6 @@
             <field name="arch" type="xml">
                 <tree string="Messages">
                     <field name="date"/>
-                    <field name="notification_type"/>
                     <field name="message_type"/>
                     <field name="subject"/>
                     <field name="author_id"/>
@@ -113,7 +110,7 @@
             <field name="name">Messages</field>
             <field name="res_model">mail.message</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('notification_type','=', ('wxwork'))]</field>
+            <field name="domain">[('is_wxwork_message','=', True)]</field>
             <field name="context">{}</field>
         </record>
 
