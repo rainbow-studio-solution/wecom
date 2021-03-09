@@ -177,4 +177,4 @@ msgstr "企业微信KPI概述消息"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_event_message
 msgid "Enterprise WeChat Events Message"
-msgstr "企业微信活动"
+msgstr "企业微信活动消息"
