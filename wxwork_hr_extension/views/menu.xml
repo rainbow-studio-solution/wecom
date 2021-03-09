@@ -25,6 +25,37 @@
                 action="hr_recruitment.crm_case_categ0_act_job" 
                 sequence="2"/>
 
+        <!-- 4.考勤 -->
+        <menuitem 
+            name="Attendances" 
+            id="menu_wxwork_hr_attendance_main" 
+            parent="wxwork_smart_hrm.menu_wxwork_hrm_root"
+            sequence="4" 
+            groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_kiosk" />
+
+            <menuitem  
+                name="Manager" 
+                id="menu_wxwork_hr_attendance_manage_attendances" 
+                parent="menu_wxwork_hr_attendance_main" 
+                sequence="20" 
+                groups="hr_attendance.group_hr_attendance_user"/>
+
+                <menuitem  
+                    name="Attendances" 
+                    id="menu_wxwork_hr_attendance_view_attendances" 
+                    parent="menu_wxwork_hr_attendance_manage_attendances" 
+                    sequence="10" 
+                    groups="hr_attendance.group_hr_attendance_user" 
+                    action="hr_attendance.hr_attendance_action"/>
+
+                <menuitem  
+                    name="Employees" 
+                    id="menu_wxwork_hr_attendance_view_employees_kanban" 
+                    parent="menu_wxwork_hr_attendance_manage_attendances" 
+                    sequence="15" 
+                    groups="hr_attendance.group_hr_attendance_user" 
+                    action="hr.open_view_employee_list_my"/>
+
         <!-- 90.报表菜单 -->
         <menuitem
             name="Reporting"
@@ -32,14 +63,14 @@
             parent="wxwork_smart_hrm.menu_wxwork_hrm_root"
             groups="hr_recruitment.group_hr_recruitment_user"
             sequence="90"/>
-
+            <!-- 招聘报表 -->
             <menuitem 
                 name="Recruitment Analysis" 
                 id="hr_applicant_report_menu" 
                 parent="menu_wxwork_report_main"
                 sequence="5" 
                 action="hr_recruitment.hr_applicant_action_analysis"/>
-
+            <!-- 考勤报表 -->
             <menuitem
                 id="menu_wxwork_attendance_report"
                 name="Attendance Reporting"
