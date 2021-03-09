@@ -5,14 +5,14 @@
         <menuitem 
             id="menu_wxwork_message_root" 
             name="Enterprise WeChat Message" 
-            groups="base.group_user" 
+            groups="base.group_erp_manager" 
             web_icon="wxwork_message,static/description/icon.png" 
             sequence="3"/>
             
             <menuitem 
                 id="menu_wxwork_message" 
                 name="Message" 
-                groups="base.group_user" 
+                groups="base.group_erp_manager" 
                 parent="menu_wxwork_message_root"
                 sequence="1"/>
 
@@ -20,6 +20,7 @@
                     name="Message Send" 
                     parent="menu_wxwork_message"
                     action="action_view_wxwrok_mail" 
+                    groups="base.group_erp_manager" 
                     sequence="1"/>
             
                 <menuitem 
@@ -27,13 +28,14 @@
                     name="Test sending message " 
                     parent="menu_wxwork_message"
                     action="action_view_wxwork_message" 
-                    groups="base.group_no_one"
+                    groups="base.group_erp_manager"
                     sequence="10"/>
                 
                 <menuitem 
                     id="menu_wxwork_message_template" 
                     name="Message Template" 
                     parent="menu_wxwork_message"
+                    groups="base.group_erp_manager" 
                     action="wxwork_template_action" 
                     sequence="15"/>
 
@@ -43,7 +45,7 @@
                     parent="menu_wxwork_message_root" 
                     sequence="900"
                     action="wxwork_message.wxwork_message_config_settings_action" 
-                    groups="base.group_system"/>
+                    groups="base.group_erp_manager"/>
 
         <!-- <menuitem 
             id="menu_wxwork_message" 
