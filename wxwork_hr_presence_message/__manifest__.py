@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Recruitment Message",
+    "name": "Enterprise WeChat Presence Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 614,
@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["hr_recruitment", "wxwork_message",],
+    "depends": ["hr_presence", "wxwork_message",],
     "data": ["data/message_data.xml",],
     "qweb": ["static/src/xml/*.xml",],
 }
