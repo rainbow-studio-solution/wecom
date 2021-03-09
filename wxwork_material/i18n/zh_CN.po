@@ -121,12 +121,12 @@ msgstr "显示名称"
 #. module: wxwork_material
 #: model:ir.ui.menu,name:wxwork_material.menu_wxwork_material_root
 msgid "Enterprise WeChat Material Management"
-msgstr "企业微信素材管理"
+msgstr "企微素材管理"
 
 #. module: wxwork_material
 #: model:ir.model,name:wxwork_material.model_wxwork_material
 msgid "Enterprise WeChat material"
-msgstr "企业威胁你素材"
+msgstr "企业微信素材"
 
 #. module: wxwork_material
 #: code:addons/wxwork_material/models/wxwork_material.py:0

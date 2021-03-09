@@ -130,12 +130,12 @@ msgstr "企业微信消息"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_material
 msgid "Enterprise WeChat Material"
-msgstr "企业微信素材管理"
+msgstr "企微素材管理"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_smart_hrm
 msgid "Enterprise WeChat Smart HRM"
-msgstr "企业微信智慧人事"
+msgstr "企微智慧人事"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget
