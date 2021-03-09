@@ -309,7 +309,7 @@ msgstr "企业微信消息"
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form
 msgid "Enterprise WeChat message html content"
-msgstr "企业微信短信html内容"
+msgstr "企业微信消息html内容"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form

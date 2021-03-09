@@ -26,3 +26,8 @@ class ResConfigSettings(models.TransientModel):
     module_wxowrk_digest_message = fields.Boolean(
         "Send KPI Digests periodically via Enterprise WeChat",
     )
+
+    module_stock = fields.Boolean("",)
+    module_wxwork_stock_message = fields.Boolean(
+        "Send Inventory message via Enterprise WeChat",
+    )

@@ -35,6 +35,6 @@ class MailTemplatePreview(models.TransientModel):
         string="To Departments", help="Message recipients (departments)",
     )
     message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
-    message_body_text = fields.Text("Body", compute="_compute_mail_template_fields")
-    message_body_html = fields.Html("Body", compute="_compute_mail_template_fields")
+    message_body_text = fields.Text("Text Body", compute="_compute_mail_template_fields")
+    message_body_html = fields.Html("Html Body", compute="_compute_mail_template_fields")
 
