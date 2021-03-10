@@ -321,27 +321,27 @@ msgstr "结束时间"
 #. module: wxwork_attendance
 #: model:ir.actions.act_window,name:wxwork_attendance.open_module_tree_attendance_data
 msgid "Enterprise WeChat Attendance Data"
-msgstr "企业微信考勤数据"
+msgstr "企微考勤数据"
 
 #. module: wxwork_attendance
 #: model:ir.actions.act_window,name:wxwork_attendance.open_module_tree_attendance_rule
 msgid "Enterprise WeChat Attendance Rules"
-msgstr "企业微信考勤规则"
+msgstr "企微考勤规则"
 
 #. module: wxwork_attendance
 #: model:ir.model,name:wxwork_attendance.model_hr_attendance_wxwrok_data
 msgid "Enterprise WeChat attendance data"
-msgstr "企业微信考勤数据"
+msgstr "企微考勤数据"
 
 #. module: wxwork_attendance
 #: model:ir.model,name:wxwork_attendance.model_hr_attendance_wxwrok_rule
 msgid "Enterprise WeChat attendance rule"
-msgstr "企业微信考勤规则"
+msgstr "企微考勤规则"
 
 #. module: wxwork_attendance
 #: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__userid
 msgid "Enterprise WeChat user ID"
-msgstr "企业微信用户Id"
+msgstr "企微用户Id"
 
 #. module: wxwork_attendance
 #: model:ir.model,name:wxwork_attendance.model_wizard_attendance_data_pull

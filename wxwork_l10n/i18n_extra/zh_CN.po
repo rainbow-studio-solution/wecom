@@ -79,7 +79,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        企业微信素材管理\n"
+"        企微素材管理\n"
 "        "
 
 #. module: base
@@ -90,42 +90,42 @@ msgstr "设计，发送和跟踪企业微信消息"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_api
 msgid "Enterprise WeChat API"
-msgstr "企业微信API"
+msgstr "企微API"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_attendance
 msgid "Enterprise WeChat Attendances"
-msgstr "企业微信考勤"
+msgstr "企微考勤"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_auth_oauth
 msgid "Enterprise WeChat Authentication"
-msgstr "企业微信认证"
+msgstr "企微认证"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_base
 msgid "Enterprise WeChat Base"
-msgstr "企业微信基础"
+msgstr "企微基础"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_extension
 msgid "Enterprise WeChat Hr Extension"
-msgstr "企业微信人力资源扩展"
+msgstr "企微人力资源扩展"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_syncing
 msgid "Enterprise WeChat Hr Syncing"
-msgstr "企业微信人力资源同步"
+msgstr "企微人力资源同步"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_mass_mailing_wxwork_message
 msgid "Enterprise WeChat MassMessage"
-msgstr "企业微信群发消息"
+msgstr "企微群发消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_message
 msgid "Enterprise WeChat Message"
-msgstr "企业微信消息"
+msgstr "企微消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_material
@@ -141,22 +141,22 @@ msgstr "企微智慧人事"
 #: model:ir.module.module,shortdesc:base.module_wxwork_widget
 #: model:ir.module.module,summary:base.module_wxwork_widget
 msgid "Enterprise WeChat Widget"
-msgstr "企业微信小部件"
+msgstr "企微小部件"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_l10n
 msgid "Enterprise WeChat localization"
-msgstr "企业微信本地化"
+msgstr "企微本地化"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.hr_message
 msgid "Enterprise WeChat Hr Message"
-msgstr "企业微信消息-HR"
+msgstr "企微消息-HR"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_mass_message
 msgid "Enterprise WeChat MassMessage"
-msgstr "企业微信群发消息"
+msgstr "企微群发消息"
 
 
 #. module: base
@@ -167,14 +167,14 @@ msgstr "设计、发送和跟踪企业微信信息"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_hr_gamification_message
 msgid "Enterprise WeChat Gamification Message"
-msgstr "企业微信积分管理消息"
+msgstr "企微积分管理消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxowrk_digest_message
 msgid "Enterprise WeChat KPI Digests Message"
-msgstr "企业微信KPI概述消息"
+msgstr "企微KPI概述消息"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_event_message
 msgid "Enterprise WeChat Events Message"
-msgstr "企业微信活动消息"
+msgstr "企微活动消息"
