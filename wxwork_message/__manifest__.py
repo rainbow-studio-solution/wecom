@@ -19,6 +19,7 @@
     "depends": [
         "mail",
         "digest",
+        "rating",
         "wxwork_base",
         "wxwork_widget",
         "wxwork_material",
