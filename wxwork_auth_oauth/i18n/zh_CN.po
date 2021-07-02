@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 14.0-20210702\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-08 10:00+0000\n"
-"PO-Revision-Date: 2021-03-08 18:18+0800\n"
+"POT-Creation-Date: 2021-07-02 06:43+0000\n"
+"PO-Revision-Date: 2021-07-02 14:48+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields.selection,name:wxwork_auth_oauth.selection__res_config_settings__join_qrcode_size_type__1
+msgid "171px * 171px"
+msgstr "171px * 171px"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__join_qrcode_size_type
+msgid "1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052"
+msgstr "1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields.selection,name:wxwork_auth_oauth.selection__res_config_settings__join_qrcode_size_type__2
+msgid "399px * 399px"
+msgstr "399px * 399px"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields.selection,name:wxwork_auth_oauth.selection__res_config_settings__join_qrcode_size_type__3
+msgid "741px * 741px"
+msgstr "741px * 741px"
 
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
@@ -52,7 +72,6 @@ msgstr "<i class=\"fa fa-link fa-lg\" aria-label=\"二维码重定向URL\"/>"
 msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Auth AgentId\"/>"
 msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"授权访问的网页应用ID\"/>"
 
-
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.res_config_settings_view_form
 msgid ""
@@ -83,13 +102,6 @@ msgid "<strong>Save</strong> this page and come back here to set up the feature.
 msgstr "<strong>保存</strong> 此页面，然后返回此处以设置功能。"
 
 #. module: wxwork_auth_oauth
-#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_agentid
-msgid "Agent Id"
-msgstr "授权访问的网页应用ID"
-
-
-#. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/controllers/main.py:0
 #: code:addons/wxwork_auth_oauth/controllers/main.py:0
 #, python-format
 msgid "Another user is already registered using this email address or Enterprise WeChat id."
@@ -110,34 +122,34 @@ msgid ""
 msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“Secret”"
 
 #. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_secret
+msgid "Auth Secret"
+msgstr "身份验证Secret"
+
+#. module: wxwork_auth_oauth
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_agentid
+msgid "Auth agent Id"
+msgstr "身份验证应用id"
+
+#. module: wxwork_auth_oauth
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri
 msgid "Callback link address redirected after authorization"
 msgstr "授权后重定向的回调链接地址"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
 #: code:addons/wxwork_auth_oauth/models/res_users.py:0
 #, python-format
-msgid "Cannot send email: user %s has no email address."
-msgstr "无法发送电子邮件：%s 用户没有电子邮件地址。"
-
-#. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
-#: code:addons/wxwork_auth_oauth/models/res_users.py:0
-#, python-format
-msgid "Cannot send user %s has no Enterprise WeChat user id."
-msgstr "无法发送用户,%s没有企业微信用户id。"
+msgid "Cannot send email or message: user %s has no email address or Enterprise WeChat user id."
+msgstr "无法发送电子邮件或消息：用户%s没有电子邮件地址或企业微信用户id。"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/auth.xml:0
 #: code:addons/wxwork_auth_oauth/static/src/xml/auth.xml:0
 #, python-format
 msgid "Close"
 msgstr "关闭"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Complete obtaining the QR code to join the enterprise"
@@ -149,7 +161,6 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/controllers/main.py:0
 #: code:addons/wxwork_auth_oauth/controllers/main.py:0
 #, python-format
 msgid "Could not create a new account."
@@ -157,12 +168,11 @@ msgstr "无法创建新帐户。"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/js/auth.js:0
 #: code:addons/wxwork_auth_oauth/static/src/js/auth.js:0
 #, python-format
 msgid ""
-"Detected in the enterprise WeChat built-in browser to open the page, whether to sign in with "
-"one click."
+"Detected in the enterprise WeChat built-in browser to open the page, whether"
+" to sign in with one click."
 msgstr "检测到在企业微信内置浏览器中打开页面，是否一键登录。"
 
 #. module: wxwork_auth_oauth
@@ -206,7 +216,6 @@ msgid "Enterprise WeChat: Get join enterprise QR code"
 msgstr "企业微信：加入企业二维码"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid ""
@@ -221,14 +230,12 @@ msgstr ""
 "%s"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Failed"
 msgstr "失败"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid ""
@@ -261,13 +268,12 @@ msgstr "获取加入企业二维码"
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_users__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.login_join_qrcode
 msgid "Join Enterprise WeChat"
 msgstr "加入企业微信"
-
 
 #. module: wxwork_auth_oauth
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__join_qrcode
@@ -297,7 +303,6 @@ msgid "OAuth2 provider"
 msgstr "OAuth2服务商"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/controllers/main.py:0
 #: code:addons/wxwork_auth_oauth/controllers/main.py:0
 #, python-format
 msgid ""
@@ -310,30 +315,19 @@ msgstr "OAuth2:拒绝访问，如果存在有效会话，则重定向到主页�
 msgid "One-click to set up enterprise WeChat OAuth"
 msgstr "一键设置企业微信OAuth"
 
-
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
 #: code:addons/wxwork_auth_oauth/models/res_users.py:0
 #, python-format
-msgid "Password reset email sent for user <%s> to <%s>"
-msgstr "将用户 <%s> 的密码重置电子邮件发送到 <%s>"
+msgid "Password reset email or message sent for user <%s> to <%s> <%s>"
+msgstr "将用户<%s>的密码重置电子邮件或消息发送到<%s> <%s>"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
-#: code:addons/wxwork_auth_oauth/models/res_users.py:0
-#, python-format
-msgid "Password reset message sent for user: %s, %s"
-msgstr "为用户发送的密码重置消息： %s, %s"
-
-#. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Please fill in correctly Enterprise ID."
 msgstr "请正确填写企业ID。"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Please fill in the contact Secret correctly."
@@ -360,7 +354,6 @@ msgstr "二维码尺寸类型"
 msgid "Refresh the QR code"
 msgstr "刷新二维码"
 
-
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.login_join_qrcode
 msgid "Scan code to join Enterprise WeChat"
@@ -371,9 +364,7 @@ msgstr "扫码加入企业微信"
 msgid "Scan the QR code to log in and call back the link address"
 msgstr "扫描二维码登录回调链接地址"
 
-
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Start getting join enterprise QR code"
@@ -381,50 +372,42 @@ msgstr "开始获取加入企业二维码"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/auth.xml:0
 #: code:addons/wxwork_auth_oauth/static/src/xml/auth.xml:0
 #, python-format
 msgid "Submit"
 msgstr "提交"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Success"
 msgstr "成功"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Successfully obtained the enterprise QR code."
-msgstr "成功获取企业二维码."
+msgstr "成功获取企业二维码"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Task error:Please fill in correctly Enterprise ID."
 msgstr "任务错误：请正确填写企业ID。"
 
-
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Task error:Please fill in the contact Secret correctly."
 msgstr "任务错误：请正确填写通讯录Secret。"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Task:Complete obtaining the QR code to join the enterprise"
 msgstr "任务：完成获取加入企业的二维码"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_config_settings.py:0
 #: code:addons/wxwork_auth_oauth/models/res_config_settings.py:0
 #, python-format
 msgid "Task:Start getting join enterprise QR code"
@@ -432,12 +415,11 @@ msgstr "任务：开始获取加入企业二维码"
 
 #. module: wxwork_auth_oauth
 #. openerp-web
-#: code:addons/wxwork/wxwork_auth_oauth/static/src/js/auth.js:0
 #: code:addons/wxwork_auth_oauth/static/src/js/auth.js:0
 #, python-format
 msgid ""
-"The current browser is not an enterprise WeChat built-in browser, so the one-click login "
-"function cannot be used."
+"The current browser is not an enterprise WeChat built-in browser,so the one-"
+"click login function cannot be used."
 msgstr "当前浏览器不是企业微信内置浏览器，不能使用一键登录功能。"
 
 #. module: wxwork_auth_oauth
@@ -452,16 +434,13 @@ msgstr "授权访问的Web应用程序ID，可以在特定的Web应用程序中�
 msgid "View OAuth providers"
 msgstr "查看OAuth提供商"
 
-
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/models/res_users.py:0
 #: code:addons/wxwork_auth_oauth/models/res_users.py:0
 #, python-format
 msgid "You cannot perform this action on an archived user."
 msgstr "不能对存档用户执行此操作。"
 
 #. module: wxwork_auth_oauth
-#: code:addons/wxwork/wxwork_auth_oauth/controllers/main.py:0
 #: code:addons/wxwork_auth_oauth/controllers/main.py:0
 #, python-format
 msgid "auth_signup not installed on database %s: oauth sign up cancelled."

@@ -8,8 +8,7 @@
                     <main class="modal-body" style="background-color:#FFFFFF">
                         <iframe t-att-src="url" 
                                 frameborder="0"
-                                scrolling="0"
-   
+                                scrolling="0"   
                         ></iframe>
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">

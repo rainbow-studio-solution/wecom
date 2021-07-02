@@ -6,10 +6,15 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
     var core = require('web.core');
 
     var qweb = core.qweb;
-    var _t = core._t;
+    var _lt = core._lt;
+
+    var WXWORK_BROWSER_MESSAGES = {
+        not_wxwork_browser: _lt('The current browser is not an enterprise WeChat built-in browser,' + 'so the one-click login function cannot be used.'),
+        is_wxwork_browser: _lt('Detected in the enterprise WeChat built-in browser to open the page, ' + 'whether to sign in with one click.'),
+    };
 
     publicWidget.registry.WxWorkAuth = publicWidget.Widget.extend({
-        selector: '.o_login_auth',
+        selector: '.o_login_auth ',
         xmlDependencies: ['/wxwork_auth_oauth/static/src/xml/auth.xml'],
         events: {
             'click a': '_pop_up_qr_dialog',
@@ -28,7 +33,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             this.msg = "";
             let isWx = ua.match(/MicroMessenger/i) == "micromessenger";
             if (!isWx) {
-                this.msg = _t("The current browser is not an enterprise WeChat built-in browser, so the one-click login function cannot be used.");
+                this.msg = WXWORK_BROWSER_MESSAGES["not_wxwork_browser"];
                 return false;
             } else {
                 var dialog;
@@ -36,7 +41,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                 if (ua.match(/WxWork/i) == "wxwork") {
                     // 检测到是企业微信内置浏览器
                     this.isWxworkBrowser = true;
-                    this.msg = _t("Detected in the enterprise WeChat built-in browser to open the page, whether to sign in with one click.");
+                    this.msg = WXWORK_BROWSER_MESSAGES["is_wxwork_browser"];
                     dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
                         isWxworkBrowser: true,
                         msg: this.msg

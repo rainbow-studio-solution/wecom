@@ -18,9 +18,9 @@ _logger = logging.getLogger(__name__)
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
-
+    # 身份验证应用id
     auth_agentid = fields.Char(
-        "Auth gent Id",
+        "Auth agent Id",
         default="0000000",
         help="The web application ID of the authorizing party, which can be viewed in the specific web application",
         config_parameter="wxwork.auth_agentid",
