@@ -40,7 +40,7 @@ class HrEmployee(models.Model):
                 "wxwork_user_order": self.wxwork_user_order,
                 "mobile": self.mobile_phone,
                 "phone": self.work_phone,
-                "notification_type": "wxwork",
+                # "notification_type": "wxwork",
                 "is_wxwork_user": True,
                 "is_moderator": False,
                 "is_company": False,
