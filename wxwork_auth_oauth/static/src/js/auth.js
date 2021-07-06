@@ -7,10 +7,11 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
 
     var qweb = core.qweb;
     var _lt = core._lt;
+    var _t = core._t;
 
     var WXWORK_BROWSER_MESSAGES = {
-        not_wxwork_browser: _lt('The current browser is not an enterprise WeChat built-in browser,' + 'so the one-click login function cannot be used.'),
-        is_wxwork_browser: _lt('Detected in the enterprise WeChat built-in browser to open the page, ' + 'whether to sign in with one click.'),
+        not_wxwork_browser: _t('The current browser is not an enterprise WeChat built-in browser,' + 'so the one-click login function cannot be used.'),
+        is_wxwork_browser: _t('Detected in the enterprise WeChat built-in browser to open the page, ' + 'whether to sign in with one click.'),
     };
 
     publicWidget.registry.WxWorkAuth = publicWidget.Widget.extend({
