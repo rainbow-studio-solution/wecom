@@ -86,8 +86,20 @@ class WxWorkMessageApi(models.AbstractModel):
         corpid = sys_params.get_param("wxwork.corpid")
         secret = sys_params.get_param("wxwork.message_secret")
         wxapi = CorpApi(corpid, secret)
-        response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
-        return response
+
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
+        try:
+            # 避免错误弹窗，使用try
+            response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
+            _logger.warning(response)
+            return response
+            
+        except BaseException as e:
+            if debug:
+                _logger.warning(
+                    _("发送消息错误: %s") % (repr(e))
+                )
 
     @api.model
     def send_message(self, message):
