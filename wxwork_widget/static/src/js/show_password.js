@@ -32,6 +32,7 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
             }
         },
         _showSpanPassword: function (ev) {
+            // TODO
             var self = this;
             $(ev.currentTarget).find("span.fa").toggleClass('fa-eye-slash fa-eye');
             var $button = this.$el.find("button.o_show_password_button");
