@@ -23,9 +23,18 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
             this._super.apply(this, arguments);
             var self = this;
             var $button = $(qweb.render(this.ShowPasswordTemplate));
+
             if (this.value) {
-                this.$el.text(new Array(this.value.trim().length).join('●')).data("state", "hide");
-                this.$el = this.$el.append($button);
+                // this.$el.text(new Array(this.value.trim().length).join('●')).data("state", "hide");
+                console.log("1", $button.html())
+                this.$el.data("state", "hide");
+                var $span = this.$el;
+                this.$el.html($span.html() + $button.html())
+                // this.$el.removeClass(this.className);
+                // this.$el = this.$el + this.$el.after($button);
+                // this.$el = $button.insertAfter(this.$el);
+                // this.$el += $button;
+                console.log("2", this.$el)
                 $button.mousedown(function (ev) {
                     self._showSpanPassword(ev);
                 })
@@ -33,21 +42,21 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
         },
         _showSpanPassword: function (ev) {
             var self = this;
-            $(ev.currentTarget).find("span.fa").toggleClass('fa-eye-slash fa-eye');
+            $(ev.currentTarget).find("i.fa").toggleClass('fa-eye-slash fa-eye');
             var $button = this.$el.find("button.o_show_password_button");
-            if (this.$el.data("state") === "hide") {
-                this.$el.data("state", "show");
-                this.$el.removeAttr("disguising-password");
-                this.$el.text(this.value)
+            if (this.$el.find("span").data("state") === "hide") {
+                this.$el.find("span").data("state", "show");
+                this.$el.find("span").removeAttr("disguising-password");
+                // this.$el.text(this.value)
             } else {
-                this.$el.data("state", "hide");
-                this.$el.attr("disguising-password", "");
-                this.$el.text(new Array(this.value.trim().length).join('●'))
+                this.$el.find("span").data("state", "hide");
+                this.$el.find("span").attr("disguising-password", "");
+                // this.$el.text(new Array(this.value.trim().length).join('●'))
             }
-            this.$el = this.$el.append($button);
-            $button.mousedown(function (ev) {
-                self._showSpanPassword(ev);
-            })
+            // this.$el = this.$el.append($button);
+            // $button.mousedown(function (ev) {
+            //     self._showSpanPassword(ev);
+            // })
         },
         _renderEdit: function () {
             var $input = this.$el.find('input');
@@ -65,7 +74,7 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
                 $input.removeAttr("disguising-password");
             }
 
-            $(ev.currentTarget).find("span.fa").toggleClass('fa-eye-slash fa-eye');
+            $(ev.currentTarget).find("i.fa").toggleClass('fa-eye-slash fa-eye');
         },
         _prepareInput: function ($input) {
             var self = this;
@@ -82,9 +91,13 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
             return this._super($input.val());
         },
         _getValue: function () {
-            var $input = this.$el.find('input');
-            return this._super($input.val());
+            return this.value;
         },
+        _onInput: function () {
+            var $input = this.$el.find('input');
+            this.isDirty = !this._isLastSetValue($input.val());
+            // this._doDebouncedAction();
+        }
     });
 
     fieldRegistry.add('wxwork_password', ShowPasswordFieldText);
