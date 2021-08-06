@@ -64,11 +64,7 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
 
                 $input.removeAttr("disguising-password");
             }
-            // $input.prop("type",
-            //     (i, old) => {
-            //         return old === "text" ? "password" : "text";
-            //     }
-            // );
+
             $(ev.currentTarget).find("span.fa").toggleClass('fa-eye-slash fa-eye');
         },
         _prepareInput: function ($input) {
@@ -82,6 +78,10 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
             return $.when($input, this._super.apply(this, arguments));
         },
         _setValue: function () {
+            var $input = this.$el.find('input');
+            return this._super($input.val());
+        },
+        _getValue: function () {
             var $input = this.$el.find('input');
             return this._super($input.val());
         },
