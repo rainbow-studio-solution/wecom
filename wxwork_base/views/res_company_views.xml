@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+
         <record id="view_company_form" model="ir.ui.view">
             <field name="name">res.company.form</field>
             <field name="model">res.company</field>
             <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
                 
-                <xpath expr="//page[@name='general_info']" position="after">
-                    <page string="Enterprise WeChat Information" name="wxwork_info">
-                        <group>
-                            <group>
+                <xpath expr="//page[@name='general_info']/group/group[@name='social_media']" position="after">
+  
+                    <group string="Enterprise WeChat Information"  name="wxwork_info">
+                        <label for="corpid"/>
+                        <div class="ml16">
+                            <div class="text-muted row">
+                                Fill in: Enterprise WeChat management background → "Enterprise Information" → "Enterprise ID"
+                            </div>
+                            <div class="row mt16">
                                 <field name="corpid" widget="wxwork_password"/>
-                            </group>
-                        </group>
-                        
-                    </page>
-                </xpath>
-                
+                            </div>
+                            <div class="row mt16">
+                                <button name="%(wxwork_base.wxwork_config_settings_action)d" icon="fa-arrow-right" type="action" string="Enterprise WeChat Settings" class="btn-link"/>
+                            </div>
+                        </div>                                
+                    </group>
+                    
+                </xpath>                
             </field>
         </record>
     </data>
