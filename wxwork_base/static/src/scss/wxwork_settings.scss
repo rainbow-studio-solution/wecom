@@ -1,0 +1,92 @@
+.o_form_view {
+    .o_wxwork_setting_container {
+        display: flex;
+        flex: 0 1 auto;
+        flex-flow: row wrap;
+
+        .o_form_label.o_light_label,
+        .o_light_label .o_form_label {
+            font-weight: normal;
+        }
+
+        .o_setting_box:visible:nth-child(odd) {
+            clear: left;
+        }
+
+        .text-muted {
+            color: #aaaaaa;
+        }
+
+        .o_setting_box {
+            margin-bottom: 8px;
+            margin-top: 8px;
+
+            .o_setting_left_pane {
+                width: 24px;
+                float: left;
+
+                .o_enterprise_label {
+                    position: absolute;
+                    top: 0px;
+                    right: 40px;
+                }
+            }
+
+            .o_setting_right_pane {
+                margin-left: 30px;
+                border-left: 1px solid #bbbbbb;
+                padding-left: 10px;
+
+                .o_input_dropdown>.o_input {
+                    width: 100%;
+                }
+
+                .o_field_widget {
+                    width: 50%;
+                    flex: 0 0 auto;
+
+                    &.o_field_many2manytags>.o_field_widget {
+                        flex: 1 0 50px;
+                    }
+                }
+
+                button.btn-link:first-child {
+                    padding: 0;
+                }
+
+                a.oe-link {
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .wxwork_settings {
+            position: relative;
+            flex: 1 1 100%;
+            background-color: $o-view-background-color;
+            overflow: auto;
+
+            >.app_settings_block {
+                h2 {
+                    margin-bottom: 0;
+                    @include o-base-settings-horizontal-padding;
+                    background-color: gray('200');
+                    font-size: 15px;
+                    font-weight: bold;
+
+                    &:first-of-type {
+                        // Necessary to overwrite mt32 class
+                        margin-top: 10px !important;
+                    }
+                }
+
+                .o_settings_container {
+                    max-width: map-get($grid-breakpoints, lg); // Provide a maximum container size to ensure readability
+                    @include o-base-settings-horizontal-padding(0);
+                }
+            }
+        }
+    }
+
+
+}

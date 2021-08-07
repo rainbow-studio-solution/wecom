@@ -13,7 +13,7 @@ class ResConfigSettings(models.TransientModel):
         default=lambda self: self.env.company,
     )
     wxwork_company_name = fields.Char(
-        related="company_id.display_name", string="Company Name"
+        related="company_id.display_name", string="Current company name"
     )
     wxwork_company_corpid = fields.Char(
         string="Enterprise ID", compute="_compute_wxwork_company_corpid"
