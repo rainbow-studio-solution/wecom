@@ -25,38 +25,43 @@ odoo.define("wxwork_widget.ShowPasswordFieldText", function (require) {
             var $button = $(qweb.render(this.ShowPasswordTemplate));
 
             if (this.value) {
-                // this.$el.text(new Array(this.value.trim().length).join('●')).data("state", "hide");
-                console.log("1", $button.html())
-                this.$el.data("state", "hide");
+                this.$el.text(new Array(this.value.trim().length + 1).join('●'));
+
                 var $span = this.$el;
-                this.$el.html($span.html() + $button.html())
-                // this.$el.removeClass(this.className);
-                // this.$el = this.$el + this.$el.after($button);
-                // this.$el = $button.insertAfter(this.$el);
-                // this.$el += $button;
-                console.log("2", this.$el)
-                $button.mousedown(function (ev) {
+                $span.data("state", "hide");
+                var new_el = $span[0].outerHTML + $button[0].outerHTML;
+                this.$el = $(new_el);
+
+                setTimeout(function () {
+                    if (self.$el.parent().length > 0) {
+                        self.$el.parent().css({
+                            "display": "flex",
+                            "flex-wrap": "nowrap",
+                            "align-items": "flex-start"
+                        });
+                        return;
+                    }
+                }, 500);
+
+                var button = self.$el[1];
+                $(button).mousedown(function (ev) {
                     self._showSpanPassword(ev);
                 })
             }
         },
         _showSpanPassword: function (ev) {
             var self = this;
-            $(ev.currentTarget).find("i.fa").toggleClass('fa-eye-slash fa-eye');
-            var $button = this.$el.find("button.o_show_password_button");
-            if (this.$el.find("span").data("state") === "hide") {
-                this.$el.find("span").data("state", "show");
-                this.$el.find("span").removeAttr("disguising-password");
-                // this.$el.text(this.value)
+            var span = self.$el[0];
+            if (typeof ($(span).attr("disguising-password")) != "undefined") {
+                $(ev.currentTarget).find("i.fa").addClass('fa-eye').removeClass("fa-eye-slash");
+                $(span).data("state", "show");
+                $(span).removeAttr("disguising-password");
+                $(span).text(this.value)
             } else {
-                this.$el.find("span").data("state", "hide");
-                this.$el.find("span").attr("disguising-password", "");
-                // this.$el.text(new Array(this.value.trim().length).join('●'))
+                $(ev.currentTarget).find("i.fa").removeClass('fa-eye').addClass("fa-eye-slash");
+                $(span).data("state", "hide");
+                $(span).attr("disguising-password", "");
             }
-            // this.$el = this.$el.append($button);
-            // $button.mousedown(function (ev) {
-            //     self._showSpanPassword(ev);
-            // })
         },
         _renderEdit: function () {
             var $input = this.$el.find('input');
