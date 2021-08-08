@@ -61,6 +61,20 @@ class WizardSyncContacts(models.TransientModel):
             .env["res.company"]
             .search([(("is_wxwork_organization", "=", True))])
         )
+
+        if not companies:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": _("Tips"),
+                    "type": "info",
+                    "message": _("There are currently no companies to synchronize."),
+                    "sticky": False,
+                },
+            }
+            return action
+
         for company in companies:
             # 遍历companies
             sync_hr_enabled = company.contacts_auto_sync_hr_enabled  # 允许企业微信通讯簿自动更新为HR

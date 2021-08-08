@@ -28,36 +28,24 @@ class SyncTask(object):
 
     def run(self):
         if self.debug:
-            _logger.info(
-                _("Start to synchronize the enterprise wechat contact of %s."),
-                self.company.name,
-            )
+            _logger.info(_("Start to synchronize the enterprise wechat contact of %s."), self.company.name)
         if self.sync_hr:
             threads = []
 
-            # 任务名称列表
             task_name_list = [
-                # _("Enterprise WeChat picture synchronization"),
+                _("Enterprise WeChat picture synchronization"),
                 _("Enterprise WeChat department synchronization"),
                 _("Enterprise WeChat department tag synchronization"),
                 _("Enterprise WeChat employee synchronization"),
                 _("Enterprise WeChat employee tag synchronization"),
             ]
-
-            # 任务方法列表
             task_func_list = [
-                # SyncImage(self.kwargs).run,
+                SyncImage(self.kwargs).run,
                 self.department.sync_department,
                 self.department_category.sync_department_tags,
                 self.employee.sync_employee,
                 self.employee_category.sync_employee_tags,
             ]
-
-            if self.sync_avatar:
-                # 如果允许同步头像
-                task_name_list.insert(0, _("Enterprise WeChat picture synchronization"))
-                task_func_list.insert(0, SyncImage(self.kwargs).run)
-                
             times = []
             results = []
             statuses = {}
