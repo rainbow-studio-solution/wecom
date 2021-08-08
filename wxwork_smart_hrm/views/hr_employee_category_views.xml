@@ -8,6 +8,7 @@
             <field name="inherit_id" ref="hr.view_employee_category_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='name']" position="after">
+                     <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
                      <field name="is_wxwork_category"/>
                 </xpath>
             </field>
@@ -19,6 +20,7 @@
             <field name="inherit_id" ref="hr.view_employee_category_list"/>
             <field name="arch" type="xml">               
                 <field name="name" position="after">
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
                     <field name="is_wxwork_category"/>
                     <field name="tagid" />                                     
                     <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wxwork_category','=',False)]}"/>

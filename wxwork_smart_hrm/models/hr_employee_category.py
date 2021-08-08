@@ -13,6 +13,12 @@ _logger = logging.getLogger(__name__)
 class EmployeeCategory(models.Model):
     _inherit = "hr.employee.category"
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        index=True,
+        default=lambda self: self.env.company,
+    )
     tagid = fields.Integer(
         string="Enterprise WeChat Tag ID",
         readonly=True,

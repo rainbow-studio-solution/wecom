@@ -13,6 +13,12 @@ class DepartmentCategory(models.Model):
 
     name = fields.Char(string="Tag Name", required=True)
     color = fields.Integer(string="Color Index", default=_get_default_color)
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        index=True,
+        default=lambda self: self.env.company,
+    )
     department_ids = fields.Many2many(
         "hr.department",
         "department_category_rel",
