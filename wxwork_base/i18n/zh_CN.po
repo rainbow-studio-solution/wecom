@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-07 13:11+0000\n"
-"PO-Revision-Date: 2021-08-07 21:14+0800\n"
+"POT-Creation-Date: 2021-08-08 05:06+0000\n"
+"PO-Revision-Date: 2021-08-08 13:07+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,13 +18,18 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 
 #. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Enterprise ID\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
+
+#. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
 "<span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', '&gt;', '1')]}\">\n"
 "                                        Company\n"
 "                                    </span>\n"
-"                                    <span class=\"o_form_label\" attrs=\"{'invisible':"
-"[('wxwork_company_count', '&lt;=', '1')]}\">\n"
+"                                    <span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', "
+"'&lt;=', '1')]}\">\n"
 "                                        Companies\n"
 "                                    </span>\n"
 "                                    <br/>"
@@ -32,26 +37,40 @@ msgstr ""
 "<span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', '&gt;', '1')]}\">\n"
 "                                        公司\n"
 "                                    </span>\n"
-"                                    <span class=\"o_form_label\" attrs=\"{'invisible':"
-"[('wxwork_company_count', '&lt;=', '1')]}\">\n"
+"                                    <span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', "
+"'&lt;=', '1')]}\">\n"
 "                                        公司\n"
 "                                    </span>\n"
 "                                    <br/>"
 
 #. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat "
+"Companies\"/> Enterprise WeChat Companies Settings\n"
+"                                        </span>\n"
+"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat "
+"Companies\"/> 企业微信公司设置\n"
+"                                        </span>\n"
+"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
+
+#. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"Enterprise WeChat global "
-"settings\"/> Enterprise WeChat global settings\n"
+"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"Enterprise WeChat global settings\"/> "
+"Enterprise WeChat global settings\n"
 "                            </span>\n"
 "                            <span class=\"text-right\">\n"
 "                                <i class=\"fa fa-angle-double-down\" aria-label=\"GoBottom\"/>\n"
 "                            </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信"
-"全局设置\n"
+"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信全局设置\n"
 "                            </span>\n"
 "                            <span class=\"text-right\">\n"
 "                                <i class=\"fa fa-angle-double-down\" aria-label=\"向下\"/>\n"
@@ -60,12 +79,12 @@ msgstr ""
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> "
-"Enterprise WeChat Companies settings</span>\n"
+"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> Enterprise "
+"WeChat Companies settings</span>\n"
 "                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
-"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> "
-"企业微信公司设置</span>\n"
+"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> 企业微信公"
+"司设置</span>\n"
 "                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 
 #. module: wxwork_base
@@ -120,6 +139,7 @@ msgstr "企业ID"
 #. module: wxwork_base
 #: model:ir.module.category,name:wxwork_base.module_category_wxwork
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "Enterprise WeChat"
 msgstr "企业微信"
 
@@ -140,6 +160,11 @@ msgid "Enterprise WeChat Settings"
 msgstr "企业微信设置"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__is_wxwork_organization
+msgid "Enterprise wechat organization"
+msgstr "企业微信组织"
+
+#. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "Fill in: Enterprise WeChat management background → \"Enterprise Information\" → \"Enterprise ID\""
 msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
@@ -148,7 +173,7 @@ msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID�
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company____last_update
@@ -177,8 +202,7 @@ msgid ""
 "The path used to save enterprise wechat pictures,<span class=\"text-danger\">Need to have read and write "
 "permissions on the path.</span><br/>\n"
 "                                            reference:Windows: D:\\img\\  <br/>\n"
-"                                            Linux：/home/odoo/img/ Note: odoo is the current system "
-"account"
+"                                            Linux：/home/odoo/img/ Note: odoo is the current system account"
 msgstr ""
 "企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
 "                                            参考:Windows: D:\\img\\  <br/>\n"

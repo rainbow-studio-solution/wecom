@@ -2,6 +2,18 @@
 <odoo>
     <data>
 
+        <record id="view_company_tree" model="ir.ui.view">
+            <field name="name">res.company.tree</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="parent_id"/>
+                    <field name="is_wxwork_organization"/>
+                </xpath> 
+            </field>
+        </record>
+
         <record id="view_company_form" model="ir.ui.view">
             <field name="name">res.company.form</field>
             <field name="model">res.company</field>
@@ -12,27 +24,39 @@
                     <field name="name" class="w-100"/>
                 </xpath>
                 
-                <!-- <xpath expr="//page[@name='general_info']/group/group[@name='social_media']" position="after"> -->
-                
-                <!-- <xpath expr="//field[@name='name']" position="|after,before,replace,attributes|">
-                    
-                </xpath> -->
-                
                 <xpath expr="//page[@name='general_info']" position="before">
   
                     <page string="Enterprise WeChat Information"  name="wxwork_info">
                         <div class="o_wxwork_setting_container">
                             <div class="wxwork_settings">
-                                <div class="app_settings_block" string="Enterprise WeChat">
+                                <div class="app_settings_block" name="wxwrok_company" string="Enterprise WeChat">
                                     <h2 id="wxwork_companies" class="d-flex justify-content-between">
-                                    <!-- fa-passport -->
-                                        <span class="text-left"><i class="fa fa-building fa-lg" aria-label="Enterprise WeChat Companies" /> Enterprise WeChat Companies Settings</span>
+                                        <span class="text-left">
+                                            <i class="fa fa-building fa-lg" aria-label="Enterprise WeChat Companies" /> Enterprise WeChat Companies Settings
+                                        </span>
                                         <span class="text-right fa fa-angle-double-down" aria-label="GoBottom"/> 
                                     </h2>
+                                    
                                     <div class="row mt16 o_settings_container">
-                                        <div class="col-12 col-lg-6 o_setting_box" >
+                                        <div class="col-12 col-lg-6 o_setting_box">
                                             <div class="o_setting_left_pane">
-                                                <i class="fa fa-key  fa-lg" aria-label="Enterprise ID"/>
+                                                <field name="is_wxwork_organization" 
+                                                widget="boolean_button"
+                                                />
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label for="is_wxwork_organization"/>
+                                                <div class="row">
+                                                    <div class="text-muted col-md-12">
+                                                                                                             
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                                            <div class="o_setting_left_pane">
+                                                <i class="fa fa-key fa-lg" aria-label="Enterprise ID"/>
                                             </div>
                                             <div class="o_setting_right_pane">
                                                 <label for="corpid"/>
@@ -42,10 +66,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="mt16">
-                                                    <button name="%(wxwork_base.wxwork_config_settings_action)d" icon="fa-arrow-right" type="action" string="Enterprise WeChat Settings" class="btn-link"/>
+                                                    <field name="corpid"  widget="wxwork_password" />
                                                 </div>
                                                 <div class="mt16">
-                                                    <field name="corpid"  widget="wxwork_password" />
+                                                    <button name="%(wxwork_base.wxwork_config_settings_action)d" icon="fa-arrow-right" type="action" string="Enterprise WeChat Settings" class="btn-link"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -54,10 +78,11 @@
                             </div>
                             
                         </div>
-                    </page >
+                    </page>
                     
                 </xpath>                
             </field>
         </record>
+
     </data>
 </odoo>

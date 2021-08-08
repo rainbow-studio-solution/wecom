@@ -22,9 +22,7 @@ class ResConfigSettings(models.TransientModel):
         "Number of Companies", compute="_compute_wxwork_company_count"
     )
 
-    corpid = fields.Char(
-        "Enterprise ID", config_parameter="wxwork.corpid", default="xxxxxxxxxxxxxxxxxx",
-    )
+
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)
 
     img_path = fields.Char(
