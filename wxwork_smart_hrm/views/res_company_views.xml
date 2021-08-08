@@ -62,33 +62,6 @@
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-md-12 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg" aria-label="Contacts access token"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="contacts_access_token"/>
-                                <div class="row">
-                                <!-- 在企业微信的后台获取应用"通讯录"信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。 -->
-                                    <div class="text-muted col-md-12" id="contacts_access_token_text">
-                                        Important notes when obtaining application "address book" information in the background of the enterprise WeChat, this information needs to be carried during communication to verify the access authority of the interface.
-                                        <br/>
-                                        <span style="color:orange;padding: 0px 16px;">
-                                            <i class="fa fa-info-circle" aria-label="info" />
-                                            The token has been cached and the system will automatically refresh the token.
-                                        </span>
-
-                                    </div>
-        
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="contacts_access_token" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="contacts_auto_sync_hr_enabled"/>
@@ -98,7 +71,7 @@
                                 <div class="row">
                                 <!-- 勾选,则允许通过API接口读取企业微信通讯录自动同步到ODOO； -->
                                 <!-- 反之只能手工绑定企业微信用户。 -->
-                                    <div class="text-muted col-md-12">                                                    
+                                    <div class="text-muted col-md-12">
                                         If enabled, it allows to read the enterprise WeChat address book through the API interface and automatically synchronize to ODOO;
                                         <br/>
                                         Otherwise, you can only manually bind enterprise WeChat users.
@@ -128,6 +101,20 @@
                         </div>
 
                         <div class="col-xs-12 col-md-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="contacts_sync_avatar_enabled"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="contacts_sync_avatar_enabled"/>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                        Synchronizing avatars takes up resources and is off by default.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('contacts_sync_avatar_enabled','=',False)]}">
                             <div class="o_setting_left_pane">
                                 <field name="contacts_always_update_avatar_enabled"/>
                             </div>

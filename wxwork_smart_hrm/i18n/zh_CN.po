@@ -78,6 +78,11 @@ msgid "Allow Enterprise WeChat contacts to automatically update system accounts"
 msgstr "允许企业微信通讯簿自动更新系统帐户"
 
 #. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_sync_avatar_enabled
+msgid "Sync Avatar"
+msgstr "同步头像"
+
+#. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_always_update_avatar_enabled
 msgid "Always update avatar"
 msgstr "总是更新头像"
@@ -348,6 +353,11 @@ msgstr ""
 "如果启用，它允许通过API接口读取企业微信通讯簿并自动同步到ODOO；\n"
 "                                        <br/>\n"
 "                                        否则，您只能手动绑定企业微信用户。"
+
+#. module: wxwork_smart_hrm
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
+msgid "Synchronizing avatars takes up resources and is off by default."
+msgstr "同步头像占用资源，默认关闭。"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form

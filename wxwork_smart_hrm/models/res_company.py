@@ -26,6 +26,7 @@ class Company(models.Model):
         "Allow Enterprise WeChat contacts to automatically update system accounts",
         default=False,
     )
+    contacts_sync_avatar_enabled = fields.Boolean("Sync Avatar", default=False,)
     contacts_always_update_avatar_enabled = fields.Boolean(
         "Always update avatar", default=False,
     )
