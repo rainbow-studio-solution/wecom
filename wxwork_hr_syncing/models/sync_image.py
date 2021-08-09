@@ -28,24 +28,34 @@ class SyncImage(object):
         self.corpid = self.kwargs["corpid"]
         self.secret = self.kwargs["secret"]
         self.debug = self.kwargs["debug"]
+        self.company = self.kwargs["company"]
         self.department_id = self.kwargs["department_id"]
         self.img_path = self.kwargs["img_path"]
         self.department = self.kwargs["department"]
 
     def run(self):
         if self.debug:
-            _logger.info(_("Start syncing Enterprise WeChat Contact - Picture"))
+            _logger.info(
+                _("Start synchronizing the pictures of %s enterprise wechat contacts"),
+                self.company.name,
+            )
         if not self.img_path:
             raise Warning(
                 _("The picture path does not exist, please check the configuration.")
             )
         else:
             if platform.system() == "Windows":
-                avatar_directory = self.img_path.replace("\\", "/") + "avatar/"
-                qr_code_directory = self.img_path.replace("\\", "/") + "qr_code/"
+                avatar_directory = (
+                    self.img_path.replace("\\", "/") + str(self.company.id) + "/avatar/"
+                )
+                qr_code_directory = (
+                    self.img_path.replace("\\", "/")
+                    + str(self.company.id)
+                    + "/qr_code/"
+                )
             else:
-                avatar_directory = self.img_path + "avatar/"
-                qr_code_directory = self.img_path + "qr_code/"
+                avatar_directory = self.img_path + str(self.company.id) + "avatar/"
+                qr_code_directory = self.img_path + str(self.company.id) + "qr_code/"
 
             self.path_is_exists(avatar_directory)
             self.path_is_exists(qr_code_directory)
@@ -92,7 +102,7 @@ class SyncImage(object):
                         if len(threading.enumerate()) < thread_max:
                             break
 
-                    result = _("Picture synced successfully")
+                    result = _("%s picture synced successfully") % self.company.name
                     status = {"image_1920": True}
 
             except Exception as e:
@@ -107,32 +117,34 @@ class SyncImage(object):
             if self.debug:
                 _logger.info(
                     _(
-                        "End sync Enterprise WeChat Contact - Picture, Total time spent: %s seconds"
+                        "End synchronizing pictures of %s enterprise wechat contacts, Total time spent: %s seconds"
                     )
-                    % times
+                    % (self.company.name, times)
                 )
-            return times, status, result
+            # return times, status, result
+            return times, result
 
     def generate_image_list(self):
         """
         生成userid、avatar、qr_code的List
         :return: list
         """
-
         api = CorpApi(self.corpid, self.secret)
-        response = api.httpCall(
-            CORP_API_TYPE["USER_LIST"],
-            {"department_id": self.department_id, "fetch_child": "1",},
-        )
-
-        userid_list = []
-        avatar_urls = []
-        qr_code_urls = []
-        for object in response["userlist"]:
-            userid_list.append(object["userid"])
-            avatar_urls.append(object["avatar"])
-            qr_code_urls.append(object["qr_code"])
-        return userid_list, avatar_urls, qr_code_urls
+        try:
+            response = api.httpCall(
+                CORP_API_TYPE["USER_LIST"],
+                {"department_id": str(self.department_id), "fetch_child": "1",},
+            )
+            userid_list = []
+            avatar_urls = []
+            qr_code_urls = []
+            for object in response["userlist"]:
+                userid_list.append(object["userid"])
+                avatar_urls.append(object["avatar"])
+                qr_code_urls.append(object["qr_code"])
+            return userid_list, avatar_urls, qr_code_urls
+        except Exception as e:
+            print(e)
 
     def path_is_exists(self, path):
         """

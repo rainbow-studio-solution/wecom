@@ -44,17 +44,19 @@
                 <form string="Enterprise WeChat contact data synchronization" edit="false" create="false">
                     <group>
                         <group>
-                            <field name="image_sync_result"/>
+                            <!-- <field name="image_sync_result"/>
                             <field name="department_sync_result"/>
                             <field name="department_tag_sync_result"/>
                             <field name="employee_sync_result"/>
-                            <field name="employee_tag_sync_result"/>
+                            <field name="employee_tag_sync_result"/> -->
+                            <field name="create_date" string="Starting time"/>                            
                         </group>
-                        <group>
-                            <field name="create_date" string="Starting time"/>
+                        <group>                            
                             <field name="times"/>
-                            <field name="result"  />
                         </group>
+                    </group>
+                    <group col="4">
+                        <field name="result"  />
                     </group>
                     <footer>
                         <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
