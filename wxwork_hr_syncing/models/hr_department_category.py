@@ -11,64 +11,65 @@ _logger = logging.getLogger(__name__)
 class DepartmentCategory(models.Model):
     _inherit = "hr.department.category"
 
-    def sync_department_tags(self):
-        params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.contacts_secret")
-        if debug:
-            _logger.info(_("Start syncing Enterprise WeChat Contact - Department Tags"))
+    def sync_department_tags(self, company):
+        pass
+        # params = self.env["ir.config_parameter"].sudo()
+        # debug = params.get_param("wxwork.debug_enabled")
+        # corpid = params.get_param("wxwork.corpid")
+        # secret = params.get_param("wxwork.contacts_secret")
+        # if debug:
+        #     _logger.info(_("Start syncing Enterprise WeChat Contact - Department Tags"))
 
-        times = time.time()
-        try:
-            start1 = time.time()
+        # times = time.time()
+        # try:
+        #     start1 = time.time()
 
-            wxapi = CorpApi(corpid, secret)
-            status = True
-            response = wxapi.httpCall(CORP_API_TYPE["TAG_GET_LIST"])
-            # 同步企业微信标签
-            for obj in response["taglist"]:
-                sync = self.run_sync(obj, debug)
-                if sync == False:
-                    status = False
-            end1 = time.time()
-            times1 = end1 - start1
+        #     wxapi = CorpApi(corpid, secret)
+        #     status = True
+        #     response = wxapi.httpCall(CORP_API_TYPE["TAG_GET_LIST"])
+        #     # 同步企业微信标签
+        #     for obj in response["taglist"]:
+        #         sync = self.run_sync(obj, debug)
+        #         if sync == False:
+        #             status = False
+        #     end1 = time.time()
+        #     times1 = end1 - start1
 
-            start2 = time.time()
-            # 处理移除无效企业微信标签
-            tags = self.search([("is_wxwork_category", "=", True), ("tagid", "!=", 0)])
-            if not tags:
-                pass
-            else:
-                self.handling_invalid_tags(response, tags, debug)  # 处理移除无效企业微信标签
-            end2 = time.time()
-            times2 = end2 - start2
+        #     start2 = time.time()
+        #     # 处理移除无效企业微信标签
+        #     tags = self.search([("is_wxwork_category", "=", True), ("tagid", "!=", 0)])
+        #     if not tags:
+        #         pass
+        #     else:
+        #         self.handling_invalid_tags(response, tags, debug)  # 处理移除无效企业微信标签
+        #     end2 = time.time()
+        #     times2 = end2 - start2
 
-            # 标签绑定员工
-            start3 = time.time()
-            self.department_binding_tag(response, params)
-            end3 = time.time()
-            times3 = end3 - start3
+        #     # 标签绑定员工
+        #     start3 = time.time()
+        #     self.department_binding_tag(response, params)
+        #     end3 = time.time()
+        #     times3 = end3 - start3
 
-            times = times1 + times2 + times3
-            status = {"department_category": True}
-            result = _("Enterprise WeChat department tags sync successfully")
-        except BaseException as e:
-            if debug:
-                _logger.info(
-                    _("Contacts department tags synchronization error: %s") % (repr(e))
-                )
-            result = _("Failed to synchronize department tags")
-            status = {"department_category": False}
+        #     times = times1 + times2 + times3
+        #     status = {"department_category": True}
+        #     result = _("Enterprise WeChat department tags sync successfully")
+        # except BaseException as e:
+        #     if debug:
+        #         _logger.info(
+        #             _("Contacts department tags synchronization error: %s") % (repr(e))
+        #         )
+        #     result = _("Failed to synchronize department tags")
+        #     status = {"department_category": False}
 
-        if debug:
-            _logger.info(
-                _(
-                    "End sync Enterprise WeChat Contact - Department Tags,Total time spent: %s seconds"
-                )
-                % times
-            )
-        return times, status, result
+        # if debug:
+        #     _logger.info(
+        #         _(
+        #             "End sync Enterprise WeChat Contact - Department Tags,Total time spent: %s seconds"
+        #         )
+        #         % times
+        #     )
+        # return times, status, result
 
     @api.model
     def run_sync(self, obj, debug):

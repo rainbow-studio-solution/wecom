@@ -4,6 +4,7 @@ import logging
 from odoo import api, fields, models, _
 from threading import Thread
 from .sync_image import SyncImage
+from .sync_department import SyncDepartment
 
 _logger = logging.getLogger(__name__)
 
@@ -37,7 +38,7 @@ class SyncTask(object):
 
             # 任务名称列表
             task_name_list = [
-                # _("Enterprise WeChat department synchronization"),
+                _("Enterprise WeChat department synchronization"),
                 # _("Enterprise WeChat department tag synchronization"),
                 # _("Enterprise WeChat employee synchronization"),
                 # _("Enterprise WeChat employee tag synchronization"),
@@ -45,7 +46,7 @@ class SyncTask(object):
 
             # 任务方法列表
             task_func_list = [
-                # self.department.sync_department,
+                SyncDepartment(self.kwargs).run,
                 # self.department_category.sync_department_tags,
                 # self.employee.sync_employee,
                 # self.employee_category.sync_employee_tags,
