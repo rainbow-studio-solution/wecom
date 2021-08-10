@@ -51,7 +51,7 @@ class SyncDepartment(object):
             departments = self.department_data_cleaning(response["department"])
 
             start1 = time.time()
-            for obj in response["department"]:
+            for obj in departments:
                 self.run_sync_department(obj)
             end1 = time.time()
             times1 = end1 - start1
