@@ -33,6 +33,10 @@ class SyncTask(object):
                 _("Start to synchronize the enterprise wechat contact of %s."),
                 self.company.name,
             )
+
+        times = []
+        results = []
+
         if self.sync_hr:
             threads = []
 
@@ -57,8 +61,6 @@ class SyncTask(object):
                 task_name_list.insert(0, _("Enterprise WeChat picture synchronization"))
                 task_func_list.insert(0, SyncImage(self.kwargs).run)
 
-            times = []
-            results = []
             # statuses = {}
             for i in range(len(task_name_list)):
                 thread_task = SyncTaskThread(task_func_list[i], task_name_list[i])
@@ -92,17 +94,13 @@ class SyncTask(object):
 
             # return sum(times), statuses, results
 
-            return sum(times), results
         else:
             if self.debug:
-                # _logger.warning(
-                #     _(
-                #         "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
-                #     )
-                # )
                 _logger.warning(
                     "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
                 )
+
+        return sum(times), results
 
 
 class SyncTaskThread(Thread):

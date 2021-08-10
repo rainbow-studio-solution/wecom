@@ -119,7 +119,9 @@ class WizardSyncContacts(models.TransientModel):
                 # self.times, statuses, self.result = SyncTask(kwargs).run()
                 time, result = SyncTask(kwargs).run()
                 times.append(time)
-                results += result + "\n"
+
+                if len(result) != 0:
+                    results += result + "\n"
                 # results.append(result)
                 # results = "\n".join(result)
                 # self.image_sync_result = statuses["image_1920"]  # 图片同步结果

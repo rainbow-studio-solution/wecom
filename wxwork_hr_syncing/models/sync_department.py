@@ -38,10 +38,18 @@ class SyncDepartment(object):
 
         wxapi = CorpApi(self.corpid, self.secret)
 
+        result = ""
+        times = 0
         try:
             response = wxapi.httpCall(
                 CORP_API_TYPE["DEPARTMENT_LIST"], {"id": str(self.department_id),},
             )
+            # response 为 dict
+            # response["department"] 为 list
+
+            # 清洗数据
+            departments = self.department_data_cleaning(response["department"])
+
             start1 = time.time()
             for obj in response["department"]:
                 self.run_sync_department(obj)
@@ -55,12 +63,13 @@ class SyncDepartment(object):
 
             times = times1 + times2
             result = _("Department synchronization successful")
+
             # status = {"department": True}
 
         except Exception as e:
             times = time.time()
             result = _("Department synchronization failed")
-            status = {"department": False}
+            # status = {"department": False}
             if self.debug:
                 _logger.warning(
                     _(
@@ -78,6 +87,20 @@ class SyncDepartment(object):
 
         # return times, status, result
         return times, result
+
+    def department_data_cleaning(self, departments):
+        """[summary]
+        部门数据清洗
+        Args:
+            json ([type]): [description]index
+        """
+        for index, department in enumerate(departments):
+            if department["id"] == 1:
+                del departments[index]
+            elif department["parentid"] == 1:
+                departments[index]["parentid"] = 0
+
+        return departments
 
     def run_sync_department(self, wxwork_department):
         """[summary]
@@ -144,19 +167,30 @@ class SyncDepartment(object):
         由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门
         """
 
-        departments = self.department.search([("is_wxwork_department", "=", True),])
+        departments = self.department.sudo().search(
+            [("is_wxwork_department", "=", True),]
+        )
 
         for department in departments:
             if not department.wxwork_department_id:
                 pass
             else:
-                department.write(
-                    {
-                        "parent_id": self.get_parent_department(
-                            department, departments
-                        ).id,
-                    }
-                )
+                try:
+                    department.write(
+                        {
+                            "parent_id": self.get_parent_department(
+                                department, departments
+                            ).id,
+                        }
+                    )
+                except Exception as e:
+                    if self.debug:
+                        print(
+                            _(
+                                "Error setting parent department for company %s, Error details:%s"
+                            )
+                            % (self.company.name, repr(e))
+                        )
 
     def get_parent_department(self, department, departments):
         """[summary]

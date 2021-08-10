@@ -87,7 +87,6 @@
                             <div class="o_setting_right_pane">
                                 <label for="contacts_sync_hr_department_id"/>
                                 <div class="row">
-                                <!-- 部门id。获取指定部门及其下的子部门。 如果不填，默认获取全量组织架构 -->
                                     <div class="text-muted col-md-12">
                                         Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default
                                     </div>
