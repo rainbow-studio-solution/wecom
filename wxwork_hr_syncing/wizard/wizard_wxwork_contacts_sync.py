@@ -103,6 +103,7 @@ class WizardSyncContacts(models.TransientModel):
                 "department_category": self.env["hr.department.category"],
                 "employee": self.env["hr.employee"],
                 "employee_category": self.env["hr.employee.category"],
+                "wx_tools": self.env["wxwork.tools"],
             }
 
             if not self.check_api(corpid, secret):

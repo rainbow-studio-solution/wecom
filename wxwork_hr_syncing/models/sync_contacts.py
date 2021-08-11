@@ -6,15 +6,12 @@ from threading import Thread
 from .sync_image import SyncImage
 from .sync_department import SyncDepartment
 from .sync_department_category import SyncDepartmentCategory
+from .sync_employee import SyncEmployee
 
 _logger = logging.getLogger(__name__)
 
 
 class SyncTask(object):
-    """
-    同步HR任务
-    """
-
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.debug = self.kwargs["debug"]
@@ -27,6 +24,7 @@ class SyncTask(object):
         self.department_category = self.kwargs["department_category"]
         self.employee = self.kwargs["employee"]
         self.employee_category = self.kwargs["employee_category"]
+        self.wx_tools = self.kwargs["wx_tools"]
 
     def run(self):
         if self.debug:
@@ -45,7 +43,7 @@ class SyncTask(object):
             task_name_list = [
                 _("Enterprise WeChat department synchronization"),
                 _("Enterprise WeChat department tag synchronization"),
-                # _("Enterprise WeChat employee synchronization"),
+                _("Enterprise WeChat employee synchronization"),
                 # _("Enterprise WeChat employee tag synchronization"),
             ]
 
@@ -53,7 +51,7 @@ class SyncTask(object):
             task_func_list = [
                 SyncDepartment(self.kwargs).run,
                 SyncDepartmentCategory(self.kwargs).run,
-                # self.employee.sync_employee,
+                SyncEmployee(self.kwargs).run,
                 # self.employee_category.sync_employee_tags,
             ]
 

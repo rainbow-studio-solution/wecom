@@ -54,8 +54,8 @@ class SyncImage(object):
                     + "/qr_code/"
                 )
             else:
-                avatar_directory = self.img_path + str(self.company.id) + "avatar/"
-                qr_code_directory = self.img_path + str(self.company.id) + "qr_code/"
+                avatar_directory = self.img_path + str(self.company.id) + "/avatar/"
+                qr_code_directory = self.img_path + str(self.company.id) + "/qr_code/"
 
             self.path_is_exists(avatar_directory)
             self.path_is_exists(qr_code_directory)
