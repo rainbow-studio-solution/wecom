@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, _
-from odoo.modules.module import get_module_resource
+from odoo import api, models, modules, _
+
+# from odoo.modules.module import get_module_resource
 
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
@@ -54,7 +55,7 @@ class SyncEmployee(object):
 
             # 判断企业微信员工list为空，为空跳过同步离职员工
             start2 = time.time()
-            employees = self.search(
+            employees = self.employee.sudo().search(
                 [
                     ("is_wxwork_employee", "=", True),
                     ("company_id", "=", self.company.id),
@@ -123,10 +124,13 @@ class SyncEmployee(object):
     def create_employee(self, records, obj):
         department_ids = []  # 多部门
         for department in obj["department"]:
-            department_ids.append(
-                self.get_employee_parent_wxwork_department(obj, department)
-            )
-        print("部门", type(obj["department"]), obj["department"], department_ids)
+            if department == 1:
+                pass
+            else:
+                department_ids.append(
+                    self.get_employee_parent_wxwork_department(obj, department)
+                )
+
         img_path = self.img_path
         if platform.system() == "Windows":
             avatar_file = (
@@ -161,7 +165,7 @@ class SyncEmployee(object):
                     ),
                     "gender": self.wx_tools.gender(obj["gender"]),
                     "marital": None,  # 不生成婚姻状况
-                    "image_1920": self.encode_avatar_image_as_base64(
+                    "image_1920": self.wx_tools.encode_avatar_image_as_base64(
                         obj["gender"], avatar_file
                     ),
                     "mobile_phone": obj["mobile"],
@@ -188,7 +192,7 @@ class SyncEmployee(object):
                     _("Error creating company %s employee %s, error reason: %s")
                     % (self.company.name, obj["name"], repr(e))
                 )
-            # result = False
+        # result = False
         # return result
 
     def update_employee(self, records, obj):
@@ -261,35 +265,40 @@ class SyncEmployee(object):
 
     def check_always_update_avatar(self, always, gender, avatar_file, employee):
         if always:
-            return self.encode_avatar_image_as_base64(gender, avatar_file)
+            return self.wx_tools.encode_avatar_image_as_base64(gender, avatar_file)
         else:
             return employee.image_1920
 
-    def encode_avatar_image_as_base64(self, gender, image_path):
-        if not os.path.exists(image_path):
-            if not gender:
-                image_path = get_module_resource(
-                    "wxwork_hr_syncing", "static/src/img", "default_image.png"
-                )
-            else:
-                if gender == 1:
-                    image_path = get_module_resource(
-                        "wxwork_hr_syncing", "static/src/img", "default_male_image.png"
-                    )
-                elif gender == 2:
-                    image_path = get_module_resource(
-                        "wxwork_hr_syncing",
-                        "static/src/img",
-                        "default_female_image.png",
-                    )
-            return base64.b64encode(open(image_path, "rb").read())
-        else:
-            try:
-                with open(image_path, "rb") as f:
-                    encoded_string = base64.b64encode(f.read())
-                return encoded_string
-            except BaseException as e:
-                print(_("Image encoding error:" + repr(e)))
+    # def encode_avatar_image_as_base64(self, gender, image_path):
+
+    #     if not os.path.exists(image_path):
+    #         default_image_path = ""
+    #         if not gender:
+    #             default_image_path = modules.get_module_resource(
+    #                 "wxwork_hr_syncing", "static/src/img", "default_image.png"
+    #             )
+    #         else:
+    #             if gender == 1:
+    #                 default_image_path = modules.get_module_resource(
+    #                     "wxwork_hr_syncing", "static/src/img", "default_male_image.png"
+    #                 )
+    #             elif gender == 2:
+    #                 default_image_path = modules.get_module_resource(
+    #                     "wxwork_hr_syncing",
+    #                     "static/src/img",
+    #                     "default_female_image.png",
+    #                 )
+    #             print("解码", gender, default_image_path)
+    #         with open(default_image_path, "rb") as f:
+    #             return base64.b64encode(f.read())
+    #         # return base64.b64encode(open(default_image_path, "rb").read())
+    #     else:
+    #         try:
+    #             with open(image_path, "rb") as f:
+    #                 encoded_string = base64.b64encode(f.read())
+    #             return encoded_string
+    #         except BaseException as e:
+    #             print(_("Image encoding error:" + repr(e)))
 
     def encode_image_as_base64(self, image_path):
         try:
@@ -311,6 +320,7 @@ class SyncEmployee(object):
             departments = self.department.sudo().search(
                 [
                     ("wxwork_department_id", "in", department_obj),
+                    ("company_id", "=", self.company.id),
                     ("is_wxwork_department", "=", True),
                 ],
                 limit=1,
@@ -334,7 +344,6 @@ class SyncEmployee(object):
                 ],
                 limit=1,
             )
-            print("获取上级部门", departments)
             if len(departments) > 0:
                 return departments.id
         except BaseException as e:
@@ -384,7 +393,13 @@ class SyncEmployee(object):
                 list_user.append(wxwork_employee["userid"])
 
             domain = ["|", ("active", "=", False), ("active", "=", True)]
-            employees = self.search(domain + [("is_wxwork_employee", "=", True)])
+            employees = self.employee.sudo().search(
+                domain
+                + [
+                    ("is_wxwork_employee", "=", True),
+                    ("company_id", "=", self.company.id),
+                ]
+            )
             for employee in employees:
                 list_employee.append(employee.wxwork_id)
 
@@ -392,8 +407,11 @@ class SyncEmployee(object):
                 set(list_employee).difference(set(list_user))
             )  # 生成odoo与企微不同的员工数据列表
             for wxwork_leave_employee in list_user_leave:
-                leave_employee = employees.search(
-                    [("wxwork_id", "=", wxwork_leave_employee)]
+                leave_employee = self.employee.sudo().search(
+                    [
+                        ("wxwork_id", "=", wxwork_leave_employee),
+                        ("company_id", "=", self.company.id),
+                    ]
                 )
                 self.set_employee_active(leave_employee, debug)
         except Exception as e:

@@ -9,6 +9,8 @@ import platform
 from passlib.context import CryptContext
 
 from odoo import api, models, tools
+from odoo.modules.module import get_module_resource
+
 from datetime import datetime, timedelta
 
 
@@ -91,6 +93,35 @@ class WxTools(models.AbstractModel):
         if self.value == "1":
             self.result = True
         return self.result
+
+    def encode_avatar_image_as_base64(self, gender, image_path):
+        if not os.path.exists(image_path):
+            default_image_path = ""
+            if not gender:
+                default_image_path = get_module_resource(
+                    "wxwork_hr_syncing", "static/src/img", "default_image.png"
+                )
+            else:
+                if gender == 1:
+                    default_image_path = get_module_resource(
+                        "wxwork_hr_syncing", "static/src/img", "default_male_image.png"
+                    )
+                elif gender == 2:
+                    default_image_path = get_module_resource(
+                        "wxwork_hr_syncing",
+                        "static/src/img",
+                        "default_female_image.png",
+                    )
+                print("解码", gender, image_path, default_image_path)
+            with open(default_image_path, "rb") as f:
+                return base64.b64encode(f.read())
+        else:
+            try:
+                with open(image_path, "rb") as f:
+                    encoded_string = base64.b64encode(f.read())
+                return encoded_string
+            except BaseException as e:
+                print(_("Image encoding error:" + repr(e)))
 
     def encode_image_as_base64(self):
         if not self.value:
