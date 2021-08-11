@@ -49,7 +49,7 @@ class SyncDepartment(object):
 
             # 清洗数据
             departments = self.department_data_cleaning(response["department"])
-
+            print("部门列表", departments)
             start1 = time.time()
             for obj in departments:
                 self.run_sync_department(obj)
@@ -94,11 +94,14 @@ class SyncDepartment(object):
         Args:
             json ([type]): [description]index
         """
+
+        for department in departments:
+            if department.get("parentid") == 1:
+                department["parentid"] = 0
+
         for index, department in enumerate(departments):
-            if department["id"] == 1:
+            if department.get("id") == 1:
                 del departments[index]
-            elif department["parentid"] == 1:
-                departments[index]["parentid"] = 0
 
         return departments
 
@@ -115,6 +118,7 @@ class SyncDepartment(object):
             [
                 ("wxwork_department_id", "=", wxwork_department["id"]),
                 ("is_wxwork_department", "=", True),
+                ("company_id", "=", self.company.id),
                 "|",
                 ("active", "=", True),
                 ("active", "=", False),
@@ -134,6 +138,7 @@ class SyncDepartment(object):
             records ([type]): [description]
             obj ([type]): [description]
         """
+        print("创建一个部门", self.company.name, obj["name"])
         records.create(
             {
                 "name": obj["name"],

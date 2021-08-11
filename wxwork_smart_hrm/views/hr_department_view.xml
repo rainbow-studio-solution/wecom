@@ -26,10 +26,11 @@
             <field name="model">hr.department</field>
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
-            <field name="arch" type="xml">
-               <!-- <xpath expr="//tree" position="attributes">
-                   <attribute name="default_order">wxwork_department_id,wxwork_department_order </attribute>
-               </xpath> -->
+            <field name="arch" type="xml">                
+                <xpath expr="//field[@name='company_id']" position="replace"/>
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </xpath>                
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="is_wxwork_department"/>
                     <field name="wxwork_department_id" options="{'format': false}"/>
