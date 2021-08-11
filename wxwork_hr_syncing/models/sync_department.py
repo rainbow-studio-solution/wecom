@@ -12,12 +12,6 @@ _logger = logging.getLogger(__name__)
 
 
 class SyncDepartment(object):
-    """[summary]
-    同步部门
-    Args:
-        object ([type]): [description]
-    """
-
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.corpid = self.kwargs["corpid"]
@@ -49,7 +43,7 @@ class SyncDepartment(object):
 
             # 清洗数据
             departments = self.department_data_cleaning(response["department"])
-            print("部门列表", departments)
+
             start1 = time.time()
             for obj in departments:
                 self.run_sync_department(obj)
@@ -138,7 +132,7 @@ class SyncDepartment(object):
             records ([type]): [description]
             obj ([type]): [description]
         """
-        print("创建一个部门", self.company.name, obj["name"])
+
         records.create(
             {
                 "name": obj["name"],

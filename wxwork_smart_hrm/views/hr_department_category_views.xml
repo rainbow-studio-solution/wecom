@@ -23,8 +23,8 @@
             <field name="model">hr.department.category</field>
             <field name="arch" type="xml">
                 <tree string="Department Tags" editable="bottom">
-                    <field name="name"/>
-                     
+                    <field name="company_id"/>
+                    <field name="name"/>                     
                     <field name="is_wxwork_category"/>
                     <field name="tagid" />                                     
                     <!-- <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wxwork_category','=',False)]}"/>
