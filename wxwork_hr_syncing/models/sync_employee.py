@@ -19,16 +19,23 @@ _logger = logging.getLogger(__name__)
 class SyncEmployee(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
-        self.corpid = self.kwargs["corpid"]
-        self.secret = self.kwargs["secret"]
+
         self.debug = self.kwargs["debug"]
         self.img_path = self.kwargs["img_path"]
-        self.sync_hr = self.kwargs["sync_hr"]
-        self.sync_avatar = self.kwargs["sync_avatar"]
-        self.always_sync_avatar = self.kwargs["always_sync_avatar"]
+
         self.company = self.kwargs["company"]
+        self.corpid = self.kwargs["company"].corpid
+        self.secret = self.kwargs["company"].contacts_secret
+        self.sync_hr = self.kwargs["company"].contacts_auto_sync_hr_enabled
+        self.use_default_avatar = self.kwargs[
+            "company"
+        ].contacts_use_system_default_avatar  # 使用系统默认头像
+
+        self.department_id = self.kwargs[
+            "company"
+        ].contacts_sync_hr_department_id  # 需要同步的部门ID
+
         self.department = self.kwargs["department"]
-        self.department_id = self.kwargs["department_id"]
         self.employee = self.kwargs["employee"]
         self.employee_category = self.kwargs["employee_category"]
         self.wx_tools = self.kwargs["wx_tools"]
@@ -74,8 +81,8 @@ class SyncEmployee(object):
             times = times1 + times2
             # status = {"employee": True}
             result = (
-                _("Successfully synchronize employees of company %s"),
-                self.company.name,
+                _("Successfully synchronize employees of company %s")
+                % (self.company.name),
             )
         except BaseException as e:
             times = time.time()
@@ -117,8 +124,8 @@ class SyncEmployee(object):
         except Exception as e:
             if self.debug:
                 print(
-                    _("Failed to synchronize company %s employee %s, error: %s")
-                    % (self.company.name, obj["name"], repr(e))
+                    _("Failed to synchronize company %s employee %s %s, error: %s")
+                    % (self.company.name, obj["userid"], obj["name"], repr(e))
                 )
 
     def create_employee(self, records, obj):
@@ -130,58 +137,41 @@ class SyncEmployee(object):
                 department_ids.append(
                     self.get_employee_parent_wxwork_department(obj, department)
                 )
-
-        img_path = self.img_path
-        if platform.system() == "Windows":
-            avatar_file = (
-                img_path.replace("\\", "/")
-                + str(self.company.id)
-                + "/avatar/"
-                + obj["userid"]
-                + ".jpg"
-            )
-            qr_code_file = (
-                img_path.replace("\\", "/")
-                + str(self.company.id)
-                + "/qr_code/"
-                + obj["userid"]
-                + ".png"
-            )
-        else:
-            avatar_file = (
-                img_path + str(self.company.id) + "/avatar/" + obj["userid"] + ".jpg"
-            )
-            qr_code_file = (
-                img_path + str(self.company.id) + "/qr_code/" + obj["userid"] + ".png"
-            )
-
+        print(
+            obj["userid"], obj["avatar"], type(obj["avatar"]),
+        )
         try:
             records.create(
                 {
+                    "use_system_avatar": self.use_default_avatar,
                     "wxwork_id": obj["userid"],
                     "name": obj["name"],
                     "english_name": self.wx_tools.check_dictionary_keywords(
                         obj, "english_name"
                     ),
-                    "gender": self.wx_tools.gender(obj["gender"]),
+                    "gender": self.wx_tools.sex2gender(obj["gender"]),
                     "marital": None,  # 不生成婚姻状况
+                    "avatar": self.wx_tools.get_default_avatar_url(obj["gender"])
+                    if obj["avatar"] == ""
+                    else obj["avatar"],
                     "image_1920": self.wx_tools.encode_avatar_image_as_base64(
-                        obj["gender"], avatar_file
+                        obj["gender"]
                     ),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    # 归属多个部门的情况下，第一个部门为默认部门 obj["main_department"]
-                    # "department_id": department_ids[0],
+                    "department_id": department_ids[0]
+                    if len(department_ids) > 0
+                    else None,
                     "department_id": self.get_main_department(
-                        obj["name"], obj["main_department"]
+                        obj["name"], obj["main_department"], obj["department"]
                     ),
                     "company_id": self.company.id,
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
-                    "qr_code": self.encode_image_as_base64(qr_code_file),
+                    "qr_code": obj["qr_code"],
                     "is_wxwork_employee": True,
                 }
             )
@@ -196,37 +186,15 @@ class SyncEmployee(object):
         # return result
 
     def update_employee(self, records, obj):
-        always = self.always_sync_avatar
-
-        department_ids = []
+        department_ids = []  # 多部门
         for department in obj["department"]:
-            department_ids.append(
-                self.get_employee_parent_wxwork_department(obj, department)
-            )
+            if department == 1:
+                pass
+            else:
+                department_ids.append(
+                    self.get_employee_parent_wxwork_department(obj, department)
+                )
 
-        img_path = self.img_path
-        if platform.system() == "Windows":
-            avatar_file = (
-                img_path.replace("\\", "/")
-                + str(self.company.id)
-                + "/avatar/"
-                + obj["userid"]
-                + ".jpg"
-            )
-            qr_code_file = (
-                img_path.replace("\\", "/")
-                + str(self.company.id)
-                + "/qr_code/"
-                + obj["userid"]
-                + ".png"
-            )
-        else:
-            avatar_file = (
-                img_path + str(self.company.id) + "/avatar/" + obj["userid"] + ".jpg"
-            )
-            qr_code_file = (
-                img_path + str(self.company.id) + "/qr_code/" + obj["userid"] + ".png"
-            )
         try:
             records.write(
                 {
@@ -234,33 +202,35 @@ class SyncEmployee(object):
                     "english_name": self.wx_tools.check_dictionary_keywords(
                         obj, "english_name"
                     ),
-                    "gender": self.wx_tools.gender(obj["gender"]),
-                    "image_1920": self.check_always_update_avatar(
-                        always, obj["gender"], avatar_file, records
+                    "gender": self.wx_tools.sex2gender(obj["gender"]),
+                    "avatar": self.wx_tools.get_default_avatar_url(obj["gender"])
+                    if obj["avatar"] == ""
+                    else obj["avatar"],
+                    "image_1920": self.wx_tools.encode_avatar_image_as_base64(
+                        obj["gender"]
                     ),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    # 归属多个部门的情况下，第一个部门为默认部门
-                    # "department_id": department_ids[0],
+                    "department_id": department_ids[0]
+                    if len(department_ids) > 0
+                    else None,
                     "department_id": self.get_main_department(
-                        obj["name"], obj["main_department"]
+                        obj["name"], obj["main_department"], obj["department"]
                     ),
-                    "company_id": self.company.id,
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
-                    "qr_code": self.encode_image_as_base64(qr_code_file),
-                    "is_wxwork_employee": True,
+                    "qr_code": obj["qr_code"],
                 }
             )
 
         except Exception as e:
             if self.debug:
                 print(
-                    _("Error update company %s employee %s, error reason: %s")
-                    % (self.company.name, obj["name"], repr(e))
+                    _("Error update company %s employee %s %s, error reason: %s")
+                    % (self.company.name, obj["userid"], obj["name"], repr(e))
                 )
 
     def check_always_update_avatar(self, always, gender, avatar_file, employee):
@@ -268,37 +238,6 @@ class SyncEmployee(object):
             return self.wx_tools.encode_avatar_image_as_base64(gender, avatar_file)
         else:
             return employee.image_1920
-
-    # def encode_avatar_image_as_base64(self, gender, image_path):
-
-    #     if not os.path.exists(image_path):
-    #         default_image_path = ""
-    #         if not gender:
-    #             default_image_path = modules.get_module_resource(
-    #                 "wxwork_hr_syncing", "static/src/img", "default_image.png"
-    #             )
-    #         else:
-    #             if gender == 1:
-    #                 default_image_path = modules.get_module_resource(
-    #                     "wxwork_hr_syncing", "static/src/img", "default_male_image.png"
-    #                 )
-    #             elif gender == 2:
-    #                 default_image_path = modules.get_module_resource(
-    #                     "wxwork_hr_syncing",
-    #                     "static/src/img",
-    #                     "default_female_image.png",
-    #                 )
-    #             print("解码", gender, default_image_path)
-    #         with open(default_image_path, "rb") as f:
-    #             return base64.b64encode(f.read())
-    #         # return base64.b64encode(open(default_image_path, "rb").read())
-    #     else:
-    #         try:
-    #             with open(image_path, "rb") as f:
-    #                 encoded_string = base64.b64encode(f.read())
-    #             return encoded_string
-    #         except BaseException as e:
-    #             print(_("Image encoding error:" + repr(e)))
 
     def encode_image_as_base64(self, image_path):
         try:
@@ -308,7 +247,7 @@ class SyncEmployee(object):
         except BaseException as e:
             print(_("Image encoding error:" + repr(e)))
 
-    def get_employee_parent_hr_department(self, department_obj, debug):
+    def get_employee_parent_hr_department(self, department_obj):
         """
         如果企微用户只有一个部门，则设置企业用户的HR部门
         :param department_obj: 部门json
@@ -328,7 +267,7 @@ class SyncEmployee(object):
             if departments:
                 return departments.id
         except BaseException as e:
-            if debug:
+            if self.debug:
                 print(
                     _("Error in getting employee's parent department, error: %s")
                     % repr(e)
@@ -355,10 +294,18 @@ class SyncEmployee(object):
                     % (employee["name"], self.company.name, repr(e))
                 )
 
-    def get_main_department(self, employee_name, main_department):
+    def get_main_department(self, employee_name, main_department, departments):
         """
         获取员工的主部门
         """
+        if main_department == 1 and len(departments) > 1:
+            for index, department in enumerate(departments):
+                if department == 1:
+                    del departments[index]
+            main_department = departments[0]
+        elif main_department == 1:
+            return 0
+
         try:
             departments = self.department.sudo().search(
                 [
@@ -370,6 +317,7 @@ class SyncEmployee(object):
             )
             if len(departments) > 0:
                 return departments.id
+
         except BaseException as e:
             if self.debug:
                 print(
@@ -379,7 +327,7 @@ class SyncEmployee(object):
                     % (self.company.name, employee_name, repr(e))
                 )
 
-    def sync_leave_employee(self, response, debug):
+    def sync_leave_employee(self, response):
         """
         比较企业微信和odoo的员工数据，且设置离职odoo员工active状态
         激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。
@@ -413,22 +361,22 @@ class SyncEmployee(object):
                         ("company_id", "=", self.company.id),
                     ]
                 )
-                self.set_employee_active(leave_employee, debug)
+                self.set_employee_active(leave_employee)
         except Exception as e:
-            if debug:
+            if self.debug:
                 print(
                     _("Errors in generating data for departing employees:%s")
                     % (repr(e))
                 )
 
-    def set_employee_active(self, records, debug):
+    def set_employee_active(self, records):
         try:
             records.write(
                 {"active": False,}
             )
             # return True
         except Exception as e:
-            if debug:
+            if self.debug:
                 print(
                     _("Departed employee: %s, Synchronization error: %s ")
                     % (records.name, repr(e))

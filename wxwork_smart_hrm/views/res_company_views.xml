@@ -101,40 +101,18 @@
 
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <field name="contacts_sync_avatar_enabled"/>
+                                <field name="contacts_use_system_default_avatar"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="contacts_sync_avatar_enabled"/>
+                                <label for="contacts_use_system_default_avatar"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        Synchronizing avatars takes up resources and is off by default.
+                                        Enable this, Enterprise wechat user avatars will not be used.
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('contacts_sync_avatar_enabled','=',False)]}">
-                            <div class="o_setting_left_pane">
-                                <field name="contacts_always_update_avatar_enabled"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="contacts_always_update_avatar_enabled"/>
-                                <div class="row">
-                                <!-- 启用,每次同步都同步企业微信用户头像。 -->
-                                <!-- 建议：在因各种原因同步头像失败时开启 -->
-                                <!-- 每次同步更新头像会花费更多的时间，另外HR一般会使用员工的正式照片 -->
-                                    <div class="text-muted col-md-12">
-                                        If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.
-                                        <br/>
-                                        <span style="color:orange;padding: 0px 16px; " alt=""> <i class="fa fa-info-circle" aria-label="info" />Suggestion: turn on when avatar synchronization fails due to various reasons</span>
-                                        <br/>
-                                        <span style="color:orange;padding: 0px 16px;"  alt=""> <i class="fa fa-info-circle" aria-label="info"/>It takes more time to update the avatar each time, and HR generally uses the official photo of the employee</span>
-                                        <br/>
-                                        <span style="color:red;padding: 0px 16px;"  alt=""> <i class="fa fa-warning"  aria-label="warning"/>Don't want to be troubled by HR, use it with caution!</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">

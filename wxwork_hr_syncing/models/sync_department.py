@@ -14,11 +14,11 @@ _logger = logging.getLogger(__name__)
 class SyncDepartment(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
-        self.corpid = self.kwargs["corpid"]
-        self.secret = self.kwargs["secret"]
+        self.corpid = self.kwargs["company"].corpid
+        self.secret = self.kwargs["company"].contacts_secret
         self.debug = self.kwargs["debug"]
         self.company = self.kwargs["company"]
-        self.department_id = self.kwargs["department_id"]
+        self.department_id = self.kwargs["company"].contacts_sync_hr_department_id
         self.department = self.kwargs["department"]
 
     def run(self):

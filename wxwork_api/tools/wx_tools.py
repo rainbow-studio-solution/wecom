@@ -94,34 +94,36 @@ class WxTools(models.AbstractModel):
             self.result = True
         return self.result
 
-    def encode_avatar_image_as_base64(self, gender, image_path):
-        if not os.path.exists(image_path):
-            default_image_path = ""
-            if not gender:
-                default_image_path = get_module_resource(
-                    "wxwork_hr_syncing", "static/src/img", "default_image.png"
-                )
-            else:
-                if gender == 1:
-                    default_image_path = get_module_resource(
-                        "wxwork_hr_syncing", "static/src/img", "default_male_image.png"
-                    )
-                elif gender == 2:
-                    default_image_path = get_module_resource(
-                        "wxwork_hr_syncing",
-                        "static/src/img",
-                        "default_female_image.png",
-                    )
-                print("解码", gender, image_path, default_image_path)
-            with open(default_image_path, "rb") as f:
-                return base64.b64encode(f.read())
+    def encode_avatar_image_as_base64(self, gender):
+        if gender == "1":
+            default_image = get_module_resource(
+                "wxwork_api", "static/src/img", "default_male_image.png"
+            )
+        elif gender == "2":
+            default_image = get_module_resource(
+                "wxwork_api", "static/src/img", "default_female_image.png",
+            )
         else:
-            try:
-                with open(image_path, "rb") as f:
-                    encoded_string = base64.b64encode(f.read())
-                return encoded_string
-            except BaseException as e:
-                print(_("Image encoding error:" + repr(e)))
+            default_image = get_module_resource(
+                "wxwork_api", "static/src/img", "default_image.png"
+            )
+
+        with open(default_image, "rb") as f:
+            return base64.b64encode(f.read())
+
+    def get_default_avatar_url(self, gender):
+        params = self.env["ir.config_parameter"].sudo()
+        base_url = params.get_param("web.base.url")
+        if gender == "1":
+            default_image_url = (
+                base_url + "/wxwork_api/static/src/img/default_male_image.png"
+            )
+        elif gender == "2":
+            default_image_url = (
+                base_url + "/wxwork_api/static/src/img/default_female_image.png"
+            )
+
+        return default_image_url
 
     def encode_image_as_base64(self):
         if not self.value:
@@ -131,7 +133,7 @@ class WxTools(models.AbstractModel):
                 encoded_string = base64.b64encode(f.read())
             return encoded_string
 
-    def gender(self, sex):
+    def sex2gender(self, sex):
         """
         性别转换
         """
@@ -141,6 +143,12 @@ class WxTools(models.AbstractModel):
             return "female"
         else:
             return "other"
+
+    def gendge2sex(self, gender):
+        if gender == "male":
+            return "1"
+        elif gender == "female":
+            return "2"
 
     def is_exists(self):
         """

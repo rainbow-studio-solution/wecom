@@ -78,9 +78,14 @@ msgid "Allow Enterprise WeChat contacts to automatically update system accounts"
 msgstr "允许企业微信通讯簿自动更新系统帐户"
 
 #. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_use_system_default_avatar
+msgid "Use system default Avatar"
+msgstr "使用系统默认头像"
+
+#. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_sync_avatar_enabled
-msgid "Sync Avatar"
-msgstr "同步头像"
+msgid "Download Avatar"
+msgstr "下载头像"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_always_update_avatar_enabled
@@ -356,8 +361,8 @@ msgstr ""
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
-msgid "Synchronizing avatars takes up resources and is off by default."
-msgstr "同步头像占用资源，默认关闭。"
+msgid "Downloading avatars takes up system resources and is off by default."
+msgstr "下载头像占用系统资源，默认关闭。"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form

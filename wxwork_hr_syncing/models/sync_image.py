@@ -25,13 +25,12 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 class SyncImage(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
-        self.corpid = self.kwargs["corpid"]
-        self.secret = self.kwargs["secret"]
+
         self.debug = self.kwargs["debug"]
-        self.company = self.kwargs["company"]
-        self.department_id = self.kwargs["department_id"]
         self.img_path = self.kwargs["img_path"]
-        self.department = self.kwargs["department"]
+        self.corpid = self.kwargs["company"].corpid
+        self.secret = self.kwargs["company"].contacts_secret
+        self.department_id = self.kwargs["company"].contacts_sync_hr_department_id
 
     def run(self):
         if self.debug:
@@ -48,19 +47,20 @@ class SyncImage(object):
                 avatar_directory = (
                     self.img_path.replace("\\", "/") + str(self.company.id) + "/avatar/"
                 )
-                qr_code_directory = (
-                    self.img_path.replace("\\", "/")
-                    + str(self.company.id)
-                    + "/qr_code/"
-                )
+                # qr_code_directory = (
+                #     self.img_path.replace("\\", "/")
+                #     + str(self.company.id)
+                #     + "/qr_code/"
+                # )
             else:
                 avatar_directory = self.img_path + str(self.company.id) + "/avatar/"
-                qr_code_directory = self.img_path + str(self.company.id) + "/qr_code/"
+                # qr_code_directory = self.img_path + str(self.company.id) + "/qr_code/"
 
             self.path_is_exists(avatar_directory)
-            self.path_is_exists(qr_code_directory)
+            # self.path_is_exists(qr_code_directory)
 
-            user_list, avatar_urls, qr_code_urls = self.generate_image_list()
+            # user_list, avatar_urls, qr_code_urls = self.generate_image_list()
+            user_list, avatar_urls = self.generate_image_list()
             start = time.time()
             threads = []
             """
@@ -137,14 +137,15 @@ class SyncImage(object):
             )
             userid_list = []
             avatar_urls = []
-            qr_code_urls = []
+            # qr_code_urls = []
             for object in response["userlist"]:
                 userid_list.append(object["userid"])
                 avatar_urls.append(object["avatar"])
-                qr_code_urls.append(object["qr_code"])
-            return userid_list, avatar_urls, qr_code_urls
+                # qr_code_urls.append(object["qr_code"])
+            # return userid_list, avatar_urls, qr_code_urls
+            return userid_list, avatar_urls
         except Exception as e:
-            print(e)
+            print(_("Error generating avatar list, %s"), e)
 
     def path_is_exists(self, path):
         """

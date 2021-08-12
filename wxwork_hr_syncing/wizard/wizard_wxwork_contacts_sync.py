@@ -80,24 +80,13 @@ class WizardSyncContacts(models.TransientModel):
         for company in companies:
             # 遍历companies
             sync_hr_enabled = company.contacts_auto_sync_hr_enabled  # 允许企业微信通讯簿自动更新为HR
-            sync_avatar_enabled = company.contacts_sync_avatar_enabled  # 允许同步头像
-            always_sync_avatar_enabled = (
-                company.contacts_always_update_avatar_enabled
-            )  # 允许总是同步头像
             corpid = company.corpid
             secret = company.contacts_secret
-            department_id = company.contacts_sync_hr_department_id
 
             # 生成关键字参数字典
             kwargs = {
                 "debug": params.get_param("wxwork.debug_enabled"),
                 "img_path": params.get_param("wxwork.img_path"),
-                "corpid": corpid,
-                "secret": secret,
-                "department_id": department_id,
-                "sync_hr": sync_hr_enabled,
-                "sync_avatar": sync_avatar_enabled,
-                "always_sync_avatar": always_sync_avatar_enabled,
                 "company": company,
                 "department": self.env["hr.department"],
                 "department_category": self.env["hr.department.category"],

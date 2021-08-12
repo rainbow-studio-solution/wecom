@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, tools, _
+from odoo.modules.module import get_module_resource
 
 
 class Company(models.Model):
@@ -26,7 +27,21 @@ class Company(models.Model):
         "Allow Enterprise WeChat contacts to automatically update system accounts",
         default=False,
     )
-    contacts_sync_avatar_enabled = fields.Boolean("Sync Avatar", default=False,)
-    contacts_always_update_avatar_enabled = fields.Boolean(
-        "Always update avatar", default=False,
+    contacts_use_system_default_avatar = fields.Boolean(
+        "Use system default Avatar", default=True,
     )
+
+    @api.onchange("contacts_use_system_default_avatar")
+    def _onchange_contacts_use_system_default_avatar(self):
+        employees = self.env["hr.employee"].search(
+            [
+                ("is_wxwork_employee", "=", True),
+                "|",
+                ("active", "=", True),
+                ("active", "=", False),
+            ]
+        )
+        for employee in employees:
+            employee.write(
+                {"use_system_avatar": self.contacts_use_system_default_avatar}
+            )

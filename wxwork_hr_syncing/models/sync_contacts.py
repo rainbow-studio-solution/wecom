@@ -3,7 +3,8 @@
 import logging
 from odoo import api, fields, models, _
 from threading import Thread
-from .sync_image import SyncImage
+
+# from .sync_image import SyncImage
 from .sync_department import SyncDepartment
 from .sync_department_category import SyncDepartmentCategory
 from .sync_employee import SyncEmployee
@@ -15,28 +16,18 @@ class SyncTask(object):
     def __init__(self, kwargs):
         self.kwargs = kwargs
         self.debug = self.kwargs["debug"]
-        self.img_path = self.kwargs["img_path"]
-        self.sync_hr = self.kwargs["sync_hr"]
-        self.sync_avatar = self.kwargs["sync_avatar"]
-        self.always_sync_avatar = self.kwargs["always_sync_avatar"]
-        self.company = self.kwargs["company"]
-        self.department = self.kwargs["department"]
-        self.department_category = self.kwargs["department_category"]
-        self.employee = self.kwargs["employee"]
-        self.employee_category = self.kwargs["employee_category"]
-        self.wx_tools = self.kwargs["wx_tools"]
 
     def run(self):
         if self.debug:
             _logger.info(
                 _("Start to synchronize the enterprise wechat contact of %s."),
-                self.company.name,
+                self.kwargs["company"].name,
             )
 
         times = []
         results = []
 
-        if self.sync_hr:
+        if self.kwargs["company"].contacts_auto_sync_hr_enabled:
             threads = []
 
             # 任务名称列表
@@ -55,10 +46,10 @@ class SyncTask(object):
                 # self.employee_category.sync_employee_tags,
             ]
 
-            if self.sync_avatar:
-                # 如果允许同步头像
-                task_name_list.insert(0, _("Enterprise WeChat picture synchronization"))
-                task_func_list.insert(0, SyncImage(self.kwargs).run)
+            # if self.kwargs["company"].contacts_download_avatar_enabled:
+            #     # 如果允许下载头像
+            #     task_name_list.insert(0, _("Enterprise WeChat picture synchronization"))
+            #     task_func_list.insert(0, SyncImage(self.kwargs).run)
 
             # statuses = {}
             for i in range(len(task_name_list)):
