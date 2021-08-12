@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="WXWorkImageUrl">
+        <img class="img img-fluid"
+            alt="Binary file"
+            t-att-src='url'
+            t-att-border="widget.readonly ? 0 : 1"
+            t-att-name="widget.name"/>
+    </t>
+
+</templates>

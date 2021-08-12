@@ -36,7 +36,7 @@
                         <group>
                             <group>
                                 <field name="wxwork_id" />
-                                <field name="is_wxwork_employee" widget="checkbox"/>
+                                <field name="is_wxwork_employee" widget="boolean_button"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
                             <group>
@@ -59,11 +59,13 @@
                 <xpath expr="//field[@name='image_128']" position="replace">
                     <field name="image_128" widget="image" class="o_kanban_image_fill_left" options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}" attrs="{'invisible': [('use_system_avatar', '=', False)]}"/>
 
-                    <field name="avatar" widget='image_url' width="95" height="95" className="mr16" options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}" attrs="{'invisible': [('use_system_avatar', '=', True)]}"/>
+                    <field name="avatar" widget="wxwork_image_url"  options="{'class':'mr16','size': [95, 95],'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}" attrs="{'invisible': [('use_system_avatar', '=', True)]}"/>
                 </xpath>
                 
            </field>
         </record>
+
+
 
         <record id="wxwork_hr_employee_tree" model="ir.ui.view">
             <field name="name">Enterprise WeChat employee list</field>

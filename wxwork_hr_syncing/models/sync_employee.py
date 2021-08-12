@@ -137,9 +137,7 @@ class SyncEmployee(object):
                 department_ids.append(
                     self.get_employee_parent_wxwork_department(obj, department)
                 )
-        print(
-            obj["userid"], obj["avatar"], type(obj["avatar"]),
-        )
+
         try:
             records.create(
                 {
