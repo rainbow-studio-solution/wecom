@@ -3,7 +3,7 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
-from ..models.hr_employee import EmployeeSyncUser
+# from ..models.hr_employee import EmployeeSyncUser
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -34,9 +34,10 @@ class ResConfigSettings(models.TransientModel):
                 "The current setting does not allow synchronization from employees to system users \n\n Please check related settings"
             )
         else:
-            self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user(
-                self.env["hr.employee"]
-            )
+            pass
+            # self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user(
+            #     self.env["hr.employee"]
+            # )
 
         form_view = self.env.ref(
             "wxwork_hr_syncing.dialog_wxwork_contacts_sync_user_result"

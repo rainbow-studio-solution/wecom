@@ -56,13 +56,13 @@ class SyncDepartment(object):
             times2 = end2 - start2
 
             times = times1 + times2
-            result = _("Department synchronization successful")
+            result = _("Department synchronization of %s succeeded") % self.company.name
 
             # status = {"department": True}
 
         except Exception as e:
             times = time.time()
-            result = _("Department synchronization failed")
+            result = _("Department synchronization of %s failed") % self.company.name
             # status = {"department": False}
             if self.debug:
                 _logger.warning(

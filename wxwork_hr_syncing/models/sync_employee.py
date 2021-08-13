@@ -80,13 +80,10 @@ class SyncEmployee(object):
             times2 = end2 - start2
             times = times1 + times2
             # status = {"employee": True}
-            result = (
-                _("Successfully synchronize employees of company %s")
-                % (self.company.name),
-            )
+            result = _("Successfully synchronize employees of %s") % self.company.name
         except BaseException as e:
             times = time.time()
-            result = _("Failed to synchronize employees of %s"), self.company.name
+            result = _("Failed to synchronize employees of %s") % self.company.name
 
             if self.debug:
                 print(
@@ -196,6 +193,7 @@ class SyncEmployee(object):
         try:
             records.write(
                 {
+                    "use_system_avatar": self.use_default_avatar,
                     "name": obj["name"],
                     "english_name": self.wx_tools.check_dictionary_keywords(
                         obj, "english_name"
@@ -204,9 +202,9 @@ class SyncEmployee(object):
                     "avatar": self.wx_tools.get_default_avatar_url(obj["gender"])
                     if obj["avatar"] == ""
                     else obj["avatar"],
-                    "image_1920": self.wx_tools.encode_avatar_image_as_base64(
-                        obj["gender"]
-                    ),
+                    "image_1920": records.image_1920
+                    if records.image_1920
+                    else self.wx_tools.encode_avatar_image_as_base64(obj["gender"]),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
@@ -221,6 +219,7 @@ class SyncEmployee(object):
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": obj["qr_code"],
+                    "is_wxwork_employee": True,
                 }
             )
 
@@ -302,7 +301,7 @@ class SyncEmployee(object):
                     del departments[index]
             main_department = departments[0]
         elif main_department == 1:
-            return 0
+            return None
 
         try:
             departments = self.department.sudo().search(

@@ -11,10 +11,15 @@
                     <field name="user_check_tick" invisible="1"/>
                 </field>
                 <xpath expr="//header//button[last()]" position="before">
-                    <!--     “复制为系统用户”按钮仅HR管理员可见          -->
-                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight"
+
+                    <button name="update_from_enterprise_wechat" string="Update from enterprise wechat" type="object" class="oe_highlight btn-info"
+                            attrs="{'invisible': [('is_wxwork_employee', '=', False)]}"
+                            groups="hr.group_hr_manager"/>
+
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-primary"
                             attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
                             groups="hr.group_hr_manager"/>
+                    
                 </xpath>
 
             </field>

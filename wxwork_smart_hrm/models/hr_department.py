@@ -6,7 +6,8 @@ from odoo import api, fields, models, _
 class Department(models.Model):
 
     _inherit = "hr.department"
-    _order = "wxwork_department_order asc,complete_name"
+    # _order = "wxwork_department_order asc,complete_name"
+    # _order = "display_name"
 
     category_ids = fields.Many2many(
         "hr.department.category",

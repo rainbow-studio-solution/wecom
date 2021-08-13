@@ -65,6 +65,7 @@ class SyncDepartmentCategory(object):
             times = times1 + times2 + times3
             # status = {"department_category": True}
             result = _("Enterprise WeChat department tags sync successfully")
+            result = _("Department tags of %s were synchronized successfully") % self.company.name
         except BaseException as e:
             if self.debug:
                 _logger.warning(
