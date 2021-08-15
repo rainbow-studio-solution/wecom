@@ -147,3 +147,9 @@ class WizardSyncContacts(models.TransientModel):
             # 'auto_search': False, #加载默认视图后，自动搜索
             # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
         }
+
+    def reload(self):
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }

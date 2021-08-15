@@ -59,7 +59,8 @@
                         <field name="result"  />
                     </group>
                     <footer>
-                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
                     </footer>
                 </form>
             </field>

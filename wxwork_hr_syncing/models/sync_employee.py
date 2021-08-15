@@ -127,13 +127,10 @@ class SyncEmployee(object):
 
     def create_employee(self, records, obj):
         department_ids = []  # 多部门
-        for department in obj["department"]:
-            if department == 1:
-                pass
-            else:
-                department_ids.append(
-                    self.get_employee_parent_wxwork_department(obj, department)
-                )
+        if len(obj["department"]) > 0:
+            department_ids = self.get_employee_parent_wxwork_department(
+                obj["department"]
+            )
 
         try:
             records.create(
@@ -157,11 +154,8 @@ class SyncEmployee(object):
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    "department_id": department_ids[0]
-                    if len(department_ids) > 0
-                    else None,
                     "department_id": self.get_main_department(
-                        obj["name"], obj["main_department"], obj["department"]
+                        obj["name"], obj["main_department"], department_ids
                     ),
                     "company_id": self.company.id,
                     "department_ids": [(6, 0, department_ids)],
@@ -174,21 +168,18 @@ class SyncEmployee(object):
         except Exception as e:
             if self.debug:
                 print(
-                    _("Error creating company %s employee %s, error reason: %s")
-                    % (self.company.name, obj["name"], repr(e))
+                    _("Error creating company %s employee %s %s, error reason: %s")
+                    % (self.company.name, obj["userid"], obj["name"], repr(e))
                 )
         # result = False
         # return result
 
     def update_employee(self, records, obj):
         department_ids = []  # 多部门
-        for department in obj["department"]:
-            if department == 1:
-                pass
-            else:
-                department_ids.append(
-                    self.get_employee_parent_wxwork_department(obj, department)
-                )
+        if len(obj["department"]) > 0:
+            department_ids = self.get_employee_parent_wxwork_department(
+                obj["department"]
+            )
 
         try:
             records.write(
@@ -198,24 +189,18 @@ class SyncEmployee(object):
                     "english_name": self.wx_tools.check_dictionary_keywords(
                         obj, "english_name"
                     ),
-                    "gender": self.wx_tools.sex2gender(obj["gender"]),
                     "avatar": self.wx_tools.get_default_avatar_url(obj["gender"])
                     if obj["avatar"] == ""
                     else obj["avatar"],
-                    "image_1920": records.image_1920
-                    if records.image_1920
-                    else self.wx_tools.encode_avatar_image_as_base64(obj["gender"]),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
                     "active": obj["enable"],
                     "alias": obj["alias"],
-                    "department_id": department_ids[0]
-                    if len(department_ids) > 0
-                    else None,
                     "department_id": self.get_main_department(
-                        obj["name"], obj["main_department"], obj["department"]
+                        obj["name"], obj["main_department"], department_ids
                     ),
+                    "company_id": self.company.id,
                     "department_ids": [(6, 0, department_ids)],
                     "wxwork_user_order": obj["order"],
                     "qr_code": obj["qr_code"],
@@ -270,31 +255,30 @@ class SyncEmployee(object):
                     % repr(e)
                 )
 
-    def get_employee_parent_wxwork_department(self, employee, department_id):
-        try:
-            departments = self.department.sudo().search(
-                [
-                    ("wxwork_department_id", "=", department_id),
-                    ("company_id", "=", self.company.id),
-                    ("is_wxwork_department", "=", True),
-                ],
-                limit=1,
-            )
-            if len(departments) > 0:
-                return departments.id
-        except BaseException as e:
-            if self.debug:
-                print(
-                    _(
-                        "Error getting parent department of employee %s of company %s, error reason: %s"
-                    )
-                    % (employee["name"], self.company.name, repr(e))
+    def get_employee_parent_wxwork_department(self, departments):
+        department_ids = []
+        for department in departments:
+            if department == 1:
+                pass
+            else:
+                odoo_department = self.department.sudo().search(
+                    [
+                        ("wxwork_department_id", "=", department),
+                        ("company_id", "=", self.company.id),
+                        ("is_wxwork_department", "=", True),
+                    ],
+                    limit=1,
                 )
+
+                if len(odoo_department) > 0:
+                    department_ids.append(odoo_department.id)
+        return department_ids
 
     def get_main_department(self, employee_name, main_department, departments):
         """
         获取员工的主部门
         """
+
         if main_department == 1 and len(departments) > 1:
             for index, department in enumerate(departments):
                 if department == 1:
@@ -314,6 +298,8 @@ class SyncEmployee(object):
             )
             if len(departments) > 0:
                 return departments.id
+            else:
+                return None
 
         except BaseException as e:
             if self.debug:
@@ -323,6 +309,7 @@ class SyncEmployee(object):
                     )
                     % (self.company.name, employee_name, repr(e))
                 )
+            return None
 
     def sync_leave_employee(self, response):
         """

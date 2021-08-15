@@ -12,9 +12,9 @@
                 </field>
                 <xpath expr="//header//button[last()]" position="before">
 
-                    <button name="update_from_enterprise_wechat" string="Update from enterprise wechat" type="object" class="oe_highlight btn-info"
+                    <!-- <button name="update_from_enterprise_wechat" string="Update from enterprise wechat" type="object" class="oe_highlight btn-info"
                             attrs="{'invisible': [('is_wxwork_employee', '=', False)]}"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_manager"/> -->
 
                     <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-primary"
                             attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
