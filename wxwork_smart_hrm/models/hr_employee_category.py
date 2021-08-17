@@ -5,6 +5,7 @@ import logging
 import time
 
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.error_code import Errcode
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
@@ -18,6 +19,13 @@ class EmployeeCategory(models.Model):
         string="Company",
         index=True,
         default=lambda self: self.env.company,
+    )
+    department_ids = fields.Many2many(
+        "hr.department",
+        "department_category_rel",
+        "category_id",
+        "dmp_id",
+        string="Departments",
     )
     tagid = fields.Integer(
         string="Enterprise WeChat Tag ID",

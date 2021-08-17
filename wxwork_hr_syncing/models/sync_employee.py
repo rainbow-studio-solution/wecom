@@ -221,13 +221,13 @@ class SyncEmployee(object):
         else:
             return employee.image_1920
 
-    def encode_image_as_base64(self, image_path):
-        try:
-            with open(image_path, "rb") as f:
-                encoded_string = base64.b64encode(f.read())
-            return encoded_string
-        except BaseException as e:
-            print(_("Image encoding error:" + repr(e)))
+    # def encode_image_as_base64(self, image_path):
+    #     try:
+    #         with open(image_path, "rb") as f:
+    #             encoded_string = base64.b64encode(f.read())
+    #         return encoded_string
+    #     except BaseException as e:
+    #         print(_("Image encoding error:" + repr(e)))
 
     def get_employee_parent_hr_department(self, department_obj):
         """

@@ -32,11 +32,13 @@ class SyncDepartmentCategory(object):
         times = 0
         try:
             start1 = time.time()
+
+            # 获取标签列表
             response = wxapi.httpCall(CORP_API_TYPE["TAG_GET_LIST"])
 
-            # 同步企业微信标签
-            for obj in response["taglist"]:
-                self.run_sync(obj)
+            # 同步企业微信部门标签
+            for tag in response["taglist"]:
+                self.run_sync(tag, wxapi)
             end1 = time.time()
             times1 = end1 - start1
 
@@ -50,22 +52,25 @@ class SyncDepartmentCategory(object):
                 ]
             )
 
-            if not tags:
-                pass
-            else:
-                self.handling_invalid_tags(response, tags)  # 处理移除无效企业微信标签
+            # if not tags:
+            #     pass
+            # else:
+            #     self.handling_invalid_tags(response, tags)  # 处理移除无效企业微信标签
             end2 = time.time()
             times2 = end2 - start2
 
             # 标签绑定部门
             start3 = time.time()
-            self.department_binding_tag(response)
+            # self.department_binding_tag(response)
             end3 = time.time()
             times3 = end3 - start3
             times = times1 + times2 + times3
             # status = {"department_category": True}
             result = _("Enterprise WeChat department tags sync successfully")
-            result = _("Department tags of %s were synchronized successfully") % self.company.name
+            result = (
+                _("Department tags of %s were synchronized successfully")
+                % self.company.name
+            )
         except BaseException as e:
             if self.debug:
                 _logger.warning(
@@ -83,30 +88,43 @@ class SyncDepartmentCategory(object):
         # return times, status, result
         return times, result
 
-    def run_sync(self, obj):
-        tag = self.department_category.sudo().search(
-            [("tagid", "=", obj["tagid"]), ("company_id", "=", self.company.id),],
-            limit=1,
-        )
-        if not tag:
-            self.create_department_tag(tag, obj)
-        else:
-            self.update_department_tag(tag, obj)
+    def run_sync(self, wxtag, wxapi):
+        """[summary]
 
-    def create_department_tag(self, records, obj):
+        Args:
+            wxtag ([type]): [description]企业微信标签
+            wxapi ([type]): [description]企业微信API对象
+        """
+        # 获取标签成员
+        response = wxapi.httpCall(
+            CORP_API_TYPE["TAG_GET_MEMBER"], {"tagid": str(wxtag["tagid"])}
+        )
+        departments = response["partylist"]
+        if len(departments) > 0:
+            # for department in departments:
+            tag = self.department_category.sudo().search(
+                [("tagid", "=", wxtag["tagid"]), ("company_id", "=", self.company.id),],
+                limit=1,
+            )
+            if not tag:
+                self.create_department_tag(tag, wxtag)
+            else:
+                self.update_department_tag(tag, wxtag)
+
+    def create_department_tag(self, records, wxtag):
         records.create(
             {
-                "name": obj["tagname"],
+                "name": wxtag["tagname"],
                 "company_id": self.company.id,
                 "color": self.department_category._get_default_color(),
-                "tagid": obj["tagid"],
+                "tagid": wxtag["tagid"],
                 "is_wxwork_category": True,
             }
         )
 
-    def update_department_tag(self, records, obj):
+    def update_department_tag(self, records, wxtag):
         records.write(
-            {"name": obj["tagname"],}
+            {"name": wxtag["tagname"],}
         )
 
     def handling_invalid_tags(self, wxwork, odoo):

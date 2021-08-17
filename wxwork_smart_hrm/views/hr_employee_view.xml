@@ -31,12 +31,14 @@
                 </xpath>
                 
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
-                    <label for="alias" class="oe_edit_only" attrs="{'invisible': [('is_wxwork_employee','=',False)]}"/>
+                    <!-- <label for="alias" class="oe_edit_only" /> -->
                     <h2 attrs="{'invisible': [('is_wxwork_employee','=',False)]}">
+                        <lable for="alias" />
                         <field name="alias" placeholder="Alias"/>
                     </h2>
-                    <label for="english_name" class="oe_edit_only" attrs="{'invisible': [('is_wxwork_employee','=',False)]}"/>
+                    <!-- <label for="english_name" class="oe_edit_only" attrs="{'invisible': [('is_wxwork_employee','=',False)]}"/> -->
                     <h2 attrs="{'invisible': [('is_wxwork_employee','=',False)]}">
+                        <label for="english_name" />
                         <field name="english_name" placeholder="English Name"/>
                     </h2>
                 </xpath>

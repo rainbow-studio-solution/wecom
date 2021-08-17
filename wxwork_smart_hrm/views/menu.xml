@@ -31,15 +31,8 @@
                     groups="hr.group_hr_manager" />
                 <menuitem
                     id="menu_wxwork_organization_employee_tag"
-                    name="Employee Tags"
+                    name="Tags"
                     action="hr.open_view_categ_form"
-                    parent="menu_wxwork_organization_main"
-                    sequence="1" 
-                    groups="hr.group_hr_manager" />
-                <menuitem
-                    id="menu_wxwork_organization_department_tag"
-                    name="Department Tags"
-                    action="open_view_department_categ_form"
                     parent="menu_wxwork_organization_main"
                     sequence="1" 
                     groups="hr.group_hr_manager" />

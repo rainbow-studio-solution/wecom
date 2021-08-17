@@ -6,8 +6,8 @@ from threading import Thread
 
 # from .sync_image import SyncImage
 from .sync_department import SyncDepartment
-from .sync_department_category import SyncDepartmentCategory
 from .sync_employee import SyncEmployee
+from .sync_tag import SyncTag
 
 _logger = logging.getLogger(__name__)
 
@@ -33,17 +33,15 @@ class SyncTask(object):
             # 任务名称列表
             task_name_list = [
                 _("Enterprise WeChat department synchronization"),
-                _("Enterprise WeChat department tag synchronization"),
                 _("Enterprise WeChat employee synchronization"),
-                # _("Enterprise WeChat employee tag synchronization"),
+                _("Enterprise WeChat tag synchronization"),
             ]
 
             # 任务方法列表
             task_func_list = [
                 SyncDepartment(self.kwargs).run,
-                SyncDepartmentCategory(self.kwargs).run,
                 SyncEmployee(self.kwargs).run,
-                # self.employee_category.sync_employee_tags,
+                SyncTag(self.kwargs).run,
             ]
 
             # if self.kwargs["company"].contacts_download_avatar_enabled:

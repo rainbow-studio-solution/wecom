@@ -38,12 +38,11 @@ class WizardSyncContacts(models.TransientModel):
     result = fields.Text(string="Result", readonly=True)
 
     @api.model
-    def check_api(self, corpid, secret):
+    def check_api(self, company):
         try:
-            api = CorpApi(corpid, secret)
-            self.env["ir.config_parameter"].sudo().set_param(
-                "wxwork.contacts_access_token", api.getAccessToken()
-            )
+            api = CorpApi(company.corpid, company.contacts_secret)
+
+            company.write({"contacts_access_token": api.getAccessToken()})
             return True
 
         except ApiException as ex:
@@ -89,13 +88,13 @@ class WizardSyncContacts(models.TransientModel):
                 "img_path": params.get_param("wxwork.img_path"),
                 "company": company,
                 "department": self.env["hr.department"],
-                "department_category": self.env["hr.department.category"],
+                # "department_category": self.env["hr.department.category"],
                 "employee": self.env["hr.employee"],
                 "employee_category": self.env["hr.employee.category"],
                 "wx_tools": self.env["wxwork.tools"],
             }
 
-            if not self.check_api(corpid, secret):
+            if not self.check_api(company):
                 raise Warning(
                     _("Enterprise WeChat configuration is wrong, please check.")
                 )

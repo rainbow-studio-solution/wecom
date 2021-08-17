@@ -18,9 +18,11 @@
             <field name="name">hr.employee.category.list</field>
             <field name="model">hr.employee.category</field>
             <field name="inherit_id" ref="hr.view_employee_category_list"/>
-            <field name="arch" type="xml">               
-                <field name="name" position="after">
+            <field name="arch" type="xml">
+                <field name="name" position="before">
                     <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
+                </field>  
+                <field name="name" position="after">                    
                     <field name="is_wxwork_category"/>
                     <field name="tagid" />                                     
                     <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wxwork_category','=',False)]}"/>
@@ -29,5 +31,12 @@
             </field>
         </record>
 
+        <!-- <record id="hr.open_view_categ_form" model="ir.actions.act_window">
+            <field name="name">Tags</field>
+        </record> -->
+        <function model="ir.actions.act_window" name="write">
+            <value eval="[ref('hr.open_view_categ_form')]"/>
+            <value eval="{'name': 'Tags'}"/>
+        </function>
     </data>
 </odoo>

@@ -10,13 +10,12 @@ class Department(models.Model):
     # _order = "display_name"
 
     category_ids = fields.Many2many(
-        "hr.department.category",
+        "hr.employee.category",
         "department_category_rel",
         "dmp_id",
         "category_id",
         groups="hr.group_hr_manager",
         string="Tags",
-        readonly=True,
     )
 
     wxwork_department_id = fields.Integer(

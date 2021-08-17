@@ -211,8 +211,8 @@ msgstr "员工目录"
 
 #. module: wxwork_smart_hrm
 #: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_employee_tag
-msgid "Employee Tags"
-msgstr "员工标签"
+msgid "Tags"
+msgstr "标签"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
@@ -222,7 +222,7 @@ msgstr "启用，允许从员工批量生成系统帐户;"
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__english_name model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
 msgid "English Name"
-msgstr "英语名称"
+msgstr "英文名"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_form model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_view_users_form

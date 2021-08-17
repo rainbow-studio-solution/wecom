@@ -23,7 +23,7 @@
         "data/hr_data.xml",
         "views/res_company_views.xml",
         "views/res_users_views.xml",
-        "views/hr_department_category_views.xml",
+        # "views/hr_department_category_views.xml",
         "views/hr_department_view.xml",
         "views/hr_employee_category_views.xml",
         "views/hr_employee_view.xml",

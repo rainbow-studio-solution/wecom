@@ -44,9 +44,9 @@ CORP_API_TYPE = {
     "TAG_CREATE": ["/cgi-bin/tag/create?access_token=ACCESS_TOKEN", "POST"],
     "TAG_UPDATE": ["/cgi-bin/tag/update?access_token=ACCESS_TOKEN", "POST"],
     "TAG_DELETE": ["/cgi-bin/tag/delete?access_token=ACCESS_TOKEN", "GET"],
-    "TAG_GET_USER": ["/cgi-bin/tag/get?access_token=ACCESS_TOKEN", "GET"],
-    "TAG_ADD_USER": ["/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN", "POST"],
-    "TAG_DELETE_USER": ["/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN", "POST"],
+    "TAG_GET_MEMBER": ["/cgi-bin/tag/get?access_token=ACCESS_TOKEN", "GET"],
+    "TAG_ADD_MEMBER": ["/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN", "POST"],
+    "TAG_DELETE_MEMBER": ["/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN", "POST"],
     "TAG_GET_LIST": ["/cgi-bin/tag/list?access_token=ACCESS_TOKEN", "GET"],
     "BATCH_JOB_GET_RESULT": [
         "/cgi-bin/batch/getresult?access_token=ACCESS_TOKEN",
