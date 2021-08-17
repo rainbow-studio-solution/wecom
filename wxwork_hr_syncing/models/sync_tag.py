@@ -198,7 +198,7 @@ class SyncTag(object):
                         employee_category.write({"employee_ids": [(6, 0, employees)]})
 
                 partylist = tags["partylist"]  # 标签中包含的部门列表
-                print("partylist", partylist)
+
                 if not partylist:
                     pass
                 else:

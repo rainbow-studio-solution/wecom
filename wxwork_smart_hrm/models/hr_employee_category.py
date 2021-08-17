@@ -19,6 +19,7 @@ class EmployeeCategory(models.Model):
         string="Company",
         index=True,
         default=lambda self: self.env.company,
+        readonly=True,
     )
     department_ids = fields.Many2many(
         "hr.department",
@@ -36,12 +37,11 @@ class EmployeeCategory(models.Model):
     is_wxwork_category = fields.Boolean(string="Enterprise WeChat Tag", default=False,)
 
     def update_to_wxwork(self):
-        params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.contacts_secret")
+        debug = self.env["ir.config_parameter"].sudo().get_param("wxwork.debug_enabled")
+        company = self.company_id
 
-        wxapi = CorpApi(corpid, secret)
+        wxapi = CorpApi(company.corpid, company.contacts_secret)
+
         params = {}
         try:
             if self.tagid:
@@ -116,15 +116,13 @@ class EmployeeCategory(models.Model):
             return action
 
     def delete_to_wxwork(self):
-        params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wxwork.debug_enabled")
-        corpid = params.get_param("wxwork.corpid")
-        secret = params.get_param("wxwork.contacts_secret")
+        debug = self.env["ir.config_parameter"].sudo().get_param("wxwork.debug_enabled")
+        company = self.company_id
 
         if debug:
             _logger.info(_("Delete contacts tags: %s to Enterprise WeChat") % self.name)
 
-        wxapi = CorpApi(corpid, secret)
+        wxapi = CorpApi(company.corpid, company.contacts_secret)
         params = {}
         try:
             response = wxapi.httpCall(
