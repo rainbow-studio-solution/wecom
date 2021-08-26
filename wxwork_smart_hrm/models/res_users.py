@@ -14,3 +14,8 @@ class Users(models.Model):
     #     required=True,
     # )
 
+    qr_code = fields.Char(
+        string="Personal QR code",
+        help="Personal QR code, Scan can be added as external contact",
+        readonly=True,
+    )

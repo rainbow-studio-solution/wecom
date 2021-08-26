@@ -2,14 +2,14 @@
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
+from ..models.sync_user import EmployeeSyncUser
 
-# from ..models.hr_employee import EmployeeSyncUser
 import logging
 
 _logger = logging.getLogger(__name__)
 
 
-class ResConfigSettings(models.TransientModel):
+class WizardSyncUsers(models.TransientModel):
     _name = "wizard.wxwork.user"
     _description = "Enterprise WeChat Generation System User Guide"
     _order = "create_date"
@@ -20,24 +20,21 @@ class ResConfigSettings(models.TransientModel):
     times = fields.Float(string="Elapsed time (seconds)", digits=(16, 3), readonly=True)
     result = fields.Text(string="Result", readonly=True)
 
-    def action_create_user(self):
+    def action_sync_user(self):
         params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
 
-        if not params.get_param("wxwork.contacts_sync_user_enabled"):
-            if params.get_param("wxwork.debug_enabled"):
-                _logger.warning(
-                    _(
-                        "The current setting does not allow synchronization from employees to system users"
-                    )
-                )
-            raise UserError(
-                "The current setting does not allow synchronization from employees to system users \n\n Please check related settings"
-            )
-        else:
-            pass
-            # self.times, self.sync_user_result, self.result = EmployeeSyncUser.sync_user(
-            #     self.env["hr.employee"]
-            # )
+        times = []
+        results = ""
+
+        time, result = EmployeeSyncUser.sync_as_user(self.env["hr.employee"])
+        times.append(time)
+
+        if len(result) != 0:
+            results += result + "\n"
+
+        self.times = sum(times)
+        self.result = results
 
         form_view = self.env.ref(
             "wxwork_hr_syncing.dialog_wxwork_contacts_sync_user_result"

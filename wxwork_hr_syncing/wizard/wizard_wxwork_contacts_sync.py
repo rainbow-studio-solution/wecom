@@ -79,8 +79,6 @@ class WizardSyncContacts(models.TransientModel):
         for company in companies:
             # 遍历companies
             sync_hr_enabled = company.contacts_auto_sync_hr_enabled  # 允许企业微信通讯簿自动更新为HR
-            corpid = company.corpid
-            secret = company.contacts_secret
 
             # 生成关键字参数字典
             kwargs = {

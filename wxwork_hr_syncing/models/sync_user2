@@ -1,0 +1,133 @@
+# -*- coding: utf-8 -*-
+
+from odoo import api, models, modules, _
+
+import logging
+import time
+
+_logger = logging.getLogger(__name__)
+
+
+class EmployeeSyncUser(models.Model):
+    _inherit = "hr.employee"
+    _description = "Enterprise WeChat employees bind system users"
+
+    def sync_as_user(self):
+        """[summary]
+        运行同步
+        """
+
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.debug_enabled")
+        if debug:
+            _logger.info(_("Start batch generating system users from employees"))
+
+        # 获取 标记为 企业微信组织 的公司
+        companies = (
+            self.sudo()
+            .env["res.company"]
+            .search([(("is_wxwork_organization", "=", True))])
+        )
+
+        if not companies:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": _("Tips"),
+                    "type": "info",
+                    "message": _("There are currently no companies to synchronize."),
+                    "sticky": False,
+                },
+            }
+            return action
+
+        for company in companies:
+            if debug:
+                _logger.info(
+                    _("Company %s began to generate system users from employees")
+                    % (company.name)
+                )
+            sync_user = company.contacts_sync_user_enabled
+            if sync_user:
+                if debug:
+                    _logger.info(
+                        _("Start generating system users from employees of company %s")
+                        % company.name
+                    )
+                employees = (
+                    self.sudo()
+                    .env["hr.employee"]
+                    .search(
+                        [
+                            "&",
+                            "&",
+                            ("company_id", "=", company.id),
+                            ("is_wxwork_employee", "=", True),
+                            "|",
+                            ("active", "=", False),
+                            ("active", "=", True),
+                        ]
+                    )
+                )
+                print(company.name + " 员工数量" + str(len(employees)))
+
+                for employee in employees:
+                    user = (
+                        self.sudo()
+                        .env["res.users"]
+                        .search(
+                            [
+                                "&",
+                                "&",
+                                ("wxwork_id", "=", employee.wxwork_id),
+                                ("is_wxwork_user", "=", True),
+                                "|",
+                                ("active", "=", False),
+                                ("active", "=", True),
+                            ],
+                        )
+                    )
+                    print(company.name + " 用户数量" + str(len(user)))
+                    if len(user) > 0:
+                        # 更新
+                        pass
+                    else:
+                        pass
+
+            if debug:
+                _logger.info(
+                    _("Company %s end to generate system users from employees")
+                    % (company.name)
+                )
+            else:
+                action = {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": {
+                        "title": _("Tips"),
+                        "type": "info",
+                        "message": _(
+                            "Company %s does not allow system users to be generated from employees."
+                        )
+                        % company.name,
+                        "sticky": False,
+                    },
+                }
+                return action
+        if debug:
+            _logger.info(_("End batch generating system users from employees"))
+
+        #
+
+        #
+        # times = end - start
+
+        # if debug:
+        #     _logger.info(
+        #         _("End generating system users from employees of company %s")
+        #         % company.name
+        #     )
+
+        # return times, result
+

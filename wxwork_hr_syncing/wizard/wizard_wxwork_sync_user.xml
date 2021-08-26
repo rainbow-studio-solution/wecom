@@ -33,7 +33,7 @@
                         <span class="text-danger font-weight-bold">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span>
                     </group>                    
                     <footer>
-                        <button name="action_create_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
+                        <button name="action_sync_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
@@ -56,7 +56,7 @@
             <field name="priority" eval="1"/>
             <field name="arch" type="xml">
                 <form string="Employees generation system user results" edit="false" create="false">
-                    <group>
+                    <!-- <group>
                         <group>
                             <field name="sync_user_result"/>
                         </group>
@@ -65,9 +65,14 @@
                             <field name="times"/>
                             <field name="result"  />
                         </group>
+                    </group> -->
+                    <group>
+                        <field name="create_date" string="Starting time"/>
+                        <field name="times"/>
+                        <field name="result"  />
                     </group>
                     <footer>
-                        <!--<button string="关闭" class="btn-secondary" special="cancel"/>-->
+                        <button string="Close" class="btn-primary" special="cancel"/>
                     </footer>
                 </form>
             </field>
