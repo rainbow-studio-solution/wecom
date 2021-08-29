@@ -185,7 +185,6 @@ class EmployeeSyncUser(models.Model):
             {
                 "name": employee.name,
                 "image_1920": employee.image_1920,
-                "wxwork_user_order": employee.wxwork_user_order,
                 "is_wxwork_user": True,
                 "mobile": employee.mobile_phone,
                 "phone": employee.work_phone,

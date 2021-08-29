@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 09:45+0000\n"
-"PO-Revision-Date: 2021-02-19 17:46+0800\n"
+"POT-Creation-Date: 2021-08-29 06:39+0000\n"
+"PO-Revision-Date: 2021-08-29 14:47+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,68 +15,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "Language: zh_CN\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
-msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Material access token\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"素材访问token\"/>"
+#: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
+msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Material Secret\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"素材密匙\"/>"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
-msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Message Secret\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"素材Secret\"/>"
+#: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
+msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Material Agentid\"/>"
+msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"素材应用Id\"/>"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
-msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Message Agentid\"/>"
-msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"素材Agentid\"/>"
-
-#. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid ""
-"<span class=\"text-left\"><i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
-"Material\"/> Enterprise WeChat Material</span>\n"
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
+"Material\"/> Enterprise WeChat Material\n"
+"                        </span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
-"<span class=\"text-left\"><i class=\"fa fa-suitcase fa-lg\" aria-label=\"企业微信素材\"/> 企业"
-"微信素材</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部"
-"\"/>"
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
+"Material\"/> 企业微信素材\n"
+"                        </span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
-msgid ""
-"<span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/"
-">\n"
-"                                            The token has been cached and the system will "
-"automatically refresh the token.\n"
-"                                        </span>"
-msgstr ""
-"<span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/"
-">\n"
-"                                            Token 已被缓存，系统将自动刷新Token。\n"
-"                                        </span>"
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_account_created
+msgid "Account Created"
+msgstr "创建的帐户"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_access_token
-msgid "Access Token"
-msgstr "访问Token"
-
-#. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_agentid
-msgid "Agent Id"
-msgstr "应用ID"
-
-#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "Allowed file formats are %s"
 msgstr "允许的文件格式为 %s"
 
 #. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid ""
@@ -84,23 +63,28 @@ msgid ""
 msgstr "已上传，请不要再次上传！ 您可以创建新记录后上传文件。"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
 "authorized, copy 'AgentId'"
-msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制\"AgentId\""
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“AgentId”"
 
 #. module: wxwork_material
-#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
 "authorized, copy 'Secret'"
-msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制\"Secret\""
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“Secret”"
 
 #. module: wxwork_material
-#: model:ir.model,name:wxwork_material.model_res_config_settings
-msgid "Config Settings"
-msgstr "配置设置"
+#: model:ir.model,name:wxwork_material.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__company_id
+msgid "Company"
+msgstr "公司"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__create_uid
@@ -113,7 +97,7 @@ msgid "Created on"
 msgstr "创建于"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wxwork_material.field_res_company__display_name
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -129,12 +113,21 @@ msgid "Enterprise WeChat material"
 msgstr "企业微信素材"
 
 #. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
+#: code:addons/wxwork_material/models/wxwork_material.py:0
+#, python-format
+msgid "Enterprise WeChat storage path has not been configured yet!"
+msgstr "企业微信存储路径尚未配置！"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "Error saving file to path %s!"
 msgstr "文件保存到路径 %s 错误!"
 
 #. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid ""
@@ -149,13 +142,23 @@ msgstr ""
 "错误详情:%s"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__id
-#: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__id
-msgid "ID"
-msgstr ""
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_gamification
+msgid "Gamification"
+msgstr "游戏化"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wxwork_material.field_res_company__id
+#: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__id
+msgid "ID"
+msgstr "ID"
+
+#. module: wxwork_material
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_kpi
+msgid "KPI"
+msgstr "KPI"
+
+#. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_res_company____last_update
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
@@ -171,10 +174,25 @@ msgid "Last Updated on"
 msgstr "最后更新时间"
 
 #. module: wxwork_material
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_logo
+msgid "Logo"
+msgstr "Logo"
+
+#. module: wxwork_material
 #: model:ir.actions.act_window,name:wxwork_material.action_view_wxwork_material
 #: model:ir.ui.menu,name:wxwork_material.menu_wxwork_message
 msgid "Material"
 msgstr "素材"
+
+#. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_res_company__material_agentid
+msgid "Material Agent Id"
+msgstr "素材应用Id"
+
+#. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_res_company__material_secret
+msgid "Material Secret"
+msgstr "素材密钥"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_filename
@@ -187,6 +205,7 @@ msgid "Media file identification"
 msgstr "媒体文件标识"
 
 #. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "Media file size must be between %sB and %sMB"
@@ -198,9 +217,19 @@ msgid "Media file type"
 msgstr "媒体文件类型"
 
 #. module: wxwork_material
+#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__created_at
+msgid "Media file upload timestamp (Beijing time)"
+msgstr "媒体文件上传时间戳（北京时间）"
+
+#. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_file
 msgid "Media files"
 msgstr "媒体文件"
+
+#. module: wxwork_material
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_message
+msgid "Message"
+msgstr "消息"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__name
@@ -223,15 +252,26 @@ msgid "Picture URL"
 msgstr "图片网址"
 
 #. module: wxwork_material
+#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_file
+msgid ""
+"Picture file size should be between 5B and 2MB;The voice file format supports AMR, and the "
+"file size should be between 5B and 2MBThe video file shall not exceed 10m, the file format: "
+"MP4, and the file size shall be between 5B and 10MBNormal file size shall not exceed 20m"
+msgstr ""
+"图片文件大小应介于5B和2MB之间；语音文件格式支持AMR，文件大小应在5B到2MB之间视频文件不超过10m，"
+"文件格式：MP4，文件大小应在5B到10m之间正常文件大小不超过20m"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "Please upload files!"
 msgstr "请上传文件！"
 
 #. module: wxwork_material
-#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_secret
-msgid "Secret"
-msgstr ""
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_reset_password
+msgid "Reset Password"
+msgstr "重置密码"
 
 #. module: wxwork_material
 #: model:ir.ui.menu,name:wxwork_material.menu_wxwork_configuration
@@ -244,12 +284,31 @@ msgid "Temporary material"
 msgstr "临时素材"
 
 #. module: wxwork_material
+#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__img_url
+msgid "The URL of the picture obtained after uploading. Permanently valid."
+msgstr "上传后获得的图片的URL。永久有效。"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "The duration of the voice file exceeds 60 seconds!"
 msgstr "语音文件的时长超过60秒！"
 
 #. module: wxwork_material
+#: model:ir.model.constraint,message:wxwork_material.constraint_wxwork_material_name_company_uniq
+msgid "The material name of each company must be unique !"
+msgstr "每个公司的素材名称必须是唯一的！"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
+#: code:addons/wxwork_material/models/wxwork_material.py:0
+#, python-format
+msgid "The temporary material has not expired, please do not upload it repeatedly."
+msgstr "临时素材尚未过期，请不要重复上传。"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
 msgid "Unknown type of media file!"
@@ -276,23 +335,16 @@ msgid "Voice"
 msgstr "语音"
 
 #. module: wxwork_material
-#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__img_url
-msgid "上传后得到的图片URL。永久有效"
-msgstr ""
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_warn
+msgid "Warning"
+msgstr "警告"
 
 #. module: wxwork_material
-#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_file
-msgid ""
-"图片文件大小应在 5B ~ 2MB 之间;语音文件格式支持amr，文件大小应在 5B ~ 2MB 之间视频文件不超过"
-"10M, 文件格式:  mp4,文件大小应在 5B ~ 10MB 之间普通文件大小不超过20M"
-msgstr ""
+#: model:wxwork.material,name:wxwork_material.wxwork_material_image_welcome
+msgid "Welcome"
+msgstr "欢迎"
 
 #. module: wxwork_material
 #: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_id
-msgid "媒体文件上传后获取的唯一标识，3天内有效"
-msgstr ""
-
-#. module: wxwork_material
-#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__created_at
-msgid "媒体文件上传时间戳(北京时间)"
-msgstr ""
+msgid "The unique identification obtained after uploading the media file is valid for 3 days"
+msgstr "媒体文件上传后获取的唯一标识，3天内有效"

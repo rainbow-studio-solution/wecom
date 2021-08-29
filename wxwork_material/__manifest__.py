@@ -40,7 +40,7 @@ Install:
         "security/ir.model.access.csv",
         "data/material_data.xml",
         "views/material_views.xml",
-        "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         "views/menu.xml",
     ],
     "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},

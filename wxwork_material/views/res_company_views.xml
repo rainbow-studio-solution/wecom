@@ -1,22 +1,24 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
 
-
-        <record id="res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">Enterprise WeChat Material Management</field>
-            <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="wxwork_base.view_company_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@id='wxwork_contact_settings_container']" position="after" >
-                    <h2 id="wxwork_material" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-suitcase fa-lg" aria-label="Enterprise WeChat Material"/> Enterprise WeChat Material</span>
+                
+                <xpath expr="//page[@name='wxwork_info']//div[hasclass('o_settings_container')][last()]" position="after">
+                    <h2 id="wxwork_contact" class="d-flex justify-content-between" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                        <span class="text-left">
+                            <i class="fa fa-suitcase fa-lg" aria-label="Enterprise WeChat Material"/> Enterprise WeChat Material
+                        </span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
-                    <div class="row mt16 o_settings_container">
-                        <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg" aria-label="Message Agentid"/>
+                                <i class="fa fa-list-ol fa-lg" aria-label="Material Agentid"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="material_agentid"/>
@@ -32,9 +34,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="col-xs-12 col-md-12 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg" aria-label="Message Secret"/>
+                                <i class="fa fa-key fa-lg" aria-label="Material Secret"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="material_secret"/>
@@ -50,12 +52,11 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </xpath>
+                
             </field>
         </record>
 
-   </data>
+    </data>
 </odoo>
