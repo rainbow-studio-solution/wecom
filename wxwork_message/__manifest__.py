@@ -31,7 +31,7 @@
         "wizard/mail_template_preview_views.xml",
         "views/assets_templates.xml",
         "views/mail_message_views.xml",
-        "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         # "views/wxwork_mail_views.xml",
         "views/mail_template_views.xml",
         "views/mail_mail_views.xml",

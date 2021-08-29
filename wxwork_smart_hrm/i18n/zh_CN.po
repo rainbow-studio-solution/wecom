@@ -216,6 +216,11 @@ msgstr "标签"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
+msgid "Enable this, Enterprise wechat user avatars will not be used."
+msgstr "启用此选项，将不会使用企业微信用户头像。"
+
+#. module: wxwork_smart_hrm
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid "Enable to allow batch generation of system accounts from employees;"
 msgstr "启用，允许从员工批量生成系统帐户;"
 

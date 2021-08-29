@@ -95,13 +95,13 @@
                     sequence="3"/>
 
 
-            <menuitem 
+            <!-- <menuitem 
                     id="menu_wxwork_configuration" 
                     name="Settings" 
                     parent="menu_wxwork_message_root" 
                     sequence="900"
                     action="wxwork_message.wxwork_message_config_settings_action" 
-                    groups="base.group_erp_manager"/>
+                    groups="base.group_erp_manager"/> -->
 
         <!-- <menuitem 
             id="menu_wxwork_message" 
