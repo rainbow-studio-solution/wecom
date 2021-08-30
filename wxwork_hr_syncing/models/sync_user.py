@@ -117,6 +117,10 @@ class EmployeeSyncUser(models.Model):
                         % (company.name)
                     )
             else:
+                _logger.warning(
+                    _("Company %s does not allow batch generation of system users")
+                    % (company.name)
+                )
                 result = _(
                     "Company %s does not allow batch generation of system users"
                 ) % (company.name)

@@ -3,8 +3,8 @@
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError, ValidationError
 
-# from ..models.hr_employee import EmployeeSyncUser
 from ..models.sync_contacts import *
+from ..models.sync_user import EmployeeSyncUser
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
@@ -99,61 +99,98 @@ class Company(models.Model):
                 }
                 return action
 
-    # def cron_sync_contacts(self):
-    #     """
-    #     同步通讯录任务
-    #     :return:
-    #     """
-    #     params = self.env["ir.config_parameter"].sudo()
-    #     kwargs = {
-    #         "corpid": params.get_param("wxwork.corpid"),
-    #         "secret": params.get_param("wxwork.contacts_secret"),
-    #         "debug": params.get_param("wxwork.debug_enabled"),
-    #         "department_id": params.get_param("wxwork.contacts_sync_hr_department_id"),
-    #         "sync_hr": params.get_param("wxwork.contacts_auto_sync_hr_enabled"),
-    #         "img_path": params.get_param("wxwork.img_path"),
-    #         "department": self.env["hr.department"],
-    #         "department_category": self.env["hr.department.category"],
-    #         "employee": self.env["hr.employee"],
-    #         "employee_category": self.env["hr.employee.category"],
-    #     }
+    def cron_sync_contacts(self):
+        """
+        同步通讯录任务
+        :return:
+        """
 
-    #     try:
-    #         SyncTask(kwargs).run()
-    #     except Exception as e:
-    #         if params.get_param("wxwork.debug_enabled"):
-    #             _logger.warning(
-    #                 _(
-    #                     "Task failure prompt - The task of synchronizing Enterprise WeChat contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
-    #                     % (e)
-    #                 )
-    #             )
+        params = self.env["ir.config_parameter"].sudo()
 
-    # def cron_sync_users(self):
-    #     """
-    #         同步系统用户任务
-    #         :return:
-    #         """
-    #     params = self.env["ir.config_parameter"].sudo()
+        # 获取 标记为 企业微信组织 的公司
+        companies = (
+            self.sudo()
+            .env["res.company"]
+            .search([(("is_wxwork_organization", "=", True))])
+        )
 
-    #     if not params.get_param("wxwork.contacts_sync_user_enabled"):
-    #         if params.get_param("wxwork.debug_enabled"):
-    #             _logger.warning(
-    #                 _(
-    #                     "The current setting does not allow synchronization from employees to system users"
-    #                 )
-    #             )
-    #         raise UserError(
-    #             "The current setting does not allow synchronization from employees to system users \n\n Please check related settings"
-    #         )
-    #     else:
-    #         try:
-    #             EmployeeSyncUser.sync_user(self.env["hr.employee"])
-    #         except Exception as e:
-    #             if params.get_param("wxwork.debug_enabled"):
-    #                 _logger.warning(
-    #                     _(
-    #                         "Task Failure Prompt - It is impossible to perform the task of synchronizing corporate WeChat employees as system users. The detailed reasons are as follows:%s"
-    #                         % (e)
-    #                     )
-    #                 )
+        if not companies:
+            _logger.info(
+                _(
+                    "Enterprise wechat synchronization task: Currently, there are no companies that need to be synchronized."
+                )
+            )
+
+        for company in companies:
+            _logger.info(
+                _(
+                    "Enterprise wechat synchronization task:the company %s starts to synchronize the organizational structure."
+                )
+                % (company.name)
+            )
+
+            # 遍历companies
+            sync_hr_enabled = company.contacts_auto_sync_hr_enabled  # 允许企业微信通讯簿自动更新为HR
+            if not self.env["wxwork.tools"].check_api(company):
+                _logger.warning(
+                    _(
+                        "Enterprise wechat synchronization task: company %s configuration error."
+                    )
+                    % (company.name)
+                )
+            elif sync_hr_enabled == "False" or sync_hr_enabled is None:
+                _logger.warning(
+                    _(
+                        "Enterprise wechat synchronization task: company %s  does not allow synchronization."
+                    )
+                    % (company.name)
+                )
+            else:
+                # 生成关键字参数字典
+                kwargs = {
+                    "debug": params.get_param("wxwork.debug_enabled"),
+                    "img_path": params.get_param("wxwork.img_path"),
+                    "company": company,
+                    "department": self.env["hr.department"],
+                    "employee": self.env["hr.employee"],
+                    "employee_category": self.env["hr.employee.category"],
+                    "wx_tools": self.env["wxwork.tools"],
+                }
+
+                try:
+                    SyncTask(kwargs).run()
+
+                except Exception as e:
+                    if params.get_param("wxwork.debug_enabled"):
+                        _logger.warning(
+                            _(
+                                "Task failure prompt - The task of synchronizing Enterprise WeChat contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
+                                % (e)
+                            )
+                        )
+
+            _logger.info(
+                _(
+                    "Enterprise wechat synchronization task:the company %s ends synchronizing the organizational structure."
+                )
+                % (company.name)
+            )
+
+    def cron_sync_users(self):
+        """
+        同步系统用户任务
+        :return:
+        """
+
+        _logger.info(
+            _(
+                "Enterprise wechat synchronization task: start generating system users from employees."
+            )
+        )
+        EmployeeSyncUser.sync_as_user(self.env["hr.employee"])
+        _logger.info(
+            _(
+                "Enterprise wechat synchronization task: end generating system user from employee."
+            )
+        )
+

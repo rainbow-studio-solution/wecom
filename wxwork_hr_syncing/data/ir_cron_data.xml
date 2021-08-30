@@ -4,7 +4,7 @@
 
         <record forcecreate="True" id="ir_cron_sync_wxwork_contacts" model="ir.cron">
             <field name="name">Enterprise WeChat: Synchronize contacts regularly</field>
-            <field name="model_id" ref="model_res_config_settings"/>
+            <field name="model_id" ref="model_res_company"/>
             <field name="state">code</field>
             <field name="code">model.cron_sync_contacts()</field>
             <field name="user_id" ref="base.user_root" />
@@ -17,7 +17,7 @@
 
         <record forcecreate="True" id="ir_cron_sync_wxwork_users" model="ir.cron">
             <field name="name">Enterprise WeChat: Synchronize User regularly</field>
-            <field name="model_id" ref="model_res_config_settings"/>
+            <field name="model_id" ref="model_res_company"/>
             <field name="state">code</field>
             <field name="code">model.cron_sync_users()</field>
             <field name="user_id" ref="base.user_root" />

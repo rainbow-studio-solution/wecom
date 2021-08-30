@@ -86,9 +86,9 @@ class WizardSyncContacts(models.TransientModel):
                 "img_path": params.get_param("wxwork.img_path"),
                 "company": company,
                 "department": self.env["hr.department"],
-                # "department_category": self.env["hr.department.category"],
                 "employee": self.env["hr.employee"],
                 "employee_category": self.env["hr.employee.category"],
+                "block": self.env["wxwork.contacts.block"],
                 "wx_tools": self.env["wxwork.tools"],
             }
 

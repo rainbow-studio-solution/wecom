@@ -38,6 +38,7 @@ class SyncEmployee(object):
         self.department = self.kwargs["department"]
         self.employee = self.kwargs["employee"]
         self.employee_category = self.kwargs["employee_category"]
+        self.block_list = self.kwargs["block"]
         self.wx_tools = self.kwargs["wx_tools"]
 
     def run(self):
@@ -48,38 +49,53 @@ class SyncEmployee(object):
             _logger.info(_("Start synchronizing employees of %s"), self.company.name)
 
         try:
-            api = CorpApi(self.corpid, self.secret)
-            response = api.httpCall(
+            wxapi = CorpApi(self.corpid, self.secret)
+            response = wxapi.httpCall(
                 CORP_API_TYPE["USER_LIST"],
                 {"department_id": str(self.department_id), "fetch_child": "1",},
             )
+            user_list = response["userlist"]
             start1 = time.time()
-            for obj in response["userlist"]:
-                self.run_sync(obj)
+
+            # 获取block
+            blocks = self.block_list.sudo().search(
+                [("company_id", "=", self.company.id),]
+            )
+            block_list = []
+
+            if len(blocks) > 0:
+                # 生成 block_list
+                for obj in blocks:
+                    # block_list.append({"userid": obj.wxwork_id})
+                    block_list.append(obj.wxwork_id)
+
+            # 同步
+            # for obj in user_list:
+            #     self.run_sync(obj)
             end1 = time.time()
 
             times1 = end1 - start1
 
             # 判断企业微信员工list为空，为空跳过同步离职员工
             start2 = time.time()
-            employees = self.employee.sudo().search(
-                [
-                    ("is_wxwork_employee", "=", True),
-                    ("company_id", "=", self.company.id),
-                    "|",
-                    ("active", "=", True),
-                    ("active", "=", False),
-                ],
-            )
-            if not employees:
-                pass
-            else:
-                self.sync_leave_employee(response)  # 同步离职员工
+            # employees = self.employee.sudo().search(
+            #     [
+            #         ("is_wxwork_employee", "=", True),
+            #         ("company_id", "=", self.company.id),
+            #         "|",
+            #         ("active", "=", True),
+            #         ("active", "=", False),
+            #     ],
+            # )
+            # if not employees:
+            #     pass
+            # else:
+            #     self.sync_leave_employee(response)  # 同步离职员工
 
             end2 = time.time()
             times2 = end2 - start2
             times = times1 + times2
-            # status = {"employee": True}
+
             result = _("Successfully synchronize employees of %s") % self.company.name
         except BaseException as e:
             times = time.time()

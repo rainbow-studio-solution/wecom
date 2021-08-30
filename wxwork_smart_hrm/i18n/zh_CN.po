@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-08 05:32+0000\n"
-"PO-Revision-Date: 2021-08-08 13:40+0800\n"
+"POT-Creation-Date: 2021-08-30 05:44+0000\n"
+"PO-Revision-Date: 2021-08-30 13:47+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -36,12 +36,14 @@ msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录 Secret\"/>"
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> Contact synchronization Settings\n"
+"                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> "
+"Contact synchronization Settings\n"
 "                        </span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> 通讯录同步设置\n"
+"                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> 通"
+"讯录同步设置\n"
 "                        </span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 
@@ -53,12 +55,16 @@ msgstr "活动计划"
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid ""
-"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need to turn on \"API interface synchronization\"). To ensure data security, the key must not "
-"be leaked."
-msgstr "通讯簿同步机密。 在“管理工具”→“地址簿同步”中进行检查（需要打开“ API接口同步”）。 为了确保数据安全，切勿泄露密钥。"
+"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book "
+"Synchronization\" (need to turn on \"API interface synchronization\"). To ensure data security, the "
+"key must not be leaked."
+msgstr ""
+"通讯簿同步机密。 在“管理工具”→“地址簿同步”中进行检查（需要打开“ API接口同步”）。 为了确保数据安全，切"
+"勿泄露密钥。"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__alias model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__alias
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
 msgid "Alias"
 msgstr "别名"
 
@@ -78,19 +84,9 @@ msgid "Allow Enterprise WeChat contacts to automatically update system accounts"
 msgstr "允许企业微信通讯簿自动更新系统帐户"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_use_system_default_avatar
-msgid "Use system default Avatar"
-msgstr "使用系统默认头像"
-
-#. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_sync_avatar_enabled
-msgid "Download Avatar"
-msgstr "下载头像"
-
-#. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_always_update_avatar_enabled
-msgid "Always update avatar"
-msgstr "总是更新头像"
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__avatar
+msgid "Avatar"
+msgstr "头像"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.actions.act_window,help:wxwork_smart_hrm.open_module_tree_employee
@@ -103,14 +99,21 @@ msgid "Click to add a new user."
 msgstr "单击以添加新用户。"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__color
-msgid "Color Index"
-msgstr "颜色索引"
-
-#. module: wxwork_smart_hrm
 #: model:ir.model,name:wxwork_smart_hrm.model_res_company
 msgid "Companies"
 msgstr "公司"
+
+#. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__company_id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__name
+msgid "Name"
+msgstr "名称"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model,name:wxwork_smart_hrm.model_res_partner
@@ -128,7 +131,8 @@ msgid "Contact token"
 msgstr "通讯簿 Token"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Create contacts tags: %s to Enterprise WeChat"
 msgstr "创建通讯录标签：%s 到企业微信"
@@ -139,12 +143,12 @@ msgid "Create department."
 msgstr "创建部门。"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__create_uid
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__create_uid
 msgid "Created by"
-msgstr "创建者"
+msgstr "创建人"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__create_date
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -154,47 +158,42 @@ msgid "Delete Tags"
 msgstr "删除标签"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Delete contacts tags: %s to Enterprise WeChat"
 msgstr "删除通讯录标签：%s 到企业微信"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model,name:wxwork_smart_hrm.model_hr_department model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_department_kanban
+#: model:ir.model,name:wxwork_smart_hrm.model_hr_department
+#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_department_kanban
 msgid "Department"
 msgstr "部门"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model,name:wxwork_smart_hrm.model_hr_department_category
-msgid "Department Category"
-msgstr "部门标签"
-
-#. module: wxwork_smart_hrm
-#: model:ir.actions.act_window,name:wxwork_smart_hrm.open_view_department_categ_form model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_department_tag
-#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_category_form model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_category_list
-msgid "Department Tags"
-msgstr "部门标签"
-
-#. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
-msgid "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default"
+msgid ""
+"Department id. Get the specified department and its sub-departments. If you don’t fill in, get the "
+"full organization structure by default"
 msgstr "部门编号。 获取指定的部门及其子部门。 如果您不填写，则默认获取完整的组织结构"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__department_ids model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_hr_department_tree
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__department_ids
 msgid "Departments"
 msgstr "部门"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__display_name model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__display_name
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__display_name model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__display_name
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__display_name model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__display_name
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__display_name
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model,name:wxwork_smart_hrm.model_hr_employee model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_human_resources_configuration_employee
 #: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_employee
 msgid "Employee"
 msgstr "员工"
@@ -210,11 +209,6 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: wxwork_smart_hrm
-#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_employee_tag
-msgid "Tags"
-msgstr "标签"
-
-#. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid "Enable this, Enterprise wechat user avatars will not be used."
 msgstr "启用此选项，将不会使用企业微信用户头像。"
@@ -225,17 +219,20 @@ msgid "Enable to allow batch generation of system accounts from employees;"
 msgstr "启用，允许从员工批量生成系统帐户;"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__english_name model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__english_name
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
 msgid "English Name"
-msgstr "英文名"
+msgstr "英语名称"
 
 #. module: wxwork_smart_hrm
-#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_form model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_view_users_form
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_form
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_view_users_form
 msgid "Enterprise WeChat"
 msgstr "企业微信"
 
 #. module: wxwork_smart_hrm
-#: model:ir.actions.act_window,name:wxwork_smart_hrm.open_module_tree_department model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__is_wxwork_department
+#: model:ir.actions.act_window,name:wxwork_smart_hrm.open_module_tree_department
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__is_wxwork_department
 msgid "Enterprise WeChat Department"
 msgstr "企业微信部门"
 
@@ -245,18 +242,18 @@ msgid "Enterprise WeChat Settings"
 msgstr "企业微信设置"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__is_wxwork_category
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__is_wxwork_category
 msgid "Enterprise WeChat Tag"
 msgstr "企业微信标签"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__tagid model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__tagid
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__tagid
 msgid "Enterprise WeChat Tag ID"
 msgstr "企业微信标签ID"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__wxwork_user_order model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__wxwork_user_order
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__wxwork_user_order
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__wxwork_user_order
 msgid "Enterprise WeChat User sequence"
 msgstr "企业微信用户排序"
 
@@ -291,6 +288,11 @@ msgid "Enterprise WeChat employees"
 msgstr "企业微信员工"
 
 #. module: wxwork_smart_hrm
+#: model:ir.model,name:wxwork_smart_hrm.model_hr_employee
+msgid "Enterprise WeChat employees bind system users"
+msgstr "企业微信员工绑定系统用户"
+
+#. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__wxwork_department_parent_id
 msgid "Enterprise WeChat parent department ID"
 msgstr "企业微信上级部门ID"
@@ -306,12 +308,14 @@ msgid "Enterprise WeChat system users"
 msgstr "企业微信系统用户"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__wxwork_id model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__wxwork_id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__wxwork_id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__wxwork_id
 msgid "Enterprise WeChat user ID"
 msgstr "企业微信用户ID"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__wxwork_id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__wxwork_id
 msgid "Enterprise WeChat user Id"
 msgstr "企业微信用户ID"
 
@@ -321,7 +325,13 @@ msgid "Enterprise WeChat user sort"
 msgstr "企业微信用户排序"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: model:ir.actions.act_window,name:wxwork_smart_hrm.open_view_wxwork_contacts_block_tree
+msgid "Enterprise wechat contacts block list"
+msgstr "企业微信通讯录block列表"
+
+#. module: wxwork_smart_hrm
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid ""
 "Error code: %s \n"
@@ -335,7 +345,8 @@ msgstr ""
 "%s"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Failed"
 msgstr "失败"
@@ -346,17 +357,21 @@ msgid "Human Resources Configuration"
 msgstr "人力资源配置"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__id model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__id
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__id model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__id
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__id model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__id
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__id
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__id
 msgid "ID"
 msgstr "ID"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid ""
-"If enabled, it allows to read the enterprise WeChat address book through the API interface and automatically synchronize to ODOO;\n"
+"If enabled, it allows to read the enterprise WeChat address book through the API interface and "
+"automatically synchronize to ODOO;\n"
 "                                        <br/>\n"
 "                                        Otherwise, you can only manually bind enterprise WeChat users."
 msgstr ""
@@ -366,43 +381,19 @@ msgstr ""
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
-msgid "Downloading avatars takes up system resources and is off by default."
-msgstr "下载头像占用系统资源，默认关闭。"
-
-#. module: wxwork_smart_hrm
-#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
 msgid ""
-"If enabled, the enterprise WeChat user avatar will be synchronized every time you synchronize.\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:orange;padding: 0px 16px; \" alt=\"\"> <i class=\"fa fa-info-circle\" aria-label=\"info\"/>Suggestion: turn on when avatar synchronization fails "
-"due to various reasons</span>\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:orange;padding: 0px 16px;\" alt=\"\"> <i class=\"fa fa-info-circle\" aria-label=\"info\"/>It takes more time to update the avatar each time, and "
-"HR generally uses the official photo of the employee</span>\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:red;padding: 0px 16px;\" alt=\"\"> <i class=\"fa fa-warning\" aria-label=\"warning\"/>Don't want to be troubled by HR, use it with caution!</span>"
-msgstr ""
-"如果启用，则每次同步时都会同步企业微信用户头像。\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:orange;padding: 0px 16px; \" alt=\"\"> <i class=\"fa fa-info-circle\" aria-label=\"info\"/>建议：出于各种原因导致同步失败，就开启开启同步</span>\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:orange;padding: 0px 16px;\" alt=\"\"> <i class=\"fa fa-info-circle\" aria-label=\"info\"/>每次更新头像需要花费更多时间，并且HR通常会使用员工的正装"
-"照片</span>\n"
-"                                        <br/>\n"
-"                                        <span style=\"color:red;padding: 0px 16px;\" alt=\"\"> <i class=\"fa fa-warning\" aria-label=\"warning\"/>不想被HR找麻烦的话，就谨慎使用！</span>"
-
-#. module: wxwork_smart_hrm
-#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
-msgid ""
-"Important notes when obtaining application \"address book\" information in the background of the enterprise WeChat, this information needs to be carried during communication to verify the access authority "
-"of the interface.\n"
+"Important notes when obtaining application \"address book\" information in the background of the "
+"enterprise WeChat, this information needs to be carried during communication to verify the access "
+"authority of the interface.\n"
 "                                        <br/>\n"
 "                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
 "                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            The token has been cached and the system will automatically refresh the token.\n"
+"                                            The token has been cached and the system will "
+"automatically refresh the token.\n"
 "                                        </span>"
 msgstr ""
-"在企业微信的后台获取应用“通讯录”信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
+"在企业微信的后台获取应用“通讯录”信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权"
+"限。\n"
 "                                        <br/>\n"
 "                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
 "                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
@@ -410,7 +401,8 @@ msgstr ""
 "                                        </span>"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__is_wxwork_user model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__is_wxwork_user
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__is_wxwork_user
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__is_wxwork_user
 msgid "Is an enterprise WeChat user"
 msgstr "是企业微信用户"
 
@@ -420,31 +412,36 @@ msgid "Job Positions"
 msgstr "工作岗位"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department____last_update model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category____last_update
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee____last_update model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category____last_update
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company____last_update model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner____last_update
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users____last_update
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__write_uid
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__write_uid
 msgid "Last Updated by"
-msgstr "最后更新者"
+msgstr "最后更新人"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__write_date
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_wxwork_contacts_block__write_date
 msgid "Last Updated on"
-msgstr "最后更新时间"
+msgstr "最近更新日期"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__department_ids model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__department_ids
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.wxwork_hr_employee_form
 msgid "Multiple departments"
 msgstr "多部门"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_department__wxwork_department_order
-msgid "Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)"
+msgid ""
+"Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)"
 msgstr "上级部门的排序值。 高阶值首先被排序。 值范围是[0，2 ^ 32）"
 
 #. module: wxwork_smart_hrm
@@ -459,11 +456,13 @@ msgstr "上级部门ID，32位整数。根部门为1"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__qr_code
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__qr_code
 msgid "Personal QR code"
 msgstr "个人二维码"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_employee__qr_code
+#: model:ir.model.fields,help:wxwork_smart_hrm.field_res_users__qr_code
 msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人QR码，出示可以让他人添加为外部联系人"
 
@@ -478,7 +477,8 @@ msgid "Plans"
 msgstr "计划"
 
 #. module: wxwork_smart_hrm
-#: model:ir.ui.menu,name:wxwork_smart_hrm.hr_wxwork_menu_configuration model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_manager_configuration
+#: model:ir.ui.menu,name:wxwork_smart_hrm.hr_wxwork_menu_configuration
+#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_manager_configuration
 msgid "Settings"
 msgstr "设置"
 
@@ -493,59 +493,61 @@ msgid "Smart HRM"
 msgstr "智慧HRM"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Success"
 msgstr "成功"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Successfully updated tag."
 msgstr "成功更新标签。"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department_category__name
-msgid "Tag Name"
-msgstr "标签名称"
-
-#. module: wxwork_smart_hrm
-#: model:ir.model.constraint,message:wxwork_smart_hrm.constraint_hr_department_category_name_uniq
-msgid "Tag name already exists !"
-msgstr "标签名称已经存在！"
-
-#. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Tag successfully created."
 msgstr "标签创建成功。"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Tag: %s deleted successfully."
 msgstr "标签：%s 已成功删除。"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Tag: %s deletion failed."
 msgstr "标签：%s删除失败。"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__category_ids model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__category_ids
-#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_view_employee_category_form model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_form
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__category_ids
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__category_ids
+#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_organization_employee_tag
+#: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_department_form
 msgid "Tags"
 msgstr "标签"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,help:wxwork_smart_hrm.field_res_partner__wxwork_user_order model:ir.model.fields,help:wxwork_smart_hrm.field_res_users__wxwork_user_order
-msgid "The sort value in the department, the default is 0. The number must be the same as the department. The larger the number, the higher the order.The value range is [0, 2^32)"
+#: model:ir.model.fields,help:wxwork_smart_hrm.field_res_partner__wxwork_user_order
+#: model:ir.model.fields,help:wxwork_smart_hrm.field_res_users__wxwork_user_order
+msgid ""
+"The sort value in the department, the default is 0. The number must be the same as the department. "
+"The larger the number, the higher the order.The value range is [0, 2^32)"
 msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_employee__wxwork_user_order
-msgid "The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, 2^32)"
+msgid ""
+"The sort value within the department, the default is 0. The quantity must be the same as the "
+"department, The greater the value the more sort front.The value range is [0, 2^32)"
 msgstr "部门的排序值，默认为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
 
 #. module: wxwork_smart_hrm
@@ -559,10 +561,21 @@ msgid "Update Tags"
 msgstr "更新标签"
 
 #. module: wxwork_smart_hrm
-#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0 code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork/wxwork_smart_hrm/models/hr_employee_category.py:0
+#: code:addons/wxwork_smart_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Update contacts tags: %s to Enterprise WeChat"
 msgstr "更新通讯录标签：%s 到企业微信"
+
+#. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__use_system_avatar
+msgid "Use System Avatar"
+msgstr "使用系统头像"
+
+#. module: wxwork_smart_hrm
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_company__contacts_use_system_default_avatar
+msgid "Use system default Avatar"
+msgstr "使用系统默认头像"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee__user_check_tick
@@ -570,7 +583,8 @@ msgid "User Check Tick"
 msgstr "用户检查划勾"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__is_wxwork_notice model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__is_wxwork_notice
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_partner__is_wxwork_notice
+#: model:ir.model.fields,field_description:wxwork_smart_hrm.field_res_users__is_wxwork_notice
 msgid "Whether to receive reminders"
 msgstr "是否接收提醒"
 
@@ -580,6 +594,11 @@ msgid "users"
 msgstr "用户"
 
 #. module: wxwork_smart_hrm
-#: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_department_category__tagid model:ir.model.fields,help:wxwork_smart_hrm.field_hr_employee_category__tagid
+#: model:ir.model,name:wxwork_smart_hrm.model_wxwork_contacts_block
+msgid "wxwork.contacts.block"
+msgstr ""
+
+#. module: wxwork_smart_hrm
+#: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_employee_category__tagid
 msgid "标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自增。"
 msgstr ""

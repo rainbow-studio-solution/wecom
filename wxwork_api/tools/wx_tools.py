@@ -10,7 +10,8 @@ from passlib.context import CryptContext
 
 from odoo import api, models, tools
 from odoo.modules.module import get_module_resource
-
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from datetime import datetime, timedelta
 
 
@@ -20,6 +21,15 @@ class WxTools(models.AbstractModel):
     # def __init__(self, value):
     #     self.value = value
     #     self.result = None
+
+    def check_api(self, company):
+        try:
+            api = CorpApi(company.corpid, company.contacts_secret)
+            company.write({"contacts_access_token": api.getAccessToken()})
+            return True
+
+        except ApiException as ex:
+            return False
 
     def cheeck_overdue(self, datetime_start_str, datetime_end_str, maxtime):
         """

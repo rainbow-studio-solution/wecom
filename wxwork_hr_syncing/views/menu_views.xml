@@ -24,6 +24,13 @@
                 groups="hr.group_hr_manager" 
                 sequence="20"/>
 
+            <menuitem id="menu_wxwork_contacts_block_record" 
+                name="Block List" 
+                parent="menu_wxwork_contacts_sync_main"
+                action="wxwork_smart_hrm.open_view_wxwork_contacts_block_tree" 
+                groups="hr.group_hr_manager" 
+                sequence="30"/>
+
         <menuitem 
             id="menu_wxwork_users_sync_main" 
             name="Sync User" 
