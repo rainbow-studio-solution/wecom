@@ -18,9 +18,10 @@ class WxworkContactsBlock(models.Model):
         string="Company",
         domain="[('is_wxwork_organization', '=', True)]",
         copy=False,
+        required=True,
     )
 
-    wxwork_id = fields.Char(string="Enterprise WeChat user Id")
+    wxwork_id = fields.Char(string="Enterprise WeChat user Id", required=True)
 
     def get_name(self):
         if self.company_id is None or self.wxwork_id == False:

@@ -7,9 +7,9 @@
             <field name="model">wxwork.contacts.block</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="name"/>
-                    <field name="company_id" />
+                    <field name="name"/>                    
                     <field name="wxwork_id" />
+                    <field name="company_id" />
                 </tree>
             </field>
         </record>
@@ -19,14 +19,16 @@
             <field name="model">wxwork.contacts.block</field>
             <field name="arch" type="xml">
                 <form>
-                    <group>
-                        <field name="name" />
-                        <field name="company_id" />
-                        <field name="wxwork_id" />
-                    </group> 
-                    <footer>
-                        <button name="get_name" string="Get user name" type="object" class="oe_highlight" />
-                    </footer>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="company_id" />
+                            <field name="wxwork_id" />
+                        </group>
+                        <footer>
+                            <button name="get_name" string="Get user name" type="object" class="oe_highlight" attrs="{'invisible': [('id', '=', False)]}"/>
+                        </footer>
+                    </sheet>
                 </form>                
             </field>
         </record>

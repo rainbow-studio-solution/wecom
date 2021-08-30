@@ -9,27 +9,27 @@
             sequence="10" 
             groups="hr.group_hr_manager"/>
 
+            <menuitem id="menu_wxwork_contacts_block_record" 
+                name="Block List" 
+                parent="menu_wxwork_contacts_sync_main"
+                action="wxwork_smart_hrm.open_view_wxwork_contacts_block_tree" 
+                groups="hr.group_hr_manager" 
+                sequence="10"/>
+
             <menuitem 
                 id="menu_wxwork_contacts_wizard" 
                 name="Wizard synchronization" 
                 parent="menu_wxwork_contacts_sync_main"
                 action="wxwork_contacts_wizard" 
                 groups="hr.group_hr_manager" 
-                sequence="10"/>
+                sequence="20"/>
 
             <menuitem id="menu_wxwork_contacts_sync_record" 
                 name="Synchronous recording" 
                 parent="menu_wxwork_contacts_sync_main"
                 action="open_view_wxwork_contacts_sync_tree" 
                 groups="hr.group_hr_manager" 
-                sequence="20"/>
-
-            <menuitem id="menu_wxwork_contacts_block_record" 
-                name="Block List" 
-                parent="menu_wxwork_contacts_sync_main"
-                action="wxwork_smart_hrm.open_view_wxwork_contacts_block_tree" 
-                groups="hr.group_hr_manager" 
-                sequence="30"/>
+                sequence="30"/>            
 
         <menuitem 
             id="menu_wxwork_users_sync_main" 
