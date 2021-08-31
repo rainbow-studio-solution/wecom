@@ -10,7 +10,7 @@
                     <separator string="Download data (department, tag, employee) from enterprise WeChat to local."/>
                     
                     <div>
-                        Currently, only multithreading is used for image downloading. Linux production server uses the following command to view real-time logs:
+                        Linux production server uses the following command to view real-time logs:
                     </div>
                     <div class="mt16 mb16" >
                         <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>

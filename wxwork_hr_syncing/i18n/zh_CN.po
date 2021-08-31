@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-26 14:33+0000\n"
-"PO-Revision-Date: 2021-08-26 22:45+0800\n"
+"POT-Creation-Date: 2021-08-31 01:11+0000\n"
+"PO-Revision-Date: 2021-08-31 09:16+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "%s，花费的时间：%s 秒"
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_tag_wizard
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
-msgstr ""
+msgstr "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
@@ -49,6 +49,11 @@ msgid ""
 "Before clicking the 'Change User Type' button, you must modify the new user "
 "type"
 msgstr "在点击“更改用户类型”按钮之前，您必须修改新的用户类型"
+
+#. module: wxwork_hr_syncing
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_block_record
+msgid "Block List"
+msgstr "阻止同步名单"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.change_type_wizard_view
@@ -171,17 +176,16 @@ msgstr "创建于"
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
 msgid ""
-"Currently, only multithreading is used for image downloading. Linux "
-"production server uses the following command to view real-time logs:"
+"Linux production server uses the following command to view real-time logs:"
 msgstr ""
-"目前，多线程仅用于图像下载。 Linux生产服务器使用以下命令查看实时日志："
+"Linux生产服务器使用以下命令查看实时日志："
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/models/sync_employee.py:0
 #: code:addons/wxwork_hr_syncing/models/sync_employee.py:0
 #, python-format
 msgid "Departed employee: %s, Synchronization error: %s "
-msgstr "离职员工：%s，同步错误：%s"
+msgstr "离职员工：%s，同步错误：%s "
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_wxwork_contacts_sync_tree
@@ -468,6 +472,68 @@ msgstr "企业微信：定时同步联系人"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task: Currently, there are no companies "
+"that need to be synchronized."
+msgstr "企业微信同步任务：目前没有需要同步的公司。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task: company %s  does not allow "
+"synchronization."
+msgstr "企业微信同步任务：公司 %s 不允许同步。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task: company %s configuration error."
+msgstr "企业微信同步任务：公司 %s 配置错误。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task: end generating system user from "
+"employee."
+msgstr "企业微信同步任务：结束从员工处生成系统用户。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task: start generating system users from "
+"employees."
+msgstr "企业微信同步任务：开始从员工生成系统用户。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task:the company %s ends synchronizing "
+"the organizational structure."
+msgstr "企业微信同步任务：公司 %s 结束同步组织结构。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Enterprise wechat synchronization task:the company %s starts to synchronize "
+"the organizational structure."
+msgstr "企业微信同步任务：公司 %s 开始同步组织结构。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
 #: code:addons/wxwork/wxwork_hr_syncing/models/res_config_settings.py:0
 #: code:addons/wxwork_hr_syncing/models/res_company.py:0
 #: code:addons/wxwork_hr_syncing/models/res_config_settings.py:0
@@ -611,7 +677,7 @@ msgstr "获取公司 %s 的员工 %s 的主部门错误。错误的原因是：%
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_tag__id
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_user__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
@@ -930,6 +996,16 @@ msgid "Tags synchronization result"
 msgstr "标签同步结果"
 
 #. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/res_company.py:0
+#: code:addons/wxwork_hr_syncing/models/res_company.py:0
+#, python-format
+msgid ""
+"Task failure prompt - The task of synchronizing Enterprise WeChat contacts "
+"on a regular basis cannot be executed. The detailed reasons are as follows:"
+"%s"
+msgstr "任务失败提示-无法执行定期同步企业微信联系人的任务。详细原因如下：%s"
+
+#. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_tag_wizard
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid ""
@@ -941,6 +1017,15 @@ msgstr "Linux生产服务器使用以下命令来查看实时日志："
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid "The generated user type belongs to the portal user by default."
 msgstr "默认情况下，生成的用户类型属于门户网站用户。"
+
+#. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/sync_contacts.py:0
+#: code:addons/wxwork_hr_syncing/models/sync_contacts.py:0
+#, python-format
+msgid ""
+"The synchronization is terminated, the current setting does not allow "
+"synchronization from enterprise WeChat to odoo"
+msgstr "同步已终止，当前设置不允许从企业微信到odoo的同步"
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/models/sync_user.py:0
@@ -1035,11 +1120,6 @@ msgstr "用户"
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_change_type_user__wizard_id
 msgid "Wizard"
 msgstr "向导"
-
-#. module: wxwork_hr_syncing
-#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_block_record
-msgid "Block List"
-msgstr "阻止同步名单"
 
 #. module: wxwork_hr_syncing
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_user_wizard

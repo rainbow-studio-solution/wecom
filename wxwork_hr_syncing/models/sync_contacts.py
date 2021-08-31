@@ -85,7 +85,9 @@ class SyncTask(object):
         else:
             if self.debug:
                 _logger.warning(
-                    "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
+                    _(
+                        "The synchronization is terminated, the current setting does not allow synchronization from enterprise WeChat to odoo"
+                    )
                 )
 
         return sum(times), results
