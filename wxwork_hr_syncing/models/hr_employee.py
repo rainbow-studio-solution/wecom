@@ -31,6 +31,8 @@ class HrEmployee(models.Model):
         )  # id=9是门户用户
         res_user_id = self.env["res.users"].create(
             {
+                "company_ids": [(6, 0, [self.company_id.id])],
+                "company_id": self.company_id.id,
                 "name": self.name,
                 "login": self.wxwork_id,
                 # "oauth_uid": self.wxwork_id,
@@ -49,7 +51,6 @@ class HrEmployee(models.Model):
                 "is_company": False,
                 "employee": True,
                 "share": False,
-                "company_id": self.company_id,
                 "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
                 "tz": "Asia/Chongqing",
                 "lang": "zh_CN",

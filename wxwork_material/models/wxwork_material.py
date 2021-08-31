@@ -40,6 +40,7 @@ class WxWorkMaterial(models.Model):
         string="Company",
         domain="[('is_wxwork_organization', '=', True)]",
         copy=False,
+        store=True,
     )
     name = fields.Char("Name", required=True, translate=True,)
     media_type = fields.Selection(
@@ -117,13 +118,8 @@ class WxWorkMaterial(models.Model):
         if self.created_at:
             # 存在 媒体文件上传时间戳(北京时间)
             created_time = self.created_at
-            tz = self.env.user.tz or "Asia/Shanghai"
-            now_local_time = datetime.now(pytz.timezone(tz)).strftime(
-                "%Y-%m-%d %H:%M:%S"
-            )
-            overdue = self.env["wxwork.tools"].cheeck_overdue(
-                str(created_time), str(now_local_time), 3
-            )
+
+            overdue = self.env["wxwork.tools"].cheeck_overdue(created_time, 3)
             if overdue:
                 pass
             else:

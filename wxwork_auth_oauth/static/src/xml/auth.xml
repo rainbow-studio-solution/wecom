@@ -6,6 +6,16 @@
             <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">
                     <main class="modal-body" style="background-color:#FFFFFF">
+                        <t t-set="companies" t-value="companies"/>
+                        <ul class="nav nav-tabs" id="company_tab" role="tablist">
+                            <li t-foreach="companies" t-as="company" class="nav-item" role="presentation">
+                                <a class="nav-link" data-toggle="tab" role="tab" >
+                                    <t t-esc="company.name"/>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="company_tab_content">
+                        </div>
                         <iframe t-att-src="url" 
                                 frameborder="0"
                                 scrolling="0"   

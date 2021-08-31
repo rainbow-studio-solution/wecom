@@ -8,9 +8,10 @@ import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
 
-from odoo import api, http, SUPERUSER_ID, _
-from odoo.exceptions import AccessDenied, UserError
+from odoo import api, http, models, fields, SUPERUSER_ID, _
 from odoo.http import request
+from odoo.exceptions import AccessDenied, UserError
+
 from odoo import registry as registry_get
 
 
@@ -372,3 +373,19 @@ class OAuthController(Controller):
                 url = "/web/login?oauth_error=2"
 
         return set_cookie_and_redirect(url)
+
+    @http.route("/wxowrk_auth_info", type="json", auth="none")
+    def wxwork_get_auth_info(self, **kwargs):
+        data = []
+        # 获取 标记为 企业微信组织 的公司
+        companies = request.env["res.company"].search(
+            [(("is_wxwork_organization", "=", True))]
+        )
+
+        if len(companies) > 0:
+            for company in companies:
+                data.append(
+                    {"id": company["id"], "name": company["name"],}
+                )
+
+        return data

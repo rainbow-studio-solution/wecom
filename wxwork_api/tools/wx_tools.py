@@ -31,21 +31,25 @@ class WxTools(models.AbstractModel):
         except ApiException as ex:
             return False
 
-    def cheeck_overdue(self, datetime_start_str, datetime_end_str, maxtime):
-        """
+    def cheeck_overdue(self, datetime_start, maxday):
+        """[summary]
         检查是否超期
-        :return: True: 超期
-                 False：未超期
+        Args:
+            datetime_start_str ([type]): [description]
+            datetime_end_str ([type]): [description]
+            maxtime ([type]): [description] 天数
+
+        Returns:
+            True: 超期
+            False：未超期
         """
-        DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-        start_time = datetime.strptime(datetime_start_str, DATETIME_FORMAT)
-        end_time = datetime.strptime(datetime_end_str, DATETIME_FORMAT)
-        # print(start_time, end_time)
-        diff = end_time - start_time
-        if diff < timedelta(days=maxtime):
-            return True
-        else:
+
+        now = datetime.now()
+        print(now - datetime_start)
+        if datetime_start > (now - timedelta(days=maxday)):
             return False
+        else:
+            return True
 
     def path_is_exists(self, path, subpath):
         """

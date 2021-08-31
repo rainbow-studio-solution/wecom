@@ -26,6 +26,10 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
         start: function () {
             var self = this;
             self.is_wxwork_browser();
+            this.companies = self._rpc({
+                route: "/wxowrk_auth_info",
+                params: {},
+            })
             return this._super.apply(this, arguments);
         },
         is_wxwork_browser: function () {
@@ -70,13 +74,18 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var icon = $(ev.target).find("i")
             var msg = "";
             if (icon.hasClass("fa-qrcode")) {
-                var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
-                    url: url
-                }));
-                if (self.$el.parents("body").find("#wxwork_qr_dialog").length == 0) {
-                    dialog.appendTo($(document.body));
+                const data = await Promise.resolve(self.companies);
+                console.log(data);
+                if (data.length > 1) {
+                    var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
+                        companies: data,
+                        url: url
+                    }));
+                    if (self.$el.parents("body").find("#wxwork_qr_dialog").length == 0) {
+                        dialog.appendTo($(document.body));
+                    }
+                    dialog.modal('show');
                 }
-                dialog.modal('show');
             } else if (icon.hasClass("fa-wechat")) {
                 var ua = navigator.userAgent.toLowerCase();
                 if (ua.match(/WxWork/i) == "wxwork") {
