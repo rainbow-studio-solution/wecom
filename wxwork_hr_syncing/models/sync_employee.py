@@ -63,34 +63,43 @@ class SyncEmployee(object):
             )
             block_list = []
 
+            # 生成 block_list
             if len(blocks) > 0:
-                # 生成 block_list
+
                 for obj in blocks:
-                    # block_list.append({"userid": obj.wxwork_id})
-                    block_list.append(obj.wxwork_id)
+                    if obj.wxwork_id != None:
+                        # block_list.append({"userid": obj.wxwork_id})
+                        block_list.append(obj.wxwork_id)
+
+            # 从user_list移除block
+            for b in block_list:
+                for item in user_list:
+                    # userid不区分大小写
+                    if item["userid"].lower() == b.lower():
+                        user_list.remove(item)
 
             # 同步
-            # for obj in user_list:
-            #     self.run_sync(obj)
+            for obj in user_list:
+                self.run_sync(obj)
             end1 = time.time()
 
             times1 = end1 - start1
 
             # 判断企业微信员工list为空，为空跳过同步离职员工
             start2 = time.time()
-            # employees = self.employee.sudo().search(
-            #     [
-            #         ("is_wxwork_employee", "=", True),
-            #         ("company_id", "=", self.company.id),
-            #         "|",
-            #         ("active", "=", True),
-            #         ("active", "=", False),
-            #     ],
-            # )
-            # if not employees:
-            #     pass
-            # else:
-            #     self.sync_leave_employee(response)  # 同步离职员工
+            employees = self.employee.sudo().search(
+                [
+                    ("is_wxwork_employee", "=", True),
+                    ("company_id", "=", self.company.id),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ],
+            )
+            if not employees:
+                pass
+            else:
+                self.sync_leave_employee(response)  # 同步离职员工
 
             end2 = time.time()
             times2 = end2 - start2

@@ -1037,6 +1037,11 @@ msgid "Wizard"
 msgstr "向导"
 
 #. module: wxwork_hr_syncing
+#: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_block_record
+msgid "Block List"
+msgstr "阻止同步名单"
+
+#. module: wxwork_hr_syncing
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_sync_user_wizard
 #: model:ir.ui.menu,name:wxwork_hr_syncing.menu_wxwork_contacts_wizard
 msgid "Wizard synchronization"
