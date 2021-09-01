@@ -15,6 +15,13 @@
                     <field name="name" class="w-100"/>
                 </xpath>
                 
+                <xpath expr="//div[@class='oe_title']/h1" position="after">
+                    <label for="abbreviated_name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="abbreviated_name" class="w-100"/>
+                    </h1>
+                </xpath>
+                
                 <xpath expr="//page[last()]" position="after">
   
                     <page string="Enterprise WeChat Information"  name="wxwork_info">

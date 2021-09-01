@@ -165,6 +165,11 @@ msgid "Enterprise wechat organization"
 msgstr "企业微信组织"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
+msgid "Abbreviated Name"
+msgstr "公司简称"
+
+#. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "Fill in: Enterprise WeChat management background → \"Enterprise Information\" → \"Enterprise ID\""
 msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
