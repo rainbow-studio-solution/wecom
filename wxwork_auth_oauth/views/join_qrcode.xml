@@ -4,14 +4,38 @@
         <template id="login_join_qrcode" inherit_id="web.login">
             
             <xpath expr="//div[hasclass('o_login_auth')]" position="before">
-                <t t-set="show_join_qrcode" t-value="request and request.env['ir.config_parameter'].sudo().get_param('wxwork.enabled_join_qrcode', '')"/>
-                <a t-if="show_join_qrcode=='True'" role="button" class="btn btn-secondary btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#login_join_qrcode" aria-controls="login_join_qrcode">Join Enterprise WeChat</a>
-                <div t-if="show_join_qrcode" class="collapse" id="login_join_qrcode">
-                    <div class="card card-body">
-                        <t t-set="join_qrcode_url" t-value="request and request.env['ir.config_parameter'].sudo().get_param('wxwork.join_qrcode', '')"/>
-                        <img t-attf-src="{{join_qrcode_url}}" alt="Scan code to join Enterprise WeChat" style="max-height:100%; max-width: 100%; width:auto"/>
+                <t t-set="companies" t-value="request and request.env['res.company'].sudo().get_login_join_qrcode()"/>  
+                
+                <t t-if="len(companies) &gt; 0">
+                    <a role="button" class="btn btn-secondary btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#login_join_qrcode" aria-controls="login_join_qrcode">Join Enterprise WeChat</a>
+                    <div class="collapse" id="login_join_qrcode">
+                        <ul class="nav nav-tabs justify-content-center" role="tablist">
+                            <li t-foreach="companies" t-as="company" class="nav-item" role="presentation">
+                                <a 
+                                    t-att-class="'nav-link active' if company_index==0 else 'nav-link'" 
+                                    t-att-id="'nav_join_' + str(company_index) + '_tab'" 
+                                    t-att-href="'#tab_join_' + str(company_index)" 
+                                    t-att-aria-selected="'true' if company_index==0 else 'false'" 
+                                    data-toggle="tab" role="tab"
+                                >
+                                    <t t-esc="company['name']"/>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <t t-foreach="companies" t-as="company">
+                                <div 
+                                    t-att-class="'tab-pane fade show active' if company_index==0 else 'tab-pane fade'" 
+                                    t-att-id="'tab_join_' + str(company_index)"  
+                                    role="tabpanel" >
+                                    <div class="card card-body">
+                                        <img t-att-src="company['url']" alt="Scan code to join Enterprise WeChat" style="max-height:100%; max-width: 100%; width:auto"/>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
                     </div>
-                </div>
+                </t>
             </xpath>
             
         </template>

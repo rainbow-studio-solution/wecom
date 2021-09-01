@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <!-- <record id="wxwork_enabled_join_qrcode" model="res.company">
-            <field name="key">wxwork.enabled_join_qrcode</field>
-            <field name="value">True</field>
-        </record>
-        <record id="wxwork_join_qrcode_size_type" model="res.company">
-            <field name="key">wxwork.join_qrcode_size_type</field>
-            <field name="value">2</field>
-        </record> -->
-        
+           
         <!-- <record id="auth_oauth.provider_openerp" model="auth.oauth.provider">
             <field name="enabled" eval="False" />
         </record> -->
 
         <record id="provider_wxwork_authorize" model="auth.oauth.provider">
-            <field name="name">Enterprise WeChat OAuth2</field>
+            <field name="name">Enterprise WeChat OAuth2 Onekey</field>
             <!--身份验证网址-->
             <field name="auth_endpoint">https://open.weixin.qq.com/connect/oauth2/authorize</field>
             <!--作用域-->
@@ -24,7 +16,7 @@
             <field name="validation_endpoint"></field>
             <!--数据网址-->
             <field name="data_endpoint"></field>
-            <field name="css_class">fa fa-fw fa-wechat</field>
+            <field name="css_class">fa fa-fw fa-wechat wxwork_auth_onekey</field>
             <field name="body">Enterprise WeChat one-click login</field>
             <field name="enabled" eval="False"/>
             <field name="description"></field>
@@ -36,7 +28,7 @@
             <field name="scope"></field>
             <field name="validation_endpoint"></field>
             <field name="data_endpoint"></field>
-            <field name="css_class">fa fa-fw fa-qrcode</field>
+            <field name="css_class">fa fa-fw fa-qrcode wxwork_auth_scancode</field>
             <field name="body">Enterprise WeChat scan code login</field>
             <field name="enabled" eval="False"/>
             <field name="description"></field>

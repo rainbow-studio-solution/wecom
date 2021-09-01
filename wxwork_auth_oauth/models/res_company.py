@@ -54,6 +54,56 @@ class Company(models.Model):
     )
     join_qrcode_last_time = fields.Char("Last update time (UTC)", readonly=True,)
 
+    def set_oauth_provider_wxwork(self):
+        web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
+
+        new_auth_redirect_uri = (
+            urllib.parse.urlparse(web_base_url).scheme
+            + "://"
+            + urllib.parse.urlparse(web_base_url).netloc
+            + urllib.parse.urlparse(self.auth_redirect_uri).path
+        )
+        new_qr_redirect_uri = (
+            urllib.parse.urlparse(web_base_url).scheme
+            + "://"
+            + urllib.parse.urlparse(web_base_url).netloc
+            + urllib.parse.urlparse(self.qr_redirect_uri).path
+        )
+
+        # 设置回调链接地址
+        self.auth_redirect_uri = new_auth_redirect_uri
+        self.qr_redirect_uri = new_qr_redirect_uri
+
+        auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
+        qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
+
+        try:
+            providers = (
+                self.env["auth.oauth.provider"]
+                .sudo()
+                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
+            )
+        except Exception:
+            providers = []
+
+        for provider in providers:
+            if auth_endpoint in provider["auth_endpoint"]:
+                provider.write(
+                    {
+                        # "client_id": client_id,
+                        "validation_endpoint": self.auth_redirect_uri,
+                        "enabled": True,
+                    }
+                )
+            if qr_auth_endpoint in provider["auth_endpoint"]:
+                provider.write(
+                    {
+                        # "client_id": client_id,
+                        "validation_endpoint": self.qr_redirect_uri,
+                        "enabled": True,
+                    }
+                )
+
     def get_join_qrcode(self):
         ir_config = self.env["ir.config_parameter"].sudo()
         debug = ir_config.get_param("wxwork.debug_enabled")
@@ -185,70 +235,28 @@ class Company(models.Model):
                         % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
                     )
 
-    def set_oauth_provider_wxwork(self):
-        web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
-
-        new_auth_redirect_uri = (
-            urllib.parse.urlparse(web_base_url).scheme
-            + "://"
-            + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.auth_redirect_uri).path
-        )
-        new_qr_redirect_uri = (
-            urllib.parse.urlparse(web_base_url).scheme
-            + "://"
-            + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.qr_redirect_uri).path
-        )
-
-        # 设置回调链接地址
-        self.auth_redirect_uri = new_auth_redirect_uri
-        self.qr_redirect_uri = new_qr_redirect_uri
-
-        auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
-        qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
-
-        try:
-            providers = (
-                self.env["auth.oauth.provider"]
-                .sudo()
-                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
-            )
-        except Exception:
-            providers = []
-
-        for provider in providers:
-            if auth_endpoint in provider["auth_endpoint"]:
-                provider.write(
-                    {
-                        # "client_id": client_id,
-                        "validation_endpoint": self.auth_redirect_uri,
-                        "enabled": True,
-                    }
-                )
-            if qr_auth_endpoint in provider["auth_endpoint"]:
-                provider.write(
-                    {
-                        # "client_id": client_id,
-                        "validation_endpoint": self.qr_redirect_uri,
-                        "enabled": True,
-                    }
-                )
-
-    def get_company_auth_info(self, fields=None, load="_classic_read"):
+    @api.model
+    def get_login_join_qrcode(self):
+        """[summary]
+        获取登陆页面的 加入企业微信的二维码
+        """
         data = []
         # 获取 标记为 企业微信组织 的公司
         companies = (
-            self.sudo()
-            .env["res.company"]
+            self.env["res.company"]
+            .sudo()
             .search([(("is_wxwork_organization", "=", True))])
         )
 
         if len(companies) > 0:
             for company in companies:
-                data.append(
-                    {"id": company["id"], "name": company["name"],}
-                )
+                if company["enabled_join_qrcode"]:
+                    data.append(
+                        {
+                            "id": company["id"],
+                            "name": company["abbreviated_name"],
+                            "url": company["join_qrcode"],
+                        }
+                    )
 
         return data
-

@@ -374,8 +374,8 @@ class OAuthController(Controller):
 
         return set_cookie_and_redirect(url)
 
-    @http.route("/wxowrk_login_qrcode", type="json", auth="none")
-    def wxwork_get_login_qrcode(self, **kwargs):
+    @http.route("/wxowrk_auth_info", type="json", auth="none")
+    def wxwork_get_auth_info(self, **kwargs):
         data = []
         # 获取 标记为 企业微信组织 的公司
         companies = request.env["res.company"].search(
@@ -385,12 +385,7 @@ class OAuthController(Controller):
         if len(companies) > 0:
             for company in companies:
                 data.append(
-                    {
-                        "id": company["id"],
-                        "name": company["abbreviated_name"],
-                        "appid": company["corpid"],
-                        "agentid": company["auth_agentid"],
-                    }
+                    {"id": company["id"], "name": company["name"],}
                 )
 
         return data

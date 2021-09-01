@@ -27,9 +27,9 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var self = this;
             self.is_wxwork_browser();
             this.companies = self._rpc({
-                route: "/wxowrk_auth_info",
+                route: "/wxowrk_login_qrcode",
                 params: {},
-            })
+            });
             return this._super.apply(this, arguments);
         },
         is_wxwork_browser: function () {
@@ -67,19 +67,28 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                 }
             }
         },
-        _pop_up_qr_dialog: function (ev) {
+        _pop_up_qr_dialog: async function (ev) {
             ev.preventDefault(); //阻止默认行为
             var self = this;
             var url = $(ev.target).attr('href');
             var icon = $(ev.target).find("i")
             var msg = "";
-            if (icon.hasClass("fa-qrcode")) {
+            if (icon.hasClass("wxwork_auth_scancode")) {
                 const data = await Promise.resolve(self.companies);
-                console.log(data);
+
                 if (data.length > 1) {
+                    var companies = [];
+                    $.each(data, function (index, element) {
+                        var new_url = self.updateUrlParam(url, 'appid', element["appid"]);
+                        new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
+                        companies.push({
+                            "id": element["id"],
+                            "name": element["name"],
+                            "qr_code_url": new_url,
+                        });
+                    });
                     var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
-                        companies: data,
-                        url: url
+                        companies: companies,
                     }));
                     if (self.$el.parents("body").find("#wxwork_qr_dialog").length == 0) {
                         dialog.appendTo($(document.body));
@@ -103,6 +112,46 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             } else {
                 window.open(url);
             }
-        }
+        },
+        updateUrlParam: function (url, name, new_value) {
+            var self = this;
+
+            if (url.indexOf(name + '=') > 0) {
+                // url有参数名，进行修改
+                var original_value = self.getUrlParam(url, name);
+                if (original_value != "") {
+                    //url包含参数值
+                    url = url.replace(name + '=' + original_value, name + '=' + new_value)
+                } else {
+                    //url不包含参数值
+                    url = url.replace(name + '=', name + '=' + new_value)
+                }
+
+            } else {
+                // url无参数名，进行添加
+                if (url.indexOf("?") > 0) {
+                    url = url + "&" + name + "=" + new_value;
+                } else {
+                    url = url + "?" + name + "=" + new_value;
+                }
+            }
+            return url;
+        },
+        getUrlParam: function (url, paraName) {
+            var arrObj = url.split("?");
+            if (arrObj.length > 1) {
+                var arrPara = arrObj[1].split("&");
+                var arr;
+                for (var i = 0; i < arrPara.length; i++) {
+                    arr = arrPara[i].split("=");
+                    if (arr != null && arr[0] == paraName) {
+                        return arr[1];
+                    }
+                }
+                return "";
+            } else {
+                return "";
+            }
+        },
     })
 });
