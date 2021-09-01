@@ -305,11 +305,18 @@ class OAuthController(Controller):
 
     @http.route("/wxowrk_auth_oauth/qr", type="http", auth="none")
     def wxwork_qr_authorize(self, **kw):
+
         code = kw.pop("code", None)
-        corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
-        secret = (
-            request.env["ir.config_parameter"].sudo().get_param("wxwork.auth_secret")
+        company = (
+            request.env["res.company"]
+            .sudo()
+            .search(
+                [("corpid", "=", kw["appid"]), ("is_wxwork_organization", "=", True),],
+            )
         )
+
+        corpid = company.corpid
+        secret = company.auth_secret
         wxwork_api = CorpApi(corpid, secret)
         response = wxwork_api.httpCall(
             CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},

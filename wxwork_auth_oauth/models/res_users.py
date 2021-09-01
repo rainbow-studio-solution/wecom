@@ -114,6 +114,7 @@ class ResUsers(models.Model):
 
         for user in self:
             if not user.email and not user.wxwork_id:
+                # 没有邮件地址和企业微信id
                 raise UserError(
                     _(
                         "Cannot send email or message: user %s has no email address or Enterprise WeChat user id.",

@@ -33,6 +33,7 @@ class WxWorkMessageApi(models.AbstractModel):
         enable_id_trans=None,
         enable_duplicate_check=None,
         duplicate_check_interval=None,
+        company=None
     ):
         """
         构建消息
@@ -54,9 +55,9 @@ class WxWorkMessageApi(models.AbstractModel):
         :duplicate_check_interval: 表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时
 
         """
-
+        print(media_id)
         messages_content = self.get_messages_content(
-            msgtype, description, author_id, body_html, body_text, subject, media_id
+            msgtype, description, author_id, body_html, body_text, subject, media_id,company
         )
         messages_options = self.get_messages_options(
             msgtype,
@@ -66,7 +67,6 @@ class WxWorkMessageApi(models.AbstractModel):
             duplicate_check_interval,
         )
         sys_params = self.env["ir.config_parameter"].sudo()
-        agentid = sys_params.get_param("wxwork.message_agentid")
 
         messages = {}
         messages = {
@@ -74,17 +74,19 @@ class WxWorkMessageApi(models.AbstractModel):
             "toparty": "" if toall else toparty,
             "totag": "" if toall else totag,
             "msgtype": msgtype,
-            "agentid": int(agentid),
+            "corpid": company.corpid,
+            "secret": company.message_secret,
+            "agentid": int(company.message_agentid),
         }
         messages.update(messages_content)
         messages.update(messages_options)
         return messages
 
     def send_by_api(self, message):
-
         sys_params = self.env["ir.config_parameter"].sudo()
-        corpid = sys_params.get_param("wxwork.corpid")
-        secret = sys_params.get_param("wxwork.message_secret")
+
+        corpid = message["corpid"]
+        secret = message["secret"]
         wxapi = CorpApi(corpid, secret)
 
         params = self.env["ir.config_parameter"].sudo()
@@ -94,15 +96,14 @@ class WxWorkMessageApi(models.AbstractModel):
             response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
             _logger.warning(response)
             return response
-            
+
         except BaseException as e:
             if debug:
-                _logger.warning(
-                    _("发送消息错误: %s") % (repr(e))
-                )
+                _logger.warning(_("发送消息错误: %s") % (repr(e)))
 
     @api.model
     def send_message(self, message):
+
         """
         发送一条企业微信消息 到多个人员
         """
@@ -127,9 +128,20 @@ class WxWorkMessageApi(models.AbstractModel):
         body_text=None,
         subject=None,
         media_id=None,
+        company=None,
     ):
-        if media_id:
-            media_id = self.check_material_file_expiration(media_id)
+        material_info = (
+            self.env["wxwork.material"]
+            .sudo()
+            .browse(int(media_id))
+            .read(["name"])
+        )
+        print(material_info)
+        material = (
+            self.sudo().env["wxwork.material"].search([("company_id", "=", company.id),("name", "=", material_info[0]["name"]),], limit=1,)
+        ) 
+        print(material)
+        material_media_id = self.check_material_file_expiration(material)
         messages_content = {}
         if msgtype == "text":
             # 文本消息
@@ -143,7 +155,7 @@ class WxWorkMessageApi(models.AbstractModel):
                     "articles": [
                         {
                             "title": subject,
-                            "thumb_media_id": media_id,
+                            "thumb_media_id": material_media_id,
                             "author": author_id.display_name,
                             "content": body_html,
                             "digest": description,
@@ -181,46 +193,32 @@ class WxWorkMessageApi(models.AbstractModel):
 
         return messages_options
 
-    def check_material_file_expiration(self, media_id):
-        """
+    def check_material_file_expiration(self, material):
+        """[summary]
         检查素材文件是否过期
+        Args:
+            material ([type]): [description]
+
+        Returns:
+            [type]: [description]
         """
-        material_info = (
-            self.env["wxwork.material"]
-            .sudo()
-            .browse(int(media_id))
-            .read(["media_id", "created_at"])
-        )
-
-        material_id = material_info[0]["media_id"]
-
-        if material_info[0]["created_at"]:
+        media_id =""
+        if material.created_at:
             # 有创建日期
-            created_time = str(material_info[0]["created_at"])
+            created_time = material.created_at
             MAX_FAIL_TIME = 3
-            tz = self.env.user.tz or "Asia/Shanghai"
-            now_local_time = datetime.now(pytz.timezone(tz)).strftime(
-                "%Y-%m-%d %H:%M:%S"
-            )
 
             # 检查是否超过3天
             overdue = self.env["wxwork.tools"].cheeck_overdue(
-                created_time, str(now_local_time), MAX_FAIL_TIME
+                created_time, MAX_FAIL_TIME
             )
             if overdue:
                 # 临时素材超期，重新上传
-                material = (
-                    self.env["wxwork.material"]
-                    .sudo()
-                    .browse(int(media_id))
-                    .upload_media()
-                )
-                material_id = material.media_id
+                material.upload_media()
+                media_id = material.media_id
         else:
             # 无创建日期，执行第一次上传临时素材
-            material = (
-                self.env["wxwork.material"].sudo().browse(int(media_id)).upload_media()
-            )
-            material_id = material.media_id
-        return material_id
+            material.upload_media()
+            media_id = material.media_id
+        return media_id
 

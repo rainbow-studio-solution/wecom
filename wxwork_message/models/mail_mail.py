@@ -260,11 +260,23 @@ class MailMail(models.Model):
         :param bool raise_exception：如果电子邮件发送过程失败，是否引发异常 
         :return: True
         """
-
+ 
+        # TODO 待处理各类型的接收者
+        
         sys_params = self.env["ir.config_parameter"].sudo()
-        corpid = sys_params.get_param("wxwork.corpid")
-        secret = sys_params.get_param("wxwork.message_secret")
-        message_agentid = sys_params.get_param("wxwork.message_agentid")
+        
+        employee = self.env["hr.employee"].sudo().search(
+                [
+                    ("wxwork_id", "=", self.message_to_user),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ],
+            )
+        company = employee.company_id
+        corpid = company.corpid
+        secret = company.message_secret
+        message_agentid = company.message_agentid
 
         if "xxxxxxxxxxxxxxxxxx" in corpid or corpid is None or corpid is False:
             raise UserError(_("Please fill in the company ID"))
@@ -287,14 +299,14 @@ class MailMail(models.Model):
                 # TODO 待处理多公司-企业微信互联功能
 
                 self.browse(batch_ids)._send_wxwork_message(
-                    auto_commit=auto_commit, raise_exception=raise_exception,
+                    auto_commit=auto_commit, raise_exception=raise_exception,company=company
                 )
                 _logger.info(
                     _("Sent batch %s messages"), len(batch_ids),
                 )
 
     def _send_wxwork_message(
-        self, auto_commit=False, raise_exception=False,
+        self, auto_commit=False, raise_exception=False,company=False,
     ):
         """
         :param bool auto_commit: 发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
@@ -373,6 +385,8 @@ class MailMail(models.Model):
                         ],
                         records=notifs,
                     )
+                # TODO 带处理获取素材
+                
                 # 建立电子邮件.message.message对象并在不排队的情况下发送它
                 res = None
                 for email in email_list:
@@ -392,6 +406,7 @@ class MailMail(models.Model):
                         enable_id_trans=mail.enable_id_trans,
                         enable_duplicate_check=mail.enable_duplicate_check,
                         duplicate_check_interval=mail.duplicate_check_interval,
+                        company=company,
                     )
 
                     processing_pid = email.pop("partner_id", None)
@@ -404,6 +419,7 @@ class MailMail(models.Model):
                         pass
 
                 if res:  # 消息已至少发送一次，未发生重大异常
+                    print(res)
                     if "errcode" in res:
                         if res.get("errcode") == 0:
                             failure_reason = ""
@@ -455,6 +471,11 @@ class MailMail(models.Model):
                                     "failure_reason": failure_reason,
                                 }
                             )
+                    else:
+                        raise Warning(
+                            res
+                        )
+                    raise 
                 else:
                     failure_reason = _("Unknown reason")
                     _logger.exception(

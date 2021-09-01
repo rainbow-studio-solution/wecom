@@ -45,7 +45,7 @@ class WxTools(models.AbstractModel):
         """
 
         now = datetime.now()
-        print(now - datetime_start)
+        # print(now - datetime_start)
         if datetime_start > (now - timedelta(days=maxday)):
             return False
         else:

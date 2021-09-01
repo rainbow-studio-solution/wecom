@@ -29,36 +29,50 @@ class HrEmployee(models.Model):
         groups_id = (
             self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=9是门户用户
-        res_user_id = self.env["res.users"].create(
-            {
-                "company_ids": [(6, 0, [self.company_id.id])],
-                "company_id": self.company_id.id,
-                "name": self.name,
-                "login": self.wxwork_id,
-                # "oauth_uid": self.wxwork_id,
-                "password": self.env["wxwork.tools"].random_passwd(8),
-                "email": self.work_email,
-                "wxwork_id": self.wxwork_id,
-                "image_1920": self.image_1920,
-                "qr_code": self.qr_code,
-                "active": self.active,
-                "wxwork_user_order": self.wxwork_user_order,
-                "mobile": self.mobile_phone,
-                "phone": self.work_phone,
-                # "notification_type": "wxwork",
-                "is_wxwork_user": True,
-                "is_moderator": False,
-                "is_company": False,
-                "employee": True,
-                "share": False,
-                "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
-                "tz": "Asia/Chongqing",
-                "lang": "zh_CN",
-            }
-        )
-        self.user_id = res_user_id.id
-        self.address_home_id = res_user_id.partner_id.id
-        self.user_check_tick = True
+        try:
+            res_user_id = self.env["res.users"].create(
+                {
+                    "company_ids": [(6, 0, [self.company_id.id])],
+                    "company_id": self.company_id.id,
+                    "name": self.name,
+                    "login": self.wxwork_id,
+                    # "oauth_uid": self.wxwork_id,
+                    "password": self.env["wxwork.tools"].random_passwd(8),
+                    "email": self.work_email,
+                    "wxwork_id": self.wxwork_id,
+                    "image_1920": self.image_1920,
+                    "qr_code": self.qr_code,
+                    "active": self.active,
+                    "wxwork_user_order": self.wxwork_user_order,
+                    "mobile": self.mobile_phone,
+                    "phone": self.work_phone,
+                    # "notification_type": "wxwork",
+                    "is_wxwork_user": True,
+                    "is_moderator": False,
+                    "is_company": False,
+                    "employee": True,
+                    "share": False,
+                    "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
+                    "tz": "Asia/Chongqing",
+                    "lang": "zh_CN",
+                }
+            )
+            if res_user_id:
+                self.write(
+                    {
+                        "user_id": res_user_id.id,
+                        "address_home_id": res_user_id.partner_id.id,
+                        "user_check_tick": True,
+                    }
+                )
+                # self.user_id = res_user_id.id
+                # self.address_home_id = res_user_id.partner_id.id
+                # self.user_check_tick = True
+        except Exception as e:
+            print(
+                _("Generate system user error from employee. Error details:%s")
+                % (repr(e))
+            )
 
     @api.onchange("address_home_id")
     def user_checking(self):
