@@ -182,6 +182,7 @@ class MailMail(models.Model):
                         raise_exception=raise_exception,
                         company=company,
                     )
+                    
                     # if raise_exception:
                     #     self.browse(batch_ids)._send_wxwork_message(
                     #         auto_commit=auto_commit, raise_exception=raise_exception,
@@ -415,7 +416,7 @@ class MailMail(models.Model):
                         description=mail.description,
                         author_id=mail.author_id,
                         body_html=mail.message_body_html,
-                        body_text=mail.message_body_json,
+                        body_json=mail.message_body_json,
                         safe=mail.safe,
                         enable_id_trans=mail.enable_id_trans,
                         enable_duplicate_check=mail.enable_duplicate_check,
@@ -486,7 +487,7 @@ class MailMail(models.Model):
                             )
                     else:
                         raise Warning(res)
-                    raise
+                    # raise
                 else:
                     failure_reason = _("Unknown reason")
                     _logger.exception(

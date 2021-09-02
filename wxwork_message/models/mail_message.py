@@ -122,7 +122,7 @@ class Message(models.Model):
             else:
                 pass
         else:
-            self.body_text = None
+            self.body_json = None
 
     @api.onchange("templates_id")
     def _onchange_templates_id(self):
@@ -134,7 +134,7 @@ class Message(models.Model):
                     [
                         "id",
                         "subject",
-                        "body_text",
+                        "body_json",
                         "body_html",
                         "msgtype",
                         "safe",
@@ -145,7 +145,7 @@ class Message(models.Model):
                 )
             )
             self.subject = mail_template_info[0]["subject"]
-            self.body_text = mail_template_info[0]["body_text"]
+            self.body_json = mail_template_info[0]["body_json"]
             self.body_html = mail_template_info[0]["body_html"]
             self.msgtype = mail_template_info[0]["msgtype"]
             self.safe = mail_template_info[0]["safe"]

@@ -8,6 +8,7 @@ from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
 from datetime import datetime, timedelta
 import pytz
+import json
 
 _logger = logging.getLogger(__name__)
 
@@ -28,7 +29,7 @@ class WxWorkMessageApi(models.AbstractModel):
         description=None,
         author_id=None,
         body_html=None,
-        body_text=None,
+        body_json=None,
         safe=None,
         enable_id_trans=None,
         enable_duplicate_check=None,
@@ -48,16 +49,15 @@ class WxWorkMessageApi(models.AbstractModel):
         :subject: 标题 ，不同消息类型，长度限制不一样 
         :media_id: media_id, 可以通过素材管理接口获得
         :body_html: 图文消息的内容，支持html标签，不超过666 K个字节，仅用于图文消息（mpnews）
-        :body_text: 非图文消息的内容，不同消息类型，长度限制不一样 
+        :body_json: 非图文消息的内容，不同消息类型，长度限制不一样 
         :safe: 表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，默认为0   
         :enable_id_trans: 表示是否开启id转译，0表示否，1表示是，默认0。仅第三方应用需要用到，企业自建应用可以忽略。 
         :enable_duplicate_check: 表示是否开启重复消息检查，0表示否，1表示是，默认0
         :duplicate_check_interval: 表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时
 
         """
-        print(media_id)
         messages_content = self.get_messages_content(
-            msgtype, description, author_id, body_html, body_text, subject, media_id,company
+            msgtype, description, author_id, body_html, body_json, subject, media_id,company
         )
         messages_options = self.get_messages_options(
             msgtype,
@@ -84,13 +84,18 @@ class WxWorkMessageApi(models.AbstractModel):
 
     def send_by_api(self, message):
         sys_params = self.env["ir.config_parameter"].sudo()
-        print(message)
+ 
         corpid = message["corpid"]
         secret = message["secret"]
         wxapi = CorpApi(corpid, secret)
 
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wxwork.debug_enabled")
+        
+        # 删除message中的corpid和secret
+        del message["corpid"]
+        del message["secret"]
+  
         try:
             # 避免错误弹窗，使用try
             response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
@@ -125,7 +130,7 @@ class WxWorkMessageApi(models.AbstractModel):
         description=None,
         author_id=None,
         body_html=None,
-        body_text=None,
+        body_json=None,
         subject=None,
         media_id=None,
         company=None,
@@ -141,16 +146,16 @@ class WxWorkMessageApi(models.AbstractModel):
             self.sudo().env["wxwork.material"].search([("company_id", "=", company.id),("name", "=", material_info[0]["name"]),], limit=1,)
         ) 
         
-        material_media_id = self.check_material_file_expiration(material)
-        print(material.media_id)
+        
         messages_content = {}
         if msgtype == "text":
             # 文本消息
             messages_content = {
-                "text": body_text,
+                "text": body_json,
             }
         if msgtype == "mpnews":
             # 图文消息（mpnews）
+            material_media_id = self.check_material_file_expiration(material)
             messages_content = {
                 "mpnews": {
                     "articles": [
@@ -167,9 +172,13 @@ class WxWorkMessageApi(models.AbstractModel):
         if msgtype == "markdown":
             # markdown消息
             messages_content = {
-                "content": body_text,
+                "content": json.loads(body_json),
             }
-
+        if msgtype == "template_card":
+            # 模板卡片消息
+            messages_content = {
+                "template_card": json.loads(body_json),
+            }
         return messages_content
 
     def get_messages_options(
@@ -180,6 +189,18 @@ class WxWorkMessageApi(models.AbstractModel):
         enable_duplicate_check=None,
         duplicate_check_interval=None,
     ):
+        """[summary]
+        获取企业微信消息的选项
+        Args:
+            msgtype ([type]): [description]
+            safe ([type], optional): [description]. Defaults to None.
+            enable_id_trans ([type], optional): [description]. Defaults to None.
+            enable_duplicate_check ([type], optional): [description]. Defaults to None.
+            duplicate_check_interval ([type], optional): [description]. Defaults to None.
+
+        Returns:
+            [type]: [description]
+        """
         messages_options = {
             "safe": int(safe),
             "enable_id_trans": int(enable_id_trans),
@@ -189,9 +210,12 @@ class WxWorkMessageApi(models.AbstractModel):
 
         if msgtype == "markdown":
             # markdown消息
-            del messages_options[safe]
-            del messages_options[enable_id_trans]
-
+            del messages_options["safe"]
+            del messages_options["enable_id_trans"]
+        if msgtype == "template_card":
+            # 模板卡片消息
+            del messages_options["safe"]
+            
         return messages_options
 
     def check_material_file_expiration(self, material):

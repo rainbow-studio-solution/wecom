@@ -7,9 +7,53 @@
             <field name="msgtype">template_card</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_reset_password"/>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
-            <field name="message_body_json" >
-            1
-            </field>
+            <field name="message_body_json">
+{
+  "card_type": "news_notice",
+  "source": {
+    "icon_url": "${object.get_base_url()}/square_logo.png?company=${object.company_id.id}",
+    "desc": "${object.company_id.name}"
+  },
+  "main_title": {
+    "title": "Dear ${object.name},",
+    "desc": "You requested a password reset"
+  },
+  "card_image": {
+    "url": "${object.get_base_url()}/wxwork_material/static/src/img/reset_password.png",
+    "aspect_ratio": 2.25
+  },
+  "vertical_content_list": [
+    {
+      "title": "If no modification is required,ignore.",
+      "desc": "You may change your password by following this link which will remain valid during 24 hours."
+    }
+  ],
+  "horizontal_content_list": [
+    {
+      "keyname": "Sender",
+      "value": "${object.create_uid.name}"
+    },
+    {
+      "type": 1,
+      "keyname": "Change Password",
+      "value": "Click Modify",
+      "url": "${object.signup_url}"
+    }
+  ],
+  "jump_list": [
+    {
+      "type": 1,
+      "title": "Change Password",
+      "url": "${object.signup_url}"
+    }
+  ],
+  "card_action": {
+    "type": 1,
+    "url": "${object.signup_url}",
+    "appid": "",
+    "pagepath": ""
+  }
+}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
@@ -112,6 +156,64 @@
             <field name="msgtype">template_card</field>
             <field name="media_id" ref="wxwork_material.wxwork_material_image_account_created"/>
             <field name="message_to_user">${object.wxwork_id | safe}</field>
+           <field name="message_body_json">
+{
+  "card_type": "news_notice",
+  "source": {
+    "icon_url": "${object.get_base_url()}/square_logo.png?company=${object.company_id.id}",
+    "desc": "${object.company_id.name}"
+  },
+  "main_title": {
+    "title": "Welcome, Dear ${object.name}",
+    "desc": "${object.create_uid.name} from ${object.company_id.name} opens the system account for you."    
+  },
+  "card_image": {
+    "url": "${object.get_base_url()}/wxwork_material/static/src/img/account_created.png",
+    "aspect_ratio": 2.25
+  },
+  "vertical_content_list": [
+    {
+      "title": "Your sign in account is:",
+      "desc": "${object.login}"
+    }
+  ],
+  "horizontal_content_list": [
+    {
+      "keyname": "Sender",
+      "value": "${object.create_uid.name}"
+    },
+    {
+      "type": 1,
+      "keyname": "Accept invitation",
+      "value": "Accept invitation",
+      "url": "${object.signup_url}"
+    },
+    {
+      "type": 1,
+      "keyname": "Login address",
+      "value": "Click Login",
+      "url": "${object.get_base_url()}"
+    }
+  ],
+  "jump_list": [
+  {
+      "type": 1,
+      "title": "Accept invitation",
+      "url": "${object.signup_url}"
+    },
+    {
+      "type": 1,
+      "title": "Login address",
+      "url": "${object.get_base_url()}"
+    }    
+  ],
+  "card_action": {
+    "type": 1,
+    "url": "${object.signup_url}",
+    "appid": "",
+    "pagepath": ""
+  }
+}</field>
             <field name="message_body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
