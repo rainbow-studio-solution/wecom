@@ -173,8 +173,8 @@
   },
   "vertical_content_list": [
     {
-      "title": "Your sign in account is:",
-      "desc": "${object.login}"
+      "title": "Your sign in account is: ${object.login}",
+      "desc": "Click 'accept invitation' to open your account."
     }
   ],
   "horizontal_content_list": [
