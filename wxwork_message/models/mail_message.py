@@ -79,7 +79,7 @@ class Message(models.Model):
         default="text",
     )
     media_id = fields.Char(string="Media file id",)
-    message_body_text = fields.Text("Text Body")
+    message_body_json = fields.Text("Text Body")
     message_body_html = fields.Html("Html Body", sanitize=False)
 
     safe = fields.Selection(

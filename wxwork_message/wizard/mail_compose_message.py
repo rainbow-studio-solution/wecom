@@ -65,7 +65,7 @@ class MailComposer(models.TransientModel):
         default="text",
     )
     message_body_html = fields.Html("Html Contents", default="", sanitize_style=True)
-    message_body_text = fields.Text("Text Contents", default="", sanitize_style=True)
+    message_body_json = fields.Text("Text Contents", default="", sanitize_style=True)
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -280,7 +280,7 @@ class MailComposer(models.TransientModel):
                 "message_to_party": self.message_to_party,
                 "message_to_tag": self.message_to_tag,
                 "message_body_html": self.message_body_html,
-                "message_body_text": self.message_body_text,
+                "message_body_json": self.message_body_json,
                 "safe": self.safe,
                 "enable_id_trans": self.enable_id_trans,
                 "enable_duplicate_check": self.enable_duplicate_check,
@@ -320,8 +320,8 @@ class MailComposer(models.TransientModel):
                 mail_values["message_body_html"] = mail_values.get(
                     "message_body_html", ""
                 )
-                mail_values["message_body_text"] = mail_values.get(
-                    "message_body_text", ""
+                mail_values["message_body_json"] = mail_values.get(
+                    "message_body_json", ""
                 )
                 mail_values["recipient_ids"] = [
                     (4, id) for id in mail_values.pop("partner_ids", [])
@@ -386,7 +386,7 @@ class MailComposer(models.TransientModel):
                 "message_to_tag",
                 "msgtype",
                 "message_body_html",
-                "message_body_text",
+                "message_body_json",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
@@ -403,7 +403,7 @@ class MailComposer(models.TransientModel):
 
             if template.mail_server_id:
                 values["mail_server_id"] = template.mail_server_id.id
- 
+
         elif template_id:
             values = self.generate_email_for_composer(
                 template_id,
@@ -424,7 +424,7 @@ class MailComposer(models.TransientModel):
                     "message_to_party",
                     "message_to_tag",
                     "message_body_html",
-                    "message_body_text",
+                    "message_body_json",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
@@ -472,7 +472,7 @@ class MailComposer(models.TransientModel):
                     "message_to_party",
                     "message_to_tag",
                     "message_body_html",
-                    "message_body_text",
+                    "message_body_json",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
@@ -495,7 +495,7 @@ class MailComposer(models.TransientModel):
                     "message_to_party",
                     "message_to_tag",
                     "message_body_html",
-                    "message_body_text",
+                    "message_body_json",
                     "safe",
                     "enable_id_trans",
                     "enable_duplicate_check",
@@ -508,8 +508,8 @@ class MailComposer(models.TransientModel):
             values["body"] = values.pop("body_html")
         if values.get("message_body_html"):
             values["message_body_html"] = values.pop("message_body_html")
-        if values.get("message_body_text"):
-            values["message_body_text"] = values.pop("message_body_text")
+        if values.get("message_body_json"):
+            values["message_body_json"] = values.pop("message_body_json")
 
         # 此onchange应该返回命令，而不是x2many字段的ID。
         values = self._convert_to_write(values)
@@ -537,7 +537,7 @@ class MailComposer(models.TransientModel):
                 "message_to_tag": record.message_to_tag or False,
                 "media_id": record.media_id or False,
                 "message_body_html": record.message_body_html or False,
-                "message_body_text": record.message_body_text or False,
+                "message_body_json": record.message_body_json or False,
                 "safe": record.safe or False,
                 "enable_id_trans": record.enable_id_trans or False,
                 "enable_duplicate_check": record.enable_duplicate_check or False,
@@ -584,7 +584,7 @@ class MailComposer(models.TransientModel):
             self.message_body_html, self.model, res_ids, post_process=True
         )
         bodies_text = self.env["mail.render.mixin"]._render_template(
-            self.message_body_text, self.model, res_ids, post_process=True
+            self.message_body_json, self.model, res_ids, post_process=True
         )
         emails_from = self.env["mail.render.mixin"]._render_template(
             self.email_from, self.model, res_ids
@@ -613,7 +613,7 @@ class MailComposer(models.TransientModel):
                 "subject": subjects[res_id],
                 "body": bodies[res_id],
                 "message_body_html": bodies_html[res_id],
-                "message_body_text": bodies_text[res_id],
+                "message_body_json": bodies_text[res_id],
                 "email_from": emails_from[res_id],
                 "reply_to": replies_to[res_id],
                 "message_to_user": message_to_user[res_id],
@@ -690,8 +690,8 @@ class MailComposer(models.TransientModel):
             res_id_values["message_body_html"] = res_id_values.pop(
                 "message_body_html", ""
             )
-            res_id_values["message_body_text"] = res_id_values.pop(
-                "message_body_text", ""
+            res_id_values["message_body_json"] = res_id_values.pop(
+                "message_body_json", ""
             )
             values[res_id] = res_id_values
 

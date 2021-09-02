@@ -29,6 +29,7 @@ class MailTemplate(models.Model):
             ("markdown", "Markdown message"),
             ("miniprogram", "Mini Program Notification Message"),
             ("taskcard", "Task card message"),
+            ("template_card", "Template card message"),
         ],
         string="Message type",
         required=True,
@@ -49,8 +50,9 @@ class MailTemplate(models.Model):
         comodel_name="wxwork.material",
         help="媒体文件Id,可以调用上传临时素材接口获取",
     )
-    message_body_text = fields.Text("Text Body", translate=True,)
+
     message_body_html = fields.Html("Html Body", translate=True, sanitize=False)
+    message_body_json = fields.Text("Json Body", translate=True)
 
     # options
     safe = fields.Selection(
@@ -229,6 +231,7 @@ class MailTemplate(models.Model):
         email_values=None,
         notif_layout=False,
         is_wxwork_message=None,
+        company=None,
     ):
         """ 
         生成一个新的mail.mail.  模板在由res_id和来自模板的模型给定的记录中呈现。
@@ -266,7 +269,7 @@ class MailTemplate(models.Model):
                 "message_to_tag",
                 "media_id",
                 "message_body_html",
-                "message_body_text",
+                "message_body_json",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
@@ -387,6 +390,8 @@ class MailTemplate(models.Model):
 
         if force_send:
             mail.send(
-                raise_exception=raise_exception, is_wxwork_message=is_wxwork_message
+                raise_exception=raise_exception,
+                is_wxwork_message=is_wxwork_message,
+                company=company,
             )
         return mail.id  # TDE CLEANME: return mail + api.returns ?

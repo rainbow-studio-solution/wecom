@@ -19,10 +19,10 @@
                     <p>Choose a language: <field name="lang" class="oe_inline ml8"/></p>
                     <field name="msgtype" invisible="1"/>
                     <hr/>
-                    <label for="message_body_text" string="Enterprise WeChat message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                    <label for="message_body_json" string="Enterprise WeChat message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
                     <label for="message_body_html" string="Enterprise WeChat message html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> 
                     <hr/>
-                    <field name="message_body_text" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>                     
+                    <field name="message_body_json" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>                     
                     <field name="message_body_html" widget="html" readonly="1" nolabel="1" options='{"safe": True}'  attrs="{'invisible': [('msgtype','!=','mpnews')]}" />
                     <hr/>
                     <footer>

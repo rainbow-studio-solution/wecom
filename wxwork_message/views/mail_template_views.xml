@@ -50,9 +50,8 @@
                                 <label for="media_id"/>
                                 <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
                                 </p>
-
-                                <field name="message_body_text" widget="wxwork_message_widget" nolabel="1" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
                                 <field name="message_body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
+                                <field name="message_body_json" widget="wxwork_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
                             </page>                            
                             <page string="Message Configuration" name="message_configuration">
                                 <group>

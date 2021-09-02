@@ -133,6 +133,7 @@ class ResUsers(models.Model):
                     force_send=force_send,
                     raise_exception=True,
                     is_wxwork_message=is_wxwork_message,
+                    company=user.company_id,
                 )
             _logger.info(
                 _("Password reset email or message sent for user <%s> to <%s> <%s>"),

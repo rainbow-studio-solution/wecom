@@ -273,8 +273,8 @@ msgstr "EMail撰写向导"
 
 #. module: wxwork_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email
-msgid "Email type"
-msgstr "电子邮件类型"
+msgid "Message type"
+msgstr "消息类型"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__is_wxwork_message
@@ -1074,6 +1074,26 @@ msgstr "主题（此处可使用占位符）"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__taskcard
 msgid "Task card message"
 msgstr "任务卡片消息"
+
+#. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_blacklist__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_channel__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_compose_message__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_message__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_blacklist__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_cc__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_phone__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__template_card
+#: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__template_card
+msgid "Template card message"
+msgstr "模板卡片消息"
 
 #. module: wxwork_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email_template

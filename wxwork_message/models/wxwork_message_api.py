@@ -84,7 +84,7 @@ class WxWorkMessageApi(models.AbstractModel):
 
     def send_by_api(self, message):
         sys_params = self.env["ir.config_parameter"].sudo()
-
+        print(message)
         corpid = message["corpid"]
         secret = message["secret"]
         wxapi = CorpApi(corpid, secret)
@@ -136,12 +136,13 @@ class WxWorkMessageApi(models.AbstractModel):
             .browse(int(media_id))
             .read(["name"])
         )
-        print(material_info)
+
         material = (
             self.sudo().env["wxwork.material"].search([("company_id", "=", company.id),("name", "=", material_info[0]["name"]),], limit=1,)
         ) 
-        print(material)
+        
         material_media_id = self.check_material_file_expiration(material)
+        print(material.media_id)
         messages_content = {}
         if msgtype == "text":
             # 文本消息

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="jsoneditor assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_jsoneditor/static/src/js/jsoneditor.js"></script>
+
+            <link rel="stylesheet" type="text/scss" href="/web_jsoneditor/static/src/scss/jsoneditor.scss"/>
+        </xpath>
+    </template>
+</odoo>

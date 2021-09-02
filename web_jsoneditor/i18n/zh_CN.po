@@ -1,0 +1,105 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* web_jsoneditor
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-05 12:16+0000\n"
+"PO-Revision-Date: 2021-07-05 20:20+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid " ,Can't save"
+msgstr " ，无法保存"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid " error"
+msgstr " 错误"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Json Editor"
+msgstr "Json 编辑器"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Json Validation Error"
+msgstr "Json验证错误"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Json validation is correct. Can be saved"
+msgstr "Json验证正确。可以保存"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Please check the JSON text!"
+msgstr "请检查JSON文本！"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "open the browser console to see the error objects"
+msgstr "打开浏览器控制台以查看错误对象"
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "was called with "
+msgstr "调用时 "
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Read-only mode"
+msgstr "只读模式 "
+
+#. module: web_jsoneditor
+#. openerp-web
+#: code:addons/web_jsoneditor/static/src/js/jsoneditor.js:0
+#, python-format
+msgid "Edit mode"
+msgstr "编辑模式 "
+
+#. module: web_proxy_printing
+#: code:addons/web_proxy_printing/models/ir_actions_report.py:0
+#, python-format
+msgid "Success"
+msgstr "成功"
+
+#. module: web_proxy_printing
+#: code:addons/web_proxy_printing/models/ir_actions_report.py:0
+#, python-format
+msgid "Warning"
+msgstr "警告"
+
+#. module: web_proxy_printing
+#: model_terms:ir.ui.view,arch_db:web_proxy_printing.act_report_xml_view
+msgid "Generate report template"
+msgstr "生成报表模板"

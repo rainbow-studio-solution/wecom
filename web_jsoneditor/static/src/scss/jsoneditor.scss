@@ -1,0 +1,30 @@
+.o_form_field_jsoneditor {
+    width: 100% !important;
+    height: 100% !important;
+
+    .o_form_field_jsoneditor_ditor {
+        width: 100% !important;
+        height: 600px !important;
+    }
+
+    .jsoneditor {
+        width: 100% !important;
+        height: 600px !important;
+
+        .jsoneditor-menu {
+            span.jsoneditor-renderMode {
+                font-size: 8pt;
+                position: absolute;
+                right: 0;
+                top: 0;
+                padding: 10px;
+            }
+
+            .jsoneditor-search {
+                .jsoneditor-frame {
+                    display: flex !important;
+                }
+            }
+        }
+    }
+}

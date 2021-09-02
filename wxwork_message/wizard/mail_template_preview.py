@@ -20,7 +20,7 @@ class MailTemplatePreview(models.TransientModel):
         "message_to_user",
         "message_to_party",
         "message_to_tag",
-        "message_body_text",
+        "message_body_json",
         "message_body_html",
         "scheduled_date",
         "attachment_ids",
@@ -35,6 +35,10 @@ class MailTemplatePreview(models.TransientModel):
         string="To Departments", help="Message recipients (departments)",
     )
     message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
-    message_body_text = fields.Text("Text Body", compute="_compute_mail_template_fields")
-    message_body_html = fields.Html("Html Body", compute="_compute_mail_template_fields")
+    message_body_json = fields.Text(
+        "Text Body", compute="_compute_mail_template_fields"
+    )
+    message_body_html = fields.Html(
+        "Html Body", compute="_compute_mail_template_fields"
+    )
 

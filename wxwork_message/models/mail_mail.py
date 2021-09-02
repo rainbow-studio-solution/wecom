@@ -6,7 +6,7 @@ import threading
 from odoo import _, api, fields, models
 from odoo import tools
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, Warning
 
 from odoo.addons.wxwork_api.api.error_code import Errcode
 
@@ -23,7 +23,7 @@ class MailMail(models.Model):
     message_to_user = fields.Char(string="To User",)
     message_to_party = fields.Char(string="To Departments",)
     message_to_tag = fields.Char(string="To Tags",)
-    message_body_text = fields.Text("Text Contents",)
+    message_body_json = fields.Text("Text Contents",)
     message_body_html = fields.Text("Html Contents",)
 
     safe = fields.Selection(
@@ -112,7 +112,13 @@ class MailMail(models.Model):
     # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
 
-    def send(self, auto_commit=False, raise_exception=False, is_wxwork_message=None):
+    def send(
+        self,
+        auto_commit=False,
+        raise_exception=False,
+        is_wxwork_message=None,
+        company=None,
+    ):
         """ 
         立即发送选定的电子邮件，而忽略它们的当前状态（除非已被重新发送，否则不应该传递已经发送的电子邮件）。
         成功发送的电子邮件被标记为“已发送”，未发送成功的电子邮件被标记为“例外”，并且相应的错误邮件将输出到服务器日志中。
@@ -123,7 +129,7 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-
+        print(self)
         if is_wxwork_message is None:
             if self.message_to_user:
                 is_wxwork_message = True
@@ -172,7 +178,9 @@ class MailMail(models.Model):
             finally:
                 if is_wxwork_message:
                     self.browse(batch_ids)._send_wxwork_message(
-                        auto_commit=auto_commit, raise_exception=raise_exception,
+                        auto_commit=auto_commit,
+                        raise_exception=raise_exception,
+                        company=company,
                     )
                     # if raise_exception:
                     #     self.browse(batch_ids)._send_wxwork_message(
@@ -243,7 +251,7 @@ class MailMail(models.Model):
             email_to = tools.email_split_and_format(self.email_to)
             message_to_user = self.message_to_user
         res = {
-            # "message_body_text": message_body_text,
+            # "message_body_json": message_body_json,
             # "message_body_html": message_body_html,
             "email_to": email_to,
             "message_to_user": message_to_user,
@@ -260,12 +268,15 @@ class MailMail(models.Model):
         :param bool raise_exception：如果电子邮件发送过程失败，是否引发异常 
         :return: True
         """
- 
+
         # TODO 待处理各类型的接收者
-        
+
         sys_params = self.env["ir.config_parameter"].sudo()
-        
-        employee = self.env["hr.employee"].sudo().search(
+
+        employee = (
+            self.env["hr.employee"]
+            .sudo()
+            .search(
                 [
                     ("wxwork_id", "=", self.message_to_user),
                     "|",
@@ -273,6 +284,7 @@ class MailMail(models.Model):
                     ("active", "=", False),
                 ],
             )
+        )
         company = employee.company_id
         corpid = company.corpid
         secret = company.message_secret
@@ -299,14 +311,16 @@ class MailMail(models.Model):
                 # TODO 待处理多公司-企业微信互联功能
 
                 self.browse(batch_ids)._send_wxwork_message(
-                    auto_commit=auto_commit, raise_exception=raise_exception,company=company
+                    auto_commit=auto_commit,
+                    raise_exception=raise_exception,
+                    company=company,
                 )
                 _logger.info(
                     _("Sent batch %s messages"), len(batch_ids),
                 )
 
     def _send_wxwork_message(
-        self, auto_commit=False, raise_exception=False,company=False,
+        self, auto_commit=False, raise_exception=False, company=False,
     ):
         """
         :param bool auto_commit: 发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
@@ -386,7 +400,7 @@ class MailMail(models.Model):
                         records=notifs,
                     )
                 # TODO 带处理获取素材
-                
+
                 # 建立电子邮件.message.message对象并在不排队的情况下发送它
                 res = None
                 for email in email_list:
@@ -401,7 +415,7 @@ class MailMail(models.Model):
                         description=mail.description,
                         author_id=mail.author_id,
                         body_html=mail.message_body_html,
-                        body_text=mail.message_body_text,
+                        body_text=mail.message_body_json,
                         safe=mail.safe,
                         enable_id_trans=mail.enable_id_trans,
                         enable_duplicate_check=mail.enable_duplicate_check,
@@ -419,8 +433,7 @@ class MailMail(models.Model):
                         pass
 
                 if res:  # 消息已至少发送一次，未发生重大异常
-                    print(res)
-                    if "errcode" in res:
+                    if "errcode" in str(res):
                         if res.get("errcode") == 0:
                             failure_reason = ""
                             # 处理无效的接收人
@@ -472,10 +485,8 @@ class MailMail(models.Model):
                                 }
                             )
                     else:
-                        raise Warning(
-                            res
-                        )
-                    raise 
+                        raise Warning(res)
+                    raise
                 else:
                     failure_reason = _("Unknown reason")
                     _logger.exception(

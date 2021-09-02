@@ -64,7 +64,7 @@
             <!-- 对应菜单：设置→技术→电子邮件 -->
             <menuitem 
                 id="menu_wxwork_email" 
-                name="Email type"  
+                name="Message type"  
                 parent="menu_wxwork_message_root"
                 sequence="2"/>
 

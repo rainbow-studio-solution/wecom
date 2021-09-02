@@ -44,7 +44,7 @@
                         <notebook>
                             <page string="Body" name="body">
                                 <!-- <field name="body" options="{'style-inline': true}"/> -->
-                                <field name="message_body_text" force_save="1" widget="wxwork_message_widget" options="{'style-inline': true}" style="height: 300px;" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','=','mpnews')]}"/>
+                                <field name="message_body_json" force_save="1" widget="wxwork_message_widget" options="{'style-inline': true}" style="height: 300px;" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','=','mpnews')]}"/>
                                 <field name="message_body_html" force_save="1" widget="html" options="{'style-inline': true}" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','!=','mpnews')]}"/>
                             </page>
                             <page string="Gateway" name="gateway">

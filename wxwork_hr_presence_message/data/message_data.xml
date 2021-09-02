@@ -4,7 +4,7 @@
         <record id="hr_presence.mail_template_presence" model="mail.template">
             <field name="msgtype">text</field>
             <field name="message_to_user">${object.user_id.wxwork_id}</field>
-            <field name="message_body_text" type="xml">
+            <field name="message_body_json" type="xml">
                 <div>
                     Dear ${object.name},<br/><br/>
                     Exception made if there was a mistake of ours, it seems that you are not at your office and there is not request of time off from you.<br/>
