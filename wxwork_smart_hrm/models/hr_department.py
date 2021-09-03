@@ -30,7 +30,7 @@ class Department(models.Model):
     wxwork_department_order = fields.Char(
         "Enterprise WeChat department sort",
         default="1",
-        help="Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32)",
+        help="Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32]",
         readonly=True,
     )
     is_wxwork_department = fields.Boolean(

@@ -12,7 +12,7 @@ _logger = logging.getLogger(__name__)
 class MailTemplate(models.Model):
     "Template for sending Enterprise WeChat message"
 
-    _inherit = ["mail.template"]
+    _inherit = "mail.template"
     _description = "Enterprise WeChat Message Templates"
     _order = "name"
 

@@ -82,5 +82,33 @@ class ChangeTypeUser(models.TransientModel):
             ):
                 pass
             else:
+                employee = (
+                    self.env["hr.employee"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wxwork_id", "=", line.user_id.login),
+                            ("is_wxwork_employee", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                        limit=1,
+                    )
+                )
+                print(len(employee))
+                # TODO 待处理员工ids和员工id绑定的问题
+                if line.new_type == "1":
+                    line.user_id.sudo().write(
+                        {
+                            "employee_ids": [(6, 0, [employee.id])],  # One2many
+                            "employee_id": employee.id,  # Many2one
+                        }
+                    )
+                    print(
+                        len(employee),
+                        line.user_id.employee_ids,
+                        line.user_id.employee_id,
+                    )
                 line.user_id.write({"groups_id": [(6, 0, line.new_type)]})
         self.write({"new_type": False})

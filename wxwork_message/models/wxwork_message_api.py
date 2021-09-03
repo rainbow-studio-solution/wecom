@@ -95,7 +95,7 @@ class WxWorkMessageApi(models.AbstractModel):
         # 删除message中的corpid和secret
         del message["corpid"]
         del message["secret"]
-  
+        print(message)
         try:
             # 避免错误弹窗，使用try
             response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)

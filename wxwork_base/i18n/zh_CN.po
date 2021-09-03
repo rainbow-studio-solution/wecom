@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-08 05:06+0000\n"
-"PO-Revision-Date: 2021-08-08 13:07+0800\n"
+"POT-Creation-Date: 2021-09-03 03:19+0000\n"
+"PO-Revision-Date: 2021-09-03 11:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,11 @@ msgstr ""
 "Plural-Forms: \n"
 "Language: zh_CN\n"
 "X-Generator: Poedit 3.0\n"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"Enterprise wechat Square logo\"/>"
+msgstr ""
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
@@ -88,6 +93,11 @@ msgstr ""
 "                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
+msgid "Abbreviated Name"
+msgstr "公司简称"
+
+#. module: wxwork_base
 #: model:res.groups,name:wxwork_base.group_wxwork_manager
 msgid "Administrator"
 msgstr "管理员"
@@ -131,7 +141,6 @@ msgstr "显示名称"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__corpid
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__corpid
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__wxwork_company_corpid
 msgid "Enterprise ID"
 msgstr "企业ID"
@@ -160,14 +169,14 @@ msgid "Enterprise WeChat Settings"
 msgstr "企业微信设置"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo
+msgid "Enterprise wechat Square logo"
+msgstr "企业微信方块Logo"
+
+#. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__is_wxwork_organization
 msgid "Enterprise wechat organization"
 msgstr "企业微信组织"
-
-#. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
-msgid "Abbreviated Name"
-msgstr "公司简称"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
@@ -179,6 +188,11 @@ msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID�
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
 msgid "ID"
 msgstr "ID"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "It is used to display the company logo for enterprise wechat messages."
+msgstr "用于显示企业微信消息的公司Logo。"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company____last_update
@@ -200,6 +214,11 @@ msgstr "主管"
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid "Set the corporate ID of all companies"
 msgstr "设置所有公司的企业ID"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo_web
+msgid "Square Logo Web"
+msgstr "Web方块Logo"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form

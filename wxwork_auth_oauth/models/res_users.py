@@ -72,6 +72,8 @@ class ResUsers(models.Model):
         """ 
         为每个用户创建注册令牌，并通过企业微信消息发送其注册网址 
         """
+        print("用户的员工ids", self.employee_ids)
+        print("用户的员工id", self.employee_id)
         if self.env.context.get("install_mode", False):
             return
         if self.filtered(lambda user: not user.active):
