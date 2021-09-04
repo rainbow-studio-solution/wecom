@@ -73,20 +73,21 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var url = $(ev.target).attr('href');
             var icon = $(ev.target).find("i")
             var msg = "";
-            if (icon.hasClass("wxwork_auth_scancode")) {
-                const data = await Promise.resolve(self.companies);
 
-                if (data.length > 1) {
-                    var companies = [];
-                    $.each(data, function (index, element) {
-                        var new_url = self.updateUrlParam(url, 'appid', element["appid"]);
-                        new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
-                        companies.push({
-                            "id": element["id"],
-                            "name": element["name"],
-                            "qr_code_url": new_url,
-                        });
+            const data = await Promise.resolve(self.companies);
+            console.log(data.length);
+            var companies = [];
+            if (data.length > 1) {
+                $.each(data, function (index, element) {
+                    var new_url = self.updateUrlParam(url, 'appid', element["appid"]);
+                    new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
+                    companies.push({
+                        "id": element["id"],
+                        "name": element["name"],
+                        "url": new_url,
                     });
+                });
+                if (icon.hasClass("wxwork_auth_scancode")) {
                     var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
                         companies: companies,
                     }));
@@ -94,20 +95,22 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                         dialog.appendTo($(document.body));
                     }
                     dialog.modal('show');
-                }
-            } else if (icon.hasClass("fa-wechat")) {
-                var ua = navigator.userAgent.toLowerCase();
-                if (ua.match(/WxWork/i) == "wxwork") {
-                    window.open(url);
-                } else {
-                    var dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
-                        isWxworkBrowser: self.isWxworkBrowser,
-                        msg: this.msg
-                    }));
-                    if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
-                        dialog.appendTo($(document.body));
+
+                } else if (icon.hasClass("wxwork_auth_onekey")) {
+                    var ua = navigator.userAgent.toLowerCase();
+                    if (ua.match(/WxWork/i) == "wxwork") {
+                        window.open(url);
+                    } else {
+                        var dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
+                            isWxworkBrowser: self.isWxworkBrowser,
+                            msg: this.msg,
+                            companies: companies,
+                        }));
+                        if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
+                            dialog.appendTo($(document.body));
+                        }
+                        dialog.modal('show');
                     }
-                    dialog.modal('show');
                 }
             } else {
                 window.open(url);

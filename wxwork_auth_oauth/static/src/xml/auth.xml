@@ -25,7 +25,7 @@
                                     t-attf-class="tab-pane fade {{company_index==0 ? 'show active':''}}" 
                                     t-att-id="'tab_' + company_index"  
                                     role="tabpanel" >
-                                    <iframe t-att-src="company.qr_code_url" 
+                                    <iframe t-att-src="company.url" 
                                             frameborder="0"
                                             scrolling="0"   
                                     ></iframe>
@@ -46,17 +46,24 @@
 
     <t t-name="wxwork_auth_oauth.LoginDialog">
         <div class="wxwork_qr_dialog modal fade" id="wxwork_login_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
-            <div class="modal-dialog" style="top:100px;">
+            <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">
                     <main class="modal-body" style="background-color:#FFFFFF">
                         <div t-att-class="'text-center font-weight-bold text-'+ (isWxworkBrowser ? ' success' : 'danger')">
                             <t t-esc="msg"/>
                         </div>
+                        <div t-if="isWxworkBrowser" class="list-group">
+                            <t t-set="companies" t-value="companies"/>
+                                <a t-att-href="company.url" class="list-group-item list-group-item-action">
+                                    <t t-esc="company.name"/>
+                                </a>
+                            </t>
+                        </div>
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">
-                        <button t-if="isWxworkBrowser" type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
+                        <!-- <button t-if="isWxworkBrowser" type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
                             <i class="fa fa-check text-primary" aria-label="Submit" style="background-color:transparent;font-size: 36px;"/>
-                        </button>
+                        </button> -->
                         <button type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
                             <i class="fa fa-times-circle-o" aria-label="Close" style="background-color:transparent;font-size: 36px;color: #ffffff;"/>
                         </button>
