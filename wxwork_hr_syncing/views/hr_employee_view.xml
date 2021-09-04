@@ -7,17 +7,15 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
-                <field name="work_email" position="after">
-                    <field name="user_check_tick" invisible="1"/>
-                </field>
+  
                 <xpath expr="//header//button[last()]" position="before">
 
-                    <button name="update_from_enterprise_wechat" string="Update from enterprise wechat" type="object" class="oe_highlight btn-info"
+                    <!-- <button name="update_from_enterprise_wechat" string="Update from enterprise wechat" type="object" class="oe_highlight btn-info"
                             attrs="{'invisible': [('is_wxwork_employee', '=', False)]}"
-                            groups="hr.group_hr_manager"/>
+                            groups="hr.group_hr_manager"/> -->
 
-                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-primary"
-                            attrs="{'invisible': ['|', ('is_wxwork_employee', '=', False),('user_check_tick', '=', True)]}"
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info"
+                            attrs="{'invisible': ['|',('is_wxwork_employee', '=', False),('user_id', '!=', False)]}"
                             groups="hr.group_hr_manager"/>
                     
                 </xpath>

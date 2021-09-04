@@ -7,6 +7,14 @@ from odoo.exceptions import UserError
 class Users(models.Model):
     _inherit = "res.users"
 
+    employee_id = fields.Many2one(
+        "hr.employee",
+        string="Company employee",
+        compute="_compute_company_employee",
+        search="_search_company_employee",
+        store=True,
+    )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
+
 
 # ----------------------------------------------------------
 # 变更用户类型向导
@@ -82,33 +90,19 @@ class ChangeTypeUser(models.TransientModel):
             ):
                 pass
             else:
-                employee = (
-                    self.env["hr.employee"]
-                    .sudo()
-                    .search(
-                        [
-                            ("wxwork_id", "=", line.user_id.login),
-                            ("is_wxwork_employee", "=", True),
-                            "|",
-                            ("active", "=", True),
-                            ("active", "=", False),
-                        ],
-                        limit=1,
-                    )
-                )
-                print(len(employee))
-                # TODO 待处理员工ids和员工id绑定的问题
                 if line.new_type == "1":
-                    line.user_id.sudo().write(
-                        {
-                            "employee_ids": [(6, 0, [employee.id])],  # One2many
-                            "employee_id": employee.id,  # Many2one
-                        }
-                    )
-                    print(
-                        len(employee),
-                        line.user_id.employee_ids,
-                        line.user_id.employee_id,
-                    )
+                    try:
+                        line.user_id.employee_id = (
+                            self.env["hr.employee"].search(
+                                [
+                                    ("id", "in", line.user_id.employee_ids.ids),
+                                    ("company_id", "=", line.user_id.company_id.id),
+                                ],
+                                limit=1,
+                            ),
+                        )
+                    except Exception as e:
+                        print("用户 %s 类型变更错误,错误:%s" % (line.user_id.name, repr(e)))
+
                 line.user_id.write({"groups_id": [(6, 0, line.new_type)]})
         self.write({"new_type": False})

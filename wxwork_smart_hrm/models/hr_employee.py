@@ -43,8 +43,6 @@ class HrEmployeePrivate(models.Model):
         string="Enterprise WeChat employees", readonly=True, default=False,
     )
 
-    user_check_tick = fields.Boolean(string="User Check Tick", default=False,)
-
     # TODO 待处理 增加标签成员 和 删除标签成员
     # @api.onchange("category_ids")
     # def _onchange_category_ids(self):

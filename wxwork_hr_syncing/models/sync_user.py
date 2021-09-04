@@ -142,34 +142,53 @@ class EmployeeSyncUser(models.Model):
         try:
             user = user.create(
                 {
+                    "address_id": employee.address_id,
+                    "work_location": employee.work_location,
+                    "coach_id": employee.coach_id,
+                    "address_home_id": employee.address_home_id,
+                    "is_address_home_a_company": employee.is_address_home_a_company,
+                    "km_home_work": employee.km_home_work,
+                    #
+                    "employee_ids": [(6, 0, [employee.id])],
                     "company_ids": [(6, 0, [employee.company_id.id])],
                     "company_id": employee.company_id.id,
                     "name": employee.name,
                     "login": employee.wxwork_id,
-                    "password": self.env["wxwork.tools"].random_passwd(8),  # 随机8位密码
+                    "password": self.env["wxwork.tools"].random_passwd(8),
                     "email": employee.work_email,
+                    "private_email": employee.address_home_id.email,
+                    "job_title": employee.job_title,
+                    "work_phone": employee.work_phone,
+                    "mobile_phone": employee.mobile_phone,
+                    "employee_phone": employee.work_email,
+                    "work_email": employee.phone,
+                    "category_ids": employee.category_ids,
+                    "department_id": employee.department_id,
+                    "gender": employee.gender,
                     "wxwork_id": employee.wxwork_id,
                     "image_1920": employee.image_1920,
                     "qr_code": employee.qr_code,
                     "active": employee.active,
-                    "mobile": employee.mobile_phone,
-                    "phone": employee.work_phone,
+                    "wxwork_user_order": employee.wxwork_user_order,
                     "is_wxwork_user": True,
                     "is_moderator": False,
                     "is_company": False,
                     "employee": True,
                     "share": False,
                     "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
-                    "tz": "Asia/Chongqing",
+                    "tz": "Asia/Shanghai",
                     "lang": "zh_CN",
                 }
             )
             if user.id:
+                user.partner_id.write(
+                    {"company_id": employee.company_id.id,}
+                )
                 employee.write(
                     {
                         "user_id": user.id,
+                        "user_partner_id": user.id,
                         "address_home_id": user.partner_id.id,
-                        "user_check_tick": True,
                     }
                 )
         except Exception as e:
