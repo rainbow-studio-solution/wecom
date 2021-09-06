@@ -39,6 +39,15 @@ from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 
 _logger = logging.getLogger(__name__)
 
+WXWORK_BROWSER_MESSAGES = {
+    "not_wxwork_browser": _(
+        "The current browser is not an enterprise WeChat built-in browser, so the one-click login function cannot be used."
+    ),
+    "is_wxwork_browser": _(
+        "It is detected that the page is opened in the built-in browser of enterprise wechat, please select company."
+    ),
+}
+
 
 class AuthSignupHome(SignupHome):
     def web_auth_signup(self, *args, **kw):
@@ -170,10 +179,9 @@ class OAuthLogin(Home):
                 )
 
                 state = self.get_state(provider)
+
                 params = dict(
-                    appid=request.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("wxwork.corpid"),
+                    appid=False,
                     redirect_uri=return_url,
                     response_type="code",
                     scope=provider["scope"],
@@ -192,16 +200,10 @@ class OAuthLogin(Home):
                 return_url = request.httprequest.url_root + "wxowrk_auth_oauth/qr"
 
                 state = self.get_state(provider)
-                auth_agentid = (
-                    request.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("wxwork.auth_agentid")
-                )
+
                 params = dict(
-                    appid=request.env["ir.config_parameter"]
-                    .sudo()
-                    .get_param("wxwork.corpid"),
-                    agentid=auth_agentid,
+                    appid=False,
+                    agentid=False,
                     redirect_uri=return_url,
                     state=json.dumps(state),
                 )
@@ -231,17 +233,26 @@ class OAuthController(Controller):
         "/wxowrk_auth_oauth/authorize", type="http", auth="none",
     )
     def wxwork_web_authorize(self, **kw):
+        print(kw)
+        print(kw["state"])
         code = kw.pop("code", None)
-        corpid = request.env["ir.config_parameter"].sudo().get_param("wxwork.corpid")
-        secret = (
-            request.env["ir.config_parameter"].sudo().get_param("wxwork.auth_secret")
+
+        state = json.loads(kw["state"])
+
+        company = (
+            request.env["res.company"]
+            .sudo()
+            .search(
+                [("corpid", "=", state["a"]), ("is_wxwork_organization", "=", True),],
+            )
         )
+        corpid = company.corpid
+        secret = company.auth_secret
         wxwork_api = CorpApi(corpid, secret)
         response = wxwork_api.httpCall(
             CORP_API_TYPE["GET_USER_INFO_BY_CODE"], {"code": code,},
         )
 
-        state = json.loads(kw["state"])
         dbname = state["d"]
         if not http.db_filter([dbname]):
             return BadRequest()
@@ -305,7 +316,6 @@ class OAuthController(Controller):
 
     @http.route("/wxowrk_auth_oauth/qr", type="http", auth="none")
     def wxwork_qr_authorize(self, **kw):
-
         code = kw.pop("code", None)
         company = (
             request.env["res.company"]
@@ -381,9 +391,23 @@ class OAuthController(Controller):
 
         return set_cookie_and_redirect(url)
 
-    @http.route("/wxowrk_login_qrcode", type="json", auth="none")
-    def wxwork_get_login_qrcode(self, **kwargs):
-        data = []
+    @http.route("/wxowrk_login_info", type="json", auth="none")
+    def wxwork_get_login_info(self, **kwargs):
+
+        data = {}
+        if kwargs["is_wxwork_browser"]:
+            data = {
+                "is_wxwork_browser": True,
+                "msg": WXWORK_BROWSER_MESSAGES["is_wxwork_browser"],
+                "companies": [],
+            }
+        else:
+            data = {
+                "is_wxwork_browser": False,
+                "msg": WXWORK_BROWSER_MESSAGES["not_wxwork_browser"],
+                "companies": [],
+            }
+
         # 获取 标记为 企业微信组织 的公司
         companies = request.env["res.company"].search(
             [(("is_wxwork_organization", "=", True))]
@@ -391,7 +415,7 @@ class OAuthController(Controller):
 
         if len(companies) > 0:
             for company in companies:
-                data.append(
+                data["companies"].append(
                     {
                         "id": company["id"],
                         "name": company["abbreviated_name"],
