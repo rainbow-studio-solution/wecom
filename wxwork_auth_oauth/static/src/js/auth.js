@@ -45,12 +45,15 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var url = $(ev.target).attr('href');
             var icon = $(ev.target).find("i")
             const data = await Promise.resolve(self.companies);
-            // console.log(data);
+
+            if ($(ev.target).prop("tagName") == "I") {
+                url = $(ev.target).parent().attr('href');
+                icon = $(ev.target);
+            }
 
             var companies = [];
             if (data["companies"].length > 1) {
                 $.each(data["companies"], function (index, element) {
-
                     var state = self.getUrlParam(url, "state").replace(/[+]/g, "").replace("#wechat_redirect", "");
                     var state_decode_str = decodeURIComponent(state);
                     var new_state = state_decode_str.slice(0, 1) + '"a":' + '"' + element["appid"] + '",' + state_decode_str.slice(1);
