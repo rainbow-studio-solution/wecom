@@ -32,7 +32,9 @@ Install:
     apt-get install ffmpeg libavcodec-extra
 
     # pydub
-    pip install pydub
+    pip install pydub ffmpy
+    or
+    pip3 install pydub ffmpy
 
 """,
     "depends": ["attachment_indexation", "wxwork_smart_hrm"],

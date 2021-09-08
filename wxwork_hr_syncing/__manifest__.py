@@ -17,7 +17,7 @@
 
         """,
     "depends": ["base", "mail", "auth_oauth", "wxwork_api", "wxwork_smart_hrm",],
-    "external_dependencies": {"python": ["numpy", "opencv-python",],},
+    "external_dependencies": {"python": [],},
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
