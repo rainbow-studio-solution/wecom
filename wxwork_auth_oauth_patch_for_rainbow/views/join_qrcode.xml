@@ -1,8 +1,9 @@
 <odoo>
-    <data>
 
-        <template id="login_join_qrcode" inherit_id="web.login">
-            <xpath expr="//div[hasclass('o_login_auth')]" position="before">
+    <data>
+        <template id="rainbow_login_join_qrcode" inherit_id="rainbow_community_theme.login">
+
+            <xpath expr="//t[@t-if='website_is_installed']//div[hasclass('o_login_auth')]" position="before">
                 <t t-set="companies" t-value="request and request.env['res.company'].sudo().get_login_join_qrcode()"/> 
 
                 <t t-if="len(companies) &gt; 0">
@@ -37,7 +38,14 @@
                 </t>
             </xpath>
             
+            
+            <xpath expr="//t[@t-if='website_is_installed']//div[hasclass('o_login_auth')]" position="replace">
+                <div class="o_login_auth">
+                    <t t-call="auth_oauth.providers"/>
+                </div>
+            </xpath>
+            
         </template>
-
     </data>
+
 </odoo>

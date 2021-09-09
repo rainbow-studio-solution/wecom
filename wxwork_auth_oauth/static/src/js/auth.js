@@ -64,7 +64,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                     new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
 
                     new_url = new_url + "#wechat_redirect";
-                    console.log(new_url)
+
                     companies.push({
                         "id": element["id"],
                         "name": element["name"],
@@ -103,6 +103,8 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
                         dialog.appendTo($(document.body));
                     }
                     dialog.modal('show');
+                } else {
+                    window.open(url);
                 }
             } else {
                 window.open(url);
