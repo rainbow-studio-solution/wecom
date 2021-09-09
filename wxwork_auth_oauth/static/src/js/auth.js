@@ -4,6 +4,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
     var publicWidget = require('web.public.widget');
     var core = require('web.core');
     var qweb = core.qweb;
+    var lazyloader = require('web.public.lazyloader');
 
     publicWidget.registry.WxWorkAuth = publicWidget.Widget.extend({
         selector: '.o_login_auth ',
@@ -16,12 +17,14 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
         },
         start: function () {
             var self = this;
+            console.log(this.$el);
             this.companies = self._rpc({
                 route: "/wxowrk_login_info",
                 params: {
                     is_wxwork_browser: self.is_wxwork_browser()
                 },
             });
+
             return this._super.apply(this, arguments);
         },
         is_wxwork_browser: function () {
@@ -45,7 +48,7 @@ odoo.define('wxwork_auth_oauth.auth', function (require) {
             var url = $(ev.target).attr('href');
             var icon = $(ev.target).find("i")
             const data = await Promise.resolve(self.companies);
-
+            console.log(data);
             if ($(ev.target).prop("tagName") == "I") {
                 url = $(ev.target).parent().attr('href');
                 icon = $(ev.target);

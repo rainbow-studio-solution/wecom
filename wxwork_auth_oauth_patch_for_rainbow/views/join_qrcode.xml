@@ -3,9 +3,8 @@
     <data>
         <template id="rainbow_login_join_qrcode" inherit_id="rainbow_community_theme.login">
 
-            <xpath expr="//t[@t-if='website_is_installed']//div[hasclass('o_login_auth')]" position="before">
+            <xpath expr="//t[@t-if='website_is_installed']//div[@name='login_button']" position="after">
                 <t t-set="companies" t-value="request and request.env['res.company'].sudo().get_login_join_qrcode()"/> 
-
                 <t t-if="len(companies) &gt; 0">
                     <a role="button" class="btn btn-secondary btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#login_join_qrcode" aria-controls="login_join_qrcode">Join Enterprise WeChat,Become our employee.</a>
                     <div class="collapse" id="login_join_qrcode">
@@ -36,13 +35,6 @@
                         </div>
                     </div>
                 </t>
-            </xpath>
-            
-            
-            <xpath expr="//t[@t-if='website_is_installed']//div[hasclass('o_login_auth')]" position="replace">
-                <div class="o_login_auth">
-                    <t t-call="auth_oauth.providers"/>
-                </div>
             </xpath>
             
         </template>

@@ -2,7 +2,7 @@
     <data>
 
         <template id="login_join_qrcode" inherit_id="web.login">
-            <xpath expr="//div[hasclass('o_login_auth')]" position="before">
+            <xpath expr="//div[hasclass('o_login_auth')][last()]" position="before">
                 <t t-set="companies" t-value="request and request.env['res.company'].sudo().get_login_join_qrcode()"/> 
 
                 <t t-if="len(companies) &gt; 0">
