@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="wxwork_auth_oauth.QrDialog">
+    <t t-name="wxwork_auth_oauth.OauthQrDialog">
         <div class="wxwork_qr_dialog modal fade" id="wxwork_qr_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
             <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">
@@ -44,7 +44,7 @@
         </div>
     </t>
 
-    <t t-name="wxwork_auth_oauth.LoginDialog">
+    <t t-name="wxwork_auth_oauth.OauthLoginDialog">
         <div class="wxwork_qr_dialog modal fade" id="wxwork_login_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
             <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">

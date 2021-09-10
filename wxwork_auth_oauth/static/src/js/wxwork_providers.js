@@ -76,7 +76,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                 });
 
                 if (icon.hasClass("wxwork_auth_scancode")) {
-                    var dialog = $(qweb.render('wxwork_auth_oauth.QrDialog', {
+                    var dialog = $(qweb.render('wxwork_auth_oauth.OauthQrDialog', {
                         companies: companies,
                     }));
                     if (self.$el.parents("body").find("#wxwork_qr_dialog").length == 0) {
@@ -99,7 +99,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                         msg: data["msg"],
                         companies: companies,
                     };
-                    var dialog = $(qweb.render('wxwork_auth_oauth.LoginDialog', {
+                    var dialog = $(qweb.render('wxwork_auth_oauth.OauthLoginDialog', {
                         data: new_data
                     }));
                     if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
