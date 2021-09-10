@@ -16,7 +16,8 @@
                 <!--企业微信网页登录二维码-->
                 <script type="text/javascript" src="https://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/>
                 
-                <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/auth.js"/>
+                <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_providers.js"/>               
+                <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_join.js"/>
             </xpath>
         </template>
 

@@ -395,16 +395,22 @@ class OAuthController(Controller):
     def wxwork_get_login_info(self, **kwargs):
 
         data = {}
-        if kwargs["is_wxwork_browser"]:
-            data = {
-                "is_wxwork_browser": True,
-                "msg": WXWORK_BROWSER_MESSAGES["is_wxwork_browser"],
-                "companies": [],
-            }
+        if "is_wxwork_browser" in kwargs:
+            if kwargs["is_wxwork_browser"]:
+                data = {
+                    "is_wxwork_browser": True,
+                    "msg": WXWORK_BROWSER_MESSAGES["is_wxwork_browser"],
+                    "companies": [],
+                }
+            else:
+                data = {
+                    "is_wxwork_browser": False,
+                    "msg": WXWORK_BROWSER_MESSAGES["not_wxwork_browser"],
+                    "companies": [],
+                }
         else:
             data = {
-                "is_wxwork_browser": False,
-                "msg": WXWORK_BROWSER_MESSAGES["not_wxwork_browser"],
+                "join_button_name": _("Join Enterprise WeChat,Become our employee."),
                 "companies": [],
             }
 
@@ -419,8 +425,10 @@ class OAuthController(Controller):
                     {
                         "id": company["id"],
                         "name": company["abbreviated_name"],
+                        "fullname": company["name"],
                         "appid": company["corpid"],
                         "agentid": company["auth_agentid"],
+                        "join_qrcode": company["join_qrcode"],
                     }
                 )
 
