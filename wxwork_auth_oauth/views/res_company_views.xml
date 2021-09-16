@@ -12,7 +12,7 @@
                         <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" /> Application login authorization</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
-                    <div class="row mt16 o_settings_container">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
@@ -108,11 +108,11 @@
                         </div>
                     </div>
 
-                    <h2 id="wxwork_oauth" class="d-flex justify-content-between">
+                    <h2 id="wxwork_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Join the enterprise QR code"/> Join the enterprise QR code</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
-                    <div class="row mt16 o_settings_container">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="enabled_join_qrcode"/>

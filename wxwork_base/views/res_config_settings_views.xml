@@ -96,38 +96,25 @@
                             <div class="col-12 col-lg-6 o_setting_box" >
                                 <div class="o_setting_right_pane">
                                     <div class="content-group">
-                                        <label for="wxwork_company_name"/>
+                                        <label for="company_name"/>
                                         <div class="mt4">
-                                            <field name="wxwork_company_name"/>
+                                            <field name="company_name"/>
                                         </div>
                                     </div>
                                     <hr/>
                                     <div class="content-group mt8">
-                                        <label for="wxwork_company_corpid"/>
+                                        <label for="corpid"/>
                                         <div class="mt4">
-                                            <field name="wxwork_company_corpid" widget="wxwork_password"/>
+                                            <field name="corpid" widget="wxwork_password"/>
                                         </div>
                                     </div>
                                     
                                     <br/>
                                     <button name="open_wxwork_company" icon="fa-arrow-right" type="object" string="Update Info" class="btn-link"/> 
+                                    <button name="%(base.action_res_company_form)d" icon="fa-arrow-right" type="action" string="Manage all companies" class="btn-link"/>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box" id="companies_setting">
-                                <div class="o_setting_right_pane">
-                                    <field name='wxwork_company_count' class="w-auto pl-1 font-weight-bold"/>
-                                    <span class='o_form_label' attrs="{'invisible':[('wxwork_company_count', '&gt;', '1')]}">
-                                        Company
-                                    </span>
-                                    <span class='o_form_label' attrs="{'invisible':[('wxwork_company_count', '&lt;=', '1')]}">
-                                        Companies
-                                    </span>
-                                    <br/>
-                                    <div class="mt8">
-                                        <button name="%(base.action_res_company_form)d" icon="fa-arrow-right" type="action" string="Set the corporate ID of all companies" class="btn-link"/>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </xpath>

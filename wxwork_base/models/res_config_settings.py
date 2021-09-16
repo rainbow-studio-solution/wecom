@@ -12,16 +12,10 @@ class ResConfigSettings(models.TransientModel):
         required=True,
         default=lambda self: self.env.company,
     )
-    wxwork_company_name = fields.Char(
-        related="company_id.display_name", string="Current company name"
+    company_name = fields.Char(related="company_id.display_name", string="Company Name")
+    corpid = fields.Char(
+        string="Enterprise ID", related="company_id.corpid", readonly=False
     )
-    wxwork_company_corpid = fields.Char(
-        string="Enterprise ID", compute="_compute_wxwork_company_corpid"
-    )
-    wxwork_company_count = fields.Integer(
-        "Number of Companies", compute="_compute_wxwork_company_count"
-    )
-
 
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)
 
@@ -52,12 +46,6 @@ class ResConfigSettings(models.TransientModel):
         super(ResConfigSettings, self).set_values()
         ir_config = self.env["ir.config_parameter"].sudo()
         ir_config.set_param("wxwork.debug_enabled", self.debug_enabled or "False")
-
-    @api.depends("company_id")
-    def _compute_wxwork_company_count(self):
-        company_count = self.env["res.company"].sudo().search_count([])
-        for record in self:
-            record.wxwork_company_count = company_count
 
     def open_wxwork_company(self):
         return {
