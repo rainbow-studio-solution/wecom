@@ -88,7 +88,7 @@ class MailThread(models.AbstractModel):
     media_id = fields.Many2one(
         string="Media file id",
         comodel_name="wxwork.material",
-        help="媒体文件Id,可以调用上传临时素材接口获取",
+        help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     message_body_json = fields.Text("Text Body", translate=True,)
     message_body_html = fields.Html("Html Body", translate=True, sanitize=False)
@@ -103,20 +103,22 @@ class MailThread(models.AbstractModel):
         string="Secret message",
         required=True,
         default="1",
-        help="表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持",
+        help="Indicates whether it is a confidential message, 0 indicates that it can be shared externally, 1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it can only be shared within the enterprise, and the default is 0; Note that only messages of mpnews type support the safe value of 2, and other message types do not",
     )
 
     enable_id_trans = fields.Boolean(
-        string="Turn on id translation", help="表示是否开启id转译，0表示否，1表示是，默认0", default=False
+        string="Turn on id translation",
+        help="Indicates whether to enable ID translation, 0 indicates no, 1 indicates yes, and 0 is the default",
+        default=False,
     )
     enable_duplicate_check = fields.Boolean(
         string="Turn on duplicate message checking",
-        help="表示是否开启重复消息检查，0表示否，1表示是，默认0",
+        help="Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The default is 0",
         default=False,
     )
     duplicate_check_interval = fields.Integer(
         string="Time interval for repeated message checking",
-        help="表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时",
+        help="Indicates whether the message check is repeated. The default is 1800s and the maximum is no more than 4 hours",
         default="1800",
     )
 

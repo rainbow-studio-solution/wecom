@@ -13,7 +13,7 @@ class IrModel(models.Model):
         store=False,
         compute="_compute_is_mail_thread_wxwork_message",
         search="_search_is_mail_thread_wxwork_message",
-        help="此模型是否支持通过企业微信发送消息和通知",
+        help="Does it support sending messages and notifications through enterprise wechat",
     )
 
     @api.depends("is_mail_thread")

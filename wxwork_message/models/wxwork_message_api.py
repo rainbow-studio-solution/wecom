@@ -34,7 +34,7 @@ class WxWorkMessageApi(models.AbstractModel):
         enable_id_trans=None,
         enable_duplicate_check=None,
         duplicate_check_interval=None,
-        company=None
+        company=None,
     ):
         """
         构建消息
@@ -52,12 +52,19 @@ class WxWorkMessageApi(models.AbstractModel):
         :body_json: 非图文消息的内容，不同消息类型，长度限制不一样 
         :safe: 表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，默认为0   
         :enable_id_trans: 表示是否开启id转译，0表示否，1表示是，默认0。仅第三方应用需要用到，企业自建应用可以忽略。 
-        :enable_duplicate_check: 表示是否开启重复消息检查，0表示否，1表示是，默认0
-        :duplicate_check_interval: 表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时
+        :enable_duplicate_check: Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The default is 0
+        :duplicate_check_interval: Indicates whether the message check is repeated. The default is 1800s and the maximum is no more than 4 hours
 
         """
         messages_content = self.get_messages_content(
-            msgtype, description, author_id, body_html, body_json, subject, media_id,company
+            msgtype,
+            description,
+            author_id,
+            body_html,
+            body_json,
+            subject,
+            media_id,
+            company,
         )
         messages_options = self.get_messages_options(
             msgtype,
@@ -84,14 +91,14 @@ class WxWorkMessageApi(models.AbstractModel):
 
     def send_by_api(self, message):
         sys_params = self.env["ir.config_parameter"].sudo()
- 
+
         corpid = message["corpid"]
         secret = message["secret"]
         wxapi = CorpApi(corpid, secret)
 
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wxwork.debug_enabled")
-        
+
         # 删除message中的corpid和secret
         del message["corpid"]
         del message["secret"]
@@ -104,7 +111,7 @@ class WxWorkMessageApi(models.AbstractModel):
 
         except BaseException as e:
             if debug:
-                _logger.warning(_("发送消息错误: %s") % (repr(e)))
+                _logger.warning(_("Error sending message: %s") % (repr(e)))
 
     @api.model
     def send_message(self, message):
@@ -136,17 +143,21 @@ class WxWorkMessageApi(models.AbstractModel):
         company=None,
     ):
         material_info = (
-            self.env["wxwork.material"]
-            .sudo()
-            .browse(int(media_id))
-            .read(["name"])
+            self.env["wxwork.material"].sudo().browse(int(media_id)).read(["name"])
         )
 
         material = (
-            self.sudo().env["wxwork.material"].search([("company_id", "=", company.id),("name", "=", material_info[0]["name"]),], limit=1,)
-        ) 
-        
-        
+            self.sudo()
+            .env["wxwork.material"]
+            .search(
+                [
+                    ("company_id", "=", company.id),
+                    ("name", "=", material_info[0]["name"]),
+                ],
+                limit=1,
+            )
+        )
+
         messages_content = {}
         if msgtype == "text":
             # 文本消息
@@ -215,7 +226,7 @@ class WxWorkMessageApi(models.AbstractModel):
         if msgtype == "template_card":
             # 模板卡片消息
             del messages_options["safe"]
-            
+
         return messages_options
 
     def check_material_file_expiration(self, material):
@@ -227,7 +238,7 @@ class WxWorkMessageApi(models.AbstractModel):
         Returns:
             [type]: [description]
         """
-        media_id =""
+        media_id = ""
         if material.created_at:
             # 有创建日期
             created_time = material.created_at

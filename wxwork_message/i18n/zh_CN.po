@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-31 06:57+0000\n"
-"PO-Revision-Date: 2021-08-31 15:03+0800\n"
+"POT-Creation-Date: 2021-09-17 07:51+0000\n"
+"PO-Revision-Date: 2021-09-17 15:58+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,11 +24,13 @@ msgstr "${object.partner_id.lang}"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Message Secret\"/>"
 msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"消息密钥\"/>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Message Agentid\"/>"
 msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"消息应用Id\"/>"
 
@@ -51,15 +53,36 @@ msgstr ""
 "                                    <span class=\"o_stat_text\">上下文动作</span>"
 
 #. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
+"Message\"/> Enterprise WeChat Message\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
+"below are the companies identified as enterprise wechat organizations.\"/>\n"
+"                        </span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> "
+"企业微信消息\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
+"识为企业微信组织的公司。\"/>\n"
+"                        </span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
+"部\"/>"
+
+#. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
 "Message\"/> Enterprise WeChat Message</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
-"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message\"/> 企业微信消息</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> 企"
+"业微信消息</span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
+"部\"/>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form
@@ -72,6 +95,7 @@ msgstr ""
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "<strong>Save</strong> this page and come back here to set up the feature."
 msgstr "<strong>保存</strong> 此页面并返回此处设置功能。"
 
@@ -92,6 +116,7 @@ msgstr "高级设置"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
 "authorized, copy 'AgentId'"
@@ -99,6 +124,7 @@ msgstr "应用程序管理→应用→打开需要验证和授权的应用程序
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
 "authorized, copy 'Secret'"
@@ -126,6 +152,14 @@ msgid "Cancel Email"
 msgstr "取消邮件"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__safe__1
@@ -142,7 +176,13 @@ msgstr "取消邮件"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__safe__1
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__safe__1
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__safe__1
 msgid "Cannot share and content shows watermark"
 msgstr "能分享且内容显示水印"
 
@@ -172,13 +212,22 @@ msgid "Companies"
 msgstr "公司"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wxwork_message
+#: model:ir.model,name:wxwork_message.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
 msgid "Content"
 msgstr "内容"
 
 #. module: wxwork_message
 #. openerp-web
-#: code:addons/wxwork/wxwork_message/static/src/js/copy_button.js:0
 #: code:addons/wxwork_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy One-click copy of email template succeeded!"
@@ -186,7 +235,6 @@ msgstr "一键复制邮件模板成功！"
 
 #. module: wxwork_message
 #. openerp-web
-#: code:addons/wxwork/wxwork_message/static/src/js/copy_button.js:0
 #: code:addons/wxwork_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy successfully!"
@@ -227,6 +275,7 @@ msgstr "讨论类型"
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview__display_name
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_thread__display_name
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__display_name
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_api__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -235,6 +284,11 @@ msgstr "显示名称"
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
 msgid "Display an option on related documents to open a composition wizard with this template"
 msgstr "在相关文档上显示一个选项，以使用此模板打开合成向导"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_ir_model__is_mail_thread_wxwork_message
+msgid "Does it support sending messages and notifications through enterprise wechat"
+msgstr "是否支持通过企业微信发送消息和通知"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
@@ -272,11 +326,17 @@ msgid "Email composition wizard"
 msgstr "EMail撰写向导"
 
 #. module: wxwork_message
-#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email
-msgid "Message type"
-msgstr "消息类型"
-
-#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__is_wxwork_message
@@ -295,8 +355,14 @@ msgstr "消息类型"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__is_wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__is_wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__is_wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_message__message_type__wxwork
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_notification__notification_type__wxwork
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_root
@@ -314,6 +380,11 @@ msgstr "企业微信消息API"
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form
 msgid "Enterprise WeChat Message Preview"
 msgstr "企业微信消息预览"
+
+#. module: wxwork_message
+#: model:ir.actions.act_window,name:wxwork_message.wxwork_message_config_settings_action
+msgid "Enterprise WeChat Message Settings"
+msgstr "企业微信消息设置"
 
 #. module: wxwork_message
 #: model:ir.model,name:wxwork_message.model_mail_template
@@ -336,7 +407,6 @@ msgid "Enterprise WeChat message text content"
 msgstr "企业微信消息文本内容"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid ""
@@ -349,7 +419,12 @@ msgstr ""
 "错误详细信息: %s"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork_message/models/wxwork_message_api.py:0
+#, python-format
+msgid "Error sending message: %s"
+msgstr "发送消息时出错：%s"
+
+#. module: wxwork_message
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid ""
@@ -368,14 +443,12 @@ msgid "Failed"
 msgstr "失败的"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s"
 msgstr "无法渲染模板：%s"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s (%d)"
@@ -392,6 +465,14 @@ msgid "Failure type"
 msgstr "失败类型"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__file
@@ -407,7 +488,13 @@ msgstr "失败类型"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__file
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__file
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__file
 msgid "File message"
 msgstr "文件消息"
 
@@ -417,6 +504,14 @@ msgid "Gateway"
 msgstr "网关"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__news
@@ -432,11 +527,25 @@ msgstr "网关"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__news
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__news
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__news
 msgid "Graphic message"
 msgstr "图文消息"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__mpnews
@@ -450,7 +559,13 @@ msgstr "图文消息"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__mpnews
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__mpnews
 msgid "Graphic message(mpnews)"
 msgstr "图文消息（mpnews）"
 
@@ -466,6 +581,15 @@ msgid "Group By"
 msgstr "分组依据"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_body_html
@@ -481,12 +605,20 @@ msgstr "分组依据"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_body_html
 msgid "Html Body"
 msgstr "Html正文"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__message_body_html
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_compose_message__message_body_html
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_mail__message_body_html
 msgid "Html Contents"
@@ -502,29 +634,200 @@ msgstr "Html内容"
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview__id
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_thread__id
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__id
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_api__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_message.py:0
 #: code:addons/wxwork_message/models/mail_message.py:0
 #, python-format
 msgid "In the test template message mode, only one user is allowed to send."
 msgstr "在测试模板消息模式中，只允许一个用户发送。"
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_move__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__safe
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__safe
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__safe
+#: model:ir.model.fields,help:wxwork_message.field_event_event__safe
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__safe
+#: model:ir.model.fields,help:wxwork_message.field_hr_department__safe
+#: model:ir.model.fields,help:wxwork_message.field_hr_employee__safe
+#: model:ir.model.fields,help:wxwork_message.field_hr_job__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_channel__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_mail__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_message__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_template__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__safe
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__safe
+#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__safe
+#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__safe
+#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__safe
+#: model:ir.model.fields,help:wxwork_message.field_product_product__safe
+#: model:ir.model.fields,help:wxwork_message.field_product_template__safe
+#: model:ir.model.fields,help:wxwork_message.field_res_partner__safe
+#: model:ir.model.fields,help:wxwork_message.field_res_users__safe
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__safe
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__safe
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__safe
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__safe
+msgid ""
+"Indicates whether it is a confidential message, 0 indicates that it can be shared externally, "
+"1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it "
+"can only be shared within the enterprise, and the default is 0; Note that only messages of "
+"mpnews type support the safe value of 2, and other message types do not"
+msgstr ""
+"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为"
+"0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_move__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_event_event__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_hr_department__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_hr_employee__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_hr_job__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_channel__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_mail__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_message__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_template__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_product_product__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_product_template__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_res_partner__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_res_users__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__duplicate_check_interval
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__duplicate_check_interval
+msgid ""
+"Indicates whether the message check is repeated. The default is 1800s and the maximum is no "
+"more than 4 hours"
+msgstr "表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_move__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_event_event__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_hr_department__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_hr_employee__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_hr_job__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_channel__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_mail__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_message__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_template__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_product_product__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_product_template__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_res_partner__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_res_users__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__enable_id_trans
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__enable_id_trans
+msgid ""
+"Indicates whether to enable ID translation, 0 indicates no, 1 indicates yes, and 0 is the "
+"default"
+msgstr "表示是否开启id转译，0表示否，1表示是，默认0"
+
+#. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_move__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_event_event__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_hr_department__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_hr_employee__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_hr_job__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_channel__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_mail__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_message__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_template__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_product_product__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_product_template__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_res_partner__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_res_users__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__enable_duplicate_check
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__enable_duplicate_check
+msgid ""
+"Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The "
+"default is 0"
+msgstr "表示是否开启重复消息检查，0表示否，1表示是，默认0"
+
+#. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "Install Enterprise WeChat Gamification Message"
 msgstr "安装企业微信游戏化消息"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "Install Enterprise WeChat Inventory Message"
 msgstr "安装企业微信库存信息"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid "Install Enterprise WeChat KPI Message"
 msgstr "安装企业微信KPI消息"
 
@@ -544,7 +847,13 @@ msgid "Invalid User"
 msgstr "无效的用户"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_template__message_body_json
+msgid "Json Body"
+msgstr "Json正文"
+
+#. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_digest
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_digest
 msgid "KPI Digests"
 msgstr "KPI摘要"
 
@@ -558,9 +867,10 @@ msgstr "KPI摘要"
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_thread____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company____last_update
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_api____last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr "最后更改日"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_ir_model__is_mail_thread_wxwork_message
@@ -568,6 +878,14 @@ msgid "Mail Thread Enterprise WeChat Message"
 msgstr "邮件线程企业微信"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__markdown
@@ -583,11 +901,65 @@ msgstr "邮件线程企业微信"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__markdown
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__markdown
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__markdown
 msgid "Markdown message"
 msgstr "Markdown 消息"
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_move__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__media_id
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__media_id
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__media_id
+#: model:ir.model.fields,help:wxwork_message.field_event_event__media_id
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__media_id
+#: model:ir.model.fields,help:wxwork_message.field_hr_department__media_id
+#: model:ir.model.fields,help:wxwork_message.field_hr_employee__media_id
+#: model:ir.model.fields,help:wxwork_message.field_hr_job__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_channel__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_template__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__media_id
+#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__media_id
+#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__media_id
+#: model:ir.model.fields,help:wxwork_message.field_product_product__media_id
+#: model:ir.model.fields,help:wxwork_message.field_product_template__media_id
+#: model:ir.model.fields,help:wxwork_message.field_res_partner__media_id
+#: model:ir.model.fields,help:wxwork_message.field_res_users__media_id
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__media_id
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__media_id
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__media_id
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__media_id
+msgid "Media file ID, which can be obtained by calling the upload temporary material interface"
+msgstr "媒体文件Id,可以调用上传临时素材接口获取"
+
+#. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__media_id
@@ -604,8 +976,14 @@ msgstr "Markdown 消息"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__media_id
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__media_id
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__media_id
 msgid "Media file id"
 msgstr "媒体文件Id"
 
@@ -620,6 +998,7 @@ msgstr "消息"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__message_agentid
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__message_agentid
 msgid "Message Agent Id"
 msgstr "消息应用Id"
 
@@ -635,6 +1014,7 @@ msgstr "消息通知"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__message_secret
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__message_secret
 msgid "Message Secret"
 msgstr "消息密钥"
 
@@ -656,6 +1036,17 @@ msgid "Message options"
 msgstr "消息选项"
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_move__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_event_event__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_hr_department__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_hr_employee__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_hr_job__message_to_party
@@ -672,12 +1063,29 @@ msgstr "消息选项"
 #: model:ir.model.fields,help:wxwork_message.field_mailing_contact__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_product_product__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_product_template__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_res_partner__message_to_party
 #: model:ir.model.fields,help:wxwork_message.field_res_users__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__message_to_party
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__message_to_party
 msgid "Message recipients (departments)"
 msgstr "消息接收人（部门）"
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_move__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_event_event__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_hr_department__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_hr_employee__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_hr_job__message_to_tag
@@ -694,12 +1102,29 @@ msgstr "消息接收人（部门）"
 #: model:ir.model.fields,help:wxwork_message.field_mailing_contact__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_product_product__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_product_template__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_res_partner__message_to_tag
 #: model:ir.model.fields,help:wxwork_message.field_res_users__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__message_to_tag
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__message_to_tag
 msgid "Message recipients (tags)"
 msgstr "消息接收人（标签）"
 
 #. module: wxwork_message
+#: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_bank_statement_line__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_invoice_send__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_journal__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_move__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_payment__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_account_tour_upload_bill__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_crm_team__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_event_event__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_event_registration__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_hr_department__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_hr_employee__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_hr_job__message_to_user
@@ -716,8 +1141,14 @@ msgstr "消息接收人（标签）"
 #: model:ir.model.fields,help:wxwork_message.field_mailing_contact__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_product_product__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_product_template__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_res_partner__message_to_user
 #: model:ir.model.fields,help:wxwork_message.field_res_users__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_stock_inventory__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_stock_picking__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__message_to_user
+#: model:ir.model.fields,help:wxwork_message.field_stock_scrap__message_to_user
 msgid "Message recipients (users)"
 msgstr "消息接收人（用户）"
 
@@ -728,6 +1159,17 @@ msgid "Message template"
 msgstr "消息模板"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__msgtype
@@ -745,8 +1187,15 @@ msgstr "消息模板"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__msgtype
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__msgtype
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__msgtype
+#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email
 msgid "Message type"
 msgstr "消息类型"
 
@@ -759,7 +1208,6 @@ msgid ""
 msgstr "消息类型：EMail用于 邮件消息， 通知用户系统消息，评论用于其他消息，例如用户回复"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Message with ID %r successfully sent"
@@ -773,6 +1221,14 @@ msgid "Messages"
 msgstr "消息消息"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__miniprogram
@@ -788,7 +1244,13 @@ msgstr "消息消息"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__miniprogram
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__miniprogram
 msgid "Mini Program Notification Message"
 msgstr "小程序通知消息"
 
@@ -799,16 +1261,17 @@ msgstr "模型"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_gamification
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_gamification
 msgid "Module Gamification"
 msgstr "游戏化模块"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_stock
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_stock
 msgid "Module Stock"
 msgstr "库存模块"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/wizard/mail_compose_message.py:0
 #: code:addons/wxwork_message/wizard/mail_compose_message.py:0
 #, python-format
 msgid "No recipient found."
@@ -830,6 +1293,14 @@ msgid "Notifications"
 msgstr "通知"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__safe__2
@@ -846,7 +1317,13 @@ msgstr "通知"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__safe__2
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__safe__2
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__safe__2
 msgid "Only share within the company "
 msgstr "仅限在企业内分享 "
 
@@ -866,6 +1343,14 @@ msgid "Outgoing Mails"
 msgstr "寄出邮件"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__image
@@ -881,26 +1366,29 @@ msgstr "寄出邮件"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__image
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__image
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__image
 msgid "Picture message"
 msgstr "图片消息"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the application ID of the message push"
 msgstr "请填写推送信息的应用ID"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the application secret of the message push"
 msgstr "请填写推送信息的应用Secret"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the company ID"
@@ -917,7 +1405,6 @@ msgid "Preview of"
 msgstr "预览"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_template.py:0
 #: code:addons/wxwork_message/models/mail_template.py:0
 #, python-format
 msgid "QWeb template %s not found when sending template %s. Sending without layouting."
@@ -955,6 +1442,17 @@ msgid "Scheduled Send Date"
 msgstr "计划发送日期"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__safe
@@ -971,18 +1469,26 @@ msgstr "计划发送日期"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__safe
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__safe
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__safe
 msgid "Secret message"
 msgstr "保密消息"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_wxwork_stock_message
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_wxwork_stock_message
 msgid "Send Inventory message via Enterprise WeChat"
 msgstr "通过企业微信发送库存信息"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_wxowrk_digest_message
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_wxowrk_digest_message
 msgid "Send KPI Digests periodically via Enterprise WeChat"
 msgstr "通过企业微信定期发送KPI摘要"
 
@@ -994,6 +1500,7 @@ msgstr "立即发送"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_res_company__module_wxwork_hr_gamification_message
+#: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings__module_wxwork_hr_gamification_message
 msgid "Send messages to motivate users via Enterprise WeChat"
 msgstr "通过企业微信发送信息激励用户"
 
@@ -1003,27 +1510,32 @@ msgid "Sent"
 msgstr "发送"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s emails via mail server ID #%s"
 msgstr "通过邮件服务器ID# %s 批量发送了 %s 条电子邮件"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s message via enterprise WeChat "
 msgstr "通过企业微信批量发送 %s 条消息 "
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s messages"
 msgstr "已批量发送 %s 条邮件"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__safe__0
@@ -1040,7 +1552,13 @@ msgstr "已批量发送 %s 条邮件"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__safe__0
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__safe__0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__safe__0
 msgid "Shareable"
 msgstr "可对外分享"
 
@@ -1056,6 +1574,14 @@ msgid "Subject (placeholders may be used here)"
 msgstr "主题（此处可使用占位符）"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__taskcard
@@ -1071,29 +1597,15 @@ msgstr "主题（此处可使用占位符）"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__taskcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__taskcard
 msgid "Task card message"
 msgstr "任务卡片消息"
-
-#. module: wxwork_message
-#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_blacklist__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_channel__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_compose_message__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_message__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_blacklist__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_cc__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_thread_phone__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__template_card
-#: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__template_card
-msgid "Template card message"
-msgstr "模板卡片消息"
 
 #. module: wxwork_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email_template
@@ -1106,21 +1618,23 @@ msgid "Template Preview"
 msgstr "模板预览"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
+#: model:ir.model.fields.selection,name:wxwork_message.selection__mail_template__msgtype__template_card
+msgid "Template card message"
+msgstr "模板卡片消息"
+
+#. module: wxwork_message
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering for language should be called with a list of IDs."
 msgstr "应使用ID列表调用语言的模板呈现。"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering should be called only using on a list of IDs."
 msgstr "应仅使用ID列表调用模板呈现。"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering supports only jinja or qweb."
@@ -1133,33 +1647,57 @@ msgid "Test template message"
 msgstr "测试模板消息"
 
 #. module: wxwork_message
-#: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_blacklist__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_channel__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_message__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_template__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_blacklist__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_cc__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_phone__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_body_text
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_blacklist__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_channel__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_message__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_blacklist__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_cc__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_phone__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_body_json
 msgid "Text Body"
 msgstr "文本正文"
 
 #. module: wxwork_message
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_compose_message__message_body_text
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_mail__message_body_text
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_compose_message__message_body_json
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_mail__message_body_json
 msgid "Text Contents"
 msgstr "文本内容"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__textcard
@@ -1175,11 +1713,25 @@ msgstr "文本内容"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__textcard
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__textcard
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__textcard
 msgid "Text card message"
 msgstr "文本卡片消息"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__text
@@ -1195,7 +1747,13 @@ msgstr "文本卡片消息"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__text
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__text
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__text
 msgid "Text message"
 msgstr "文本消息"
 
@@ -1205,6 +1763,17 @@ msgid "Thread"
 msgstr "线程"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__duplicate_check_interval
@@ -1221,12 +1790,29 @@ msgstr "线程"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__duplicate_check_interval
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__duplicate_check_interval
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__duplicate_check_interval
 msgid "Time interval for repeated message checking"
 msgstr "重复消息检查的时间间隔"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_to_party
@@ -1245,12 +1831,20 @@ msgstr "重复消息检查的时间间隔"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_to_party
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_to_party
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_to_party
 msgid "To Departments"
 msgstr "接收消息的部门"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_compose_message__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_message__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_notification__message_to_user
@@ -1258,6 +1852,17 @@ msgid "To Employees"
 msgstr "接收消息的员工"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_to_tag
@@ -1276,8 +1881,14 @@ msgstr "接收消息的员工"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_to_tag
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_to_tag
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_to_tag
 msgid "To Tags"
 msgstr "接收消息的标签"
 
@@ -1287,6 +1898,15 @@ msgid "To User"
 msgstr "接收消息的成员"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_to_user
@@ -1301,12 +1921,27 @@ msgstr "接收消息的成员"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_to_user
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_to_user
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_to_user
 msgid "To Users"
 msgstr "接收消息的成员"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_to_all
@@ -1323,8 +1958,14 @@ msgstr "接收消息的成员"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__message_to_all
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__message_to_all
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__message_to_all
 msgid "To all members"
 msgstr "发送全部成员"
 
@@ -1339,6 +1980,17 @@ msgid "Tracking Values"
 msgstr "追踪值"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__enable_duplicate_check
@@ -1355,12 +2007,29 @@ msgstr "追踪值"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__enable_duplicate_check
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__enable_duplicate_check
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__enable_duplicate_check
 msgid "Turn on duplicate message checking"
 msgstr "开启重复消息检查"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_account_analytic_account__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_bank_statement_line__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_invoice_send__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_journal__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_move__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_payment__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_account_tour_upload_bill__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_crm_team__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_event_event__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_event_registration__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_department__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_employee__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__enable_id_trans
@@ -1377,8 +2046,14 @@ msgstr "开启重复消息检查"
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_contact__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_mailing_mailing__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_phone_blacklist__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_product_product__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_product_template__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_res_partner__enable_id_trans
 #: model:ir.model.fields,field_description:wxwork_message.field_res_users__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_inventory__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_picking__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_production_lot__enable_id_trans
+#: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__enable_id_trans
 msgid "Turn on id translation"
 msgstr "开启id转译"
 
@@ -1389,56 +2064,48 @@ msgid "Type"
 msgstr "类型"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to connect to SMTP Server"
 msgstr "无法连接到SMTP服务器"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_thread.py:0
 #: code:addons/wxwork_message/models/mail_thread.py:0
 #, python-format
 msgid "Unable to log message, please configure the sender's email address."
 msgstr "无法记录邮件，请配置发件人的电子邮件地址。"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid department: %s\n"
 msgstr "无法发送到无效部门：%s\n"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid tag: %s"
 msgstr "无法发送到无效标记：%s"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid user: %s\n"
 msgstr "无法发送到无效用户：%s\n"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unknown reason"
 msgstr "不明原因"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_template.py:0
 #: code:addons/wxwork_message/models/mail_template.py:0
 #, python-format
 msgid "Unsupported report type %s found."
 msgstr "找到不支持的报告类型%s。"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Unsuspected None"
@@ -1451,6 +2118,14 @@ msgid "User"
 msgstr "用户"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__video
@@ -1466,11 +2141,25 @@ msgstr "用户"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__video
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__video
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__video
 msgid "Video message"
 msgstr "视频消息"
 
 #. module: wxwork_message
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_analytic_account__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_bank_statement__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_journal__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_move__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__account_payment__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__crm_team__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_event__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__event_registration__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_department__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_employee__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__hr_job__msgtype__voice
@@ -1486,7 +2175,13 @@ msgstr "视频消息"
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_contact__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mailing_mailing__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__phone_blacklist__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_product__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__product_template__msgtype__voice
 #: model:ir.model.fields.selection,name:wxwork_message.selection__res_partner__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_inventory__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_picking__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_production_lot__msgtype__voice
+#: model:ir.model.fields.selection,name:wxwork_message.selection__stock_scrap__msgtype__voice
 msgid "Voice messages"
 msgstr "语音消息"
 
@@ -1496,14 +2191,12 @@ msgid "by"
 msgstr "通过"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0
 #: code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "failed sending message (id: %s) due to %s"
 msgstr "由于%s，无法发送邮件（id:%s）"
 
 #. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "jinja2 not available, templating features will not work!"
@@ -1518,125 +2211,3 @@ msgstr "在"
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form
 msgid "record:"
 msgstr "记录："
-
-#. module: wxwork_message
-#: code:addons/wxwork/wxwork_message/models/wxwork_message_api.py:0
-#: code:addons/wxwork_message/models/wxwork_message_api.py:0
-#, python-format
-msgid "发送消息错误: %s"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_hr_department__media_id
-#: model:ir.model.fields,help:wxwork_message.field_hr_employee__media_id
-#: model:ir.model.fields,help:wxwork_message.field_hr_job__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_channel__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_template__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__media_id
-#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__media_id
-#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__media_id
-#: model:ir.model.fields,help:wxwork_message.field_res_partner__media_id
-#: model:ir.model.fields,help:wxwork_message.field_res_users__media_id
-msgid "媒体文件Id,可以调用上传临时素材接口获取"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_ir_model__is_mail_thread_wxwork_message
-msgid "此模型是否支持通过企业微信发送消息和通知"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_hr_department__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_hr_employee__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_hr_job__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_channel__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_mail__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_message__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_template__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_res_partner__enable_id_trans
-#: model:ir.model.fields,help:wxwork_message.field_res_users__enable_id_trans
-msgid "表示是否开启id转译，0表示否，1表示是，默认0"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_hr_department__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_hr_employee__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_hr_job__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_channel__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_mail__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_message__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_template__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_res_partner__enable_duplicate_check
-#: model:ir.model.fields,help:wxwork_message.field_res_users__enable_duplicate_check
-msgid "表示是否开启重复消息检查，0表示否，1表示是，默认0"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_hr_department__safe
-#: model:ir.model.fields,help:wxwork_message.field_hr_employee__safe
-#: model:ir.model.fields,help:wxwork_message.field_hr_job__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_channel__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_mail__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_message__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_template__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__safe
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__safe
-#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__safe
-#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__safe
-#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__safe
-#: model:ir.model.fields,help:wxwork_message.field_res_partner__safe
-#: model:ir.model.fields,help:wxwork_message.field_res_users__safe
-msgid ""
-"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为"
-"0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持"
-msgstr ""
-
-#. module: wxwork_message
-#: model:ir.model.fields,help:wxwork_message.field_hr_department__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_hr_employee__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_hr_job__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_blacklist__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_channel__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_compose_message__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_mail__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_message__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_template__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_blacklist__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_cc__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mail_thread_phone__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mailing_contact__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_mailing_mailing__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_phone_blacklist__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_res_partner__duplicate_check_interval
-#: model:ir.model.fields,help:wxwork_message.field_res_users__duplicate_check_interval
-msgid "表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时"
-msgstr ""

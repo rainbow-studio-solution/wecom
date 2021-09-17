@@ -1,30 +1,33 @@
 # -*- coding: utf-8 -*-
 
+from odoo import api, fields, models, tools, SUPERUSER_ID, _
+from odoo.exceptions import UserError, ValidationError
+
 from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
 from odoo.addons.wxwork_api.api.abstract_api import ApiException
 from odoo.addons.wxwork_api.api.error_code import Errcode
-
-from odoo import api, fields, models, tools, SUPERUSER_ID, _
-from odoo.exceptions import UserError, ValidationError
-from ..models.sync_contacts import *
-import logging
-
-_logger = logging.getLogger(__name__)
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
+    )
+
     def get_contacts_access_token(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-        corpid = ir_config.get_param("wxwork.corpid")
-        secret = ir_config.get_param("wxwork.contacts_secret")
-        # debug = ir_config.get_param("wxwork.debug_enabled")
+
+        corpid = self.company_id.corpid
+        secret = self.company_id.contacts_secret
+
         if corpid == False:
             raise UserError(_("Please fill in correctly Enterprise ID."))
         elif (
             "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" in secret
-            or self.contacts_secret == False
+            or self.company_id.contacts_secret == False
         ):
             raise UserError(_("Please fill in the contact Secret correctly."))
         else:
@@ -49,9 +52,9 @@ class ResConfigSettings(models.TransientModel):
                                 "tag": "reload",
                             },  # 刷新窗体
                         }
-                        self.env["ir.config_parameter"].sudo().set_param(
-                            "wxwork.contacts_access_token", wxapi.getAccessToken()
-                        )
+
+                        self.company_id.contacts_access_token = wxapi.getAccessToken()
+
                         action = {
                             "type": "ir.actions.client",
                             "tag": "display_notification",
@@ -96,5 +99,3 @@ class ResConfigSettings(models.TransientModel):
                     },
                 }
                 return action
-
-    

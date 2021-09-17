@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-31 01:11+0000\n"
-"PO-Revision-Date: 2021-08-31 09:16+0800\n"
+"POT-Creation-Date: 2021-09-17 04:27+0000\n"
+"PO-Revision-Date: 2021-09-17 12:29+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,6 +76,7 @@ msgid "Change user type"
 msgstr "变更用户类型"
 
 #. module: wxwork_hr_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_company_form
 msgid "Click test to get token"
 msgstr "单击测试以获取令牌"
@@ -95,6 +96,11 @@ msgstr "关闭并刷新"
 #. module: wxwork_hr_syncing
 #: model:ir.model,name:wxwork_hr_syncing.model_res_company
 msgid "Companies"
+msgstr "公司"
+
+#. module: wxwork_hr_syncing
+#: model:ir.model.fields,field_description:wxwork_hr_syncing.field_res_config_settings__company_id
+msgid "Company"
 msgstr "公司"
 
 #. module: wxwork_hr_syncing
@@ -125,6 +131,11 @@ msgstr "公司 %s 无法从员工生成系统用户。失败原因：%s"
 #, python-format
 msgid "Company %s successfully generated system user from employee."
 msgstr "公司 %s 从员工成功生成系统用户。"
+
+#. module: wxwork_hr_syncing
+#: model:ir.model.fields,field_description:wxwork_hr_syncing.field_res_users__employee_id
+msgid "Company employee"
+msgstr "员工"
 
 #. module: wxwork_hr_syncing
 #: model:ir.model,name:wxwork_hr_syncing.model_res_config_settings
@@ -172,13 +183,6 @@ msgstr "创建"
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_user__create_date
 msgid "Created on"
 msgstr "创建于"
-
-#. module: wxwork_hr_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
-msgid ""
-"Linux production server uses the following command to view real-time logs:"
-msgstr ""
-"Linux生产服务器使用以下命令查看实时日志："
 
 #. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/models/sync_employee.py:0
@@ -425,11 +429,6 @@ msgid "Enterprise WeChat synchronization wizard"
 msgstr "企业微信同步向导"
 
 #. module: wxwork_hr_syncing
-#: model:ir.model,name:wxwork_hr_syncing.model_res_users
-msgid "Enterprise WeChat system users"
-msgstr "企业微信系统用户"
-
-#. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/models/sync_contacts.py:0
 #: code:addons/wxwork_hr_syncing/models/sync_contacts.py:0
 #, python-format
@@ -544,8 +543,8 @@ msgid ""
 "Error Details:\n"
 "%s"
 msgstr ""
-"错误代码：%s\n"
-"错误描述：%s\n"
+"错误代码：%s \n"
+"错误说明：%s\n"
 "错误详细信息：\n"
 "%s"
 
@@ -652,6 +651,13 @@ msgid "Failed to synchronize tags"
 msgstr "同步标签失败"
 
 #. module: wxwork_hr_syncing
+#: code:addons/wxwork/wxwork_hr_syncing/models/hr_employee.py:0
+#: code:addons/wxwork_hr_syncing/models/hr_employee.py:0
+#, python-format
+msgid "Generate system user error from employee. Error details:%s"
+msgstr "从员工生成系统用户错误。错误详细信息：%s"
+
+#. module: wxwork_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_sync_user_wizard
 msgid "Generate system users in batches from HR's Enterprise WeChat employees"
 msgstr "从HR的企业微信员工批量生成系统用户"
@@ -733,6 +739,12 @@ msgstr "最后更新者"
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_wizard_wxwork_user__write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: wxwork_hr_syncing
+#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.view_form_wxwork_contacts_sync_wizard
+msgid ""
+"Linux production server uses the following command to view real-time logs:"
+msgstr "Linux生产服务器使用以下命令查看实时日志："
 
 #. module: wxwork_hr_syncing
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_change_type_user__user_login
@@ -1071,11 +1083,6 @@ msgid "Update employee tag error: %s"
 msgstr "更新员工标签错误：%s"
 
 #. module: wxwork_hr_syncing
-#: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.wxwork_hr_employee_form_create_user_button
-msgid "Update from enterprise wechat"
-msgstr "从企业微信更新"
-
-#. module: wxwork_hr_syncing
 #: code:addons/wxwork/wxwork_hr_syncing/wizard/wizard_wxwork_contacts_sync.py:0
 #: code:addons/wxwork_hr_syncing/wizard/wizard_wxwork_contacts_sync.py:0
 #, python-format
@@ -1111,6 +1118,7 @@ msgid "User, Change Type Wizard"
 msgstr "用户，更改类型向导"
 
 #. module: wxwork_hr_syncing
+#: model:ir.model,name:wxwork_hr_syncing.model_res_users
 #: model:ir.model.fields,field_description:wxwork_hr_syncing.field_change_type_wizard__user_ids
 #: model_terms:ir.ui.view,arch_db:wxwork_hr_syncing.change_type_wizard_user_tree_view
 msgid "Users"
@@ -1131,18 +1139,3 @@ msgstr "向导同步"
 #: model:ir.model,name:wxwork_hr_syncing.model_change_type_wizard
 msgid "Wizard to change user type(Enterprise WeChat)"
 msgstr "更改用户类型的向导（企业微信）"
-
-#. module: wxwork_hr_syncing
-#: model:ir.model.fields.selection,name:wxwork_hr_syncing.selection__change_type_user__new_type__10
-msgid "公共"
-msgstr ""
-
-#. module: wxwork_hr_syncing
-#: model:ir.model.fields.selection,name:wxwork_hr_syncing.selection__change_type_user__new_type__1
-msgid "内部用户"
-msgstr ""
-
-#. module: wxwork_hr_syncing
-#: model:ir.model.fields.selection,name:wxwork_hr_syncing.selection__change_type_user__new_type__9
-msgid "门户"
-msgstr ""

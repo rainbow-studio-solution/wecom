@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-29 06:39+0000\n"
-"PO-Revision-Date: 2021-08-29 14:47+0800\n"
+"POT-Creation-Date: 2021-09-17 05:06+0000\n"
+"PO-Revision-Date: 2021-09-17 13:09+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,14 +18,36 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 
 #. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Material Secret\"/>"
 msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"素材密匙\"/>"
 
 #. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Material Agentid\"/>"
 msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"素材应用Id\"/>"
+
+#. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
+"Material\"/> Enterprise WeChat Material\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
+"below are the companies identified as enterprise wechat organizations.\"/>\n"
+"                        </span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
+"Material\"/> 企业微信素材\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
+"识为企业微信组织的公司。\"/>\n"
+"                        </span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
+"部\"/>"
 
 #. module: wxwork_material
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
@@ -40,7 +62,8 @@ msgstr ""
 "                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
 "Material\"/> 企业微信素材\n"
 "                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
+"部\"/>"
 
 #. module: wxwork_material
 #: model:wxwork.material,name:wxwork_material.wxwork_material_image_account_created
@@ -63,6 +86,7 @@ msgid ""
 msgstr "已上传，请不要再次上传！ 您可以创建新记录后上传文件。"
 
 #. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
@@ -70,6 +94,7 @@ msgid ""
 msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“AgentId”"
 
 #. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
 msgid ""
 "Application Management→Application→Open the application that needs to be verified and "
@@ -78,13 +103,20 @@ msgstr "应用程序管理→应用→打开需要验证和授权的应用程序
 
 #. module: wxwork_material
 #: model:ir.model,name:wxwork_material.model_res_company
+#: model_terms:ir.ui.view,arch_db:wxwork_material.wxwork_material_filter
 msgid "Companies"
 msgstr "公司"
 
 #. module: wxwork_material
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__company_id
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__company_id
 msgid "Company"
 msgstr "公司"
+
+#. module: wxwork_material
+#: model:ir.model,name:wxwork_material.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__create_uid
@@ -98,6 +130,7 @@ msgstr "创建于"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_company__display_name
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -147,7 +180,13 @@ msgid "Gamification"
 msgstr "游戏化"
 
 #. module: wxwork_material
+#: model_terms:ir.ui.view,arch_db:wxwork_material.wxwork_material_filter
+msgid "Group By"
+msgstr "分组"
+
+#. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_company__id
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__id
 msgid "ID"
 msgstr "ID"
@@ -159,6 +198,7 @@ msgstr "KPI"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_company____last_update
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
@@ -186,11 +226,13 @@ msgstr "素材"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_company__material_agentid
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_agentid
 msgid "Material Agent Id"
 msgstr "素材应用Id"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_res_company__material_secret
+#: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_secret
 msgid "Material Secret"
 msgstr "素材密钥"
 
@@ -308,6 +350,11 @@ msgid "The temporary material has not expired, please do not upload it repeatedl
 msgstr "临时素材尚未过期，请不要重复上传。"
 
 #. module: wxwork_material
+#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_id
+msgid "The unique identification obtained after uploading the media file is valid for 3 days"
+msgstr "媒体文件上传后获取的唯一标识，3天内有效"
+
+#. module: wxwork_material
 #: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0
 #: code:addons/wxwork_material/models/wxwork_material.py:0
 #, python-format
@@ -343,8 +390,3 @@ msgstr "警告"
 #: model:wxwork.material,name:wxwork_material.wxwork_material_image_welcome
 msgid "Welcome"
 msgstr "欢迎"
-
-#. module: wxwork_material
-#: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_id
-msgid "The unique identification obtained after uploading the media file is valid for 3 days"
-msgstr "媒体文件上传后获取的唯一标识，3天内有效"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-03 03:19+0000\n"
-"PO-Revision-Date: 2021-09-03 11:21+0800\n"
+"POT-Creation-Date: 2021-09-17 02:50+0000\n"
+"PO-Revision-Date: 2021-09-17 10:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"Enterprise wechat Square logo\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"企业微信方块Logo\"/>"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
@@ -30,23 +30,9 @@ msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', '&gt;', '1')]}\">\n"
-"                                        Company\n"
-"                                    </span>\n"
-"                                    <span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', "
-"'&lt;=', '1')]}\">\n"
-"                                        Companies\n"
-"                                    </span>\n"
-"                                    <br/>"
-msgstr ""
-"<span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', '&gt;', '1')]}\">\n"
-"                                        公司\n"
-"                                    </span>\n"
-"                                    <span class=\"o_form_label\" attrs=\"{'invisible':[('wxwork_company_count', "
-"'&lt;=', '1')]}\">\n"
-"                                        公司\n"
-"                                    </span>\n"
-"                                    <br/>"
+"<span class=\"fa fa-lg fa-info-circle\" title=\"The value set here is the company identified as enterprise wechat "
+"organization.\"/>"
+msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
@@ -67,7 +53,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"Enterprise WeChat global settings\"/> "
+"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"Enterprise WeChat global settings\"/> "
 "Enterprise WeChat global settings\n"
 "                            </span>\n"
 "                            <span class=\"text-right\">\n"
@@ -124,16 +110,17 @@ msgid "Company"
 msgstr "公司"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__company_name
+msgid "Company Name"
+msgstr "公司名称"
+
+#. module: wxwork_base
 #: model:ir.model,name:wxwork_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__wxwork_company_name
-msgid "Current company name"
-msgstr "当前公司名称"
-
-#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module__display_name
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__display_name
 msgid "Display Name"
@@ -141,7 +128,7 @@ msgstr "显示名称"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__corpid
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__wxwork_company_corpid
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__corpid
 msgid "Enterprise ID"
 msgstr "企业ID"
 
@@ -164,7 +151,6 @@ msgstr "企业微信图片存储路径"
 
 #. module: wxwork_base
 #: model:ir.actions.act_window,name:wxwork_base.wxwork_config_settings_action
-#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "Enterprise WeChat Settings"
 msgstr "企业微信设置"
 
@@ -175,6 +161,7 @@ msgstr "企业微信方块Logo"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__is_wxwork_organization
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__is_wxwork_organization
 msgid "Enterprise wechat organization"
 msgstr "企业微信组织"
 
@@ -184,6 +171,7 @@ msgid "Fill in: Enterprise WeChat management background → \"Enterprise Informa
 msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
 msgid "ID"
@@ -195,25 +183,26 @@ msgid "It is used to display the company logo for enterprise wechat messages."
 msgstr "用于显示企业微信消息的公司Logo。"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module____last_update
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__wxwork_company_count
-msgid "Number of Companies"
-msgstr "公司数量"
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Manage all companies"
+msgstr "管理所有公司"
+
+#. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_ir_module_module
+msgid "Module"
+msgstr "模块"
 
 #. module: wxwork_base
 #: model:res.groups,name:wxwork_base.group_wxwork_user
 msgid "Officer"
 msgstr "主管"
-
-#. module: wxwork_base
-#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
-msgid "Set the corporate ID of all companies"
-msgstr "设置所有公司的企业ID"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo_web
@@ -241,6 +230,11 @@ msgstr "此用户将有权限审批员工创建的文档。"
 #: model:res.groups,comment:wxwork_base.group_wxwork_manager
 msgid "The user will have access to the Enterprise WeChat configuration as well as statistic reports."
 msgstr "此用户将有权限访问企业微信配置以及统计报表。"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "This company is an enterprise wechat organization"
+msgstr "此公司为企业微信组织"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__debug_enabled

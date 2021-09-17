@@ -11,6 +11,7 @@ class Company(models.Model):
         "Contact Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     )
     contacts_access_token = fields.Char(string="Contact token", readonly=True,)
+    
     contacts_auto_sync_hr_enabled = fields.Boolean(
         "Allow Enterprise WeChat Contacts are automatically updated to HR",
         default=True,

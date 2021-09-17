@@ -22,6 +22,7 @@
         "data/ir_cron_data.xml",
         "views/assets_templates.xml",
         "views/res_company_views.xml",
+        "views/res_config_settings_views.xml",
         "views/ir_cron_views.xml",
         "views/menu_views.xml",
     ],

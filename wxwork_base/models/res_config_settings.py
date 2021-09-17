@@ -12,6 +12,11 @@ class ResConfigSettings(models.TransientModel):
         required=True,
         default=lambda self: self.env.company,
     )
+
+    is_wxwork_organization = fields.Boolean(
+        related="company_id.is_wxwork_organization", readonly=False
+    )
+
     company_name = fields.Char(related="company_id.display_name", string="Company Name")
     corpid = fields.Char(
         string="Enterprise ID", related="company_id.corpid", readonly=False

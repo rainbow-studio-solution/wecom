@@ -83,9 +83,9 @@
                                                 <div class="mt16">
                                                     <field name="corpid"  widget="wxwork_password" />
                                                 </div>
-                                                <div class="mt16">
+                                                <!-- <div class="mt16">
                                                     <button name="%(wxwork_base.wxwork_config_settings_action)d" icon="fa-arrow-right" type="action" string="Enterprise WeChat Settings" class="btn-link"/>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
 
