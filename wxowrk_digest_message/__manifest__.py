@@ -10,13 +10,12 @@
     "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
-        
-        """,
+Use Enterprise WeChat to periodically send KPI digest messages periodically.  
+""",
     "description": """
-
-
-        """,
+Use Enterprise WeChat to periodically send KPI digest messages periodically.
+""",
     "depends": ["digest", "wxwork_message",],
-    "data": ["views/digest_views.xml",],
+    "data": ["data/digest_data.xml", "views/digest_views.xml",],
     "qweb": ["static/src/xml/*.xml",],
 }

@@ -258,6 +258,43 @@ class WxWorkMaterial(models.Model):
             )
         return res
 
+    @api.returns("self", lambda value: value.id)
+    def copy(self, default=None):
+        if default:
+            if not default.get("company_id"):
+                pass
+        return super(WxWorkMaterial, self).copy(default=default)
+
+    @api.model
+    def _check_material_file_expiration(self):
+        """[summary]
+        检查素材文件是否过期
+        Args:
+            material ([type]): [description]
+
+        Returns:
+            [type]: [description]
+        """
+        # media_id = ""
+        if self.created_at:
+            # 有创建日期
+            created_time = self.created_at
+            MAX_FAIL_TIME = 3
+
+            # 检查是否超过3天
+            overdue = self.env["wxwork.tools"].cheeck_overdue(
+                created_time, MAX_FAIL_TIME
+            )
+            if overdue:
+                # 临时素材超期，重新上传
+                self.upload_media()
+                # media_id = self.media_id
+        else:
+            # 无创建日期，执行第一次上传临时素材
+            self.upload_media()
+            # media_id = self.media_id
+        return self.media_id
+
     @api.model
     def _check_file_path(self, file, subpath, filename):
         sys_params = self.env["ir.config_parameter"].sudo()
@@ -364,9 +401,4 @@ class WxWorkMaterial(models.Model):
             _logger.info("[Convert Error]:Convert file-%s to mp3 failed" % amr_path)
             return 0
         return mp3_path
-
-    # def unlink(self):
-    #     resources = self.mapped('resource_id')
-    #     super(WxWorkMaterial, self).unlink()
-    #     return resources.unlink()
 
