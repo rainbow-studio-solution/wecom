@@ -31,7 +31,7 @@ class Digest(models.Model):
                 "user": user,
                 "tips_count": tips_count,
                 "formatted_date": datetime.today().strftime("%B %d, %Y"),
-                "display_mobile_banner": True,
+                "display_mobile_banner": False if user.wxwork_id else True,
                 "kpi_data": self.compute_kpis(user.company_id, user),
                 "tips": self.compute_tips(
                     user.company_id, user, tips_count=tips_count, consumed=consum_tips
@@ -46,10 +46,34 @@ class Digest(models.Model):
             add_context={"company": user.company_id, "user": user,},
         )
         # 获取素材
-        ir_model_data = self.env["ir.model.data"]
-        material = ir_model_data.get_object_reference(
+
+        material_id = self.env["ir.model.data"].get_object_reference(
             "wxwork_material", "wxwork_material_image_kpi"
+        )[1]
+        material_template = self.env["wxwork.material"].browse(material_id)
+
+        material = self.env["wxwork.material"].search(
+            [
+                ("name", "=", material_template.name),
+                ("company_id", "=", user.company_id.id),
+            ],
+            limit=1,
         )
+
+        if material:
+            pass
+        else:
+            # 不存在 素材，复制 material 且 赋值 company_id
+            copy_material = dict(
+                name=material_template.name,
+                media_type=material_template.media_type,
+                temporary=material_template.temporary,
+                media_file=material_template.media_file,
+                media_filename=material_template.media_filename,
+                company_id=user.company_id.id,
+            )
+            material = material_template.copy(copy_material)
+
         if user.wxwork_id:
             is_wxwork_message = True
         else:
@@ -75,6 +99,10 @@ class Digest(models.Model):
             "duplicate_check_interval": 1800,
         }
         mail = self.env["mail.mail"].sudo().create(mail_values)
-        mail.send(raise_exception=False, is_wxwork_message=is_wxwork_message)
+        mail.send(
+            raise_exception=False,
+            is_wxwork_message=is_wxwork_message,
+            company=user.company_id,
+        )
         return True
 
