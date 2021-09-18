@@ -131,7 +131,7 @@ class MailMail(models.Model):
         :param bool is_wxwork_message: 标识是企业微信消息 
         :return: True
         """
-        print(self)
+        # print(self)
         if is_wxwork_message is None:
             if self.message_to_user:
                 is_wxwork_message = True
@@ -235,7 +235,6 @@ class MailMail(models.Model):
     def _send_wxwork_prepare_values(self, partner=None):
         """
         根据合作伙伴返回有关特定电子邮件值的字典，或者对整个邮件都是通用的。对于特定电子邮件值取决于对伙伴的字典，或者对mail.email_to给出的整个收件人来说都是通用的。 
-
         :param Model partner: 具体的收件人合作伙伴 
         """
         self.ensure_one()

@@ -63,6 +63,9 @@
                                 <div class="content-group mt16" id="msg_module_wxowrk_digest_message">    
                                     <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
+                                <div class="mt8">
+                                    <button type="action" name="%(digest.digest_digest_action)d" string="Configure Digest Message" icon="fa-arrow-right" class="btn-link"/>
+                                </div>
                             </div>
                         </div>
 

@@ -25,9 +25,14 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.module_wxwork_hr_gamification_message", readonly=False
     )
 
-    module_digest = fields.Boolean(related="company_id.module_digest", readonly=False)
+    # module_digest = fields.Boolean(related="company_id.module_digest", readonly=False)
+    # module_wxowrk_digest_message = fields.Boolean(
+    #     related="company_id.module_wxowrk_digest_message", readonly=False
+    # )
+
+    module_digest = fields.Boolean("KPI Digests")
     module_wxowrk_digest_message = fields.Boolean(
-        related="company_id.module_wxowrk_digest_message", readonly=False
+        "Send KPI Digests periodically via Enterprise WeChat",
     )
 
     module_stock = fields.Boolean(related="company_id.module_stock", readonly=False)

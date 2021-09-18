@@ -102,7 +102,7 @@ class WxWorkMessageApi(models.AbstractModel):
         # 删除message中的corpid和secret
         del message["corpid"]
         del message["secret"]
-        print(message)
+
         try:
             # 避免错误弹窗，使用try
             response = wxapi.httpCall(CORP_API_TYPE["MESSAGE_SEND"], message)
@@ -142,21 +142,9 @@ class WxWorkMessageApi(models.AbstractModel):
         media_id=None,
         company=None,
     ):
-        material_info = (
-            self.env["wxwork.material"].sudo().browse(int(media_id)).read(["name"])
-        )
-
-        material = (
-            self.sudo()
-            .env["wxwork.material"]
-            .search(
-                [
-                    ("company_id", "=", company.id),
-                    ("name", "=", material_info[0]["name"]),
-                ],
-                limit=1,
-            )
-        )
+        # material_info = (
+        #     self.env["wxwork.material"].sudo().browse(int(media_id)).read(["name"])
+        # )
 
         messages_content = {}
         if msgtype == "text":
@@ -164,15 +152,20 @@ class WxWorkMessageApi(models.AbstractModel):
             messages_content = {
                 "text": body_json,
             }
-        if msgtype == "mpnews":
+        elif msgtype == "mpnews":
             # 图文消息（mpnews）
-            material_media_id = self.check_material_file_expiration(material)
+            material = (
+                self.sudo()
+                .env["wxwork.material"]
+                .search([("id", "=", media_id),], limit=1,)
+            )
+            # material_media_id = self.check_material_file_expiration(material)
             messages_content = {
                 "mpnews": {
                     "articles": [
                         {
                             "title": subject,
-                            "thumb_media_id": material_media_id,
+                            "thumb_media_id": material._check_material_file_expiration(),
                             "author": author_id.display_name,
                             "content": body_html,
                             "digest": description,
@@ -180,12 +173,12 @@ class WxWorkMessageApi(models.AbstractModel):
                     ]
                 },
             }
-        if msgtype == "markdown":
+        elif msgtype == "markdown":
             # markdown消息
             messages_content = {
                 "content": json.loads(body_json),
             }
-        if msgtype == "template_card":
+        elif msgtype == "template_card":
             # 模板卡片消息
             messages_content = {
                 "template_card": json.loads(body_json),
@@ -229,32 +222,32 @@ class WxWorkMessageApi(models.AbstractModel):
 
         return messages_options
 
-    def check_material_file_expiration(self, material):
-        """[summary]
-        检查素材文件是否过期
-        Args:
-            material ([type]): [description]
+    # def check_material_file_expiration(self, material):
+    #     """[summary]
+    #     检查素材文件是否过期
+    #     Args:
+    #         material ([type]): [description]
 
-        Returns:
-            [type]: [description]
-        """
-        media_id = ""
-        if material.created_at:
-            # 有创建日期
-            created_time = material.created_at
-            MAX_FAIL_TIME = 3
+    #     Returns:
+    #         [type]: [description]
+    #     """
+    #     media_id = ""
+    #     if material.created_at:
+    #         # 有创建日期
+    #         created_time = material.created_at
+    #         MAX_FAIL_TIME = 3
 
-            # 检查是否超过3天
-            overdue = self.env["wxwork.tools"].cheeck_overdue(
-                created_time, MAX_FAIL_TIME
-            )
-            if overdue:
-                # 临时素材超期，重新上传
-                material.upload_media()
-                media_id = material.media_id
-        else:
-            # 无创建日期，执行第一次上传临时素材
-            material.upload_media()
-            media_id = material.media_id
-        return media_id
+    #         # 检查是否超过3天
+    #         overdue = self.env["wxwork.tools"].cheeck_overdue(
+    #             created_time, MAX_FAIL_TIME
+    #         )
+    #         if overdue:
+    #             # 临时素材超期，重新上传
+    #             material.upload_media()
+    #             media_id = material.media_id
+    #     else:
+    #         # 无创建日期，执行第一次上传临时素材
+    #         material.upload_media()
+    #         media_id = material.media_id
+    #     return media_id
 

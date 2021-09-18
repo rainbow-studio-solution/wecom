@@ -79,6 +79,7 @@ class Digest(models.Model):
         else:
             is_wxwork_message = False
 
+
         # 根据值创建一个mail_mail，不带附件
         mail_values = {
             "subject": "%s: %s" % (user.company_id.name, self.name),
@@ -91,7 +92,7 @@ class Digest(models.Model):
             "message_to_user": user.wxwork_id,
             "msgtype": "mpnews",
             "body_html": full_mail,
-            "media_id": material[1],
+            "media_id": material.id,
             "message_body_html": full_mail,
             "safe": "1",
             "enable_id_trans": False,
