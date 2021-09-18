@@ -27,7 +27,8 @@ class Company(models.Model):
             ).read()
         )
 
-    abbreviated_name = fields.Char("Abbreviated Name", required=True, translate=True)
+    # abbreviated_name = fields.Char("Abbreviated Name", required=True, translate=True)
+    abbreviated_name = fields.Char("Abbreviated Name", translate=True)
     square_logo = fields.Binary(
         string="Enterprise wechat Square logo",
         default=_get_square_logo,

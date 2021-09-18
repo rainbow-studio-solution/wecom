@@ -105,7 +105,17 @@
                                             <field name="company_name"/>
                                         </div>
                                     </div>
-                                    <hr/>
+                                    <div class="content-group mt8">
+                                        <label for="abbreviated_name"/>
+                                        <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as enterprise wechat organization." />
+                                        <div class="mt4" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                                            <field name="abbreviated_name"/>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-6 o_setting_box" >
+                                <div class="o_setting_right_pane">
                                     <div class="content-group mt8">                                        
                                         <label for="corpid"/>
                                         <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as enterprise wechat organization." />
@@ -119,7 +129,6 @@
                                     <button name="%(base.action_res_company_form)d" icon="fa-arrow-right" type="action" string="Manage all companies" class="btn-link"/>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </xpath>

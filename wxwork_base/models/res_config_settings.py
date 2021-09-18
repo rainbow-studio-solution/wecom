@@ -18,6 +18,7 @@ class ResConfigSettings(models.TransientModel):
     )
 
     company_name = fields.Char(related="company_id.display_name", string="Company Name")
+    abbreviated_name = fields.Char(related="company_id.abbreviated_name")
     corpid = fields.Char(
         string="Enterprise ID", related="company_id.corpid", readonly=False
     )

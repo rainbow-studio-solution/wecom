@@ -115,6 +115,11 @@ msgid "Company Name"
 msgstr "公司名称"
 
 #. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__abbreviated_name
+msgid "Abbreviated Name"
+msgstr "公司简称"
+
+#. module: wxwork_base
 #: model:ir.model,name:wxwork_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
