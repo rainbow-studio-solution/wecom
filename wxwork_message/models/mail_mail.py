@@ -129,6 +129,7 @@ class MailMail(models.Model):
             在正常传递中，永远不应该为True（默认值：False） 
         :param bool raise_exception: 如果电子邮件发送过程失败，将引发异常 
         :param bool is_wxwork_message: 标识是企业微信消息 
+        :param company: 公司 
         :return: True
         """
         # print(self)

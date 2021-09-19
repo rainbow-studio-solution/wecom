@@ -59,7 +59,7 @@ class Message(models.Model):
         domain="[('is_wxwork_category', '=', True)]",
         help="Message recipients (tags)",
     )
-    use_templates = fields.Boolean("Test template message",)
+    use_templates = fields.Boolean("Test template message", default=False)
     templates_id = fields.Many2one("wxwork.message.template", string="Message template")
     msgtype = fields.Selection(
         [
@@ -79,7 +79,7 @@ class Message(models.Model):
         default="text",
     )
     media_id = fields.Char(string="Media file id",)
-    message_body_json = fields.Text("Text Body")
+    message_body_json = fields.Text("Json Body")
     message_body_html = fields.Html("Html Body", sanitize=False)
 
     safe = fields.Selection(
@@ -124,7 +124,7 @@ class Message(models.Model):
             else:
                 pass
         else:
-            self.body_json = None
+            self.message_body_json = None
 
     @api.onchange("templates_id")
     def _onchange_templates_id(self):

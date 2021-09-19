@@ -29,9 +29,9 @@
                         </group>
                         <group string="Message">
                             <group string="Recipients">
-                                <field name="message_to_user" widget="many2one" options="{'no_create': True,'no_open': True}"/>
-                                <field name="message_to_party" widget="many2one" options="{'no_create': True,'no_open': True}"/>
-                                <field name="message_to_tag" widget="many2one" options="{'no_create': True,'no_open': True}"/>
+                                <field name="message_to_user" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+                                <field name="message_to_party" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+                                <field name="message_to_tag" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
                             </group>
                             <group string="Options">
                                 <field name="msgtype"/>
@@ -43,8 +43,13 @@
                         
                         <notebook>
                             <page string="Body" name="body">
-                                <!-- <field name="body" options="{'style-inline': true}"/> -->
-                                <field name="message_body_json" force_save="1" widget="wxwork_message_widget" options="{'style-inline': true}" style="height: 300px;" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','=','mpnews')]}"/>
+                                <div calss="row">
+                                    <i class="fa fa-info-circle"/>
+                                    <span class="ml8">Please refer to the link for message format:</span>                                    
+                                    <a class="ml8" href="https://open.work.weixin.qq.com/api/doc/90000/90135/90236" target="_blank">Click</a>
+                                </div>
+                                <field name="message_body_json" force_save="1" widget="wxwork_jsoneditor" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','=','mpnews')]}"/>
+
                                 <field name="message_body_html" force_save="1" widget="html" options="{'style-inline': true}" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','!=','mpnews')]}"/>
                             </page>
                             <page string="Gateway" name="gateway">
