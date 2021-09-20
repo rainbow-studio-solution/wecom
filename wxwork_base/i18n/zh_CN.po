@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 02:50+0000\n"
-"PO-Revision-Date: 2021-09-17 10:52+0800\n"
+"POT-Creation-Date: 2021-09-20 07:38+0000\n"
+"PO-Revision-Date: 2021-09-20 15:39+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -76,10 +76,11 @@ msgid ""
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> 企业微信公"
 "司设置</span>\n"
-"                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__abbreviated_name
 msgid "Abbreviated Name"
 msgstr "公司简称"
 
@@ -115,11 +116,6 @@ msgid "Company Name"
 msgstr "公司名称"
 
 #. module: wxwork_base
-#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__abbreviated_name
-msgid "Abbreviated Name"
-msgstr "公司简称"
-
-#. module: wxwork_base
 #: model:ir.model,name:wxwork_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
@@ -138,7 +134,7 @@ msgid "Enterprise ID"
 msgstr "企业ID"
 
 #. module: wxwork_base
-#: model:ir.module.category,name:wxwork_base.module_category_wxwork
+#: model:ir.module.category,name:wxwork_base.module_category_wxwork model:ir.ui.menu,name:wxwork_base.menu_wxwork_root
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid "Enterprise WeChat"
@@ -208,6 +204,11 @@ msgstr "模块"
 #: model:res.groups,name:wxwork_base.group_wxwork_user
 msgid "Officer"
 msgstr "主管"
+
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_configuration
+msgid "Settings"
+msgstr "设置"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo_web

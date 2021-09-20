@@ -4,9 +4,9 @@
         <!--  ROOT   -->
         <menuitem 
             id="menu_wxwork_message_root" 
-            name="Enterprise WeChat Message" 
+            name="Message" 
             groups="base.group_erp_manager" 
-            web_icon="wxwork_message,static/description/icon.png" 
+            parent="wxwork_base.menu_wxwork_root"
             sequence="3"/>
 
             <!-- 对应菜单：设置→技术→讨论 -->

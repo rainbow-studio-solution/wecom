@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!--  ROOT   -->
-        <menuitem 
+        
+        <!-- <menuitem 
             id="menu_wxwork_material_root" 
             name="Enterprise WeChat Material Management" 
             groups="base.group_erp_manager" 
             web_icon="wxwork_material,static/description/icon.png" 
-            sequence="3"/>
+            sequence="3"/> -->
             
-            <menuitem 
-                id="menu_wxwork_message" 
-                name="Material" 
-                groups="base.group_system" 
-                parent="menu_wxwork_material_root"
-                action="action_view_wxwork_material" 
-                sequence="1"/>            
-               
-            <menuitem 
-                id="menu_wxwork_configuration" 
-                name="Settings" 
-                parent="menu_wxwork_material_root" 
-                sequence="900"
-                action="wxwork_base.wxwork_config_settings_action" 
-                groups="base.group_system"/>
+        <menuitem 
+            id="menu_wxwork_message" 
+            name="Material" 
+            groups="base.group_system" 
+            parent="wxwork_base.menu_wxwork_root"
+            action="action_view_wxwork_material" 
+            sequence="1"/>            
+            
+        
 
     </data>
 </odoo>

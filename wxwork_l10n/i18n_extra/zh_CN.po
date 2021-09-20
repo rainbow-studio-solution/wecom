@@ -146,6 +146,11 @@ msgid "Enterprise WeChat Widget"
 msgstr "企微小部件"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_customer_service
+msgid "Enterprise Wechat Customer Service"
+msgstr "企微客服"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wxwork_l10n
 msgid "Enterprise WeChat localization"
 msgstr "企微本地化"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  ROOT   -->
+        <menuitem 
+            id="menu_wxwork_root" 
+            name="Enterprise WeChat" 
+            groups="" 
+            web_icon="wxwork_base,static/description/icon.png" 
+            sequence="3"/>
+
+
+            <menuitem 
+            id="menu_wxwork_configuration" 
+            name="Settings" 
+            parent="wxwork_base.menu_wxwork_root" 
+            sequence="900"
+            action="wxwork_base.wxwork_config_settings_action" 
+            groups="base.group_system"/>
+
+    </data>
+
+</odoo>

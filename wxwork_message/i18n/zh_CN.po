@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 07:51+0000\n"
-"PO-Revision-Date: 2021-09-17 15:58+0800\n"
+"POT-Creation-Date: 2021-09-20 07:42+0000\n"
+"PO-Revision-Date: 2021-09-20 15:44+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
 msgid "${object.partner_id.lang}"
 msgstr "${object.partner_id.lang}"
+
+#. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
+msgid ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                    <span class=\"ml8\">Please refer to the link for message format:</span>"
+msgstr ""
+"<i class=\"fa fa-info-circle\"/>\n"
+"                                    <span class=\"ml8\">有关消息格式，请参阅链接：</span>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
@@ -56,42 +65,36 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message\"/> Enterprise WeChat Message\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
-"below are the companies identified as enterprise wechat organizations.\"/>\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat Message\"/> "
+"Enterprise WeChat Message\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are "
+"the companies identified as enterprise wechat organizations.\"/>\n"
 "                        </span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> "
-"企业微信消息\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
-"识为企业微信组织的公司。\"/>\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> 企业微信消"
+"息\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标识为企业微信"
+"组织的公司。\"/>\n"
 "                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
-"部\"/>"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
 msgid ""
-"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat "
-"Message\"/> Enterprise WeChat Message</span>\n"
+"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\"Enterprise WeChat Message\"/> "
+"Enterprise WeChat Message</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
 msgstr ""
-"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> 企"
-"业微信消息</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
-"部\"/>"
+"<span class=\"text-left\"><i class=\"fa fa-envelope-o fa-lg\" aria-label=\" 企业微信消息\"/> 企业微信消息</"
+"span>\n"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_preview_form
-msgid ""
-"<span class=\"text-warning\" attrs=\"{'invisible': [('no_record', '=', False)]}\">No records</"
-"span>"
-msgstr ""
-"<span class=\"text-warning\" attrs=\"{'invisible': [('no_record', '=', False)]}\">没有记录</"
-"span>"
+msgid "<span class=\"text-warning\" attrs=\"{'invisible': [('no_record', '=', False)]}\">No records</span>"
+msgstr "<span class=\"text-warning\" attrs=\"{'invisible': [('no_record', '=', False)]}\">没有记录</span>"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
@@ -118,16 +121,16 @@ msgstr "高级设置"
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid ""
-"Application Management→Application→Open the application that needs to be verified and "
-"authorized, copy 'AgentId'"
+"Application Management→Application→Open the application that needs to be verified and authorized, copy "
+"'AgentId'"
 msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“AgentId”"
 
 #. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
 msgid ""
-"Application Management→Application→Open the application that needs to be verified and "
-"authorized, copy 'Secret'"
+"Application Management→Application→Open the application that needs to be verified and authorized, copy "
+"'Secret'"
 msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“Secret”"
 
 #. module: wxwork_message
@@ -197,6 +200,11 @@ msgid "Choose an example"
 msgstr "选择一个例子"
 
 #. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
+msgid "Click"
+msgstr "点击"
+
+#. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
 msgid "Comma-separated ids of recipient partners"
 msgstr "收件人合作伙伴的逗号分隔ID"
@@ -222,12 +230,18 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
+msgid "Configure Digest Message"
+msgstr "配置摘要消息"
+
+#. module: wxwork_message
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_template_view_form
 msgid "Content"
 msgstr "内容"
 
 #. module: wxwork_message
 #. openerp-web
+#: code:addons/wxwork/wxwork_message/static/src/js/copy_button.js:0
 #: code:addons/wxwork_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy One-click copy of email template succeeded!"
@@ -235,6 +249,7 @@ msgstr "一键复制邮件模板成功！"
 
 #. module: wxwork_message
 #. openerp-web
+#: code:addons/wxwork/wxwork_message/static/src/js/copy_button.js:0
 #: code:addons/wxwork_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy successfully!"
@@ -365,7 +380,6 @@ msgstr "EMail撰写向导"
 #: model:ir.model.fields,field_description:wxwork_message.field_stock_scrap__is_wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_message__message_type__wxwork
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_notification__notification_type__wxwork
-#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_root
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_mail_tree
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
 msgid "Enterprise WeChat Message"
@@ -407,7 +421,7 @@ msgid "Enterprise WeChat message text content"
 msgstr "企业微信消息文本内容"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid ""
 "Error code: %s,\n"
@@ -419,17 +433,18 @@ msgstr ""
 "错误详细信息: %s"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_api.py:0
 #: code:addons/wxwork_message/models/wxwork_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
 msgstr "发送消息时出错：%s"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid ""
-"Error without exception. Probably due do concurrent access update of notification records. "
-"Please see with an administrator."
+"Error without exception. Probably due do concurrent access update of notification records. Please see with "
+"an administrator."
 msgstr "毫无例外的错误。可能由于通知记录的并发访问更新。请与管理员联系。"
 
 #. module: wxwork_message
@@ -443,12 +458,14 @@ msgid "Failed"
 msgstr "失败的"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s"
 msgstr "无法渲染模板：%s"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Failed to render template : %s (%d)"
@@ -640,6 +657,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/mail_message.py:0
 #: code:addons/wxwork_message/models/mail_message.py:0
 #, python-format
 msgid "In the test template message mode, only one user is allowed to send."
@@ -682,13 +700,13 @@ msgstr "在测试模板消息模式中，只允许一个用户发送。"
 #: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__safe
 #: model:ir.model.fields,help:wxwork_message.field_stock_scrap__safe
 msgid ""
-"Indicates whether it is a confidential message, 0 indicates that it can be shared externally, "
-"1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it "
-"can only be shared within the enterprise, and the default is 0; Note that only messages of "
-"mpnews type support the safe value of 2, and other message types do not"
+"Indicates whether it is a confidential message, 0 indicates that it can be shared externally, 1 indicates "
+"that it cannot be shared and the content displays watermark, 2 indicates that it can only be shared within "
+"the enterprise, and the default is 0; Note that only messages of mpnews type support the safe value of 2, "
+"and other message types do not"
 msgstr ""
-"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为"
-"0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持"
+"表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅"
+"mpnews类型的消息支持safe值为2，其他消息类型不支持"
 
 #. module: wxwork_message
 #: model:ir.model.fields,help:wxwork_message.field_account_analytic_account__duplicate_check_interval
@@ -727,8 +745,8 @@ msgstr ""
 #: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__duplicate_check_interval
 #: model:ir.model.fields,help:wxwork_message.field_stock_scrap__duplicate_check_interval
 msgid ""
-"Indicates whether the message check is repeated. The default is 1800s and the maximum is no "
-"more than 4 hours"
+"Indicates whether the message check is repeated. The default is 1800s and the maximum is no more than 4 "
+"hours"
 msgstr "表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时"
 
 #. module: wxwork_message
@@ -767,9 +785,7 @@ msgstr "表示是否重复消息检查的时间间隔，默认1800s，最大不�
 #: model:ir.model.fields,help:wxwork_message.field_stock_picking__enable_id_trans
 #: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__enable_id_trans
 #: model:ir.model.fields,help:wxwork_message.field_stock_scrap__enable_id_trans
-msgid ""
-"Indicates whether to enable ID translation, 0 indicates no, 1 indicates yes, and 0 is the "
-"default"
+msgid "Indicates whether to enable ID translation, 0 indicates no, 1 indicates yes, and 0 is the default"
 msgstr "表示是否开启id转译，0表示否，1表示是，默认0"
 
 #. module: wxwork_message
@@ -809,8 +825,7 @@ msgstr "表示是否开启id转译，0表示否，1表示是，默认0"
 #: model:ir.model.fields,help:wxwork_message.field_stock_production_lot__enable_duplicate_check
 #: model:ir.model.fields,help:wxwork_message.field_stock_scrap__enable_duplicate_check
 msgid ""
-"Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The "
-"default is 0"
+"Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The default is 0"
 msgstr "表示是否开启重复消息检查，0表示否，1表示是，默认0"
 
 #. module: wxwork_message
@@ -847,6 +862,7 @@ msgid "Invalid User"
 msgstr "无效的用户"
 
 #. module: wxwork_message
+#: model:ir.model.fields,field_description:wxwork_message.field_mail_message__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template__message_body_json
 msgid "Json Body"
 msgstr "Json正文"
@@ -870,7 +886,7 @@ msgstr "KPI摘要"
 #: model:ir.model.fields,field_description:wxwork_message.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_message.field_wxwork_message_api____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改日"
 
 #. module: wxwork_message
 #: model:ir.model.fields,field_description:wxwork_message.field_ir_model__is_mail_thread_wxwork_message
@@ -991,6 +1007,7 @@ msgstr "媒体文件Id"
 #: model:ir.model,name:wxwork_message.model_mail_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_discuss_message
 #: model:ir.ui.menu,name:wxwork_message.menu_wxwork_email_message
+#: model:ir.ui.menu,name:wxwork_message.menu_wxwork_message_root
 #: model_terms:ir.ui.view,arch_db:wxwork_message.view_wxwork_mail_search
 #: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_form
 msgid "Message"
@@ -1203,12 +1220,12 @@ msgstr "消息类型"
 #: model:ir.model.fields,help:wxwork_message.field_mail_mail__message_type
 #: model:ir.model.fields,help:wxwork_message.field_mail_message__message_type
 msgid ""
-"Message type: email for email message, notification for system message, comment for other "
-"messages such as user replies"
+"Message type: email for email message, notification for system message, comment for other messages such as "
+"user replies"
 msgstr "消息类型：EMail用于 邮件消息， 通知用户系统消息，评论用于其他消息，例如用户回复"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Message with ID %r successfully sent"
 msgstr "已成功发送ID为 %r 的邮件"
@@ -1272,6 +1289,7 @@ msgid "Module Stock"
 msgstr "库存模块"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/wizard/mail_compose_message.py:0
 #: code:addons/wxwork_message/wizard/mail_compose_message.py:0
 #, python-format
 msgid "No recipient found."
@@ -1377,19 +1395,19 @@ msgid "Picture message"
 msgstr "图片消息"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the application ID of the message push"
 msgstr "请填写推送信息的应用ID"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the application secret of the message push"
 msgstr "请填写推送信息的应用Secret"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Please fill in the company ID"
 msgstr "请填写企业ID"
@@ -1405,6 +1423,7 @@ msgid "Preview of"
 msgstr "预览"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/mail_template.py:0
 #: code:addons/wxwork_message/models/mail_template.py:0
 #, python-format
 msgid "QWeb template %s not found when sending template %s. Sending without layouting."
@@ -1510,19 +1529,19 @@ msgid "Sent"
 msgstr "发送"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s emails via mail server ID #%s"
 msgstr "通过邮件服务器ID# %s 批量发送了 %s 条电子邮件"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s message via enterprise WeChat "
 msgstr "通过企业微信批量发送 %s 条消息 "
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Sent batch %s messages"
 msgstr "已批量发送 %s 条邮件"
@@ -1623,18 +1642,21 @@ msgid "Template card message"
 msgstr "模板卡片消息"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering for language should be called with a list of IDs."
 msgstr "应使用ID列表调用语言的模板呈现。"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering should be called only using on a list of IDs."
 msgstr "应仅使用ID列表调用模板呈现。"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Template rendering supports only jinja or qweb."
@@ -1661,7 +1683,6 @@ msgstr "测试模板消息"
 #: model:ir.model.fields,field_description:wxwork_message.field_hr_job__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_blacklist__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_channel__message_body_json
-#: model:ir.model.fields,field_description:wxwork_message.field_mail_message__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_template_preview__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_thread__message_body_json
 #: model:ir.model.fields,field_description:wxwork_message.field_mail_thread_blacklist__message_body_json
@@ -2064,48 +2085,51 @@ msgid "Type"
 msgstr "类型"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to connect to SMTP Server"
 msgstr "无法连接到SMTP服务器"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/mail_thread.py:0
 #: code:addons/wxwork_message/models/mail_thread.py:0
 #, python-format
 msgid "Unable to log message, please configure the sender's email address."
 msgstr "无法记录邮件，请配置发件人的电子邮件地址。"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid department: %s\n"
 msgstr "无法发送到无效部门：%s\n"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid tag: %s"
 msgstr "无法发送到无效标记：%s"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unable to send to invalid user: %s\n"
 msgstr "无法发送到无效用户：%s\n"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "Unknown reason"
 msgstr "不明原因"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/mail_template.py:0
 #: code:addons/wxwork_message/models/mail_template.py:0
 #, python-format
 msgid "Unsupported report type %s found."
 msgstr "找到不支持的报告类型%s。"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "Unsuspected None"
@@ -2191,12 +2215,13 @@ msgid "by"
 msgstr "通过"
 
 #. module: wxwork_message
-#: code:addons/wxwork_message/models/mail_mail.py:0
+#: code:addons/wxwork/wxwork_message/models/mail_mail.py:0 code:addons/wxwork_message/models/mail_mail.py:0
 #, python-format
 msgid "failed sending message (id: %s) due to %s"
 msgstr "由于%s，无法发送邮件（id:%s）"
 
 #. module: wxwork_message
+#: code:addons/wxwork/wxwork_message/models/wxwork_message_render_mixin.py:0
 #: code:addons/wxwork_message/models/wxwork_message_render_mixin.py:0
 #, python-format
 msgid "jinja2 not available, templating features will not work!"
