@@ -8,14 +8,14 @@
             <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 
-                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('wxwork_navigation')]/a[last()]" position="after">
+                <!-- <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('wxwork_navigation')]/a[last()]" position="after">
                     <a type="button" role="button" class="btn btn-secondary font-weight fa fa-sign-in wxwork_jump_anchor" href="#wxwork_oauth">
                         <h5 style="display:inline;"> Auth settings</h5>
                     </a>
                     <a type="button" role="button" class="btn btn-secondary font-weight fa fa-qrcode wxwork_jump_anchor" href="#wxwork_oauth_qrcode">
                         <h5 style="display:inline;"> QR Code settings</h5>                    
                     </a>
-                </xpath>
+                </xpath> -->
                 
                 <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_oauth" class="d-flex justify-content-between">

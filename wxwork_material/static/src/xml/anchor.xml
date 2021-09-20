@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+
+    <!-- <t t-inherit="wxwork_base.res_config_wxwork_navigation_menu" t-inherit-mode="extension">
+        <xpath expr="//a[hasclass('wxwork_jump_anchor')][last()]" position="after">
+            <a type="button" role="button" class="btn btn-secondary font-weight fa fa-suitcase wxwork_jump_anchor" href="#wxwork_material">
+                <h5 style="display:inline;"> Material settings</h5>
+            </a>
+        </xpath>
+    </t> -->
+</template>

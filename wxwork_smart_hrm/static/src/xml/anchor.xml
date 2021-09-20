@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+
+    <t t-extend="res_config_wxwork_navigation_menu">
+        <t t-jquery="div.wxwork_navigation" t-operation="inner">
+            <a type="button" role="button" class="btn btn-secondary fa fa-building wxwork_jump_anchor" href="#wxwork_companies">
+                <h5 style="display:inline;"> Companies settings</h5>
+            </a>
+        </t>
+    </t>
+    <!-- <t t-inherit="wxwork_base.res_config_wxwork_navigation_menu" t-inherit-mode="extension">
+        <xpath expr="//*[@name='tools']" position="after">
+    </t> -->
+</template>
