@@ -5,6 +5,9 @@
         <xpath expr="." position="inside">
             <link rel="stylesheet" type="text/scss" href="/wxwork_base/static/src/scss/wxwork_settings.scss"/>
         </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/wxwork_base/static/src/js/wxwork_navigation.js"></script>
+        </xpath>
     </template>
 
 </odoo>

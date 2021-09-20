@@ -6,13 +6,20 @@
             <field name="model">res.config.settings</field>            
             <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after" >
+
+                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('wxwork_navigation')]/a[last()]" position="after">
+                    <a type="button" role="button" class="btn btn-secondary font-weight fa fa-envelope-o wxwork_jump_anchor" href="#wxwork_push"> 
+                        <h5 style="display:inline;"> Message settings</h5>                    
+                    </a>
+                </xpath>
+
+                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after">                    
                     <h2 id="wxwork_push" class="d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-envelope-o fa-lg" aria-label="Enterprise WeChat Message"/> Enterprise WeChat Message
                             <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
-                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                        <a href="#wxwork_global" class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">

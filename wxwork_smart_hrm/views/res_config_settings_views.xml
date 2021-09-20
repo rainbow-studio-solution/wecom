@@ -7,13 +7,18 @@
             <field name="priority" eval="20"/>
             <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('wxwork_navigation')]/a[last()]" position="after">
+                    <a type="button" role="button" class="btn btn-secondary font-weight fa fa-book wxwork_jump_anchor" href="#wxwork_contact"> 
+                        <h5 style="display:inline;"> Synchronization settings</h5>                    
+                    </a>
+                </xpath>
                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_contact" class="d-flex justify-content-between" >
                         <span class="text-left">
                             <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/> Contact synchronization Settings
                             <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
-                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                        <a href="#wxwork_global" class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     
                     <div class="row mt16 o_settings_container"  id="wxwork_contact_settings_container" >

@@ -9,13 +9,20 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside" >
                     <div class="app_settings_block" data-string="Enterprise WeChat" string="Enterprise WeChat"  data-key="wxwork_base" groups="base.group_system">
+
+                        <widget name='res_config_wxwork_anchor'/>
+                        
+                        <div class="btn-group ml8 mt8 wxwork_navigation" role="group" aria-label="Navigation">
+                            <a type="button" role="button" class="btn btn-secondary fa fa-building wxwork_jump_anchor" href="#wxwork_companies">
+                                <h5 style="display:inline;"> Companies settings</h5>
+                            </a>
+                        </div>
+
                         <h2 id="wxwork_global" class="d-flex justify-content-between">  
                             <span class="text-left">
-                                <i class="fa fa-globe fa-lg" aria-label="Enterprise WeChat global settings"/> Enterprise WeChat global settings
+                                <i class="fa fa-globe fa-lg" aria-label="Enterprise WeChat global settings"/> Enterprise WeChat Global Settings
                             </span>
-                            <span class="text-right">
-                                <i class="fa fa-angle-double-down"  aria-label="GoBottom"/>
-                            </span>
+                            <a class="fa fa-angle-double-down text-right wxwork_jump_anchor" href="#wxwork_bottom" aria-label="GoBottom"/>
                         </h2>
                         <div class="row mt16 o_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box">
@@ -90,7 +97,7 @@
 
                         <h2 id="wxwork_companies" class="d-flex justify-content-between">
                             <span class="text-left"><i class="fa fa-building fa-lg" aria-label="Enterprise WeChat Companies" /> Enterprise WeChat Companies settings</span>
-                            <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                            <a class="text-right fa fa-angle-double-up wxwork_jump_anchor" aria-label="GoTop" href="#wxwork_global"/>
                         </h2>
                         <div class="row mt16 o_settings_container" >
                             <div class="col-12 col-lg-6 o_setting_box" >
@@ -130,7 +137,9 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <div id="wxwork_bottom"/>
+                    </div>            
                 </xpath>
             </field>
         </record>

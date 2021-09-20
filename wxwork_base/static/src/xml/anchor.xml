@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <div t-name='res_config_wxwork_anchor' class="btn-group ml8 mt8 wxwork_navigation" role="group" aria-label="Navigation">
+        <a type="button" role="button" class="btn btn-secondary fa fa-building wxwork_jump_anchor" href="#wxwork_companies">
+            <h5 style="display:inline;"> Companies settings</h5>
+        </a>
+    </div>
+</template>
