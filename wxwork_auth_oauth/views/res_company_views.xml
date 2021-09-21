@@ -109,7 +109,7 @@
                     </div>
 
                     <h2 id="wxwork_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
-                        <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Join the enterprise QR code"/> Join the enterprise QR code</span>
+                        <span class="text-left"><i class="fa fa-qrcode fa-lg" aria-label="Join the enterprise QR code"/> Join the enterprise QR code</span>
                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
                     </h2>
                     <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">

@@ -25,11 +25,12 @@ odoo.define('wxwork_base.WXWorkSettingsNavigationMenu', function (require) {
 
             var settingsEl = this.$el.parents(".settings");
             var wxworkSettingsEl = this.$el.parents(".app_settings_block");
-
-            if (wxworkSettingsEl.height() > settingsEl.height()) {
-                settingsEl.animate({
-                    scrollTop: $(anchor).position().top,
-                }, 1000)
+            if ($(anchor).length > 0) {
+                if (wxworkSettingsEl.height() > settingsEl.height()) {
+                    settingsEl.animate({
+                        scrollTop: $(anchor).position().top,
+                    }, 1000)
+                }
             }
         }
     });

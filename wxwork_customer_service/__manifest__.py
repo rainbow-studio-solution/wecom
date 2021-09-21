@@ -15,8 +15,8 @@
 
 
         """,
-    "depends": ["wxwork_base"],
+    "depends": ["wxwork_base", "wxwork_smart_hrm"],
     "external_dependencies": {"python": [],},
-    "data": [],
+    "data": ["views/res_company_views.xml", "views/res_config_settings_views.xml",],
     "qweb": ["static/src/xml/*.xml",],
 }
