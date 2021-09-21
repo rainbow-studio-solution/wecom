@@ -6,18 +6,14 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <!-- <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('wxwork_navigation')]/a[last()]" position="after">
-                    <a type="button" role="button" class="btn btn-secondary font-weight fa fa-suitcase wxwork_jump_anchor" href="#wxwork_material"> 
-                        <h5 style="display:inline;"> Material settings</h5>                    
-                    </a>
-                </xpath> -->
+                
                 <xpath expr="//div[@id='wxwork_contact_settings_container']" position="after" >
                     <h2 id="wxwork_material" class="d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-suitcase fa-lg" aria-label="Enterprise WeChat Material"/> Enterprise WeChat Material
                             <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
-                        <a href="#wxwork_global" class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                        <widget name='res_config_wxwork_navigation_gotop'/>
                     </h2>
                     
                     <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">

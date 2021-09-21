@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 08:41+0000\n"
-"PO-Revision-Date: 2021-09-17 16:45+0800\n"
+"POT-Creation-Date: 2021-09-21 02:57+0000\n"
+"PO-Revision-Date: 2021-09-21 11:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -83,21 +83,35 @@ msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"授权访问的网页应�
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.wxwork_message_res_config_settings_view_form
 msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\"Join the enterprise "
+"QR code\"/> Join the enterprise QR code\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
+"below are the companies identified as enterprise wechat organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\"加入企业二维码\"/> 加"
+"入企业二维码\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
+"识为企业微信组织的公司。\"/>\n"
+"                        </span>"
+
+#. module: wxwork_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.wxwork_message_res_config_settings_view_form
+msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-sign-in fa-lg\" aria-label=\"Application login "
 "authorization\"/> \n"
 "                        Application login authorization\n"
 "                        <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
 "below are the companies identified as enterprise wechat organizations.\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                        </span>"
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-sign-in fa-lg\" aria-label=\"应用程序登录授权\"/> \n"
 "                        应用程序登录授权\n"
 "                        <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标识为"
 "企业微信组织的公司。\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
-"部\"/>"
+"                        </span>"
 
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.view_company_form
@@ -108,12 +122,11 @@ msgid ""
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-sign-in fa-lg\" aria-label=\"应用程序登录授权\"/> 应"
 "用程序登录授权</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部"
-"\"/>"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
+"部\"/>"
 
 #. module: wxwork_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.view_company_form
-#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.wxwork_message_res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-sign-in fa-lg\" aria-label=\"Join the enterprise QR "
 "code\"/> Join the enterprise QR code</span>\n"
@@ -121,26 +134,6 @@ msgid ""
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-sign-in fa-lg\" aria-label=\"加入企业二维码\"/> 加入"
 "企业二维码</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"转到顶部"
-"\"/>"
-
-#. module: wxwork_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wxwork_auth_oauth.wxwork_message_res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Join the enterprise "
-"QR code\"/> Join the enterprise QR code\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
-"below are the companies identified as enterprise wechat organizations.\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"加入企业二维码\"/> 加"
-"入企业二维码\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
-"识为企业微信组织的公司。\"/>\n"
-"                        </span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
 "部\"/>"
 
@@ -175,7 +168,6 @@ msgstr "应用程序管理→应用程序→打开需要验证和授权的应用
 
 #. module: wxwork_auth_oauth
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_company__auth_secret
-#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_secret
 msgid "Auth Secret"
 msgstr "身份验证Secret"
@@ -187,7 +179,16 @@ msgid "Auth agent Id"
 msgstr "身份验证应用id"
 
 #. module: wxwork_auth_oauth
+#. openerp-web
+#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/anchor.xml:0
+#: code:addons/wxwork_auth_oauth/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Auth settings"
+msgstr "身份验证设置"
+
+#. module: wxwork_auth_oauth
 #: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_company__auth_redirect_uri
+#: model:ir.model.fields,field_description:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri
 msgid "Callback link address redirected after authorization"
 msgstr "授权后重定向的回调链接地址"
 
@@ -430,9 +431,18 @@ msgstr "请正确填写通讯录密钥。"
 #. module: wxwork_auth_oauth
 #: model:ir.model.fields,help:wxwork_auth_oauth.field_res_company__auth_redirect_uri
 #: model:ir.model.fields,help:wxwork_auth_oauth.field_res_company__qr_redirect_uri
+#: model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__auth_redirect_uri
 #: model:ir.model.fields,help:wxwork_auth_oauth.field_res_config_settings__qr_redirect_uri
 msgid "Please use urlencode to process the link"
 msgstr "请使用urlencode处理链接"
+
+#. module: wxwork_auth_oauth
+#. openerp-web
+#: code:addons/wxwork/wxwork_auth_oauth/static/src/xml/anchor.xml:0
+#: code:addons/wxwork_auth_oauth/static/src/xml/anchor.xml:0
+#, python-format
+msgid "QR Code settings"
+msgstr "二维码设置"
 
 #. module: wxwork_auth_oauth
 #: model:ir.model.fields,help:wxwork_auth_oauth.field_res_company__join_qrcode

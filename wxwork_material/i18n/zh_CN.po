@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 05:06+0000\n"
-"PO-Revision-Date: 2021-09-17 13:09+0800\n"
+"POT-Creation-Date: 2021-09-21 02:51+0000\n"
+"PO-Revision-Date: 2021-09-21 10:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,17 +37,14 @@ msgid ""
 "Material\"/> Enterprise WeChat Material\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set "
 "below are the companies identified as enterprise wechat organizations.\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"Enterprise WeChat "
 "Material\"/> 企业微信素材\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标"
 "识为企业微信组织的公司。\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
-"部\"/>"
+"                        </span>"
 
 #. module: wxwork_material
 #: model_terms:ir.ui.view,arch_db:wxwork_material.view_company_form
@@ -136,11 +133,6 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wxwork_material
-#: model:ir.ui.menu,name:wxwork_material.menu_wxwork_material_root
-msgid "Enterprise WeChat Material Management"
-msgstr "企微素材管理"
-
-#. module: wxwork_material
 #: model:ir.model,name:wxwork_material.model_wxwork_material
 msgid "Enterprise WeChat material"
 msgstr "企业微信素材"
@@ -201,7 +193,7 @@ msgstr "KPI"
 #: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改日"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__write_uid
@@ -235,6 +227,14 @@ msgstr "素材应用Id"
 #: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings__material_secret
 msgid "Material Secret"
 msgstr "素材密钥"
+
+#. module: wxwork_material
+#. openerp-web
+#: code:addons/wxwork/wxwork_material/static/src/xml/anchor.xml:0
+#: code:addons/wxwork_material/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Material settings"
+msgstr "素材设置"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__media_filename
@@ -314,11 +314,6 @@ msgstr "请上传文件！"
 #: model:wxwork.material,name:wxwork_material.wxwork_material_image_reset_password
 msgid "Reset Password"
 msgstr "重置密码"
-
-#. module: wxwork_material
-#: model:ir.ui.menu,name:wxwork_material.menu_wxwork_configuration
-msgid "Settings"
-msgstr "设置"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__temporary

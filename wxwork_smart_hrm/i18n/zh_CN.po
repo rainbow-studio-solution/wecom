@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-17 03:02+0000\n"
-"PO-Revision-Date: 2021-09-17 11:07+0800\n"
+"POT-Creation-Date: 2021-09-21 02:45+0000\n"
+"PO-Revision-Date: 2021-09-21 10:49+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -43,16 +43,14 @@ msgid ""
 "Contact synchronization Settings\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below "
 "are the companies identified as enterprise wechat organizations.\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> 通"
 "讯录同步设置\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下面设置的值是标识为企"
 "业微信组织的公司。\"/>\n"
-"                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
+"                        </span>"
 
 #. module: wxwork_smart_hrm
 #: model_terms:ir.ui.view,arch_db:wxwork_smart_hrm.view_company_form
@@ -67,7 +65,7 @@ msgstr ""
 "                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/> 通"
 "讯录同步设置\n"
 "                        </span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚到到顶部\"/>"
 
 #. module: wxwork_smart_hrm
 #: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_config_plan
@@ -268,11 +266,6 @@ msgid "Enterprise WeChat Department"
 msgstr "企业微信部门"
 
 #. module: wxwork_smart_hrm
-#: model:ir.ui.menu,name:wxwork_smart_hrm.menu_wxwork_configuration
-msgid "Enterprise WeChat Settings"
-msgstr "企业微信设置"
-
-#. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_employee_category__is_wxwork_category
 msgid "Enterprise WeChat Tag"
 msgstr "企业微信标签"
@@ -319,10 +312,6 @@ msgstr "企业微信员工"
 msgid "Enterprise WeChat employees"
 msgstr "企业微信员工"
 
-#. module: wxwork_smart_hrm
-#: model:ir.model,name:wxwork_smart_hrm.model_hr_employee
-msgid "Enterprise WeChat employees bind system users"
-msgstr "企业微信员工绑定系统用户"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,field_description:wxwork_smart_hrm.field_hr_department__wxwork_department_parent_id
@@ -366,9 +355,9 @@ msgid ""
 "Error Details:\n"
 "%s"
 msgstr ""
-"错误代码： %s \n"
-"错误说明： %s\n"
-"错误详情： \n"
+"错误代码：%s \n"
+"错误说明：%s\n"
+"错误详细信息：\n"
 "%s"
 
 #. module: wxwork_smart_hrm
@@ -564,6 +553,14 @@ msgstr "成功"
 #, python-format
 msgid "Successfully updated tag."
 msgstr "成功更新标签。"
+
+#. module: wxwork_smart_hrm
+#. openerp-web
+#: code:addons/wxwork/wxwork_smart_hrm/static/src/xml/anchor.xml:0
+#: code:addons/wxwork_smart_hrm/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Synchronization settings"
+msgstr "同步设置"
 
 #. module: wxwork_smart_hrm
 #: model:ir.model.fields,help:wxwork_smart_hrm.field_hr_employee_category__tagid

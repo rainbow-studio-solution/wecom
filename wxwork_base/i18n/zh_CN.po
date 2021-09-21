@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-20 07:38+0000\n"
-"PO-Revision-Date: 2021-09-20 15:39+0800\n"
+"POT-Creation-Date: 2021-09-21 02:42+0000\n"
+"PO-Revision-Date: 2021-09-21 10:44+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -54,29 +54,21 @@ msgstr ""
 msgid ""
 "<span class=\"text-left\">\n"
 "                                <i class=\"fa fa-globe fa-lg\" aria-label=\"Enterprise WeChat global settings\"/> "
-"Enterprise WeChat global settings\n"
-"                            </span>\n"
-"                            <span class=\"text-right\">\n"
-"                                <i class=\"fa fa-angle-double-down\" aria-label=\"GoBottom\"/>\n"
+"Enterprise WeChat Global Settings\n"
 "                            </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-weixin fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信全局设置\n"
-"                            </span>\n"
-"                            <span class=\"text-right\">\n"
-"                                <i class=\"fa fa-angle-double-down\" aria-label=\"向下\"/>\n"
+"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信全局设置\n"
 "                            </span>"
 
 #. module: wxwork_base
 #: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> Enterprise "
-"WeChat Companies settings</span>\n"
-"                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"WeChat Companies settings</span>"
 msgstr ""
 "<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> 企业微信公"
-"司设置</span>\n"
-"                            <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
+"司设置span>"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
@@ -104,6 +96,13 @@ msgstr ""
 #: model:ir.model,name:wxwork_base.model_res_company
 msgid "Companies"
 msgstr "公司"
+
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Companies settings"
+msgstr "公司设置"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__company_id
@@ -172,6 +171,20 @@ msgid "Fill in: Enterprise WeChat management background → \"Enterprise Informa
 msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
 
 #. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "GoBottom"
+msgstr "滚动到底部"
+
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "GoTop"
+msgstr "滚动到顶部"
+
+#. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__id
 #: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
@@ -199,6 +212,13 @@ msgstr "管理所有公司"
 #: model:ir.model,name:wxwork_base.model_ir_module_module
 msgid "Module"
 msgstr "模块"
+
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Navigation"
+msgstr "导航"
 
 #. module: wxwork_base
 #: model:res.groups,name:wxwork_base.group_wxwork_user

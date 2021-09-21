@@ -19,7 +19,7 @@
                             <i class="fa fa-envelope-o fa-lg" aria-label="Enterprise WeChat Message"/> Enterprise WeChat Message
                             <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
-                        <a href="#wxwork_global" class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                        <widget name='res_config_wxwork_navigation_gotop'/>
                     </h2>
                     <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">

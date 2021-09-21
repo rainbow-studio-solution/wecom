@@ -1,9 +1,9 @@
-odoo.define('wxwork_base.Anchor', function (require) {
+odoo.define('wxwork_base.WXWorkSettingsNavigationMenu', function (require) {
     'use strict';
 
-    var ActionManager = require('web.ActionManager');
     var Widget = require('web.Widget');
     var widget_registry = require('web.widget_registry');
+
     var WXWorkSettingsNavigationMenu = Widget.extend({
         template: 'res_config_wxwork_navigation_menu',
         events: {
@@ -13,12 +13,10 @@ odoo.define('wxwork_base.Anchor', function (require) {
             this._super.apply(this, arguments);
         },
         start: function () {
-            var self = this;
             return this._super.apply(this, arguments);
         },
         _jump_anchor: function (ev) {
             ev.preventDefault(); //阻止默认行为
-            var self = this;
             var anchor = $(ev.target).attr('href');
 
             if ($(ev.target).prop("tagName") != "A") {
@@ -27,21 +25,82 @@ odoo.define('wxwork_base.Anchor', function (require) {
 
             var settingsEl = this.$el.parents(".settings");
             var wxworkSettingsEl = this.$el.parents(".app_settings_block");
-            var navEl = this.$el;
-
-            // var $settings = this.$el.parents(".app_settings_block");
-            console.log($(anchor).offset().top, navEl.outerHeight());
-            console.log($(anchor).offset().top - navEl.outerHeight());
 
             if (wxworkSettingsEl.height() > settingsEl.height()) {
-                // settingsEl.animate({
-                //     scrollTop: $(anchor).offset().top - navEl.outerHeight(),
-                // }, 1000)
-                settingsEl.scrollTop($(anchor).offset().top - navEl.outerHeight());
+                settingsEl.animate({
+                    scrollTop: $(anchor).position().top,
+                }, 1000)
             }
-
         }
     });
     widget_registry.add('res_config_wxwork_navigation_menu', WXWorkSettingsNavigationMenu);
     return WXWorkSettingsNavigationMenu;
+});
+
+
+odoo.define('wxwork_base.WXWorkSettingsNavigationGoTop', function (require) {
+    'use strict';
+
+    var Widget = require('web.Widget');
+    var widget_registry = require('web.widget_registry');
+
+    var WXWorkSettingsNavigationGoTop = Widget.extend({
+        template: 'res_config_wxwork_navigation_gotop',
+        events: {
+            'click': '_gotop',
+        },
+        init: function () {
+            this._super.apply(this, arguments);
+        },
+        start: function () {
+            return this._super.apply(this, arguments);
+        },
+        _gotop: function (ev) {
+            ev.preventDefault(); //阻止默认行为
+            var settingsEl = this.$el.parents(".settings");
+            var wxworkSettingsEl = this.$el.parents(".app_settings_block");
+
+            if (wxworkSettingsEl.height() > settingsEl.height()) {
+                settingsEl.animate({
+                    scrollTop: $("#wxwork_global").position().top,
+                }, 1000)
+            }
+        }
+    });
+    widget_registry.add('res_config_wxwork_navigation_gotop', WXWorkSettingsNavigationGoTop);
+    return WXWorkSettingsNavigationGoTop;
+});
+
+odoo.define('wxwork_base.WXWorkSettingsNavigationGoBottom', function (require) {
+    'use strict';
+
+    var Widget = require('web.Widget');
+    var widget_registry = require('web.widget_registry');
+
+    var WXWorkSettingsNavigationGoBottom = Widget.extend({
+        template: 'res_config_wxwork_navigation_gobottom',
+        events: {
+            'click': '_gobottom',
+        },
+        init: function () {
+            this._super.apply(this, arguments);
+        },
+        start: function () {
+            return this._super.apply(this, arguments);
+        },
+        _gobottom: function (ev) {
+            ev.preventDefault(); //阻止默认行为
+
+            var settingsEl = this.$el.parents(".settings");
+            var wxworkSettingsEl = this.$el.parents(".app_settings_block");
+
+            if (wxworkSettingsEl.height() > settingsEl.height()) {
+                settingsEl.animate({
+                    scrollTop: $("#wxwork_bottom").position().top,
+                }, 1000)
+            }
+        }
+    });
+    widget_registry.add('res_config_wxwork_navigation_gobottom', WXWorkSettingsNavigationGoBottom);
+    return WXWorkSettingsNavigationGoBottom;
 });
