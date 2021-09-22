@@ -319,7 +319,7 @@ msgstr "ICP备案信息"
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
 msgid "ICP filing"
-msgstr "CP备案"
+msgstr "ICP备案"
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__icp_filing_info
