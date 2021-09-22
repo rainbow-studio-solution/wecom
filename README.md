@@ -1,6 +1,6 @@
 # 企业微信 For Odoo 14.0
 
-**正在处理集团架构的多公司关联企业微信，请不要使用GIT下载，请到右侧的发行版进行下载**
+**多公司关联企业微信功能基本完成**
 
 **不知道如何使用，请看帮助文件或者Wiki**
 
@@ -26,8 +26,8 @@
 
 4. wxwork_widget（企业微信消息JSON编辑器,企业微信消息Markdown编辑器,密码显示等小部件），完成
 
+5. web_widget_colorpicker（采色器），来源 <a href="https://apps.odoo.com/apps/modules/14.0/web_widget_colorpicker/" target="_blank">Web Widget Colorpicker</a>,做了部分修改
 
-### 多公司管理（企业微信企业互联功能） TODO
 
 ### 人力资源管理
 
@@ -48,21 +48,11 @@
 
       2. 从HR企业微信员工生成系统用户；定时同步任务。
 
-      3. 多公司同步功能
+      3. 完成多公司同步功能
 
       4. 取消了占用系统资源的 下载图片功能，头像和二维码均使用url
       
-   > 故障处理：
-   ```bash
-    #1. 安装扩展
-    pip install numpy==1.19.3 opencv-python==4.4.0.46 -i https://pypi.doubanio.com/simple
-    或
-    pip3 install numpy==1.19.3 opencv-python==4.4.0.46 -i https://pypi.doubanio.com/simple
-
-
-    #2. ImportError: libGL.so.1: cannot open shared object file: No such file or directory.解决方案：
-    apt-get install -y libgl1-mesa-dev   或  yum install mesa-libGL.x86_64
-   ``` 
+  
 3. wxwork_hr_extension（企业微信-HR扩展模块）完成   
 
    > 功能：
@@ -75,11 +65,15 @@
 
       1. 拉取企业微信考勤记录
 
-5. 企业微信排班管理（计划中）
+5. wxwork_customer_service(企业微信客服)
 
-6. 身份证阅读器对接（计划中）
+   website_china_extends(中文网站扩展，包含了website的企业微信客服弹出框)，部分参考了 <a href="https://apps.odoo.com/apps/modules/14.0/website_china_features/" target="_blank">Website China Features</a> 代码
 
-7. 健康证管理（计划中）
+6. 企业微信排班管理（计划中）
+
+7. 身份证阅读器对接（计划中）
+
+8. 健康证管理（计划中）
 
 ### 登录验证
 
@@ -89,6 +83,8 @@
       1. 网页扫码登录
       2. 应用内一键登录
       3. 用户消息模板
+      4. 多公司
+      5. 加入企业微信二维码
       
    > 故障处理：
    ```bash
@@ -106,7 +102,7 @@
 
       1. 上传临时素材和永久图片
 
-      2. 临时素材可以用于发送企业微信消息
+      2. 临时素材可以用于发送企业微信 图文消息（mpnews） 消息
 
       3. 永久图片仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。
 
@@ -124,7 +120,7 @@
 
 ### 企业微信消息推送
 
-1. wxwork_message（企业微信消息推送），开展中
+1. wxwork_message（企业微信消息推送），完成了套用模板发送消息
 
 2. mass_mailing_wxwork_message（企业微信群发消息），开展中
 

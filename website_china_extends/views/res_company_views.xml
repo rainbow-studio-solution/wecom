@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_form_inherit_social_media" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.social.media</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="social_media.view_company_form_inherit_social_media"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='social_instagram']" position="after">
+                <field name="social_wechat" widget="image" class="oe_avatar float-left" />
+                <field name="social_wechat_kf" widget="image" class="oe_avatar float-left" />
+                <field name="social_qq" options="{'format': false}"/>
+                <field name="social_weibo"/>
+                <field name="social_renren"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

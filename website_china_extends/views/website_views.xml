@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_website_form" model="ir.ui.view">
+            <field name="name">website.form</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">                
+    
+                <xpath expr="//notebook/page[last()]" position="after">
+                    <page string="Chinese website function" >
+                        <group>
+                            <group string="ICP filing">
+                                <field name="icp_filing_info"/>
+                            </group>
+                            <group string="Custom technical support">
+                                <field name="technical_support" />
+                                <field name="technical_support_icon" widget="image" class="oe_avatar float-left" attrs="{'invisible':[('technical_support','=',False)]}" />
+                                <field name="technical_support_name" attrs="{'invisible':[('technical_support','=',False)]}" />
+                                <field name="technical_support_url" attrs="{'invisible':[('technical_support','=',False)]}" />
+                            </group>
+                            <group string="Social networks">
+                                <field name="social_wechat" widget="image" class="float-left oe_avatar"/>
+                                <field name="social_wechat_kf" widget="image" class="float-left oe_avatar"/>
+                                <field name="social_qq" placeholder="88888888"  options="{'format': false}"/>
+                                <!-- <field name="social_qq" placeholder="http://youraccount.qzone.qq.com"/> -->
+                                <field name="social_weibo" placeholder="http://weibo.com/youraccount"/>
+                                <field name="social_renren" placeholder="http://www.renren.com/youraccount"/>
+                                <field name="has_social_sidebar"/>
+                                <field name="social_sidebar_bg_color" widget="colorpicker" attrs="{'invisible':[('has_social_sidebar','=',False)]}"/>
+                            </group>
+                            
+                        </group>
+                    </page>
+                </xpath>
+                
+            </field>
+        </record>
+
+    </data>
+</odoo>

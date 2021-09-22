@@ -1,0 +1,58 @@
+// .s_share {
+//     >* {
+//         display: inline-block;
+//         vertical-align: middle;
+//     }
+
+//     .s_share_title {
+//         margin: 0 .4rem 0 0;
+//     }
+
+//     a {
+//         i.fa {
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//         }
+
+//         margin: .2rem;
+//     }
+
+//     &:not(.no_icon_color) {
+//         .s_share_wechat {
+
+//             &,
+//             &:hover,
+//             &:focus {
+//                 @extend .text-wechat;
+//             }
+//         }
+
+//         .s_share_qq {
+
+//             &,
+//             &:hover,
+//             &:focus {
+//                 @extend .text-qq;
+//             }
+//         }
+
+//         .s_share_weibo {
+
+//             &,
+//             &:hover,
+//             &:focus {
+//                 @extend .text-weibo;
+//             }
+//         }
+
+//         .s_share_renren {
+
+//             &,
+//             &:hover,
+//             &:focus {
+//                 @extend .text-renren;
+//             }
+//         }
+//     }
+// }

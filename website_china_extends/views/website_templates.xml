@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="social_sidebar" name="Social Sidebar Panel" inherit_id="portal.frontend_layout">
+            <xpath expr="//div[@id='wrapwrap']/main" position="before">
+                <div class="social_sidebar" t-if="website and website.has_social_sidebar" >
+                    <a t-if="res_company.phone" class="btn btn-sm btn-default" t-attf-style="background-color:{{website.social_sidebar_bg_color}}">
+                        <i class="fa fa-2x fa-phone"/>
+                        <span class="overflow-hidden text-nowrap" t-field="res_company.phone"/>
+                    </a>
+                    <a t-if="res_company.email" class="btn btn-sm btn-default" t-attf-href="mailto:{{res_company.email}}" t-attf-style="background-color:{{website.social_sidebar_bg_color}}">
+                        <i class="fa fa-2x fa-envelope"/>
+                        <span class="overflow-hidden text-nowrap" t-field="res_company.email"/>
+                    </a>
+                    <a t-if="website.social_qq" t-attf-href="http://wpa.qq.com/msgrd?v=3&amp;uin={{website.social_qq}}&amp;site=qq&amp;menu=yes" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" class="btn btn-sm btn-default" target="_blank" title="Send your request now">
+                        <i class="fa fa-2x fa-qq"/>
+                        <span class="overflow-hidden text-nowrap">QQ Online</span>
+                    </a>
+                    
+                    <a t-if="website.social_weibo" t-att-href="website.social_weibo" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" class="btn btn-sm btn-default" target="_blank" title="Click to follow us">
+                        <i class="fa fa-2x fa-weibo"/>
+                        <span class="overflow-hidden text-nowrap">Weibo</span>
+                    </a>
+                    <a t-if="website.social_renren" t-att-href="website.social_renren"  t-attf-style="background-color:{{website.social_sidebar_bg_color}}" class="btn btn-sm btn-default" target="_blank" title="">
+                        <i class="fa fa-2x fa-renren"/>
+                        <span class="overflow-hidden text-nowrap">Renren</span>
+                    </a>
+                    <a t-if="website.social_wechat" href="#" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" class="btn btn-sm btn-default wechat_attention_qrcode" target="_blank" title="Pay attention to our WeChat official account.">
+                        <i class="fa fa-2x fa-wechat"/>
+                        <span class="overflow-hidden text-nowrap">Wechat attention</span>
+                        <img t-attf-src="data:image/png;base64,{{website.social_wechat}}" class="thumbnail img-responsive"/>
+                    </a>
+                    <a t-if="website.social_wechat_kf" href="#" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" class="btn btn-sm btn-default wechat_attention_qrcode" target="_blank" title="Wechat scanning code to contact us.">
+                        <i class="fa fa-2x fa-headphones"/>
+                        <span class="overflow-hidden text-nowrap">Wechat Customer Service</span>
+                        <img t-attf-src="data:image/png;base64,{{website.social_wechat_kf}}" class="thumbnail img-responsive"/>
+                    </a>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="baidu_tracking_code" inherit_id="website.layout" name="Baidu Tracking Code">
+            <xpath expr="//script[@id='tracking_code']" position="after">
+                <!-- 百度统计代码 -->
+                <script t-if="website and website.baidu_analytics_key and not editable">
+                var _hmt = _hmt || [];
+                (function(){
+                    var hm = document.createElement("script");
+                    hm.src = "//hm.baidu.com/hm.js?<t t-esc="website.baidu_analytics_key"/>";
+                    var s = document.getElementsByTagName("script")[0]; 
+                    s.parentNode.insertBefore(hm, s);
+                })();
+                </script>
+
+                <!-- 百度站长推送 -->
+                <!-- <script t-if="website and website.baidu_webmaster_push and not editable">
+                (function(){
+                    var bp = document.createElement('script');
+                    var curProtocol = window.location.protocol.split(':')[0];
+                    if(curProtocol === 'https'){
+                        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                    }else{
+                        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                    }
+                    var s = document.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(bp, s);
+                })();
+                </script> -->
+                
+            </xpath>
+        </template>
+        
+        <template id="company_description"  inherit_id="website.company_description" name="Company Description">
+            <xpath expr="//t[@t-if='not res_company.google_map_img()']" position="replace">
+                <t t-if="website and website.baidu_maps_api_key ">
+                </t>  
+                <t t-else="">
+                    <t t-if="not res_company.google_map_img()">
+                        <span class="fa fa-map-marker fa-fw mt16" role="img" aria-label="Address" title="Address"/> <a t-att-href="res_company.google_map_link()" target="_BLANK"> Google Maps</a>
+                    </t>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="company_description_baidu_map" inherit_id="website.company_description_google_map" name="Baidu map" >
+            <xpath expr="//t[@t-if='res_company.google_map_img()']" position="replace">
+                <t t-if="website and website.baidu_maps_api_key">
+                    <a t-att-href="res_company.baidu_map_link()" target="_blank">
+                        <img class="thumbnail img-fluid" t-att-src="res_company.baidu_map_img()" alt="Baidu Maps" />
+                    </a>
+                </t>  
+                <t t-else="">
+                    <a t-att-href="res_company.google_map_link()" target="_BLANK">
+                        <img class="img-fluid" t-att-src="res_company.google_map_img()" alt="Google Maps"/>
+                    </a>
+                </t>                
+            </xpath>
+            <xpath expr="//t[@t-elif='editable']" position="replace" >
+                <t t-if="website and website.baidu_maps_api_key ">
+                </t>  
+                <t t-else="">
+                    <div class="alert alert-warning">
+                        <i class="fa fa-plus-circle"/>
+                        The Google map option is enabled but <a href="/web#action=website.action_website_configuration">not properly configured</a>.
+                    </div>
+                </t>  
+            </xpath>  
+        </template>
+
+       
+        <template id="icp_filing_info" inherit_id="web.frontend_layout" name="China ICP Filing">
+            <xpath expr="//footer//div[hasclass('o_footer_copyright')]//div[@class='container py-3']//div[@class='row']" position="after">
+                <div class="row d-flex justify-content-center">
+                    <a href="https://beian.miit.gov.cn/" target="_blank" t-if="website and website.icp_filing_info and not editable">
+                        <t t-esc="website.icp_filing_info"/>
+                    </a>
+                </div>
+            </xpath>
+        </template>
+        
+        <template id="brand_promotion_message" name="Brand Promotion Message">
+
+            <t t-set="support_url" t-value="website.technical_support_url" />
+            <t t-set="support_icon" t-value="website.technical_support_icon" />
+            <t t-set="support_name" t-value="website.technical_support_name" />
+            
+            <t t-set="support_logo">
+                <a target="_blank"
+                    t-att-href="support_url"
+                    class="badge badge-light">
+                    <img t-att-alt="str(support_name)" t-attf-src="data:image/png;base64,{{support_icon}}" style="height: 1em; vertical-align: baseline;"/>
+                </a>
+            </t>
+            <t t-set="final_message">Powered by %s%s</t>
+            <t t-raw="final_message % (support_logo, _message and ('- %s' % _message) or '')"/>
+
+        </template>
+
+        <template id="brand_promotion"  inherit_id="web.brand_promotion" name="Brand Promotion Message">            
+            <xpath expr="//div[@class='o_brand_promotion']" position="replace">                
+                <t t-set="enable_support" t-value="website.technical_support" />
+
+                <t t-if="enable_support">
+                    <div class="o_brand_promotion">
+
+                        <t t-set="support_url" t-value="website.technical_support_url" />
+                        <t t-set="support_name" t-value="website.technical_support_name" />
+
+                        <t t-call="website_china_extends.brand_promotion_message">
+                            <t t-set="_message">
+                                <a target="_blank" t-att-href="support_url">
+                                    <t t-esc="support_name"/>
+                                </a>
+                            </t>                            
+                        </t>
+       
+                    </div>
+                </t>
+                <t t-else="">
+                    <!-- website_sale > sale_quotation_builder -->
+                    <t t-set="website_sale_is_installed" t-value="request and request.env['ir.module.module'].sudo().website_check_module_installed('website_sale')"/>
+
+                    <t t-set="sale_quotation_builder_is_installed" t-value="request and request.env['ir.module.module'].sudo().website_check_module_installed('sale_quotation_builder')"/>
+                    
+                    <div class="o_brand_promotion">
+                        <t t-if="sale_quotation_builder_is_installed">
+                            <t t-call="web.brand_promotion_message">
+                                <t t-set="_message">
+                                An awesome <a target="_blank" href="https://www.odoo.com/page/crm?utm_source=db&amp;utm_medium=portal">Open Source CRM</a>
+                            </t>
+                            <t t-set="_utm_medium" t-valuef="portal"/>
+                            </t>
+                        </t>
+                        <t t-elif="website_sale_is_installed">
+                            <t t-call="web.brand_promotion_message">
+                                <t t-set="_message">
+                                    The #1 <a target="_blank" href="http://www.odoo.com/page/e-commerce?utm_source=db&amp;utm_medium=website">Open Source eCommerce</a>
+                                </t>
+                                <t t-set="_utm_medium" t-valuef="website"/>
+                            </t>
+                        </t>
+
+                        <t t-else="">
+                            <t t-call="web.brand_promotion_message">
+                                <t t-set="_message">
+                                    Create a <a target="_blank" href="http://www.odoo.com/page/website-builder?utm_source=db&amp;utm_medium=website">free website</a>
+                                </t>
+                                <t t-set="_utm_medium" t-valuef="website"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+
+            </xpath>            
+        </template>
+
+    </data>
+</odoo>
