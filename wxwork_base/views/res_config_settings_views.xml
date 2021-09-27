@@ -140,13 +140,13 @@
         </record>
 
         <record id="wxwork_config_settings_action" model="ir.actions.act_window">
-            <field name="name">Enterprise WeChat Settings</field>
+            <field name="name">Settings</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.config.settings</field>
             <field name="view_id" ref="res_config_settings_view_form"/>
             <field name="view_mode">form</field>
             <field name="target">inline</field>
-            <field name="context">{ 'module' : 'wxwork_base'}</field>
+            <field name="context">{ 'module' : 'wxwork_base', 'bin_size': False}</field>
         </record>
     </data>
 </odoo>

@@ -151,8 +151,8 @@ msgstr "企业微信图片存储路径"
 
 #. module: wxwork_base
 #: model:ir.actions.act_window,name:wxwork_base.wxwork_config_settings_action
-msgid "Enterprise WeChat Settings"
-msgstr "企业微信设置"
+msgid "Settings"
+msgstr "设置"
 
 #. module: wxwork_base
 #: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo
