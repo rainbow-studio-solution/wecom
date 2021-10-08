@@ -60,3 +60,10 @@
     }
   }
 }
+
+@media (max-width: 576px) {
+    .social_sidebar{
+        top: 150px;
+        display:none
+    }
+}
