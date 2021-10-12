@@ -395,8 +395,8 @@ msgstr "企业微信消息预览"
 
 #. module: wxwork_message
 #: model:ir.actions.act_window,name:wxwork_message.wxwork_message_config_settings_action
-msgid "Enterprise WeChat Message Settings"
-msgstr "企业微信消息设置"
+msgid "Settings"
+msgstr "设置"
 
 #. module: wxwork_message
 #: model:ir.model,name:wxwork_message.model_mail_template
