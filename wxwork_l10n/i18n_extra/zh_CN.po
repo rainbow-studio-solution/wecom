@@ -197,3 +197,8 @@ msgstr "企微活动消息"
 #: model:ir.module.module,shortdesc:base.module_wxwork_auth_oauth_patch_for_rainbow
 msgid "Enterprise WeChat Authentication path for Rainbow Theme"
 msgstr "企微验证彩虹主题补丁"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.wxwork_approval
+msgid "Enterprise Wechat Approvals"
+msgstr "企微审批"
