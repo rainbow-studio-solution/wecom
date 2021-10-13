@@ -28,4 +28,5 @@
     ],
     "qweb": ["static/src/xml/*.xml",],
     "external_dependencies": {"python": [],},
+    # "post_init_hook": "_open_wxwork_settings",
 }

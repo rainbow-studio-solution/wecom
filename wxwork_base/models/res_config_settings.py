@@ -70,3 +70,13 @@ class ResConfigSettings(models.TransientModel):
 
         for record in self:
             record.wxwork_company_corpid = company_corpid
+
+    @api.model
+    def open_wxwork_settings(self):
+
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "wxwork_base.res_config_settings_view_form"
+        )
+        action["target"] = "new"
+
+        return action
