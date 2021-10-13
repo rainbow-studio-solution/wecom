@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-21 02:51+0000\n"
-"PO-Revision-Date: 2021-09-21 10:52+0800\n"
+"POT-Creation-Date: 2021-10-13 05:54+0000\n"
+"PO-Revision-Date: 2021-10-13 13:55+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -133,6 +133,12 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/__init__.py:0 code:addons/wxwork_material/__init__.py:0
+#, python-format
+msgid "Enterprise WeChat image storage path has not been configured yet!"
+msgstr "尚未配置企业微信图像存储路径！"
+
+#. module: wxwork_material
 #: model:ir.model,name:wxwork_material.model_wxwork_material
 msgid "Enterprise WeChat material"
 msgstr "企业微信素材"
@@ -193,7 +199,7 @@ msgstr "KPI"
 #: model:ir.model.fields,field_description:wxwork_material.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material____last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr "最后更改日"
 
 #. module: wxwork_material
 #: model:ir.model.fields,field_description:wxwork_material.field_wxwork_material__write_uid
@@ -348,6 +354,12 @@ msgstr "临时素材尚未过期，请不要重复上传。"
 #: model:ir.model.fields,help:wxwork_material.field_wxwork_material__media_id
 msgid "The unique identification obtained after uploading the media file is valid for 3 days"
 msgstr "媒体文件上传后获取的唯一标识，3天内有效"
+
+#. module: wxwork_material
+#: code:addons/wxwork/wxwork_material/__init__.py:0 code:addons/wxwork_material/__init__.py:0
+#, python-format
+msgid "Unable to create enterprise wechat image storage path! Error:%s"
+msgstr "无法创建企业微信图像存储路径！错误：%s"
 
 #. module: wxwork_material
 #: code:addons/wxwork/wxwork_material/models/wxwork_material.py:0

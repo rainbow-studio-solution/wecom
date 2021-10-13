@@ -48,4 +48,5 @@ Install:
     ],
     "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
     "qweb": ["static/src/xml/*.xml",],
+    "pre_init_hook": "pre_init_hook",
 }
