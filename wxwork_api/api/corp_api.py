@@ -91,10 +91,33 @@ CORP_API_TYPE = {
         "/cgi-bin/checkin/getcheckindata?access_token=ACCESS_TOKEN",
         "POST",
     ],
+    # 审批-Start
+    ## 获取审批模板详情
+    "GET_APPROVAL_TEMPLATE_DETAIL": [
+        "/cgi-bin/oa/gettemplatedetail?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
+    ## 提交审批申请
+    "POST_APPROVAL_APPLY_EVENT": [
+        "/cgi-bin/corp/applyevent?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
+    ## 批量获取审批单号
+    "GET_APPROVAL_INFO": [
+        "/cgi-bin/oa/getapprovalinfo?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
+    ## 获取审批申请详情
+    "GET_APPROVAL_DETAIL": [
+        "/cgi-bin/oa/getapprovaldetail?access_token=ACCESS_TOKEN",
+        "POST",
+    ],
+    ## 获取审批数据（旧）
     "GET_APPROVAL_DATA": [
         "/cgi-bin/corp/getapprovaldata?access_token=ACCESS_TOKEN",
         "POST",
     ],
+    # 审批-End
     "GET_INVOICE_INFO": [
         "/cgi-bin/card/invoice/reimburse/getinvoiceinfo?access_token=ACCESS_TOKEN",
         "POST",
