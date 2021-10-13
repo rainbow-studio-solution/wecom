@@ -11,13 +11,25 @@
             sequence="3"/>
 
 
+            <!-- 自动任务-->
             <menuitem 
-            id="menu_wxwork_configuration" 
-            name="Settings" 
-            parent="wxwork_base.menu_wxwork_root" 
-            sequence="900"
-            action="wxwork_base.wxwork_config_settings_action" 
-            groups="base.group_system"/>
+                id="menu_wxwork_cron" 
+                name="Timed task" 
+                parent="wxwork_base.menu_wxwork_root" 
+                sequence="4"
+                groups="base.group_system"/>
+
+            <!-- 设置-->
+            <menuitem 
+                id="menu_wxwork_configuration" 
+                name="Settings" 
+                parent="wxwork_base.menu_wxwork_root" 
+                sequence="900"
+                action="wxwork_base.wxwork_config_settings_action" 
+                groups="base.group_system"/>
+
+
+            
 
     </data>
 

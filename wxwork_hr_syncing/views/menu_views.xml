@@ -66,13 +66,13 @@
         <menuitem 
             id="menu_wxwork_contacts_sync_auto" 
             name="Sync contacts" 
-            parent="wxwork_smart_hrm.menu_wxwork_cron" 
+            parent="wxwork_base.menu_wxwork_cron" 
             action="ir_cron_act_contacts" 
             sequence="1"/>
         <menuitem 
             id="menu_wxwork_users_sync_auto" 
             name="Sync Users" 
-            parent="wxwork_smart_hrm.menu_wxwork_cron" 
+            parent="wxwork_base.menu_wxwork_cron" 
             action="ir_cron_act_users" 
             sequence="2"/>
 
