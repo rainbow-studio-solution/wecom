@@ -27,7 +27,7 @@
                                     role="tabpanel" >
                                     <iframe t-att-src="company.url" 
                                             frameborder="0"
-                                            scrolling="0" loading="lazy"
+                                            scrolling="0" loading="eager"
                                     ></iframe>
                                 </div>
                             </t>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="base.module_category_enterprise_wechat" model="ir.module.category">
+    <!-- <record id="base.module_category_enterprise_wechat" model="ir.module.category">
         <field name="description">Helps you manage your Enterprise WeChat.</field>
         <field name="sequence">9</field>
     </record>
@@ -24,6 +24,6 @@
         <record id="base.default_user" model="res.users">
             <field name="groups_id" eval="[(4,ref('group_wxwork_manager'))]"/>
         </record>
-    </data>
+    </data> -->
     
 </odoo>

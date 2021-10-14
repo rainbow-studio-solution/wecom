@@ -15,7 +15,7 @@
                         t-attf-class="{{company_index==0 ? 'carousel-item active':'carousel-item'}} d-flex justify-content-center" 
                         >
 
-                        <img t-att-src="company.url" class="d-block w-75" t-att-alt="company.fullname" loading="lazy"/>
+                        <img t-att-src="company.url" class="d-block w-75" t-att-alt="company.fullname" loading="eager"/>
 
                         <div class="carousel-caption d-none d-md-block " style="padding-bottom:0;padding-top:0;color:#000;bottom: -32px;">
                             <h5 ><t t-esc="company['name']"/></h5>
