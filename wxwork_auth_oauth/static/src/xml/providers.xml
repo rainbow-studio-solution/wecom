@@ -24,7 +24,7 @@
                                 <div 
                                     t-attf-class="tab-pane fade {{company_index==0 ? 'show active':''}}" 
                                     t-att-id="'tab_' + company_index"  
-                                    role="tabpanel" >
+                                    role="tabpanel" loading="eager">
                                     <iframe t-att-src="company.url" 
                                             frameborder="0"
                                             scrolling="0" loading="eager"

@@ -233,8 +233,6 @@ class OAuthController(Controller):
         "/wxowrk_auth_oauth/authorize", type="http", auth="none",
     )
     def wxwork_web_authorize(self, **kw):
-        print(kw)
-        print(kw["state"])
         code = kw.pop("code", None)
 
         state = json.loads(kw["state"])
@@ -388,7 +386,6 @@ class OAuthController(Controller):
                 # signup error
                 _logger.exception("OAuth2: %s" % str(e))
                 url = "/web/login?oauth_error=2"
-
         return set_cookie_and_redirect(url)
 
     @http.route("/wxowrk_login_info", type="json", auth="none")

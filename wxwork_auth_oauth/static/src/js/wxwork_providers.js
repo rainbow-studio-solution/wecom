@@ -1,10 +1,10 @@
 odoo.define('wxwork_auth_oauth.providers', function (require) {
     'use strict';
 
-    var publicWidget = require('web.public.widget');
+    const publicWidget = require('web.public.widget');
     var core = require('web.core');
     var qweb = core.qweb;
-    var lazyloader = require('web.public.lazyloader');
+
 
     publicWidget.registry.WxWorkAuthProviders = publicWidget.Widget.extend({
         selector: '.o_login_auth',
@@ -27,7 +27,6 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
             return this._super.apply(this, arguments);
         },
         is_wxwork_browser: function () {
-            var self = this;
             var ua = navigator.userAgent.toLowerCase();
             let isWx = ua.match(/MicroMessenger/i) == "micromessenger";
             if (!isWx) {
@@ -85,15 +84,6 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                     dialog.modal('show');
 
                 } else if (icon.hasClass("wxwork_auth_onekey")) {
-
-
-                    var ua = navigator.userAgent.toLowerCase();
-                    // if (ua.match(/WxWork/i) == "wxwork") {
-                    //     window.open(url);
-                    // } else {
-
-
-                    // }
                     var new_data = {
                         isWxworkBrowser: data["is_wxwork_browser"],
                         msg: data["msg"],
