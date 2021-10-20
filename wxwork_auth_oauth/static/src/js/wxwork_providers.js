@@ -55,7 +55,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
             }
 
             var companies = [];
-            if (data["companies"].length > 1) {
+            if (data["companies"].length > 0) {
                 $.each(data["companies"], function (index, element) {
                     var state = self.getUrlParam(url, "state").replace(/[+]/g, "").replace("#wechat_redirect", "");
                     var state_decode_str = decodeURIComponent(state);
