@@ -39,3 +39,8 @@ class ResConfigSettings(models.TransientModel):
     module_wxwork_stock_message = fields.Boolean(
         related="company_id.module_wxwork_stock_message", readonly=False
     )
+
+    module_purchase = fields.Boolean()
+    module_wxwork_purchase_message = fields.Boolean(
+        "Send Purchase message via Enterprise WeChat",
+    )

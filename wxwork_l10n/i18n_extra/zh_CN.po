@@ -166,6 +166,11 @@ msgid "Enterprise WeChat Gamification Message"
 msgstr "企微积分管理消息"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wxwork_purchase_message
+msgid "Enterprise WeChat Purchase Message"
+msgstr "企微采购消息"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wxowrk_digest_message
 msgid "Enterprise WeChat KPI Digests Message"
 msgstr "企微KPI摘要消息"

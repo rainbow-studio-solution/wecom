@@ -845,6 +845,12 @@ msgid "Install Enterprise WeChat KPI Message"
 msgstr "安装企业微信KPI消息"
 
 #. module: wxwork_message
+#: model_terms:ir.ui.view,arch_db:wxwork_message.view_company_form
+#: model_terms:ir.ui.view,arch_db:wxwork_message.wxwork_message_res_config_settings_view_form
+msgid "Install Enterprise WeChat Purchase Message"
+msgstr "安装企业微信采购消息"
+
+#. module: wxwork_message
 #: model:ir.model.fields.selection,name:wxwork_message.selection__mail_notification__failure_type__invalid_party
 msgid "Invalid Department"
 msgstr "无效的部门"

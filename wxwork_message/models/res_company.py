@@ -26,3 +26,8 @@ class Company(models.Model):
     module_wxwork_stock_message = fields.Boolean(
         "Send Inventory message via Enterprise WeChat",
     )
+
+    # module_purchase = fields.Boolean("",)
+    # module_wxwork_purchase_message = fields.Boolean(
+    #     "Send Purchase message via Enterprise WeChat",
+    # )
