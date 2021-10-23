@@ -4,7 +4,7 @@
 
         <template id="social_sidebar" name="Social Sidebar Panel" inherit_id="portal.frontend_layout">
             <xpath expr="//div[@id='wrapwrap']/main" position="before">
-                <div class="social_sidebar" t-if="website and website.has_social_sidebar" t-attf-style="top:{{website.social_sidebar_top}}">
+                <div class="social_sidebar" t-if="website and website.has_social_sidebar" t-attf-style="top:{{website.social_sidebar_top}}px;">
                     <a t-if="res_company.phone" class="btn btn-sm btn-default" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" t-att-title="res_company.phone">
                         <i class="fa fa-2x fa-phone"/>
                         <span class="overflow-hidden text-nowrap" t-field="res_company.phone"/>
