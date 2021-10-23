@@ -2,7 +2,6 @@
 <odoo>
 
     <data>
-    <!-- website.template_header_sidebar, website.no_autohide_menu  website.template_header_slogan-->
 
         <template id="template_header_slogan" inherit_id="website.template_header_slogan">
             <xpath expr="//t[@t-call='website.placeholder_header_language_selector']" position="replace"/>
