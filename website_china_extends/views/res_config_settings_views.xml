@@ -138,9 +138,19 @@
                     <label for="social_wechat" string="WeChat official account QR code" class="col-md-6 o_light_label"/>
                     <field name="social_wechat" widget="image" class="float-left oe_avatar col-lg-4"/>
                 </div>
-                <div class="row">
+                <field name="module_wxwork_customer_service" invisible="1" />
+                <div class="row mt16" attrs="{'invisible': [('module_wxwork_customer_service','=',False)]}">
+                    <div class="text-info col-md-12">
+                        You have installed the enterprise wechat customer service function. Please set the customer service QR code in the enterprise wechat application.
+                    </div>
+                </div>
+                <div class="row" attrs="{'invisible': [('module_wxwork_customer_service','=',False)]}">
                     <label for="social_wechat_kf" string="WeChat customer service QR code" class="col-md-6 o_light_label"/>
-                    <field name="social_wechat_kf" widget="image" class="float-left oe_avatar col-lg-4"/>
+                    <field name="social_wechat_kf" widget="image" class="float-left oe_avatar col-lg-4" attrs="{'readonly': [('module_wxwork_customer_service','=',True)]}"/>
+                </div>
+                <div class="row" attrs="{'invisible': [('module_wxwork_customer_service','=',True)]}">
+                    <label for="social_wechat_kf_compute" string="WeChat customer service QR code" class="col-md-6 o_light_label"/>
+                    <field name="social_wechat_kf_compute" widget="image" class="float-left oe_avatar col-lg-4"/>
                 </div>
                 
                 <div class="row">

@@ -1,8 +1,9 @@
 .social_sidebar {
   transition: all .5s ease;
   position: fixed;
-  top: 180px;
-  right: -145px;
+  top: 150px;
+  // right: -145px;
+  right: -155px;
   font-size: 0;
   line-height: 0;
   z-index: 100;
@@ -11,9 +12,9 @@
   a {
     font-size: 14px;
     width: 200px;
-    height: 50px;
+    height: 40px;
     display: flex;
-    line-height: 50px;
+    line-height: 40px;
     background-color: #ff4a00;
     margin-bottom: 2px;
     flex-direction: row;
@@ -23,12 +24,12 @@
     overflow: hidden;
 
     i {
-      margin-left: 8px;
+      margin-left: 4px;
       color: #FFFFFF;
     }
 
     span {
-      width: 140px;
+      width: 150px;
       vertical-align: middle;
       color: #FFFFFF;
       //margin-right: 12px;

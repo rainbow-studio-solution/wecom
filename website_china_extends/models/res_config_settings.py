@@ -6,6 +6,8 @@ from odoo import api, fields, models, _
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    module_wxwork_customer_service = fields.Boolean()
+
     icp_filing_info = fields.Char(
         "ICP filing Info", related="website_id.icp_filing_info", readonly=False,
     )
@@ -62,6 +64,9 @@ class ResConfigSettings(models.TransientModel):
     social_wechat = fields.Binary(related="website_id.social_wechat", readonly=False)
     social_wechat_kf = fields.Binary(
         related="website_id.social_wechat_kf", readonly=False
+    )
+    social_wechat_kf_compute = fields.Binary(
+        related="website_id.social_wechat_kf_compute", readonly=False
     )
     social_qq = fields.Integer(related="website_id.social_qq", readonly=False)
     social_weibo = fields.Char(related="website_id.social_weibo", readonly=False)

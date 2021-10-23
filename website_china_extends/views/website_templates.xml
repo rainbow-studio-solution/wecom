@@ -5,11 +5,11 @@
         <template id="social_sidebar" name="Social Sidebar Panel" inherit_id="portal.frontend_layout">
             <xpath expr="//div[@id='wrapwrap']/main" position="before">
                 <div class="social_sidebar" t-if="website and website.has_social_sidebar" >
-                    <a t-if="res_company.phone" class="btn btn-sm btn-default" t-attf-style="background-color:{{website.social_sidebar_bg_color}}">
+                    <a t-if="res_company.phone" class="btn btn-sm btn-default" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" t-att-title="res_company.phone">
                         <i class="fa fa-2x fa-phone"/>
                         <span class="overflow-hidden text-nowrap" t-field="res_company.phone"/>
                     </a>
-                    <a t-if="res_company.email" class="btn btn-sm btn-default" t-attf-href="mailto:{{res_company.email}}" t-attf-style="background-color:{{website.social_sidebar_bg_color}}">
+                    <a t-if="res_company.email" class="btn btn-sm btn-default" t-attf-href="mailto:{{res_company.email}}" t-attf-style="background-color:{{website.social_sidebar_bg_color}}" t-att-title="res_company.email">
                         <i class="fa fa-2x fa-envelope"/>
                         <span class="overflow-hidden text-nowrap" t-field="res_company.email"/>
                     </a>

@@ -49,6 +49,11 @@ class website(models.Model):
         related="company_id.social_wechat_kf",
         readonly=False,
     )
+    social_wechat_kf_compute = fields.Binary(
+        "WeChat customer service QR code",
+        related="company_id.social_wechat_kf_compute",
+        readonly=False,
+    )
     social_qq = fields.Integer(
         "QQ Account", related="company_id.social_qq", readonly=False,
     )

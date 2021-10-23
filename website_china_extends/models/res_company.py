@@ -15,6 +15,8 @@ class Company(models.Model):
         with tools.file_open(image_path, "rb") as f:
             return base64.b64encode(f.read())
 
+    wxwork_kf_is_installed = fields.Boolean(compute="_compute_kf_is_installed",)
+
     social_wechat = fields.Binary("WeChat QR code", default=_default_qrcode)
     social_wechat_kf = fields.Binary(
         "WeChat customer service QR code", compute="_compute_customer_service_qrcode",
@@ -37,6 +39,14 @@ class Company(models.Model):
                 # print("不存在")
                 wechat_kf = record.social_wechat_kf_compute
             record.social_wechat_kf = wechat_kf
+
+    def _compute_kf_is_installed(self):
+        """
+        计算 模块 wxwork_customer_service 是否安装
+        """
+        self.wxwork_kf_is_installed = self.env[
+            "ir.module.module"
+        ].website_check_module_installed("wxwork_customer_service")
 
     def baidu_map_img(self, zoom=15, width=298, height=298):
         partner = self.sudo().partner_id
