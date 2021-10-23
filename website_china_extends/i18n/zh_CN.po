@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-23 05:22+0000\n"
-"PO-Revision-Date: 2021-10-23 13:24+0800\n"
+"POT-Creation-Date: 2021-10-23 09:30+0000\n"
+"PO-Revision-Date: 2021-10-23 17:32+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,6 @@ msgstr ""
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
 msgid "88888888"
 msgstr ""
 
@@ -199,11 +198,6 @@ msgid "Baidu key, or Enable to access first reply"
 msgstr ""
 
 #. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
-msgid "Chinese website function"
-msgstr "中文网站功能"
-
-#. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
 msgid "Click to follow us"
 msgstr "点击关注我们"
@@ -242,11 +236,6 @@ msgstr "联系我们"
 #: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
 msgid "Create a"
 msgstr "创建一个"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
-msgid "Custom technical support"
-msgstr "定制技术支持"
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_ir_module_module__display_name
@@ -311,11 +300,6 @@ msgid "ICP Filing Info"
 msgstr "ICP备案信息"
 
 #. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
-msgid "ICP filing"
-msgstr "ICP备案"
-
-#. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__icp_filing_info
 msgid "ICP filing Info"
 msgstr "ICP备案信息"
@@ -342,6 +326,11 @@ msgstr "最后更改日"
 #: model:ir.model,name:website_china_extends.model_ir_module_module
 msgid "Module"
 msgstr "模块"
+
+#. module: website_china_extends
+#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__module_wxwork_customer_service
+msgid "Module Wxwork Customer Service"
+msgstr ""
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__isp_filing_info
@@ -402,13 +391,13 @@ msgstr "由Odoo提供技术支持"
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid "QQ"
-msgstr "QQ"
+msgstr ""
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_qq
 #: model:ir.model.fields,field_description:website_china_extends.field_website__social_qq
 msgid "QQ Account"
-msgstr "QQ 账号"
+msgstr ""
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_qq
@@ -444,9 +433,10 @@ msgid "Social Network Sidebar Background Color"
 msgstr "社交网络侧边栏背景色"
 
 #. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
-msgid "Social networks"
-msgstr "社交网络"
+#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_sidebar_top
+#: model:ir.model.fields,field_description:website_china_extends.field_website__social_sidebar_top
+msgid "Social Network Sidebar Top offset"
+msgstr "社交网络侧边栏顶部偏移"
 
 #. module: website_china_extends
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__technical_support
@@ -503,7 +493,9 @@ msgstr "微信二维码"
 #: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_wechat_kf
 #: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_wechat_kf_compute
 #: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_wechat_kf
+#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_wechat_kf_compute
 #: model:ir.model.fields,field_description:website_china_extends.field_website__social_wechat_kf
+#: model:ir.model.fields,field_description:website_china_extends.field_website__social_wechat_kf_compute
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid "WeChat customer service QR code"
 msgstr "微信客服二维码"
@@ -554,6 +546,18 @@ msgid "Weibo Account url"
 msgstr "微博账号链接"
 
 #. module: website_china_extends
+#: model:ir.model.fields,field_description:website_china_extends.field_res_company__wxwork_kf_is_installed
+msgid "Wxwork Kf Is Installed"
+msgstr ""
+
+#. module: website_china_extends
+#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
+msgid ""
+"You have installed the enterprise wechat customer service function. Please set the customer "
+"service QR code in the enterprise wechat application."
+msgstr "您已经安装了企业微信客户服务功能。请在企业微信应用中设置客服二维码。"
+
+#. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid "You need to create an application of type \"server\"."
 msgstr "您需要创建“服务”类型的应用程序。"
@@ -565,13 +569,11 @@ msgstr "免费网站"
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
 msgid "http://weibo.com/youraccount"
 msgstr ""
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_website_form
 msgid "http://www.renren.com/youraccount"
 msgstr ""
 
@@ -593,9 +595,9 @@ msgstr "页面，片段，...）"
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid "鄂ICP备1234567890号"
-msgstr "ICP备1234567890号"
+msgstr "#ICP备1234567890号"
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid "鄂公网安备 %s号"
-msgstr "鄂公网安备 %s号"
+msgstr ""

@@ -126,6 +126,10 @@ class ResConfigSettings(models.TransientModel):
         related="website_id.has_social_sidebar", readonly=False,
     )
 
+    social_sidebar_top = fields.Integer(
+        related="website_id.social_sidebar_top", readonly=False,
+    )
+
     social_sidebar_bg_color = fields.Char(
         "Social Network Sidebar Background Color",
         related="website_id.social_sidebar_bg_color",

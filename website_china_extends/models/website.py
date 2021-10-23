@@ -70,6 +70,10 @@ class website(models.Model):
         "Social Network Sidebar Background Color", default="#ff4a00"
     )
 
+    social_sidebar_top = fields.Integer(
+        "Social Network Sidebar Top offset", default="180"
+    )
+
     @api.depends("isp_filing_info_text", "isp_filing_info_no")
     def _compute_isp_filing_info(self):
         info = None

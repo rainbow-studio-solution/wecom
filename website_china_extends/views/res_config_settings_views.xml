@@ -131,7 +131,32 @@
                     </div>
                 </div>
             </div>
-            
+ 
+
+            <div id="social_media_settings" position="before">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="has_social_sidebar"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="has_social_sidebar"/>
+                        <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        <div class="text-muted">
+                            Enable the social media sidebar on the website.
+                        </div>
+                        <div class="content-group" attrs="{'invisible':[('has_social_sidebar','=',False)]}" >
+                            <div class="row mt16">
+                                <label for="social_sidebar_top" class="col-lg-5"/>
+                                <field name="social_sidebar_top" options="{'format': false}"/>
+                            </div>
+                            <div class="row">
+                                <label for="social_sidebar_bg_color" class="col-lg-5"/>
+                                <field name="social_sidebar_bg_color" widget="colorpicker"/> 
+                            </div>                                                          
+                        </div> 
+                    </div>
+                </div>
+            </div>
             
             <xpath expr="//div[@id='social_media_settings']/div[@class='o_setting_right_pane']/div[@class='content-group']/div[@class='row'][last()]" position="after">
                 <div class="row">
@@ -166,29 +191,8 @@
                     <field name="social_renren" placeholder="http://www.renren.com/youraccount"/>
                 </div>
 
-            </xpath>
+            </xpath>            
             
-            <div id="social_media_settings" position="after">
-                <div class="col-12 col-lg-6 o_setting_box">
-                    <div class="o_setting_left_pane">
-                        <field name="has_social_sidebar"/>
-                    </div>
-                    <div class="o_setting_right_pane">
-                        <label for="has_social_sidebar"/>
-                        <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
-                        <div class="text-muted">
-                            Enable the social media sidebar on the website.
-                        </div>
-                        <div class="content-group" attrs="{'invisible':[('has_social_sidebar','=',False)]}" >
-                            <div class="row mt16">
-                                
-                            </div>
-                            <label for="social_sidebar_bg_color" />
-                            <field name="social_sidebar_bg_color" widget="colorpicker"/>
-                        </div> 
-                    </div>
-                </div>
-            </div>
         </field>
     </record>
 
