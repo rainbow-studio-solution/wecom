@@ -109,11 +109,14 @@
         </template>
 
        
-        <template id="icp_filing_info" inherit_id="web.frontend_layout" name="China ICP Filing">
+        <template id="filing_info" inherit_id="web.frontend_layout" name="China ICP Filing">
             <xpath expr="//footer//div[hasclass('o_footer_copyright')]//div[@class='container py-3']//div[@class='row']" position="after">
                 <div class="row d-flex justify-content-center">
                     <a href="https://beian.miit.gov.cn/" target="_blank" t-if="website and website.icp_filing_info and not editable">
                         <t t-esc="website.icp_filing_info"/>
+                    </a>
+                    <a t-attf-href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{website.isp_filing_info_no}}" target="_blank" t-if="website and website.isp_filing_info and not editable">
+                        <img src="/website_china_extends/static/src/img/isp.png"/><t t-esc="website.isp_filing_info"/>
                     </a>
                 </div>
             </xpath>

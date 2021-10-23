@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import base64
+from logging import info
 from odoo import api, fields, models, tools, _
 from odoo.modules.module import get_resource_path
 
@@ -14,6 +15,11 @@ class website(models.Model):
             return base64.b64encode(f.read())
 
     icp_filing_info = fields.Char("ICP Filing Info")
+    isp_filing_info_text = fields.Char("Network Security Filing Info text")
+    isp_filing_info_no = fields.Char("Network Security Filing Info no")
+    isp_filing_info = fields.Char(
+        "Network Security Filing Info", compute="_compute_isp_filing_info"
+    )
 
     technical_support = fields.Boolean(
         "Technical Support",
@@ -59,3 +65,10 @@ class website(models.Model):
         "Social Network Sidebar Background Color", default="#ff4a00"
     )
 
+    @api.depends("isp_filing_info_text", "isp_filing_info_no")
+    def _compute_isp_filing_info(self):
+        info = None
+        if self.isp_filing_info_text and self.isp_filing_info_no:
+            if "%s" in self.isp_filing_info_text:
+                info = self.isp_filing_info_text % self.isp_filing_info_no
+        self.isp_filing_info = info

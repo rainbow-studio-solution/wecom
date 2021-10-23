@@ -8,13 +8,32 @@
         <field name="arch" type="xml">
 
             <div id="domain_settings" position="after">
-                <div class="col-12 col-lg-6 o_setting_box"  id="china_icp_setting">
+                <div class="col-12 col-lg-6 o_setting_box" id="china_icp_setting">
                     <div class="o_setting_left_pane"></div>
                     <div class="o_setting_right_pane">
                         <label for="icp_filing_info"/>
                         <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
                         <div class="mt8">
-                            <field name="icp_filing_info" placeholder="#ICP备1234567890号"/>
+                            <field name="icp_filing_info" placeholder="鄂ICP备1234567890号"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box" id="china_isp_setting">
+                    <div class="o_setting_left_pane"></div>
+                    <div class="o_setting_right_pane">
+                        <label for="isp_filing_info"/>
+                        <span class="fa fa-lg fa-globe" title="Values set here are website-specific." groups="website.group_multi_website"/>
+                        <div class="mt8">
+                            <label for="isp_filing_info_text" class="col-lg-5"/>
+                            <field name="isp_filing_info_text" placeholder="鄂公网安备 %s号"/>
+                        </div>
+                        <div class="mt8">
+                            <label for="isp_filing_info_no" class="col-lg-5"/>
+                            <field name="isp_filing_info_no" placeholder="12345678901234"/>
+                        </div>
+                        <div class="mt8">
+                            <label for="isp_filing_info" class="col-lg-5"/>
+                            <field name="isp_filing_info"/>
                         </div>
                     </div>
                 </div>

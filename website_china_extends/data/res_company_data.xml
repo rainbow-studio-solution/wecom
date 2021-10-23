@@ -4,9 +4,9 @@
         <record id="base.main_company" model="res.company">
             <field name="social_wechat" type="base64" file="website_china_extends/static/src/img/qrcode.png"/>
             <!--<field name="social_wechat_kf" type="base64" file="website_china_extends/static/src/img/qrcode.png"/> -->
-            <field name="social_qq">249468566</field>
-            <field name="social_weibo">http://weibo.com/youraccount</field>
-            <field name="social_renren">http://www.renren.com/youraccount</field>
+            <field name="social_qq"></field> <!--例如：249468566 -->
+            <field name="social_weibo"></field> <!--例如：http://weibo.com/youraccount -->
+            <field name="social_renren"></field> <!--例如：http://www.renren.com/youraccount -->
         </record>
     </data>
 </odoo>

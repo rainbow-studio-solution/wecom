@@ -8,7 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='social_instagram']" position="after">
                 <field name="social_wechat" widget="image" class="oe_avatar float-left" />
-                <field name="social_wechat_kf" widget="image" class="oe_avatar float-left" />
+                <!-- <field name="social_wechat_kf" widget="image" class="oe_avatar float-left" /> -->
+                <field name="social_wechat_kf_compute" widget="image" class="oe_avatar float-left" />
                 <field name="social_qq" options="{'format': false}"/>
                 <field name="social_weibo"/>
                 <field name="social_renren"/>

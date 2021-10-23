@@ -9,6 +9,13 @@ class ResConfigSettings(models.TransientModel):
     icp_filing_info = fields.Char(
         "ICP filing Info", related="website_id.icp_filing_info", readonly=False,
     )
+    isp_filing_info_text = fields.Char(
+        related="website_id.isp_filing_info_text", readonly=False,
+    )
+    isp_filing_info_no = fields.Char(
+        related="website_id.isp_filing_info_no", readonly=False,
+    )
+    isp_filing_info = fields.Char(related="website_id.isp_filing_info",)
 
     technical_support = fields.Boolean(
         related="website_id.technical_support", readonly=False
