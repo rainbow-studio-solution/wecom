@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+    <!-- website.template_header_sidebar, website.no_autohide_menu  website.template_header_slogan-->
+
+        <template id="template_header_slogan" inherit_id="website.template_header_slogan">
+            <xpath expr="//t[@t-call='website.placeholder_header_language_selector']" position="replace"/>
+                
+            <xpath expr="//div[@id='top_menu_collapse']" position="after">
+                <!-- Language Selector -->
+                <t t-call="website.placeholder_header_language_selector">
+                    <t t-set="_div_classes" t-value="'ml-2'"/>
+                </t>
+            </xpath>
+        </template>
+    </data>
+
+</odoo>

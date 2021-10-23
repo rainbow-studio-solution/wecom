@@ -19,7 +19,7 @@
         # "views/website_views.xml",
         "views/assets_templates.xml",
         "views/website_templates.xml",
-        # "views/wesite_top_menu.xml",
+        "views/wesite_top_menu.xml",
         "views/wesite_social_media.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
