@@ -5892,7 +5892,7 @@ msgstr "社交媒体"
 #: code:addons/src/addons/website/static/src/xml/website.seo.xml:0 code:addons/website/static/src/xml/website.seo.xml:0
 #, python-format
 msgid "Social Preview"
-msgstr "社会预览"
+msgstr "社交预览"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.snippet_options_border_line_widgets
