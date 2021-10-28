@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* website_china_extends
+# 	* wxwork_base
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-23 08:47+0000\n"
-"PO-Revision-Date: 2021-10-23 16:49+0800\n"
+"POT-Creation-Date: 2021-10-28 05:10+0000\n"
+"PO-Revision-Date: 2021-10-28 13:10+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,586 +17,243 @@ msgstr ""
 "Language: zh_CN\n"
 "X-Generator: Poedit 3.0\n"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "12345678901234"
-msgstr ""
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"Enterprise wechat Square logo\"/>"
+msgstr "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"企业微信方块Logo\"/>"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "88888888"
-msgstr ""
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Enterprise ID\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
 
-#. module: website_china_extends
-#. openerp-web
-#: code:addons/website_china_extends/static/src/js/social.js:0
-#: code:addons/wxwork/website_china_extends/static/src/js/social.js:0
-#, python-format
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<div class='card' style='width: 200px;'><img src='%s' class='card-img-top' alt='%s'><div "
-"class='card-body' style='padding: 5px;'></div></div>"
-msgstr ""
+"<span class=\"fa fa-lg fa-info-circle\" title=\"The value set here is the company identified as enterprise wechat "
+"organization.\"/>"
+msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
 msgid ""
-"<i class=\"fa fa-2x fa-headphones\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">Wechat Customer Service</span>"
+"<span class=\"text-left\">\n"
+"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat "
+"Companies\"/> Enterprise WeChat Companies Settings\n"
+"                                        </span>\n"
+"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
 msgstr ""
-"<i class=\"fa fa-2x fa-headphones\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">微信客服</span>"
+"<span class=\"text-left\">\n"
+"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat "
+"Companies\"/> 企业微信公司设置\n"
+"                                        </span>\n"
+"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<i class=\"fa fa-2x fa-qq\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">QQ Online</span>"
+"<span class=\"text-left\">\n"
+"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"Enterprise WeChat global settings\"/> "
+"Enterprise WeChat Global Settings\n"
+"                            </span>"
 msgstr ""
-"<i class=\"fa fa-2x fa-qq\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">QQ在线</span>"
+"<span class=\"text-left\">\n"
+"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"企业微信全局设置\"/> 企业微信全局设置\n"
+"                            </span>"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<i class=\"fa fa-2x fa-renren\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">Renren</span>"
+"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> Enterprise "
+"WeChat Companies settings</span>"
 msgstr ""
-"<i class=\"fa fa-2x fa-renren\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">人人网</span>"
+"<span class=\"text-left\"><i class=\"fa fa-building fa-lg\" aria-label=\"Enterprise WeChat Companies\"/> 企业微信公"
+"司设置span>"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__abbreviated_name
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__abbreviated_name
+msgid "Abbreviated Name"
+msgstr "公司简称"
+
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"<i class=\"fa fa-2x fa-wechat\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">Wechat attention</span>"
+"Check, print some debugging information in IDE and log;\n"
+"                                            <br/>\n"
+"                                            For debugging"
 msgstr ""
-"<i class=\"fa fa-2x fa-wechat\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">微信关注</span>"
+"启用, 在IED和Odoo日志中显示日志\n"
+"                                            <br/>\n"
+"                                            用于调试"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
-msgid ""
-"<i class=\"fa fa-2x fa-weibo\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">Weibo</span>"
-msgstr ""
-"<i class=\"fa fa-2x fa-weibo\"/>\n"
-"                        <span class=\"overflow-hidden text-nowrap\">微博</span>"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid ""
-"<i class=\"fa fa-arrow-right\"/>\n"
-"                                Create Baidu app and get AK"
-msgstr ""
-"<i class=\"fa fa-arrow-right\"/>\n"
-"                                            创建百度应用并获取AK"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid ""
-"<i class=\"fa fa-arrow-right\"/>\n"
-"                                How to get my Tracking ID"
-msgstr ""
-"<i class=\"fa fa-arrow-right\"/>\n"
-"                                如何获取我的跟踪ID"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description_baidu_map
-msgid ""
-"<i class=\"fa fa-plus-circle\"/>\n"
-"                        The Google map option is enabled but"
-msgstr ""
-"<i class=\"fa fa-plus-circle\"/>\n"
-"                        Google地图选项已启用，但"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_magazine_oe_structure_header_magazine_1
-msgid "<small class=\"s_share_title d-none\"><b>Follow us</b></small>"
-msgstr "<small class=\"s_share_title d-none\"><b>关注我们</b></small>"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_contact_oe_structure_header_contact_1
-msgid "<small class=\"s_share_title text-muted\"><b>Follow us</b></small>"
-msgstr "<small class=\"s_share_title text-muted\"><b>关注我们</b></small>"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-globe\" title=\"Values set here are website-specific.\" groups="
-"\"website.group_multi_website\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-globe\" title=\"此处设置的值是特定于网站的。\" groups=\"website."
-"group_multi_website\"/>"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description
-msgid ""
-"<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"Address\" title=\"Address\"/"
-">"
-msgstr ""
-"<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"地址\" title=\"地址\"/>"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "API AK"
-msgstr ""
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "An awesome"
-msgstr "棒极了"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_baidu_analytics
-msgid "Baidu Analytics"
-msgstr "百度分析"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_baidu_analytics_dashboard
-msgid "Baidu Analytics Dashboard"
-msgstr "百度分析仪表板"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__baidu_analytics_key
-#: model:ir.model.fields,field_description:website_china_extends.field_website__baidu_analytics_key
-msgid "Baidu Analytics Key"
-msgstr "百度分析Key"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__baidu_management_client_id
-#: model:ir.model.fields,field_description:website_china_extends.field_website__baidu_management_client_id
-msgid "Baidu Client ID"
-msgstr "百度客户端ID"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__baidu_management_client_secret
-#: model:ir.model.fields,field_description:website_china_extends.field_website__baidu_management_client_secret
-msgid "Baidu Client Secret"
-msgstr "百度客户端密钥"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_baidu_maps
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description_baidu_map
-msgid "Baidu Maps"
-msgstr "百度地图"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__baidu_maps_api_key
-#: model:ir.model.fields,field_description:website_china_extends.field_website__baidu_maps_api_key
-msgid "Baidu Maps API AK"
-msgstr "百度地图API AK"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__baidu_search_console
-#: model:ir.model.fields,field_description:website_china_extends.field_website__baidu_search_console
-msgid "Baidu Search Console"
-msgstr "百度搜索控制台"
-
-#. module: website_china_extends
-#: model:ir.model.fields,help:website_china_extends.field_website__baidu_search_console
-msgid "Baidu key, or Enable to access first reply"
-msgstr ""
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
-msgid "Click to follow us"
-msgstr "点击关注我们"
-
-#. module: website_china_extends
-#: model:ir.model,name:website_china_extends.model_res_company
+#. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_res_company
 msgid "Companies"
 msgstr "公司"
 
-#. module: website_china_extends
-#: model:ir.model,name:website_china_extends.model_res_config_settings
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Companies settings"
+msgstr "公司设置"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__company_name
+msgid "Company Name"
+msgstr "公司名称"
+
+#. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_social_network
-msgid "Configure Social Network"
-msgstr "设置社交平台"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_baidu_search_console
-msgid "Console baidu Search"
-msgstr "控制台百度搜索"
-
-#. module: website_china_extends
-#: model:ir.model,name:website_china_extends.model_res_partner
-msgid "Contact"
-msgstr "联系人"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Contact Us"
-msgstr "联系我们"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "Create a"
-msgstr "创建一个"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_ir_module_module__display_name
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__display_name
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:website_china_extends.field_res_partner__display_name
-#: model:ir.model.fields,field_description:website_china_extends.field_website__display_name
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module__display_name
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__display_name
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
-#. module: website_china_extends
-#: model:ir.model.fields,help:website_china_extends.field_res_config_settings__technical_support
-#: model:ir.model.fields,help:website_china_extends.field_website__technical_support
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Display customizable technical support information on the website."
-msgstr "在网站上显示可自定义的技术支持信息。"
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__corpid
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__corpid
+msgid "Enterprise ID"
+msgstr "企业ID"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__has_social_sidebar
-#: model:ir.model.fields,field_description:website_china_extends.field_website__has_social_sidebar
-msgid "Enable Social Network Sidebar"
-msgstr "启用社交网络侧边栏"
+#. module: wxwork_base
+#: model:ir.module.category,name:wxwork_base.module_category_wxwork
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "Enterprise WeChat"
+msgstr "企业微信"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Enable the social media sidebar on the website."
-msgstr "启用网站上的社交媒体侧栏。"
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "Enterprise WeChat Information"
+msgstr "企业微信信息"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Enabling Baidu map will replace Google map in the foreground."
-msgstr "启用百度地图将取代前台中的Google地图。"
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__img_path
+msgid "Enterprise WeChat Picture storage path"
+msgstr "企业微信图片存储路径"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.footer_custom
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_centered
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_contact
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_descriptive
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_minimalist
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_boxed_oe_structure_header_boxed_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_full_oe_structure_header_hamburger_full_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_oe_structure_header_hamburger_3
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_sidebar_oe_structure_header_sidebar_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_vertical_oe_structure_header_vertical_1
-msgid "Follow us"
-msgstr "关注我们"
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_root
+msgid "Enterprise WeChat Settings"
+msgstr "企微设置"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description_baidu_map
-msgid "Google Maps"
-msgstr "谷歌地图"
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo
+msgid "Enterprise wechat Square logo"
+msgstr "企业微信方块Logo"
 
-#. module: website_china_extends
-#: model:ir.model.fields,help:website_china_extends.field_res_config_settings__baidu_search_console
-msgid "Google key, or Enable to access first reply"
-msgstr ""
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__is_wxwork_organization
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__is_wxwork_organization
+msgid "Enterprise wechat organization"
+msgstr "企业微信组织"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_website__icp_filing_info
-msgid "ICP Filing Info"
-msgstr "ICP备案信息"
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "Fill in: Enterprise WeChat management background → \"Enterprise Information\" → \"Enterprise ID\""
+msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__icp_filing_info
-msgid "ICP filing Info"
-msgstr "ICP备案信息"
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "GoBottom"
+msgstr "滚动到底部"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_ir_module_module__id
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__id
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__id
-#: model:ir.model.fields,field_description:website_china_extends.field_res_partner__id
-#: model:ir.model.fields,field_description:website_china_extends.field_website__id
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "GoTop"
+msgstr "滚动到顶部"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module__id
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__id
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__id
 msgid "ID"
 msgstr ""
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_ir_module_module____last_update
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company____last_update
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:website_china_extends.field_res_partner____last_update
-#: model:ir.model.fields,field_description:website_china_extends.field_website____last_update
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.view_company_form
+msgid "It is used to display the company logo for enterprise wechat messages."
+msgstr "用于显示企业微信消息的公司Logo。"
+
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_ir_module_module____last_update
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company____last_update
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
-#. module: website_china_extends
-#: model:ir.model,name:website_china_extends.model_ir_module_module
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Manage all companies"
+msgstr "管理所有公司"
+
+#. module: wxwork_base
+#: model:ir.model,name:wxwork_base.model_ir_module_module
 msgid "Module"
 msgstr "模块"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__module_wxwork_customer_service
-msgid "Module Wxwork Customer Service"
-msgstr ""
+#. module: wxwork_base
+#. openerp-web
+#: code:addons/wxwork/wxwork_base/static/src/xml/anchor.xml:0 code:addons/wxwork_base/static/src/xml/anchor.xml:0
+#, python-format
+msgid "Navigation"
+msgstr "导航"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__isp_filing_info
-#: model:ir.model.fields,field_description:website_china_extends.field_website__isp_filing_info
-msgid "Network Security Filing Info"
-msgstr "网络安全备案"
+#. module: wxwork_base
+#: model:ir.actions.act_window,name:wxwork_base.wxwork_config_settings_action
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_configuration
+msgid "Settings"
+msgstr "设置"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__isp_filing_info_no
-#: model:ir.model.fields,field_description:website_china_extends.field_website__isp_filing_info_no
-msgid "Network Security Filing Info no"
-msgstr "网络安全备案号"
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_company__square_logo_web
+msgid "Square Logo Web"
+msgstr "Web方块Logo"
 
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__isp_filing_info_text
-#: model:ir.model.fields,field_description:website_china_extends.field_website__isp_filing_info_text
-msgid "Network Security Filing Info text"
-msgstr "网络安全备案文本"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "Open Source CRM"
-msgstr "开源CRM"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "Open Source eCommerce"
-msgstr "开源电子商务"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.footer_custom
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_centered
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_contact
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_descriptive
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_headline
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_minimalist
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_boxed_oe_structure_header_boxed_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_contact_oe_structure_header_contact_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_full_oe_structure_header_hamburger_full_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_oe_structure_header_hamburger_3
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_magazine_oe_structure_header_magazine_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_sidebar_oe_structure_header_sidebar_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_vertical_oe_structure_header_vertical_1
-msgid "Pay attention to our WeChat official account."
-msgstr "关注我们的微信公众号。"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.view_company_form_inherit_social_media
-msgid "Please set the customer service QR code in the enterprise wechat application."
-msgstr "请在企业微信应用中设置客服二维码。"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion_message
-msgid "Powered by %s%s"
-msgstr "%s%s 强力支持"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Powered by Odoo"
-msgstr "由Odoo提供技术支持"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "QQ"
-msgstr ""
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_qq
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_qq
-msgid "QQ Account"
-msgstr "QQ 账号"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_qq
-msgid "QQ number"
-msgstr "QQ号码"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Renren"
-msgstr "人人网"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_renren
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_renren
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_renren
-msgid "Renren Account url"
-msgstr "人人网帐户链接"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
-msgid "Send your request now"
-msgstr "立即发送您的请求"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_headline
-msgid "Share"
-msgstr "分享"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_sidebar_bg_color
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_sidebar_bg_color
-msgid "Social Network Sidebar Background Color"
-msgstr "社交网络侧边栏背景色"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__technical_support
-#: model:ir.model.fields,field_description:website_china_extends.field_website__technical_support
-msgid "Technical Support"
-msgstr "技术支持"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__technical_support_icon
-#: model:ir.model.fields,field_description:website_china_extends.field_website__technical_support_icon
-msgid "Technical Support Icon"
-msgstr "技术支持图标"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__technical_support_name
-#: model:ir.model.fields,field_description:website_china_extends.field_website__technical_support_name
-msgid "Technical Support Name"
-msgstr "技术支持名称"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__technical_support_url
-#: model:ir.model.fields,field_description:website_china_extends.field_website__technical_support_url
-msgid "Technical Support Url"
-msgstr "技术支持Url"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "The #1"
-msgstr "#1"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Track visits in Baidu Analytics"
-msgstr "在百度分析中跟踪访问"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Tracking ID"
-msgstr "跟踪ID"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Use Baidu Map on your website ("
-msgstr "在你的网站上使用百度地图（"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_wechat
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_wechat
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_wechat
-msgid "WeChat QR code"
-msgstr "微信二维码"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_wechat_kf
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_wechat_kf_compute
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_wechat_kf
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_wechat_kf_compute
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_wechat_kf
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_wechat_kf_compute
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "WeChat customer service QR code"
-msgstr "微信客服二维码"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "WeChat official account QR code"
-msgstr "微信公众号二维码"
-
-#. module: website_china_extends
-#: model:ir.model,name:website_china_extends.model_website
-msgid "Website"
-msgstr "网站"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "Website technical support"
-msgstr "网站技术支持"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.footer_custom
-#: model_terms:ir.ui.view,arch_db:website_china_extends.social_sidebar
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_centered
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_contact
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_descriptive
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_headline
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_footer_minimalist
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_boxed_oe_structure_header_boxed_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_contact_oe_structure_header_contact_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_full_oe_structure_header_hamburger_full_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_hamburger_oe_structure_header_hamburger_3
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_magazine_oe_structure_header_magazine_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_sidebar_oe_structure_header_sidebar_1
-#: model_terms:ir.ui.view,arch_db:website_china_extends.template_header_vertical_oe_structure_header_vertical_1
-msgid "Wechat scanning code to contact us."
-msgstr "微信扫码联系我们。"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "WeiBo"
-msgstr "微博"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__social_weibo
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__social_weibo
-#: model:ir.model.fields,field_description:website_china_extends.field_website__social_weibo
-msgid "Weibo Account url"
-msgstr "微博账号链接"
-
-#. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__wxwork_kf_is_installed
-msgid "Wxwork Kf Is Installed"
-msgstr ""
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
 msgid ""
-"You have installed the enterprise wechat customer service function. Please set the customer "
-"service QR code in the enterprise wechat application."
-msgstr "您安装了企业微信客服功能，请在企业微信应用中设置客服二维码。"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "You need to create an application of type \"server\"."
-msgstr "您需要创建“服务”类型的应用程序。"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.brand_promotion
-msgid "free website"
-msgstr "免费网站"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "http://weibo.com/youraccount"
+"The path used to save enterprise wechat pictures,<span class=\"text-danger\">Need to have read and write "
+"permissions on the path.</span><br/>\n"
+"                                            reference:Windows: D:\\img\\  <br/>\n"
+"                                            Linux：/home/odoo/img/ Note: odoo is the current system account"
 msgstr ""
+"企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
+"                                            参考:Windows: D:\\img\\  <br/>\n"
+"                                            Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "http://www.renren.com/youraccount"
-msgstr ""
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "This company is an enterprise wechat organization"
+msgstr "此公司为企业微信组织"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "https://www.odoo.com/help"
-msgstr ""
+#. module: wxwork_base
+#: model:ir.ui.menu,name:wxwork_base.menu_wxwork_cron
+msgid "Timed task"
+msgstr "定时任务"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.company_description_baidu_map
-msgid "not properly configured"
-msgstr "配置不正确"
+#. module: wxwork_base
+#: model:ir.model.fields,field_description:wxwork_base.field_res_config_settings__debug_enabled
+msgid "Turn on debug mode"
+msgstr "开启调试模式"
 
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "page, snippets, ...)"
-msgstr "页面，片段，...）"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "鄂ICP备1234567890号"
-msgstr "#ICP备1234567890号"
-
-#. module: website_china_extends
-#: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
-msgid "鄂公网安备 %s号"
-msgstr "鄂公网安备 %s号"
+#. module: wxwork_base
+#: model_terms:ir.ui.view,arch_db:wxwork_base.res_config_settings_view_form
+msgid "Update Info"
+msgstr "更新信息"
