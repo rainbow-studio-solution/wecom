@@ -130,12 +130,11 @@ class ResUsers(models.Model):
                     is_wxwork_message = False
                 else:
                     is_wxwork_message = True
-                template.send_mail(
+                template.with_context(is_wxwork_message=is_wxwork_message).send_mail(
                     user.id,
                     force_send=force_send,
                     raise_exception=True,
-                    is_wxwork_message=is_wxwork_message,
-                    company=user.company_id,
+                    company=user.company_id
                 )
             _logger.info(
                 _("Password reset email or message sent for user <%s> to <%s> <%s>"),
@@ -178,11 +177,10 @@ class ResUsers(models.Model):
 
             template = self.env.ref(
                 "auth_signup.mail_template_data_unregistered_users"
-            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
+            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user], is_wxwork_message=is_wxwork_message)
 
             template.send_mail(
                 user,
                 notif_layout="mail.mail_notification_light",
                 force_send=False,
-                is_wxwork_message=is_wxwork_message,
             )
