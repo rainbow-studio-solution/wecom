@@ -100,11 +100,11 @@ class MailComposer(models.TransientModel):
     # ACTIONS
     # ------------------------------------------------------------
 
-    def send_mail(self, auto_commit=False, is_wxwork_message=False):
+    def send_mail(self, auto_commit=False):
         """ 
         处理向导的内容，然后继续发送相关的电子邮件，并在需要时动态呈现任何模板模式。
         """
-
+        is_wxwork_message = self._context.get('is_wxwork_message')
         notif_layout = self._context.get("custom_layout")
         # 几种自定义布局在渲染时会使用模型描述，例如 在“查看<document>”按钮中。 某些模型用于不同的业务概念，例如用于RFQ和PO的'purchase.order'。 为避免混淆，我们必须根据对象的状态使用不同的措词。
         # 因此，我们可以从一开始就在上下文中设置描述，以避免退回到在'_notify_prepare_template_context'中检索到的常规display_name上。

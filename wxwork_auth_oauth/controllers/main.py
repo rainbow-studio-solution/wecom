@@ -81,10 +81,9 @@ class AuthSignupHome(SignupHome):
                         raise_if_not_found=False,
                     )
                     if user_sudo and template:
-                        template.sudo().send_mail(
+                        template.sudo().with_context(is_wxwork_message=is_wxwork_message).send_mail(
                             user_sudo.id,
-                            force_send=True,
-                            is_wxwork_message=is_wxwork_message,
+                            force_send=True
                         )
                 return self.web_login(*args, **kw)
             except UserError as e:

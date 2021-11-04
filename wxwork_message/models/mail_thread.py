@@ -400,8 +400,8 @@ class MailThread(models.AbstractModel):
 
             composer.write(update_values)
 
-        return composer.send_mail(
-            auto_commit=auto_commit, is_wxwork_message=kwargs["is_wxwork_message"]
+        return composer.with_context(is_wxwork_message=kwargs["is_wxwork_message"]).send_mail(
+            auto_commit=auto_commit
         )
 
     def message_notify(
