@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <record id="view_users_form_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button string="设置企业微信用户" name="set_wxwork_user" type="object" class="oe_highlight" attrs="{'invisible':[('wxwork_id','!=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
         <!--转换用户类型 wizard-->
         <record id="change_type_wizard_view" model="ir.ui.view">
             <field name="name">Change user type</field>
