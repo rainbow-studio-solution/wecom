@@ -12,8 +12,14 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
         events: {
             'click a': '_pop_up_qr_dialog',
         },
+        jsLibs: [
+            'https://res.wx.qq.com/open/js/jweixin-1.2.0.js',
+        ],
         init: function () {
             this._super.apply(this, arguments);
+            window.onerror = function (message, file, line, col, error) {
+                alert(message, file, line, col, error)
+            }
         },
         start: function () {
             var self = this;
@@ -23,6 +29,37 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                     is_wxwork_browser: self.is_wxwork_browser()
                 },
             });
+
+            // 判断是 iphone 或者 ipa后，加载WeixinJSBridge，
+            if (self.is_ios()) {
+                // wx.config({
+                //     beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+                //     debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                //     appId: '', // 必填，企业微信的corpID
+                //     timestamp: '', // 必填，生成签名的时间戳
+                //     nonceStr: '', // 必填，生成签名的随机串
+                //     signature: '', // 必填，签名，见 附录-JS-SDK使用权限签名算法
+                //     jsApiList: [] // 必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+                // });
+
+
+                // // WeixinJSBridge.invoke('hideOptionMenu');
+                // if (typeof WeixinJSBridge == "undefined") { //屏蔽分享按钮
+                //     if (document.addEventListener) {
+                //         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                //     } else if (document.attachEvent) {
+                //         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                //         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                //     }
+                // } else {
+                //     onBridgeReady();
+                // }
+
+                // function onBridgeReady() { //隐藏右上角按钮
+                //     WeixinJSBridge.call('hideOptionMenu');
+                // }
+            }
+
 
             return this._super.apply(this, arguments);
         },
@@ -38,6 +75,14 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                 } else {
                     return false;
                 }
+            }
+        },
+        is_ios: function () {
+            var isIphoneOrIpad = /iphone|ipad/i.test(navigator.userAgent);
+            if (isIphoneOrIpad) {
+                return true;
+            } else {
+                return false;
             }
         },
         _pop_up_qr_dialog: async function (ev) {
