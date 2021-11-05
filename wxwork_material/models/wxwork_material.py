@@ -119,7 +119,7 @@ class WxWorkMaterial(models.Model):
             # 存在 媒体文件上传时间戳(北京时间)
             created_time = self.created_at
 
-            overdue = self.env["wxwork.tools"].cheeck_overdue(created_time, 3)
+            overdue = self.env["wxwork.tools"].cheeck_days_overdue(created_time, 3)
             if overdue:
                 pass
             else:
@@ -282,7 +282,7 @@ class WxWorkMaterial(models.Model):
             MAX_FAIL_TIME = 3
 
             # 检查是否超过3天
-            overdue = self.env["wxwork.tools"].cheeck_overdue(
+            overdue = self.env["wxwork.tools"].cheeck_days_overdue(
                 created_time, MAX_FAIL_TIME
             )
             if overdue:

@@ -2,9 +2,21 @@
 <odoo>
     <template id="assets_backend" name="wxwork_jsapi assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
+            <!-- JS-SDK -->
             <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-            <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork.js"></script>
+
+            <!-- <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork_jsapi.js"></script> -->
 
         </xpath>
     </template>
+
+    <template id="assets_frontend" inherit_id="portal.assets_frontend" name="Wxwork Auth Assets">
+        <xpath expr="//script[last()]" position="after">
+            
+            <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+
+            <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork_login_jsapi.js"></script>
+        </xpath>
+    </template>
+
 </odoo>

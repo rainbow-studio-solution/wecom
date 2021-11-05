@@ -7,6 +7,6 @@
             name="Get the QR code to join the enterprise" 
             parent="wxwork_base.menu_wxwork_cron" 
             action="ir_cron_act_get_join_qrcode" 
-            sequence="3"/>
+            sequence="4"/>
     </data>
 </odoo>

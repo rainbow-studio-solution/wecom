@@ -16,16 +16,16 @@
 
 
         """,
-    "depends": ["wxwork_base",],
+    "depends": ["wxwork_base", "wxwork_smart_hrm",],
     "external_dependencies": {"python": [],},
     "data": [
+        "data/ir_cron_data.xml",
         "data/res_company_data.xml",
-        # "data/ir_config_parameter.xml",
         "views/res_company_views.xml",
-        # "views/res_config_settings_views.xml",
-        # "views/ir_cron_views.xml",
-        # "views/menu.xml",
-        # "views/assets_templates.xml",
+        "views/res_config_settings_views.xml",
+        "views/ir_cron_views.xml",
+        "views/menu.xml",
+        "views/assets_templates.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
 }

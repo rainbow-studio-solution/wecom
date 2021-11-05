@@ -12,9 +12,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
         events: {
             'click a': '_pop_up_qr_dialog',
         },
-        jsLibs: [
-            'https://res.wx.qq.com/open/js/jweixin-1.2.0.js',
-        ],
+
         init: function () {
             this._super.apply(this, arguments);
             window.onerror = function (message, file, line, col, error) {

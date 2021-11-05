@@ -238,7 +238,7 @@ class WxWorkMessageApi(models.AbstractModel):
     #         MAX_FAIL_TIME = 3
 
     #         # 检查是否超过3天
-    #         overdue = self.env["wxwork.tools"].cheeck_overdue(
+    #         overdue = self.env["wxwork.tools"].cheeck_days_overdue(
     #             created_time, MAX_FAIL_TIME
     #         )
     #         if overdue:

@@ -1,4 +1,4 @@
-odoo.define('wxwrok.wx_config', function (require) {
+odoo.define('wxwork_jsapi.login', function (require) {
     "use strict";
     var Widget = require('web.Widget');
 
@@ -23,7 +23,7 @@ odoo.define('wxwrok.wx_config', function (require) {
             this.signature = options.signature;
             this.jsApiList = options.jsApiList;
 
-            // self.debug_alert("init:" + this.jsApiList);
+            self.debug_alert("init:" + this.jsApiList);
         },
         debug_alert: function (msg) {
             window.alert(msg);
@@ -50,6 +50,7 @@ odoo.define('wxwrok.wx_config', function (require) {
                     // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
 
                     // self.debug_alert("wx.error:" + JSON.stringify(res));
+                    console.log("wx", res)
                 });
             });
         },

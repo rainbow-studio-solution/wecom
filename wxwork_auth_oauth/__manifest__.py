@@ -15,7 +15,13 @@
     "description": """
 
         """,
-    "depends": ["portal", "auth_oauth", "wxwork_hr_syncing", "wxwork_message",],
+    "depends": [
+        "portal",
+        "auth_oauth",
+        "wxwork_hr_syncing",
+        "wxwork_jsapi",
+        "wxwork_message",
+    ],
     "data": [
         "data/wxwork_oauth_data.xml",
         "data/auth_signup_data.xml",

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
         <record id="res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">Enterprise WeChat Enterprise JSAPI Setting</field>
+            <field name="name">Setting</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wxwork_base.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                 <xpath expr="//div[@data-key='wxwork_base']//div[hasclass('o_settings_container')][last()]" position="after">
+                 <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after" >
                     <h2 id="wxwork_jsapi" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-cloud fa-lg"/> Enterprise WeChat JSAPI</span>
-                        <span class="text-right">
-                            <i class="fa fa-angle-double-up"/>
+                        <span class="text-left"><i class="fa fa-cloud fa-lg" aria-label=" Enterprise WeChat JSAPI" /> 
+                         Enterprise WeChat JSAPI
+                        <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
+                        <widget name='res_config_wxwork_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container">
-                        <div class="col-xs-12 col-md-12 o_setting_box">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                        <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-info fa-lg"/>
+                                <i class="fa fa-info fa-lg" aria-label="JSAPI Info"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <div class="row">
@@ -25,59 +27,60 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-ticket fa-lg"/>
+                                <i class="fa fa-ticket fa-lg" aria-label="Enterprise JS API Ticket"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="corp_jsapi_ticket"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
                                         <span style="color:orange">
-                                            <i class="fa fa-info-circle"/>
+                                            <i class="fa fa-info-circle" aria-label=""/>
                                             The ticket has been cached and the system will automatically refresh the ticket.
                                         </span>
                                     </div>
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="corp_jsapi_ticket" readonly="1" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
+                                        <field name="corp_jsapi_ticket" readonly="1" widget="CopyClipboardText"  />
                                     </div>
                                 </div>
                             </div>
                         </div>                        
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-ticket fa-lg"/>
+                                <i class="fa fa-ticket fa-lg" aria-label="Application JS API Ticket"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="agent_jsapi_ticket"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
                                         <span style="color:orange;">
-                                            <i class="fa fa-info-circle"/>
+                                            <i class="fa fa-info-circle" aria-label=""/>
                                             The ticket has been cached and the system will automatically refresh the ticket.
                                         </span>
                                     </div>
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="agent_jsapi_ticket" readonly="1" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
+                                        <field name="agent_jsapi_ticket" readonly="1" widget="CopyClipboardChar" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa fa-clock-o fa-lg"/>
+                                <i class="fa fa fa-clock-o fa-lg" aria-label="Last time to get the ticket"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="get_ticket_last_time"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
                                         <span style="color:orange;">
-                                            <i class="fa fa-info-circle"/>
+                                            <i class="fa fa-info-circle" aria-label=""/>
                                             Validity period is 7200 seconds
                                         </span>
                                     </div>
@@ -91,13 +94,13 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa fa-clock-o fa-lg"/>
+                                <i class="fa fa fa-clock-o fa-lg" aria-label="Pull interval time"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <label for="ticket_interval_time"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        <span style="color:orange;"><i class="fa fa-info-circle"/> Recommended within 2 hours.Used to detect the time interval between tickets and scheduled tasks.</span>
+                                        <span style="color:orange;"><i class="fa fa-info-circle" aria-label=""/> Recommended within 2 hours.Used to detect the time interval between tickets and scheduled tasks.</span>
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -116,7 +119,7 @@
                                 <label for="jsapi_debug"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        <span style="color:orange;"><i class="fa fa-info-circle"/> Turn on the debugging mode, the return value of all apis called will be alert on the client. If you want to view the incoming parameters, you can open it on the PC side. The parameter information will be printed out through the log, and it will only be printed on the PC side.</span>
+                                        <span style="color:orange;"><i class="fa fa-info-circle" aria-label=""/> Turn on the debugging mode, the return value of all apis called will be alert on the client. If you want to view the incoming parameters, you can open it on the PC side. The parameter information will be printed out through the log, and it will only be printed on the PC side.</span>
                                     </div>
                                 </div>
                             </div>
@@ -153,5 +156,6 @@
                 </xpath>
             </field>
         </record>
+
     </data>
 </odoo>
