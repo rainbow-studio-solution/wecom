@@ -14,6 +14,23 @@ class Users(models.Model):
         search="_search_company_employee",
         store=True,
     )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
+    
+    def set_wxwork_user(self):
+        """
+        设置企业微信用户，当该用户已经关联employee时，将该employee的企业微信id信息写入到user中
+        """
+        if self.employee_ids and self.employee_ids[0].is_wxwork_employee and  self.employee_ids[0].wxwork_id:
+            self.write({
+                'is_wxwork_user': True,
+                'is_wxwork_notice': True,
+                'wxwork_id': self.employee_ids[0].wxwork_id
+            })
+        else:
+            raise UserError(
+                    _(
+                        "Please set wxwork employee for this user!"
+                    )
+                )
 
 
 # ----------------------------------------------------------
