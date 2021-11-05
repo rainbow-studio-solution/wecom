@@ -15,7 +15,7 @@
             
             <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 
-            <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork_login_jsapi.js"></script>
+            <!-- <script type="text/javascript" src="/wxwork_jsapi/static/src/js/wxwork_login_jsapi.js"></script> -->
         </xpath>
     </template>
 

@@ -22,6 +22,11 @@ class ResConfigSettings(models.TransientModel):
         required=True,
         default=lambda self: self.env.company,
     )
+
+    auth_agentid = fields.Char(related="company_id.auth_agentid", readonly=False)
+
+    auth_secret = fields.Char(related="company_id.auth_secret", readonly=False)
+
     corp_jsapi_ticket = fields.Char(
         "Enterprise JS API Ticket",
         related="company_id.corp_jsapi_ticket",

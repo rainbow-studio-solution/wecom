@@ -2,5 +2,4 @@
 
 from . import res_company
 from . import res_config_settings
-
-# from . import jsapi_interface
+from . import wxwork_jsapi_interface

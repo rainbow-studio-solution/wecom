@@ -19,10 +19,12 @@
     "depends": ["wxwork_base", "wxwork_smart_hrm",],
     "external_dependencies": {"python": [],},
     "data": [
+        "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
         "data/res_company_data.xml",
         "views/res_company_views.xml",
         "views/res_config_settings_views.xml",
+        "views/wxwork_jsapi_interface_views.xml",
         "views/ir_cron_views.xml",
         "views/menu.xml",
         "views/assets_templates.xml",

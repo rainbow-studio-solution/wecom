@@ -9,12 +9,22 @@ from odoo.addons.wxwork_api.api.error_code import Errcode
 
 from datetime import datetime, timedelta
 import datetime
+import hashlib
 
 _logger = logging.getLogger(__name__)
 
 
 class Company(models.Model):
     _inherit = "res.company"
+
+    auth_agentid = fields.Char(
+        "Auth agent Id",
+        default="0000000",
+        help="The web application ID of the authorizing party, which can be viewed in the specific web application",
+    )
+    auth_secret = fields.Char(
+        "Auth Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    )
 
     corp_jsapi_ticket = fields.Char("Enterprise JS API Ticket",)
 
@@ -163,3 +173,58 @@ class Company(models.Model):
             # 超时
             self.get_corp_ticket()
             self.get_agent_ticket()
+
+    # -------------------------------------
+    # 企业微信JS SDK
+    # -------------------------------------
+
+    @api.model
+    def get_wxwork_jsapi_param(self, args=None):
+        """
+        获取JSAPI的属性
+        args:
+            nonceStr: 生成签名的随机串
+            timestamp: 生成签名的时间戳
+            url:
+        """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        debug = ir_config.get_param("wxwork.jsapi_debug")
+        corpid = self.corpid
+        agentid = self.auth_agentid
+        return {
+            "parameters": [
+                {
+                    "debug": not not (True if debug == "True" else False),
+                    "appId": corpid,
+                    "agentid": agentid,
+                    "signature": self.generate_wxwork_jsapi_signature(args),
+                }
+            ]
+        }
+
+    def generate_wxwork_jsapi_signature(self, args):
+        """
+        使用sha1加密算法，生成签名
+        """
+        # 生成签名前，刷新ticke
+        res_config = self.env["res.config.settings"].sudo()
+        res_config.get_jsapi_ticket()
+
+        url = self.get_param("web.base.url")
+        ticket = self.get_param("wxwork.corp_jsapi_ticket")
+        str = ("jsapi_ticket=%s&noncestr=%s&timestamp=%s&url=%s") % (
+            ticket,
+            args[0],
+            args[1],
+            url + args[2],
+        )
+        # print(str)
+        # sha = hashlib.sha1(str.encode("utf-8"))
+        # encrypts = sha.hexdigest()
+        encrypts = hashlib.sha1(str.encode("utf-8")).hexdigest()
+        return encrypts
+
+    def check_ticket(self):
+        """
+        检查ticket是否有效
+        """
