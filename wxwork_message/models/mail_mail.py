@@ -113,7 +113,6 @@ class MailMail(models.Model):
     # 消息格式、工具和发送机制
     # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
-
     def send(
         self,
         auto_commit=False,
@@ -133,8 +132,10 @@ class MailMail(models.Model):
         :return: True
         """
         # print(self)
+        if not company:
+            company = self.env.company
         if is_wxwork_message is None:
-            if self.message_to_user:
+            if self.mapped('message_to_user'):
                 is_wxwork_message = True
             else:
                 is_wxwork_message = False
@@ -323,7 +324,7 @@ class MailMail(models.Model):
                 )
 
     def _send_wxwork_message(
-        self, auto_commit=False, raise_exception=False, company=False,
+        self, auto_commit=False, raise_exception=False, company=None,
     ):
         """
         :param bool auto_commit: 发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
@@ -331,6 +332,9 @@ class MailMail(models.Model):
         :param bool raise_exception: 如果电子邮件发送过程失败，是否引发异常 
         :return: True
         """
+        
+        if not company:
+            company = self.env.company
 
         IrWxWorkMessageApi = self.env["wxwork.message.api"]
         for mail_id in self.ids:
