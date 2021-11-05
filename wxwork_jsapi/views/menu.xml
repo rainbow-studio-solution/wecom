@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_wxwork_pull_ticket" name="Pull ticket" parent="wxwork_base.menu_wxwork_cron" action="ir_cron_act_ticket" sequence="3"/>
+
+    </data>
+</odoo>

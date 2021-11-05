@@ -13,7 +13,10 @@
                 <!-- <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui-for-work.min.css"/> -->
             </xpath>
             <xpath expr="//script[last()]" position="after">
+                <!-- JS-SDK -->
                 <!-- <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+
+
                 <!--企业微信网页登录二维码 旧版-->
                 <!-- <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/> -->
                 <!--企业微信网页登录二维码 新版（20210803更新）-->
