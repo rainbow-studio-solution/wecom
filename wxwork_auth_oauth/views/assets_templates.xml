@@ -13,8 +13,11 @@
                 <!-- <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui-for-work.min.css"/> -->
             </xpath>
             <xpath expr="//script[last()]" position="after">
-                <!--企业微信网页登录二维码-->
-                <!-- <script type="text/javascript" src="https://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/> -->
+                <!-- <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> -->
+                <!--企业微信网页登录二维码 旧版-->
+                <!-- <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/> -->
+                <!--企业微信网页登录二维码 新版（20210803更新）-->
+                <!-- <script type="text/javascript" src="https://wwcdn.weixin.qq.com/node/wework/wwopen/js/wwLogin-1.2.4.js"/> -->
                 
                 <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_providers.js"/>               
                 <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_join.js"/>
