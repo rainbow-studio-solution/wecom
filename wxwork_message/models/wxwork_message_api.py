@@ -56,6 +56,9 @@ class WxWorkMessageApi(models.AbstractModel):
         :duplicate_check_interval: Indicates whether the message check is repeated. The default is 1800s and the maximum is no more than 4 hours
 
         """
+        if not company:
+            company = self.env.company
+        
         messages_content = self.get_messages_content(
             msgtype,
             description,
@@ -75,7 +78,6 @@ class WxWorkMessageApi(models.AbstractModel):
         )
         sys_params = self.env["ir.config_parameter"].sudo()
 
-        messages = {}
         messages = {
             "touser": "@all" if toall else touser,
             "toparty": "" if toall else toparty,
