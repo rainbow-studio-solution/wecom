@@ -81,10 +81,9 @@ class AuthSignupHome(SignupHome):
                         raise_if_not_found=False,
                     )
                     if user_sudo and template:
-                        template.sudo().with_context(is_wxwork_message=is_wxwork_message).send_mail(
-                            user_sudo.id,
-                            force_send=True
-                        )
+                        template.sudo().with_context(
+                            is_wxwork_message=is_wxwork_message
+                        ).send_mail(user_sudo.id, force_send=True)
                 return self.web_login(*args, **kw)
             except UserError as e:
                 qcontext["error"] = e.args[0]
@@ -429,3 +428,48 @@ class OAuthController(Controller):
                 )
 
         return data
+
+    @http.route("/wxwork_login_jsapi", type="json", auth="none")
+    def wxwork_get_login_jsapi(self, **kwargs):
+        """
+        获取登陆页面的 JSAPI ticket
+        args:
+            nonceStr: 生成签名的随机串
+            timestamp: 生成签名的时间戳
+            url: 当前网页的URL， 不包含#及其后面部分
+        """
+        datas = []
+
+        params = request.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wxwork.jsapi_debug")
+
+        # 获取 标记为 企业微信组织 的公司
+        companies = request.env["res.company"].search(
+            [(("is_wxwork_organization", "=", True))]
+        )
+        if len(companies) > 0:
+            for company in companies:
+                data = {}
+                parameters = {}
+                parameters.update(
+                    {
+                        "beta": True,
+                        "debug": True if debug == "True" else False,
+                        "appId": company["corpid"],
+                        "timestamp": kwargs["timestamp"],
+                        "nonceStr": kwargs["nonceStr"],
+                        "signature": request.env[
+                            "wxwork.tools"
+                        ].generate_jsapi_signature(
+                            company,
+                            kwargs["nonceStr"],
+                            kwargs["timestamp"],
+                            kwargs["url"],
+                        ),
+                    }
+                )
+                data["id"] = company.id
+                data["parameters"] = parameters
+                datas.append(data)
+
+        return datas

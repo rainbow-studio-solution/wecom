@@ -1,14 +1,12 @@
-odoo.define('wxwork_jsapi.login', function (require) {
+odoo.define('web.wxconfig', function (require) {
     "use strict";
-    const publicWidget = require('web.public.widget');
-    var core = require('web.core');
-    var qweb = core.qweb;
+    var Widget = require('web.Widget');
 
-    publicWidget.registry.LoginWxconfig = publicWidget.Widget.extend({
-        selector: '.o_login_auth',
+    var Wxconfig = Widget.extend({
         init: function (parent, options) {
             var self = this;
             this._super(parent);
+            console.log(parent)
             options = _.defaults(options || {}, {
                 beta: true, // 必须这么写，否则wx.invoke调用形式的jsapi会有问题
                 debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -49,27 +47,23 @@ odoo.define('wxwork_jsapi.login', function (require) {
                     signature: self.signature,
                     jsApiList: self.jsApiList
                 });
-                wx.error(function (res) {
-                    // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-
-                    // self.debug_alert("wx.error:" + JSON.stringify(res));
-                    console.log("wx", res)
-                });
             });
         },
         ready: function () {
-            // this._super();
-            // var self = this;
-            // this.debug_alert("ready:" + this.jsApiList);
+            var self = this;
             wx.ready({
                 // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
             });
             return this;
         },
-        error: function () {
-            // return Promise.resolve(this.configStatus)
-            // return this.configStatus;
+        error: function (res) {
+            var self = this;
+            wx.error(function (res) {
+                // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+                console.log(res)
+            });
+            return this;
         }
     });
-
+    return Wxconfig;
 });

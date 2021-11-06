@@ -111,17 +111,17 @@ class ResConfigSettings(models.TransientModel):
         res = super(ResConfigSettings, self).get_values()
         ir_config = self.env["ir.config_parameter"].sudo()
 
-        debug_enabled = (
+        jsapi_debug = (
             True if ir_config.get_param("wxwork.jsapi_debug") == "True" else False
         )
 
-        res.update(debug_enabled=debug_enabled,)
+        res.update(jsapi_debug=jsapi_debug,)
         return res
 
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         ir_config = self.env["ir.config_parameter"].sudo()
-        ir_config.set_param("wxwork.jsapi_debug", self.debug_enabled or "False")
+        ir_config.set_param("wxwork.jsapi_debug", self.jsapi_debug or "False")
 
     def update_cron_ticket_interval_time(self):
         try:

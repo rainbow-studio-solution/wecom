@@ -5,11 +5,11 @@ from odoo import api, fields, models, tools, SUPERUSER_ID, _
 
 class WXworkJsApiIneerface(models.Model):
     _name = "wxwork.jsapi.interface"
-    _order = "name asc"
+    _order = "type asc"
     _description = "Enterprise WeChat JSAPI Interface"
 
     name = fields.Char("Interface Name", required=True, translate=True)
-    function_name = fields.Char("Function Name", required=True)
+    function_name = fields.Char("Function Name", translate=False)
     type = fields.Selection(
         [
             ("base", "Basic Interface"),
@@ -29,5 +29,5 @@ class WXworkJsApiIneerface(models.Model):
         help="",
     )  # base:基础接口， contacts：企业通讯录， chat:会话, customer:客户联系, kfchat:客服, tools:效率工具, edu:教育, gov:政民沟通, ui:界面, media:媒体, device:设备
 
-    example = fields.Html(string="Code example",)
-    description = fields.Text("Description", required=True, translate=True)
+    example = fields.Text(string="Code example",)
+    description = fields.Html("Description", required=True, translate=True)

@@ -178,29 +178,29 @@ class Company(models.Model):
     # 企业微信JS SDK
     # -------------------------------------
 
-    @api.model
+    # @api.model
     def get_wxwork_jsapi_param(self, args=None):
         """
         获取JSAPI的属性
         args:
+            company_id: 公司id
             nonceStr: 生成签名的随机串
             timestamp: 生成签名的时间戳
-            url:
+            url: 当前网页的URL， 不包含#及其后面部分
         """
         ir_config = self.env["ir.config_parameter"].sudo()
         debug = ir_config.get_param("wxwork.jsapi_debug")
-        corpid = self.corpid
-        agentid = self.auth_agentid
-        return {
-            "parameters": [
-                {
-                    "debug": not not (True if debug == "True" else False),
-                    "appId": corpid,
-                    "agentid": agentid,
-                    "signature": self.generate_wxwork_jsapi_signature(args),
-                }
-            ]
-        }
+        print(args, type(args), args[0])
+        # return {
+        #     "parameters": [
+        #         {
+        #             "debug": not not (True if debug == "True" else False),
+        #             "appId": self.corpid,
+        #             "agentid": self.auth_agentid,
+        #             "signature": self.generate_wxwork_jsapi_signature(args),
+        #         }
+        #     ]
+        # }
 
     def generate_wxwork_jsapi_signature(self, args):
         """
