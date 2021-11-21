@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--    HR菜单    -->
+        <menuitem id="menu_wecom_contacts_sync_main" name="Sync contacts" parent="wecom_hr.menu_wecom_organization_main" sequence="10" groups="hr.group_hr_manager"/>
+
+        <menuitem id="menu_wecom_contacts_block_record" name="Block List" parent="menu_wecom_contacts_sync_main" action="wecom_hr.open_view_wecom_contacts_block_tree" groups="hr.group_hr_manager" sequence="10"/>
+
+        <menuitem id="menu_wecom_contacts_wizard" name="Wizard synchronization" parent="menu_wecom_contacts_sync_main" action="wecom_contacts_wizard" groups="hr.group_hr_manager" sequence="20"/>
+
+        <menuitem id="menu_wecom_contacts_sync_record" name="Synchronous recording" parent="menu_wecom_contacts_sync_main" action="open_view_wecom_contacts_sync_tree" groups="hr.group_hr_manager" sequence="30"/>
+
+        <menuitem id="menu_wecom_users_sync_main" name="Sync User" parent="wecom_hr.menu_wecom_organization_main" sequence="20" groups="hr.group_hr_manager"/>
+
+        <menuitem id="menu_wecom_contacts_sync_user_wizard" name="Wizard synchronization" parent="menu_wecom_users_sync_main" action="view_actions_wecom_user_wizard" groups="hr.group_hr_manager" sequence="10"/>
+
+        <menuitem id="menu_wecom_contacts_sync_user_record" name="Synchronous recording" parent="menu_wecom_users_sync_main" action="open_view_wecom_sync_user_tree" groups="hr.group_hr_manager" sequence="10"/>
+
+        <!-- <menuitem id="menu_wecom_tags_sync_main" name="Sync tags" parent="wecom_hr.menu_wecom_organization_main" sequence="30" groups="wecom_base.group_wecom_manager" action="view_actions_wecom_tag_wizard" /> -->
+
+
+        <menuitem id="menu_wecom_contacts_sync_auto" name="Sync contacts" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_contacts" sequence="1"/>
+        <menuitem id="menu_wecom_users_sync_auto" name="Sync Users" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_users" sequence="2"/>
+
+    </data>
+</odoo>

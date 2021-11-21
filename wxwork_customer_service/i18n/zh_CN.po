@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wxwork_customer_service
+# 	* wecom_customer_service
 #
 msgid ""
 msgstr ""
@@ -17,20 +17,20 @@ msgstr ""
 "Language: zh_CN\n"
 "X-Generator: Poedit 3.0\n"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.view_company_form
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
 msgid "<i class=\"fa fa-qrcode fa-lg\" aria-label=\"Wechat customer service QR code\"/>"
 msgstr "<i class=\"fa fa-qrcode fa-lg\" aria-label=\"企业微信客服二维码\"/>"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-headphones fa-lg\" aria-label=\"Customer service "
 "settings\"/> Customer service settings\n"
 "                            <i class=\"fa fa-info-circle fa-lg\" title=\"The values set below "
-"are the companies identified as enterprise wechat organizations.\"/>\n"
+"are the companies identified as WeCom organizations.\"/>\n"
 "                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
@@ -40,8 +40,8 @@ msgstr ""
 "业微信组织的公司。\"/>\n"
 "                        </span>"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.view_company_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.view_company_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-headphones fa-lg\" aria-label=\"Customer service "
 "settings\"/>  Customer service settings</span>\n"
@@ -52,72 +52,72 @@ msgstr ""
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶"
 "部\"/>"
 
-#. module: wxwork_customer_service
-#: model:ir.model,name:wxwork_customer_service.model_res_company
+#. module: wecom_customer_service
+#: model:ir.model,name:wecom_customer_service.model_res_company
 msgid "Companies"
 msgstr "公司"
 
-#. module: wxwork_customer_service
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_config_settings__company_id
+#. module: wecom_customer_service
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_config_settings__company_id
 msgid "Company"
 msgstr "公司"
 
-#. module: wxwork_customer_service
-#: model:ir.model,name:wxwork_customer_service.model_res_config_settings
+#. module: wecom_customer_service
+#: model:ir.model,name:wecom_customer_service.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
-#. module: wxwork_customer_service
+#. module: wecom_customer_service
 #. openerp-web
-#: code:addons/wxwork/wxwork_customer_service/static/src/xml/anchor.xml:0
-#: code:addons/wxwork_customer_service/static/src/xml/anchor.xml:0
+#: code:addons/wxwork/wecom_customer_service/static/src/xml/anchor.xml:0
+#: code:addons/wecom_customer_service/static/src/xml/anchor.xml:0
 #, python-format
 msgid "Customer service settings"
 msgstr "客服设置"
 
-#. module: wxwork_customer_service
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_company__display_name
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_config_settings__display_name
+#. module: wecom_customer_service
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_company__display_name
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
-#. module: wxwork_customer_service
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_company__id
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_config_settings__id
+#. module: wecom_customer_service
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_company__id
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_config_settings__id
 msgid "ID"
 msgstr "ID"
 
-#. module: wxwork_customer_service
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_company____last_update
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_config_settings____last_update
+#. module: wecom_customer_service
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_company____last_update
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_config_settings____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.view_company_form
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
-msgid "Use the enterprise wechat scanning code on the"
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
+msgid "Use the WeCom scanning code on the"
 msgstr "使用企业微信扫码在"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
 msgid "WeChat Customer Service QR code"
 msgstr "微信客服二维码"
 
-#. module: wxwork_customer_service
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_company__customer_service_qrcode
-#: model:ir.model.fields,field_description:wxwork_customer_service.field_res_config_settings__customer_service_qrcode
+#. module: wecom_customer_service
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_company__customer_service_qrcode
+#: model:ir.model.fields,field_description:wecom_customer_service.field_res_config_settings__customer_service_qrcode
 msgid "Wechat customer service QR code"
 msgstr "微信客服二维码"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.view_company_form
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
 msgid "to open wechat customer service, which can be used after opening."
 msgstr "开通微信客服，开通后即可使用。"
 
-#. module: wxwork_customer_service
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.view_company_form
-#: model_terms:ir.ui.view,arch_db:wxwork_customer_service.wxwork_message_res_config_settings_view_form
+#. module: wecom_customer_service
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_customer_service.wecom_message_res_config_settings_view_form
 msgid "wechat customer service official website"
 msgstr "企业微信客服官网"

@@ -1,5 +1,5 @@
 @include media-breakpoint-down(sm) {
-    .wxwork_qr_dialog {
+    .wecom_qr_dialog {
         iframe {
             transform: scale(0.9) !important;
             transform-origin: -110% 50% !important;
@@ -8,7 +8,7 @@
 }
 
 @media (max-width: 414px) {
-    .wxwork_qr_dialog {
+    .wecom_qr_dialog {
         iframe {
             transform: scale(0.9) !important;
             transform-origin: -95% 50% !important;
@@ -17,7 +17,7 @@
 }
 
 @media (max-width: 320px) {
-    .wxwork_qr_dialog {
+    .wecom_qr_dialog {
         iframe {
             transform: scale(0.9) !important;
             transform-origin: -180% 50% !important;
@@ -25,7 +25,7 @@
     }
 }
 
-.wxwork_qr_dialog {
+.wecom_qr_dialog {
     iframe {
         width: 500px;
         height: 400px;
@@ -55,14 +55,14 @@
         background-position: center; //背景位置居中
         background-size: cover;
         /*background-size的cover特定值会保持图像本身的宽高比例，将图片缩放到正好完全覆盖定义背景的区域。*/
-        background-image: url(/wxwork_auth_oauth/static/src/img/wxwork2.png);
+        background-image: url(/wecom_auth_oauth/static/src/img/wxwork2.png);
         display: inline-block; //变成块状，这个属性一定要加，要不然不显示。因为<i>标签不是块级元素
     }
 }
 
 // .social-icons{
 //     .wxwork {
-//         background: url(/wxwork_auth_oauth/static/src/img/wxwork2.png) no-repeat;
+//         background: url(/wecom_auth_oauth/static/src/img/wxwork2.png) no-repeat;
 //     }
 // }
 // .login-social
@@ -72,10 +72,10 @@
 //         background-position: 0 -38px!important;
 //     }
 //     .icon-social-wxwork {
-//         background: url(/wxwork_auth_oauth/static/src/img/wxwork1.png) no-repeat;
+//         background: url(/wecom_auth_oauth/static/src/img/wxwork1.png) no-repeat;
 //     }
 //     .wxwork {
-//         background: url(/wxwork_auth_oauth/static/src/img/wxwork1.png) no-repeat;
+//         background: url(/wecom_auth_oauth/static/src/img/wxwork1.png) no-repeat;
 //     }
 // }
 

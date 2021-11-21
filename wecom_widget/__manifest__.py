@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+
+{
+    "name": "WeCom Widget",
+    "author": "RStudio",
+    "category": "WeCom/WeCom",
+    "summary": "WeCom Widget",
+    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "version": "14.0.0.1",
+    "description": """ 
+
+""",
+    "depends": [
+        "web",
+    ],
+    "data": [
+        "views/assets_templates.xml",
+    ],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
+    "sequence": 605,
+    "installable": True,
+    "auto_install": True,
+    "application": False,
+}

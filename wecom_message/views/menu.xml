@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!--  ROOT   -->
+        <menuitem id="menu_wecom_message_root" name="Message" groups="base.group_erp_manager" parent="wecom_base.menu_wecom_root" sequence="3"/>
+
+        <!-- 对应菜单：设置→技术→讨论 -->
+        <!-- <menuitem id="menu_wecom_discuss" name="Discuss type" parent="menu_wecom_message_root" sequence="1"/> -->
+        <!-- 1.消息 -->
+        <!-- <menuitem id="menu_wecom_discuss_message" name="Message" parent="menu_wecom_discuss" action="action_view_wecom_message" groups="base.group_erp_manager" sequence="1"/> -->
+        <!-- 2.跟踪值 -->
+        <!-- <menuitem name="Tracking Values" id="menu_wecom_discuss_tracking_value" parent="menu_wecom_discuss" action="mail.action_view_mail_tracking_value" sequence="2"/> -->
+        <!-- 3.活动 -->
+        <!-- <menuitem id="menu_wecom_discuss_activities" action="mail.mail_activity_action" parent="menu_wecom_discuss" sequence="3" /> -->
+
+        <!-- 4.通知 -->
+        <!-- <menuitem name="Notifications" id="menu_wecom_discuss_notification" parent="menu_wecom_discuss" action="mail.mail_notification_action" sequence="4"/> -->
+
+        <!-- 5.点评 -->
+        <!-- <menuitem name="Ratings" id="menu_wecom_discuss_rating" parent="menu_wecom_discuss" action="rating.rating_rating_view" sequence="5"/> -->
+
+        <!-- 6.黑名单 -->
+        <!-- <menuitem name="Email Blacklist" id="menu_wecom_discuss_blacklist" action="mail.mail_blacklist_action" parent="menu_wecom_discuss" sequence="6"/> -->
+
+        <!-- 对应菜单：设置→技术→电子邮件 -->
+        <menuitem id="menu_wecom_email" name="Message type" parent="menu_wecom_message_root" sequence="2"/>
+
+        <!-- 1.邮件 -->
+        <!-- <menuitem id="menu_wecom_email_message" name="Message" parent="menu_wecom_email" action="action_view_wxwrok_mail" groups="base.group_erp_manager" sequence="1"/> -->
+
+        <!-- 2.模板 -->
+        <!-- <menuitem id="menu_wecom_email_template" name="Template" parent="menu_wecom_email" groups="base.group_erp_manager" action="wecom_template_action" sequence="2"/> -->
+
+        <!-- 3.摘要 -->
+        <!-- <menuitem name="Digest Message" id="menu_wecom_email_digest" action="digest.digest_digest_action" parent="menu_wecom_email" groups="base.group_erp_manager" sequence="3"/> -->
+
+
+        <!-- <menuitem id="menu_wecom_configuration" name="Settings" parent="menu_wecom_message_root" sequence="900" action="wecom_message.wecom_message_config_settings_action" groups="base.group_erp_manager"/> -->
+
+        <!-- <menuitem id="menu_wecom_message" name="Message" parent="menu_wecom_message_root" sequence="97" /> -->
+
+        <menuitem id="menu_wecom_message_records" name="Records" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="action_view_wecom_message_records" sequence="10"/>
+
+        <menuitem id="menu_wecom_message_template" name="Template" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="wecom_meaasge_template_action" sequence="20"/>
+
+        <!-- <menuitem id="menu_message_template" name="Template(EMail)" parent="menu_wecom_message" action="action_view_wecom_message_template_tree_all" sequence="20"/> -->
+
+    </data>
+</odoo>

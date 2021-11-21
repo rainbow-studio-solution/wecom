@@ -2,11 +2,6 @@
 <odoo>
     <data>
 
-        <menuitem 
-            id="menu_wxwork_cron_get_join_qrcode" 
-            name="Get the QR code to join the enterprise" 
-            parent="wxwork_base.menu_wxwork_cron" 
-            action="ir_cron_act_get_join_qrcode" 
-            sequence="4"/>
+        <menuitem id="menu_wecom_cron_get_join_qrcode" name="Get the QR code to join the enterprise" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="4"/>
     </data>
 </odoo>

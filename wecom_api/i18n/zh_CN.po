@@ -1,0 +1,411 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wecom_api
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-16 07:52+0000\n"
+"PO-Revision-Date: 2021-11-16 15:54+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_list_filter
+msgid "API"
+msgstr "API"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api_list
+msgid "API List"
+msgstr "API列表"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__code
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__code
+msgid "API error code"
+msgstr "API 错误代码"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__message
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__message
+msgid "API error message"
+msgstr "API错误消息"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__access_token
+msgid "Access Token"
+msgstr "访问令牌"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__request_type
+msgid "Api Request Type"
+msgstr "Api请求类型"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__type
+msgid "Api Type"
+msgstr "Api类型"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__agent
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__6
+msgid "Application management"
+msgstr "应用管理"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__approval
+msgid "Approval"
+msgstr "审批"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__1
+msgid "Base"
+msgstr "基础"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__checkin
+msgid "Checkin"
+msgstr "打卡"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__contacts
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__2
+msgid "Contacts"
+msgstr "通讯录"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__corpid
+msgid "Corp Id"
+msgstr "企业Id"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
+msgid "Created on"
+msgstr "创建于"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__external_contact
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__3
+msgid "Customer contact"
+msgstr "客户联系"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__10
+msgid "Efficiency tools"
+msgstr "效率工具"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_tools
+msgid "WeCom Tools"
+msgstr "企业微信工具"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error
+#: model:ir.actions.server,name:wecom_api.ir_cron_pull_wecom_service_api_error_ir_actions_server
+#: model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error
+#: model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
+msgid "WeCom: Pull the global error code of WeCom."
+msgstr "企业微信：拉取企业微信的全局错误码。"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api_error
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_service_api_error
+msgid "Error Code"
+msgstr "错误代码"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__code
+msgid "Error code"
+msgstr "错误代码"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__name
+msgid "Error description"
+msgstr "错误说明"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_error_filter
+msgid "Errors"
+msgstr "错误"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
+msgid "Expiration Time"
+msgstr "有效时间"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#, python-format
+msgid "Failed to pull WeCom global error code, reason:%s"
+msgstr "拉取取企业微信全局错误码失败，原因：%s"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
+msgid "GET"
+msgstr ""
+
+#. module: wecom_api
+#. openerp-web
+#: code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Global error code pulled successfully!"
+msgstr "全局错误代码拉取成功！"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id
+msgid "ID"
+msgstr ""
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__auth
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__5
+msgid "Identity authentication"
+msgstr "身份验证"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update
+msgid "Last Modified on"
+msgstr "上次修改日期"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
+msgid "Last Updated on"
+msgstr "最近更新日期"
+
+#. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_service_api_list
+msgid "List"
+msgstr "列表"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__media
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__8
+msgid "Media material"
+msgstr "媒体素材"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__message
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__7
+msgid "Message push"
+msgstr "消息推送"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
+msgid "OA"
+msgstr "OA"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
+msgid "POST"
+msgstr ""
+
+#. module: wecom_api
+#. openerp-web
+#: code:addons/wxwork/wecom_api/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom_api/static/src/xml/list_header_button.xml:0
+#, python-format
+msgid "Pull error code"
+msgstr "拉取错误码"
+
+#. module: wecom_api
+#. openerp-web
+#: code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Pull successfully!"
+msgstr "拉取成功！"
+
+#. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_service_api_error_pull
+msgid "Pull the global error code"
+msgstr "拉取全局错误码"
+
+#. module: wecom_api
+#. openerp-web
+#: code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Refresh"
+msgstr "刷新"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name
+msgid "Request Function Name"
+msgstr "请求函数名"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__name
+msgid "Request Name"
+msgstr "请求名称"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__short_url
+msgid "Request Short Url"
+msgstr "请求短Url"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__secret
+msgid "Secret"
+msgstr "密钥"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__sequence
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__sequence
+msgid "Sequence"
+msgstr "排序"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#, python-format
+msgid "Start pulling the global error code of WeCom."
+msgstr "开始拉取企业微信的全局错误码。"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#, python-format
+msgid "Successfully pulled the WeCom global error code!"
+msgstr "成功拉取企业微信全局错误码！"
+
+#. module: wecom_api
+#: model:ir.model.constraint,message:wecom_api.constraint_wecom_service_api_list_function_name_company_uniq
+msgid "The function of each company is unique !"
+msgstr "每个公司的功能都是唯一的！"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_server_api.py:0
+#: code:addons/wecom_api/models/wecom_server_api.py:0
+#, python-format
+msgid "Tips"
+msgstr "提示"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_service_api_token
+msgid "Token"
+msgstr "令牌"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_server_api.py:0
+#: code:addons/wecom_api/models/wecom_server_api.py:0
+#, python-format
+msgid "Token is still valid, and no update is required!"
+msgstr "令牌仍然有效，不需要更新！"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__method
+msgid "Treatment method"
+msgstr "处理方法"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__type
+msgid "Type"
+msgstr "类型"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__kf
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__4
+msgid "Wechat customer service"
+msgstr "微信客服"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_abstract_api.py:0
+#: code:addons/wecom_api/models/wecom_abstract_api.py:0
+#, python-format
+msgid "Wecom API GET"
+msgstr "企业微信API-GET"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_abstract_api.py:0
+#: code:addons/wecom_api/models/wecom_abstract_api.py:0
+#, python-format
+msgid "Wecom API POST"
+msgstr "企业微信API-POST"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/models/wecom_abstract_api.py:0
+#: code:addons/wecom_api/models/wecom_abstract_api.py:0
+#, python-format
+msgid "Wecom API POST FILE"
+msgstr "企业微信API-POST 文件"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_abstract_api
+msgid "Wecom Abstract API"
+msgstr "企业微信抽象API"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_service_api
+msgid "Wecom Server API"
+msgstr "企业微信服务端API"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_service_api_error
+msgid "Wecom Server API Error"
+msgstr "企业微信API错误"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_service_api_list
+msgid "Wecom Server API List"
+msgstr "企业微信服务端API列表"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__name
+msgid "name"
+msgstr "名称"
+
+#. module: wecom_api
+#: code:addons/wxwork/wecom_api/api/abstract_api.py:0
+#: code:addons/wxwork/wecom_api/models/wecom_abstract_api.py:0
+#: code:addons/wecom_api/api/abstract_api.py:0
+#: code:addons/wecom_api/models/wecom_abstract_api.py:0
+#, python-format
+msgid "unknown method type"
+msgstr "未知方法类型"

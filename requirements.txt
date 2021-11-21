@@ -1,6 +1,6 @@
-numpy==1.19.3 
 opencv-python
 pdfminer
 num2words
 ffmpy
 pydub
+pandas

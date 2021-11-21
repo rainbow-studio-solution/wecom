@@ -1,4 +1,4 @@
-odoo.define('wxwork_auth_oauth.join', function (require) {
+odoo.define('wecom_auth_oauth.join', function (require) {
     'use strict';
 
     var publicWidget = require('web.public.widget');
@@ -8,7 +8,7 @@ odoo.define('wxwork_auth_oauth.join', function (require) {
 
     publicWidget.registry.WxWorkAuthJoin = publicWidget.Widget.extend({
         selector: 'form.oe_login_form',
-        xmlDependencies: ['/wxwork_auth_oauth/static/src/xml/join.xml'],
+        xmlDependencies: ['/wecom_auth_oauth/static/src/xml/join.xml'],
 
         init: function () {
             this._super.apply(this, arguments);
@@ -37,7 +37,7 @@ odoo.define('wxwork_auth_oauth.join', function (require) {
                     });
                 });
                 var $auth_element = self.$el.find(".o_login_auth");
-                var $join_element = $(qweb.render('wxwork_auth_oauth.Join', {
+                var $join_element = $(qweb.render('wecom_auth_oauth.Join', {
                     button_name: data["join_button_name"],
                     companies: companies,
                 }));

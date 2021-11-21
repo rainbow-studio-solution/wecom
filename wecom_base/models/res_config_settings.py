@@ -1,0 +1,78 @@
+# -*- coding: utf-8 -*-
+
+from odoo import models, fields, api, _
+
+
+class ResConfigSettings(models.TransientModel):
+    _inherit = "res.config.settings"
+
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        required=True,
+        default=lambda self: self.env.company,
+    )
+
+    is_wecom_organization = fields.Boolean(
+        related="company_id.is_wecom_organization", readonly=False
+    )
+
+    company_name = fields.Char(related="company_id.display_name", string="Company Name")
+    abbreviated_name = fields.Char(related="company_id.abbreviated_name")
+    corpid = fields.Char(string="Corp ID", related="company_id.corpid", readonly=False)
+
+    debug_enabled = fields.Boolean("Turn on debug mode", default=True)
+
+    img_path = fields.Char(
+        "WeCom Picture storage path",
+        config_parameter="wecom.img_path",
+    )
+
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        ir_config = self.env["ir.config_parameter"].sudo()
+
+        debug_enabled = (
+            True if ir_config.get_param("wecom.debug_enabled") == "True" else False
+        )
+
+        res.update(
+            debug_enabled=debug_enabled,
+        )
+        return res
+
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        ir_config = self.env["ir.config_parameter"].sudo()
+        ir_config.set_param("wecom.debug_enabled", self.debug_enabled or "False")
+
+    def open_wecom_company(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": "My Company",
+            "view_mode": "form",
+            "res_model": "res.company",
+            "res_id": self.env.company.id,
+            "target": "current",
+            "context": {
+                "form_view_initial_mode": "edit",
+            },
+        }
+
+    @api.depends("company_id")
+    def _compute_wecom_company_corpid(self):
+        company_corpid = self.company_id.corpid if self.company_id.corpid else ""
+
+        for record in self:
+            record.wecom_company_corpid = company_corpid
+
+    @api.model
+    def open_wecom_settings(self):
+
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "wecom_base.res_config_settings_view_form"
+        )
+        action["target"] = "new"
+
+        return action

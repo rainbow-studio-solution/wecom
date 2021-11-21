@@ -1,0 +1,86 @@
+.markdown-description {
+    color: #333;
+    overflow: hidden;
+    font-family: Microsoft YaHei, Helvetica, Meiryo UI, Malgun Gothic, Segoe UI, Trebuchet MS, Monaco, monospace, Tahoma, STXihei, 华文细黑, STHeiti, Helvetica Neue, Droid Sans, wenquanyi micro hei, FreeSans, Arimo, Arial, SimSun, 宋体, Heiti, 黑体, sans-serif;
+    word-wrap: break-word;
+
+    ol,
+    ul {
+        padding-left: 2em;
+        margin: 0;
+
+        li {
+
+            xmp,
+            pre {
+                padding: 12px 10px 14px;
+                border: 1px solid #ddd;
+                position: relative;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                margin-top: 10px;
+                margin-bottom: 20px;
+                line-height: 1.6;
+
+                ol.linenums {
+                    color: #999 !important;
+                    padding-left: 2.5em !important;
+                    margin-top: 0;
+                    margin-bottom: 0;
+
+                    li {
+                        list-style-type: decimal !important;
+                        padding-left: 10px;
+                        // padding-top: 2px;
+                        // padding-bottom: 2px;
+
+                        code {
+                            text-align: left;
+                            border: none;
+                            background: none;
+                            padding: 0;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    a {
+        background: transparent;
+        color: #4475a7;
+        text-decoration: none;
+    }
+
+    .com {
+        color: #800;
+    }
+
+    .clo,
+    .opn,
+    .pun {
+        color: #660;
+    }
+
+    .pln {
+        color: #000;
+    }
+
+    .str {
+        color: #080;
+    }
+
+    .tag {
+        color: #008;
+    }
+
+    .atn {
+        color: #606;
+    }
+
+    .atv {
+        color: #080;
+    }
+}

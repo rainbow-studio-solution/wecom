@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
-    
-    <t t-extend="res_config_wxwork_navigation_menu">
+
+    <t t-extend="res_config_wecom_navigation_menu">
         <t t-jquery="a:last" t-operation="after">
-            <a type="button" role="button" class="btn btn-secondary fa fa-headphones wxwork_jump_anchor" href="#wxwork_customer_service">
+            <a type="button" role="button" class="btn btn-secondary fa fa-headphones wecom__jump_anchor" href="#wecom_customer_service">
                 <h5 style="display:inline;"> Customer service settings</h5>
             </a>
         </t>
     </t>
-    
+
 </template>

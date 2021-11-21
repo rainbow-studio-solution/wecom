@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_department_category_form" model="ir.ui.view">
+            <field name="name">hr.department.category.form</field>
+            <field name="model">hr.department.category</field>
+            <field name="arch" type="xml">
+                <form string="Department Tags">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create_edit': True}"/>
+                            <field name="is_wecom_category"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_department_category_list" model="ir.ui.view">
+            <field name="name">hr.department.category.list</field>
+            <field name="model">hr.department.category</field>
+            <field name="arch" type="xml">
+                <tree string="Department Tags" editable="bottom">
+                    <field name="company_id"/>
+                    <field name="name"/>
+                    <field name="is_wecom_category"/>
+                    <field name="tagid" />
+                    <!-- <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                    <button name="delete_to_wxwork" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/> -->
+                </tree>
+
+            </field>
+        </record>
+
+        <record id="open_view_department_categ_form" model="ir.actions.act_window">
+            <field name="name">Department Tags</field>
+            <field name="res_model">hr.department.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

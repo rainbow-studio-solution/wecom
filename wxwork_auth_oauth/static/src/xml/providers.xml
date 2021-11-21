@@ -1,38 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
 
-    <t t-name="wxwork_auth_oauth.OauthQrDialog">
-        <div class="wxwork_qr_dialog modal fade" id="wxwork_qr_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
+    <t t-name="wecom_auth_oauth.OauthQrDialog">
+        <div class="wecom_qr_dialog modal fade" id="wecom_qr_dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">
                     <main class="modal-body" style="background-color:#FFFFFF">
                         <t t-set="companies" t-value="companies"/>
                         <ul class="nav nav-tabs justify-content-center" role="tablist">
                             <li t-foreach="companies" t-as="company" class="nav-item" role="presentation">
-                                <a 
-                                    t-attf-class="{{company_index==0 ? 'nav-link active':'nav-link'}}" 
-                                    t-att-id="'nav_' + company_index + '_tab'"   
-                                    t-att-href="'#tab_' + company_index"   
-                                    t-attf-aria-selected="{{company_index==0 ? 'true':'false'}}" 
-                                    data-toggle="tab" role="tab" >
+                                <a t-attf-class="{{company_index==0 ? 'nav-link active':'nav-link'}}" t-att-id="'nav_' + company_index + '_tab'" t-att-href="'#tab_' + company_index" t-attf-aria-selected="{{company_index==0 ? 'true':'false'}}" data-toggle="tab" role="tab">
                                     <t t-esc="company.name"/>
                                 </a>
                             </li>
                         </ul>
-                        <div class="tab-content mt8" >
+                        <div class="tab-content mt8">
                             <t t-foreach="companies" t-as="company">
-                                <div 
-                                    t-attf-class="tab-pane fade {{company_index==0 ? 'show active':''}}" 
-                                    t-att-id="'tab_' + company_index"  
-                                    role="tabpanel" loading="eager">
-                                    <iframe t-att-src="company.url" 
-                                            frameborder="0"
-                                            scrolling="0" loading="eager"
-                                    ></iframe>
+                                <div t-attf-class="tab-pane fade {{company_index==0 ? 'show active':''}}" t-att-id="'tab_' + company_index" role="tabpanel" loading="eager">
+                                    <iframe t-att-src="company.url" frameborder="0" scrolling="0" loading="eager"></iframe>
                                 </div>
                             </t>
                         </div>
-                        
+
                     </main>
                     <footer class="modal-footer border-0" style="justify-content:center;background-color:transparent">
                         <button type="button" class="btn btn-light btn-lg border-0" data-action="discard" data-dismiss="modal" style="background-color:transparent">
@@ -44,8 +33,8 @@
         </div>
     </t>
 
-    <t t-name="wxwork_auth_oauth.OauthLoginDialog">
-        <div class="wxwork_qr_dialog modal fade" id="wxwork_login_dialog" tabindex="-1" role="dialog"  aria-hidden="true"  data-backdrop="static" >
+    <t t-name="wecom_auth_oauth.OauthLoginDialog">
+        <div class="wecom_qr_dialog modal fade" id="wecom_login_dialog" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog" style="top:50px;">
                 <div class="modal-content border-0" style="background-color:transparent">
                     <main class="modal-body" style="background-color:#FFFFFF">

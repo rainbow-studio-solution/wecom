@@ -2,7 +2,7 @@
 <odoo>
     <template id="assets_backend" name="tree view menu" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
-            <script type="text/javascript" src="/wxwork_attendance/static/src/js/pull_button.js"></script>
+            <script type="text/javascript" src="/wecom_attendance/static/src/js/pull_button.js"></script>
         </xpath>
     </template>
 </odoo>

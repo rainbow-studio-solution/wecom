@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wxwork_hr_extension
+# 	* wecom_hr_extension
 #
 msgid ""
 msgstr ""
@@ -17,108 +17,108 @@ msgstr ""
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_menu_config_activity_type
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_menu_config_activity_type
 msgid "Activity Types"
 msgstr "活动类型"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_crm_case_categ_all_app
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_crm_case_categ_all_app
 msgid "All Applications"
 msgstr "全部申请"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_attendance_report
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_attendance_report
 msgid "Attendance Reporting"
 msgstr "考勤报表"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_gamification_badge
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_gamification_badge
 msgid "Badges"
 msgstr "徽章"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_job_position
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_job_position
 msgid "By Job Positions"
 msgstr "按工作岗位"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_gamification_challenge
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_gamification
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_gamification_challenge
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_gamification
 msgid "Challenges"
 msgstr "挑战"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_degree
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_degree
 msgid "Degrees"
 msgstr "学历"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_gamification_goal
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_gamification_goal
 msgid "Goals History"
 msgstr "历史目标"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_job_position_config
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_job_position_config
 msgid "Job Positions"
 msgstr "工作岗位"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_main
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_main
 msgid "Recruitment"
 msgstr "招聘"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.hr_applicant_report_menu
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.hr_applicant_report_menu
 msgid "Recruitment Analysis"
 msgstr "招聘分析"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_configuration
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_configuration
 msgid "Recruitment Configuration"
 msgstr "招聘配置"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_applicant_refuse_reason
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_applicant_refuse_reason
 msgid "Refuse Reasons"
 msgstr "拒绝原因"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_report_main
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_report_main
 msgid "Reporting"
 msgstr "报表"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_configuration_resume
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_configuration_resume
 msgid "Resumé"
 msgstr "简历"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_global_settings
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_global_settings
 msgid "Settings"
 msgstr "设置"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_skill_type
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_skill_type
 msgid "Skills"
 msgstr "技能"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_source
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_source
 msgid "Sources of Applicants"
 msgstr "申请人来源"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_recruitment_stage
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_recruitment_stage
 msgid "Stages"
 msgstr "阶段"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_applicant_category_menu
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_applicant_category_menu
 msgid "Tags"
 msgstr "标签"
 
-#. module: wxwork_hr_extension
-#: model:ir.ui.menu,name:wxwork_hr_extension.menu_wxwork_hr_resume_line_type_menu
+#. module: wecom_hr_extension
+#: model:ir.ui.menu,name:wecom_hr_extension.menu_wecom_hr_resume_line_type_menu
 msgid "Types"
 msgstr "类型"

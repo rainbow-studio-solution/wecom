@@ -20,20 +20,20 @@
 
 ### 基础模块
 
-1. wxwork_l10n （企业微信-本地化模块）完成
+1. wecom_l10n （企业微信-本地化模块）完成
 
-2. wxwork_base （企业微信-基础模块）完成
+2. wecom_base （企业微信-基础模块）完成
 
-3. wxwork_api （企业微信-API封装）完成
+3. wecom_api （企业微信-API封装）完成
 
-4. wxwork_widget（企业微信消息JSON编辑器,企业微信消息Markdown编辑器,密码显示等小部件），完成
+4. wecom_widget（企业微信消息JSON编辑器,企业微信消息Markdown编辑器,密码显示等小部件），完成
 
 5. web_widget_colorpicker（采色器），来源 <a href="https://apps.odoo.com/apps/modules/14.0/web_widget_colorpicker/" target="_blank">Web Widget Colorpicker</a>,做了部分修改
 
 
 ### 人力资源管理
 
-1. wxwork_smart_hrm （企业微信-HR基本模块）完成
+1. wecom_hr （企业微信-HR基本模块）完成
 
    >功能：
       1. 多公司 完成
@@ -42,7 +42,7 @@
 
       2. 人事仪表盘 未完成
 
-2. wxwork_hr_syncing （企业微信-同步功能）完成
+2. wecom_hr_syncing （企业微信-同步功能）完成
    
    > 功能：
 
@@ -55,19 +55,19 @@
       4. 取消了占用系统资源的 下载图片功能，头像和二维码均使用url
       
   
-3. wxwork_hr_extension（企业微信-HR扩展模块）完成   
+3. wecom_hr_extension（企业微信-HR扩展模块）完成   
 
    > 功能：
 
       1. 将Odoo中的所有关于HR的模块菜单，按照实际的业务流程进行整合，进行HR的集中管理
 
-4. wxwork_attendance（拉取考勤记录），开展中
+4. wecom_attendance（拉取考勤记录），开展中
 
    > 功能：
 
       1. 拉取企业微信考勤记录
 
-5. wxwork_customer_service(企业微信客服)
+5. wecom_customer_service(企业微信客服)
 
    website_china_extends(中文网站扩展，包含了website的企业微信客服弹出框)，部分参考了 <a href="https://apps.odoo.com/apps/modules/14.0/website_china_features/" target="_blank">Website China Features</a> 代码
 
@@ -79,7 +79,7 @@
 
 ### 登录验证
 
-1. wxwork_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），完成
+1. wecom_auth_oauth （企业微信应用内自动登录，企业微信应用外扫码登录），完成
 
    > 功能：
       1. 网页扫码登录
@@ -98,7 +98,7 @@
 
 ### 素材管理
 
-1. wxwork_material （企业素材管理），基本完成
+1. wecom_material （企业素材管理），基本完成
 
    > 功能：
 
@@ -122,9 +122,9 @@
 
 ### 企业微信消息推送
 
-1. wxwork_message（企业微信消息推送），完成了套用模板发送消息
+1. wecom_message（企业微信消息推送），完成了套用模板发送消息
 
-2. mass_mailing_wxwork_message（企业微信群发消息），开展中
+2. mass_mailing_wecom_message（企业微信群发消息），开展中
 
 3. 互联企业的消息发送，TODO
 

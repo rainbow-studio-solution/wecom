@@ -5,14 +5,14 @@
 
             <t t-if="widget and widget.modelName == 'hr.attendance.wxwrok.rule'">
                 <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
-                <button class="btn btn-info o_list_wxwork_attendance_rule_pull" type="button">Pull attendance rules</button>
+                <button class="btn btn-info o_list_wecom_attendance_rule_pull" type="button">Pull attendance rules</button>
             </t>
 
             <t t-if="widget and widget.modelName == 'hr.attendance.wxwrok.data'">
                 <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
-                <button class="btn btn-info o_list_wxwork_attendance_data_pull" type="button">Pull attendance data</button>
+                <button class="btn btn-info o_list_wecom_attendance_data_pull" type="button">Pull attendance data</button>
             </t>
-            
+
         </t>
     </t>
 </templates>

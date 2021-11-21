@@ -6,8 +6,8 @@ from odoo import api, fields, models, _, exceptions
 
 class Goal(models.Model):
     """
-    用户的目标实例 
-    在指定时间段内用户的个人目标     
+    用户的目标实例
+    在指定时间段内用户的个人目标
     """
 
     _inherit = "gamification.goal"
@@ -30,17 +30,16 @@ class Goal(models.Model):
     #     body_html = self.env.ref(
     #         "gamification.email_template_goal_reminder"
     #     )._render_field("body_html", self.ids, compute_lang=True)[self.id]
-    #     message_body_html = self.env.ref(
+    #     body_html = self.env.ref(
     #         "gamification.email_template_goal_reminder"
-    #     )._render_field("message_body_html", self.ids, compute_lang=True)[self.id]
+    #     )._render_field("body_html", self.ids, compute_lang=True)[self.id]
 
     #     self.message_notify(
     #         body=body_html,
-    #         message_body_html=message_body_html,
+    #         body_html=body_html,
     #         partner_ids=[self.user_id.partner_id.id],
     #         subtype_xmlid="mail.mt_comment",
     #         email_layout_xmlid="mail.mail_notification_light",
     #     )
 
     #     return {"to_update": True}
-

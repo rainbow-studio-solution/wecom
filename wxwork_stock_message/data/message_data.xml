@@ -3,43 +3,47 @@
     <data noupdate="1">
         <record id="stock.mail_template_data_delivery_confirmation" model="mail.template">
             <field name="msgtype">mpnews</field>
-            <field name="message_to_user">${object.partner_id.wxwork_id}</field>
-            <field name="message_body_html" type="html">
-<div style="margin: 0px; padding: 0px;">
-    <p style="margin: 0px; padding: 0px; font-size: 13px;">
-        Hello ${object.partner_id.name},<br/><br/>
+            <field name="message_to_user">${object.partner_id.wecom_id}</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Hello ${object.partner_id.name},<br/>
+                    <br/>
         We are glad to inform you that your order has been shipped.
         %if object.carrier_tracking_ref:
             Your tracking reference is
-            <strong>
+                    <strong>
             %if object.carrier_tracking_url:
                 % set multiple_carrier_tracking = object.get_multiple_carrier_tracking()
                 %if multiple_carrier_tracking:
                     % for line in multiple_carrier_tracking:
-                        <br/><a href="${line[1]}" target="_blank">${line[0]}</a>
+                        <br/>
+                        <a href="${line[1]}" target="_blank">${line[0]}</a>
                     % endfor
                 %else:
-                    <a href="${object.carrier_tracking_url}" target="_blank">${object.carrier_tracking_ref}</a>.
+                        <a href="${object.carrier_tracking_url}" target="_blank">${object.carrier_tracking_ref}</a>.
                 %endif
             %else:
                 ${object.carrier_tracking_ref}.
             %endif
-            </strong>
+                    </strong>
         %endif
-        <br/><br/>
-        Please find your delivery order attached for more details.<br/><br/>
+                    <br/>
+                    <br/>
+        Please find your delivery order attached for more details.<br/>
+                <br/>
         Thank you,
         % if user.signature:
-            <br />
+                <br />
             ${user.signature | safe}
         % endif
-    </p>
-</div>
-            </field>
-            <field name="safe">1</field>
-            <field name="enable_id_trans" eval="False"/>
-            <field name="enable_duplicate_check" eval="False"/>
-            <field name="duplicate_check_interval">1800</field>
-        </record>
-    </data>
+            </p>
+        </div>
+    </field>
+    <field name="safe">1</field>
+    <field name="enable_id_trans" eval="False"/>
+    <field name="enable_duplicate_check" eval="False"/>
+    <field name="duplicate_check_interval">1800</field>
+</record>
+</data>
 </odoo>

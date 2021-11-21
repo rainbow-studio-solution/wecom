@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Authentication",
+    "name": "WeCom Authentication",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 608,
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "Enterprise WeChat/Enterprise WeChat",
+    "category": "WeCom/WeCom",
     "version": "14.0.0.1",
     "summary": """
-        Enterprise WeChat Authentication
+        WeCom Authentication
         """,
     "description": """
 
@@ -18,12 +18,12 @@
     "depends": [
         "portal",
         "auth_oauth",
-        "wxwork_hr_syncing",
-        "wxwork_jsapi",
-        "wxwork_message",
+        "wecom_hr_syncing",
+        "wecom_api",
+        "wecom_message",
     ],
     "data": [
-        "data/wxwork_oauth_data.xml",
+        "data/wecom_oauth_data.xml",
         "data/auth_signup_data.xml",
         "data/ir_cron_data.xml",
         "views/assets_templates.xml",
@@ -32,5 +32,7 @@
         "views/ir_cron_views.xml",
         "views/menu_views.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
 }

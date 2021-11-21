@@ -1,0 +1,1465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  更新时间 2021-11-16-->
+    <data noupdate="0">
+        <!-- 0. 基础 -->
+        <record id="wecom_service_api_base_get_access_token" model="wecom.service_api_list">
+            <field name="type">1</field>
+            <field name="name">Get Access Token</field>
+            <field name="function_name">GET_ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/gettoken</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- 1. 通讯录 -->
+        <!-- 1.1 通讯录-成员管理 -->
+        <record id="wecom_service_api_contacts_user_create" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Create member</field>
+            <field name="function_name">USER_CREATE</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/create?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">100</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_get" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get member</field>
+            <field name="function_name">USER_GET</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/get?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">101</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_update" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Update members</field>
+            <field name="function_name">USER_UPDATE</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/get?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">102</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_delete" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Delete member</field>
+            <field name="function_name">USER_DELETE</field>
+            <field name="request_type">POST</field>
+            <field name="short_url">/cgi-bin/user/delete?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">103</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_batch_delete" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Batch delete members</field>
+            <field name="function_name">USER_BATCH_DELETE</field>
+            <field name="request_type">POST</field>
+            <field name="short_url">/cgi-bin/user/batchdelete?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">104</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_simple_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get department members</field>
+            <field name="function_name">USER_SIMPLE_LIST</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">105</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_details_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get department member details</field>
+            <field name="function_name">USER_LIST</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/list?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">106</field>
+        </record>
+        <record id="wecom_service_api_contacts_userid_to_openid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Userid and openid are interchangeable</field>
+            <field name="function_name">USERID_TO_OPENID</field>
+            <field name="request_type">POST</field>
+            <field name="short_url">/cgi-bin/user/convert_to_openid?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">107</field>
+        </record>
+        <record id="wecom_service_api_contacts_user_auth_success" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Member secondary verification</field>
+            <field name="function_name">USER_AUTH_SUCCESS</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/user/authsucc?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">108</field>
+        </record>
+        <record id="wecom_service_api_contacts_batch_invite" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Invite members</field>
+            <field name="function_name">BATCH_INVITE</field>
+            <field name="short_url">/cgi-bin/batch/invite?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">109</field>
+        </record>
+        <record id="wecom_service_api_contacts_get_join_qrcode" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get join QR code</field>
+            <field name="function_name">GET_JOIN_QRCODE</field>
+            <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">110</field>
+        </record>
+        <record id="wecom_service_api_contacts_get_active_members" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get active members</field>
+            <field name="function_name">GET_ACTIVE_MEMBERS</field>
+            <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">111</field>
+        </record>
+
+        <!-- 1.2 通讯录-部门管理 -->
+        <record id="wecom_service_api_contacts_department_create" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Create Department</field>
+            <field name="function_name">DEPARTMENT_CREATE</field>
+            <field name="short_url">/cgi-bin/department/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">200</field>
+        </record>
+        <record id="wecom_service_api_contacts_department_update" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Update department</field>
+            <field name="function_name">DEPARTMENT_UPDATE</field>
+            <field name="short_url">/cgi-bin/department/update?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">201</field>
+        </record>
+        <record id="wecom_service_api_contacts_department_delete" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Delete Department</field>
+            <field name="function_name">DEPARTMENT_DELETE</field>
+            <field name="short_url">/cgi-bin/department/delete?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">202</field>
+        </record>
+        <record id="wecom_service_api_contacts_department_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get Department list</field>
+            <field name="function_name">DEPARTMENT_LIST</field>
+            <field name="short_url">/cgi-bin/department/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">202</field>
+        </record>
+
+        <!-- 1.3 通讯录-标签管理 -->
+        <record id="wecom_service_api_contacts_tag_create" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Create tag</field>
+            <field name="function_name">TAG_CREATE</field>
+            <field name="short_url">/cgi-bin/tag/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">300</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_update" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Update tag name</field>
+            <field name="function_name">TAG_UPDATE</field>
+            <field name="short_url">/cgi-bin/tag/update?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">301</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_delete" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Delete tag</field>
+            <field name="function_name">TAG_DELETE</field>
+            <field name="short_url">/cgi-bin/tag/delete?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">302</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_get_member" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get tag member</field>
+            <field name="function_name">TAG_GET_MEMBER</field>
+            <field name="short_url">/cgi-bin/tag/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">303</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_add_member" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Add tag member</field>
+            <field name="function_name">TAG_ADD_MEMBER</field>
+            <field name="short_url">/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">304</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_delete_member" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Delete tag member</field>
+            <field name="function_name">TAG_DELETE_MEMBER</field>
+            <field name="short_url">/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">305</field>
+        </record>
+        <record id="wecom_service_api_contacts_tag_get_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get tag list</field>
+            <field name="function_name">TAG_GET_LIST</field>
+            <field name="short_url">/cgi-bin/tag/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">306</field>
+        </record>
+
+        <!-- 1.4 通讯录-异步批量接口 -->
+        <record id="wecom_service_api_contacts_batch_syncuser" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Incremental update member</field>
+            <field name="function_name">BATCH_SYNCUSER</field>
+            <field name="short_url">/cgi-bin/batch/syncuser?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">400</field>
+        </record>
+        <record id="wecom_service_api_contacts_batch_replaceuser" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Full coverage member</field>
+            <field name="function_name">BATCH_REPLACEUSER</field>
+            <field name="short_url">/cgi-bin/batch/replaceuser?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">401</field>
+        </record>
+        <record id="wecom_service_api_contacts_batch_replaceparty" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Full coverage member</field>
+            <field name="function_name">BATCH_REPLACEPARTY</field>
+            <field name="short_url">/cgi-bin/batch/replaceparty?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">402</field>
+        </record>
+        <record id="wecom_service_api_contacts_batch_task_get_result" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get asynchronous task results</field>
+            <field name="function_name">BATCH_TASK_GET_RESULT</field>
+            <field name="short_url">/cgi-bin/batch/getresult?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">403</field>
+        </record>
+
+        <!-- 1.5 通讯录-互联企业 -->
+        <record id="wecom_service_api_contacts_linkedcorp_get_perm_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get the visible range of connected enterprise applications</field>
+            <field name="function_name">LINKEDCORP_GET_PERM_LIST</field>
+            <field name="short_url">/cgi-bin/linkedcorp/agent/get_perm_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">500</field>
+        </record>
+        <record id="wecom_service_api_contacts_linkedcorp_user_get" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get details of Internet enterprise members</field>
+            <field name="function_name">LINKEDCORP_USER_GET</field>
+            <field name="short_url">/cgi-bin/linkedcorp/user/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">501</field>
+        </record>
+        <record id="wecom_service_api_contacts_linkedcorp_user_simplelist" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get members of Internet enterprise department</field>
+            <field name="function_name">INKEDCORP_USER_SIMPLELIST</field>
+            <field name="short_url">/cgi-bin/linkedcorp/user/simplelist?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">502</field>
+        </record>
+        <record id="wecom_service_api_contacts_linkedcorp_user_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get the details of members of the Internet enterprise department</field>
+            <field name="function_name">LINKEDCORP_USER_LIST</field>
+            <field name="short_url">/cgi-bin/linkedcorp/user/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">503</field>
+        </record>
+        <record id="wecom_service_api_contacts_linkedcorp_department_list" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get the details of members of the Internet enterprise department</field>
+            <field name="function_name">LINKEDCORP_DEPARTMENT_LIST</field>
+            <field name="short_url">/cgi-bin/linkedcorp/department/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">504</field>
+        </record>
+
+        <!-- 1.6 通讯录-异步导出接口 -->
+        <record id="wecom_service_api_contacts_export_simple_user" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Export member</field>
+            <field name="function_name">EXPORT_SIMPLE_USER</field>
+            <field name="short_url">/cgi-bin/export/simple_user?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">600</field>
+        </record>
+        <record id="wecom_service_api_contacts_export_user" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Export member details</field>
+            <field name="function_name">EXPORT_USER</field>
+            <field name="short_url">/cgi-bin/export/user?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">601</field>
+        </record>
+        <record id="wecom_service_api_contacts_export_department" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Export Department</field>
+            <field name="function_name">EXPORT_DEPARTMENT</field>
+            <field name="short_url">/cgi-bin/export/department?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">602</field>
+        </record>
+        <record id="wecom_service_api_contacts_export_taguser" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Export tag members</field>
+            <field name="function_name">EXPORT_TAGUSER</field>
+            <field name="short_url">/cgi-bin/export/taguser?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">603</field>
+        </record>
+        <record id="wecom_service_api_contacts_export_get_result" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Get export results</field>
+            <field name="function_name">EXPORT_GET_RESULT</field>
+            <field name="short_url">/cgi-bin/export/get_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">604</field>
+        </record>
+
+        <!-- 2. 客户联系 -->
+        <!-- 2.1 客户联系-企业服务人员管理 -->
+        <record id="wecom_service_api_customer_externalcontact_get_follow_user_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Gets a list of members that configure the customer contact function</field>
+            <field name="function_name">EXTERNALCONTACT_GET_FOLLOW_USER_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_follow_user_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">1000</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_add_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Configure customer contact "contact me" method</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1001</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the configured "contact me" method</field>
+            <field name="function_name">EXTERNALCONTACT_GET_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1002</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_list_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the configured "contact me" list</field>
+            <field name="function_name">EXTERNALCONTACT_LIST_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/list_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1003</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_update_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Update the configured "contact me" mode</field>
+            <field name="function_name">EXTERNALCONTACT_UPDATE_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/update_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1004</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_del_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete the configured "contact me" mode</field>
+            <field name="function_name">EXTERNALCONTACT_DEL_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/del_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1005</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_close_temp_chat" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Close temporary chat</field>
+            <field name="function_name">EXTERNALCONTACT_CLOSE_TEMP_CHAT</field>
+            <field name="short_url">/cgi-bin/externalcontact/close_temp_chat?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1006</field>
+        </record>
+
+        <!-- 2.2 客户联系-客户管理 -->
+        <record id="wecom_service_api_customer_externalcontact_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get customer list</field>
+            <field name="function_name">EXTERNALCONTACT_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">1100</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get customer details</field>
+            <field name="function_name">EXTERNALCONTACT_GET</field>
+            <field name="short_url">/cgi-bin/externalcontact/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">1101</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_batch_get_by_user" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get customer details in batch</field>
+            <field name="function_name">EXTERNALCONTACT_BATCH_GET_BY_USER</field>
+            <field name="short_url">/cgi-bin/externalcontact/batch/get_by_user?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1102</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_remark" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Modifying customer remark information</field>
+            <field name="function_name">EXTERNALCONTACT_REMARK</field>
+            <field name="short_url">/cgi-bin/externalcontact/remark?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1103</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get a list of all customer rule groups</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1104</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_get" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the details of a customer rule group</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_GET</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1105</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_get_range" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of members and departments managed by a customer rule group</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_GET_RANGE</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/get_range?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1106</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_create" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create a new customer rule group</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_CREATE</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1106</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_edit" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit the basic information of the rule group and modify the management scope of the customer rule group</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_EDIT</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/edit?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1107</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_customer_strategy_del" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete a rule group</field>
+            <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_DEL</field>
+            <field name="short_url">/cgi-bin/externalcontact/customer_strategy/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1108</field>
+        </record>
+
+        <!-- 2.3 客户联系-客户标签管理 -->
+        <record id="wecom_service_api_customer_externalcontact_get_corp_tag_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get enterprise customer tag details</field>
+            <field name="function_name">EXTERNALCONTACT_GET_CORP_TAG_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_corp_tag_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1130</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_add_corp_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Add a new tag group and label to the customer tag library</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_CORP_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_corp_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1131</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_edit_corp_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit the name or order value of the customer tag / tag group</field>
+            <field name="function_name">EXTERNALCONTACT_EDIT_CORP_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/edit_corp_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1132</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_del_corp_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete a tag in the customer tag library, or delete the entire tag group.</field>
+            <field name="function_name">EXTERNALCONTACT_DEL_CORP_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/del_corp_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1133</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_strategy_tag_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the enterprise customer tag details within a rule group.</field>
+            <field name="function_name">EXTERNALCONTACT_GET_STRATEGY_TAG_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_strategy_tag_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1134</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_add_strategy_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Add a new tag group and tag to the rule group</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_STRATEGY_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_strategy_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1135</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_edit_strategy_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit the enterprise customer tag under the specified rule group</field>
+            <field name="function_name">EXTERNALCONTACT_EDIT_STRATEGY_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/edit_strategy_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1136</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_del_strategy_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Deletes the enterprise customer tag under the specified rule group</field>
+            <field name="function_name">EXTERNALCONTACT_DEL_STRATEGY_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/del_strategy_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1137</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_mark_tag" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit customer enterprise tag</field>
+            <field name="function_name">EXTERNALCONTACT_MARK_TAG</field>
+            <field name="short_url">/cgi-bin/externalcontact/mark_tag?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1138</field>
+        </record>
+
+        <!-- 2.4 客户联系-在职继承 -->
+        <record id="wecom_service_api_customer_externalcontact_transfer_customer" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Assigning customers to incumbent membersg</field>
+            <field name="function_name">EXTERNALCONTACT_TRANSFER_CUSTOMER</field>
+            <field name="short_url">/cgi-bin/externalcontact/transfer_customer?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1140</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_transfer_result" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Query the customer transfer status of active members</field>
+            <field name="function_name">EXTERNALCONTACT_TRANSFER_RESULT</field>
+            <field name="short_url">/cgi-bin/externalcontact/transfer_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1141</field>
+        </record>
+
+        <!-- 2.5 客户联系-离职继承 -->
+        <record id="wecom_service_api_customer_externalcontact_get_unassigned_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of resigned members to be assigned</field>
+            <field name="function_name">EXTERNALCONTACT_GET_UNASSIGNED_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_unassigned_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1140</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_resigned_transfer_customer" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Assign customers of resigned members to other members</field>
+            <field name="function_name">EXTERNALCONTACT_RESIGNED_TRANSFER_CUSTOMER</field>
+            <field name="short_url">/cgi-bin/externalcontact/resigned/transfer_customer?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1141</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_resigned_transfer_result" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Query the customer allocation status of resigned members</field>
+            <field name="function_name">EXTERNALCONTACT_RESIGNED_TRANSFER_RESULT</field>
+            <field name="short_url">/cgi-bin/externalcontact/resigned/transfer_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1142</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_transfer" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Assign the group chat with the resigned member as the group leader to another customer service member.</field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_TRANSFER</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/transfer?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1143</field>
+        </record>
+
+        <!-- 2.6 客户联系-客户朋友圈 -->
+        <record id="wecom_service_api_customer_externalcontact_add_moment_task" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create a publishing task for customer circle of friends</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_MOMENT_TASK</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_moment_task?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1160</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_task_result" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the publishing task creation results of the customer circle of friends</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_TASK_RESULT</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_task_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">1161</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the published list of all customer circles of friends of the enterprise</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1162</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_task" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the implementation of circle of friends members published by the enterprise</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_TASK</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_task?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1163</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_customer_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the visible range selected when publishing in the customer circle of friends</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_CUSTOMER_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_customer_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1164</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_send_result" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of visible customers after the customer circle of friends is published</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_SEND_RESULT</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_send_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1165</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_moment_comments" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get interactive data of customer circle of friends</field>
+            <field name="function_name">EXTERNALCONTACT_GET_MOMENT_COMMENTS</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_moment_comments?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1166</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of all customer circle of friends rule groups configured by the enterprise.</field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1167</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_get" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the details of a customer circle of friends rule group.</field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_GET</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1168</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_get_range" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of members and departments managed by a circle of friends rule group</field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_GET_RANGE</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/get_range?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1169</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_create" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create a new customer circle rule group</field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_CREATE</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1170</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_edit" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit the basic information of the rule group and modify the management scope of the customer circle of friends rule group</field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_EDIT</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/edit?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1171</field>
+        </record>
+
+        <!-- 2.6 客户联系-消息推送 -->
+        <record id="wecom_service_api_customer_externalcontact_add_msg_template" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create enterprise mass distribution</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_MSG_TEMPLATE</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_msg_template?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1200</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_groupmsg_list_v2" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get mass sending records of enterprises and members</field>
+            <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_LIST_V2</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_list_v2?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1201</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_groupmsg_task" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the sending task list of group sending members</field>
+            <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_TASK</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_task?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1202</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_groupmsg_send_result" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the execution results of enterprise mass distribution members</field>
+            <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_SEND_RESULT</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_send_result?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1203</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_send_welcome_msg" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Send new customer welcome message</field>
+            <field name="function_name">EXTERNALCONTACT_SEND_WELCOME_MSG</field>
+            <field name="short_url">/cgi-bin/externalcontact/send_welcome_msg?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1204</field>
+        </record>
+        <!-- 欢迎语素材管理 -->
+        <record id="wecom_service_api_customer_externalcontact_group_welcome_template_add" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Add material to the welcome language material library of the enterprise</field>
+            <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_ADD</field>
+            <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1210</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_group_welcome_template_edit" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit the material in the group chat welcome material library</field>
+            <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_EDIT</field>
+            <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/edit?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1211</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_group_welcome_template_get" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get group chat welcome material</field>
+            <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_GET</field>
+            <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1212</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_group_welcome_template_del" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete group chat welcome material</field>
+            <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_DEL</field>
+            <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1213</field>
+        </record>
+
+        <!-- 2.7 客户联系-统计管理 -->
+        <record id="wecom_service_api_customer_externalcontact_get_user_behavior_data" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the data of "contact customer statistics"</field>
+            <field name="function_name">EXTERNALCONTACT_GET_USER_BEHAVIOR_DAT</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_user_behavior_data?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1220</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_statistic" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the data of "group chat data statistics" by group owner aggregation</field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_STATISTIC</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/statistic?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1221</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_statistic_group_by_day" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the data of "group chat data statistics" by natural day aggregation</field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_STATISTIC_GROUP_BY_DAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/statistic_group_by_day?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1222</field>
+        </record>
+
+        <!-- 2.8 客户联系-管理商品图册 -->
+        <record id="wecom_service_api_customer_externalcontact_add_product_album" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create a product album</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_PRODUCT_ALBUM</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_product_album?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1230</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_product_album" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get a product album</field>
+            <field name="function_name">EXTERNALCONTACT_GET_PRODUCT_ALBUM</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_product_album?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1231</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_product_album_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get the list of product albums</field>
+            <field name="function_name">EXTERNALCONTACT_GET_PRODUCT_ALBUM_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_product_album_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1232</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_update_product_album" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Edit a product album</field>
+            <field name="function_name">EXTERNALCONTACT_UPDATE_PRODUCT_ALBUM</field>
+            <field name="short_url">/cgi-bin/externalcontact/update_product_album?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1233</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_delete_product_album" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete a product album</field>
+            <field name="function_name">EXTERNALCONTACT_DELETE_PRODUCT_ALBUM</field>
+            <field name="short_url">/cgi-bin/externalcontact/delete_product_album?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1234</field>
+        </record>
+
+        <!-- 2.9 客户联系-管理聊天敏感词 -->
+        <record id="wecom_service_api_customer_externalcontact_add_intercept_rule" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Create sensitive word rule</field>
+            <field name="function_name">EXTERNALCONTACT_ADD_INTERCEPT_RULE</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_intercept_rule?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1240</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_intercept_rule_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get sensitive word rule list</field>
+            <field name="function_name">EXTERNALCONTACT_GET_INTERCEPT_RULE_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_intercept_rule_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">1241</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_intercept_rule" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Get sensitive word rule details</field>
+            <field name="function_name">EXTERNALCONTACT_GET_INTERCEPT_RULE</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_intercept_rule?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1242</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_update_intercept_rule" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Modify sensitive word rules</field>
+            <field name="function_name">EXTERNALCONTACT_UPDATE_INTERCEPT_RULE</field>
+            <field name="short_url">/cgi-bin/externalcontact/update_intercept_rule?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1243</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_del_intercept_rule" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">Delete sensitive word rule</field>
+            <field name="function_name">EXTERNALCONTACT_DEL_INTERCEPT_RULE</field>
+            <field name="short_url">/cgi-bin/externalcontact/del_intercept_rule?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">1244</field>
+        </record>
+
+        <!-- 3 微信客服 -->
+        <!-- 3.1 微信客服-客服账号管理 -->
+        <record id="wecom_service_api_kf_account_add" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Add customer service account</field>
+            <field name="function_name">KF_ACCOUNT_ADD</field>
+            <field name="short_url">/cgi-bin/kf/account/add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2000</field>
+        </record>
+        <record id="wecom_service_api_kf_account_del" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Delete customer service account</field>
+            <field name="function_name">KF_ACCOUNT_DEL</field>
+            <field name="short_url">/cgi-bin/kf/account/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2001</field>
+        </record>
+        <record id="wecom_service_api_kf_account_update" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Modify customer service account</field>
+            <field name="function_name">KF_ACCOUNT_UPDATE</field>
+            <field name="short_url">/cgi-bin/kf/account/update?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2002</field>
+        </record>
+        <record id="wecom_service_api_kf_account_list" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get customer service account list</field>
+            <field name="function_name">KF_ACCOUNT_LIST</field>
+            <field name="short_url">/cgi-bin/kf/account/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">2003</field>
+        </record>
+        <record id="wecom_service_api_kf_add_contact_way" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get customer service account link</field>
+            <field name="function_name">KF_ADD_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/kf/add_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2004</field>
+        </record>
+
+        <!-- 3.2 微信客服-接待人员管理 -->
+        <record id="wecom_service_api_kf_servicer_add" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Add Customer Service Receptionist</field>
+            <field name="function_name">KF_SERVICER_ADD</field>
+            <field name="short_url">/cgi-bin/kf/servicer/add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2010</field>
+        </record>
+        <record id="wecom_service_api_kf_servicer_del" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Delete Customer Service Receptionist</field>
+            <field name="function_name">KF_SERVICER_DEL</field>
+            <field name="short_url">/cgi-bin/kf/servicer/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2011</field>
+        </record>
+        <record id="wecom_service_api_kf_servicer_list" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get the list of customer service receptionists</field>
+            <field name="function_name">KF_SERVICER_LIST</field>
+            <field name="short_url">/cgi-bin/kf/servicer/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2012</field>
+        </record>
+
+        <!-- 3.2 微信客服-会话分配与消息收发 -->
+        <!-- 分配客服会话 -->
+        <record id="wecom_service_api_kf_service_state_get" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get customer service session status</field>
+            <field name="function_name">KF_SERVICE_STATE_GET</field>
+            <field name="short_url">/cgi-bin/kf/service_state/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2020</field>
+        </record>
+        <record id="wecom_service_api_kf_service_state_trans" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Transition customer service session state</field>
+            <field name="function_name">KF_SERVICE_STATE_TRANS</field>
+            <field name="short_url">/cgi-bin/kf/service_state/trans?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2021</field>
+        </record>
+
+        <!-- 接收消息和事件 -->
+        <record id="wecom_service_api_kf_sync_msg" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Read customer service message</field>
+            <field name="function_name">KF_SYNC_MSG</field>
+            <field name="short_url">/cgi-bin/kf/sync_msg?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2030</field>
+        </record>
+
+        <!-- 发送消息 -->
+        <record id="wecom_service_api_kf_send_msg" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Send customer service message</field>
+            <field name="function_name">KF_SEND_MSG</field>
+            <field name="short_url">/cgi-bin/kf/send_msg?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2040</field>
+        </record>
+
+        <!-- 发送事件响应消息 -->
+        <record id="wecom_service_api_kf_send_msg_on_event" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Send customer service event response message</field>
+            <field name="function_name">KF_SEND_MSG_ON_EVENT</field>
+            <field name="short_url">/cgi-bin/kf/send_msg_on_event?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2050</field>
+        </record>
+
+        <!-- 「升级服务」配置 -->
+        <record id="wecom_service_api_kf_customer_get_upgrade_service_config" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get configured specialists and customer groups</field>
+            <field name="function_name">KF_CUSTOMER_GET_UPGRADE_SERVICE_CONFIG</field>
+            <field name="short_url">/cgi-bin/kf/customer/get_upgrade_service_config?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">2060</field>
+        </record>
+        <record id="wecom_service_api_kf_customer_upgrade_service" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Upgrade customer to specialist or customer group service</field>
+            <field name="function_name">KF_CUSTOMER_UPGRADE_SERVICE</field>
+            <field name="short_url">/cgi-bin/kf/customer/upgrade_service?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2061</field>
+        </record>
+        <!-- 为客户取消推荐 -->
+        <record id="wecom_service_api_kf_customer_cancel_upgrade_service" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Cancel the recommendation for the customer</field>
+            <field name="function_name">KF_CUSTOMER_CANCEL_UPGRADE_SERVICE</field>
+            <field name="short_url">/cgi-bin/kf/customer/cancel_upgrade_service?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2062</field>
+        </record>
+        <!-- 获取客户基础信息 -->
+        <record id="wecom_service_api_kf_customer_batchget" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">Get basic customer information</field>
+            <field name="function_name">KF_CUSTOMER_BATCHGET</field>
+            <field name="short_url">/cgi-bin/kf/customer/batchget?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">2070</field>
+        </record>
+
+        <!-- 3. 身份验证 -->
+        <record id="wecom_service_api_auth_user_getuserinfo" model="wecom.service_api_list">
+            <field name="type">5</field>
+            <field name="name">Get access user identity</field>
+            <field name="function_name">GET_USER_INFO_BY_CODE</field>
+            <field name="short_url">/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">3000</field>
+        </record>
+        <!-- <record id="wecom_service_api_auth_user_getuserdetail" model="wecom.service_api_list">
+            <field name="type">5</field>
+            <field name="name">Get access user identity</field>
+            <field name="function_name">GET_USER_INFO_BY_CODE</field>
+            <field name="short_url">/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">3001</field>
+        </record> -->
+
+        <!-- 4. 应用管理 -->
+        <record id="wecom_service_api_agent_get" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Get the specified application details</field>
+            <field name="function_name">AGENT_GET</field>
+            <field name="short_url">/cgi-bin/agent/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">4000</field>
+        </record>
+        <record id="wecom_service_api_agent_list" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Get the application list corresponding to access token</field>
+            <field name="function_name">AGENT_LIST</field>
+            <field name="short_url">/cgi-bin/agent/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">4001</field>
+        </record>
+        <record id="wecom_service_api_agent_set" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Set application</field>
+            <field name="function_name">AGENT_SET</field>
+            <field name="short_url">/cgi-bin/agent/set?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">4003</field>
+        </record>
+        <!-- 自定义菜单 -->
+        <record id="wecom_service_api_agent_menu_create" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Create application menu</field>
+            <field name="function_name">MENU_CREATE</field>
+            <field name="short_url">/cgi-bin/menu/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">4010</field>
+        </record>
+        <record id="wecom_service_api_agent_menu_get" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Get application menu</field>
+            <field name="function_name">MENU_GET</field>
+            <field name="short_url">/cgi-bin/menu/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">4011</field>
+        </record>
+        <record id="wecom_service_api_agent_menu_delete" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Delete application menu</field>
+            <field name="function_name">MENU_DELETE</field>
+            <field name="short_url">/cgi-bin/menu/delete?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">4012</field>
+        </record>
+        <!-- 设置应用在工作台展示的模版 -->
+        <record id="wecom_service_api_agent_set_workbench_template" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Set the template applied to the workbench display</field>
+            <field name="function_name">AGENT_SET_WORKBENCH_TEMPLATE</field>
+            <field name="short_url">/cgi-bin/agent/set_workbench_template?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">4020</field>
+        </record>
+        <!-- 获取应用在工作台展示的模版 -->
+        <record id="wecom_service_api_agent_get_workbench_template" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Get the template applied to the workbench display</field>
+            <field name="function_name">AGENT_GET_WORKBENCH_TEMPLATE</field>
+            <field name="short_url">/cgi-bin/agent/get_workbench_template?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">4021</field>
+        </record>
+        <!-- 设置应用在用户工作台展示的数据 -->
+        <record id="wecom_service_api_agent_set_workbench_data" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">Set the data displayed on the user workbench</field>
+            <field name="function_name">AGENT_SET_WORKBENCH_DATA</field>
+            <field name="short_url">/cgi-bin/agent/set_workbench_data?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">4022</field>
+        </record>
+
+
+        <!-- 4. 消息推送 -->
+        <record id="wecom_service_api_message_send" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Send app message</field>
+            <field name="function_name">MESSAGE_SEND</field>
+            <field name="short_url">/cgi-bin/message/send?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5000</field>
+        </record>
+        <record id="wecom_service_api_message_update_template_card" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Update template card message</field>
+            <field name="function_name">MESSAGE_UPDATE_TEMPLATE_CARD</field>
+            <field name="short_url">/cgi-bin/message/update_template_card?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5001</field>
+        </record>
+        <record id="wecom_service_api_message_recall" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Recall application message</field>
+            <field name="function_name">MESSAGE_RECALL</field>
+            <field name="short_url">/cgi-bin/message/recall?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5002</field>
+        </record>
+        <!-- 发送消息到群聊会话 -->
+        <record id="wecom_service_api_message_appchat_create" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Create a group chat session</field>
+            <field name="function_name">APP_CHAT_CREATE</field>
+            <field name="short_url">/cgi-bin/appchat/create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5010</field>
+        </record>
+        <record id="wecom_service_api_message_appchat_update" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Modify group chat session</field>
+            <field name="function_name">APP_CHAT_UPDATE</field>
+            <field name="short_url">/cgi-bin/appchat/update?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5011</field>
+        </record>
+        <record id="wecom_service_api_message_appchat_get" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Get group chat session</field>
+            <field name="function_name">APP_CHAT_GET</field>
+            <field name="short_url">/cgi-bin/appchat/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">5012</field>
+        </record>
+        <record id="wecom_service_api_message_appchat_send" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Application push message</field>
+            <field name="function_name">APP_CHAT_SEND</field>
+            <field name="short_url">/cgi-bin/appchat/send?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5013</field>
+        </record>
+
+        <!-- 互联企业消息推送 -->
+        <record id="wecom_service_api_linkedcorp_message_send" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Connected enterprise application push message</field>
+            <field name="function_name">LINKEDCORP_MESSAGE_SEND</field>
+            <field name="short_url">/cgi-bin/linkedcorp/message/send?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5020</field>
+        </record>
+        <!-- 家校消息推送 -->
+        <record id="wecom_service_api_externalcontact_message_send" model="wecom.service_api_list">
+            <field name="type">7</field>
+            <field name="name">Schools can send different types of school notices to parents through this interface</field>
+            <field name="function_name">EXTERNALCONTACT_MESSAGE_SEND</field>
+            <field name="short_url">/cgi-bin/externalcontact/message/send?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">5030</field>
+        </record>
+
+
+        <!-- 5. 媒体素材管理 -->
+        <record id="wecom_service_media_upload" model="wecom.service_api_list">
+            <field name="type">8</field>
+            <field name="name">Upload temporary material</field>
+            <field name="function_name">MEDIA_UPLOAD</field>
+            <field name="short_url">/cgi-bin/media/upload?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">6000</field>
+        </record>
+        <record id="wecom_service_media_uploadimg" model="wecom.service_api_list">
+            <field name="type">8</field>
+            <field name="name">Upload pictures</field>
+            <field name="function_name">MEDIA_UPLOADIMG</field>
+            <field name="short_url">/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">6001</field>
+        </record>
+        <record id="wecom_service_media_get" model="wecom.service_api_list">
+            <field name="type">8</field>
+            <field name="name">Get temporary material</field>
+            <field name="function_name">MEDIA_GET</field>
+            <field name="short_url">/cgi-bin/media/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">6002</field>
+        </record>
+        <record id="wecom_service_media_get_jssdk" model="wecom.service_api_list">
+            <field name="type">8</field>
+            <field name="name">Get HD voice material</field>
+            <field name="function_name">MEDIA_GET_JSSDK</field>
+            <field name="short_url">/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">6003</field>
+        </record>
+
+        <!-- 6. OA -->
+        <!-- 6.1 打卡 -->
+        <record id="wecom_service_oa_get_corp_checkin_option" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get all check-in rules of the enterprise</field>
+            <field name="function_name">GET_CORP_CHECKIN_OPTION</field>
+            <field name="short_url">/cgi-bin/checkin/getcorpcheckinoption?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7000</field>
+        </record>
+        <record id="wecom_service_oa_get_checkin_option" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get employee check-in rules</field>
+            <field name="function_name">GET_CHECKIN_OPTION</field>
+            <field name="short_url">/cgi-bin/checkin/getcheckinoption?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7001</field>
+        </record>
+        <record id="wecom_service_oa_get_checkin_data" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get check-in data record</field>
+            <field name="function_name">GET_CHECKIN_DATA</field>
+            <field name="short_url">/cgi-bin/checkin/getcheckindata?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7002</field>
+        </record>
+        <record id="wecom_service_oa_get_checkin_day_data" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get daily check-in data</field>
+            <field name="function_name">GET_CHECKIN_DAY_DATA</field>
+            <field name="short_url">/cgi-bin/checkin/getcheckin_daydata?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7003</field>
+        </record>
+        <record id="wecom_service_oa_get_checkin_month_data" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get monthly check-in data</field>
+            <field name="function_name">GET_CHECKIN_MONTH_DATA</field>
+            <field name="short_url">/cgi-bin/checkin/getcheckin_monthdata?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7004</field>
+        </record>
+        <!-- 获取打卡人员排班信息 -->
+        <record id="wecom_service_oa_get_checkin_schedu_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get check-in staff scheduling information</field>
+            <field name="function_name">GET_CHECKIN_SCHEDU_LIST</field>
+            <field name="short_url">/cgi-bin/checkin/getcheckinschedulist?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7005</field>
+        </record>
+        <!-- 为打卡人员排班 -->
+        <record id="wecom_service_oa_set_checkin_schedu_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Scheduling for check-in staff</field>
+            <field name="function_name">SET_CHECKIN_SCHEDU_LIST</field>
+            <field name="short_url">/cgi-bin/checkin/setcheckinschedulist?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7006</field>
+        </record>
+        <!-- 录入打卡人员人脸信息 -->
+        <record id="wecom_service_oa_add_checkin_user_face" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Scheduling for check-in staff</field>
+            <field name="function_name">ADD_CHECKIN_USER_FACE</field>
+            <field name="short_url">/cgi-bin/checkin/addcheckinuserface?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7007</field>
+        </record>
+        <!-- 获取设备打卡数据 -->
+        <record id="wecom_service_oa_get_hardware_checkin_data" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get device check-in data</field>
+            <field name="function_name">GET_HARDWARE_CHECKIN_DATA</field>
+            <field name="short_url">/cgi-bin/hardware/get_hardware_checkin_data?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7008</field>
+        </record>
+
+        <!-- 6.2 审批 -->
+        <record id="wecom_service_oa_get_approval_template_detail" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get approval template details</field>
+            <field name="function_name">APPROVAL_GET_TEMPLATE_DETAIL</field>
+            <field name="short_url">/cgi-bin/oa/gettemplatedetail?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7100</field>
+        </record>
+        <record id="wecom_service_oa_approval_submit" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Submit application for approval</field>
+            <field name="function_name">APPROVAL_SUBMIT</field>
+            <field name="short_url">/cgi-bin/oa/applyevent?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7101</field>
+        </record>
+        <record id="wecom_service_oa_get_approval_template_info" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Submit application for approval</field>
+            <field name="function_name">APPROVAL_GET_INFO</field>
+            <field name="short_url">/cgi-bin/oa/getapprovalinfo?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7102</field>
+        </record>
+        <record id="wecom_service_oa_get_approval_template_info" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Batch approval number</field>
+            <field name="function_name">GET_APPROVAL_INFO</field>
+            <field name="short_url">/cgi-bin/oa/getapprovalinfo?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7103</field>
+        </record>
+        <record id="wecom_service_oa_get_approval_detail" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get approval application details</field>
+            <field name="function_name">GET_APPROVAL_DETAIL</field>
+            <field name="short_url">/cgi-bin/oa/getapprovaldetail?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7104</field>
+        </record>
+
+        <!-- 企业假期 -->
+        <record id="wecom_service_oa_vacationl_getcorpconf" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get enterprise vacationl management configuration</field>
+            <field name="function_name">GET_CORP_VACATIONL_CONF</field>
+            <field name="short_url">/cgi-bin/oa/vacation/getcorpconf?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7105</field>
+        </record>
+        <record id="wecom_service_oa_get_user_vacation_quota" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get member vacationl balance</field>
+            <field name="function_name">GET_USER_VACATION_QUOTA</field>
+            <field name="short_url">/cgi-bin/oa/vacation/getuservacationquota?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7106</field>
+        </record>
+        <record id="wecom_service_oa_set_user_vacation_quota" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Set member vacationl balance</field>
+            <field name="function_name">SET_USER_VACATION_QUOTA</field>
+            <field name="short_url">/cgi-bin/oa/vacation/setoneuserquota?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7107</field>
+        </record>
+
+        <!-- 6.3 汇报 -->
+        <record id="wecom_service_oa_journal_get_record_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Batch acquisition report record number</field>
+            <field name="function_name">GET_JOURNAL_RECORD_LIST</field>
+            <field name="short_url">/cgi-bin/oa/journal/get_record_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7200</field>
+        </record>
+        <record id="wecom_service_oa_journal_get_record_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Get report record details</field>
+            <field name="function_name">GET_JOURNAL_RECORD_DETAIL</field>
+            <field name="short_url">/cgi-bin/oa/journal/get_record_detail?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7201</field>
+        </record>
+        <record id="wecom_service_oa_journal_get_stat_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Obtain reporting statistics</field>
+            <field name="function_name">GET_JOURNAL_STAT_LIST</field>
+            <field name="short_url">/cgi-bin/oa/journal/get_stat_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7202</field>
+        </record>
+
+        <!-- 6.4 会议室 -->
+        <record id="wecom_service_oa_meetingroom_add" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Add meeting room</field>
+            <field name="function_name">MEETINGROOM_ADD</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7300</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_get_booking_info" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Query meeting room reservation information</field>
+            <field name="function_name">MEETINGROOM_GET_BOOKING_INFO</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/get_booking_info?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7301</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_book" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Reserve meeting rooms</field>
+            <field name="function_name">MEETINGROOM_BOOK</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/book?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7302</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_cancel_book" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Reserve meeting rooms</field>
+            <field name="function_name">MEETINGROOM_CANCEL_BOOK</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/cancel_book?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7302</field>
+        </record>
+
+        <!-- 6.5 紧急通知应用 -->
+        <record id="wecom_service_oa_pstncc_call" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Initiate voice calls to alert employees to see important messages from your app push.</field>
+            <field name="function_name">PSTNCC_CALL</field>
+            <field name="short_url">/cgi-bin/pstncc/call?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7400</field>
+        </record>
+        <record id="wecom_service_oa_get_pstncc_states" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">Initiate voice calls to alert employees to see important messages from your app push.</field>
+            <field name="function_name">GET_PSTNCC_STATES</field>
+            <field name="short_url">/cgi-bin/pstncc/getstates?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">7401</field>
+        </record>
+
+        <!-- 7. 效率工具 -->
+    </data>
+</odoo>

@@ -1,4 +1,4 @@
-odoo.define('wxwork_auth_oauth.providers', function (require) {
+odoo.define('wecom_auth_oauth.providers', function (require) {
     'use strict';
 
     const publicWidget = require('web.public.widget');
@@ -9,7 +9,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
 
     publicWidget.registry.WxWorkAuthProviders = publicWidget.Widget.extend({
         selector: '.o_login_auth',
-        xmlDependencies: ['/wxwork_auth_oauth/static/src/xml/providers.xml'],
+        xmlDependencies: ['/wecom_auth_oauth/static/src/xml/providers.xml'],
         events: {
             'click a': '_pop_up_qr_dialog',
         },
@@ -22,7 +22,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
             this.companies = self._rpc({
                 route: "/wxowrk_login_info",
                 params: {
-                    is_wxwork_browser: self.is_wxwork_browser()
+                    is_wecom_browser: self.is_wecom_browser()
                 },
             });
 
@@ -31,7 +31,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
             // const url = window.location.pathname; //当前网页的URL， 不包含#及其后面部分
             const url = window.location.href.split("#")[0]; //当前网页的URL， 不包含#及其后面部分
             this.wx_configs_data = self._rpc({
-                route: "/wxwork_login_jsapi",
+                route: "/wecom_login_jsapi",
                 params: {
                     company_id: company["id"],
                     nonceStr: nonceStr,
@@ -47,7 +47,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
 
             return this._super.apply(this, arguments);
         },
-        is_wxwork_browser: function () {
+        is_wecom_browser: function () {
             var ua = navigator.userAgent.toLowerCase();
             let isWx = ua.match(/MicroMessenger/i) == "micromessenger";
             if (!isWx) {
@@ -103,25 +103,25 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                     });
                 });
 
-                if (icon.hasClass("wxwork_auth_scancode")) {
-                    var dialog = $(qweb.render('wxwork_auth_oauth.OauthQrDialog', {
+                if (icon.hasClass("wecom_auth_scancode")) {
+                    var dialog = $(qweb.render('wecom_auth_oauth.OauthQrDialog', {
                         companies: companies,
                     }));
-                    if (self.$el.parents("body").find("#wxwork_qr_dialog").length == 0) {
+                    if (self.$el.parents("body").find("#wecom_qr_dialog").length == 0) {
                         dialog.appendTo($(document.body));
                     }
                     dialog.modal('show');
 
-                } else if (icon.hasClass("wxwork_auth_onekey")) {
+                } else if (icon.hasClass("wecom_auth_onekey")) {
                     var new_data = {
-                        isWxworkBrowser: data["is_wxwork_browser"],
+                        isWxworkBrowser: data["is_wecom_browser"],
                         msg: data["msg"],
                         companies: companies,
                     };
-                    var dialog = $(qweb.render('wxwork_auth_oauth.OauthLoginDialog', {
+                    var dialog = $(qweb.render('wecom_auth_oauth.OauthLoginDialog', {
                         data: new_data
                     }));
-                    if (self.$el.parents("body").find("#wxwork_login_dialog").length == 0) {
+                    if (self.$el.parents("body").find("#wecom_login_dialog").length == 0) {
                         dialog.appendTo($(document.body));
                     }
                     dialog.modal('show');
@@ -187,7 +187,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
                 // if (data["companies"].length > 0) {
                 //     $.each(data["companies"], function (index, company) {
                 //         self._rpc({
-                //             route: "/wxwork_login_jsapi",
+                //             route: "/wecom_login_jsapi",
                 //             params: {
                 //                 company_id: company["id"],
                 //                 nonceStr: nonceStr,
@@ -221,7 +221,7 @@ odoo.define('wxwork_auth_oauth.providers', function (require) {
         get_jsapi_parameter: async function (nonceStr, timestamp, url, company_id) {
             var self = this;
             return self._rpc({
-                route: "/wxwork_login_jsapi",
+                route: "/wecom_login_jsapi",
                 params: {
                     company_id: company_id,
                     nonceStr: nonceStr,

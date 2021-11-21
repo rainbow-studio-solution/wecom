@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+    <t t-name="res_config_wecom_navigation_menu">
+        <div class="row btn-group ml8 mt8 border-bottom" role="group" aria-label="Navigation">
+            <a type="button" role="button" class="btn btn-secondary fa fa-building wecom__jump_anchor" href="#wecom_companies">
+                <h5 style="display:inline;"> Companies settings</h5>
+            </a>
+        </div>
+    </t>
+
+    <t t-name="res_config_wecom_navigation_gotop">
+        <a class="text-right fa fa-angle-double-up" aria-label="GoTop" href=""/>
+    </t>
+
+    <t t-name="res_config_wecom_navigation_gobottom">
+        <a class="text-right fa fa-angle-double-down" aria-label="GoBottom" href=""/>
+    </t>
+</template>

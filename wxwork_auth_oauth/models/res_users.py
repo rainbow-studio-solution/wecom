@@ -21,6 +21,9 @@ from odoo.http import request
 class ResUsers(models.Model):
     _inherit = "res.users"
 
+    # ---------------------
+    # 验证
+    # ---------------------
     @api.model
     def wxwrok_auth_oauth(self, provider, params):
         """
@@ -29,24 +32,30 @@ class ResUsers(models.Model):
         :param params:
         :return:
         """
-        wxwork_web_auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
-        wxwork_qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
+        wecom_web_auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
+        wecom_qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
 
-        wxwork_providers = (
-            self.env["auth.oauth.provider"].sudo().search([("id", "=", provider),])
+        wecom_providers = (
+            self.env["auth.oauth.provider"]
+            .sudo()
+            .search(
+                [
+                    ("id", "=", provider),
+                ]
+            )
         )
 
         if (
-            wxwork_web_auth_endpoint in wxwork_providers["auth_endpoint"]
-            or wxwork_qr_auth_endpoint in wxwork_providers["auth_endpoint"]
+            wecom_web_auth_endpoint in wecom_providers["auth_endpoint"]
+            or wecom_qr_auth_endpoint in wecom_providers["auth_endpoint"]
         ):
             # 扫码登录
             oauth_userid = params["UserId"]
             oauth_user = self.search(
                 [
                     # ("oauth_uid", "=", oauth_userid),
-                    ("wxwork_id", "=", oauth_userid),
-                    ("is_wxwork_user", "=", True),
+                    ("wecom_id", "=", oauth_userid),
+                    ("is_wecom_user", "=", True),
                     ("active", "=", True),
                 ]
             )
@@ -63,17 +72,20 @@ class ResUsers(models.Model):
             return super(ResUsers, self)._check_credentials(password, env)
         except AccessDenied:
             res = self.sudo().search(
-                [("id", "=", self.env.uid), ("wxwork_id", "=", password)]
+                [("id", "=", self.env.uid), ("wecom_id", "=", password)]
             )
             if not res:
                 raise
 
+    # ---------------------
+    # 发送消息
+    # ---------------------
     def action_reset_password(self):
-        """ 
-        为每个用户创建注册令牌，并通过企业微信消息发送其注册网址 
         """
-        print("用户的员工ids", self.employee_ids)
-        print("用户的员工id", self.employee_id)
+        为每个用户创建注册令牌，并通过电子邮件发送他们的注册url
+        增加判断模板对象为企业微信用户，使用企业微信发送模板消息的方法
+        """
+
         if self.env.context.get("install_mode", False):
             return
         if self.filtered(lambda user: not user.active):
@@ -106,7 +118,6 @@ class ResUsers(models.Model):
 
         template_values = {
             "email_to": "${object.email|safe}",
-            "message_to_user": "${object.wxwork_id|safe}",
             "email_cc": False,
             "auto_delete": True,
             "partner_to": False,
@@ -115,33 +126,56 @@ class ResUsers(models.Model):
         template.write(template_values)
 
         for user in self:
-            if not user.email and not user.wxwork_id:
+            if user.wecom_id:
+                return self.action_reset_password_by_wecom(user)
+            if not user.email and not user.wecom_id:
                 # 没有邮件地址和企业微信id
                 raise UserError(
                     _(
-                        "Cannot send email or message: user %s has no email address or Enterprise WeChat user id.",
+                        "Cannot send email or message: user %s has no email address or WeCom user id.",
                         user.name,
                     )
                 )
+
             # TDE FIXME: make this template technical (qweb)
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
-                if not user.wxwork_id:
-                    is_wxwork_message = False
-                else:
-                    is_wxwork_message = True
-                template.with_context(is_wxwork_message=is_wxwork_message).send_mail(
-                    user.id,
-                    force_send=force_send,
-                    raise_exception=True,
-                    company=user.company_id
-                )
+                template.send_mail(user.id, force_send=force_send, raise_exception=True)
             _logger.info(
-                _("Password reset email or message sent for user <%s> to <%s> <%s>"),
+                "Password reset email sent for user <%s> to <%s>",
                 user.login,
                 user.email,
-                user.wxwork_id,
             )
+
+    def action_reset_password_by_wecom(self, user):
+        """
+        通过企业微信的方式发送模板消息
+        """
+
+        # message_template = self.env["ir.model.data"].get_object_reference(
+        #     "wecom_auth_oauth", "reset_password_message"
+        # )
+        message_template = self.env.ref("wecom_auth_oauth.reset_password_message")
+        message_template._name == "wecom.message.template"
+
+        message_template_values = {
+            "message_to_user": "${object.wecom_id|safe}",
+        }
+        message_template.write(message_template_values)
+        message_template.with_context().send_message(
+            user.id,
+            force_send=True,
+            raise_exception=True,
+            company=user.company_id,
+            use_templates=True,
+            template_id=message_template.id,
+        )
+        _logger.info(
+            _("Password reset message sent to user: <%s>,<%s>, <%s>"),
+            user.name,
+            user.login,
+            user.wecom_id,
+        )
 
     def send_unregistered_user_reminder(self, after_days=5):
         """
@@ -170,17 +204,21 @@ class ResUsers(models.Model):
 
         # 用于向所有邀请者发送有关其邀请用户的邮件
         for user in invited_users:
-            if not user.wxwork_id:
-                is_wxwork_message = False
-            else:
-                is_wxwork_message = True
-
+            if user.wecom_id:
+                return self.send_unregistered_user_reminder_by_wecom(
+                    user, invited_users
+                )
             template = self.env.ref(
                 "auth_signup.mail_template_data_unregistered_users"
-            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user], is_wxwork_message=is_wxwork_message)
-
+            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
             template.send_mail(
-                user,
-                notif_layout="mail.mail_notification_light",
-                force_send=False,
+                user, notif_layout="mail.mail_notification_light", force_send=False
             )
+
+    def send_unregistered_user_reminder_by_wecom(self, user, invited_users):
+        message_template = self.env.ref(
+            "wecom_auth_oauth.message_template_data_unregistered_users"
+        ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
+        message_template.send_message(
+            user, notif_layout="mail.mail_notification_light", force_send=False
+        )

@@ -2,14 +2,14 @@
     <data>
 
         <template id="assets_frontend" inherit_id="web.assets_frontend" name="OAuth Providers Assets">
-            
-            
+
+
         </template>
 
         <template id="assets_frontend" inherit_id="portal.assets_frontend" name="Wxwork Auth Assets">
 
             <xpath expr="//link[last()]" position="after">
-                <link rel="stylesheet" type="text/scss" href="/wxwork_auth_oauth/static/src/scss/wxwork.scss"/>
+                <link rel="stylesheet" type="text/scss" href="/wecom_auth_oauth/static/src/scss/wecom.scss"/>
                 <!-- <link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/1.1.2/weui-for-work.min.css"/> -->
             </xpath>
             <xpath expr="//script[last()]" position="after">
@@ -18,9 +18,9 @@
                 <!-- <script type="text/javascript" src="http://rescdn.qqmail.com/node/ww/wwopenmng/js/sso/wwLogin-1.0.0.js"/> -->
                 <!--企业微信网页登录二维码 新版（20210803更新）-->
                 <!-- <script type="text/javascript" src="https://wwcdn.weixin.qq.com/node/wework/wwopen/js/wwLogin-1.2.4.js"/> -->
-                
-                <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_providers.js"/>               
-                <script type="text/javascript" src="/wxwork_auth_oauth/static/src/js/wxwork_join.js"/>
+
+                <script type="text/javascript" src="/wecom_auth_oauth/static/src/js/wecom_providers.js"/>
+                <script type="text/javascript" src="/wecom_auth_oauth/static/src/js/wecom_join.js"/>
             </xpath>
         </template>
 
@@ -31,6 +31,6 @@
             </xpath>
         </template> -->
 
-        
+
     </data>
 </odoo>

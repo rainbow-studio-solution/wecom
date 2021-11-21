@@ -5,14 +5,16 @@
         <record id="view_company_form" model="ir.ui.view">
             <field name="name">res.company.form</field>
             <field name="model">res.company</field>
-            <field name="inherit_id" ref="wxwork_base.view_company_form"/>
+            <field name="inherit_id" ref="wecom_base.view_company_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//page[@name='wxwork_info']//div[hasclass('o_settings_container')][last()]" position="after">
-                    <h2 id="wxwork_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
-                        <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" /> Application login authorization</span>
-                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                <xpath expr="//page[@name='wecom_info']//div[hasclass('o_settings_container')][last()]" position="after">
+                    <h2 id="wecom_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <span class="text-left">
+                            <i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" />
+ Application login authorization</span>
+                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
@@ -28,7 +30,8 @@
                                     <div class="mt16">
                                         <field name="auth_agentid" />
                                     </div>
-                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
@@ -45,9 +48,10 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="auth_secret" widget="wxwork_password"/>
+                                        <field name="auth_secret" widget="wecom_password"/>
                                     </div>
-                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +63,7 @@
                                 <label for="auth_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -77,7 +81,7 @@
                                 <label for="qr_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -96,11 +100,11 @@
                                     <div class="text-muted col-md-12">
                                         Fill in the "Enterprise ID", "AgentId" and "Secret" that require authentication and authorization, and use the domain name to access,
                                         <span style="color:orange;padding: 0px 16px;">
-                                            Click the button "One-click to set up enterprise WeChat OAuth"
+                                            Click the button "One-click to set up WeCom OAuth"
                                         </span>
                                     </div>
                                     <div class="text-muted col-md-12">
-                                        <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up enterprise WeChat OAuth" class="oe_highlight"/>
+                                        <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up WeCom OAuth" class="oe_highlight"/>
                                         <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="View OAuth providers" icon="fa-arrow-right" class="btn-link"/>
                                     </div>
                                 </div>
@@ -108,11 +112,13 @@
                         </div>
                     </div>
 
-                    <h2 id="wxwork_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
-                        <span class="text-left"><i class="fa fa-qrcode fa-lg" aria-label="Join the enterprise QR code"/> Join the enterprise QR code</span>
-                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/> 
+                    <h2 id="wecom_oauth" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <span class="text-left">
+                            <i class="fa fa-qrcode fa-lg" aria-label="Join the enterprise QR code"/>
+ Join the enterprise QR code</span>
+                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="enabled_join_qrcode"/>
@@ -149,7 +155,7 @@
                                 <label for="join_qrcode"/>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="join_qrcode"  style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
+                                        <field name="join_qrcode" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                     </div>
                                 </div>
                             </div>
@@ -173,6 +179,6 @@
                 </xpath>
             </field>
         </record>
-        
+
     </data>
 </odoo>

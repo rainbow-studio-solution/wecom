@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Inventory Message",
+    "name": "WeCom Inventory Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 615,
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "Enterprise WeChat/Enterprise WeChat",
+    "category": "WeCom/WeCom",
     "version": "14.0.0.1",
     "summary": """
         
@@ -16,7 +16,14 @@
 
 
         """,
-    "depends": ["stock", "wxwork_message",],
-    "data": ["data/message_data.xml",],
-    "qweb": ["static/src/xml/*.xml",],
+    "depends": [
+        "stock",
+        "wecom_message",
+    ],
+    "data": [
+        "data/message_data.xml",
+    ],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
 }

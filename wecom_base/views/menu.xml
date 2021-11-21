@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--  ROOT   -->
+        <menuitem id="menu_wecom_root" name="WeCom Settings" groups="" web_icon="wecom_base,static/description/icon.png" sequence="499"/>
+
+
+        <!-- 自动任务-->
+        <menuitem id="menu_wecom_cron" name="Timed task" parent="wecom_base.menu_wecom_root" sequence="800" groups="base.group_system"/>
+
+        <!-- 设置-->
+        <menuitem id="menu_wecom_configuration" name="Settings" parent="wecom_base.menu_wecom_root" sequence="900" action="wecom_base.wecom_config_settings_action" groups="base.group_system"/>
+
+
+
+
+    </data>
+
+</odoo>

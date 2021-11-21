@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_pull_wecom_service_api_error" sequence="0"/>
+
+        <menuitem id="menu_wecom_api" name="API" groups="base.group_system" parent="wecom_base.menu_wecom_root" sequence="700"/>
+
+        <menuitem id="menu_wecom_service_api_token" name="Token" groups="base.group_system" parent="wecom_api.menu_wecom_api" action="action_view_wecom_service_api" sequence="10"/>
+
+        <menuitem id="menu_wecom_service_api_list" name="List" groups="base.group_system" parent="wecom_api.menu_wecom_api" action="action_view_wecom_service_api_list" sequence="20"/>
+
+        <menuitem id="menu_wecom_service_api_error" name="Error Code" groups="base.group_system" parent="wecom_api.menu_wecom_api" action="action_view_wecom_service_api_error" sequence="30"/>
+
+
+
+    </data>
+</odoo>

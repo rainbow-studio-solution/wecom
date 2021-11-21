@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form.inherit.wecom_base</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" class="w-100"/>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_title']/h1" position="after">
+                    <label for="abbreviated_name" attrs="{ 'invisible': [('is_wecom_organization', '=', False)]}"/>
+                    <h1 attrs="{ 'invisible': [('is_wecom_organization', '=', False)]}">
+                        <field name="abbreviated_name" class="w-100" attrs="{ 'required': [('is_wecom_organization', '!=', False)]}"/>
+                    </h1>
+                </xpath>
+
+                <xpath expr="//page[last()]" position="after">
+
+                    <page string="WeCom Information" name="wecom_info">
+                        <div class="o_wecom_setting_container">
+                            <div class="wecom_settings">
+                                <div class="app_settings_block" name="wxwrok_company" string="WeCom">
+                                    <h2 id="wecom_companies" class="d-flex justify-content-between">
+                                        <span class="text-left">
+                                            <i class="fa fa-building fa-lg" aria-label="WeCom Companies" />
+ WeCom Companies Settings
+                                        </span>
+                                        <span class="text-right fa fa-angle-double-down" aria-label="GoBottom"/>
+                                    </h2>
+
+                                    <div class="row mt16 o_settings_container">
+                                        <div class="col-12 col-lg-6 o_setting_box">
+                                            <div class="o_setting_left_pane">
+                                                <field name="is_wecom_organization"/>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label for="is_wecom_organization"/>
+                                                <div class="row">
+                                                    <div class="text-muted col-md-12">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                            <div class="o_setting_left_pane">
+                                                <i class="fa fa-file-image-o fa-lg" aria-label="WeCom Square logo"/>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label for="square_logo"/>
+                                                <div class="row">
+                                                    <div class="text-muted col-md-12">
+                                                        It is used to display the company logo for WeCom messages.
+                                                    </div>
+                                                </div>
+                                                <div class="mt16">
+                                                    <field name="square_logo" widget="image" class="oe_avatar" />
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                            <div class="o_setting_left_pane">
+                                                <i class="fa fa-key fa-lg" aria-label="Enterprise ID"/>
+                                            </div>
+                                            <div class="o_setting_right_pane">
+                                                <label for="corpid"/>
+                                                <div class="row">
+                                                    <div class="text-muted col-md-12">
+                                                        Fill in: WeCom management background → "Enterprise Information" → "Enterprise ID"
+                                                    </div>
+                                                </div>
+                                                <div class="mt16">
+                                                    <field name="corpid" widget="wecom_password" />
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_company_tree" model="ir.ui.view">
+            <field name="name">res.company.tree</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="parent_id"/>
+                    <field name="is_wecom_organization"/>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

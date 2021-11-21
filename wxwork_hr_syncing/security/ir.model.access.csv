@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-"access_wizard_wxwork_contact","access.wizard.wxwork.contact","model_wizard_wxwork_contacts","hr.group_hr_manager",1,1,1,0
-"access_wizard_wxwork_user","access.wizard.wxwork.user","model_wizard_wxwork_user","base.group_erp_manager",1,1,1,0
-"access_wizard_wxwork_tag","access.wizard.wxwork.tag","model_wizard_wxwork_tag","base.group_erp_manager",1,1,1,0
-"access_change_type_wizard","access.change.type.wizard","model_change_type_wizard","base.group_erp_manager",1,1,1,0
-"access_change_type_user","access.change.type.user","model_change_type_user","base.group_erp_manager",1,1,1,0

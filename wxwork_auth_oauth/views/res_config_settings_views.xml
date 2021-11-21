@@ -2,21 +2,23 @@
 <odoo>
     <data>
 
-        <record id="wxwork_message_res_config_settings_view_form" model="ir.ui.view">
+        <record id="wecom_message_res_config_settings_view_form" model="ir.ui.view">
             <field name="name">Settings</field>
-            <field name="model">res.config.settings</field>            
-            <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wecom_hr.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                
-                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after" >
-                    <h2 id="wxwork_oauth" class="d-flex justify-content-between">
-                        <span class="text-left"><i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" /> 
+
+                <xpath expr="//div[@data-key='wecom_base']/div[hasclass('o_settings_container')][last()]" position="after">
+                    <h2 id="wecom_oauth" class="d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" />
+ 
                         Application login authorization
-                        <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                         </span>
-                        <widget name='res_config_wxwork_navigation_gotop'/>
+                        <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
@@ -32,7 +34,8 @@
                                     <div class="mt16">
                                         <field name="auth_agentid" />
                                     </div>
-                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
@@ -49,9 +52,10 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="auth_secret" widget="wxwork_password"/>
+                                        <field name="auth_secret" widget="wecom_password"/>
                                     </div>
-                                    <div class="mt16 text-warning"><strong>Save</strong> this page and come back here to set up the feature.</div>
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up the feature.</div>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +67,7 @@
                                 <label for="auth_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -81,7 +85,7 @@
                                 <label for="qr_redirect_uri"/>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        
+
                                     </div>
                                 </div>
                                 <div class="content-group">
@@ -100,11 +104,11 @@
                                     <div class="text-muted col-md-12">
                                         Fill in the "Enterprise ID", "AgentId" and "Secret" that require authentication and authorization, and use the domain name to access,
                                         <span style="color:orange;padding: 0px 16px;">
-                                            Click the button "One-click to set up enterprise WeChat OAuth"
+                                            Click the button "One-click to set up WeCom OAuth"
                                         </span>
                                     </div>
                                     <div class="text-muted col-md-12 mt8">
-                                        <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up enterprise WeChat OAuth" class="oe_highlight"/>
+                                        <button name="set_oauth_provider_wxwork" type="object" string="One-click to set up WeCom OAuth" class="oe_highlight"/>
                                         <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="View OAuth providers" icon="fa-arrow-right" class="btn-link"/>
                                     </div>
                                 </div>
@@ -112,14 +116,15 @@
                         </div>
                     </div>
 
-                    <h2 id="wxwork_oauth_qrcode" class="d-flex justify-content-between" >
+                    <h2 id="wecom_oauth_qrcode" class="d-flex justify-content-between">
                         <span class="text-left">
-                            <i class="fa fa-qrcode fa-lg" aria-label="Join the enterprise QR code"/> Join the enterprise QR code
-                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
+                            <i class="fa fa-qrcode fa-lg" aria-label="Join the enterprise QR code"/>
+ Join the enterprise QR code
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                         </span>
-                        <widget name='res_config_wxwork_navigation_gotop'/> 
+                        <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <field name="enabled_join_qrcode"/>
@@ -156,7 +161,7 @@
                                 <label for="join_qrcode"/>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="join_qrcode"  style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
+                                        <field name="join_qrcode" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                     </div>
                                 </div>
                             </div>

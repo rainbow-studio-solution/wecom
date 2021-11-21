@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="assets_backend" name="wxwork settings assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/wecom_base/static/src/scss/wecom_settings_navigation.scss"/>
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/wecom_base/static/src/js/wecom_settings_navigation.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

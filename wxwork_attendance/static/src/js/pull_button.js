@@ -1,4 +1,4 @@
-odoo.define('wxwork_attendance.list_pull_button', function (require) {
+odoo.define('wecom_attendance.list_pull_button', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;
@@ -9,8 +9,8 @@ odoo.define('wxwork_attendance.list_pull_button', function (require) {
         renderButtons: function ($node) {
             this._super.apply(this, arguments);
             if (this.$buttons) {
-                this.$buttons.on('click', '.o_list_wxwork_attendance_rule_pull', this._pull_attendance_rule.bind(this));
-                this.$buttons.on('click', '.o_list_wxwork_attendance_data_pull', this._pull_attendance_data.bind(this));
+                this.$buttons.on('click', '.o_list_wecom_attendance_rule_pull', this._pull_attendance_rule.bind(this));
+                this.$buttons.on('click', '.o_list_wecom_attendance_data_pull', this._pull_attendance_data.bind(this));
             }
         },
         _pull_attendance_rule: function () {

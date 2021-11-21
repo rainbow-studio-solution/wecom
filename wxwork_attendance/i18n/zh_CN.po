@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wxwork_attendance
+# 	* wecom_attendance
 #
 msgid ""
 msgstr ""
@@ -17,38 +17,38 @@ msgstr ""
 "Language: zh_CN\n"
 "X-Generator: Poedit 2.2.1\n"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__delta__1
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__delta__1
 msgid "1 day"
 msgstr "1天"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__delta__15
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__delta__15
 msgid "15 day"
 msgstr "15天"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__delta__30
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__delta__30
 msgid "30 day"
 msgstr "30天"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__delta__7
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__delta__7
 msgid "7 day"
 msgstr "7天"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Attendance access token\"/>"
 msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"考勤访问 token\"/>"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid "<i class=\"fa fa-lock fa-lg\" aria-label=\"Attendance Secret\"/>"
 msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"考勤Secret\"/>"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\"><i class=\"fa fa-map-marker fa-lg\" aria-label=\"Attendances settings"
 "\"/> Attendances settings</span>\n"
@@ -58,48 +58,48 @@ msgstr ""
 "\"/> 考勤设置</span>\n"
 "                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"向上\"/>"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance__check_in_exception
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance__check_in_exception
 msgid "Abnormal clocking in at work"
 msgstr "上班打卡异常"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__3
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__3
 msgid "All"
 msgstr "全部"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__note_can_use_local_pic
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__note_can_use_local_pic
 msgid "Allow local images to be uploaded when remarks"
 msgstr "备注时允许上传本地图像"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_offworkday
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_offworkday
 msgid "Allow to submit card replacement application"
 msgstr "允许提交补卡申请"
 
-#. module: wxwork_attendance
-#: model:ir.model,name:wxwork_attendance.model_hr_attendance
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_hr_attendance
 msgid "Attendance"
 msgstr "出勤"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_record
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_record
 msgid "Attendance Record"
 msgstr "考勤记录"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_res_config_settings__attendance_secret
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__attendance_secret
 msgid "Attendance Secret"
 msgstr "打卡Secret"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_res_config_settings__attendance_access_token
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__attendance_access_token
 msgid "Attendance Token"
 msgstr "打卡Token"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid ""
 "Attendance clocking secret. In \"Application Management\"→\"Application\"→\"Check in\", click "
 "on the drop-down arrow of \"API\" to view. In order to ensure the security of the data, the "
@@ -108,261 +108,261 @@ msgstr ""
 "考勤打卡的secret。 在“应用程序管理”→“应用程序”→“签入”中，单击“ API”的下拉箭头以进行查看。 为了"
 "确保数据的安全性，切勿泄露secret。"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_data_pull
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_data_pull
 msgid "Attendance data"
 msgstr "考勤数据拉取"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Attendance machine"
 msgstr "智慧考勤机"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_pull
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_pull
 msgid "Attendance pull"
 msgstr "考勤拉取"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__groupid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__groupid
 msgid "Attendance rule Id"
 msgstr "打卡规则id"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__groupid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__groupid
 msgid "Attendance rule id"
 msgstr "打卡规则id"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__groupname
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__groupname
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__name
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__groupname
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__groupname
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__name
 msgid "Attendance rule name"
 msgstr "打卡规则名称"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__grouptype
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__grouptype
 msgid "Attendance rule type"
 msgstr "打卡规则类型"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_rule_pull
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_rule_pull
 msgid "Attendance rules"
 msgstr "考勤规则拉取"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__checkindate
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__checkindate
 msgid "Attendance time data"
 msgstr "打卡时间"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_main
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_main
 msgid "Attendances"
 msgstr "考勤"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__status
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__status
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__status
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__status
 msgid "Automatically pull the task status of attendance"
 msgstr "自动拉取考勤任务状态"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "By shift"
 msgstr "按班次"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "Cancel"
 msgstr "取消"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance__check_out_exception
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance__check_out_exception
 msgid "Check in abnormal after get off work"
 msgstr "下班打卡异常"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_checkin_offworkday
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_checkin_offworkday
 msgid "Check in on non-working days"
 msgstr "非工作日允许打卡"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__mediaids
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__mediaids
 msgid "Check-in Attachment media id"
 msgstr "打卡的附件media id"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__lat
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__lat
 msgid "Check-in Latitude of location"
 msgstr "位置打卡地点纬度"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__wifimac
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__wifimac
 msgid "Check-in MMAC address/bssid"
 msgstr "打卡的MAC地址/bssid"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__location_title
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__location_title
 msgid "Check-in location"
 msgstr "打卡地点"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__location_detail
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__location_detail
 msgid "Check-in location details"
 msgstr "打卡地点详情"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__lng
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__lng
 msgid "Check-in longitude of location"
 msgstr "位置打卡地点经度"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__type
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__type
 msgid "Check-in method"
 msgstr "打卡方式"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__notes
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__notes
 msgid "Check-in notes"
 msgstr "打卡备注打卡备注"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__range
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__range
 msgid "Check-in staff information"
 msgstr "打卡人员信息"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__checkin_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__checkin_time
 msgid "Check-in time"
 msgstr "打卡时间"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__wifiname
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__wifiname
 msgid "Check-in wifi name"
 msgstr "打卡wifi名称"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid "Click test to get token"
 msgstr "单击测试以获取token"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__1
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__1
 msgid "Clock in/Clock out"
 msgstr "上下班打卡"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__checkin_type
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__opencheckindatatype
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__checkin_type
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__opencheckindatatype
 msgid "Clock type"
 msgstr "打卡类型"
 
-#. module: wxwork_attendance
-#: model:ir.model,name:wxwork_attendance.model_res_config_settings
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_data.py:0
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_pull.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_data.py:0
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_pull.py:0
 #, python-format
 msgid "Create attendance rules error: %s"
 msgstr "创建考勤规则错误：%s"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__create_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_userid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__create_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__create_uid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__create_userid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__create_uid
 msgid "Created by"
 msgstr "规则创建人"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__create_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__create_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__create_date
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__create_date
 msgid "Created on"
 msgstr "创建于"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__delta
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__delta
 msgid "Days"
 msgstr "天数"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__department_id
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__department_id
 msgid "Department"
 msgstr "部门"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__deviceid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__deviceid
 msgid "Deviceid"
 msgstr "打卡设备Id"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance__display_name
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__display_name
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__display_name
-#: model:ir.model.fields,field_description:wxwork_attendance.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__display_name
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__display_name
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__end_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__end_time
 msgid "End Time"
 msgstr "结束时间"
 
-#. module: wxwork_attendance
-#: model:ir.actions.act_window,name:wxwork_attendance.open_module_tree_attendance_data
-msgid "Enterprise WeChat Attendance Data"
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.open_module_tree_attendance_data
+msgid "WeCom Attendance Data"
 msgstr "企微考勤数据"
 
-#. module: wxwork_attendance
-#: model:ir.actions.act_window,name:wxwork_attendance.open_module_tree_attendance_rule
-msgid "Enterprise WeChat Attendance Rules"
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.open_module_tree_attendance_rule
+msgid "WeCom Attendance Rules"
 msgstr "企微考勤规则"
 
-#. module: wxwork_attendance
-#: model:ir.model,name:wxwork_attendance.model_hr_attendance_wxwrok_data
-msgid "Enterprise WeChat attendance data"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_hr_attendance_wxwrok_data
+msgid "WeCom attendance data"
 msgstr "企微考勤数据"
 
-#. module: wxwork_attendance
-#: model:ir.model,name:wxwork_attendance.model_hr_attendance_wxwrok_rule
-msgid "Enterprise WeChat attendance rule"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_hr_attendance_wxwrok_rule
+msgid "WeCom attendance rule"
 msgstr "企微考勤规则"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__userid
-msgid "Enterprise WeChat user ID"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__userid
+msgid "WeCom user ID"
 msgstr "企微用户Id"
 
-#. module: wxwork_attendance
-#: model:ir.model,name:wxwork_attendance.model_wizard_attendance_data_pull
-#: model:ir.model,name:wxwork_attendance.model_wizard_attendance_rule_pull
-msgid "Enterprise WeChat,Wizard pull attendance rules"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wizard_attendance_data_pull
+#: model:ir.model,name:wecom_attendance.model_wizard_attendance_rule_pull
+msgid "WeCom,Wizard pull attendance rules"
 msgstr "企业微信，向导拉考勤规则"
 
-#. module: wxwork_attendance
-#: model:ir.actions.act_window,name:wxwork_attendance.ir_cron_act_attendance
-msgid "Enterprise WeChat: Pull attendance data"
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.ir_cron_act_attendance
+msgid "WeCom: Pull attendance data"
 msgstr "企业微信：获取考勤数据"
 
-#. module: wxwork_attendance
-#: model:ir.actions.server,name:wxwork_attendance.ir_cron_auto_pull_attendance_data_ir_actions_server
-#: model:ir.cron,cron_name:wxwork_attendance.ir_cron_auto_pull_attendance_data
-#: model:ir.cron,name:wxwork_attendance.ir_cron_auto_pull_attendance_data
-msgid "Enterprise WeChat: regularly pull all types of attendance data within 3 days"
+#. module: wecom_attendance
+#: model:ir.actions.server,name:wecom_attendance.ir_cron_auto_pull_attendance_data_ir_actions_server
+#: model:ir.cron,cron_name:wecom_attendance.ir_cron_auto_pull_attendance_data
+#: model:ir.cron,name:wecom_attendance.ir_cron_auto_pull_attendance_data
+msgid "WeCom: regularly pull all types of attendance data within 3 days"
 msgstr "企业微信：定期拉取3天内所有类型的考勤数据"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid ""
 "Error code: %s \n"
@@ -375,260 +375,260 @@ msgstr ""
 "错误详情：\n"
 "%s"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__exception_type
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__exception_type
 msgid "Exception type"
 msgstr "异常类型"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__use_face_detect
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__use_face_detect
 msgid "Face recognition attendance switch"
 msgstr "人脸识别打卡开关"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid "Failed"
 msgstr "失败"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_data.py:0
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_pull.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_data.py:0
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_pull.py:0
 #, python-format
 msgid "Failed to pull attendance rules:%s, error: %s"
 msgstr "无法拉取考勤规则：%s, 错误： %s"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Fixed time"
 msgstr "固定时间上下班"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__offwork_interval_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__offwork_interval_time
 msgid "Free sign in"
 msgstr "自由签到"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Freedom"
 msgstr "自由上下班"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__2
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wizard_attendance_data_pull__opencheckindatatype__2
 msgid "Go out"
 msgstr "外出打卡"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance__id
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__id
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__id
-#: model:ir.model.fields,field_description:wxwork_attendance.field_res_config_settings__id
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__id
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__id
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__id
 msgid "ID"
 msgstr "ID"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "If the automatic pull attendance task is on, there is no need to pull it frequently."
 msgstr "如果启用了自动拉取考勤任务，则无需频繁拉取。"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "If the clock type is empty,Default all clock types."
 msgstr "如果打卡类型为空，默认全部打卡类型。"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "If the department is empty, pull the entire organizational structure."
 msgstr "如果部门为空，则拉取整个组织架构"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance____last_update
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data____last_update
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule____last_update
-#: model:ir.model.fields,field_description:wxwork_attendance.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull____last_update
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull____last_update
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__write_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__write_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__write_uid
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__write_uid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__write_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__write_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__write_date
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_rule_pull__write_date
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_rule_pull__write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__update_userid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__update_userid
 msgid "Last modified by"
 msgstr "最近编辑人"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_cnt
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_cnt
 msgid "Maximum number of card replacements"
 msgstr "每月最多补卡次数"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Mobile phone"
 msgstr "手机"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Mobile phone + attendance machine"
 msgstr "手机+智慧考勤机"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__need_photo
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__need_photo
 msgid "Must take pictures"
 msgstr "打卡必须拍照"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__name
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__name
 msgid "Name"
 msgstr "名称"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "No punching out of range"
 msgstr "不允许范围外打卡"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Normal field work"
 msgstr "正常外勤"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/hr_attendance_rule.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/hr_attendance_rule.py:0
 #, python-format
 msgid "Out of range exception"
 msgstr "范围外异常"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__option_out_range
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__option_out_range
 msgid "Out-of-range punch card processing"
 msgstr "范围外打卡处理方式"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__ot_info
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__ot_info
 msgid "Overtime information"
 msgstr "加班信息"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid "Please fill in correctly Enterprise ID."
 msgstr "请填写正确的企业ID"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid "Please fill in the check-in Secret correctly."
 msgstr "请正确填写打卡Secret。"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "Pull"
 msgstr "拉取"
 
-#. module: wxwork_attendance
+#. module: wecom_attendance
 #. openerp-web
-#: code:addons/wxwork_attendance/static/src/xml/button.xml:0
+#: code:addons/wecom_attendance/static/src/xml/button.xml:0
 #, python-format
 msgid "Pull attendance data"
 msgstr "拉取考勤数据"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
-msgid "Pull attendance data from Enterprise WeChat"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
+msgid "Pull attendance data from WeCom"
 msgstr "从企业微信拉取考勤数据"
 
-#. module: wxwork_attendance
+#. module: wecom_attendance
 #. openerp-web
-#: code:addons/wxwork_attendance/static/src/xml/button.xml:0
+#: code:addons/wecom_attendance/static/src/xml/button.xml:0
 #, python-format
 msgid "Pull attendance rules"
 msgstr "拉取考勤规则"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__reporterinfo
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__reporterinfo
 msgid "Report to"
 msgstr "汇报对象"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__schedulelist
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__schedulelist
 msgid "Scheduling information"
 msgstr "排班信息"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__schedule_id
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__schedule_id
 msgid "Shift id"
 msgstr "班次ID"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__spe_workdays
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__spe_workdays
 msgid "Special date - must check in date information"
 msgstr "特殊日期-必须打卡日期信息"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__spe_offdays
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__spe_offdays
 msgid "Special date-no check-in date information"
 msgstr "特殊日期-不用打卡日期信息"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__sch_checkin_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__sch_checkin_time
 msgid "Standard punch time"
 msgstr "标准打卡时间"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_wizard_attendance_data_pull__start_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wizard_attendance_data_pull__start_time
 msgid "Starting time"
 msgstr "开始时间"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid "Success"
 msgstr "成功"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/models/res_config_settings.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/res_config_settings.py:0
 #, python-format
 msgid "Successfully obtained corporate WeChat check-in token."
 msgstr "成功获取企业微信打卡token。"
 
-#. module: wxwork_attendance
-#: model:ir.ui.menu,name:wxwork_attendance.menu_wxwork_attendance_sync_auto
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_wecom_attendance_sync_auto
 msgid "Sync Attendance"
 msgstr "同步考勤"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__sync_holidays
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__sync_holidays
 msgid "Synchronize statutory holidays"
 msgstr "同步法定节假日"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.res_config_settings_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.res_config_settings_view_form
 msgid ""
 "The important credential when obtaining the application information of \"check-in\" in the "
-"background of the enterprise WeChat, this information needs to be carried during communication "
+"background of the WeCom, this information needs to be carried during communication "
 "to verify the access authority of the interface.\n"
 "                                        <br/>\n"
 "                                        <span style=\"color:orange;padding: 0px 16px;\" alt="
@@ -649,315 +649,315 @@ msgstr ""
 "                                            token已被缓存，系统将自动刷新token。\n"
 "                                        </span>"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_day_limit
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_day_limit
 msgid "Time limit for card replacement"
 msgstr "允许补卡时限"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_data__timeline_id
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_data__timeline_id
 msgid "Time line id"
 msgstr "时段id"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__create_time
 msgid "UTC creation time"
 msgstr "创建打卡规则时间"
 
-#. module: wxwork_attendance
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_data.py:0
-#: code:addons/wxwork_attendance/wizard/wizard_attendance_rule_pull.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_data.py:0
+#: code:addons/wecom_attendance/wizard/wizard_attendance_rule_pull.py:0
 #, python-format
 msgid "Update attendance rules error: %s"
 msgstr "更新考勤规则错误：%s"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__white_users
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__white_users
 msgid "Whitelist"
 msgstr "白名单"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__loc_infos
-#: model:ir.model.fields,field_description:wxwork_attendance.field_hr_attendance_wxwrok_rule__wifimac_infos
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__loc_infos
+#: model:ir.model.fields,field_description:wecom_attendance.field_hr_attendance_wxwrok_rule__wifimac_infos
 msgid "WiFi check-ins"
 msgstr "打卡地点-WiFi打卡信息"
 
-#. module: wxwork_attendance
-#: model_terms:ir.ui.view,arch_db:wxwork_attendance.view_form_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_attendance_rule_pull_wizard
 msgid "Wizard pull attendance data"
 msgstr "向导拉取考勤数据"
 
-#. module: wxwork_attendance
-#: model:ir.actions.act_window,name:wxwork_attendance.view_actions_wxwork_attendance_rule_pull_wizard
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.view_actions_wecom_attendance_rule_pull_wizard
 msgid "Wizard pull attendance rules"
 msgstr "向导拉取考勤规则"
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__2
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__2
 msgid "不允许范围外打卡"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__use_face_detect
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__use_face_detect
 msgid "人脸识别打卡开关，true为启用，false为不启用"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__lat
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__lat
 msgid "位置打卡地点纬度，是实际纬度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__lng
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__lng
 msgid "位置打卡地点经度，是实际经度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_day_limit
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_day_limit
 msgid "允许补卡时限，默认-1表示不限制。单位天"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_time
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__create_time
 msgid "创建打卡规则时间，为unix时间戳"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__ot_info
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__ot_info
 msgid "加班信息，相关信息需要设置后才能显示"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__grouptype__1
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__grouptype__1
 msgid "固定时间上下班"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__need_photo
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__need_photo
 msgid "字段：group.spe_offdays.need_photo,是否打卡必须拍照，true为必须拍照，false为不必须拍照"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__exception_type
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__exception_type
 msgid ""
 "异常类型，字符串，包括：时间异常，地点异常，未打卡，wifi异常，非常用设备。如果有多个异常，以分"
 "号间隔"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__type__0
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__type__0
 msgid "手机"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__type__3
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__type__3
 msgid "手机+智慧考勤机"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__wifiname
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__wifiname
 msgid "打卡wifi名称"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__range
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__range
 msgid "打卡人员信息"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__white_users
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__white_users
 msgid "打卡人员白名单，即不需要打卡人员，需要有设置白名单才能查看"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__wifimac_infos
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__wifimac_infos
 msgid "打卡地点-WiFi打卡信息"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__loc_infos
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__loc_infos
 msgid "打卡地点-位置打卡信息"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__location_title
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__location_title
 msgid "打卡地点title"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__location_detail
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__location_detail
 msgid "打卡地点详情"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__notes
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__notes
 msgid "打卡备注"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__type
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__type
 msgid "打卡方式，0:手机；2:智慧考勤机；3:手机+智慧考勤机"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__checkin_time
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__checkin_time
 msgid "打卡时间。Unix时间戳"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__checkindate
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__checkindate
 msgid "打卡时间，当规则类型为排班时没有意义"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__wifimac
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__wifimac
 msgid "打卡的MAC地址/bssid"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__mediaids
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__mediaids
 msgid "打卡的附件media_id，可使用media/get获取附件"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_wizard_attendance_data_pull__opencheckindatatype
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_wizard_attendance_data_pull__opencheckindatatype
 msgid "打卡类型。1：上下班打卡；2：外出打卡；3：全部打卡"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__checkin_type
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__checkin_type
 msgid "打卡类型。字符串，目前有：上班打卡，下班打卡，外出打卡"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__groupid
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__groupid
 msgid "打卡规则id"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__groupname
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__name
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__groupname
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__name
 msgid "打卡规则名称"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__grouptype
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__grouptype
 msgid "打卡规则类型，1：固定时间上下班；2：按班次上下班；3：自由上下班"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__deviceid
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__deviceid
 msgid "打卡设备id"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__grouptype__2
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__grouptype__2
 msgid "按班次"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__schedulelist
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__schedulelist
 msgid "排班信息，只有规则为按班次上下班打卡时才有该配置"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__timeline_id
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__timeline_id
 msgid ""
 "时段id，表示打卡记录所属规则中，某一班次中的某一时段的id，如上下班时间为9:00-12:00、13:00-18:00"
 "的班次中，9:00-12:00为其中一组时段"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_offworkday
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_offworkday
 msgid "是否允许提交补卡申请，true为允许，false为不允许"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__sync_holidays
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__sync_holidays
 msgid "是否同步法定节假日，true为同步，false为不同步，当前排班不支持"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__note_can_use_local_pic
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__note_can_use_local_pic
 msgid "是否备注时允许上传本地图片，true为允许，false为不允许"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_checkin_offworkday
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_checkin_offworkday
 msgid "是否非工作日允许打卡,true为允许，false为不允许"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__type__2
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__type__2
 msgid "智慧考勤机"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__sch_checkin_time
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__sch_checkin_time
 msgid "标准打卡时间，指此次打卡时间对应的标准上班时间或标准下班时间"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__1
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__1
 msgid "正常外勤"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_cnt
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__allow_apply_bk_cnt
 msgid "每月最多补卡次数，默认-1表示不限制"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__reporterinfo
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__reporterinfo
 msgid "汇报对象信息"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__spe_offdays
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__spe_offdays
 msgid "特殊日期-不用打卡日期信息， timestamp表示具体时间"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__spe_workdays
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__spe_workdays
 msgid "特殊日期-必须打卡日期信息，timestamp表示具体时间"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__schedule_id
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__schedule_id
 msgid "班次id，表示打卡记录所属规则中，所属班次的id"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__grouptype__3
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__grouptype__3
 msgid "自由上下班"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__offwork_interval_time
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__offwork_interval_time
 msgid "自由签到，上班打卡后xx秒可打下班卡"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields.selection,name:wxwork_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__0
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__hr_attendance_wxwrok_rule__option_out_range__0
 msgid "范围外异常"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__option_out_range
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__option_out_range
 msgid "范围外打卡处理方式，0-视为范围外异常，默认值；1-视为正常外勤；2:不允许范围外打卡"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_data__groupid
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_data__groupid
 msgid "规则id，表示打卡记录所属规则的id"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__create_userid
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__create_userid
 msgid "规则创建人userid"
 msgstr ""
 
-#. module: wxwork_attendance
-#: model:ir.model.fields,help:wxwork_attendance.field_hr_attendance_wxwrok_rule__update_userid
+#. module: wecom_attendance
+#: model:ir.model.fields,help:wecom_attendance.field_hr_attendance_wxwrok_rule__update_userid
 msgid "规则最近编辑人userid"
 msgstr ""

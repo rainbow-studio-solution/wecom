@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="wxwork markdown widget assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/wecom_widget/static/src/js/markdown.js"/>
+            <script type="text/javascript" src="/wecom_widget/static/src/js/show_password.js"/>
+            <script type="text/javascript" src="/wecom_widget/static/src/js/fields_wecom_message_widget.js"/>
+            <script type="text/javascript" src="/wecom_widget/static/src/js/wecom_widget_image_url.js" />
+            <script type="text/javascript" src="/wecom_widget/static/src/js/jsoneditor.js"></script>
+            <script type="text/javascript" src="/wecom_widget/static/src/js/dialog.js"></script>
+
+            <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/jsoneditor.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/dialog.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/showpassword.scss"/>
+        </xpath>
+    </template>
+</odoo>

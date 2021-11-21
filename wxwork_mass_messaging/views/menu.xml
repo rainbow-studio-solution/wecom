@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data >
+
+
+        <menuitem name="Mass wecom messaging" id="mass_wecom_messaging_menu_root" sequence="3" web_icon="wecom_mass_message,static/description/icon.png" />
+    </data>
+
+</odoo>

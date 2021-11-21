@@ -3,9 +3,9 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wxwork_api.api.abstract_api import ApiException
-from odoo.addons.wxwork_api.api.error_code import Errcode
+
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
 
 import werkzeug.urls
 import werkzeug.utils
@@ -25,7 +25,8 @@ class Company(models.Model):
         help="The web application ID of the authorizing party, which can be viewed in the specific web application",
     )
     auth_secret = fields.Char(
-        "Auth Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "Auth Secret",
+        default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     )
     auth_redirect_uri = fields.Char(
         "Callback link address redirected after authorization",
@@ -44,15 +45,24 @@ class Company(models.Model):
         "Enable to join the enterprise QR code ", default=True
     )
     join_qrcode = fields.Char(
-        "Join enterprise QR code", help="QR code link, valid for 7 days", readonly=True,
+        "Join enterprise QR code",
+        help="QR code link, valid for 7 days",
+        readonly=True,
     )
     join_qrcode_size_type = fields.Selection(
-        [("1", "171px * 171px"), ("2", "399px * 399px"), ("3", "741px * 741px"),],
+        [
+            ("1", "171px * 171px"),
+            ("2", "399px * 399px"),
+            ("3", "741px * 741px"),
+        ],
         string="QR code size type",
         help="1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052",
         default="2",
     )
-    join_qrcode_last_time = fields.Char("Last update time (UTC)", readonly=True,)
+    join_qrcode_last_time = fields.Char(
+        "Last update time (UTC)",
+        readonly=True,
+    )
 
     def set_oauth_provider_wxwork(self):
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
@@ -81,7 +91,13 @@ class Company(models.Model):
             providers = (
                 self.env["auth.oauth.provider"]
                 .sudo()
-                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
+                .search(
+                    [
+                        "|",
+                        ("enabled", "=", True),
+                        ("enabled", "=", False),
+                    ]
+                )
             )
         except Exception:
             providers = []
@@ -106,134 +122,92 @@ class Company(models.Model):
 
     def get_join_qrcode(self):
         ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wxwork.debug_enabled")
+        debug = ir_config.get_param("wecom.debug_enabled")
 
-        corpid = self.corpid
-        secret = self.contacts_secret
-
-        if corpid == False:
-            raise UserError(_("Please fill in correctly Enterprise ID."))
-        elif self.contacts_secret == False:
-            raise UserError(_("Please fill in the contact Secret correctly."))
-        else:
-            params = {}
-            if debug:
-                _logger.info(_("Start getting join enterprise QR code"))
-            try:
-                wxapi = CorpApi(corpid, secret)
-                response = wxapi.httpCall(
-                    CORP_API_TYPE["GET_JOIN_QRCODE"],
-                    {"size_type": self.join_qrcode_size_type,},
+        params = {}
+        if debug:
+            _logger.info(_("Start getting join enterprise QR code"))
+        try:
+            wxapi = self.env["wecom.service_api"].init_api(
+                self.company_id, "contacts_secret", "contacts"
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "GET_JOIN_QRCODE"
+                ),
+                {
+                    "size_type": self.company_id.join_qrcode_size_type,
+                },
+            )
+            if response["errcode"] == 0:
+                self.join_qrcode = response["join_qrcode"]
+                self.join_qrcode_last_time = datetime.datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
                 )
-                if response["errcode"] == 0:
-                    self.join_qrcode = response["join_qrcode"]
-                    self.join_qrcode_last_time = datetime.datetime.now().strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    )
 
-                    if debug:
-                        _logger.info(
-                            _("Complete obtaining the QR code to join the enterprise")
-                        )
-                    params = {
-                        "title": _("Success"),
-                        "message": _("Successfully obtained the enterprise QR code."),
-                        "sticky": False,  # 延时关闭
-                        "className": "bg-success",
-                        "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                    }
-                    action = {
-                        "type": "ir.actions.client",
-                        "tag": "display_notification",
-                        "params": {
-                            "title": params["title"],
-                            "type": "success",
-                            "message": params["message"],
-                            "sticky": params["sticky"],
-                            "next": params["next"],
-                        },
-                    }
-                    return action
-            except ApiException as ex:
                 if debug:
                     _logger.info(
-                        _(
-                            "Failed to obtain the QR code to join the enterprise, Error code: %s, Error description: %s ,Error Details: %s"
-                        )
-                        % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+                        _("Complete obtaining the QR code to join the enterprise")
                     )
                 params = {
-                    "title": _("Failed"),
-                    "message": _(
-                        "Error code: %s "
-                        + "\n"
-                        + "Error description: %s"
-                        + "\n"
-                        + "Error Details:"
-                        + "\n"
-                        + "%s"
-                    )
-                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
-                    "sticky": True,  # 不会延时关闭，需要手动关闭
-                    "next": {},
+                    "title": _("Success"),
+                    "message": _("Successfully obtained the enterprise QR code."),
+                    "sticky": False,  # 延时关闭
+                    "className": "bg-success",
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
                         "title": params["title"],
-                        "type": "danger",
+                        "type": "success",
                         "message": params["message"],
-                        "sticky": params["sticky"],  # 不会延时关闭，需要手动关闭
+                        "sticky": params["sticky"],
                         "next": params["next"],
                     },
                 }
                 return action
+        except ApiException as ex:
+            return self.env["wecom.tools"].ApiExceptionDialog(ex)
 
     def cron_get_join_qrcode(self):
         """
         获取加入企业二维码任务
         """
         ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wxwork.debug_enabled")
-        corpid = self.corpid
-        secret = self.contacts_secret
-        if corpid == False:
+        debug = ir_config.get_param("wecom.debug_enabled")
+
+        try:
             if debug:
-                _logger.info(_("Task error:Please fill in correctly Enterprise ID."))
-        elif self.contacts_secret == False:
-            if debug:
-                _logger.info(
-                    _("Task error:Please fill in the contact Secret correctly.")
+                _logger.info(_("Task:Start getting join enterprise QR code"))
+
+            wxapi = self.env["wecom.service_api"].init_api(
+                self, "contacts_secret", "contacts"
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "GET_JOIN_QRCODE"
+                ),
+                {
+                    "size_type": self.join_qrcode_size_type,
+                },
+            )
+
+            if response["errcode"] == 0:
+                self.join_qrcode = response["join_qrcode"]
+                self.join_qrcode_last_time = datetime.datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
                 )
-        else:
-            try:
-                if debug:
-                    _logger.info(_("Task:Start getting join enterprise QR code"))
-                wxapi = CorpApi(corpid, secret)
-                response = wxapi.httpCall(
-                    CORP_API_TYPE["GET_JOIN_QRCODE"],
-                    {"size_type": self.join_qrcode_size_type,},
-                )
-                if response["errcode"] == 0:
-                    self.join_qrcode = response["join_qrcode"]
-                    self.join_qrcode_last_time = datetime.datetime.now().strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    )
-                    if debug:
-                        _logger.info(
-                            _(
-                                "Task:Complete obtaining the QR code to join the enterprise"
-                            )
-                        )
-            except ApiException as ex:
                 if debug:
                     _logger.info(
-                        _(
-                            "Failed to obtain the QR code to join the enterprise, Error code: %s, Error description: %s ,Error Details: %s"
-                        )
-                        % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+                        _("Task:Complete obtaining the QR code to join the enterprise")
                     )
+        except ApiException as ex:
+            return self.env["wecom.tools"].ApiExceptionDialog(ex)
 
     @api.model
     def get_login_join_qrcode(self):
@@ -245,7 +219,7 @@ class Company(models.Model):
         companies = (
             self.env["res.company"]
             .sudo()
-            .search([(("is_wxwork_organization", "=", True))])
+            .search([(("is_wecom_organization", "=", True))])
         )
 
         if len(companies) > 0:

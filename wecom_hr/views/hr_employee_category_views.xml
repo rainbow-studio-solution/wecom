@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_category_form" model="ir.ui.view">
+            <field name="name">hr.employee.category.form</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="is_wecom_category"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_category_list" model="ir.ui.view">
+            <field name="name">hr.employee.category.list</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_list"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="company_id" groups="base.group_multi_company" options="{ 'no_open': True}"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="is_wecom_category"/>
+                    <field name="tagid" />
+                    <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                    <button name="delete_to_wxwork" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <function model="ir.actions.act_window" name="write">
+            <value eval="[ref('hr.open_view_categ_form')]"/>
+            <value eval="{'name': 'Tags'}"/>
+        </function>
+    </data>
+</odoo>

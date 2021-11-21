@@ -1,2 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-"access_wxwork_contacts_block","access.wxwork.contacts.block","model_wxwork_contacts_block","hr.group_hr_manager",1,1,1,1

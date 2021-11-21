@@ -2,9 +2,9 @@
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
-from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wxwork_api.api.abstract_api import ApiException
-from odoo.addons.wxwork_api.api.error_code import Errcode
+
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
 
 import werkzeug.urls
 import werkzeug.utils
@@ -68,7 +68,13 @@ class ResConfigSettings(models.TransientModel):
             providers = (
                 self.env["auth.oauth.provider"]
                 .sudo()
-                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
+                .search(
+                    [
+                        "|",
+                        ("enabled", "=", True),
+                        ("enabled", "=", False),
+                    ]
+                )
             )
         except Exception:
             providers = []
@@ -93,86 +99,55 @@ class ResConfigSettings(models.TransientModel):
 
     def get_join_qrcode(self):
         ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wxwork.debug_enabled")
+        debug = ir_config.get_param("wecom.debug_enabled")
 
-        corpid = self.company_id.corpid
-        secret = self.company_id.contacts_secret
+        params = {}
+        if debug:
+            _logger.info(_("Start getting join enterprise QR code"))
+        try:
+            wxapi = self.env["wecom.service_api"].init_api(
+                self.company_id, "contacts_secret", "contacts"
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "GET_JOIN_QRCODE"
+                ),
+                {
+                    "size_type": self.company_id.join_qrcode_size_type,
+                },
+            )
 
-        if corpid == False:
-            raise UserError(_("Please fill in correctly Enterprise ID."))
-        elif self.company_id.contacts_secret == False:
-            raise UserError(_("Please fill in the contact Secret correctly."))
-        else:
-            params = {}
-            if debug:
-                _logger.info(_("Start getting join enterprise QR code"))
-            try:
-                wxapi = CorpApi(corpid, secret)
-                response = wxapi.httpCall(
-                    CORP_API_TYPE["GET_JOIN_QRCODE"],
-                    {"size_type": self.company_id.join_qrcode_size_type,},
+            if response["errcode"] == 0:
+                self.company_id.join_qrcode = response["join_qrcode"]
+                self.company_id.join_qrcode_last_time = (
+                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 )
-                if response["errcode"] == 0:
-                    self.company_id.join_qrcode = response["join_qrcode"]
-                    self.company_id.join_qrcode_last_time = datetime.datetime.now().strftime(
-                        "%Y-%m-%d %H:%M:%S"
-                    )
 
-                    if debug:
-                        _logger.info(
-                            _("Complete obtaining the QR code to join the enterprise")
-                        )
-                    params = {
-                        "title": _("Success"),
-                        "message": _("Successfully obtained the enterprise QR code."),
-                        "sticky": False,  # 延时关闭
-                        "className": "bg-success",
-                        "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                    }
-                    action = {
-                        "type": "ir.actions.client",
-                        "tag": "display_notification",
-                        "params": {
-                            "title": params["title"],
-                            "type": "success",
-                            "message": params["message"],
-                            "sticky": params["sticky"],
-                            "next": params["next"],
-                        },
-                    }
-                    return action
-            except ApiException as ex:
                 if debug:
                     _logger.info(
-                        _(
-                            "Failed to obtain the QR code to join the enterprise, Error code: %s, Error description: %s ,Error Details: %s"
-                        )
-                        % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg)
+                        _("Complete obtaining the QR code to join the enterprise")
                     )
                 params = {
-                    "title": _("Failed"),
-                    "message": _(
-                        "Error code: %s "
-                        + "\n"
-                        + "Error description: %s"
-                        + "\n"
-                        + "Error Details:"
-                        + "\n"
-                        + "%s"
-                    )
-                    % (str(ex.errCode), Errcode.getErrcode(ex.errCode), ex.errMsg),
-                    "sticky": True,  # 不会延时关闭，需要手动关闭
-                    "next": {},
+                    "title": _("Success"),
+                    "message": _("Successfully obtained the enterprise QR code."),
+                    "sticky": False,  # 延时关闭
+                    "className": "bg-success",
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
                         "title": params["title"],
-                        "type": "danger",
+                        "type": "success",
                         "message": params["message"],
-                        "sticky": params["sticky"],  # 不会延时关闭，需要手动关闭
+                        "sticky": params["sticky"],
                         "next": params["next"],
                     },
                 }
                 return action
+        except ApiException as ex:
+            return self.env["wecom.tools"].ApiExceptionDialog(ex)

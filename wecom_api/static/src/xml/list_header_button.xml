@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_buttons" t-operation="append">
+
+            <t t-if="widget and widget.modelName == 'wecom.service_api_error'">
+                <button class="btn btn-info o_list_wecom_pull_error_code fa fa-cloud-download" type="button"> Pull error code</button>
+            </t>
+        </t>
+    </t>
+</templates>

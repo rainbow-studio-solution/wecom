@@ -2,10 +2,10 @@
 <odoo>
     <data>
         <record id="view_wxwrok_attendance_data_tree" model="ir.ui.view">
-            <field name="name">Enterprise WeChat Attendance Data List</field>
+            <field name="name">WeCom Attendance Data List</field>
             <field name="model">hr.attendance.wxwrok.data</field>
             <field name="arch" type="xml">
-                <tree edit="false" create="false" >
+                <tree edit="false" create="false">
                     <field name="name"/>
                     <field name="userid"/>
                     <field name="groupname"/>
@@ -18,13 +18,13 @@
                     <field name="sch_checkin_time"/>
                     <field name="schedule_id"/>
                     <field name="timeline_id"/>
-     
+
                 </tree>
             </field>
         </record>
 
         <record id="view_wxwrok_attendance_data_form" model="ir.ui.view">
-            <field name="name">Enterprise WeChat Attendance Data Form</field>
+            <field name="name">WeCom Attendance Data Form</field>
             <field name="model">hr.attendance.wxwrok.data</field>
             <field name="arch" type="xml">
                 <form edit="false" create="false">
@@ -40,7 +40,7 @@
         </record>
 
         <record id="open_module_tree_attendance_data" model="ir.actions.act_window">
-            <field name="name">Enterprise WeChat Attendance Data</field>
+            <field name="name">WeCom Attendance Data</field>
             <field name="res_model">hr.attendance.wxwrok.data</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>

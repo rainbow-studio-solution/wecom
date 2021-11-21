@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Enterprise WeChat Hr Extension",
+    "name": "WeCom Hr Extension",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 603,
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "Enterprise WeChat/Enterprise WeChat",
+    "category": "WeCom/WeCom",
     "version": "14.0.0.1",
     "summary": """
         
@@ -31,6 +31,10 @@
         "hr_fleet",
         "hr_timesheet_attendance",
     ],
-    "data": ["views/menu.xml",],
-    "qweb": ["static/src/xml/*.xml",],
+    "data": [
+        "views/menu.xml",
+    ],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
 }
