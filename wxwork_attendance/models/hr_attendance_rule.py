@@ -5,38 +5,22 @@ from odoo import models, fields, api, exceptions, _
 
 class HrAttendanceWxwrokRule(models.Model):
     _name = "hr.attendance.wxwrok.rule"
-    _description = "WeCom attendance rule"
+    _description = "Enterprise WeChat attendance rule"
     _order = "create_time"
 
-    name = fields.Char(
-        string="Attendance rule name",
-        readonly=True,
-        help="打卡规则名称",
-    )
-    groupid = fields.Integer(
-        string="Attendance rule id",
-        readonly=True,
-        help="打卡规则id",
-    )
+    name = fields.Char(string="Attendance rule name", readonly=True, help="打卡规则名称",)
+    groupid = fields.Integer(string="Attendance rule id", readonly=True, help="打卡规则id",)
     groupname = fields.Char(
-        string="Attendance rule name",
-        readonly=True,
-        help="打卡规则名称",
+        string="Attendance rule name", readonly=True, help="打卡规则名称",
     )
     grouptype = fields.Selection(
-        [
-            ("1", _("Fixed time")),
-            ("2", _("By shift")),
-            ("3", _("Freedom")),
-        ],
+        [("1", _("Fixed time")), ("2", _("By shift")), ("3", _("Freedom")),],
         string="Attendance rule type",
         readonly=True,
         help="打卡规则类型，1：固定时间上下班；2：按班次上下班；3：自由上下班",
     )
     checkindate = fields.Char(
-        string="Attendance time data",
-        readonly=True,
-        help="打卡时间，当规则类型为排班时没有意义",
+        string="Attendance time data", readonly=True, help="打卡时间，当规则类型为排班时没有意义",
     )
     spe_workdays = fields.Char(
         string="Special date - must check in date information",
@@ -74,24 +58,14 @@ class HrAttendanceWxwrokRule(models.Model):
         help="是否允许提交补卡申请，true为允许，false为不允许",
     )
     wifimac_infos = fields.Char(
-        string="WiFi check-ins",
-        readonly=True,
-        help="打卡地点-WiFi打卡信息",
+        string="WiFi check-ins", readonly=True, help="打卡地点-WiFi打卡信息",
     )
-    loc_infos = fields.Char(
-        string="WiFi check-ins",
-        readonly=True,
-        help="打卡地点-位置打卡信息",
-    )
+    loc_infos = fields.Char(string="WiFi check-ins", readonly=True, help="打卡地点-位置打卡信息",)
     range = fields.Char(
-        string="Check-in staff information",
-        readonly=True,
-        help="打卡人员信息",
+        string="Check-in staff information", readonly=True, help="打卡人员信息",
     )
     create_time = fields.Date(
-        string="UTC creation time",
-        readonly=True,
-        help="创建打卡规则时间，为unix时间戳",
+        string="UTC creation time", readonly=True, help="创建打卡规则时间，为unix时间戳",
     )
     white_users = fields.Char(
         string="Whitelist", readonly=True, help="打卡人员白名单，即不需要打卡人员，需要有设置白名单才能查看"
@@ -140,14 +114,10 @@ class HrAttendanceWxwrokRule(models.Model):
         string="Last modified by", readonly=True, help="规则最近编辑人userid"
     )
     schedulelist = fields.Char(
-        string="Scheduling information",
-        readonly=True,
-        help="排班信息，只有规则为按班次上下班打卡时才有该配置",
+        string="Scheduling information", readonly=True, help="排班信息，只有规则为按班次上下班打卡时才有该配置",
     )
     offwork_interval_time = fields.Integer(
-        string="Free sign in",
-        readonly=True,
-        help="自由签到，上班打卡后xx秒可打下班卡",
+        string="Free sign in", readonly=True, help="自由签到，上班打卡后xx秒可打下班卡",
     )
 
     # @api.model
@@ -160,3 +130,4 @@ class HrAttendanceWxwrokRule(models.Model):
     # def write(self, vals):
     #     vals["grouptype"] = "1"
     #     ret = super(HrAttendanceWxwrokRule, self).write(vals)
+

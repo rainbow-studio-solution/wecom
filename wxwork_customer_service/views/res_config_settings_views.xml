@@ -1,34 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="wecom_message_res_config_settings_view_form" model="ir.ui.view">
-            <field name="name">WeCom ustomer service settings</field>
-            <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wecom_hr.res_config_settings_view_form"/>
+        <record id="wxwork_message_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Enterprise wechat ustomer service settings</field>
+            <field name="model">res.config.settings</field>            
+            <field name="inherit_id" ref="wxwork_smart_hrm.res_config_settings_view_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//div[@data-key='wecom_base']/div[hasclass('o_settings_container')][last()]" position="after">
-                    <h2 id="wecom_customer_service" class="d-flex justify-content-between">
+                <xpath expr="//div[@data-key='wxwork_base']/div[hasclass('o_settings_container')][last()]" position="after">                    
+                    <h2 id="wxwork_customer_service" class="d-flex justify-content-between">
                         <span class="text-left">
-                            <i class="fa fa-headphones fa-lg" aria-label="Customer service settings"/>
- Customer service settings
-                            <i class="fa fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                            <i class="fa fa-headphones fa-lg" aria-label="Customer service settings"/> Customer service settings
+                            <i class="fa fa-info-circle fa-lg" title="The values set below are the companies identified as enterprise wechat organizations." />
                         </span>
-                        <widget name='res_config_wecom_navigation_gotop'/>
+                        <widget name='res_config_wxwork_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wxwork_organization','=',False)]}">
                         <div class="col-xs-12 col-md-6 o_setting_box">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-qrcode fa-lg" aria-label="Wechat customer service QR code"/>
                             </div>
                             <div class="o_setting_right_pane">
                                 <div class="row mt8">
-                                    <label for="customer_service_qrcode" string="WeChat Customer Service QR code" class="col-md-6 o_light_label"/>
-                                    <field name="customer_service_qrcode" widget="image" class="float-left oe_avatar col-lg-4"/>
+                                    <label for="customer_service_qrcode"  string="WeChat Customer Service QR code" class="col-md-6 o_light_label"/>
+                                    <field name="customer_service_qrcode"   widget="image" class="float-left oe_avatar col-lg-4"/>
                                 </div>
                                 <div class="row">
                                     <div class="text-muted col-md-12">
-                                        Use the WeCom scanning code on the <a href="https://work.weixin.qq.com/kf/" target="_blank">wechat customer service official website</a> to open wechat customer service, which can be used after opening.
+                                        Use the enterprise wechat scanning code on the <a href="https://work.weixin.qq.com/kf/" target="_blank">wechat customer service official website</a> to open wechat customer service, which can be used after opening.
                                     </div>
                                 </div>
 

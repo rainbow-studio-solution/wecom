@@ -3,7 +3,7 @@
     "name": "WeCom Hr Syncing",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 606,
+    "sequence": 608,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -19,7 +19,6 @@
     "depends": [
         "base",
         "mail",
-        "auth_oauth",
         "wecom_api",
         "wecom_hr",
     ],

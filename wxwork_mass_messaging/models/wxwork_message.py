@@ -6,7 +6,7 @@ from odoo import fields, models, tools
 
 
 class WxWorkMessage(models.Model):
-    _inherit = ["wecom.message"]
+    _inherit = ["wxwork.message"]
 
     mailing_id = fields.Many2one("mailing.mailing", string="Mass Mailing")
     mailing_trace_ids = fields.One2many(
@@ -32,7 +32,7 @@ class WxWorkMessage(models.Model):
             res[sms.id] = body
         return res
 
-    def _postprocess_api_sent_wecom_message(
+    def _postprocess_api_sent_wxwork_message(
         self, iap_results, failure_reason=None, delete_all=False
     ):
         all_sms_ids = [item["res_id"] for item in iap_results]
@@ -52,6 +52,6 @@ class WxWorkMessage(models.Model):
                     traces.write({"sent": fields.Datetime.now(), "exception": False})
                 elif traces:
                     traces.set_failed(failure_type=self.IAP_TO_SMS_STATE[state])
-        return super(WxWorkMessage, self)._postprocess_api_sent_wecom_message(
+        return super(WxWorkMessage, self)._postprocess_api_sent_wxwork_message(
             iap_results, failure_reason=failure_reason, delete_all=delete_all
         )

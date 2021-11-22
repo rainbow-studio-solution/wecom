@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <search string="Messaging">
                 <field name="name" string="Messaging" filter_domain="['|', ('name', 'ilike', self), ('subject', 'ilike', self)]"/>
-                <field name="campaign_id" string="Campaign" groups="wecom_mass_messaging.group_mass_wecom_messageing_campaign"/>
+                <field name="campaign_id" string="Campaign" groups="wxwork_mass_messaging.group_mass_wecom_messageing_campaign"/>
                 <filter string="My Messages" name="assigned_to_me" domain="[('user_id', '=', uid)]" help="Messagings that are assigned to me"/>
                 <separator/>
                 <filter name="filter_sent_date" date="sent_date"/>
@@ -60,7 +60,7 @@
         </field>
     </record>
 
-    <menuitem name="Mass messaging" id="mass_wecom_messaging_menu_mass" parent="mass_wecom_messaging_menu_root" sequence="1" action="wecom_mass_messaging_action_message" groups="wecom_mass_messaging.group_mass_wecom_messaging_user"/>
+    <menuitem name="Mass messaging" id="mass_wecom_messaging_menu_mass" parent="mass_wecom_messaging_menu_root" sequence="1" action="wecom_mass_messaging_action_message" groups="wxwork_mass_messaging.group_mass_wecom_messaging_user"/>
 
 
 </odoo>

@@ -5,14 +5,11 @@ from odoo import models, fields, api, exceptions, _
 
 class HrAttendanceWxwrokData(models.Model):
     _name = "hr.attendance.wxwrok.data"
-    _description = "WeCom attendance data"
+    _description = "Enterprise WeChat attendance data"
     _order = "checkin_time"
 
-    name = fields.Char(
-        string="Name",
-        readonly=True,
-    )
-    userid = fields.Char(string="WeCom user ID", readonly=True)
+    name = fields.Char(string="Name", readonly=True,)
+    userid = fields.Char(string="Enterprise WeChat user ID", readonly=True)
     groupname = fields.Char(string="Attendance rule name", readonly=True)
     # checkin_type = fields.Selection(
     #     ([("1", "上班打卡"), ("2", "下班打卡"), ("3", "外出打卡")]),
@@ -58,28 +55,21 @@ class HrAttendanceWxwrokData(models.Model):
         readonly=True,
         help="位置打卡地点经度，是实际经度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准",
     )
-    deviceid = fields.Char(
-        string="",
-        readonly=True,
-        help="打卡设备id",
-    )
+    deviceid = fields.Char(string="", readonly=True, help="打卡设备id",)
     sch_checkin_time = fields.Date(
         string="Standard punch time",
         readonly=True,
         help="标准打卡时间，指此次打卡时间对应的标准上班时间或标准下班时间",
     )
     groupid = fields.Integer(
-        string="Attendance rule Id",
-        readonly=True,
-        help="规则id，表示打卡记录所属规则的id",
+        string="Attendance rule Id", readonly=True, help="规则id，表示打卡记录所属规则的id",
     )
     schedule_id = fields.Integer(
-        string="Shift id",
-        readonly=True,
-        help="班次id，表示打卡记录所属规则中，所属班次的id",
+        string="Shift id", readonly=True, help="班次id，表示打卡记录所属规则中，所属班次的id",
     )
     timeline_id = fields.Integer(
         string="Time line id",
         readonly=True,
         help="时段id，表示打卡记录所属规则中，某一班次中的某一时段的id，如上下班时间为9:00-12:00、13:00-18:00的班次中，9:00-12:00为其中一组时段",
     )
+

@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- 1. 重置密码的消息模板-->
+        <record id="auth_signup.reset_password_email" model="mail.template">
+            <field name="msgtype">mpnews</field>
+            <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
+            <field name="message_to_user">${object.wecom_id | safe}</field>
+            <field name="body_html" type="html">
+                <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
+                <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+                    <tr>
+                        <td align="center" valign="top" bgcolor="#ffffff" width="100%">
+                            <table cellspacing="0" cellpadding="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+                                            <center>
+                                                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                                    <tr>
+                                                        <td valign="top" style="text-align:left;" class="mobile-center">
+                                                            <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </center>
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <center>
+                                                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                                    <tr>
+                                                        <td>
+                                                            <table cellspacing="0" cellpadding="0" width="100%">
+                                                                <tr>
+                                                                    <td class="mobile-padding" style="text-align:left;">
+                                                                        <br/>
+                                                        Dear ${object.name},<br />
+                                                                    <br />
+                                                        You may change your password by following this link which will remain valid during 24 hours:<br />
+                                                                <div style="margin: 16px 0px 16px 0px;">
+                                                                    <a href="${object.signup_url}" style="background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 0px; font-size:13px;">Change password</a>
+                                                                </div>
+                                                        If you do not expect this, you can safely ignore this email.<br />
+                                                            <br />
+                                                        Thanks,
+                                                        % if user.signature:
+                                                            <br />
+                                                        ${user.signature | safe}
+                                                        % endif
+                                                            <br />
+                                                            <br />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="background-color:#c2c2c2;">
+                                <center>
+                                    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                        <tr>
+                                            <td valign="middle" align="left">
+                                            ${object.company_id.name}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align:left;opacity: 0.7;">
+                                            ${object.company_id.phone}
+                                            % if object.company_id.email
+                                            |                                                <a href="'mailto:%s' % ${object.company_id.email}" style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
+                                            % endif
+                                            % if object.company_id.website
+                                            |                                                <a href="'%s' % ${object.company_id.website}" style="text-decoration:none; color: #454748;">
+                                                ${object.company_id.website}
+                                                </a>
+                                            % endif
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </td>
+        </tr>
+    </table>
+</field>
+<field name="safe">1</field>
+<field name="enable_id_trans" eval="False"/>
+<field name="enable_duplicate_check" eval="False"/>
+<field name="duplicate_check_interval">1800</field>
+</record>
+
+
+<!-- 2. 新用户的消息模板-->
+<record id="auth_signup.set_password_email" model="mail.template">
+<field name="msgtype">mpnews</field>
+<field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
+<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="body_html" type="html">
+    <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
+    <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+        <tr>
+            <td align="center" valign="top" bgcolor="#ffffff" width="100%">
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <thead>
+                        <tr>
+                            <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+                                <center>
+                                    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                        <tr>
+                                            <td valign="top" style="text-align:left;" class="mobile-center">
+                                                <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </center>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td valign="top">
+                                <center>
+                                    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                        <tr>
+                                            <td>
+                                                <table cellspacing="0" cellpadding="0" width="100%">
+                                                    <tr>
+                                                        <td class="mobile-padding" style="text-align:left;">
+                                                            <br/>
+                                                        Dear ${object.name},<br />
+                                                        <br />
+                                                        You have been invited by ${object.create_uid.name} of ${object.company_id.name} to connect on Odoo.<br />
+                                                    <div style="margin: 16px 0px 16px 0px;">
+                                                        <a href="${object.signup_url}" style="background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 0px; font-size:13px;">Accept invitation</a>
+                                                    </div>
+                                                        % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')
+                                                        Your Odoo domain is: <b>
+                                                    <a href='${website_url}'>${website_url}</a>
+                                                </b>
+                                                <br />
+                                                        Your sign in account is: <b>
+                                                <a href="/web/login?login=${object.login}" target="_blank">${object.login}</a>
+                                            </b>
+                                            <br />
+                                            <br />
+                                                        Never heard of Odoo? It’s an all-in-one business software loved by 3+ million users. It will considerably improve your experience at work and increase your productivity.
+                                            <br />
+                                            <br />
+                                                        Have a look at the <a href="https://www.odoo.com/page/tour?utm_source=db&amp;utm_medium=auth" style="color: #875A7B;">Odoo Tour</a> to discover the tool.
+                                            <br />
+                                            <br />
+                                                        Enjoy Odoo!<br />
+                                                        --                                        <br/>
+The ${object.company_id.name} Team
+                                        <br />
+                                        <br />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</tbody>
+<tfoot>
+    <tr>
+        <td style="background-color:#c2c2c2;">
+            <center>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                    <tr>
+                        <td valign="middle" align="left">
+                                            ${object.company_id.name}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align:left;opacity: 0.7;">
+                                            ${object.company_id.phone}
+                                            % if object.company_id.email
+                                            |                            <a href="'mailto:%s' % ${object.company_id.email}" style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
+                                            % endif
+                                            % if object.company_id.website
+                                            |                            <a href="'%s' % ${object.company_id.website}" style="text-decoration:none; color: #454748;">
+                                                ${object.company_id.website}
+                            </a>
+                                            % endif
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</tfoot>
+</table>
+</td>
+</tr>
+</table>
+</field>
+<field name="safe">1</field>
+<field name="enable_id_trans" eval="False"/>
+<field name="enable_duplicate_check" eval="False"/>
+<field name="duplicate_check_interval">1800</field>
+</record>
+
+<!-- 3 用于提醒未注册用户的消息模板-->
+<record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
+<field name="msgtype">mpnews</field>
+<field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
+<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
+<table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr>
+<td align="center" valign="top" bgcolor="#ffffff" width="100%">
+<table cellspacing="0" cellpadding="0" width="100%">
+<thead>
+    <tr>
+        <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+            <center>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                    <tr>
+                        <td valign="top" style="text-align:left;" class="mobile-center">
+                            <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
+                        </td>
+                    </tr>
+                </table>
+            </center>
+        </td>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td valign="top">
+            <center>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                    <tr>
+                        <td valign="top">
+                            <table cellspacing="0" cellpadding="0" width="100%">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <br/>
+                                                        % set invited_users = ctx['invited_users']
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellspacing="0" cellpadding="0" width="100%">
+                                <tr>
+                                    <td class="mobile-padding" style="text-align:left;">
+                                        <span style="font-size: 20px; font-weight: bold;">
+                                                            Pending Invitations
+                                        </span>
+                                        <br/>
+                                        <br/>
+                                                        Dear ${object.name or ''},<br/>
+                                    <br/>
+                                                        You added the following user(s) to your database but they haven't registered yet:
+                                    <ul>
+                                                            % for invited_user in invited_users:
+                                        <li>${invited_user}</li>
+                                                            % endfor
+                                    </ul>
+                                                        Follow up with them so they can access your database and start working with you.
+                                    <br />
+                                    <br />
+                                                        Have a nice day!<br />
+                                <br />
+                                <br />
+                                                        Enjoy Odoo!<br />
+                                                        --                            <br/>
+The ${object.company_id.name} Team
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</center>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="background-color:#c2c2c2;">
+<center>
+    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+        <tr>
+            <td valign="middle" align="left">
+                                            ${object.company_id.name}
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:left;opacity: 0.7;">
+                                            ${object.company_id.phone}
+                                            % if object.company_id.email
+                                            |                <a href="'mailto:%s' % ${object.company_id.email}" style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
+                                            % endif
+                                            % if object.company_id.website
+                                            |                <a href="'%s' % ${object.company_id.website}" style="text-decoration:none; color: #454748;">
+                                                ${object.company_id.website}
+                </a>
+                                            % endif
+            </td>
+        </tr>
+    </table>
+</center>
+</td>
+</tr>
+</tfoot>
+</table>
+</td>
+</tr>
+</table>
+</field>
+<field name="safe">1</field>
+<field name="enable_id_trans" eval="False"/>
+<field name="enable_duplicate_check" eval="False"/>
+<field name="duplicate_check_interval">1800</field>
+</record>
+
+<!-- 4. 发送帐户创建确认电子邮件-->
+<record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
+<field name="msgtype">mpnews</field>
+<field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
+<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
+<table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+<tr>
+<td align="center" valign="top" bgcolor="#ffffff" width="100%">
+<table cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+<center>
+    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+        <tr>
+            <td valign="top" style="text-align:left;" class="mobile-center">
+                <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
+            </td>
+        </tr>
+    </table>
+</center>
+</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td valign="top">
+<center>
+    <table cellspacing="0" cellpadding="0" width="500" class="w320">
+        <tr>
+            <td>
+                <table cellspacing="0" cellpadding="0" width="100%">
+                    <tr>
+                        <td class="mobile-padding" style="text-align:left;">
+                            <br/>
+                                                        Dear ${object.name},<br />
+                        <br />
+                                                        Your account has been successfully created!<br/>
+                                                        Your login is <strong>${object.login}</strong>
+                    <br/>
+                                                        To gain access to your account, you can use the following link:
+                    <div style="margin: 16px 0px 16px 0px;">
+                        <a href="/web/login?auth_login=${object.login}" style="background-color: #3bcdc3; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 0px; font-size:13px;">Go to My Account</a>
+                    </div>
+                                                        Thanks,<br/>
+                                                        % if user.signature:
+                <br/>
+                                                            ${user.signature | safe}
+                                                        % endif
+                <br />
+                <br />
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="background-color:#c2c2c2;">
+<center>
+<table cellspacing="0" cellpadding="0" width="500" class="w320">
+<tr>
+<td valign="middle" align="left">
+                                            ${object.company_id.name}
+</td>
+</tr>
+<tr>
+<td style="text-align:left;opacity: 0.7;">
+                                            ${object.company_id.phone}
+                                            % if object.company_id.email
+                                            |    <a href="'mailto:%s' % ${object.company_id.email}" style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
+                                            % endif
+                                            % if object.company_id.website
+                                            |    <a href="'%s' % ${object.company_id.website}" style="text-decoration:none; color: #454748;">
+                                                ${object.company_id.website}
+    </a>
+                                            % endif
+</td>
+</tr>
+</table>
+</center>
+</td>
+</tr>
+</tfoot>
+</table>
+</td>
+</tr>
+</table>
+</field>
+<field name="safe">1</field>
+<field name="enable_id_trans" eval="False"/>
+<field name="enable_duplicate_check" eval="False"/>
+<field name="duplicate_check_interval">1800</field>
+</record>
+
+</data>
+</odoo>

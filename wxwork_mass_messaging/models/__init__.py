@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import wecom_mass_messaging
+from . import wxwork_mass_messaging

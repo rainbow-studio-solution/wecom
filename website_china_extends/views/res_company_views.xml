@@ -7,12 +7,12 @@
         <field name="inherit_id" ref="social_media.view_company_form_inherit_social_media"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='social_instagram']" position="after">
-                <field name="wecom_kf_is_installed" invisible="1"/>
+                <field name="wxwork_kf_is_installed" invisible="1"/>
                 <field name="social_wechat" widget="image" class="oe_avatar float-left" />
 
-                <field name="social_wechat_kf" widget="image" class="oe_avatar float-left" attrs="{'readonly': [('wecom_kf_is_installed','=',True)],'invisible': [('wecom_kf_is_installed','!=',True)]}"/>
+                <field name="social_wechat_kf" widget="image" class="oe_avatar float-left" attrs="{'readonly': [('wxwork_kf_is_installed','=',True)],'invisible': [('wxwork_kf_is_installed','!=',True)]}"/>
 
-                <field name="social_wechat_kf_compute" widget="image" class="oe_avatar float-left" attrs="{'invisible': [('wecom_kf_is_installed','=',True)]}"/>
+                <field name="social_wechat_kf_compute" widget="image" class="oe_avatar float-left" attrs="{'invisible': [('wxwork_kf_is_installed','=',True)]}"/>
 
                 <field name="social_qq" options="{'format': false}"/>
                 <field name="social_weibo"/>

@@ -16,7 +16,6 @@ class MailTemplatePreview(models.TransientModel):
         "email_cc",
         "reply_to",
         "msgtype",
-        "message_to_all",
         "message_to_user",
         "message_to_party",
         "message_to_tag",
@@ -29,9 +28,7 @@ class MailTemplatePreview(models.TransientModel):
     msgtype = fields.Char(
         string="Message type", compute="_compute_mail_template_fields"
     )
-    message_to_all = fields.Boolean(
-        "To all members",
-    )
+
     message_to_user = fields.Char(
         string="To Users",
         help="Message recipients (users)",

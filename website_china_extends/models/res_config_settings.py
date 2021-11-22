@@ -6,24 +6,18 @@ from odoo import api, fields, models, _
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    module_wecom_customer_service = fields.Boolean()
+    module_wxwork_customer_service = fields.Boolean()
 
     icp_filing_info = fields.Char(
-        "ICP filing Info",
-        related="website_id.icp_filing_info",
-        readonly=False,
+        "ICP filing Info", related="website_id.icp_filing_info", readonly=False,
     )
     isp_filing_info_text = fields.Char(
-        related="website_id.isp_filing_info_text",
-        readonly=False,
+        related="website_id.isp_filing_info_text", readonly=False,
     )
     isp_filing_info_no = fields.Char(
-        related="website_id.isp_filing_info_no",
-        readonly=False,
+        related="website_id.isp_filing_info_no", readonly=False,
     )
-    isp_filing_info = fields.Char(
-        related="website_id.isp_filing_info",
-    )
+    isp_filing_info = fields.Char(related="website_id.isp_filing_info",)
 
     technical_support = fields.Boolean(
         related="website_id.technical_support", readonly=False
@@ -129,13 +123,11 @@ class ResConfigSettings(models.TransientModel):
     )
 
     has_social_sidebar = fields.Boolean(
-        related="website_id.has_social_sidebar",
-        readonly=False,
+        related="website_id.has_social_sidebar", readonly=False,
     )
 
     social_sidebar_top = fields.Integer(
-        related="website_id.social_sidebar_top",
-        readonly=False,
+        related="website_id.social_sidebar_top", readonly=False,
     )
 
     social_sidebar_bg_color = fields.Char(

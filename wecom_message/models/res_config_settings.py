@@ -27,33 +27,26 @@ class ResConfigSettings(models.TransientModel):
 
     message_secret = fields.Char(related="company_id.message_secret", readonly=False)
 
-    module_gamification = fields.Boolean(
-        related="company_id.module_gamification", readonly=False
-    )
+    module_gamification = fields.Boolean(readonly=False)
 
-    module_wecom_hr_gamification_message = fields.Boolean(
-        related="company_id.module_wecom_hr_gamification_message", readonly=False
-    )
-
-    # module_digest = fields.Boolean(related="company_id.module_digest", readonly=False)
-    # module_wxowrk_digest_message = fields.Boolean(
-    #     related="company_id.module_wxowrk_digest_message", readonly=False
+    # module_wecom_hr_gamification_message = fields.Boolean(
+    #     related="company_id.module_wecom_hr_gamification_message", readonly=False
     # )
 
     module_digest = fields.Boolean("KPI Digests")
-    module_wxowrk_digest_message = fields.Boolean(
-        "Send KPI Digests periodically via WeCom",
-    )
+    # module_wxowrk_digest_message = fields.Boolean(
+    #     "Send KPI Digests periodically via WeCom",
+    # )
 
-    module_stock = fields.Boolean(related="company_id.module_stock", readonly=False)
-    module_wecom_stock_message = fields.Boolean(
-        related="company_id.module_wecom_stock_message", readonly=False
-    )
+    module_stock = fields.Boolean()
+    # module_wecom_stock_message = fields.Boolean(
+    #     related="company_id.module_wecom_stock_message", readonly=False
+    # )
 
     module_purchase = fields.Boolean()
-    module_wecom_purchase_message = fields.Boolean(
-        "Send Purchase message via WeCom",
-    )
+    # module_wecom_purchase_message = fields.Boolean(
+    #     "Send Purchase message via WeCom",
+    # )
 
     @api.onchange("square_logo")
     def _onchange_square_logo(self):

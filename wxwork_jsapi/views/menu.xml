@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem 
+            id="menu_wxwork_jsapi_interface" 
+            name="JSAPI Interface" 
+            groups="base.group_system" 
+            parent="wxwork_base.menu_wxwork_root"
+            action="action_view_wxwork_jsapi_interface" 
+            sequence="2"/>  
+
+        <menuitem 
+            id="menu_wxwork_pull_ticket" 
+            name="Pull JSAPI Ticket" 
+            parent="wxwork_base.menu_wxwork_cron" 
+            action="ir_cron_act_ticket" 
+            sequence="3"/>
+    </data>
+</odoo>

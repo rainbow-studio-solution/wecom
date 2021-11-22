@@ -30,11 +30,18 @@
                                 <field name="name" class="oe_highlight " required="1" />
                             </h1>
                             <group>
-                                <field name="model_id" required="1" options="{'no_create': True,'no_open': True}" />
-                                <field name="model" invisible="1"/>
-                                <field name="msgtype" />
-                                <field name="lang" placeholder="${object.partner_id.lang}"/>
+                                <group>
+                                    <field name="model_id" required="1" options="{'no_create': True,'no_open': True}" />
+                                    <field name="model" invisible="1"/>
+                                    <!-- <field name="msgtype" /> -->
+                                    <field name="lang" placeholder="${object.partner_id.lang}"/>
+                                </group>
+                                <group>
+                                    <field name="msgtype" />
+                                    <field name="code" />
+                                </group>
                             </group>
+
                         </div>
                         <notebook>
                             <page string="Content" name="content">
@@ -48,12 +55,12 @@
                                 </p>
                                 <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                                 <field name="body_not_html" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                                <field name="body_not_html" widget="wecom_markdown" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
                             </page>
                             <page string="Message Configuration" name="message_configuration">
                                 <group>
                                     <field name="use_default_to" invisible="1"/>
                                     <field name="partner_to" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Comma-separated ids of recipient partners"/>
-                                    <field name="message_to_all" />
                                     <field name="message_to_user" />
                                     <field name="message_to_party" />
                                     <field name="message_to_tag" />
@@ -93,8 +100,8 @@
                     <field name="msgtype"/>
                     <field name="model_id"/>
                     <field name="subject"/>
-                    <!-- <field name="name"/>
-                    <field name="email_from"/>
+                    <field name="name"/>
+                    <!-- <field name="email_from"/>
                     <field name="email_to"/>
                     <field name="partner_to"/>
                     <field name="report_name"/> -->
@@ -113,7 +120,7 @@
            </field>
         </record> -->
 
-        <record id="wecom_template_action" model="ir.actions.act_window">
+        <record id="action_wecom_message_template_tree_all" model="ir.actions.act_window">
             <field name="name">Message Templates</field>
             <field name="res_model">mail.template</field>
             <field name="view_mode">tree,form</field>
@@ -122,14 +129,6 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('wecom_message_template_view_form')})]"/>
         </record>
 
-        <!-- <record model="ir.actions.act_window" id="action_wecom_message_template_tree_all">
-            <field name="name">Message Template</field>
-            <field name="res_model">wecom.message.template</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="wecom_message_template_tree" />
-            <field name="search_view_id" ref="view_wecom_message_template_search"/>
-        </record> -->
-
-
+        <menuitem id="menu_wecom_message_template" name="Template" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="action_wecom_message_template_tree_all" sequence="20"/>
     </data>
 </odoo>

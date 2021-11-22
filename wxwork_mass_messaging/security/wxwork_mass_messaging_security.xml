@@ -9,7 +9,7 @@ professional emails and reuse templates.</field>
 
     <record id="group_mass_wecom_messaging_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="wecom_mass_messaging.module_category_wecom_message_mass"/>
+        <field name="category_id" ref="wxwork_mass_messaging.module_category_wecom_message_mass"/>
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
@@ -17,12 +17,12 @@ professional emails and reuse templates.</field>
 
     <record id="group_mass_wecom_messageing_campaign" model="res.groups">
         <field name="name">Manage Mass Wecom Messaging Campaigns</field>
-        <field name="category_id" ref="wecom_mass_messaging.module_category_wecom_message_mass"/>
+        <field name="category_id" ref="wxwork_mass_messaging.module_category_wecom_message_mass"/>
     </record>
 
     <data noupdate="1">
         <record id="base.default_user" model="res.users">
-            <field name="groups_id" eval="[(4,ref('wecom_mass_messaging.group_mass_wecom_messaging_user'))]"/>
+            <field name="groups_id" eval="[(4,ref('wxwork_mass_messaging.group_mass_wecom_messaging_user'))]"/>
         </record>
     </data>
 </odoo>

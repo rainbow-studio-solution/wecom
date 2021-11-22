@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from odoo.addons.wecom_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-from odoo.addons.wecom_api.api.error_code import Errcode
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 
 from odoo import models, fields, api, _
@@ -18,11 +18,11 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     attendance_secret = fields.Char(
-        "Attendance Secret", config_parameter="wecom.attendance_secret"
+        "Attendance Secret", config_parameter="wxwork.attendance_secret"
     )
     attendance_access_token = fields.Char(
         "Attendance Token",
-        config_parameter="wecom.attendance_access_token",
+        config_parameter="wxwork.attendance_access_token",
         readonly=True,
     )
 
@@ -49,7 +49,7 @@ class ResConfigSettings(models.TransientModel):
                     },  # 刷新窗体
                 }
                 self.env["ir.config_parameter"].sudo().set_param(
-                    "wecom.attendance_access_token", wxapi.getAccessToken()
+                    "wxwork.attendance_access_token", wxapi.getAccessToken()
                 )
                 action = {
                     "type": "ir.actions.client",
@@ -83,7 +83,7 @@ class ResConfigSettings(models.TransientModel):
                     "type": "ir.actions.client",
                     "tag": "display_notification",
                     "params": {
-                        # "className": "wecom_config_notification",
+                        # "className": "wxwork_config_notification",
                         "title": params["title"],
                         "type": "danger",
                         "message": params["message"],

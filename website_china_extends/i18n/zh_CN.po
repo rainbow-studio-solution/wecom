@@ -328,7 +328,7 @@ msgid "Module"
 msgstr "模块"
 
 #. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__module_wecom_customer_service
+#: model:ir.model.fields,field_description:website_china_extends.field_res_config_settings__module_wxwork_customer_service
 msgid "Module Wxwork Customer Service"
 msgstr ""
 
@@ -546,15 +546,15 @@ msgid "Weibo Account url"
 msgstr "微博账号链接"
 
 #. module: website_china_extends
-#: model:ir.model.fields,field_description:website_china_extends.field_res_company__wecom_kf_is_installed
+#: model:ir.model.fields,field_description:website_china_extends.field_res_company__wxwork_kf_is_installed
 msgid "Wxwork Kf Is Installed"
 msgstr ""
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form
 msgid ""
-"You have installed the WeCom customer service function. Please set the customer "
-"service QR code in the WeCom application."
+"You have installed the enterprise wechat customer service function. Please set the customer "
+"service QR code in the enterprise wechat application."
 msgstr "您已经安装了企业微信客户服务功能。请在企业微信应用中设置客服二维码。"
 
 #. module: website_china_extends

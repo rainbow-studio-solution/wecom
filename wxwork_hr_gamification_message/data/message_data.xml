@@ -1,209 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="1">
+    <data noupdate="1">
 
-    <!-- 1. 目标：提醒目标更新 -->
-    <record id="gamification.email_template_goal_reminder" model="mail.template">
-      <field name="msgtype">mpnews</field>
-      <field name="media_id" ref="wecom_material.wecom_material_image_gamification"/>
-      <field name="message_to_user">${object.user_id.partner_id.wecom_id}</field>
-      <field name="body_html" type="html">
-        <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
-        <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
-          <tr>
-            <td align="center" valign="top" bgcolor="#ffffff" width="100%">
-              <table cellspacing="0" cellpadding="0" width="100%">
+        <!-- 1. 目标：提醒目标更新 -->
+        <record id="gamification.email_template_goal_reminder"  model="mail.template">
+            <field name="msgtype">mpnews</field>
+            <field name="media_id" ref="wxwork_material.wxwork_material_image_gamification"/>
+            <field name="message_to_user">${object.user_id.partner_id.wxwork_id}</field>
+            <field name="message_body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
+<table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+    <tr>
+        <td align="center" valign="top" bgcolor="#ffffff" width="100%">
+            <table cellspacing="0" cellpadding="0" width="100%">
                 <thead>
-                  <tr>
-                    <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
-                      <center>
-                        <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                          <tr>
-                            <td valign="top" style="text-align:left;" class="mobile-center">
-                              <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
-                            </td>
-                          </tr>
-                        </table>
-                      </center>
-                    </td>
-                  </tr>
+                    <tr>
+                        <td style="border-bottom: 1px solid #3bcdc3;" width="100%">
+                            <center>
+                                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                    <tr>
+                                        <td valign="top" style="text-align:left;" class="mobile-center">
+                                            <img height="62" src="/logo.png?company=${object.company_id.id}" alt="${object.company_id.name}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td valign="top">
-                      <center>
-                        <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                          <tr>
-                            <td>
-                              <table cellspacing="0" cellpadding="0" width="100%">
-                                <tr>
-                                  <td class="mobile-padding" style="text-align:left;">
-                                    <br/>
-                                    <strong>Reminder ${object.name}</strong>
-                                    <br/>
-                                                        You have not updated your progress for the goal ${object.definition_id.name} (currently reached at ${object.completeness}%) for at least ${object.remind_update_delay} days. Do not forget to do it.<br/>
-                                  <br/>
+                    <tr>
+                        <td valign="top">
+                            <center>
+                                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                    <tr>
+                                        <td>
+                                            <table cellspacing="0" cellpadding="0" width="100%">
+                                                <tr>
+                                                    <td class="mobile-padding" style="text-align:left;">
+                                                        <br/>
+                                                        <strong>Reminder ${object.name}</strong><br/>
+                                                        You have not updated your progress for the goal ${object.definition_id.name} (currently reached at ${object.completeness}%) for at least ${object.remind_update_delay} days. Do not forget to do it.<br/><br/>
                                                         Thank you,
                                                         % if object.challenge_id.manager_id.signature:
-                                  <br />
+                                                            <br />
                                                             ${object.challenge_id.manager_id.signature | safe}
                                                         % endif
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </center>
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td style="background-color:#c2c2c2;">
-                    <center>
-                      <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                        <tr>
-                          <td valign="middle" align="left">
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="background-color:#c2c2c2;">
+                            <center>
+                                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                                    <tr>
+                                        <td valign="middle" align="left">
                                             ${object.company_id.name}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style="text-align:left;opacity: 0.7;">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="text-align:left;opacity: 0.7;">
                                             ${object.company_id.phone}
                                             % if object.company_id.email
-                                            |                            <a href="'mailto:%s' % ${object.company_id.email}" style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
+                                            | <a href="'mailto:%s' % ${object.company_id.email}"
+                                               style="text-decoration:none; color: #454748;">${object.company_id.email}</a>
                                             % endif
                                             % if object.company_id.website
-                                            |                            <a href="'%s' % ${object.company_id.website}" style="text-decoration:none; color: #454748;">
+                                            | <a href="'%s' % ${object.company_id.website}"
+                                               style="text-decoration:none; color: #454748;">
                                                 ${object.company_id.website}
-                            </a>
+                                            </a>
                                             % endif
-                          </td>
-                        </tr>
-                      </table>
-                    </center>
-                  </td>
-                </tr>
-              </tfoot>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
-          </td>
-        </tr>
-      </table>
-    </field>
-    <field name="safe">1</field>
-    <field name="enable_id_trans" eval="False"/>
-    <field name="enable_duplicate_check" eval="False"/>
-    <field name="duplicate_check_interval">1800</field>
-  </record>
+        </td>
+    </tr>
+</table>
+            </field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
+        </record>
 
-
-  <!-- 2. 挑战：简单的挑战报告进度  -->
-  <record id="gamification.simple_report_template" model="mail.template">
-    <field name="msgtype">mpnews</field>
-    <field name="media_id" ref="wecom_material.wecom_material_image_gamification"/>
-    <field name="message_to_user">${object.user_id.partner_id.wecom_id}</field>
-    <field name="body_html" type="html">
-      <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
-      <table cellspacing="0" cellpadding="0" width="100%" style="background-color: #EEE; border-collapse: collapse;">
-        <tr>
-          <td valign="top" align="center">
+        
+        <!-- 2. 挑战：简单的挑战报告进度  -->
+        <record id="gamification.simple_report_template"  model="mail.template">
+            <field name="msgtype">mpnews</field>
+            <field name="media_id" ref="wxwork_material.wxwork_material_image_gamification"/>
+            <field name="message_to_user">${object.user_id.partner_id.wxwork_id}</field>
+            <field name="message_body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
+<table cellspacing="0"
+       cellpadding="0"
+       width="100%"
+       style="background-color: #EEE; border-collapse: collapse;">
+  <tr>
+    <td valign="top"
+        align="center">
       % set record = ctx.get('record')
       % set company = record and record.company_id or user.company_id
       % set challenge_lines = ctx.get('challenge_lines', [])
-            <table cellspacing="0" cellpadding="0" width="600" style="margin: 0 auto; width: 570px;">
+      <table cellspacing="0"
+             cellpadding="0"
+             width="600"
+             style="margin: 0 auto; width: 570px;">
+        <tr>
+          <td>
+            <table cellspacing="0"
+                   cellpadding="0"
+                   width="100%">
               <tr>
-                <td>
-                  <table cellspacing="0" cellpadding="0" width="100%">
-                    <tr>
-                      <div>
+                <div>
                   % if object.visibility_mode == 'ranking':
-                        <td style="padding:15px;">
-                          <p style="font-size:20px;color:#666666;" align="center">Leaderboard</p>
-                        </td>
+                  <td style="padding:15px;">
+                    <p style="font-size:20px;color:#666666;"
+                       align="center">Leaderboard</p>
+                  </td>
                   % endif
-                      </div>
+                </div>
+              </tr>
+            </table>
+            <table cellspacing="0"
+                   cellpadding="0"
+                   width="100%"
+                   bgcolor="#fff"
+                   style="background-color:#fff;">
+              <tr>
+                <td style="padding: 15px;">
+                  % if object.visibility_mode == 'personal':
+                  <span style="color:#666666;font-size:13px;">Here is your current progress in the challenge
+                    <strong>${object.name}</strong>.</span>
+                  <table cellspacing="0"
+                         cellpadding="0"
+                         width="100%"
+                         style="margin-top:20px;">
+                    <tr>
+                      <td align="center">
+                        <div>Personal Performance</div>
+                      </td>
                     </tr>
                   </table>
-                  <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#fff" style="background-color:#fff;">
-                    <tr>
-                      <td style="padding: 15px;">
-                  % if object.visibility_mode == 'personal':
-                        <span style="color:#666666;font-size:13px;">Here is your current progress in the challenge
-                          <strong>${object.name}</strong>.
-                        </span>
-                        <table cellspacing="0" cellpadding="0" width="100%" style="margin-top:20px;">
-                          <tr>
-                            <td align="center">
-                              <div>Personal Performance</div>
-                            </td>
-                          </tr>
-                        </table>
-                        <table cellspacing="0" cellpadding="0" width="100%" style="margin-top:30px;color:#666666;">
-                          <thead>
-                            <tr style="color:#9A6C8E; font-size:12px;">
-                              <th align="left" style="padding-bottom: 0px;width:40%;text-align:left;">Goals</th>
-                              <th style="width:20%;text-align:right;" align="left">Target</th>
-                              <th style="width:20%;text-align:right;" align="right">Current</th>
-                              <th style="width:20%;text-align:right;" align="right">Completeness</th>
-                            </tr>
-                            <tr>
-                              <td colspan="5" style="height:1px;background-color:#9A6C8E;"></td>
-                            </tr>
-                          </thead>
-                          <tbody>
+                  <table cellspacing="0"
+                         cellpadding="0"
+                         width="100%"
+                         style="margin-top:30px;color:#666666;">
+                    <thead>
+                      <tr style="color:#9A6C8E; font-size:12px;">
+                        <th align="left"
+                            style="padding-bottom: 0px;width:40%;text-align:left;">Goals</th>
+                        <th style="width:20%;text-align:right;"
+                            align="left">Target</th>
+                        <th style="width:20%;text-align:right;"
+                            align="right">Current</th>
+                        <th style="width:20%;text-align:right;"
+                            align="right">Completeness</th>
+                      </tr>
+                      <tr>
+                        <td colspan="5"
+                            style="height:1px;background-color:#9A6C8E;"></td>
+                      </tr>
+                    </thead>
+                    <tbody>
                       % for line in challenge_lines:
-                            <tr style="font-weight:bold;">
-                              <td style="padding: 20px 0;" align="left">
+                      <tr style="font-weight:bold;">
+                        <td style="padding: 20px 0;"
+                            align="left">
                           ${line['name']}
                           % if line['suffix'] or line['monetary']:
                           (${line['full_suffix']})
                           % endif
-                              </td>
-                              <td style="padding: 20px 0;" align="right">${"%.2f" % line['target']}
+                        </td>
+                        <td style="padding: 20px 0;"
+                            align="right">${"%.2f" % line['target']}
                           % if line['suffix']:
                           ${line['suffix']}
                           % endif
-                              </td>
-                              <td style="padding: 20px 0;" align="right">${"%.2f" % line['current']}
+                        </td>
+                        <td style="padding: 20px 0;"
+                            align="right">${"%.2f" % line['current']}
                           % if line['suffix']:
                           ${line['suffix']}
                           % endif
-                              </td>
-                              <td style="padding: 20px 0;font-size:25px;color:#9A6C8E;" align="right">
-                                <strong>${line['completeness']| int}%</strong>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td colspan="5" style="height:1px;background-color:#e3e3e3;"></td>
-                            </tr>
+                        </td>
+                        <td style="padding: 20px 0;font-size:25px;color:#9A6C8E;"
+                            align="right"><strong>${line['completeness']| int}%</strong></td>
+                      </tr>
+                      <tr>
+                        <td colspan="5"
+                            style="height:1px;background-color:#e3e3e3;"></td>
+                      </tr>
                       % endfor
-                          </tbody>
-                        </table>
+                    </tbody>
+                  </table>
                   % else:
-                        <span style="color:#A8A8A8;font-size:13px;">
+                  <span style="color:#A8A8A8;font-size:13px;">
                     Challenge: <strong>${object.name}</strong>.
-                        </span>
+                  </span>
                   % for line in challenge_lines:
-                                                                  <!-- Header + Button table -->
-                        <table cellspacing="0" cellpadding="0" width="100%" style="margin-top:35px;">
-                          <tr>
-                            <td width="50%">
-                              <div>Top Achievers for goal <strong>${line['name']}</strong>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                        <!-- Podium -->
+                  <!-- Header + Button table -->
+                  <table cellspacing="0"
+                         cellpadding="0"
+                         width="100%"
+                         style="margin-top:35px;">
+                    <tr>
+                      <td width="50%">
+                        <div>Top Achievers for goal <strong>${line['name']}</strong></div>
+                      </td>
+                    </tr>
+                  </table>
+                  <!-- Podium -->
                   % if len(line['goals']) == 2:
-                        <table cellspacing="0" cellpadding="0" width="100%" style="margin-top:10px;">
+                  <table cellspacing="0"
+                         cellpadding="0"
+                         width="100%"
+                         style="margin-top:10px;">
+                    <tr>
+                      <td style="padding:0 30px;">
+                        <table cellspacing="0"
+                               cellpadding="0"
+                               width="100%"
+                               style="table-layout: fixed;">
                           <tr>
-                            <td style="padding:0 30px;">
-                              <table cellspacing="0" cellpadding="0" width="100%" style="table-layout: fixed;">
-                                <tr>
                             % set top_goals = line['goals'][:3]
                             % for goal in top_goals:
-                                  <td align="center" style="width:32%;">
+                            <td align="center"
+                                style="width:32%;">
                               % if loop.index == 1:
                               % set extra_div = '<div style="height:40px;"></div>'
                               % set heightA = 95
@@ -226,311 +262,324 @@
                               % set fontSize = 35
                               % set podiumPosition = '3'
                               % endif
-                                    <div style="margin:0 3px 0 3px;height:220px;">
-                                      <div style="height:${heightA}px;">
+                              <div style="margin:0 3px 0 3px;height:220px;">
+                                <div style="height:${heightA}px;">
                                   ${extra_div | safe}
-                                        <div style="height:55px;">
-                                          <img style="margin-bottom:5px;width:50px;height:50px;border-radius:50%;object-fit:cover;" t-att-src="image_data_uri(object.env['res.users'].browse(goal['user_id']).partner_id.image_128)" alt="${goal['name']}" />
-                                        </div>
-                                        <div align="center" style="color:${bgColor};height:20px">
+                                  <div style="height:55px;">
+                                    <img style="margin-bottom:5px;width:50px;height:50px;border-radius:50%;object-fit:cover;"
+                                         t-att-src="image_data_uri(object.env['res.users'].browse(goal['user_id']).partner_id.image_128)"
+                                         alt="${goal['name']}" />
+                                  </div>
+                                  <div align="center"
+                                       style="color:${bgColor};height:20px">
                                     ${goal['name']}
-                                        </div>
-                                      </div>
-                                      <div style="background-color:${bgColor | safe};height:${heightB}px;">
-                                        <strong>
-                                          <span style="color:#fff;font-size:${fontSize}px;">${podiumPosition |
-                                      safe}</span>
-                                        </strong>
-                                      </div>
-                                      <div style="height:30px;">
+                                  </div>
+                                </div>
+                                <div style="background-color:${bgColor | safe};height:${heightB}px;">
+                                  <strong><span style="color:#fff;font-size:${fontSize}px;">${podiumPosition |
+                                      safe}</span></strong>
+                                </div>
+                                <div style="height:30px;">
                                   ${"%.2f" % goal['current']}
                                   % if line['suffix'] or line['monetary']:
                                   ${line['full_suffix']}
                                   % endif
-                                      </div>
-                                    </div>
-                                  </td>
-                            % endfor
-                                </tr>
-                              </table>
+                                </div>
+                              </div>
                             </td>
+                            % endfor
                           </tr>
                         </table>
+                      </td>
+                    </tr>
+                  </table>
                   % endif
-                                                                  <!-- data table -->
-                        <table cellspacing="0" cellpadding="0" width="100%" style="margin-bottom:5px">
-                          <tr>
-                            <td>
-                              <table cellspacing="0" cellpadding="0" width="100%" style="margin-top:30px;margin-bottom:5px;color:#666666;">
-                                <thead>
-                                  <tr style="color:#9A6C8E; font-size:12px;">
-                                    <th style="width:15%;text-align:center;">Rank</th>
-                                    <th style="width:25%;text-align:left;">Name</th>
-                                    <th style="width:30%;text-align:right;">Performance
+                  <!-- data table -->
+                  <table cellspacing="0"
+                         cellpadding="0"
+                         width="100%"
+                         style="margin-bottom:5px">
+                    <tr>
+                      <td>
+                        <table cellspacing="0"
+                               cellpadding="0"
+                               width="100%"
+                               style="margin-top:30px;margin-bottom:5px;color:#666666;">
+                          <thead>
+                            <tr style="color:#9A6C8E; font-size:12px;">
+                              <th style="width:15%;text-align:center;">Rank</th>
+                              <th style="width:25%;text-align:left;">Name</th>
+                              <th style="width:30%;text-align:right;">Performance
                                 % if line['suffix']:
                                 (${line['suffix']})
                                 % elif line['monetary']:
                                 (${company.currency_id.symbol})
                                 % endif
-                                    </th>
-                                    <th style="width:30%;text-align:right;">Completeness</th>
-                                  </tr>
-                                  <tr>
-                                    <td colspan="5" style="height:1px;background-color:#9A6C8E;"></td>
-                                  </tr>
-                                </thead>
-                                <tbody>
+                              </th>
+                              <th style="width:30%;text-align:right;">Completeness</th>
+                            </tr>
+                            <tr>
+                              <td colspan="5"
+                                  style="height:1px;background-color:#9A6C8E;"></td>
+                            </tr>
+                          </thead>
+                          <tbody>
                             % for goal in line['goals']:
-                                  <tr>
+                            <tr>
                               % set tdBgColor = '#fff'
                               % set tdColor = 'gray'
                               % set mutedColor = '#AAAAAA'
                               % set tdPercentageColor = '#9A6C8E'
-                                    <td width="15%" align="center" valign="middle" style="background-color:${tdBgColor};padding :5px 0;font-size:20px;">${goal['rank']+1}
-                                    </td>
-                                    <td width="25%" align="left" valign="middle" style="background-color:${tdBgColor};padding :5px 0;font-size:13px;">${goal['name']}
-                                    </td>
-                                    <td width="30%" align="right" style="background-color:${tdBgColor};padding:5px 0;line-height:1;">${"%.2f" %
-                                goal['current']}<br />
-                                    <span style="font-size:13px;color:${mutedColor};">on ${"%.2f" %
+                              <td width="15%"
+                                  align="center"
+                                  valign="middle"
+                                  style="background-color:${tdBgColor};padding :5px 0;font-size:20px;">${goal['rank']+1}
+                              </td>
+                              <td width="25%"
+                                  align="left"
+                                  valign="middle"
+                                  style="background-color:${tdBgColor};padding :5px 0;font-size:13px;">${goal['name']}
+                              </td>
+                              <td width="30%"
+                                  align="right"
+                                  style="background-color:${tdBgColor};padding:5px 0;line-height:1;">${"%.2f" %
+                                goal['current']}<br /><span style="font-size:13px;color:${mutedColor};">on ${"%.2f" %
                                   line['target']}</span>
-                                  </td>
-                                  <td width="30%" style="color:${tdPercentageColor};background-color:${tdBgColor};padding-right:15px;font-size:22px;" align="right">
-                                    <strong>${goal['completeness'] | int}%</strong>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td colspan="5" style="height:1px;background-color:#DADADA;"></td>
-                                </tr>
+                              </td>
+                              <td width="30%"
+                                  style="color:${tdPercentageColor};background-color:${tdBgColor};padding-right:15px;font-size:22px;"
+                                  align="right"><strong>${goal['completeness'] | int}%</strong></td>
+                            </tr>
+                            <tr>
+                              <td colspan="5"
+                                  style="height:1px;background-color:#DADADA;"></td>
+                            </tr>
                             % endfor
-                              </tbody>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
                   % endfor
                   % endif
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-  </field>
-  <field name="safe">1</field>
-  <field name="enable_id_trans" eval="False"/>
-  <field name="enable_duplicate_check" eval="False"/>
-  <field name="duplicate_check_interval">1800</field>
-</record>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+            </field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
+        </record>
 
-<!-- 3. 用户：达到新排名  -->
-<record id="gamification.mail_template_data_new_rank_reached" model="mail.template">
-  <field name="msgtype">mpnews</field>
-  <field name="media_id" ref="wecom_material.wecom_material_image_gamification"/>
-  <field name="message_to_user">${object.user_id.partner_id.wecom_id}</field>
-  <field name="body_html" type="html">
-    <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
-    <div style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;">
-      <table style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;">
-        <tbody>
-          <tr>
-            <td style="padding:15px 20px 10px 20px;">
-              <p>
+        <!-- 3. 用户：达到新排名  -->
+        <record id="gamification.mail_template_data_new_rank_reached"  model="mail.template">   
+            <field name="msgtype">mpnews</field>
+            <field name="media_id" ref="wxwork_material.wxwork_material_image_gamification"/>
+            <field name="message_to_user">${object.user_id.partner_id.wxwork_id}</field>
+            <field name="message_body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
+<div style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;">
+  <table style="width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;">
+    <tbody>
+      <tr>
+        <td style="padding:15px 20px 10px 20px;">
+          <p>
             Congratulations
-                <span>${object.name or ''}</span>!
-              </p>
-              <p>
+            <span>${object.name or ''}</span>!
+          </p>
+          <p>
             You just reached a new rank : <strong>${object.rank_id.name}</strong>
-              </p>
+          </p>
           % if object.next_rank_id.name
-              <p>Continue your work to become a <strong>${object.next_rank_id.name}</strong> !
-              </p>
+          <p>Continue your work to become a <strong>${object.next_rank_id.name}</strong> !</p>
           % endif
-              <div style="margin: 16px 0px 16px 0px;">
+          <div style="margin: 16px 0px 16px 0px;">
             % set gamification_redirection_data = object.get_gamification_redirection_data()
             % for data in gamification_redirection_data
             % set url = data['url']
             % set label = data['label']
-                <a href="${url}" style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">${label}</a>
+            <a href="${url}"
+               style="background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">${label}</a>
             % endfor
-              </div>
-            </td>
-            <td style="padding:15px 20px 10px 20px;">
-              <p style="text-align: center;">
-                <img src="/web/image/gamification.karma.rank/${object.rank_id.id}/image_128" />
-              </p>
-            </td>
-          </tr>
+          </div>
+        </td>
+        <td style="padding:15px 20px 10px 20px;">
+          <p style="text-align: center;">
+            <img src="/web/image/gamification.karma.rank/${object.rank_id.id}/image_128" />
+          </p>
+        </td>
+      </tr>
       % if user.signature
-          <tr>
-            <td style="padding:15px 20px 10px 20px;">
+      <tr>
+        <td style="padding:15px 20px 10px 20px;">
           ${user.signature | safe}
+        </td>
+      </tr>
+      % endif
+    </tbody>
+  </table>
+</div>
+            </field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
+        </record>
+
+        <!-- 4. 收到的徽章   -->
+        <record id="gamification.email_template_badge_received"  model="mail.template">
+            <field name="msgtype">mpnews</field>
+            <field name="media_id" ref="wxwork_material.wxwork_material_image_gamification"/>
+            <field name="message_to_user">${object.user_id.partner_id.wxwork_id}</field>
+            <field name="message_body_html" type="html">
+<link rel="stylesheet" type="text/css" href="/wxwork_message/static/src/css/messages.css"/>
+<table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
+  <tr>
+    <td align="center" valign="top" bgcolor="#ffffff" width="100%">
+      <table cellspacing="0" cellpadding="0" width="100%">
+        <thead>
+          <tr>
+            <td style="border-bottom: 3px solid #3bcdc3;" width="100%">
+              <center>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                  <tr>
+                    <td valign="top" style="text-align:left;" class="mobile-center">
+                      <img height="62" src="/logo.png?company=${object.user_id.company_id.id}" alt="${object.user_id.company_id.name}" />
+                    </td>
+                  </tr>
+                </table>
+              </center>
             </td>
           </tr>
-      % endif
-        </tbody>
-      </table>
-    </div>
-  </field>
-  <field name="safe">1</field>
-  <field name="enable_id_trans" eval="False"/>
-  <field name="enable_duplicate_check" eval="False"/>
-  <field name="duplicate_check_interval">1800</field>
-</record>
-
-<!-- 4. 收到的徽章   -->
-<record id="gamification.email_template_badge_received" model="mail.template">
-  <field name="msgtype">mpnews</field>
-  <field name="media_id" ref="wecom_material.wecom_material_image_gamification"/>
-  <field name="message_to_user">${object.user_id.partner_id.wecom_id}</field>
-  <field name="body_html" type="html">
-    <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
-    <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
-      <tr>
-        <td align="center" valign="top" bgcolor="#ffffff" width="100%">
-          <table cellspacing="0" cellpadding="0" width="100%">
-            <thead>
-              <tr>
-                <td style="border-bottom: 3px solid #3bcdc3;" width="100%">
-                  <center>
-                    <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                      <tr>
-                        <td valign="top" style="text-align:left;" class="mobile-center">
-                          <img height="62" src="/logo.png?company=${object.user_id.company_id.id}" alt="${object.user_id.company_id.name}" />
-                        </td>
-                      </tr>
-                    </table>
-                  </center>
-                </td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td valign="top">
-                  <center>
-                    <table cellspacing="0" cellpadding="30" width="500" class="w320">
-                      <tr>
-                        <td valign="top" style="border-bottom:1px solid #a1a1a1;">
-                          <table cellspacing="0" cellpadding="0" width="100%">
-                            <tr>
-                              <td style="text-align: center;">
-                                <h3>
-                                  <strong>Your Badge: ${object.badge_id.name} </strong>
-                                </h3>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
-                    </table>
-                    <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                      <tr>
-                        <td>
+        </thead>
+        <tbody>
+          <tr>
+            <td valign="top">
+              <center>
+                <table cellspacing="0" cellpadding="30" width="500" class="w320">
+                  <tr>
+                    <td valign="top" style="border-bottom:1px solid #a1a1a1;">
+                      <table cellspacing="0" cellpadding="0" width="100%">
+                        <tr>
+                          <td style="text-align: center;">
+                            <h3><strong>Your Badge: ${object.badge_id.name} </strong></h3>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                  <tr>
+                    <td>
                       Congratulations ${object.user_id.name} !<br />
-                      You just received badge <strong>${object.badge_id.name}</strong> !                        <br />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                          <tr>
-                            <td style="padding-bottom:30px; padding-top:30px;" class="mobile-img">
-                              <table cellspacing="0" cellpadding="0" width="100%">
+                      You just received badge <strong>${object.badge_id.name}</strong> !<br />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                        <tr>
+                          <td style="padding-bottom:30px; padding-top:30px;" class="mobile-img">                            
+                            <table cellspacing="0" cellpadding="0" width="100%">
                               % if object.badge_id.description
-                                <tr>
-                                  <td style="padding-bottom:0px;" class="mobile-img">
-                                    <table cellspacing="0" cellpadding="0" width="120">
-                                      <tr>
-                                        <td style="vertical-align:middle; text-align:center;" class="mobile-img">
-                                          <img style="border:1px solid #a1a1a1;width: 80px;height: auto;" src="/web/image/gamification.badge/${object.badge_id.id}/image_128" alt="${user.company_id.name}" />
-                                        </td>
-                                      </tr>
-                                    </table>
-                                  </td>
-                                  <td class="mobile-block mobile-padding" style="text-align:left;">
-                                    <cite>${object.badge_id.description}</cite>
-                                  </td>
-                                </tr>
+                              <tr>
+                                <td style="padding-bottom:0px;" class="mobile-img">
+                                  <table cellspacing="0" cellpadding="0" width="120">
+                                    <tr>
+                                      <td style="vertical-align:middle; text-align:center;" class="mobile-img">
+                                        <img style="border:1px solid #a1a1a1;width: 80px;height: auto;" src="/web/image/gamification.badge/${object.badge_id.id}/image_128" alt="${user.company_id.name}" />
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                                <td class="mobile-block mobile-padding" style="text-align:left;">
+                                  <cite>${object.badge_id.description}</cite>
+                                </td>
+                              </tr>
                               % endif
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="mobile-padding">
-                        <table cellspacing="0" cellpadding="0" width="100%">
-                          <tr>
-                            <td>
-                              <br />
+                            </table>                            
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="mobile-padding">
+                      <table cellspacing="0" cellpadding="0" width="100%">
+                        <tr>
+                          <td>
+                            <br />
                             % if object.sender_id
                             This badge was granted by <strong>${object.sender_id.name}</strong>.
                             % endif
-                              <br />
+                            <br />
                             % if object.comment
                             ${object.comment}
                             % endif
-                              <br />
-                              <br />
+                            <br /><br />
                             Thank you,
                             % if object.sender_id.signature:
-                              <br />
+                            <br />
                             ${object.sender_id.signature | safe}
                             % endif
-                              <br />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </center>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td style="background-color:#c2c2c2;">
-                <center>
-                  <table cellspacing="0" cellpadding="0" width="500" class="w320">
-                    <tr>
-                      <td valign="middle" align="left">
+                            <br />
+                          </td>
+                        </tr>                        
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td style="background-color:#c2c2c2;">
+              <center>
+                <table cellspacing="0" cellpadding="0" width="500" class="w320">
+                  <tr>
+                    <td valign="middle" align="left">
                       ${object.user_id.company_id.name}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td style="text-align:left;opacity: 0.7;">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="text-align:left;opacity: 0.7;">
                       ${object.user_id.company_id.phone}
                       % if object.user_id.company_id.email
-                      |                        <a href="'mailto:%s' % ${object.user_id.company_id.email}" style="text-decoration:none; color: #454748;">${object.user_id.company_id.email}</a>
+                      | <a href="'mailto:%s' % ${object.user_id.company_id.email}" style="text-decoration:none; color: #454748;">${object.user_id.company_id.email}</a>
                       % endif
                       % if object.user_id.company_id.website
-                      |                        <a href="'%s' % ${object.user_id.company_id.website}" style="text-decoration:none; color: #454748;">
+                      | <a href="'%s' % ${object.user_id.company_id.website}" style="text-decoration:none; color: #454748;">
                         ${object.user_id.company_id.website}
-                        </a>
+                      </a>
                       % endif
-                      </td>
-                    </tr>
-                  </table>
-                </center>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </td>
-    </tr>
-  </table>
-</field>
-<field name="safe">1</field>
-<field name="enable_id_trans" eval="False"/>
-<field name="enable_duplicate_check" eval="False"/>
-<field name="duplicate_check_interval">1800</field>
+                    </td>
+                  </tr>
+                </table>
+              </center>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </td>
+  </tr>
+</table>
+            </field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
 
-</record>
+        </record>
 
-</data>
+    </data>
 </odoo>

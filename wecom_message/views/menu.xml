@@ -39,9 +39,9 @@
 
         <!-- <menuitem id="menu_wecom_message" name="Message" parent="menu_wecom_message_root" sequence="97" /> -->
 
-        <menuitem id="menu_wecom_message_records" name="Records" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="action_view_wecom_message_records" sequence="10"/>
+        <!-- <menuitem id="menu_wecom_message_records" name="Records" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="action_view_wecom_message_records" sequence="10"/> -->
 
-        <menuitem id="menu_wecom_message_template" name="Template" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="wecom_meaasge_template_action" sequence="20"/>
+
 
         <!-- <menuitem id="menu_message_template" name="Template(EMail)" parent="menu_wecom_message" action="action_view_wecom_message_template_tree_all" sequence="20"/> -->
 

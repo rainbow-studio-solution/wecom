@@ -2,10 +2,10 @@
 <odoo>
     <data>
         <record id="view_wxwrok_attendance_rule_tree" model="ir.ui.view">
-            <field name="name">WeCom Attendance Rules List</field>
+            <field name="name">Enterprise WeChat Attendance Rules List</field>
             <field name="model">hr.attendance.wxwrok.rule</field>
             <field name="arch" type="xml">
-                <tree edit="false" create="false">
+                <tree edit="false" create="false" >
                     <field name="groupname"/>
                     <field name="grouptype"/>
                     <field name="type"/>
@@ -24,7 +24,7 @@
         </record>
 
         <record id="view_wxwrok_attendance_rule_form" model="ir.ui.view">
-            <field name="name">WeCom Attendance Rules Form</field>
+            <field name="name">Enterprise WeChat Attendance Rules Form</field>
             <field name="model">hr.attendance.wxwrok.rule</field>
             <field name="arch" type="xml">
                 <form edit="false" create="false">
@@ -40,7 +40,7 @@
         </record>
 
         <record id="open_module_tree_attendance_rule" model="ir.actions.act_window">
-            <field name="name">WeCom Attendance Rules</field>
+            <field name="name">Enterprise WeChat Attendance Rules</field>
             <field name="res_model">hr.attendance.wxwrok.rule</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>

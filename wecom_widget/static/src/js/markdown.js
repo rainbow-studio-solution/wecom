@@ -54,6 +54,7 @@ odoo.define("wecom_widget.FieldTextMarkDown", function (require) {
         },
         _prepareInput: function () {
             var $input = this._super.apply(this, arguments);
+            console.log("_prepareInput", $input.length)
 
             _.defer(function ($elm) {
                 if ($input[1]) {
@@ -86,6 +87,7 @@ odoo.define("wecom_widget.FieldTextMarkDown", function (require) {
             this._prepareInput(this.$el);
         },
         _renderReadonly: function () {
+            console.log("_renderReadonly", this.$el)
             if (this.value != "") {
                 this.$el.html(marked(this._formatValue(this.value)));
             }

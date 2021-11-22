@@ -46,32 +46,6 @@ class Company(models.Model):
         attachment=False,
     )  # compute="_compute_square_logo",
 
-    module_gamification = fields.Boolean(
-        "",
-    )
-    module_wecom_hr_gamification_message = fields.Boolean(
-        "Send messages to motivate users via WeCom",
-    )
-
-    module_digest = fields.Boolean(
-        "KPI Digests",
-    )
-    module_wxowrk_digest_message = fields.Boolean(
-        "Send KPI Digests periodically via WeCom",
-    )
-
-    module_stock = fields.Boolean(
-        "",
-    )
-    module_wecom_stock_message = fields.Boolean(
-        "Send Inventory message via WeCom",
-    )
-
-    # module_purchase = fields.Boolean("",)
-    # module_wecom_purchase_message = fields.Boolean(
-    #     "Send Purchase message via WeCom",
-    # )
-
     @api.onchange("square_logo")
     def _onchange_square_logo(self):
         if self.square_logo:

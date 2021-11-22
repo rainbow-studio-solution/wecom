@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_form_wecom_attendance_rule_pull_wizard" model="ir.ui.view">
+        <record id="view_form_wxwork_attendance_rule_pull_wizard" model="ir.ui.view">
             <field name="name">Wizard pull attendance data</field>
             <field name="model">wizard.attendance.data.pull</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Wizard pull attendance data" class="oe_form_configuration o_base_settings">
+                <form string="Wizard pull attendance data" class="oe_form_configuration o_base_settings" >
                     <div class="o_setting_container">
                         <div class="settings">
                             <div class="app_settings_block">
-                                <h2>Pull attendance data from WeCom</h2>
+                                <h2>Pull attendance data from Enterprise WeChat</h2>
                                 <div class="row mt16 o_settings_container">
                                     <div class="col-xs-12 col-md-6 o_setting_box">
                                         <div class="o_setting_left_pane">
@@ -18,17 +18,17 @@
                                         </div>
                                         <div class="o_setting_right_pane">
                                             <label for="start_time" />
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="start_time" widget="date" class="ml16 o_light_label"/>
                                             </div>
                                             <label for="end_time" />
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="end_time" widget="date" class="ml16 o_light_label"/>
                                             </div>
                                             <label for="delta" />
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="delta" class="ml16 o_light_label"/>
-                                            </div>
+                                            </div>                                            
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-6 o_setting_box">
@@ -42,18 +42,18 @@
                                                     If the department is empty, pull the entire organizational structure.
                                                 </div>
                                             </div>
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="department_id" class="ml16 o_light_label"/>
-                                            </div>
+                                            </div> 
                                             <label for="opencheckindatatype" />
                                             <div class="row">
                                                 <div class="text-muted col-md-12">
                                                     If the clock type is empty,Default all clock types.
                                                 </div>
                                             </div>
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="opencheckindatatype" class="ml16 o_light_label"/>
-                                            </div>
+                                            </div>                                           
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-md-12 o_setting_box">
@@ -67,7 +67,7 @@
                                                     If the automatic pull attendance task is on, there is no need to pull it frequently.
                                                 </div>
                                             </div>
-                                            <div class="content-group">
+                                            <div class="content-group" >
                                                 <field name="status" class="ml16 o_light_label"/>
                                             </div>
                                         </div>
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <footer>
                         <button name="action_pull_attendance_data" string="Pull" type="object" class="oe_highlight"/>
                         <button string="Cancel" class="btn-secondary" special="cancel"/>
@@ -85,11 +85,11 @@
             </field>
         </record>
 
-        <record id="view_actions_wecom_attendance_rule_pull_wizard" model="ir.actions.act_window">
+        <record id="view_actions_wxwork_attendance_rule_pull_wizard" model="ir.actions.act_window">
             <field name="name">Wizard pull attendance rules</field>
             <field name="res_model">wizard.attendance.rule.pull</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="view_form_wecom_attendance_rule_pull_wizard"/>
+            <field name="view_id" ref="view_form_wxwork_attendance_rule_pull_wizard"/>
             <field name="context">{}</field>
             <field name="target">new</field>
         </record>

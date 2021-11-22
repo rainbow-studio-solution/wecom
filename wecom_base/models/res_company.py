@@ -12,7 +12,53 @@ from odoo.tools.translate import translate
 class Company(models.Model):
     _inherit = "res.company"
 
+    # 基础
     abbreviated_name = fields.Char("Abbreviated Name", translate=True)
-
     is_wecom_organization = fields.Boolean("WeCom organization", default=False)
     corpid = fields.Char("Enterprise ID", default="xxxxxxxxxxxxxxxxxx")
+
+    # 通讯录
+    contacts_secret = fields.Char(
+        "Contact Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    )
+    contacts_access_token = fields.Char(
+        string="Contact token",
+        readonly=True,
+    )
+
+    contacts_auto_sync_hr_enabled = fields.Boolean(
+        "Allow WeCom Contacts are automatically updated to HR",
+        default=True,
+    )
+    contacts_sync_hr_department_id = fields.Integer(
+        "WeCom department ID to be synchronized",
+        default=1,
+    )
+    contacts_edit_enabled = fields.Boolean(
+        "Allow API to edit WeCom contacts",
+        default=False,
+        # readonly=True,
+    )
+    contacts_sync_user_enabled = fields.Boolean(
+        "Allow WeCom contacts to automatically update system accounts",
+        default=False,
+    )
+    contacts_use_system_default_avatar = fields.Boolean(
+        "Use system default Avatar",
+        default=True,
+    )
+
+    @api.onchange("contacts_use_system_default_avatar")
+    def _onchange_contacts_use_system_default_avatar(self):
+        employees = self.env["hr.employee"].search(
+            [
+                ("is_wecom_employee", "=", True),
+                "|",
+                ("active", "=", True),
+                ("active", "=", False),
+            ]
+        )
+        for employee in employees:
+            employee.write(
+                {"use_system_avatar": self.contacts_use_system_default_avatar}
+            )

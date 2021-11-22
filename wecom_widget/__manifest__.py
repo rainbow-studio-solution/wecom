@@ -19,6 +19,9 @@
     "qweb": [
         "static/src/xml/*.xml",
     ],
+    # "external_dependencies": {
+    #     "python": ["markdown"],
+    # },
     "sequence": 605,
     "installable": True,
     "auto_install": True,

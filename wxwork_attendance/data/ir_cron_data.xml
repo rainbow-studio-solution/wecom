@@ -3,7 +3,7 @@
     <data>
 
         <record forcecreate="True" id="ir_cron_auto_pull_attendance_data" model="ir.cron">
-            <field name="name">WeCom: regularly pull all types of attendance data within 3 days</field>
+            <field name="name">Enterprise WeChat: regularly pull all types of attendance data within 3 days</field>
             <field name="model_id" ref="model_res_config_settings"/>
             <field name="state">code</field>
             <field name="code">model.cron_pull_attendance_data()</field>

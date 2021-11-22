@@ -3,7 +3,7 @@
     "name": "WeCom Employee Portal",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 604,
+    "sequence": 605,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -23,7 +23,9 @@
     "external_dependencies": {
         "python": [],
     },
-    "data": [],
+    "data": [
+        "data/wecom_portal_data.xml",
+    ],
     "qweb": [
         "static/src/xml/*.xml",
     ],

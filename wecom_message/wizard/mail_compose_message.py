@@ -536,7 +536,6 @@ class MailComposer(models.TransientModel):
                 "model_id": model.id or False,
                 "attachment_ids": [(6, 0, [att.id for att in record.attachment_ids])],
                 "msgtype": record.msgtype or False,
-                "message_to_all": record.message_to_all or False,
                 "message_to_user": record.message_to_user or False,
                 "message_to_party": record.message_to_party or False,
                 "message_to_tag": record.message_to_tag or False,

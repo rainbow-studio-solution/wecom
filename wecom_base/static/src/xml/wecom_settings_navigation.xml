@@ -5,6 +5,9 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-building wecom__jump_anchor" href="#wecom_companies">
                 <h5 style="display:inline;"> Companies settings</h5>
             </a>
+            <a type="button" role="button" class="btn btn-secondary fa fa-book wecom__jump_anchor" href="#wecom_contact">
+                <h5 style="display:inline;">Contacts synchronization settings</h5>
+            </a>
         </div>
     </t>
 

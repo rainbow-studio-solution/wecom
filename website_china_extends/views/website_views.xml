@@ -6,10 +6,10 @@
             <field name="name">website.form</field>
             <field name="model">website</field>
             <field name="inherit_id" ref="website.view_website_form"/>
-            <field name="arch" type="xml">
-
+            <field name="arch" type="xml">                
+    
                 <!-- <xpath expr="//notebook/page[last()]" position="after">
-                    <page string="Chinese website function">
+                    <page string="Chinese website function" >
                         <group>
                             <group string="ICP filing">
                                 <field name="icp_filing_info"/>
@@ -23,16 +23,16 @@
                             <group string="Social networks">
                                 <field name="social_wechat" widget="image" class="float-left oe_avatar"/>
  
-                                <field name="module_wecom_customer_service" />
-                                <div class="text-info row" attrs="{'invisible': [('module_wecom_customer_service','=',True)]}">
-                                    You have installed the WeCom customer service function. Please set the customer service QR code in the WeCom application.
+                                <field name="module_wxwork_customer_service" />
+                                <div class="text-info row" attrs="{'invisible': [('module_wxwork_customer_service','=',True)]}">
+                                    You have installed the enterprise wechat customer service function. Please set the customer service QR code in the enterprise wechat application.
                                 </div>
 
-                                <field name="social_wechat_kf" widget="image" class="float-left oe_avatar" attrs="{'readonly': [('module_wecom_customer_service','=',True)],'invisible': [('module_wecom_customer_service','=',True)]}"/>
+                                <field name="social_wechat_kf" widget="image" class="float-left oe_avatar" attrs="{'readonly': [('module_wxwork_customer_service','=',True)],'invisible': [('module_wxwork_customer_service','=',True)]}"/>
 
-                                <field name="social_wechat_kf_compute" widget="image" class="float-left oe_avatar" attrs="{'invisible': [('module_wecom_customer_service','=',False)]}"/>
+                                <field name="social_wechat_kf_compute" widget="image" class="float-left oe_avatar" attrs="{'invisible': [('module_wxwork_customer_service','=',False)]}"/>
 
-                                <field name="social_qq" placeholder="88888888" options="{'format': false}"/>
+                                <field name="social_qq" placeholder="88888888"  options="{'format': false}"/>
                                 <field name="social_weibo" placeholder="http://weibo.com/youraccount"/>
                                 <field name="social_renren" placeholder="http://www.renren.com/youraccount"/>
                                 <field name="has_social_sidebar"/>
@@ -42,7 +42,7 @@
                         </group>
                     </page>
                 </xpath> -->
-
+                
             </field>
         </record>
 

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "WeCom Presence Message",
+    "name": "Enterprise WeChat Presence Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 614,
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "WeCom/WeCom",
+    "category": "Enterprise WeChat/Enterprise WeChat",
     "version": "14.0.0.1",
     "summary": """
         
@@ -16,14 +16,7 @@
 
 
         """,
-    "depends": [
-        "hr_presence",
-        "wecom_message",
-    ],
-    "data": [
-        "data/message_data.xml",
-    ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "depends": ["hr_presence", "wxwork_message",],
+    "data": ["data/message_data.xml",],
+    "qweb": ["static/src/xml/*.xml",],
 }

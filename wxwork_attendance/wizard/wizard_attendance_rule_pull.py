@@ -3,9 +3,9 @@
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
-from odoo.addons.wecom_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-from odoo.addons.wecom_api.api.error_code import Errcode
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 import datetime
 import time
@@ -15,7 +15,7 @@ import binascii
 
 class WizardAttendanceRulePull(models.TransientModel):
     _name = "wizard.attendance.rule.pull"
-    _description = "WeCom,Wizard pull attendance rules"
+    _description = "Enterprise WeChat,Wizard pull attendance rules"
 
     status = fields.Boolean(
         string="Automatically pull the task status of attendance",
@@ -24,16 +24,16 @@ class WizardAttendanceRulePull(models.TransientModel):
     )
 
     def _default_status(self):
-        cron = self.env.ref("wecom_attendance.ir_cron_auto_pull_attendance_data")
+        cron = self.env.ref("wxwork_attendance.ir_cron_auto_pull_attendance_data")
         return cron.active
 
     def action_pull_attendance_rule(self):
         params = self.env["ir.config_parameter"].sudo()
-        corpid = params.get_param("wecom.corpid")
-        secret = params.get_param("wecom.contacts_secret")
-        debug = params.get_param("wecom.debug_enabled")
+        corpid = params.get_param("wxwork.corpid")
+        secret = params.get_param("wxwork.contacts_secret")
+        debug = params.get_param("wxwork.debug_enabled")
         contacts_sync_hr_department_id = params.get_param(
-            "wecom.contacts_sync_hr_department_id"
+            "wxwork.contacts_sync_hr_department_id"
         )
 
         wxapi = CorpApi(corpid, secret)

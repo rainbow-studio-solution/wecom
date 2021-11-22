@@ -4,9 +4,9 @@ from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
 
-from odoo.addons.wecom_api.api.corp_api import CorpApi, CORP_API_TYPE
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-from odoo.addons.wecom_api.api.error_code import Errcode
+from odoo.addons.wxwork_api.api.corp_api import CorpApi, CORP_API_TYPE
+from odoo.addons.wxwork_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wxwork_api.api.error_code import Errcode
 
 import datetime
 import time
@@ -19,7 +19,7 @@ _logger = logging.getLogger(__name__)
 
 class WizardAttendanceRulePull(models.TransientModel):
     _name = "wizard.attendance.data.pull"
-    _description = "WeCom,Wizard pull attendance rules"
+    _description = "Enterprise WeChat,Wizard pull attendance rules"
 
     department_id = fields.Many2one(
         "hr.department",
@@ -50,7 +50,7 @@ class WizardAttendanceRulePull(models.TransientModel):
     )
 
     def _default_status(self):
-        cron = self.env.ref("wecom_attendance.ir_cron_auto_pull_attendance_data")
+        cron = self.env.ref("wxwork_attendance.ir_cron_auto_pull_attendance_data")
         return cron.active
 
     @api.depends("end_time", "delta")
@@ -62,14 +62,14 @@ class WizardAttendanceRulePull(models.TransientModel):
         拉取考勤数据
         """
         params = self.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wecom.debug_enabled")
+        debug = params.get_param("wxwork.debug_enabled")
         contacts_sync_hr_department_id = params.get_param(
-            "wecom.contacts_sync_hr_department_id"
+            "wxwork.contacts_sync_hr_department_id"
         )
         if not self.department_id:
             department_id = contacts_sync_hr_department_id
         else:
-            department_id = self.department_id.wecom_department_id
+            department_id = self.department_id.wxwork_department_id
 
         pull_list, batch = self.get_employees_by_department(department_id, params)
 
@@ -99,9 +99,9 @@ class WizardAttendanceRulePull(models.TransientModel):
         :param department_id:部门对象
         :return:企业微信成员UserID列表
         """
-        corpid = params.get_param("wecom.corpid")
-        secret = params.get_param("wecom.contacts_secret")
-        debug = params.get_param("wecom.debug_enabled")
+        corpid = params.get_param("wxwork.corpid")
+        secret = params.get_param("wxwork.contacts_secret")
+        debug = params.get_param("wxwork.debug_enabled")
 
         wxapi = CorpApi(corpid, secret)
         try:
@@ -132,7 +132,7 @@ class WizardAttendanceRulePull(models.TransientModel):
             if debug:
                 _logger.debug(
                     _(
-                        "Failed to get the WeCom user list，error code: %s,Error description: %s,Error Details:%s"
+                        "Failed to get the enterprise WeChat user list，error code: %s,Error description: %s,Error Details:%s"
                         % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
                     )
                 )
@@ -145,9 +145,9 @@ class WizardAttendanceRulePull(models.TransientModel):
         """
         获取打卡记录数据
         """
-        corpid = params.get_param("wecom.corpid")
-        secret = params.get_param("wecom.attendance_secret")
-        debug = params.get_param("wecom.debug_enabled")
+        corpid = params.get_param("wxwork.corpid")
+        secret = params.get_param("wxwork.attendance_secret")
+        debug = params.get_param("wxwork.debug_enabled")
 
         if not self.opencheckindatatype:
             opencheckindatatype = 3
@@ -198,7 +198,7 @@ class WizardAttendanceRulePull(models.TransientModel):
             if debug:
                 _logger.debug(
                     _(
-                        "Failed to pull WeCom attendance record data.，error code: %s,Error description: %s,Error Details:%s"
+                        "Failed to pull Enterprise WeChat attendance record data.，error code: %s,Error description: %s,Error Details:%s"
                         % (str(e.errCode), Errcode.getErrcode(e.errCode), e.errMsg)
                     )
                 )
@@ -213,7 +213,7 @@ class WizardAttendanceRulePull(models.TransientModel):
                 {
                     "name": self.sudo()
                     .env["hr.employee"]
-                    .search([("wecom_id", "=", checkindata["userid"])], limit=1)
+                    .search([("wxwork_id", "=", checkindata["userid"])], limit=1)
                     .name,
                     "userid": checkindata["userid"],
                     "groupname": checkindata["groupname"],

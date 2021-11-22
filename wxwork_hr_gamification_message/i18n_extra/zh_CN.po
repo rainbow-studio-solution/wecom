@@ -12,9 +12,9 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 
 #. module: gamification
-#: model:mail.template,body_html:gamification.email_template_badge_received
+#: model:mail.template,message_body_html:gamification.email_template_badge_received
 msgid ""
-"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wecom_message/static/src/css/messages.css\"/>\n"
+"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wxwork_message/static/src/css/messages.css\"/>\n"
 "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height=\"100%\">\n"
 "  <tr>\n"
 "    <td align=\"center\" valign=\"top\" bgcolor=\"#ffffff\" width=\"100%\">\n"
@@ -150,7 +150,7 @@ msgid ""
 "</table>\n"
 "            "
 msgstr ""
-"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wecom_message/static/src/css/messages.css\"/>\n"
+"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wxwork_message/static/src/css/messages.css\"/>\n"
 "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height=\"100%\">\n"
 "  <tr>\n"
 "    <td align=\"center\" valign=\"top\" bgcolor=\"#ffffff\" width=\"100%\">\n"

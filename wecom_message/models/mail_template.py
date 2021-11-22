@@ -16,6 +16,28 @@ class MailTemplate(models.Model):
     _description = "WeCom Message Templates"
     _order = "name"
 
+    # recipients
+    message_to_user = fields.Char(
+        string="To Users",
+        help="Message recipients (users)",
+    )
+    message_to_party = fields.Char(
+        string="To Departments",
+        help="Message recipients (departments)",
+    )
+    message_to_tag = fields.Char(
+        string="To Tags",
+        help="Message recipients (tags)",
+    )
+
+    # content
+    media_id = fields.Many2one(
+        string="Media file id",
+        comodel_name="wecom.material",
+        help="Media file ID, which can be obtained by calling the upload temporary material interface",
+    )
+    body_not_html = fields.Html("Json Body", translate=True, sanitize=False)
+    code = fields.Char("Message Code")
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -36,36 +58,11 @@ class MailTemplate(models.Model):
         default="text",
     )
 
+    # options
     is_wecom_message = fields.Boolean(
         "WeCom Message",
     )
-    message_to_all = fields.Boolean(
-        "To all members",
-    )
-    message_to_user = fields.Char(
-        string="To Users",
-        help="Message recipients (users)",
-    )
-    message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
-    )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
 
-    # content
-    media_id = fields.Many2one(
-        string="Media file id",
-        comodel_name="wecom.material",
-        help="Media file ID, which can be obtained by calling the upload temporary material interface",
-    )
-
-    body_html = fields.Html("Html Body", translate=True, sanitize=False)
-    body_not_html = fields.Text("Json Body", translate=True)
-
-    # options
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -73,7 +70,6 @@ class MailTemplate(models.Model):
             ("2", "Only share within the company "),
         ],
         string="Secret message",
-        required=True,
         default="1",
         help="Indicates whether it is a confidential message, 0 indicates that it can be shared externally, 1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it can only be shared within the enterprise, and the default is 0; Note that only messages of mpnews type support the safe value of 2, and other message types do not",
     )
