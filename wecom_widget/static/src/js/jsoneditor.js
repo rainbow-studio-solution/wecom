@@ -90,6 +90,7 @@ odoo.define("wecom.FieldTextJson", function (require) {
             var $input = this._super.apply(this, arguments);
             var self = this;
             self.json_data = $input.val();
+            $input.empty();
             _.defer(function ($elm) {
 
                 $input.removeClass(this.className);
