@@ -38,7 +38,7 @@ class WecomMessage(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_html = fields.Html("Html Body", translate=True, sanitize=False)
-    body_not_html = fields.Text("Json Body", translate=True)
+    body_json = fields.Text("Json Body", translate=True)
     body = fields.Html("Contents", default="", sanitize_style=True)
     description = fields.Char(
         "Short description",
@@ -323,7 +323,7 @@ class WecomMessage(models.Model):
                 description=message.description,
                 author_id=message.author_id,
                 body_html=message.body_html,
-                body_json=message.body_not_html,
+                body_json=message.body_json,
                 safe=message.safe,
                 enable_id_trans=message.enable_id_trans,
                 enable_duplicate_check=message.enable_duplicate_check,

@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="wecom_id" />
+                    <field name="wecom_user_id" />
                     <field name="company_id" />
                 </tree>
             </field>
@@ -26,7 +26,7 @@
                         <group>
                             <field name="name" />
                             <field name="company_id" widget="selection" />
-                            <field name="wecom_id" />
+                            <field name="wecom_user_id" />
                         </group>
 
                     </sheet>

@@ -52,7 +52,7 @@
                     <page name="wecom_settings" string="WeCom settings">
                         <group>
                             <group>
-                                <field name="wecom_id" />
+                                <field name="wecom_user_id" />
                                 <field name="is_wecom_employee"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
@@ -104,7 +104,7 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="wecom_id" />
+                    <field name="wecom_user_id" />
                     <field name="department_id"/>
                     <field name="is_wecom_employee"/>
                 </tree>

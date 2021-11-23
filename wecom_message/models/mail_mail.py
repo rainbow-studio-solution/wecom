@@ -35,7 +35,7 @@ class MailMail(models.Model):
     message_to_tag = fields.Char(
         string="To Tags",
     )
-    body_not_html = fields.Text(
+    body_json = fields.Text(
         "Text Contents",
     )
     body_html = fields.Text(
@@ -237,7 +237,9 @@ class MailMail(models.Model):
         body_alternative = tools.html2plaintext(body)
         if partner:
             message_to_user = [
-                tools.formataddr((partner.name or "False", partner.wecom_id or "False"))
+                tools.formataddr(
+                    (partner.name or "False", partner.wecom_user_id or "False")
+                )
             ]
         else:
             message_to_user = tools.email_split_and_format(self.email_to)
@@ -261,13 +263,15 @@ class MailMail(models.Model):
                 tools.formataddr((partner.name or "False", partner.email or "False"))
             ]
             message_to_user = [
-                tools.formataddr((partner.name or "False", partner.wecom_id or "False"))
+                tools.formataddr(
+                    (partner.name or "False", partner.wecom_user_id or "False")
+                )
             ]
         else:
             email_to = tools.email_split_and_format(self.email_to)
             message_to_user = self.message_to_user
         res = {
-            # "body_not_html": body_not_html,
+            # "body_json": body_json,
             # "body_html": body_html,
             "email_to": email_to,
             "message_to_user": message_to_user,
@@ -294,7 +298,7 @@ class MailMail(models.Model):
             .sudo()
             .search(
                 [
-                    ("wecom_id", "=", self.message_to_user),
+                    ("wecom_user_id", "=", self.message_to_user),
                     "|",
                     ("active", "=", True),
                     ("active", "=", False),
@@ -436,7 +440,7 @@ class MailMail(models.Model):
                         description=mail.description,
                         author_id=mail.author_id,
                         body_html=mail.body_html,
-                        body_json=mail.body_not_html,
+                        body_json=mail.body_json,
                         safe=mail.safe,
                         enable_id_trans=mail.enable_id_trans,
                         enable_duplicate_check=mail.enable_duplicate_check,

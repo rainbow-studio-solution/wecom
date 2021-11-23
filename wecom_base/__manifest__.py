@@ -24,6 +24,7 @@
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
+        "views/res_users_views.xml",
         "views/menu.xml",
     ],
     "qweb": [

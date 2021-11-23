@@ -89,7 +89,7 @@ class Message(models.Model):
     media_id = fields.Char(
         string="Media file id",
     )
-    body_not_html = fields.Html("Not Html Body", sanitize=False)
+    body_json = fields.Html("Not Html Body", sanitize=False)
     body_html = fields.Html("Html Body", sanitize=False)
 
     safe = fields.Selection(
@@ -134,7 +134,7 @@ class Message(models.Model):
             else:
                 pass
         else:
-            self.body_not_html = None
+            self.body_json = None
 
     @api.onchange("templates_id")
     def _onchange_templates_id(self):

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="WeComMarkdown">
-        <div t-attf-class="#{widget.className}" t-if="widget.mode === 'readonly'"></div>
+        <t t-if="widget.mode === 'readonly'">
+            <span t-attf-class="#{widget.className}" t-att-invisible="widget.attrs.invisible"/>
+        </t>
         <div t-attf-class="#{widget.className}" t-if="widget.mode === 'edit'">
-            <nav class="navbar navbar-expand-lg navbar-light bg-dark text-light">
-                <ul class="navbar-nav mr-auto">
-                    <a class="nav-link">
-                        <i class="fa fa-columns fa-2" aria-hidden="true"></i> 显示预览
-                    </a>
-                </ul>
-            </nav>
-            <textarea class="markdown-body"></textarea>
+            <textarea rows="20" data-provide="markdown"
+                t-attf-class="#{widget.className}_input"  
+                t-att-tabindex="widget.attrs.tabindex"
+                t-att-autofocus="widget.attrs.autofocus"
+                t-att-placeholder="widget.attrs.placeholder"
+                t-att-invisible="widget.attrs.invisible"
+                t-att-id="widget.idForLabel"
+                t-att-name="widget.name"
+                t-att-readonly="widget.attrs.readonly"
+                t-att-maxlength="widget.field.size"
+            />
+                
         </div>
     </t>
 </templates>

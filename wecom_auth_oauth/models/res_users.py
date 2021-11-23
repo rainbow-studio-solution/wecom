@@ -54,7 +54,7 @@ class ResUsers(models.Model):
             oauth_user = self.search(
                 [
                     # ("oauth_uid", "=", oauth_userid),
-                    ("wecom_id", "=", oauth_userid),
+                    ("wecom_user_id", "=", oauth_userid),
                     ("is_wecom_user", "=", True),
                     ("active", "=", True),
                 ]
@@ -72,7 +72,7 @@ class ResUsers(models.Model):
             return super(ResUsers, self)._check_credentials(password, env)
         except AccessDenied:
             res = self.sudo().search(
-                [("id", "=", self.env.uid), ("wecom_id", "=", password)]
+                [("id", "=", self.env.uid), ("wecom_user_id", "=", password)]
             )
             if not res:
                 raise
@@ -126,9 +126,9 @@ class ResUsers(models.Model):
         template.write(template_values)
 
         for user in self:
-            if user.wecom_id:
+            if user.wecom_user_id:
                 return self.action_reset_password_by_wecom(user)
-            if not user.email and not user.wecom_id:
+            if not user.email and not user.wecom_user_id:
                 # 没有邮件地址和企业微信id
                 raise UserError(
                     _(
@@ -159,7 +159,7 @@ class ResUsers(models.Model):
         message_template._name == "wecom.message.template"
 
         message_template_values = {
-            "message_to_user": "${object.wecom_id|safe}",
+            "message_to_user": "${object.wecom_user_id|safe}",
         }
         message_template.write(message_template_values)
         message_template.with_context().send_message(
@@ -174,7 +174,7 @@ class ResUsers(models.Model):
             _("Password reset message sent to user: <%s>,<%s>, <%s>"),
             user.name,
             user.login,
-            user.wecom_id,
+            user.wecom_user_id,
         )
 
     def send_unregistered_user_reminder(self, after_days=5):
@@ -204,7 +204,7 @@ class ResUsers(models.Model):
 
         # 用于向所有邀请者发送有关其邀请用户的邮件
         for user in invited_users:
-            if user.wecom_id:
+            if user.wecom_user_id:
                 return self.send_unregistered_user_reminder_by_wecom(
                     user, invited_users
                 )

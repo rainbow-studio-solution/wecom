@@ -614,14 +614,14 @@ msgid "WeCom settings"
 msgstr "企业微信设置"
 
 #. module: wecom_hr
-#: model:ir.model.fields,field_description:wecom_hr.field_res_partner__wecom_id
-#: model:ir.model.fields,field_description:wecom_hr.field_res_users__wecom_id
+#: model:ir.model.fields,field_description:wecom_hr.field_res_partner__wecom_user_id
+#: model:ir.model.fields,field_description:wecom_hr.field_res_users__wecom_user_id
 msgid "WeCom user ID"
 msgstr "企业微信用户ID"
 
 #. module: wecom_hr
-#: model:ir.model.fields,field_description:wecom_hr.field_hr_employee__wecom_id
-#: model:ir.model.fields,field_description:wecom_hr.field_wecom_contacts_block__wecom_id
+#: model:ir.model.fields,field_description:wecom_hr.field_hr_employee__wecom_user_id
+#: model:ir.model.fields,field_description:wecom_hr.field_wecom_contacts_block__wecom_user_id
 msgid "WeCom user Id"
 msgstr "企业微信用户ID"
 

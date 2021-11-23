@@ -22,11 +22,13 @@
                     </p>
                     <field name="msgtype" invisible="1"/>
                     <hr/>
-                    <label for="body_not_html" string="WeCom message text content" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
-                    <label for="body_html" string="WeCom message html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
+                    <label for="body_json" string="WeCom message Json content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                    <label for="body_markdown" string="WeCom message Markdown content" attrs="{'invisible': [('msgtype','!=','markdown')]}" />
+                    <label for="body_html" string="WeCom message Html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                     <hr/>
-                    <field name="body_not_html" widget="text" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
-                    <field name="body_html" widget="html" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','mpnews')]}" />
+                    <field name="body_json" widget="body_json" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                    <field name="body_markdown" widget="wecom_markdown" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','markdown')]}" />
+                    <field name="body_html" widget="html" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                     <hr/>
                     <footer>
                         <button string="Discard" class="btn-secondary" special="cancel"/>

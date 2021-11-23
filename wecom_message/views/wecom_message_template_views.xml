@@ -46,7 +46,7 @@
                                     <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
                                 </p>
                                 <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
-                                <field name="body_not_html" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
+                                <field name="body_json" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
 
                             </page>
                             <page string="Advanced Settings" name="advanced_settings">

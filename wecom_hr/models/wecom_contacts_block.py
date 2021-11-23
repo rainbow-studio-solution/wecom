@@ -22,10 +22,10 @@ class WxworkContactsBlock(models.Model):
         required=True,
     )
 
-    wecom_id = fields.Char(string="WeCom user Id", required=True)
+    wecom_user_id = fields.Char(string="WeCom user Id", required=True)
 
     def get_name(self):
-        if self.company_id is None or self.wecom_id == False:
+        if self.company_id is None or self.wecom_user_id == False:
             return
         try:
             wxapi = self.env["wecom.service_api"].init_api(
@@ -33,7 +33,7 @@ class WxworkContactsBlock(models.Model):
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("USER_GET"),
-                {"userid": self.wecom_id},
+                {"userid": self.wecom_user_id},
             )
 
             params = {}

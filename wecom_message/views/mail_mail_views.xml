@@ -34,7 +34,7 @@
                     <notebook>
                         <page string="Body" name="body">
                             <field name="body_html" widget="html" options="{'style-inline': true}"/>
-                            <field name="body_not_html" widget="wecom_message_widget" options="{'style-inline': true}"/>
+                            <field name="body_json" widget="wecom_message_widget" options="{'style-inline': true}"/>
                         </page>
                         <page string="Advanced" name="advanced" groups="base.group_no_one">
                             <group>

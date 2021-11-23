@@ -36,7 +36,11 @@ class MailTemplate(models.Model):
         comodel_name="wecom.material",
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
-    body_not_html = fields.Html("Json Body", translate=True, sanitize=False)
+    body_json = fields.Html(
+        "Json Body",
+        translate=True,
+    )
+    body_markdown = fields.Html("Markdown Body", translate=True)
     code = fields.Char("Message Code")
     msgtype = fields.Selection(
         [
@@ -278,7 +282,7 @@ class MailTemplate(models.Model):
                 "message_to_tag",
                 "media_id",
                 "body_html",
-                "body_not_html",
+                "body_json",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",

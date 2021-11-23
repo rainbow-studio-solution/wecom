@@ -370,7 +370,7 @@ msgid "It is used to display the company logo for WeCom messages."
 msgstr "它用于显示企微消息的公司徽标。"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__body_not_html
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template__body_json
 msgid "Json Body"
 msgstr "Json正文"
 
@@ -678,12 +678,12 @@ msgid "Template card message"
 msgstr "模板卡片消息"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__body_not_html
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__body_json
 msgid "Text Body"
 msgstr "文本正文"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_compose_message__body_not_html
+#: model:ir.model.fields,field_description:wecom_message.field_mail_compose_message__body_json
 msgid "Text Contents"
 msgstr "文本内容"
 

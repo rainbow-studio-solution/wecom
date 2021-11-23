@@ -65,7 +65,7 @@ class WeComMessageTemplate(models.Model):
     )
 
     body_html = fields.Html("Html Body", translate=True, sanitize=False)
-    body_not_html = fields.Text("Not Html Body", translate=True, default={})
+    body_json = fields.Text("Not Html Body", translate=True, default={})
 
     # options
     safe = fields.Selection(
@@ -200,7 +200,7 @@ class WeComMessageTemplate(models.Model):
                     generated_field_values = template._render_field(
                         field,
                         template_res_ids,
-                        post_process=(field == "body_not_html"),
+                        post_process=(field == "body_json"),
                     )
 
                 for res_id, field_value in generated_field_values.items():
@@ -228,11 +228,9 @@ class WeComMessageTemplate(models.Model):
                 values = results[res_id]
                 if values.get("body_html"):
                     values["body_html"] = tools.html_sanitize(values["body_html"])
-                if values.get("body_not_html"):
+                if values.get("body_json"):
                     # 删除html标记内的编码属性
-                    values["body_not_html"] = tools.html_sanitize(
-                        values["body_not_html"]
-                    )
+                    values["body_json"] = tools.html_sanitize(values["body_json"])
                 # 技术设置
                 values.update(
                     # mail_server_id=template.mail_server_id.id or False,
@@ -294,7 +292,7 @@ class WeComMessageTemplate(models.Model):
                 "message_to_tag",
                 "media_id",
                 "body_html",
-                "body_not_html",
+                "body_json",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
@@ -349,8 +347,8 @@ class WeComMessageTemplate(models.Model):
                     "mail.render.mixin"
                 ]._replace_local_links(body)
 
-        # 封装 body_not_html
-        if notif_layout and values["body_not_html"]:
+        # 封装 body_json
+        if notif_layout and values["body_json"]:
             try:
                 template = self.env.ref(notif_layout, raise_if_not_found=True)
             except ValueError:
@@ -367,7 +365,7 @@ class WeComMessageTemplate(models.Model):
                     .sudo()
                     .new(
                         dict(
-                            body=values["body_not_html"],
+                            body=values["body_json"],
                             record_name=record.display_name,
                         )
                     ),
@@ -382,7 +380,7 @@ class WeComMessageTemplate(models.Model):
                 body = template._render(
                     template_ctx, engine="ir.qweb", minimal_qcontext=True
                 )
-                values["body_not_html"] = self.env[
+                values["body_json"] = self.env[
                     "mail.render.mixin"
                 ]._replace_local_links(body)
 

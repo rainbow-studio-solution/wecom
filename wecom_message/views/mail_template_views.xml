@@ -54,8 +54,11 @@
                                     <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
                                 </p>
                                 <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
-                                <field name="body_not_html" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews')]}"/>
-                                <field name="body_not_html" widget="wecom_markdown" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
+
+                                <field name="body_json" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+
+                                <field name="body_markdown" widget="wecom_markdown" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
+
                             </page>
                             <page string="Message Configuration" name="message_configuration">
                                 <group>
@@ -101,6 +104,7 @@
                     <field name="model_id"/>
                     <field name="subject"/>
                     <field name="name"/>
+                    <field name="code"/>
                     <!-- <field name="email_from"/>
                     <field name="email_to"/>
                     <field name="partner_to"/>

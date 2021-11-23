@@ -35,7 +35,7 @@ class HrEmployee(models.Model):
                 self.sudo()
                 .env["res.users"]
                 .search(
-                    [("login", "=", self.wecom_id)],
+                    [("login", "=", self.wecom_user_id)],
                     limit=1,
                 )
             )
@@ -53,7 +53,7 @@ class HrEmployee(models.Model):
                         "company_ids": [(6, 0, [self.company_id.id])],
                         "company_id": self.company_id.id,
                         "name": self.name,
-                        "login": self.wecom_id,
+                        "login": self.wecom_user_id,
                         "password": self.env["wecom.tools"].random_passwd(8),
                         "email": self.work_email,
                         "private_email": self.address_home_id.email,
@@ -65,7 +65,7 @@ class HrEmployee(models.Model):
                         "category_ids": self.category_ids,
                         "department_id": self.department_id,
                         "gender": self.gender,
-                        "wecom_id": self.wecom_id,
+                        "wecom_user_id": self.wecom_user_id,
                         "image_1920": self.image_1920,
                         "qr_code": self.qr_code,
                         "active": self.active,
@@ -173,7 +173,7 @@ class HrEmployee(models.Model):
                             [
                                 "&",
                                 "&",
-                                ("wecom_id", "=", employee.wecom_id),
+                                ("wecom_user_id", "=", employee.wecom_user_id),
                                 ("is_wecom_user", "=", True),
                                 "|",
                                 ("active", "=", False),
@@ -252,7 +252,7 @@ class HrEmployee(models.Model):
                     "company_ids": [(6, 0, [employee.company_id.id])],
                     "company_id": employee.company_id.id,
                     "name": employee.name,
-                    "login": employee.wecom_id,
+                    "login": employee.wecom_user_id,
                     "password": self.env["wecom.tools"].random_passwd(8),
                     "email": employee.work_email,
                     "private_email": employee.address_home_id.email,
@@ -264,7 +264,7 @@ class HrEmployee(models.Model):
                     "category_ids": employee.category_ids,
                     "department_id": employee.department_id,
                     "gender": employee.gender,
-                    "wecom_id": employee.wecom_id,
+                    "wecom_user_id": employee.wecom_user_id,
                     "image_1920": employee.image_1920,
                     "qr_code": employee.qr_code,
                     "active": employee.active,

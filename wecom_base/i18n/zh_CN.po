@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 06:46+0000\n"
-"PO-Revision-Date: 2021-11-22 14:47+0800\n"
+"POT-Creation-Date: 2021-11-23 05:39+0000\n"
+"PO-Revision-Date: 2021-11-23 13:43+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -164,6 +164,11 @@ msgstr ""
 "                                            用于调试"
 
 #. module: wecom_base
+#: model_terms:ir.actions.act_window,help:wecom_base.open_module_tree_user
+msgid "Click to add a new user."
+msgstr "单击以添加新用户。"
+
+#. module: wecom_base
 #: model:ir.model,name:wecom_base.model_res_company
 msgid "Companies"
 msgstr "公司"
@@ -190,6 +195,11 @@ msgstr "公司名称"
 #: model:ir.model,name:wecom_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_res_partner
+msgid "Contact"
+msgstr "联系人"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_secret
@@ -228,6 +238,7 @@ msgstr "部门编号。 获取指定的部门及其子部门。 如果您不填�
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -273,6 +284,7 @@ msgstr "滚动到顶部"
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__id
 msgid "ID"
 msgstr ""
 
@@ -339,9 +351,16 @@ msgstr ""
 "                                                        </span>"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__is_wecom_user
+msgid "Is WeCom user"
+msgstr "是企微用户"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
@@ -364,10 +383,27 @@ msgid "Navigation"
 msgstr "导航"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__qr_code
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__qr_code
+msgid "Personal QR code"
+msgstr "个人二维码"
+
+#. module: wecom_base
+#: model:ir.model.fields,help:wecom_base.field_res_partner__qr_code
+#: model:ir.model.fields,help:wecom_base.field_res_users__qr_code
+msgid "Personal QR code, Scan can be added as external contact"
+msgstr "个人二维码，扫描可作为外部联系人添加"
+
+#. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.wecom_config_settings_action
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_configuration
 msgid "Settings"
 msgstr "设置"
+
+#. module: wecom_base
+#: model_terms:ir.ui.view,arch_db:wecom_base.view_users_search_inherit
+msgid "Share User"
+msgstr "共享用户"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -381,6 +417,14 @@ msgstr ""
 "企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
 "                                            参考:Windows: D:\\img\\  <br/>\n"
 "                                            Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
+
+#. module: wecom_base
+#: model:ir.model.fields,help:wecom_base.field_res_partner__wecom_user_order
+#: model:ir.model.fields,help:wecom_base.field_res_users__wecom_user_order
+msgid ""
+"The sort value in the department, the default is 0. The number must be the same as the department. The larger the "
+"number, the higher the order.The value range is [0, 2^32)"
+msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -412,6 +456,7 @@ msgstr "使用系统默认头像"
 #: model:ir.module.category,name:wecom_base.module_category_wxwork
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_base.wecom_view_users_form
 msgid "WeCom"
 msgstr "企业微信"
 
@@ -431,6 +476,18 @@ msgid "WeCom Settings"
 msgstr "企微设置"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_user_id
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_user_id
+msgid "WeCom User ID"
+msgstr "企微用户ID"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_user_order
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_user_order
+msgid "WeCom User sequence"
+msgstr "企微用户排序"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_sync_hr_department_id
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_sync_hr_department_id
 msgid "WeCom department ID to be synchronized"
@@ -441,3 +498,8 @@ msgstr "要同步的企业微信部门ID"
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__is_wecom_organization
 msgid "WeCom organization"
 msgstr "企业微信组织"
+
+#. module: wecom_base
+#: model:ir.actions.act_window,name:wecom_base.open_module_tree_user
+msgid "users"
+msgstr "用户"

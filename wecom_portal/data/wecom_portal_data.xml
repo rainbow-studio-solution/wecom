@@ -5,8 +5,8 @@
         <record id="portal.mail_template_data_portal_welcome" model="mail.template">
             <field name="code">portal_welcome</field>
             <field name="msgtype">markdown</field>
-            <field name="message_to_user">${object.wecom_id | safe}</field>
-            <field name="body_not_html">
+            <field name="message_to_user">${object.wecom_user_id | safe}</field>
+            <field name="body_markdown">
 # Your Account ${object.user_id.name}
 
 ## Dear ${object.user_id.name or ''},

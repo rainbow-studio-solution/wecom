@@ -6,7 +6,7 @@
         <record id="auth_signup.reset_password_email" model="mail.template">
             <field name="msgtype">mpnews</field>
             <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
-            <field name="message_to_user">${object.wecom_id | safe}</field>
+            <field name="message_to_user">${object.wecom_user_id | safe}</field>
             <field name="body_html" type="html">
                 <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
                 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
@@ -108,7 +108,7 @@
 <record id="auth_signup.set_password_email" model="mail.template">
 <field name="msgtype">mpnews</field>
 <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="message_to_user">${object.wecom_user_id | safe}</field>
 <field name="body_html" type="html">
     <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
     <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
@@ -221,7 +221,7 @@ The ${object.company_id.name} Team
 <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
 <field name="msgtype">mpnews</field>
 <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="message_to_user">${object.wecom_user_id | safe}</field>
 <field name="body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">
@@ -342,7 +342,7 @@ The ${object.company_id.name} Team
 <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
 <field name="msgtype">mpnews</field>
 <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-<field name="message_to_user">${object.wecom_id | safe}</field>
+<field name="message_to_user">${object.wecom_user_id | safe}</field>
 <field name="body_html" type="html">
 <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
 <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">

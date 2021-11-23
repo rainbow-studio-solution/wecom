@@ -29,6 +29,7 @@
     },
     "data": [
         # "security/ir.model.access.csv",
+        "data/partner_message_data.xml",
         "wizard/mail_template_preview_views.xml",
         "views/assets_templates.xml",
         # "views/mail_message_views.xml",
