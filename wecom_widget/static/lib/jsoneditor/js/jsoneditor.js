@@ -7762,6 +7762,7 @@
 
 
               if (this.mode === 'code' || this.mode === 'text') {
+                // 显示只读和编辑模式
                 var renderMode = document.createElement('span');
                 renderMode.innerHTML = this.options.renderMode;
                 // poweredBy.appendChild(document.createTextNode('powered by ace'));

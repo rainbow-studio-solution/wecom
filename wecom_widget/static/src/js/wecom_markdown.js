@@ -48,7 +48,17 @@ odoo.define("wecom_widget.FieldTextMarkDown", function (require) {
 			'/wecom_widget/static/src/css/markdown.css',
 			// '/wecom_widget/static/src/css/dialog.css',
 		],
-
+		init: function (parent, name, record, options) {
+			this._super.apply(this, arguments);
+			if (record["data"]["msgtype"] == "markdown") {
+				this.is_markdown = true;
+			} else {
+				this.is_markdown = false;
+			}
+			// console.log(record);
+			// console.log(options);
+			// console.log(this.attrs);
+		},
 		_getValue: function () {
 			return this.$markdown.getContent();
 		},
@@ -83,7 +93,9 @@ odoo.define("wecom_widget.FieldTextMarkDown", function (require) {
 		},
 
 		_renderEdit: function () {
-			this._prepareInput(this.$el);
+			if (this.is_markdown) {
+				this._prepareInput(this.$el);
+			}
 		},
 		_renderReadonly: function () {
 			if (this.value != "") {

@@ -55,7 +55,7 @@
                                 </p>
                                 <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
 
-                                <field name="body_json" widget="wecom_jsoneditor" options="{'style-inline': true}" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                                <field name="body_json" widget="wecom_jsoneditor" style="height: 100%;" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
 
                                 <field name="body_markdown" widget="wecom_markdown" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
 

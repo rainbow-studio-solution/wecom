@@ -19,6 +19,7 @@
     "depends": [
         "hr",
         "wecom_portal",
+        "wecom_auth_oauth",
     ],
     "data": [
         "security/ir.model.access.csv",
