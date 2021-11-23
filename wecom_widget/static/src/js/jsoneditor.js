@@ -92,7 +92,9 @@ odoo.define("wecom.FieldTextJson", function (require) {
             self.json_data = $input.val();
             $input.empty();
             _.defer(function ($elm) {
-
+                if ($input[1]) {
+                    $input[1].remove();
+                }
                 $input.removeClass(this.className);
                 $input.wrap(_.str.sprintf("<div class='%s'></div>", self.className));
                 $elm.removeAttr("style");
