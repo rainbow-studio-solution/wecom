@@ -47,68 +47,68 @@ wecom_BROWSER_MESSAGES = {
 }
 
 
-class AuthSignupHome(SignupHome):
-    def web_auth_signup(self, *args, **kw):
-        """
-        消息模板用户注册帐户已创建
-        """
-        qcontext = self.get_auth_signup_qcontext()
+# class AuthSignupHome(SignupHome):
+#     def web_auth_signup(self, *args, **kw):
+#         """
+#         消息模板用户注册帐户已创建
+#         """
+#         qcontext = self.get_auth_signup_qcontext()
 
-        if not qcontext.get("token") and not qcontext.get("signup_enabled"):
-            raise werkzeug.exceptions.NotFound()
+#         if not qcontext.get("token") and not qcontext.get("signup_enabled"):
+#             raise werkzeug.exceptions.NotFound()
 
-        if "error" not in qcontext and request.httprequest.method == "POST":
-            try:
-                self.do_signup(qcontext)
-                # 发送帐户创建确认电子邮件
-                if qcontext.get("token"):
-                    User = request.env["res.users"]
-                    user_sudo = User.sudo().search(
-                        User._get_login_domain(qcontext.get("login")),
-                        order=User._get_login_order(),
-                        limit=1,
-                    )
+#         if "error" not in qcontext and request.httprequest.method == "POST":
+#             try:
+#                 self.do_signup(qcontext)
+#                 # 发送帐户创建确认电子邮件
+#                 if qcontext.get("token"):
+#                     User = request.env["res.users"]
+#                     user_sudo = User.sudo().search(
+#                         User._get_login_domain(qcontext.get("login")),
+#                         order=User._get_login_order(),
+#                         limit=1,
+#                     )
 
-                    if user_sudo.wecom_user_id:
-                        message_template = self.env.ref(
-                            "wecom_auth_oauth.message_template_user_signup_account_created",
-                            raise_if_not_found=False,
-                        )
-                        if user_sudo and message_template:
-                            return message_template.send_message(
-                                user_sudo.id,
-                                force_send=True,
-                                raise_exception=True,
-                                company=user_sudo.company_id,
-                                use_templates=True,
-                                template_id=message_template.id,
-                            )
+#                     if user_sudo.wecom_user_id:
+#                         message_template = self.env.ref(
+#                             "wecom_auth_oauth.message_template_user_signup_account_created",
+#                             raise_if_not_found=False,
+#                         )
+#                         if user_sudo and message_template:
+#                             return message_template.send_message(
+#                                 user_sudo.id,
+#                                 force_send=True,
+#                                 raise_exception=True,
+#                                 company=user_sudo.company_id,
+#                                 use_templates=True,
+#                                 template_id=message_template.id,
+#                             )
 
-                    mail_template = request.env.ref(
-                        "auth_signup.mail_template_user_signup_account_created",
-                        raise_if_not_found=False,
-                    )
-                    if user_sudo and mail_template:
-                        mail_template.sudo().send_mail(user_sudo.id, force_send=True)
-                return self.web_login(*args, **kw)
-            except UserError as e:
-                qcontext["error"] = e.args[0]
-            except (SignupError, AssertionError) as e:
-                if (
-                    request.env["res.users"]
-                    .sudo()
-                    .search([("login", "=", qcontext.get("login"))])
-                ):
-                    qcontext["error"] = _(
-                        "Another user is already registered using this email address or WeCom id."
-                    )
-                else:
-                    _logger.error("%s", e)
-                    qcontext["error"] = _("Could not create a new account.")
+#                     mail_template = request.env.ref(
+#                         "auth_signup.mail_template_user_signup_account_created",
+#                         raise_if_not_found=False,
+#                     )
+#                     if user_sudo and mail_template:
+#                         mail_template.sudo().send_mail(user_sudo.id, force_send=True)
+#                 return self.web_login(*args, **kw)
+#             except UserError as e:
+#                 qcontext["error"] = e.args[0]
+#             except (SignupError, AssertionError) as e:
+#                 if (
+#                     request.env["res.users"]
+#                     .sudo()
+#                     .search([("login", "=", qcontext.get("login"))])
+#                 ):
+#                     qcontext["error"] = _(
+#                         "Another user is already registered using this email address or WeCom id."
+#                     )
+#                 else:
+#                     _logger.error("%s", e)
+#                     qcontext["error"] = _("Could not create a new account.")
 
-        response = request.render("auth_signup.signup", qcontext)
-        response.headers["X-Frame-Options"] = "DENY"
-        return response
+#         response = request.render("auth_signup.signup", qcontext)
+#         response.headers["X-Frame-Options"] = "DENY"
+#         return response
 
 
 class OAuthLogin(Home):

@@ -79,9 +79,9 @@ class MailThread(models.AbstractModel):
     )
 
     # is_wecom_message = fields.Boolean("WeCom Message",)
-    message_to_all = fields.Boolean(
-        "To all members",
-    )
+    # message_to_all = fields.Boolean(
+    #     "To all members",
+    # )
     message_to_user = fields.Char(
         string="To Users",
         help="Message recipients (users)",
@@ -191,7 +191,6 @@ class MailThread(models.AbstractModel):
         record_name=False,
         msgtype=None,
         is_wecom_message=None,
-        message_to_all=False,
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
@@ -324,7 +323,6 @@ class MailThread(models.AbstractModel):
                 "record_name": record_name,
                 "msgtype": msgtype,
                 "is_wecom_message": is_wecom_message,
-                "message_to_all": message_to_all,
                 "message_to_user": message_to_user,
                 "message_to_party": message_to_party,
                 "message_to_tag": message_to_tag,
@@ -431,7 +429,7 @@ class MailThread(models.AbstractModel):
         subject=False,
         msgtype=None,
         is_wecom_message=None,
-        message_to_all=False,
+
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
@@ -493,7 +491,6 @@ class MailThread(models.AbstractModel):
             "message_id": tools.generate_tracking_message_id("message-notify"),
             "msgtype": msgtype,
             "is_wecom_message": is_wecom_message,
-            "message_to_all": message_to_all,
             "message_to_user": message_to_user,
             "message_to_party": message_to_party,
             "message_to_tag": message_to_tag,
@@ -520,7 +517,6 @@ class MailThread(models.AbstractModel):
         message_type="notification",
         msgtype=None,
         is_wecom_message=None,
-        message_to_all=False,
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
@@ -560,7 +556,6 @@ class MailThread(models.AbstractModel):
             ),  # 为什么？ 这只是一个通知
             "msgtype": msgtype,
             "is_wecom_message": is_wecom_message,
-            "message_to_all": message_to_all,
             "message_to_user": message_to_user,
             "message_to_party": message_to_party,
             "message_to_tag": message_to_tag,
@@ -584,7 +579,6 @@ class MailThread(models.AbstractModel):
         message_type="notification",
         msgtype=None,
         is_wecom_message=None,
-        message_to_all=False,
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
@@ -622,7 +616,6 @@ class MailThread(models.AbstractModel):
             ),  # why? this is all but a notify
             "msgtype": msgtype,
             "is_wecom_message": is_wecom_message,
-            "message_to_all": message_to_all,
             "message_to_user": message_to_user,
             "message_to_party": message_to_party,
             "message_to_tag": message_to_tag,

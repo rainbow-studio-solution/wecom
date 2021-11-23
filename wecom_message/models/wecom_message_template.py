@@ -154,8 +154,7 @@ class WeComMessageTemplate(models.Model):
             # if self._context.get("tpl_partners_only"):
             #     # TODO 待处理 企业微信收件人
             mails = (
-                tools.email_split(values.pop("message_to_all", ""))
-                + tools.email_split(values.pop("message_to_user", ""))
+                tools.email_split(values.pop("message_to_user", ""))
                 + tools.email_split(values.pop("message_to_party", ""))
                 + tools.email_split(values.pop("message_to_tag", ""))
             )

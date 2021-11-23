@@ -16,7 +16,7 @@ class WecomMessage(models.Model):
 
     @api.model
     def default_get(self, fields):
-        res = super(WxworkMessage, self).default_get(fields)
+        res = super(WecomMessage, self).default_get(fields)
         missing_author = "author_id" in fields and "author_id" not in res
         missing_email_from = "sender" in fields and "sender" not in res
         if missing_author or missing_email_from:
@@ -45,7 +45,7 @@ class WecomMessage(models.Model):
         compute="_compute_description",
         help="Message description: either the subject, or the beginning of the body",
     )
-    message_to_all = fields.Boolean("To all members")
+    # message_to_all = fields.Boolean("To all members")
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
         string="To Departments",

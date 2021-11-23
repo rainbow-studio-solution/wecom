@@ -25,7 +25,6 @@
                     </div>
                     <group>
                         <field name="recipient_ids" widget="many2many_tags"/>
-                        <field name="message_to_all"/>
                         <field name="message_to_user"/>
                         <field name="message_to_party"/>
                         <field name="message_to_tag"/>

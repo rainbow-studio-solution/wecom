@@ -45,10 +45,7 @@ class Message(models.Model):
         ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
     )
 
-    message_to_all = fields.Boolean(
-        "To all members",
-        readonly=True,
-    )
+
     message_to_user = fields.Many2many(
         "hr.employee",
         string="To Employees",

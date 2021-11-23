@@ -85,25 +85,21 @@ class ResUsers(models.Model):
         为每个用户创建注册令牌，并通过电子邮件发送他们的注册url
         增加判断模板对象为企业微信用户，使用企业微信发送模板消息的方法
         """
-
         if self.env.context.get("install_mode", False):
             return
         if self.filtered(lambda user: not user.active):
             raise UserError(_("You cannot perform this action on an archived user."))
-
-        # 准备重置密码注册
+        # prepare reset password signup
         create_mode = bool(self.env.context.get("create_user"))
 
-        # 初次邀请没有时间限制，仅重设密码
+        # no time limit for initial invitation, only for reset password
         expiration = False if create_mode else now(days=+1)
 
         self.mapped("partner_id").signup_prepare(
             signup_type="reset", expiration=expiration
         )
 
-        # 通过注册网址向用户发送电子邮件或企业微信消息
-
-        # 模板
+        # send email to users with their signup url
         template = False
         if create_mode:
             try:
@@ -115,8 +111,8 @@ class ResUsers(models.Model):
         if not template:
             template = self.env.ref("auth_signup.reset_password_email")
         assert template._name == "mail.template"
-
         template_values = {
+            "message_to_user": "${object.wecom_user_id|safe}",
             "email_to": "${object.email|safe}",
             "email_cc": False,
             "auto_delete": True,
@@ -124,19 +120,13 @@ class ResUsers(models.Model):
             "scheduled_date": False,
         }
         template.write(template_values)
-
         for user in self:
             if user.wecom_user_id:
-                return self.action_reset_password_by_wecom(user)
-            if not user.email and not user.wecom_user_id:
-                # 没有邮件地址和企业微信id
+                return self.action_reset_password_by_wecom(template, user)
+            elif not user.email:
                 raise UserError(
-                    _(
-                        "Cannot send email or message: user %s has no email address or WeCom user id.",
-                        user.name,
-                    )
+                    _("Cannot send email: user %s has no email address.", user.name)
                 )
-
             # TDE FIXME: make this template technical (qweb)
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
@@ -146,30 +136,19 @@ class ResUsers(models.Model):
                 user.login,
                 user.email,
             )
+        return super(ResUsers, self).action_reset_password()
 
-    def action_reset_password_by_wecom(self, user):
+    def action_reset_password_by_wecom(self, template, user):
         """
         通过企业微信的方式发送模板消息
         """
-
-        # message_template = self.env["ir.model.data"].get_object_reference(
-        #     "wecom_auth_oauth", "reset_password_message"
-        # )
-        message_template = self.env.ref("wecom_auth_oauth.reset_password_message")
-        message_template._name == "wecom.message.template"
-
-        message_template_values = {
-            "message_to_user": "${object.wecom_user_id|safe}",
-        }
-        message_template.write(message_template_values)
-        message_template.with_context().send_message(
-            user.id,
-            force_send=True,
-            raise_exception=True,
-            company=user.company_id,
-            use_templates=True,
-            template_id=message_template.id,
-        )
+        with self.env.cr.savepoint():
+            force_send = not (self.env.context.get("import_file", False))
+            template.send_message(
+                user.id,
+                force_send=force_send,
+                raise_exception=True,
+            )
         _logger.info(
             _("Password reset message sent to user: <%s>,<%s>, <%s>"),
             user.name,
