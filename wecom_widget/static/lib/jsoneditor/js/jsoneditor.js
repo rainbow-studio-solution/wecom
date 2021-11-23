@@ -7790,6 +7790,7 @@
             if (this.mode === 'code') {
               this.editorDom = document.createElement('div');
               this.editorDom.style.height = '100%'; // TODO: move to css
+              // this.editorDom.style.height = '620px'; // TODO: move to css
 
               this.editorDom.style.width = '100%'; // TODO: move to css
 
@@ -52418,6 +52419,7 @@ padding: 0 8px;\
                   top: "0px",
                   left: "0px",
                   height: "100%",
+                  // height: "600px",
                   width: "100%",
                   zIndex: 10000
                 })

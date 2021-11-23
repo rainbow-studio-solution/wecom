@@ -1,6 +1,7 @@
 .o_form_field_jsoneditor {
     width: 100% !important;
     height: 100% !important;
+    // height: 660px !important;
 
     .o_form_field_jsoneditor_ditor {
         width: 100% !important;
@@ -22,7 +23,9 @@
 
             span.jsoneditor-translate {
                 position: absolute;
-                padding: 10px;
+                color: #ffffff;
+                padding: 6px !important;
+                margin-left: 4px !important;
             }
 
             i.jsoneditor-translate {

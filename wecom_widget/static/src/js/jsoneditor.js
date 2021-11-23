@@ -9,7 +9,12 @@ odoo.define("wecom.FieldTextJson", function (require) {
     var FieldTextJson = basic_fields.FieldText.extend({
         description: _lt("Json Editor"),
         template: "JsonEditor",
-        className: "o_form_field_jsoneditor",
+        // className: "o_form_field_jsoneditor",
+        className: [
+            basic_fields.FieldText.prototype.className,
+            'o_form_field_jsoneditor',
+        ].join(' '),
+
         jsLibs: [
             '/wecom_widget/static/lib/jsoneditor/js/jsoneditor.js',
         ],
@@ -86,41 +91,27 @@ odoo.define("wecom.FieldTextJson", function (require) {
             var self = this;
             self.json_data = $input.val();
             _.defer(function ($elm) {
+
                 $input.removeClass(this.className);
                 $input.wrap(_.str.sprintf("<div class='%s'></div>", self.className));
                 $elm.removeAttr("style");
-
+                console.log($elm.get(0));
                 self.$editor = new JSONEditor($elm.get(0), self._getJsonEditorOptions());
 
                 //添加翻译按钮 mode : "readonly" "edit"
                 if (this.res_id && this.mode == "edit") {
                     if (_t.database.multi_lang && this.field.translate) {
-
-                        // var translate = document.createElement('i');
-                        // translate.type = 'button';
-                        // translate.className = 'jsoneditor-translate fa fa-language fa-lg';
-                        // translate.title = _t('Translate');
-                        // // $button.text = self._renderTranslateButton().text();
-                        // translate.onclick = function () {
-                        //     // _this.aceEditor.getSession().getUndoManager().redo();
-                        //     console.log("translate");
-                        // };
-
                         var $translate = this._renderTranslateButton();
                         $translate.addClass("jsoneditor-translate fa fa-language fa-lg");
-
                         self.$editor.menu.appendChild($translate[0]);
-                        self.$editor.dom.translate = $translate[0];
-
+                        // self.$editor.dom.translate = $translate[0];
                     }
                 }
 
-                console.log(self.$editor);
                 if ($input.val() != "") {
                     self.$editor.set(jQuery.parseJSON($input.val()));
                 }
             }.bind(this), $input);
-
 
             return $input;
         },
@@ -183,9 +174,9 @@ odoo.define("wecom.FieldTextJson", function (require) {
             }
             return options;
         },
-        _renderReadonly: function () {
-            this._prepareInput(this.$el);
-        },
+        // _renderReadonly: function () {
+        //     this._prepareInput(this.$el);
+        // },
         _renderEdit: function () {
             this._prepareInput(this.$el);
         },

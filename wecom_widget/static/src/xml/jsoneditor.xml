@@ -2,22 +2,10 @@
 <templates>
 
     <t t-name="JsonEditor">
-        <div t-attf-class="#{widget.className}" t-if="widget.mode === 'readonly'"></div>
-        <!-- <t t-if="widget.mode === 'readonly'">
-            <span t-attf-class="#{widget.className}"/>
-        </t> -->
+        <!-- <sapn t-attf-class="#{widget.className}" t-if="widget.mode === 'readonly'"></sapn> -->
+
         <div t-attf-class="#{widget.className}" t-if="widget.mode === 'edit'">
-            <!-- <textarea type="text" 
-                t-attf-class="#{widget.className}_ditor"  
-                t-att-barcode_events="widget.nodeOptions.barcode_events"
-                t-att-tabindex="widget.attrs.tabindex"
-                t-att-autofocus="widget.attrs.autofocus"
-                t-att-placeholder="widget.attrs.placeholder"
-                t-att-id="widget.idForLabel"
-                t-att-name="widget.name"
-                t-att-readonly="widget.attrs.readonly"
-                t-att-maxlength="widget.field.size"
-            /> -->
+            <!-- <textarea type="text" t-attf-class="#{widget.className}_ditor" t-att-barcode_events="widget.nodeOptions.barcode_events" t-att-tabindex="widget.attrs.tabindex" t-att-autofocus="widget.attrs.autofocus" t-att-placeholder="widget.attrs.placeholder" t-att-id="widget.idForLabel" t-att-name="widget.name" t-att-readonly="widget.attrs.readonly" t-att-maxlength="widget.field.size" /> -->
         </div>
 
     </t>
