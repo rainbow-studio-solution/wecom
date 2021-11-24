@@ -24,16 +24,29 @@
 
                     </div>
                     <group>
-                        <field name="recipient_ids" widget="many2many_tags"/>
-                        <field name="message_to_user"/>
-                        <field name="message_to_party"/>
-                        <field name="message_to_tag"/>
-                        <field name="scheduled_date"/>
+                        <group>
+                            <field name="email_from"/>
+                            <field name="recipient_ids" widget="many2many_tags"/>
+                            <field name="message_to_user"/>
+                            <field name="message_to_party"/>
+                            <field name="message_to_tag"/>
+                            <field name="scheduled_date"/>
+                        </group>
+                        <group>
+                            <field name="msgtype"/>
+                            <field name="media_id"/>
+                            <field name="message_id"/>
+                        </group>
                     </group>
                     <notebook>
-                        <page string="Body" name="body">
+                        <page string="Html Body" name="html_body" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
                             <field name="body_html" widget="html" options="{'style-inline': true}"/>
-                            <field name="body_json" widget="wecom_message_widget" options="{'style-inline': true}"/>
+                        </page>
+                        <page string="Json Body" name="json_body" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                            <field name="body_json" widget="wecom_jsoneditor"/>
+                        </page>
+                        <page string="Markdown Body" name="markdown_body" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                            <field name="body_markdown" widget="wecom_markdown"/>
                         </page>
                         <page string="Advanced" name="advanced" groups="base.group_no_one">
                             <group>
@@ -129,7 +142,7 @@
         </field>
     </record>
 
-    <record id="action_view_wxwrok_mail" model="ir.actions.act_window">
+    <record id="action_view_wecom_mail" model="ir.actions.act_window">
         <field name="name">Messages</field>
         <field name="res_model">mail.mail</field>
         <field name="view_mode">tree,form</field>

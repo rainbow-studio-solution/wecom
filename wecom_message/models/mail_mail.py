@@ -7,7 +7,7 @@ from odoo import _, api, fields, models
 from odoo import tools
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 from odoo.exceptions import UserError, Warning
-
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 class MailMail(models.Model):
     _inherit = "mail.mail"
 
-    is_wecom_message = fields.Boolean("WeCom Message")
+    is_wecom_message = fields.Boolean("Is WeCom Message")
     msgtype = fields.Char(
         string="Message type",
     )
@@ -35,9 +35,7 @@ class MailMail(models.Model):
     body_json = fields.Text(
         "Json Contents",
     )
-    body_html = fields.Text(
-        "Html Contents",
-    )
+
     body_markdown = fields.Text(
         "Markdown Contents",
     )
@@ -129,7 +127,7 @@ class MailMail(models.Model):
     # 消息格式、工具和发送机制
     # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
-    def send_wecom_message(
+    def send(
         self,
         auto_commit=False,
         raise_exception=False,
@@ -146,6 +144,234 @@ class MailMail(models.Model):
         :param company: 公司
         :return: True
         """
-        print("mail", company)
+
         if not company:
             company = self.env.company
+        for server_id, batch_ids in self._split_by_server():
+            smtp_session = None
+            try:
+                if self.is_wecom_message:
+                    # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    pass
+                else:
+                    smtp_session = self.env["ir.mail_server"].connect(
+                        mail_server_id=server_id
+                    )
+            except Exception as exc:
+                if self.is_wecom_message:
+                    # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    pass
+                else:
+                    if raise_exception:
+                        # 为了与 mail_mail.send() 引发的异常保持一致并向后兼容，它被封装到一个Odoo MailDeliveryException中
+                        raise MailDeliveryException(
+                            _("Unable to connect to SMTP Server"), exc
+                        )
+                    else:
+                        batch = self.browse(batch_ids)
+                        batch.write({"state": "exception", "failure_reason": exc})
+                        batch._postprocess_sent_message(
+                            success_pids=[], failure_type="SMTP"
+                        )
+            else:
+                if self.is_wecom_message:
+                    # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    pass
+                else:
+                    self.browse(batch_ids)._send(
+                        auto_commit=auto_commit,
+                        raise_exception=raise_exception,
+                        smtp_session=smtp_session,
+                    )
+                    _logger.info(
+                        "Sent batch %s emails via mail server ID #%s",
+                        len(batch_ids),
+                        server_id,
+                    )
+            finally:
+                if self.is_wecom_message:
+                    # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    self.browse(batch_ids)._send_wecom_message(
+                        auto_commit=auto_commit,
+                        raise_exception=raise_exception,
+                        company=company,
+                    )
+                    _logger.info(
+                        _("Sent batch %s message via Wecom"),
+                        len(batch_ids),
+                    )
+                else:
+                    if smtp_session:
+                        smtp_session.quit()
+
+    def _send_wecom_prepare_values(self, partner=None):
+        """
+        根据合作伙伴返回有关特定电子邮件值的字典，或者对整个邮件都是通用的。对于特定电子邮件值取决于对伙伴的字典，或者对mail.email_to给出的整个收件人来说都是通用的。
+
+        :param Model partner: 具体的收件人合作伙伴
+        """
+        self.ensure_one()
+        body_html = self._send_prepare_body()
+        # body_alternative = tools.html2plaintext(body_html)
+        if partner:
+            email_to = [
+                tools.formataddr((partner.name or "False", partner.email or "False"))
+            ]
+            message_to_user = [
+                tools.formataddr(
+                    (partner.name or "False", partner.wecom_user_id or "False")
+                )
+            ]
+        else:
+            email_to = tools.email_split_and_format(self.email_to)
+            message_to_user = self.message_to_user
+        res = {
+            # "message_body_text": message_body_text,
+            # "message_body_html": message_body_html,
+            "email_to": email_to,
+            "message_to_user": message_to_user,
+        }
+
+        return res
+
+    def send_wecom_message(self, auto_commit=False, raise_exception=False):
+        """ """
+
+    def _send_wecom_message(
+        self,
+        auto_commit=False,
+        raise_exception=False,
+        company=None,
+    ):
+        """
+        :param bool auto_commit: 发送每封邮件后是否强制提交邮件状态（仅用于调度程序处理）；
+                 在正常发送绝对不能为True（默认值：False）
+        :param bool raise_exception: 如果电子邮件发送过程失败，是否引发异常
+        :return: True
+        """
+        if not company:
+            company = self.env.company
+
+        IrWxWorkMessageApi = self.env["wecom.message.api"]
+        for mail_id in self.ids:
+            success_pids = []
+            failure_type = None
+            processing_pid = None
+            mail = None
+
+            mail = self.browse(mail_id)
+            if mail.state != "outgoing":
+                if mail.state != "exception" and mail.auto_delete:
+                    mail.sudo().unlink()
+                continue
+            # 为通知的合作伙伴自定义发送电子邮件的特定行为
+            email_list = []
+            if mail.message_to_user or mail.message_to_party or mail.message_to_tag:
+                # email_list.append(mail._send_message_prepare_values())
+                email_list.append(mail._send_wecom_prepare_values())
+            for partner in mail.recipient_ids:
+                # values = mail._send_message_prepare_values(partner=partner)
+                values = mail._send_wecom_prepare_values(partner=partner)
+                values["partner_id"] = partner
+                email_list.append(values)
+
+            # 在邮件对象上写入可能会失败（例如锁定用户），这将在*实际发送电子邮件后触发回滚。
+            # 为了避免两次发送同一封电子邮件，请尽早引发失败
+
+            mail.write({"state": "sent", "failure_reason": ""})
+
+            # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
+            notifs = self.env["mail.notification"].search(
+                [
+                    ("notification_type", "=", "email"),
+                    ("mail_id", "in", mail.ids),
+                    ("notification_status", "not in", ("sent", "canceled")),
+                ]
+            )
+            if notifs:
+                notif_msg = _(
+                    "Error without exception. Probably due do concurrent access update of notification records. Please see with an administrator."
+                )
+                notifs.sudo().write(
+                    {
+                        "notification_status": "exception",
+                        "failure_type": "UNKNOWN",
+                        "failure_reason": notif_msg,
+                    }
+                )
+                # `test_mail_bounce_during_send`，强制立即更新以获取锁定。
+                # 见修订版。56596e5240ef920df14d99087451ce6f06ac6d36
+                notifs.flush(
+                    fnames=["notification_status", "failure_type", "failure_reason"],
+                    records=notifs,
+                )
+                notifs.flush(
+                    fnames=[
+                        "notification_status",
+                        "failure_type",
+                        "failure_reason",
+                    ],
+                    records=notifs,
+                )
+
+                # 建立 email.message.message对象并在不排队的情况下发送它
+                res = None
+            for email in email_list:
+                msg = IrWxWorkMessageApi.build_message(
+                    msgtype=mail.msgtype,
+                    touser=mail.message_to_user,
+                    toparty=mail.message_to_party,
+                    totag=mail.message_to_tag,
+                    subject=mail.subject,
+                    media_id=mail.media_id,
+                    description=mail.description,
+                    author_id=mail.author_id,
+                    body_html=mail.body_html,
+                    body_json=mail.body_json,
+                    body_markdown=mail.body_markdown,
+                    safe=mail.safe,
+                    enable_id_trans=mail.enable_id_trans,
+                    enable_duplicate_check=mail.enable_duplicate_check,
+                    duplicate_check_interval=mail.duplicate_check_interval,
+                    company=company,
+                )
+                processing_pid = email.pop("partner_id", None)
+                try:
+                    # 通过API发送消息
+                    res = IrWxWorkMessageApi.send_by_api(msg)
+                    if processing_pid:
+                        success_pids.append(processing_pid)
+                    processing_pid = None
+                except AssertionError as exc:
+                    error = self.env["wecom.service_api_error"].get_error_by_code(
+                        exc.errCode
+                    )
+                    mail.write(
+                        {
+                            "state": "exception",
+                            "failure_reason": "%s %s"
+                            % (str(error["code"]), error["name"]),
+                        }
+                    )
+                    if raise_exception:
+                        return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                            exc, raise_exception
+                        )
+
+            if res["errcode"] == 0:  # 消息发送成功
+                mail.write(
+                    {
+                        "state": "sent",
+                        "message_id": res["msgid"],
+                        "failure_reason": False,
+                    }
+                )
+                _logger.info(
+                    "Message with ID %r and Message-Id %r successfully sent",
+                    mail.id,
+                    mail.message_id,
+                )
+
+            if auto_commit is True:
+                self._cr.commit()
+        return True

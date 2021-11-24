@@ -140,11 +140,11 @@ class ResUsers(models.Model):
 
     def action_reset_password_by_wecom(self, template, user):
         """
-        通过企业微信的方式发送模板消息
+        通过企业微信的方式发送模板消息 send_message
         """
         with self.env.cr.savepoint():
             force_send = not (self.env.context.get("import_file", False))
-            template.send_message(
+            template.send_mail(
                 user.id,
                 force_send=force_send,
                 raise_exception=True,

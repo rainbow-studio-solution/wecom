@@ -30,6 +30,7 @@ class WeComMessageApi(models.AbstractModel):
         author_id=None,
         body_html=None,
         body_json=None,
+        body_markdown=None,
         safe=None,
         enable_id_trans=None,
         enable_duplicate_check=None,
@@ -65,6 +66,7 @@ class WeComMessageApi(models.AbstractModel):
             author_id,
             body_html,
             body_json,
+            body_markdown,
             subject,
             media_id,
         )
@@ -135,6 +137,7 @@ class WeComMessageApi(models.AbstractModel):
         author_id=None,
         body_html=None,
         body_json=None,
+        body_markdown=None,
         subject=None,
         media_id=None,
     ):
@@ -177,7 +180,7 @@ class WeComMessageApi(models.AbstractModel):
         elif msgtype == "markdown":
             # markdown消息
             messages_content = {
-                "content": json.loads(body_json),
+                "content": body_markdown,
             }
         elif msgtype == "template_card":
             # 模板卡片消息

@@ -13,7 +13,7 @@ from . import wecom_message_api
 # from . import ir_model
 
 # from . import mail_followers
-# from . import mail_message
+from . import mail_message
 
 # from . import mail_notification
 from . import mail_mail

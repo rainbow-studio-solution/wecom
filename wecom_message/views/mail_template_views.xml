@@ -143,6 +143,6 @@
                 (0, 0, {'view_mode': 'form', 'view_id': ref('wecom_message_template_view_form')})]"/>
         </record>
 
-        <menuitem id="menu_wecom_message_template" name="Template" parent="wecom_message.menu_wecom_message_root" groups="base.group_system" action="action_wecom_message_template_tree_all" sequence="20"/>
+
     </data>
 </odoo>
