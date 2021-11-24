@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-23 05:44+0000\n"
-"PO-Revision-Date: 2021-11-23 13:48+0800\n"
+"POT-Creation-Date: 2021-11-24 07:00+0000\n"
+"PO-Revision-Date: 2021-11-24 15:02+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -157,13 +157,6 @@ msgid "<strong>Save</strong> this page and come back here to set up the feature.
 msgstr "<strong>保存</strong> 此页面，然后返回此处以设置功能。"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0
-#: code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
-#, python-format
-msgid "Another user is already registered using this email address or WeCom id."
-msgstr "其他用户已使用此电子邮件地址或企业微信id注册。"
-
-#. module: wecom_auth_oauth
 #: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form
 #: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
 msgid ""
@@ -209,8 +202,8 @@ msgstr "授权后重定向的回调链接地址"
 #: code:addons/wecom_auth_oauth/models/res_users.py:0
 #: code:addons/wxwork/wecom_auth_oauth/models/res_users.py:0
 #, python-format
-msgid "Cannot send email or message: user %s has no email address or WeCom user id."
-msgstr "无法发送电子邮件或消息：用户%s没有电子邮件地址或企业微信用户id。"
+msgid "Cannot send email: user %s has no email address."
+msgstr "无法发送电子邮件：用户%s没有电子邮件地址。"
 
 #. module: wecom_auth_oauth
 #. openerp-web
@@ -243,13 +236,6 @@ msgstr "完成获取加入企业二维码"
 #: model:ir.model,name:wecom_auth_oauth.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0
-#: code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
-#, python-format
-msgid "Could not create a new account."
-msgstr "无法创建新帐户。"
 
 #. module: wecom_auth_oauth
 #: model:ir.model.fields,field_description:wecom_auth_oauth.field_auth_oauth_provider__display_name
@@ -406,6 +392,26 @@ msgstr "刷新二维码"
 #: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__qr_redirect_uri
 msgid "Scan the QR code to log in and call back the link address"
 msgstr "扫描二维码登录回调链接地址"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
+msgid "Send Password Reset Instructions"
+msgstr "发送密码重置说明"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
+msgid "Send Password Reset Instructions Message"
+msgstr "发送密码重置说明消息"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
+msgid "Send an Invitation Email"
+msgstr "发送邀请电子邮件"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
+msgid "Send an Invitation Message"
+msgstr "发送邀请企微消息"
 
 #. module: wecom_auth_oauth
 #: code:addons/wecom_auth_oauth/models/res_company.py:0

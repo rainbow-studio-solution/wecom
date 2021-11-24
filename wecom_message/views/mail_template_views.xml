@@ -44,21 +44,31 @@
 
                         </div>
                         <notebook>
-                            <page string="Content" name="content">
+                            <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
                                 <label for="subject"/>
                                 <h2 style="display: inline-block;" class="w-75">
                                     <field name="subject" placeholder="Subject (placeholders may be used here)"/>
                                 </h2>
-                                <p attrs="{'invisible': [('msgtype','!=','mpnews')]}">
+                                <p>
                                     <label for="media_id"/>
                                     <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
                                 </p>
-                                <field name="body_html" widget="html" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
+                                <field name="body_html" widget="html" />
+                            </page>
+                            <page string="Json Content" name="json_content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;" class="w-75">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
+                                <field name="body_json" widget="wecom_jsoneditor" />
+                            </page>
+                            <page string="Markdown Content" name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;" class="w-75">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
 
-                                <field name="body_json" widget="wecom_jsoneditor" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
-
-                                <field name="body_markdown" widget="wecom_markdown" options="{'style-inline': true}" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
-
+                                <field name="body_markdown" widget="wecom_markdown" />
                             </page>
                             <page string="Message Configuration" name="message_configuration">
                                 <group>

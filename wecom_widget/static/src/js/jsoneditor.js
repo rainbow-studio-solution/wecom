@@ -1,6 +1,7 @@
 odoo.define("wecom.FieldTextJson", function (require) {
     'use strict';
     var basic_fields = require('web.basic_fields');
+    var dom = require('web.dom');
     var field_registry = require('web.field_registry');
     var core = require('web.core');
     var _lt = core._lt;
@@ -8,13 +9,12 @@ odoo.define("wecom.FieldTextJson", function (require) {
 
     var FieldTextJson = basic_fields.FieldText.extend({
         description: _lt("Json Editor"),
-        template: "JsonEditor",
-        // className: "o_form_field_jsoneditor",
+        // template: "JsonEditor",
         className: [
             basic_fields.FieldText.prototype.className,
             'o_form_field_jsoneditor',
         ].join(' '),
-
+        tagName: 'div',
         jsLibs: [
             '/wecom_widget/static/lib/jsoneditor/js/jsoneditor.js',
         ],
@@ -24,7 +24,9 @@ odoo.define("wecom.FieldTextJson", function (require) {
         init: function () {
             var self = this;
             this._super.apply(this, arguments);
-
+            if (this.mode === 'edit') {
+                this.tagName = 'div';
+            }
             //暗色主题，默认为true
             this.darktheme = self.convertBoolean(self.nodeOptions.darktheme);
             if (this.darktheme) {
@@ -40,6 +42,62 @@ odoo.define("wecom.FieldTextJson", function (require) {
                 self.$el.parent().prepend(self.$error_el);
             });
         },
+
+        _prepareInput: function () {
+            var $input = this._super.apply(this, arguments);
+            var self = this;
+            self.json_data = $input.val();
+            $input.empty();
+            _.defer(function ($elm) {
+                // if (this.mode === 'edit') {
+                //     if ($input[1]) {
+                //         $input[1].remove();
+                //     }
+                // }
+
+                $input.removeClass(this.className);
+                $input.wrap(_.str.sprintf("<div class='%s'></div>", self.className));
+                $elm.removeAttr("style");
+
+                self.$editor = new JSONEditor($elm.get(0), self._getJsonEditorOptions());
+
+                //添加翻译按钮 mode : "readonly" "edit"
+                if (this.res_id && this.mode == "edit") {
+                    if (_t.database.multi_lang && this.field.translate) {
+                        var $translate = this._renderTranslateButton();
+                        $translate.addClass("jsoneditor-translate fa fa-language fa-lg");
+                        self.$editor.menu.appendChild($translate[0]);
+                        // self.$editor.dom.translate = $translate[0];
+                    }
+                }
+                if ($input.val() != "") {
+                    self.$editor.set(jQuery.parseJSON($input.val()));
+                }
+            }.bind(this), $input);
+
+            return $input;
+        },
+        _renderReadonly: function () {
+            this._prepareInput(this.$el);
+        },
+        _renderEdit: function () {
+            this._prepareInput(this.$el);
+        },
+        _setValue: function () {
+            var self = this;
+            if (!self.isJSON) {
+                // json 不合法 弹出通知
+                var title = _t('Json Validation Error');
+                var message = _t("Please check the JSON text!");
+                var className = "";
+                return self.do_warn_notify(title, message, className);
+            } else {
+                return this._super(self.json_data);
+            }
+        },
+        // --------------------------------------------------------------------------
+        // Json编辑器
+        // --------------------------------------------------------------------------
         get_modes: function (value) {
             var self = this;
             if (self.isEmptyObject(value)) {
@@ -86,38 +144,7 @@ odoo.define("wecom.FieldTextJson", function (require) {
                     return true;
             }
         },
-        _prepareInput: function () {
-            var $input = this._super.apply(this, arguments);
-            var self = this;
-            self.json_data = $input.val();
-            $input.empty();
-            _.defer(function ($elm) {
-                if ($input[1]) {
-                    $input[1].remove();
-                }
-                $input.removeClass(this.className);
-                $input.wrap(_.str.sprintf("<div class='%s'></div>", self.className));
-                $elm.removeAttr("style");
-                console.log($elm.get(0));
-                self.$editor = new JSONEditor($elm.get(0), self._getJsonEditorOptions());
 
-                //添加翻译按钮 mode : "readonly" "edit"
-                if (this.res_id && this.mode == "edit") {
-                    if (_t.database.multi_lang && this.field.translate) {
-                        var $translate = this._renderTranslateButton();
-                        $translate.addClass("jsoneditor-translate fa fa-language fa-lg");
-                        self.$editor.menu.appendChild($translate[0]);
-                        // self.$editor.dom.translate = $translate[0];
-                    }
-                }
-
-                if ($input.val() != "") {
-                    self.$editor.set(jQuery.parseJSON($input.val()));
-                }
-            }.bind(this), $input);
-
-            return $input;
-        },
         _getJsonEditorOptions: function () {
             var self = this;
             var error_text = _t('Json Validation Error');
@@ -177,24 +204,7 @@ odoo.define("wecom.FieldTextJson", function (require) {
             }
             return options;
         },
-        // _renderReadonly: function () {
-        //     this._prepareInput(this.$el);
-        // },
-        _renderEdit: function () {
-            this._prepareInput(this.$el);
-        },
-        _setValue: function () {
-            var self = this;
-            if (!self.isJSON) {
-                // json 不合法 弹出通知
-                var title = _t('Json Validation Error');
-                var message = _t("Please check the JSON text!");
-                var className = "";
-                return self.do_warn_notify(title, message, className);
-            } else {
-                return this._super(self.json_data);
-            }
-        },
+
         do_warn_notify: function (title, message, className) {
             var self = this;
             self.displayNotification({

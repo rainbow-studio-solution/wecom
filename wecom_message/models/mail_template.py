@@ -36,8 +36,8 @@ class MailTemplate(models.Model):
         comodel_name="wecom.material",
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
-    body_json = fields.Html("Json Body", translate=True, sanitize=False)
-    body_markdown = fields.Html("Markdown Body", translate=True, sanitize=False)
+    body_json = fields.Text("Json Body", translate=True, sanitize=False)
+    body_markdown = fields.Text("Markdown Body", translate=True, sanitize=False)
     code = fields.Char("Message Code")
     msgtype = fields.Selection(
         [
