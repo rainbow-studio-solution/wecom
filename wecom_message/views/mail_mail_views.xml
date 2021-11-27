@@ -77,7 +77,6 @@
     <record model="ir.ui.view" id="view_wecom_mail_tree">
         <field name="name">wecom.mail.tree</field>
         <field name="model">mail.mail</field>
-
         <field name="arch" type="xml">
             <tree string="WeCom Message" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'" decoration-danger="state=='exception'">
                 <field name="date"/>
@@ -143,7 +142,7 @@
     </record>
 
     <record id="action_view_wecom_mail" model="ir.actions.act_window">
-        <field name="name">Messages</field>
+        <field name="name">EMail Messages</field>
         <field name="res_model">mail.mail</field>
         <field name="view_mode">tree,form</field>
         <!-- <field name="domain">[('notification_type','=', ('wxwork'))]</field> -->

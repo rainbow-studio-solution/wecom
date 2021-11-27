@@ -45,23 +45,22 @@ class Message(models.Model):
         ondelete={"wxwork": lambda recs: recs.write({"message_type": "email"})},
     )
 
-
     message_to_user = fields.Many2many(
         "hr.employee",
         string="To Employees",
-        domain="[('active', '=', True), ('is_wecom_employee', '=', True)]",
+        # domain="[('active', '=', True), ('is_wecom_employee', '=', True)]",
         help="Message recipients (users)",
     )
     message_to_party = fields.Many2many(
         "hr.department",
         string="To Departments",
-        domain="[('active', '=', True), ('is_wecom_department', '=', True)]",
+        # domain="[('active', '=', True), ('is_wecom_department', '=', True)]",
         help="Message recipients (departments)",
     )
     message_to_tag = fields.Many2many(
         "hr.employee.category",
         string="To Tags",
-        domain="[('is_wecom_category', '=', True)]",
+        # domain="[('is_wecom_category', '=', True)]",
         help="Message recipients (tags)",
     )
     use_templates = fields.Boolean("Test template message", default=False)
@@ -79,6 +78,7 @@ class Message(models.Model):
             ("markdown", "Markdown message"),
             ("miniprogram", "Mini Program Notification Message"),
             ("taskcard", "Task card message"),
+            ("template_card", "Template card message"),
         ],
         string="Message type",
         default="text",
@@ -86,8 +86,9 @@ class Message(models.Model):
     media_id = fields.Char(
         string="Media file id",
     )
-    body_json = fields.Html("Not Html Body", sanitize=False)
+    body_json = fields.Text("Json Body", sanitize=False)
     body_html = fields.Html("Html Body", sanitize=False)
+    body_markdown = fields.Text("Markdown Body", sanitize=False)
 
     safe = fields.Selection(
         [
@@ -349,3 +350,39 @@ class Message(models.Model):
         except Exception as e:
             _logger.info("mail.message.Error: %s" % e)
         return super().write(vals)
+
+    # ------------------------------------------------------
+    # MESSAGE READ / FETCH / FAILURE API
+    # 消息读取      / 获取  /   失败API
+    # ------------------------------------------------------
+    def _get_message_format_fields(self):
+        return [
+            "id",
+            "body",
+            "date",
+            "author_id",
+            "email_from",  # 基本消息字段
+            "message_type",
+            "subtype_id",
+            "subject",  # 特定消息
+            "model",
+            "res_id",
+            "record_name",  # 文件相关
+            "channel_ids",
+            "partner_ids",  # 接收者
+            "starred_partner_ids",  # 为其标记消息的合作伙伴ID列表
+            "moderation_status",
+            # 以下为企业微信字段
+            "msgtype",
+            "message_to_user",
+            "message_to_party",
+            "message_to_tag",
+            "media_id",
+            "body_html",
+            "body_json",
+            "body_markdown",
+            "safe",
+            "enable_id_trans",
+            "enable_duplicate_check",
+            "duplicate_check_interval",
+        ]

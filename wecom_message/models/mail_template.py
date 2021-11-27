@@ -262,8 +262,6 @@ class MailTemplate(models.Model):
                 "scheduled_date",
                 # 企微消息
                 "msgtype",
-                "body_json",
-                "body_markdown",
                 "message_to_user",
                 "message_to_party",
                 "message_to_tag",

@@ -5,7 +5,7 @@
         <menuitem id="menu_wecom_message_root" name="Message" groups="base.group_erp_manager" parent="wecom_base.menu_wecom_root" sequence="3"/>
 
         <!-- 对应菜单：设置→技术→讨论 -->
-        <menuitem id="menu_wecom_discuss" name="Discuss" parent="menu_wecom_message_root" sequence="1"/>
+        <menuitem id="menu_wecom_discuss" name="Discuss Message" parent="menu_wecom_message_root" sequence="1"/>
         <!-- 1.消息 -->
         <menuitem id="menu_wecom_discuss_message" name="Message" parent="menu_wecom_discuss" action="action_view_wecom_message" groups="base.group_erp_manager" sequence="1"/>
         <!-- 2.跟踪值 -->
@@ -23,10 +23,10 @@
         <!-- <menuitem name="Email Blacklist" id="menu_wecom_discuss_blacklist" action="mail.mail_blacklist_action" parent="menu_wecom_discuss" sequence="6"/> -->
 
         <!-- 对应菜单：设置→技术→电子邮件 -->
-        <menuitem id="menu_wecom_email" name="Message" parent="menu_wecom_message_root" sequence="2"/>
+        <menuitem id="menu_wecom_email" name="Email Message" parent="menu_wecom_message_root" sequence="2"/>
 
         <!-- 1.邮件 -->
-        <menuitem id="menu_wecom_email_message" name="Message" parent="menu_wecom_email" action="action_view_wecom_mail" groups="base.group_erp_manager" sequence="1"/>
+        <menuitem id="menu_wecom_email_message" name="EMail Message" parent="menu_wecom_email" action="action_view_wecom_mail" groups="base.group_erp_manager" sequence="1"/>
 
         <!-- 2.模板 -->
         <menuitem id="menu_wecom_message_template" name="Template" parent="menu_wecom_email" groups="base.group_erp_manager" action="action_wecom_message_template_tree_all" sequence="2"/>

@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 
+import logging
+import ast
+import base64
 import datetime
 import logging
-import threading
+import psycopg2
+import smtplib
+import re
 from odoo import _, api, fields, models
 from odoo import tools
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -127,6 +132,18 @@ class MailMail(models.Model):
     # 消息格式、工具和发送机制
     # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
+    def _send_prepare_body_html(self):
+        self.ensure_one()
+        return self.body_html or ""
+
+    def _send_prepare_body_json(self):
+        self.ensure_one()
+        return self.body_json or ""
+
+    def _send_prepare_body_markdown(self):
+        self.ensure_one()
+        return self.body_markdown or ""
+
     def send(
         self,
         auto_commit=False,
@@ -144,7 +161,6 @@ class MailMail(models.Model):
         :param company: 公司
         :return: True
         """
-
         if not company:
             company = self.env.company
         for server_id, batch_ids in self._split_by_server():
@@ -152,6 +168,7 @@ class MailMail(models.Model):
             try:
                 if self.is_wecom_message:
                     # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    # print("mail.mail-send()-1")
                     pass
                 else:
                     smtp_session = self.env["ir.mail_server"].connect(
@@ -160,7 +177,9 @@ class MailMail(models.Model):
             except Exception as exc:
                 if self.is_wecom_message:
                     # 标识为企业微信消息的 mail_mail 对象 pass掉
+                    print("mail.mail-send()-2")
                     pass
+
                 else:
                     if raise_exception:
                         # 为了与 mail_mail.send() 引发的异常保持一致并向后兼容，它被封装到一个Odoo MailDeliveryException中
@@ -174,9 +193,14 @@ class MailMail(models.Model):
                             success_pids=[], failure_type="SMTP"
                         )
             else:
+
                 if self.is_wecom_message:
-                    # 标识为企业微信消息的 mail_mail 对象 pass掉
-                    pass
+                    self.browse(batch_ids)._send_wecom_message(
+                        auto_commit=auto_commit,
+                        raise_exception=raise_exception,
+                        company=company,
+                    )
+                    _logger.info("Sent batch %s messages via Wecom", len(batch_ids))
                 else:
                     self.browse(batch_ids)._send(
                         auto_commit=auto_commit,
@@ -191,15 +215,7 @@ class MailMail(models.Model):
             finally:
                 if self.is_wecom_message:
                     # 标识为企业微信消息的 mail_mail 对象 pass掉
-                    self.browse(batch_ids)._send_wecom_message(
-                        auto_commit=auto_commit,
-                        raise_exception=raise_exception,
-                        company=company,
-                    )
-                    _logger.info(
-                        _("Sent batch %s message via Wecom"),
-                        len(batch_ids),
-                    )
+                    pass
                 else:
                     if smtp_session:
                         smtp_session.quit()
@@ -211,7 +227,9 @@ class MailMail(models.Model):
         :param Model partner: 具体的收件人合作伙伴
         """
         self.ensure_one()
-        body_html = self._send_prepare_body()
+        body_html = self._send_prepare_body_html()
+        body_json = self._send_prepare_body_json()
+        body_markdown = self._send_prepare_body_markdown()
         # body_alternative = tools.html2plaintext(body_html)
         if partner:
             email_to = [
@@ -230,6 +248,9 @@ class MailMail(models.Model):
             # "message_body_html": message_body_html,
             "email_to": email_to,
             "message_to_user": message_to_user,
+            "body_json": body_json,
+            "body_html": body_html,
+            "body_markdown": body_markdown,
         }
 
         return res
@@ -253,24 +274,38 @@ class MailMail(models.Model):
             company = self.env.company
 
         IrWxWorkMessageApi = self.env["wecom.message.api"]
+        IrAttachment = self.env["ir.attachment"]
         for mail_id in self.ids:
             success_pids = []
             failure_type = None
             processing_pid = None
             mail = None
-
             mail = self.browse(mail_id)
+            mail.mail_message_id.is_wecom_message = True  # 标识为企业微信消息
+            mail.mail_message_id.is_internal = True  # 标识为企业微信消息
+
             if mail.state != "outgoing":
                 if mail.state != "exception" and mail.auto_delete:
                     mail.sudo().unlink()
                 continue
+
+            # 如果用户发送带有访问令牌的链接，请删除附件
+            body_html = mail.body_html or ""
+            body_json = mail.body_json or ""
+            body_markdown = mail.body_markdown or ""
+            attachments = mail.attachment_ids
+            for link in re.findall(r"/web/(?:content|image)/([0-9]+)", body_html):
+                attachments = attachments - IrAttachment.browse(int(link))
+            for link in re.findall(r"/web/(?:content|image)/([0-9]+)", body_json):
+                attachments = attachments - IrAttachment.browse(int(link))
+            for link in re.findall(r"/web/(?:content|image)/([0-9]+)", body_markdown):
+                attachments = attachments - IrAttachment.browse(int(link))
+
             # 为通知的合作伙伴自定义发送电子邮件的特定行为
             email_list = []
             if mail.message_to_user or mail.message_to_party or mail.message_to_tag:
-                # email_list.append(mail._send_message_prepare_values())
                 email_list.append(mail._send_wecom_prepare_values())
             for partner in mail.recipient_ids:
-                # values = mail._send_message_prepare_values(partner=partner)
                 values = mail._send_wecom_prepare_values(partner=partner)
                 values["partner_id"] = partner
                 email_list.append(values)
@@ -278,12 +313,15 @@ class MailMail(models.Model):
             # 在邮件对象上写入可能会失败（例如锁定用户），这将在*实际发送电子邮件后触发回滚。
             # 为了避免两次发送同一封电子邮件，请尽早引发失败
 
-            mail.write({"state": "sent", "failure_reason": ""})
+            mail.write(
+                {"is_wecom_message": True, "state": "sent", "failure_reason": ""}
+            )
 
             # 在临时异常状态下更新通知，以避免在发送与当前邮件记录相关的所有电子邮件时发生电子邮件反弹的情况下进行并发更新。
             notifs = self.env["mail.notification"].search(
                 [
                     ("notification_type", "=", "email"),
+                    ("is_wecom_message", "=", True),
                     ("mail_id", "in", mail.ids),
                     ("notification_status", "not in", ("sent", "canceled")),
                 ]
@@ -317,6 +355,8 @@ class MailMail(models.Model):
                 # 建立 email.message.message对象并在不排队的情况下发送它
                 res = None
             for email in email_list:
+                # print("----------1", email.get("body_json"))
+                # print("----------2", mail.body_json)
                 msg = IrWxWorkMessageApi.build_message(
                     msgtype=mail.msgtype,
                     touser=mail.message_to_user,
@@ -329,6 +369,9 @@ class MailMail(models.Model):
                     body_html=mail.body_html,
                     body_json=mail.body_json,
                     body_markdown=mail.body_markdown,
+                    # body_html=email.get("body_html"),
+                    # body_json=email.get("body_json"),
+                    # body_markdown=email.get("body_markdown"),
                     safe=mail.safe,
                     enable_id_trans=mail.enable_id_trans,
                     enable_duplicate_check=mail.enable_duplicate_check,
@@ -348,6 +391,7 @@ class MailMail(models.Model):
                     )
                     mail.write(
                         {
+                            "is_wecom_message": True,
                             "state": "exception",
                             "failure_reason": "%s %s"
                             % (str(error["code"]), error["name"]),
@@ -361,6 +405,7 @@ class MailMail(models.Model):
             if res["errcode"] == 0:  # 消息发送成功
                 mail.write(
                     {
+                        "is_wecom_message": True,
                         "state": "sent",
                         "message_id": res["msgid"],
                         "failure_reason": False,

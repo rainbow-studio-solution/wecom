@@ -472,13 +472,7 @@ msgstr "消息接收人（用户）"
 msgid "Message settings"
 msgstr "消息设置"
 
-#. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_compose_message__msgtype
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__msgtype
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__msgtype
-#: model:ir.ui.menu,name:wecom_message.menu_wecom_email
-msgid "Message type"
-msgstr "消息类型"
+
 
 #. module: wecom_message
 #: code:addons/wecom_message/models/mail_mail.py:0

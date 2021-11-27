@@ -1,14 +1,34 @@
 # -*- coding: utf-8 -*-
 
+import ast
+import base64
+import datetime
+import dateutil
+import email
+import email.policy
+import hashlib
+import hmac
+import lxml
 import logging
+import pytz
+import re
+import socket
+import time
+import threading
 
-from odoo import api, models, fields
-from odoo.addons.phone_validation.tools import phone_validation
-from odoo.tools import html2plaintext, plaintext2html
+from collections import namedtuple
+from email.message import EmailMessage
+from email import message_from_string, policy
+from lxml import etree
+from werkzeug import urls
+from xmlrpc import client as xmlrpclib
 
 from odoo import _, api, exceptions, fields, models, tools, registry, SUPERUSER_ID
 from odoo.exceptions import MissingError
 from odoo.osv import expression
+
+from odoo.tools import ustr
+from odoo.tools.misc import clean_context, split_every
 
 _logger = logging.getLogger(__name__)
 
@@ -45,20 +65,7 @@ class MailThread(models.AbstractModel):
     is_wecom_message = fields.Boolean(
         "WeCom Message",
     )
-    # notification_type = fields.Selection(
-    #     [
-    #         ("email", "Handle by Emails"),
-    #         ("inbox", "Handle in Odoo"),
-    #         ("wxwork", "Handle in WeCom"),
-    #     ],
-    #     "Notification",
-    #     required=True,
-    #     default="email",
-    #     help="Policy on how to handle Chatter notifications:\n"
-    #     "- Handle by Emails: notifications are sent to your email address\n"
-    #     "- Handle in Odoo: notifications appear in your Odoo Inbox\n"
-    #     "- Handle in WeCom: notifications appear in your WeCom",
-    # )
+
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -72,16 +79,14 @@ class MailThread(models.AbstractModel):
             ("markdown", "Markdown message"),
             ("miniprogram", "Mini Program Notification Message"),
             ("taskcard", "Task card message"),
+            ("template_card", "Template card message"),
+            ("template_card", "Template card message"),
         ],
         string="Message type",
         required=True,
         default="text",
     )
 
-    # is_wecom_message = fields.Boolean("WeCom Message",)
-    # message_to_all = fields.Boolean(
-    #     "To all members",
-    # )
     message_to_user = fields.Char(
         string="To Users",
         help="Message recipients (users)",
@@ -103,6 +108,10 @@ class MailThread(models.AbstractModel):
     )
     body_json = fields.Text(
         "Text Body",
+        translate=True,
+    )
+    body_markdown = fields.Text(
+        "Markdown Body",
         translate=True,
     )
     body_html = fields.Html("Html Body", translate=True, sanitize=False)
@@ -160,6 +169,355 @@ class MailThread(models.AbstractModel):
     # 邮件网关
     # MAIL GATEWAY
     # ------------------------------------------------------
+    def _message_parse_extract_payload_postprocess(self, message, payload_dict):
+        """
+        在从电子邮件中提取的正文和附件中执行一些清理/后处理。请注意，此处理特定于邮件模块，不应包含安全性或通用html清理。
+        实际上，工具中的html_清理方法应该涵盖这些方面。
+        """
+        body, body_html, body_json, body_markdown, attachments = (
+            payload_dict["body"],
+            payload_dict["body_html"],
+            payload_dict["body_json"],
+            payload_dict["body_markdown"],
+            payload_dict["attachments"],
+        )
+        if not body.strip():
+            return {
+                "body": body,
+                "body_html": body_html,
+                "body_json": body_json,
+                "body_markdown": body_markdown,
+                "attachments": attachments,
+            }
+        try:
+            root = lxml.html.fromstring(body)
+        except ValueError:
+            # In case the email client sent XHTML, fromstring will fail because 'Unicode strings
+            # with encoding declaration are not supported'.
+            root = lxml.html.fromstring(body.encode("utf-8"))
+
+        postprocessed = False
+        to_remove = []
+        for node in root.iter():
+            if "o_mail_notification" in (
+                node.get("class") or ""
+            ) or "o_mail_notification" in (node.get("summary") or ""):
+                postprocessed = True
+                if node.getparent() is not None:
+                    to_remove.append(node)
+            if node.tag == "img" and node.get("src", "").startswith("cid:"):
+                cid = node.get("src").split(":", 1)[1]
+                related_attachment = [
+                    attach
+                    for attach in attachments
+                    if attach[2] and attach[2].get("cid") == cid
+                ]
+                if related_attachment:
+                    node.set("data-filename", related_attachment[0][0])
+                    postprocessed = True
+
+        for node in to_remove:
+            node.getparent().remove(node)
+        if postprocessed:
+            body = etree.tostring(root, pretty_print=False, encoding="unicode")
+        return {
+            "body": body,
+            "body_html": body_html,
+            "body_json": body_json,
+            "body_markdown": body_markdown,
+            "attachments": attachments,
+        }
+
+    def _message_parse_extract_payload(self, message, save_original=False):
+        """
+        从邮件中提取正文作为HTML和附件
+        """
+        attachments = []
+        body = ""
+        body_html = ""
+        body_json = ""
+        body_markdown = ""
+        if save_original:
+            attachments.append(
+                self._Attachment("original_email.eml", message.as_string(), {})
+            )
+
+        # 请小心，内容类型可能包含棘手的内容，如以下示例中所示，因此请使用startswith()测试MIME类型
+        #
+        # Content-Type: multipart/related;
+        #   boundary="_004_3f1e4da175f349248b8d43cdeb9866f1AMSPR06MB343eurprd06pro_";
+        #   type="text/html"
+        if message.get_content_maintype() == "text":
+            encoding = message.get_content_charset()
+            body = message.get_content()
+            body = tools.ustr(body, encoding, errors="replace")
+            body_html = message.get_content()
+            body_html = tools.ustr(body_html, encoding, errors="replace")
+            body_json = message.get_content()
+            body_json = tools.ustr(body_json, encoding, errors="replace")
+            body_markdown = message.get_content()
+            body_markdown = tools.ustr(body_markdown, encoding, errors="replace")
+            if message.get_content_type() == "text/plain":
+                # text/plain -> <pre/>
+                body = tools.append_content_to_html("", body, preserve=True)
+                body_html = tools.append_content_to_html("", body_html, preserve=True)
+                body_json = tools.append_content_to_html("", body_json, preserve=True)
+                body_markdown = tools.append_content_to_html(
+                    "", body_markdown, preserve=True
+                )
+        else:
+            alternative = False
+            mixed = False
+            html = ""
+            for part in message.walk():
+                if part.get_content_type() == "multipart/alternative":
+                    alternative = True
+                if part.get_content_type() == "multipart/mixed":
+                    mixed = True
+                if part.get_content_maintype() == "multipart":
+                    continue  # skip container
+
+                filename = part.get_filename()  # I may not properly handle all charsets
+                encoding = part.get_content_charset()  # None if attachment
+
+                # 0) 内联附件 -> 附件，元组中有第三部分与 cid / 附件匹 配
+                if filename and part.get("content-id"):
+                    inner_cid = part.get("content-id").strip("><")
+                    attachments.append(
+                        self._Attachment(
+                            filename, part.get_content(), {"cid": inner_cid}
+                        )
+                    )
+                    continue
+                # 1) 显式附件 -> 附件
+                if filename or part.get("content-disposition", "").strip().startswith(
+                    "attachment"
+                ):
+                    attachments.append(
+                        self._Attachment(
+                            filename or "attachment", part.get_content(), {}
+                        )
+                    )
+                    continue
+                # 2) text/plain -> <pre/>
+                if part.get_content_type() == "text/plain" and (
+                    not alternative or not body
+                ):
+                    body = tools.append_content_to_html(
+                        body,
+                        tools.ustr(part.get_content(), encoding, errors="replace"),
+                        preserve=True,
+                    )
+                    body_html = tools.append_content_to_html(
+                        body_html,
+                        tools.ustr(part.get_content(), encoding, errors="replace"),
+                        preserve=True,
+                    )
+                    body_json = tools.append_content_to_html(
+                        body_json,
+                        tools.ustr(part.get_content(), encoding, errors="replace"),
+                        preserve=True,
+                    )
+                    body_markdown = tools.append_content_to_html(
+                        body_markdown,
+                        tools.ustr(part.get_content(), encoding, errors="replace"),
+                        preserve=True,
+                    )
+                # 3) text/html -> raw
+                elif part.get_content_type() == "text/html":
+                    # mutlipart/alternative have one text and a html part, keep only the second
+                    # mixed allows several html parts, append html content
+                    append_content = not alternative or (html and mixed)
+                    html = tools.ustr(part.get_content(), encoding, errors="replace")
+                    if not append_content:
+                        body = html
+                        body_html = body_html
+                        body_json = body_json
+                        body_markdown = body_markdown
+                    else:
+                        body = tools.append_content_to_html(body, html, plaintext=False)
+                        body_html = tools.append_content_to_html(
+                            body_html, html, plaintext=False
+                        )
+                        body_json = tools.append_content_to_html(
+                            body_json, html, plaintext=False
+                        )
+                        body_markdown = tools.append_content_to_html(
+                            body_markdown, html, plaintext=False
+                        )
+                    # 我们在这里只 strip_classes，其他一切都将在mail.message的html字段中完成
+                    body = tools.html_sanitize(
+                        body, sanitize_tags=False, strip_classes=True
+                    )
+                    body_html = tools.html_sanitize(
+                        body_html, sanitize_tags=False, strip_classes=True
+                    )
+                    body_json = tools.html_sanitize(
+                        body_json, sanitize_tags=False, strip_classes=True
+                    )
+                    body_markdown = tools.html_sanitize(
+                        body_markdown, sanitize_tags=False, strip_classes=True
+                    )
+                # 4) Anything else -> attachment
+                else:
+                    attachments.append(
+                        self._Attachment(
+                            filename or "attachment", part.get_content(), {}
+                        )
+                    )
+
+        return self._message_parse_extract_payload_postprocess(
+            message,
+            {
+                "body": body,
+                "body_html": body_html,
+                "body_json": body_json,
+                "body_markdown": body_markdown,
+                "attachments": attachments,
+            },
+        )
+
+    @api.model
+    def message_parse(self, message, save_original=False):
+        """
+        解析表示RFC-2822电子邮件的 email.message.message，并返回包含消息详细信息的通用dict。
+
+        :param message: email to parse
+        :type message: email.message.Message
+        :param bool save_original: whether the returned dict should include
+            an ``original`` attachment containing the source of the message
+        :rtype: dict
+        :return: A dict with the following structure, where each field may not
+            be present if missing in original message::
+
+            { 'message_id': msg_id,
+              'subject': subject,
+              'email_from': from,
+              'to': to + delivered-to,
+              'cc': cc,
+              'recipients': delivered-to + to + cc + resent-to + resent-cc,
+              'partner_ids': partners found based on recipients emails,
+              'body': unified_body,
+              'references': references,
+              'in_reply_to': in-reply-to,
+              'parent_id': parent mail.message based on in_reply_to or references,
+              'is_internal': answer to an internal message (note),
+              'date': date,
+              'attachments': [('file1', 'bytes'),
+                              ('file2', 'bytes')}
+        """
+        if not isinstance(message, EmailMessage):
+            raise ValueError(_("Message should be a valid EmailMessage instance"))
+        msg_dict = {"message_type": "email"}
+
+        message_id = message.get("Message-Id")
+        if not message_id:
+            # 非常不寻常的情况，就是我们在这里应该容错
+            message_id = "<%s@localhost>" % time.time()
+            _logger.debug(
+                "Parsing Message without message-id, generating a random one: %s",
+                message_id,
+            )
+        msg_dict["message_id"] = message_id.strip()
+
+        if message.get("Subject"):
+            msg_dict["subject"] = tools.decode_message_header(message, "Subject")
+
+        email_from = tools.decode_message_header(message, "From")
+        email_cc = tools.decode_message_header(message, "cc")
+        email_from_list = tools.email_split_and_format(email_from)
+        email_cc_list = tools.email_split_and_format(email_cc)
+        msg_dict["email_from"] = email_from_list[0] if email_from_list else email_from
+        msg_dict["from"] = msg_dict["email_from"]  # compatibility for message_new
+        msg_dict["cc"] = ",".join(email_cc_list) if email_cc_list else email_cc
+        # Delivered-To is a safe bet in most modern MTAs, but we have to fallback on To + Cc values
+        # for all the odd MTAs out there, as there is no standard header for the envelope's `rcpt_to` value.
+        msg_dict["recipients"] = ",".join(
+            set(
+                formatted_email
+                for address in [
+                    tools.decode_message_header(message, "Delivered-To"),
+                    tools.decode_message_header(message, "To"),
+                    tools.decode_message_header(message, "Cc"),
+                    tools.decode_message_header(message, "Resent-To"),
+                    tools.decode_message_header(message, "Resent-Cc"),
+                ]
+                if address
+                for formatted_email in tools.email_split_and_format(address)
+            )
+        )
+        msg_dict["to"] = ",".join(
+            set(
+                formatted_email
+                for address in [
+                    tools.decode_message_header(message, "Delivered-To"),
+                    tools.decode_message_header(message, "To"),
+                ]
+                if address
+                for formatted_email in tools.email_split_and_format(address)
+            )
+        )
+        partner_ids = [
+            x.id
+            for x in self._mail_find_partner_from_emails(
+                tools.email_split(msg_dict["recipients"]), records=self
+            )
+            if x
+        ]
+        msg_dict["partner_ids"] = partner_ids
+        # compute references to find if email_message is a reply to an existing thread
+        msg_dict["references"] = tools.decode_message_header(message, "References")
+        msg_dict["in_reply_to"] = tools.decode_message_header(
+            message, "In-Reply-To"
+        ).strip()
+
+        if message.get("Date"):
+            try:
+                date_hdr = tools.decode_message_header(message, "Date")
+                parsed_date = dateutil.parser.parse(date_hdr, fuzzy=True)
+                if parsed_date.utcoffset() is None:
+                    # naive datetime, so we arbitrarily decide to make it
+                    # UTC, there's no better choice. Should not happen,
+                    # as RFC2822 requires timezone offset in Date headers.
+                    stored_date = parsed_date.replace(tzinfo=pytz.utc)
+                else:
+                    stored_date = parsed_date.astimezone(tz=pytz.utc)
+            except Exception:
+                _logger.info(
+                    "Failed to parse Date header %r in incoming mail "
+                    "with message-id %r, assuming current date/time.",
+                    message.get("Date"),
+                    message_id,
+                )
+                stored_date = datetime.datetime.now()
+            msg_dict["date"] = stored_date.strftime(
+                tools.DEFAULT_SERVER_DATETIME_FORMAT
+            )
+
+        parent_ids = False
+        if msg_dict["in_reply_to"]:
+            parent_ids = self.env["mail.message"].search(
+                [("message_id", "=", msg_dict["in_reply_to"])], limit=1
+            )
+        if msg_dict["references"] and not parent_ids:
+            references_msg_id_list = tools.mail_header_msgid_re.findall(
+                msg_dict["references"]
+            )
+            parent_ids = self.env["mail.message"].search(
+                [("message_id", "in", [x.strip() for x in references_msg_id_list])],
+                limit=1,
+            )
+        if parent_ids:
+            msg_dict["parent_id"] = parent_ids.id
+            msg_dict["is_internal"] = (
+                parent_ids.subtype_id and parent_ids.subtype_id.internal or False
+            )
+
+        msg_dict.update(
+            self._message_parse_extract_payload(message, save_original=save_original)
+        )
+        msg_dict.update(self._message_parse_extract_bounce(message, msg_dict))
+        return msg_dict
 
     # ------------------------------------------------------
     # 收件人管理工具
@@ -189,19 +547,22 @@ class MailThread(models.AbstractModel):
         attachment_ids=None,
         add_sign=True,
         record_name=False,
+        # 企业微信字段 start
         msgtype=None,
         is_wecom_message=None,
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
         media_id=None,
-        body_html="",
-        body_json="",
+        body_html=None,
+        body_json=None,
+        body_markdown=None,
         safe=None,
-        enable_id_trans=False,
-        enable_duplicate_check=False,
-        duplicate_check_interval=1800,
-        **kwargs
+        enable_id_trans=None,
+        enable_duplicate_check=None,
+        duplicate_check_interval=None,
+        # 企业微信字段 end
+        **kwargs,
     ):
         """
         在现有线程中发布新消息，并返回新的mail.message ID。
@@ -321,6 +682,7 @@ class MailThread(models.AbstractModel):
                 "channel_ids": channel_ids,
                 "add_sign": add_sign,
                 "record_name": record_name,
+                # 以下为企业微信消息字段
                 "msgtype": msgtype,
                 "is_wecom_message": is_wecom_message,
                 "message_to_user": message_to_user,
@@ -329,6 +691,7 @@ class MailThread(models.AbstractModel):
                 "media_id": media_id,
                 "body_html": body_html,
                 "body_json": body_json,
+                "body_markdown": body_markdown,
                 "safe": safe,
                 "enable_id_trans": enable_id_trans,
                 "enable_duplicate_check": enable_duplicate_check,
@@ -427,20 +790,22 @@ class MailThread(models.AbstractModel):
         email_from=None,
         body="",
         subject=False,
+        # 企业微信字段 start
         msgtype=None,
         is_wecom_message=None,
-
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
         media_id=None,
-        body_html="",
-        body_json="",
+        body_html=None,
+        body_json=None,
+        body_markdown=None,
         safe=None,
-        enable_id_trans=False,
-        enable_duplicate_check=False,
+        enable_id_trans=None,
+        enable_duplicate_check=None,
         duplicate_check_interval=1800,
-        **kwargs
+        # 企业微信字段 end
+        **kwargs,
     ):
         """
         允许通知合作伙伴有关不应在文档上显示的消息的快捷方式。 像其他通知一样，它会根据用户配置将通知推送到收件箱或通过电子邮件发送。
@@ -497,6 +862,7 @@ class MailThread(models.AbstractModel):
             "media_id": media_id,
             "body_html": body_html,
             "body_json": body_json,
+            "body_markdown": body_markdown,
             "safe": safe,
             "enable_id_trans": enable_id_trans,
             "enable_duplicate_check": enable_duplicate_check,
@@ -515,19 +881,22 @@ class MailThread(models.AbstractModel):
         email_from=None,
         subject=False,
         message_type="notification",
+        # 企业微信字段 start
         msgtype=None,
         is_wecom_message=None,
         message_to_user=None,
         message_to_party=None,
         message_to_tag=None,
         media_id=None,
-        body_html="",
-        body_json="",
+        body_html=None,
+        body_json=None,
+        body_markdown=None,
         safe=None,
-        enable_id_trans=False,
-        enable_duplicate_check=False,
+        enable_id_trans=None,
+        enable_duplicate_check=None,
         duplicate_check_interval=1800,
-        **kwargs
+        # 企业微信字段 end
+        **kwargs,
     ):
         """
         允许在文档上发布注释的快捷方式。 它不执行任何通知，并预先计算一些值以使短代码尽可能优化。 该方法是私有的，因为它不检查访问权限，并且以sudo的身份执行消息创建，以加快日志处理速度。 应该在已经授予访问权限的方法中调用此方法，以避免特权升级。
@@ -562,6 +931,7 @@ class MailThread(models.AbstractModel):
             "media_id": media_id,
             "body_html": body_html,
             "body_json": body_json,
+            "body_markdown": body_markdown,
             "safe": safe,
             "enable_id_trans": enable_id_trans,
             "enable_duplicate_check": enable_duplicate_check,
@@ -577,6 +947,7 @@ class MailThread(models.AbstractModel):
         email_from=None,
         subject=False,
         message_type="notification",
+        # 企业微信字段 start
         msgtype=None,
         is_wecom_message=None,
         message_to_user=None,
@@ -585,10 +956,12 @@ class MailThread(models.AbstractModel):
         media_id=None,
         body_html="",
         body_json="",
+        body_markdown="",
         safe=None,
         enable_id_trans=False,
         enable_duplicate_check=False,
         duplicate_check_interval=1800,
+        # 企业微信字段 end
     ):
         """
         快捷方式允许在一批文档上发布注释。 它实现了与_message_log相同的目的，该目的通过批量完成以加快快速注释日志的速度。
@@ -622,6 +995,7 @@ class MailThread(models.AbstractModel):
             "media_id": media_id,
             "body_html": body_html,
             "body_json": body_json,
+            "body_markdown": body_markdown,
             "safe": safe,
             "enable_id_trans": enable_id_trans,
             "enable_duplicate_check": enable_duplicate_check,
@@ -679,7 +1053,7 @@ class MailThread(models.AbstractModel):
         Kwarg允许传递给子通知方法的各种参数。 有关其他参数的更多详细信息，请参见那些方法。
         用于电子邮件样式通知的参数
         """
-
+        print("_notify_thread--------------", message)
         msg_vals = msg_vals if msg_vals else {}
         rdata = self._notify_compute_recipients(message, msg_vals)
         if not rdata:
@@ -697,7 +1071,7 @@ class MailThread(models.AbstractModel):
 
         return rdata
 
-    def _notify_record_by_wxwork(
+    def _notify_record_by_wecom(
         self, message, recipients_data, msg_vals=False, **kwargs
     ):
         """

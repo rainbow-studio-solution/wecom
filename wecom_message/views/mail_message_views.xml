@@ -1,10 +1,24 @@
 <?xml version="1.0"?>
 <odoo>
     <data>
+        <!-- 修改 mail.message 视图-->
+        <record model="ir.ui.view" id="view_message_tree">
+            <field name="name">mail.message.tree</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="is_wecom_message" />
+                </xpath>
+            </field>
+        </record>
 
-        <record model="ir.ui.view" id="wecom_message_form">
+        <!-- 企业微信消息视图-->
+
+        <record model="ir.ui.view" id="view_wecom_message_form">
             <field name="name">wecom.message.form</field>
             <field name="model">mail.message</field>
+            <field name="priority">20</field>
             <field name="arch" type="xml">
                 <form string="WeCom Message">
                     <sheet>
@@ -28,6 +42,7 @@
                             </group>
                         </group>
                         <group string="Message">
+                            <field name="is_wecom_message"/>
                             <group string="Recipients">
                                 <field name="message_to_user" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
                                 <field name="message_to_party" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
@@ -42,15 +57,14 @@
                         </group>
 
                         <notebook>
-                            <page string="Body" name="body">
-                                <div calss="row">
-                                    <i class="fa fa-info-circle"/>
-                                    <span class="ml8">Please refer to the link for message format:</span>
-                                    <a class="ml8" href="https://open.work.weixin.qq.com/api/doc/90000/90135/90236" target="_blank">Click</a>
-                                </div>
-                                <field name="body_json" force_save="1" widget="wecom_jsoneditor" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','=','mpnews')]}"/>
-
-                                <field name="body_html" force_save="1" widget="html" options="{'style-inline': true}" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','!=','mpnews')]}"/>
+                            <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
+                                <field name="body_html" widget="html" />
+                            </page>
+                            <page string="Json Content" name="json_content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                                <field name="body_json" widget="wecom_jsoneditor" />
+                            </page>
+                            <page string="Markdown Content" name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                                <field name="body_markdown" widget="wecom_markdown" />
                             </page>
                             <page string="Gateway" name="gateway">
                                 <group>
@@ -96,13 +110,15 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="wecom_message_tree">
+        <record model="ir.ui.view" id="view_wecom_message_tree">
             <field name="name">wecom.message.tree</field>
             <field name="model">mail.message</field>
+            <field name="priority">20</field>
             <field name="arch" type="xml">
                 <tree string="Messages">
                     <field name="date"/>
                     <field name="message_type"/>
+                    <field name="is_wecom_message"/>
                     <field name="subject"/>
                     <field name="author_id"/>
                     <field name="model"/>
@@ -117,6 +133,9 @@
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_wecom_message','=', True)]</field>
             <field name="context">{}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_wecom_message_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_wecom_message_form')})]"/>
         </record>
 
     </data>
