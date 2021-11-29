@@ -14,12 +14,19 @@ _logger = logging.getLogger(__name__)
 class WeComMessageTemplate(models.Model):
     _name = "wecom.message.template"
     _inherit = ["mail.render.mixin"]
-    _description = "Email Templates"
+    _description = "WeCom Messahe Templates"
     _order = "name"
+
+    @api.model
+    def default_get(self, fields):
+        res = super(WeComMessageTemplate, self).default_get(fields)
+        if res.get("model"):
+            res["model_id"] = self.env["ir.model"]._get(res.pop("model")).id
+        return res
 
     # description
     name = fields.Char(string="Name", required=True, translate=True)
-    subject = fields.Char(string="Subject", required=True)
+    subject = fields.Char(string="Subject")
     code = fields.Char(string="Code", required=True)
     model_id = fields.Many2one("ir.model", string="Applied to")
     model = fields.Char("Model", related="model_id.model")
@@ -44,9 +51,20 @@ class WeComMessageTemplate(models.Model):
     )
     sender = fields.Char(
         "Sender",
+        help="The sender's wecom_user_id (placeholder can be used here). If not set, the default value will be the sender's wecom_user_id",
     )
 
     # recipients
+    use_default_to = fields.Boolean(
+        "Default recipients",
+        help="Default recipients of the record:\n"
+        "- partner (using id on a partner or the partner_id field) OR\n"
+        "- message (using sender or wecom_user_id field)",
+    )
+    partner_to = fields.Char(
+        "To (Partners)",
+        help="WeCom ID list of partners separated by '|'",
+    )
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
         string="To Departments",
@@ -65,7 +83,8 @@ class WeComMessageTemplate(models.Model):
     )
 
     body_html = fields.Html("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Not Html Body", translate=True, default={})
+    body_json = fields.Text("Json Body", translate=True, sanitize=False, default={})
+    body_markdown = fields.Text("Markdown Body", translate=True, sanitize=False)
 
     # options
     safe = fields.Selection(
@@ -122,19 +141,14 @@ class WeComMessageTemplate(models.Model):
         """
 
         self.ensure_one()
-        records = self.env[self.model].browse(res_ids).sudo()
-        default_recipients = records._wecom_message_get_default_recipients()  # 默认接收者
 
-        for res_id, recipients in default_recipients.items():
-            results[res_id].update(recipients)
-        print(str(default_recipients))
-        if len(default_recipients) > 1:
-            pass
-        else:
-            default_recipients = default_recipients[0]
+        if self.use_default_to:
+            records = self.env[self.model].browse(res_ids).sudo()
+            default_recipients = records._message_get_default_recipients()
+            for res_id, recipients in default_recipients.items():
+                results[res_id].pop("partner_to", None)
+                results[res_id].update(recipients)
 
-        for res_id, recipients in default_recipients.items():
-            results[res_id].update(recipients)
         records_company = None
 
         if (
@@ -191,9 +205,11 @@ class WeComMessageTemplate(models.Model):
                 template = template.with_context(safe=(field == "subject"))
                 if template.msgtype == "mpnews":
                     generated_field_values = template._render_field(
-                        field,
-                        template_res_ids,
-                        post_process=(field == "body_html"),
+                        field, template_res_ids, post_process=(field == "body_html")
+                    )
+                elif template.msgtype == "markdown":
+                    generated_field_values = template._render_field(
+                        field, template_res_ids, post_process=(field == "body_markdown")
                     )
                 else:
                     generated_field_values = template._render_field(
@@ -205,23 +221,17 @@ class WeComMessageTemplate(models.Model):
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
             # 计算收件人
-            # if any(
-            #     field in fields
-            #     for field in [
-            #         "message_to_all",
-            #         "message_to_user",
-            #         "message_to_party",
-            #         "message_to_tag",
-            #     ]
-            # ):
-            # print("--------------------")
-            # print("计算收件人1", results, template_res_ids)
-            # results = template.generate_recipients(results, template_res_ids)
-            # print("--------------------")
-            # print(
-            #     "计算收件人2",
-            #     results,
-            # )
+            if any(
+                field in fields
+                for field in [
+                    "partner_to",
+                    "message_to_user",
+                    "message_to_party",
+                    "message_to_tag",
+                ]
+            ):
+                results = template.generate_recipients(results, template_res_ids)
+
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
@@ -230,10 +240,15 @@ class WeComMessageTemplate(models.Model):
                 if values.get("body_json"):
                     # 删除html标记内的编码属性
                     values["body_json"] = tools.html_sanitize(values["body_json"])
+                if values.get("body_markdown"):
+                    # 删除html标记内的编码属性
+                    values["body_markdown"] = tools.html_sanitize(
+                        values["body_markdown"]
+                    )
                 # 技术设置
                 values.update(
                     # mail_server_id=template.mail_server_id.id or False,
-                    # auto_delete=template.auto_delete,
+                    auto_delete=template.auto_delete,
                     model=template.model,
                     res_id=res_id or False,
                     # attachment_ids=[attach.id for attach in template.attachment_ids],
@@ -257,9 +272,6 @@ class WeComMessageTemplate(models.Model):
         raise_exception=False,
         message_values=None,
         notif_layout=False,
-        company=None,
-        use_templates=None,
-        template_id=None,
     ):
 
         """
@@ -275,6 +287,7 @@ class WeComMessageTemplate(models.Model):
         # is_wecom_message = self._context.get("is_wecom_message")
 
         # 仅在访问相关文档时才授予对 send_message 的访问权限
+
         self.ensure_one()
         self._send_check_access([res_id])
 
@@ -283,30 +296,28 @@ class WeComMessageTemplate(models.Model):
             res_id,
             [
                 "subject",
-                "msgtype",
                 "sender",
-                "message_to_all",
+                "scheduled_date",
+                # 企业微信专有字段
+                "msgtype",
                 "message_to_user",
                 "message_to_party",
                 "message_to_tag",
                 "media_id",
                 "body_html",
                 "body_json",
+                "body_markdown",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
                 "duplicate_check_interval",
             ],
         )
-        # values["recipient_ids"] = [
-        #     (4, pid) for pid in values.get("partner_ids", list())
-        # ]
-        # values["attachment_ids"] = [
-        #     (4, aid) for aid in values.get("attachment_ids", list())
-        # ]
+        # 获取公司
+        record = self.env[self.model].browse(res_id)
+        company = record.company_id
+
         values.update(message_values or {})
-        # attachment_ids = values.pop("attachment_ids", [])
-        # attachments = values.pop("attachments", [])
 
         # 添加防止无效的email_from的保护措施
         if "sender" in values and not values.get("sender"):
@@ -321,13 +332,12 @@ class WeComMessageTemplate(models.Model):
                     % (notif_layout, self.name)
                 )
             else:
-                record = self.env[self.model].browse(res_id)
                 template_ctx = {
-                    "message": self.env["wecom.message"]
+                    "message": self.env["wecom.message.message"]
                     .sudo()
                     .new(
                         dict(
-                            body=values["body_html"],
+                            body_html=values["body_html"],
                             record_name=record.display_name,
                         )
                     ),
@@ -339,12 +349,12 @@ class WeComMessageTemplate(models.Model):
                     or self.env.company,
                     "record": record,
                 }
-                body = template._render(
+                body_html = template._render(
                     template_ctx, engine="ir.qweb", minimal_qcontext=True
                 )
                 values["body_html"] = self.env[
                     "mail.render.mixin"
-                ]._replace_local_links(body)
+                ]._replace_local_links(body_html)
 
         # 封装 body_json
         if notif_layout and values["body_json"]:
@@ -358,13 +368,12 @@ class WeComMessageTemplate(models.Model):
                     % (notif_layout, self.name)
                 )
             else:
-                record = self.env[self.model].browse(res_id)
                 template_ctx = {
-                    "message": self.env["wecom.message"]
+                    "message": self.env["wecom.message.message"]
                     .sudo()
                     .new(
                         dict(
-                            body=values["body_json"],
+                            body_json=values["body_json"],
                             record_name=record.display_name,
                         )
                     ),
@@ -376,23 +385,59 @@ class WeComMessageTemplate(models.Model):
                     or self.env.company,
                     "record": record,
                 }
-                body = template._render(
+                body_json = template._render(
                     template_ctx, engine="ir.qweb", minimal_qcontext=True
                 )
                 values["body_json"] = self.env[
                     "mail.render.mixin"
-                ]._replace_local_links(body)
+                ]._replace_local_links(body_json)
+
+        # 封装 body_markdown
+        if notif_layout and values["body_markdown"]:
+            try:
+                template = self.env.ref(notif_layout, raise_if_not_found=True)
+            except ValueError:
+                _logger.warning(
+                    _(
+                        "QWeb template %s not found when sending template %s. Sending without layouting."
+                    )
+                    % (notif_layout, self.name)
+                )
+            else:
+                template_ctx = {
+                    "message": self.env["wecom.message.message"]
+                    .sudo()
+                    .new(
+                        dict(
+                            body_markdown=values["body_markdown"],
+                            record_name=record.display_name,
+                        )
+                    ),
+                    "model_description": self.env["ir.model"]
+                    ._get(record._name)
+                    .display_name,
+                    "company": "company_id" in record
+                    and record["company_id"]
+                    or self.env.company,
+                    "record": record,
+                }
+                body_markdown = template._render(
+                    template_ctx, engine="ir.qweb", minimal_qcontext=True
+                )
+                values["body_markdown"] = self.env[
+                    "mail.render.mixin"
+                ]._replace_local_links(body_markdown)
 
         if values.get("media_id"):
             values["media_id"] = self.media_id.id  # 指定对应的素材id
 
-        values["use_templates"] = use_templates
-        values["templates_id"] = template_id
-        message = self.env["wecom.message"].sudo().create(values)
-
-        if force_send:
-            message.send(
-                raise_exception=raise_exception,
-                company=company,
-            )
-        return message.id  # TDE CLEANME: return mail + api.returns ?
+        values["use_templates"] = True  # 指定使用模板
+        values["templates_id"] = self.id  # 指定对应的模板id
+        message = self.env["wecom.message.message"].sudo().create(values)
+        print("message------------------", message)
+        # if force_send:
+        #     message.send(
+        #         raise_exception=raise_exception,
+        #         company=company,
+        #     )
+        # return message.id  # TDE CLEANME: return mail + api.returns ?

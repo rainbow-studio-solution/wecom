@@ -112,7 +112,6 @@ class ResUsers(models.Model):
             template = self.env.ref("auth_signup.reset_password_email")
         assert template._name == "mail.template"
         template_values = {
-            "message_to_user": "${object.wecom_user_id|safe}",
             "email_to": "${object.email|safe}",
             "email_cc": False,
             "auto_delete": True,
@@ -122,7 +121,7 @@ class ResUsers(models.Model):
         template.write(template_values)
         for user in self:
             if user.wecom_user_id:
-                return self.action_reset_password_by_wecom(template, user)
+                return self.action_reset_password_by_wecom(user)
             elif not user.email:
                 raise UserError(
                     _("Cannot send email: user %s has no email address.", user.name)
@@ -138,13 +137,22 @@ class ResUsers(models.Model):
             )
         return super(ResUsers, self).action_reset_password()
 
-    def action_reset_password_by_wecom(self, template, user):
+    def action_reset_password_by_wecom(self, user):
         """
-        通过企业微信的方式发送模板消息 send_message
+        通过企业微信的方式发送模板消息
         """
+        template = self.env.ref("wecom_auth_oauth.reset_password_message")
+        assert template._name == "wecom.message.template"
+        template_values = {
+            "message_to_user": "${object.wecom_user_id|safe}",
+            "auto_delete": True,
+            "partner_to": False,
+            "scheduled_date": False,
+        }
+        template.write(template_values)
         with self.env.cr.savepoint():
             force_send = not (self.env.context.get("import_file", False))
-            template.send_mail(
+            template.send_message(
                 user.id,
                 force_send=force_send,
                 raise_exception=True,

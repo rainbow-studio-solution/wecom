@@ -19,17 +19,28 @@ class WxworkBinary(Binary):
         Binary ([type]): [description]
     """
 
+    # @http.route(
+    #     [
+    #         "/web/binary/wecom_message_logo",
+    #         "/wecom_message_logo",
+    #         "/wecom_message_logo.png",
+    #     ],
+    #     type="http",
+    #     auth="none",
+    #     cors="*",
+    # )
     @http.route(
         [
-            "/square_logo",
-            "/square_logo.png",
+            "/web/binary/wecom_message_logo",
+            "/wecom_message_logo",
+            "/wecom_message_logo.png",
         ],
         type="http",
         auth="none",
         cors="*",
     )
-    def company_square_logo(self, dbname=None, **kw):
-        imgname = "square_logo"
+    def company_wecom_message_web_logo(self, dbname=None, **kw):
+        imgname = "wecom_message_logo"
         imgext = ".png"
         placeholder = functools.partial(
             get_resource_path, "web", "static", "src", "img"
@@ -55,7 +66,7 @@ class WxworkBinary(Binary):
 
                     if company:
                         cr.execute(
-                            """SELECT square_logo_web, write_date
+                            """SELECT wecom_message_logo_web, write_date
                                         FROM res_company
                                        WHERE id = %s
                                    """,
@@ -63,7 +74,7 @@ class WxworkBinary(Binary):
                         )
                     else:
                         cr.execute(
-                            """SELECT c.square_logo_web, c.write_date
+                            """SELECT c.wecom_message_logo_web, c.write_date
                                         FROM res_users u
                                    LEFT JOIN res_company c
                                           ON c.id = u.company_id

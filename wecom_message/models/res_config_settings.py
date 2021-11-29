@@ -18,9 +18,11 @@ class ResConfigSettings(models.TransientModel):
         default=lambda self: self.env.company,
     )
 
-    square_logo = fields.Binary(related="company_id.square_logo", readonly=False)
-    square_logo_web = fields.Binary(
-        related="company_id.square_logo_web", readonly=False
+    wecom_message_logo = fields.Binary(
+        related="company_id.wecom_message_logo", readonly=False
+    )
+    wecom_message_logo_web = fields.Binary(
+        related="company_id.wecom_message_logo_web", readonly=False
     )
 
     message_agentid = fields.Char(related="company_id.message_agentid", readonly=False)
@@ -48,14 +50,14 @@ class ResConfigSettings(models.TransientModel):
     #     "Send Purchase message via WeCom",
     # )
 
-    @api.onchange("square_logo")
-    def _onchange_square_logo(self):
-        if self.square_logo:
-            image = tools.base64_to_image(self.square_logo)
+    @api.onchange("wecom_message_logo")
+    def _onchange_wecom_message_logo(self):
+        if self.wecom_message_logo:
+            image = tools.base64_to_image(self.wecom_message_logo)
             w, h = image.size
             if w == h:
-                self.square_logo_web = tools.image_process(
-                    self.square_logo, size=(180, 180)
+                self.wecom_message_logo_web = tools.image_process(
+                    self.wecom_message_logo, size=(180, 180)
                 )
             else:
                 raise UserError(_("Please upload a picture of the square!"))

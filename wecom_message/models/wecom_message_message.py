@@ -8,15 +8,20 @@ from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 _logger = logging.getLogger(__name__)
 
 
-class WecomMessage(models.Model):
-    _name = "wecom.message"
+class WecomMessageMessage(models.Model):
+    """
+    企业微信消息模型：系统通知（替换res.log通知），
+    评论（OpenChatter讨论）和收到的电子邮件。
+    """
+
+    _name = "wecom.message.message"
     _description = "Wecom Message"
     _order = "id desc"
     _rec_name = "record_name"
 
     @api.model
     def default_get(self, fields):
-        res = super(WecomMessage, self).default_get(fields)
+        res = super(WecomMessageMessage, self).default_get(fields)
         missing_author = "author_id" in fields and "author_id" not in res
         missing_email_from = "sender" in fields and "sender" not in res
         if missing_author or missing_email_from:
@@ -37,9 +42,9 @@ class WecomMessage(models.Model):
         comodel_name="wecom.material",
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
-    body_html = fields.Html("Html Body", translate=True, sanitize=False)
+    body_html = fields.Text("Html Body", translate=True, sanitize=False)
     body_json = fields.Text("Json Body", translate=True)
-    body = fields.Html("Contents", default="", sanitize_style=True)
+    body_markdown = fields.Text("Markdown Body", sanitize=False)
     description = fields.Char(
         "Short description",
         compute="_compute_description",

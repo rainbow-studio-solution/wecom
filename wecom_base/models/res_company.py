@@ -47,18 +47,3 @@ class Company(models.Model):
         "Use system default Avatar",
         default=True,
     )
-
-    @api.onchange("contacts_use_system_default_avatar")
-    def _onchange_contacts_use_system_default_avatar(self):
-        employees = self.env["hr.employee"].search(
-            [
-                ("is_wecom_employee", "=", True),
-                "|",
-                ("active", "=", True),
-                ("active", "=", False),
-            ]
-        )
-        for employee in employees:
-            employee.write(
-                {"use_system_avatar": self.contacts_use_system_default_avatar}
-            )

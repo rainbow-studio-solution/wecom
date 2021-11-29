@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="0">
+  <data noupdate="1">
 
     <!-- 1. 重置密码的消息模板-->
-    <record id="auth_signup.reset_password_email" model="mail.template">
+    <record id="reset_password_message" model="wecom.message.template">
+      <field name="name">Auth Signup: Reset Password</field>
+      <field name="model_id" ref="base.model_res_users"/>
+      <field name="subject">Password reset</field>
       <field name="code">password_reset</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
@@ -12,7 +15,7 @@
 {
   "card_type": "news_notice",
   "source": {
-    "icon_url": "${object.get_base_url()}/square_logo.png?company=${object.company_id.id}",
+    "icon_url": "${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}",
     "desc": "${object.company_id.name}"
   },
   "main_title": {
@@ -56,6 +59,8 @@
   }
 }
       </field>
+      <field name="lang">${object.lang}</field>
+      <field name="auto_delete" eval="True"/>
       <field name="safe">1</field>
       <field name="enable_id_trans" eval="False"/>
       <field name="enable_duplicate_check" eval="False"/>
@@ -64,7 +69,10 @@
 
 
     <!-- 2. 新用户的消息模板-->
-    <record id="auth_signup.set_password_email" model="mail.template">
+    <record id="set_password_message" model="wecom.message.template">
+      <field name="name">Auth Signup: System Connection</field>
+      <field name="model_id" ref="base.model_res_users"/>
+      <field name="subject">${object.create_uid.name} from ${object.company_id.name} invites you to connect to Odoo</field>
       <field name="code">set_password</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
@@ -73,7 +81,7 @@
 {
   "card_type": "news_notice",
   "source": {
-    "icon_url": "${object.get_base_url()}/square_logo.png?company=${object.company_id.id}",
+    "icon_url": "${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}",
     "desc": "${object.company_id.name}"
   },
   "main_title": {
@@ -128,6 +136,8 @@
   }
 }
       </field>
+      <field name="lang">${object.lang}</field>
+      <field name="auto_delete" eval="True"/>
       <field name="safe">1</field>
       <field name="enable_id_trans" eval="False"/>
       <field name="enable_duplicate_check" eval="False"/>
@@ -135,8 +145,10 @@
     </record>
 
     <!-- 3. 发送帐户创建确认电子邮件-->
-    <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
-
+    <record id="message_template_user_signup_account_created" model="wecom.message.template">
+      <field name="name">Auth Signup: System Account Created</field>
+      <field name="model_id" ref="base.model_res_users"/>
+      <field name="subject">Welcome to ${object.company_id.name}!</field>
       <field name="code">user_signup_account_created</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
@@ -145,7 +157,7 @@
 {
   "card_type": "news_notice",
   "source": {
-    "icon_url": "${object.get_base_url()}/square_logo.png?company=${object.company_id.id}",
+    "icon_url": "${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}",
     "desc": "${object.company_id.name}"
   },
   "main_title": {
@@ -189,6 +201,8 @@
   }
 }
       </field>
+      <field name="lang">${object.lang}</field>
+      <field name="auto_delete" eval="True"/>
       <field name="safe">1</field>
       <field name="enable_id_trans" eval="False"/>
       <field name="enable_duplicate_check" eval="False"/>
@@ -196,7 +210,10 @@
     </record>
 
     <!-- 4. 用于提醒未注册用户的消息模板-->
-    <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
+    <record id="message_template_data_unregistered_users" model="wecom.message.template">
+      <field name="name">Auth Signup: Unregistered Users</field>
+      <field name="model_id" ref="base.model_res_users"/>
+      <field name="subject">Reminder for unregistered users</field>
       <field name="code">unregistered_users</field>
       <field name="msgtype">mpnews</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
@@ -311,6 +328,8 @@ The ${object.company_id.name} Team
     </tr>
   </table>
 </field>
+<field name="lang">${object.partner_id.lang}</field>
+<field name="auto_delete" eval="True"/>
 <field name="safe">1</field>
 <field name="enable_id_trans" eval="False"/>
 <field name="enable_duplicate_check" eval="False"/>
