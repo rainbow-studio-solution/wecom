@@ -43,8 +43,8 @@ class WecomMessageMessage(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_html = fields.Text("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Json Body", translate=True)
-    body_markdown = fields.Text("Markdown Body", sanitize=False)
+    body_json = fields.Text("Json Body", translate=True, sanitize=True)
+    body_markdown = fields.Text("Markdown Body", sanitize=True)
     description = fields.Char(
         "Short description",
         compute="_compute_description",
@@ -118,6 +118,10 @@ class WecomMessageMessage(models.Model):
             ("cancel", "Cancelled"),
         ],
         string="State",
+    )
+    auto_delete = fields.Boolean(
+        "Auto Delete",
+        help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.",
     )
     failure_reason = fields.Text(
         "Failure Reason",
