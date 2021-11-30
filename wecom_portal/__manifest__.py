@@ -25,6 +25,7 @@
     },
     "data": [
         "data/wecom_portal_data.xml",
+        "views/portal_templates.xml",
     ],
     "qweb": [
         "static/src/xml/*.xml",
