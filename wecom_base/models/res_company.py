@@ -47,3 +47,13 @@ class Company(models.Model):
         "Use system default Avatar",
         default=True,
     )
+
+    corp_jsapi_ticket = fields.Char(
+        "Enterprise JS API Ticket",
+    )
+
+    agent_jsapi_ticket = fields.Char(
+        "Application JS API Ticket",
+    )
+
+    js_api_list = fields.Char("JS API Inertface List")

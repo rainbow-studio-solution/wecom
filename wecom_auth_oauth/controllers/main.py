@@ -205,13 +205,15 @@ class OAuthController(Controller):
         )
 
         try:
-            wxapi = request.env["wecom.service_api"].init_api(
-                company, "auth_secret", "auth"
+            wxapi = (
+                request.env["wecom.service_api"]
+                .sudo()
+                .init_api(company, "auth_secret", "auth")
             )
             response = wxapi.httpCall(
-                request.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_USER_INFO_BY_CODE"
-                ),
+                request.env["wecom.service_api_list"]
+                .sudo()
+                .get_server_api_call("GET_USER_INFO_BY_CODE"),
                 {
                     "code": code,
                 },
@@ -297,13 +299,15 @@ class OAuthController(Controller):
         )
 
         try:
-            wxapi = request.env["wecom.service_api"].init_api(
-                company, "auth_secret", "auth"
+            wxapi = (
+                request.env["wecom.service_api"]
+                .sudo()
+                .init_api(company, "auth_secret", "auth")
             )
             response = wxapi.httpCall(
-                request.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_USER_INFO_BY_CODE"
-                ),
+                request.env["wecom.service_api_list"]
+                .sudo()
+                .get_server_api_call("GET_USER_INFO_BY_CODE"),
                 {
                     "code": code,
                 },
@@ -444,7 +448,7 @@ class OAuthController(Controller):
                         "timestamp": kwargs["timestamp"],
                         "nonceStr": kwargs["nonceStr"],
                         "signature": request.env[
-                            "wecom.tools"
+                            "wecomapi.tools.security"
                         ].generate_jsapi_signature(
                             company,
                             kwargs["nonceStr"],

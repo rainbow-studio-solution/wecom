@@ -53,6 +53,31 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.contacts_use_system_default_avatar", readonly=False
     )
 
+    # JS API
+    corp_jsapi_ticket = fields.Char(
+        "Enterprise JS API Ticket",
+        related="company_id.corp_jsapi_ticket",
+        readonly=True,
+    )
+
+    agent_jsapi_ticket = fields.Char(
+        "Application JS API Ticket",
+        related="company_id.agent_jsapi_ticket",
+        readonly=True,
+    )
+
+    jsapi_debug = fields.Boolean(
+        "JS API Debug mode",
+        config_parameter="wecom.jsapi_debug",
+        default=False,
+    )
+
+    js_api_list = fields.Char(
+        "JS API Inertface List",
+        related="company_id.js_api_list",
+        readonly=False,
+    )
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()
