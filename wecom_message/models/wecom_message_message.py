@@ -23,16 +23,20 @@ class WecomMessageMessage(models.Model):
     def default_get(self, fields):
         res = super(WecomMessageMessage, self).default_get(fields)
         missing_author = "author_id" in fields and "author_id" not in res
-        missing_email_from = "sender" in fields and "sender" not in res
+        missing_email_from = "meaasge_from" in fields and "meaasge_from" not in res
         if missing_author or missing_email_from:
-            author_id, sender = self.env["mail.thread"]._message_compute_author(
-                res.get("author_id"), res.get("sender"), raise_exception=False
+            author_id, meaasge_from = self.env["mail.thread"]._message_compute_author(
+                res.get("author_id"), res.get("meaasge_from"), raise_exception=False
             )
             if missing_email_from:
-                res["sender"] = sender
+                res["meaasge_from"] = meaasge_from
             if missing_author:
                 res["author_id"] = author_id
+
         return res
+
+    # def _default_name(self):
+    #     return "%s" % (self.subject)
 
     # 企业微信消息内容
     subject = fields.Char("Subject")
@@ -43,14 +47,17 @@ class WecomMessageMessage(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_html = fields.Text("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Json Body", translate=True, sanitize=True)
-    body_markdown = fields.Text("Markdown Body", sanitize=True)
+    body_json = fields.Text(
+        "Json Body",
+        translate=True,
+    )
+    body_markdown = fields.Text("Markdown Body", translate=True)
     description = fields.Char(
         "Short description",
         compute="_compute_description",
         help="Message description: either the subject, or the beginning of the body",
     )
-    # message_to_all = fields.Boolean("To all members")
+
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
         string="To Departments",
@@ -111,17 +118,26 @@ class WecomMessageMessage(models.Model):
     )
 
     # 消息状态
+    # API
+
+    msgid = fields.Char(
+        "Message-Id",
+        help="Used to recall application messages",
+        # index=True,
+        readonly=1,
+        copy=False,
+    )
     state = fields.Selection(
         [
             ("sent", "Sent"),
-            ("exception", "Delivery Failed"),
+            ("exception", "Send exception"),
             ("cancel", "Cancelled"),
         ],
         string="State",
     )
     auto_delete = fields.Boolean(
         "Auto Delete",
-        help="This option permanently removes any track of email after it's been sent, including from the Technical menu in the Settings, in order to preserve storage space of your Odoo database.",
+        help="This option permanently removes any track of message after it's been sent, in order to preserve storage space of your Odoo database.",
     )
     failure_reason = fields.Text(
         "Failure Reason",
@@ -156,12 +172,12 @@ class WecomMessageMessage(models.Model):
         help="Message type: email for email message, notification for system "
         "message, comment for other messages such as user replies",
     )
-    subtype_id = fields.Many2one(
-        "mail.message.subtype", "Subtype", ondelete="set null", index=True
-    )  # 子类型
-    mail_activity_type_id = fields.Many2one(
-        "mail.activity.type", "Mail Activity Type", index=True, ondelete="set null"
-    )
+    # subtype_id = fields.Many2one(
+    #     "mail.message.subtype", "Subtype", ondelete="set null", index=True
+    # )  # 子类型
+    # mail_activity_type_id = fields.Many2one(
+    #     "mail.activity.type", "Mail Activity Type", index=True, ondelete="set null"
+    # )
     is_internal = fields.Boolean(
         "Employee Only",
         help="Hide to public / portal users, independently from subtype configuration.",
@@ -174,14 +190,14 @@ class WecomMessageMessage(models.Model):
     )
     meaasge_from = fields.Char(
         "From",
-        help="Email address of the sender. This field is set when no matching partner is found and replaces the author_id field in the chatter.",
+        help="Wecom user id of the sender. This field is set when no matching partner is found and replaces the author_id field in the chatter.",
     )
     author_id = fields.Many2one(
         "res.partner",
         "Author",
         index=True,
         ondelete="set null",
-        help="Author of the message. If not set, email_from may hold an email address that did not match any partner.",
+        help="Author of the message. If not set, meaasge_from may hold an message wecom user id that did not match any partner.",
     )
     author_avatar = fields.Binary(
         "Author's avatar",
@@ -209,14 +225,6 @@ class WecomMessageMessage(models.Model):
         help="Need Action",
     )
 
-    msgid = fields.Char(
-        "Message-Id",
-        help="Used to recall application messages",
-        # index=True,
-        readonly=1,
-        copy=False,
-    )
-
     def _compute_description(self):
         for message in self:
             if message.subject:
@@ -230,15 +238,73 @@ class WecomMessageMessage(models.Model):
                 )
 
     # ------------------------------------------------------
+    # CRUD / ORM
+    # ------------------------------------------------------
+    @api.model_create_multi
+    def create(self, values_list):
+        # tracking_values_list = []
+        for values in values_list:
+            if (
+                "record_name" not in values
+                and "default_record_name" not in self.env.context
+            ):
+                values["record_name"] = self._get_record_name(values)
+        messages = super(WecomMessageMessage, self).create(values_list)
+        return messages
+
+    # ------------------------------------------------------
+    # TOOLS
+    # ------------------------------------------------------
+    def _get_record_name(self, values):
+        """Return the related document name, using name_get. It is done using
+        SUPERUSER_ID, to be sure to have the record name correctly stored."""
+        model = values.get("model", self.env.context.get("default_model"))
+        res_id = values.get("res_id", self.env.context.get("default_res_id"))
+        if not model or not res_id or model not in self.env:
+            return False
+        return self.env[model].sudo().browse(res_id).display_name
+
+    # ------------------------------------------------------
     # 消息格式、工具和发送机制
     # mail_mail formatting, tools and send mechanism
     # ------------------------------------------------------
-    def _send_prepare_body(self):
+    def _send_prepare_body_html(self):
         self.ensure_one()
         return self.body_html or ""
 
-    def _send_prepare_values(self, partner=None):
+    def _send_prepare_body_json(self):
         self.ensure_one()
+        return self.body_json or ""
+
+    def _send_prepare_body_markdown(self):
+        self.ensure_one()
+        return self.body_markdown or ""
+
+    def _send_prepare_values(self, partner=None):
+        """
+        根据合作伙伴的不同，返回特定电子邮件值的字典，或返回mail.email_to给定的整个收件人的通用字典。
+
+        :param Model partner: 特定收件人合作伙伴
+        """
+        self.ensure_one()
+        body_html = self._send_prepare_body_html()
+        body_json = self._send_prepare_body_json()
+        body_markdown = self._send_prepare_body_markdown()
+        # body_alternative = tools.html2plaintext(body)
+        # if partner:
+        #     email_to = [
+        #         tools.formataddr((partner.name or "False", partner.email or "False"))
+        #     ]
+        # else:
+        #     email_to = tools.email_split_and_format(self.email_to)
+        res = {
+            "body_html": body_html,
+            "body_json": body_json,
+            "body_markdown": body_markdown,
+            # "body_alternative": body_alternative,
+            # "email_to": email_to,
+        }
+        return res
 
     def _split_messages(self):
         """
@@ -269,41 +335,32 @@ class WecomMessageMessage(models.Model):
         """
         if not company:
             company = self.env.company
-        # try:
-        #     wxapi = self.env["wecom.service_api"].init_api(
-        #         self.company_id, "message_secret ", "message"
-        #     )
-        # except ApiException as exc:
-        #     error = self.env["wecom.service_api_error"].get_error_by_code(exc.errCode)
-        #     self.write(
-        #         {
-        #             "state": "exception",
-        #             "failure_reason": "%s %s" % (str(error["code"]), error["name"]),
-        #         }
-        #     )
-        #     if raise_exception:
-        #         return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-        #             exc, raise_exception
-        #         )
-        # else:
-        #     # 如果try中的程序执行过程中没有发生错误，继续执行else中的程序；
-        self.single_send(
-            auto_commit=auto_commit,
-            raise_exception=raise_exception,
-            company=company,
-        )
-        _logger.info("Sent batch %s messages via wecom ", len(self))
 
-    def batch_send(self):
-        """
-        批量发送企业微信消息
-        """
+        for batch_ids in self.ids:
+            try:
+                WeComMessageApi = self.env["wecom.message.api"].get_message_api(company)
+            except ApiException as exc:
+                if raise_exception:
+                    return self.env["wecom.tools"].ApiExceptionDialog(exc)
+                else:
+                    batch = self.browse(batch_ids)
+                    batch.write({"state": "exception", "failure_reason": exc.errMsg})
+            else:
+                self.browse(batch_ids)._send(
+                    auto_commit=auto_commit,
+                    raise_exception=raise_exception,
+                    company=company,
+                    WeComMessageApi=WeComMessageApi,
+                )
+            finally:
+                pass
 
-    def send(
+    def _send(
         self,
         auto_commit=False,
         raise_exception=False,
         company=None,
+        WeComMessageApi=None,
     ):
         """
         发送企业微信消息
@@ -314,33 +371,36 @@ class WecomMessageMessage(models.Model):
         """
         if not company:
             company = self.env.company
-        IrWxWorkMessageApi = self.env["wecom.message.api"]
+        ApiObj = self.env["wecom.message.api"]
         for message_id in self.ids:
-            success_pids = []
-            failure_type = None
             message = None
-
-            message = self.browse(message_id)
-            msg = IrWxWorkMessageApi.build_message(
-                msgtype=message.msgtype,
-                toall=message.message_to_all,
-                touser=message.message_to_user,
-                toparty=message.message_to_party,
-                totag=message.message_to_tag,
-                subject=message.subject,
-                media_id=message.media_id,
-                description=message.description,
-                author_id=message.author_id,
-                body_html=message.body_html,
-                body_json=message.body_json,
-                safe=message.safe,
-                enable_id_trans=message.enable_id_trans,
-                enable_duplicate_check=message.enable_duplicate_check,
-                duplicate_check_interval=message.duplicate_check_interval,
-                company=company,
-            )
             try:
-                res = IrWxWorkMessageApi.send_by_api(msg)
+                message = self.browse(message_id)
+                msg = ApiObj.build_message(
+                    msgtype=message.msgtype,
+                    touser=message.message_to_user,
+                    toparty=message.message_to_party,
+                    totag=message.message_to_tag,
+                    subject=message.subject,
+                    media_id=message.media_id,
+                    description=message.description,
+                    author_id=message.author_id,
+                    body_html=message.body_html,
+                    body_json=message.body_json,
+                    body_markdown=message.body_markdown,
+                    safe=message.safe,
+                    enable_id_trans=message.enable_id_trans,
+                    enable_duplicate_check=message.enable_duplicate_check,
+                    duplicate_check_interval=message.duplicate_check_interval,
+                    company=company,
+                )
+                del msg["company"]  # 删除message中的 company
+                res = WeComMessageApi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "MESSAGE_SEND"
+                    ),
+                    msg,
+                )
             except ApiException as exc:
                 error = self.env["wecom.service_api_error"].get_error_by_code(
                     exc.errCode
@@ -363,3 +423,6 @@ class WecomMessageMessage(models.Model):
                         "msgid": res["msgid"],
                     }
                 )
+            if auto_commit is True:
+                self._cr.commit()
+        return True

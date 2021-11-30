@@ -118,6 +118,8 @@ class Message(models.Model):
         default="1800",
     )
 
+    
+
     @api.onchange("use_templates")
     def _onchange_use_templates(self):
         if self.use_templates:

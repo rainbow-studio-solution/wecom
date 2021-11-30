@@ -7,6 +7,7 @@ import logging
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError
+from odoo.addons.wecom_api import tools as wecom_tools
 
 _logger = logging.getLogger(__name__)
 
@@ -20,6 +21,7 @@ class WeComMessageTemplate(models.Model):
     @api.model
     def default_get(self, fields):
         res = super(WeComMessageTemplate, self).default_get(fields)
+
         if res.get("model"):
             res["model_id"] = self.env["ir.model"]._get(res.pop("model")).id
         return res
@@ -83,8 +85,11 @@ class WeComMessageTemplate(models.Model):
     )
 
     body_html = fields.Html("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Json Body", translate=True, sanitize=False, default={})
-    body_markdown = fields.Text("Markdown Body", translate=True, sanitize=False)
+    body_json = fields.Text("Json Body", translate=True, default={})
+    body_markdown = fields.Text(
+        "Markdown Body",
+        translate=True,
+    )
 
     # options
     safe = fields.Selection(
@@ -166,23 +171,28 @@ class WeComMessageTemplate(models.Model):
         for res_id, values in results.items():
             partner_ids = values.get("partner_ids", list())
             # if self._context.get("tpl_partners_only"):
-            #     # TODO 待处理 企业微信收件人
-            mails = (
+            # TODO 待处理 企业微信收件人
+            print(
+                "---------------",
+                values["message_to_user"],
+                values["message_to_party"],
+                values["message_to_tag"],
+            )
+            messages = (
                 tools.email_split(values.pop("message_to_user", ""))
                 + tools.email_split(values.pop("message_to_party", ""))
                 + tools.email_split(values.pop("message_to_tag", ""))
             )
-            print("生成模板的收件人mails", mails)
+            print("------------", messages)
             Partner = self.env["res.partner"]
             if records_company:
                 Partner = Partner.with_context(
                     default_company_id=records_company[res_id]
                 )
-            for mail in mails:
-                partner = Partner.find_or_create(mail)
+            for message in messages:
+                partner = Partner.find_or_create(message)
                 partner_ids.append(partner.id)
 
-        print("生成模板的收件人results", results)
         return results
 
     def generate_message(self, res_ids, fields):
@@ -221,30 +231,30 @@ class WeComMessageTemplate(models.Model):
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
             # 计算收件人
-            if any(
-                field in fields
-                for field in [
-                    "partner_to",
-                    "message_to_user",
-                    "message_to_party",
-                    "message_to_tag",
-                ]
-            ):
-                results = template.generate_recipients(results, template_res_ids)
+            # if any(
+            #     field in fields
+            #     for field in [
+            #         "partner_to",
+            #         "message_to_user",
+            #         "message_to_party",
+            #         "message_to_tag",
+            #     ]
+            # ):
+            #     results = template.generate_recipients(results, template_res_ids)
 
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
                 if values.get("body_html"):
                     values["body_html"] = tools.html_sanitize(values["body_html"])
-                if values.get("body_json"):
-                    # 删除html标记内的编码属性
-                    values["body_json"] = tools.html_sanitize(values["body_json"])
-                if values.get("body_markdown"):
-                    # 删除html标记内的编码属性
-                    values["body_markdown"] = tools.html_sanitize(
-                        values["body_markdown"]
-                    )
+                # if values.get("body_json"):
+                #     # 删除html标记内的编码属性
+                #     values["body_json"] = tools.html_sanitize(values["body_json"])
+                # if values.get("body_markdown"):
+                #     # 删除html标记内的编码属性
+                #     values["body_markdown"] = tools.html_sanitize(
+                #         values["body_markdown"]
+                #     )
                 # 技术设置
                 values.update(
                     # mail_server_id=template.mail_server_id.id or False,
@@ -318,7 +328,7 @@ class WeComMessageTemplate(models.Model):
         company = record.company_id
 
         values.update(message_values or {})
-
+        print()
         # 添加防止无效的email_from的保护措施
         if "sender" in values and not values.get("sender"):
             values.pop("sender")
@@ -434,10 +444,10 @@ class WeComMessageTemplate(models.Model):
         values["use_templates"] = True  # 指定使用模板
         values["templates_id"] = self.id  # 指定对应的模板id
         message = self.env["wecom.message.message"].sudo().create(values)
-        print("message------------------", message)
-        # if force_send:
-        #     message.send(
-        #         raise_exception=raise_exception,
-        #         company=company,
-        #     )
-        # return message.id  # TDE CLEANME: return mail + api.returns ?
+        print("message------------------", values)
+        if force_send:
+            message.send(
+                raise_exception=raise_exception,
+                company=company,
+            )
+        return message.id  # TDE CLEANME: return mail + api.returns ?

@@ -40,6 +40,7 @@
                                 <field name="msgtype"/>
                                 <field name="use_templates"/>
                                 <field name="templates_id" options="{'no_create': True,'no_open': True}"/>
+                                <field name="auto_delete"/>
                                 <!-- <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/> -->
                             </group>
 
@@ -57,10 +58,6 @@
                                 <field name="body_html" force_save="1" widget="html" options="{'style-inline': true}" attrs="{'readonly': [('use_templates', '=', True)],'invisible': [('msgtype','!=','mpnews')]}"/>
                             </page> -->
                             <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
-                                <label for="subject"/>
-                                <h2 style="display: inline-block;" class="w-75">
-                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
-                                </h2>
                                 <p>
                                     <label for="media_id"/>
                                     <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
@@ -68,30 +65,16 @@
                                 <field name="body_html" widget="html" />
                             </page>
                             <page string="Json Content" name="json_content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
-                                <label for="subject"/>
-                                <h2 style="display: inline-block;" class="w-75">
-                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
-                                </h2>
                                 <field name="body_json" widget="wecom_jsoneditor" />
                             </page>
                             <page string="Markdown Content" name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown')]}">
-                                <label for="subject"/>
-                                <h2 style="display: inline-block;" class="w-75">
-                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
-                                </h2>
-
                                 <field name="body_markdown" widget="wecom_markdown" />
                             </page>
-                            <page string="Gateway" name="gateway">
+                            <page string="API Response" name="api">
                                 <group>
-                                    <group>
-                                        <field name="msgid"/>
-                                        <!-- <field name="no_auto_thread"/> -->
-                                    </group>
-                                    <group>
-                                        <!-- <field name="message_id"/> -->
-                                        <!-- <field name="mail_server_id"/> -->
-                                    </group>
+                                    <field name="msgid"/>
+                                    <field name="state"/>
+                                    <field name="failure_reason"/>
                                 </group>
                             </page>
                             <page string="Recipients" name="recipients">
@@ -116,9 +99,7 @@
                                     </field> -->
                                 </group>
                             </page>
-                            <page string="Tracking" name="page_tracking">
-                                <!-- <field name="tracking_value_ids"/> -->
-                            </page>
+
                         </notebook>
                     </sheet>
 
@@ -138,6 +119,7 @@
                     <field name="model"/>
                     <field name="res_id" widget="integer"/>
                     <field name="state" widget="badge"/>
+                    <field name="auto_delete"/>
                 </tree>
             </field>
         </record>
