@@ -32,6 +32,7 @@
         "views/hr_employee_category_views.xml",
         "views/hr_employee_view.xml",
         "views/wecom_contacts_block_views.xml",
+        "views/ir_ui_menu_views.xml",
         "views/menu.xml",
     ],
     "qweb": [

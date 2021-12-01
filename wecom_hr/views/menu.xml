@@ -36,6 +36,7 @@
         <menuitem id="menu_wecom_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_wecom_config_plan" groups="hr.group_hr_manager" sequence="100"/>
 
 
-
+        <!-- 隐藏人力资源菜单 -->
+        <menuitem id="menu_wecom_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_wecom_manager_configuration" groups="base.group_erp_manager" sequence="2"/>
     </data>
 </odoo>
