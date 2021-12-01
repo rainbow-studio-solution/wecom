@@ -59,10 +59,14 @@ class SyncDepartment(models.AbstractModel):
             times2 = end2 - start2
 
             times = times1 + times2
-            result = _("Department synchronization of %s succeeded") % company.name
+            result = (
+                _("Successfully synchronized '%s''s WeCom Department") % company.name
+            )
         except ApiException as e:
             times = time.time()
-            result = _("Department synchronization of %s failed, error: %s") % (
+            result = (
+                _("Failed to synchronized '%s''s WeCom Department") % company.name
+            ) % (
                 company.name,
                 e.errMsg,
             )

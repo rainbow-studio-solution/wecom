@@ -67,7 +67,7 @@ class SyncTag(models.AbstractModel):
 
             times = times1 + times2 + times3
             # status = {"employee_category": True}
-            result = _("WeCom tags sync successfully")
+            result = _("Successfully synchronized '%s''s WeCom tags") % company.name
         except ApiException as e:
             if debug:
                 _logger.warning(
@@ -77,7 +77,7 @@ class SyncTag(models.AbstractModel):
                         e.errMsg,
                     )
                 )
-            result = _("Failed to synchronize tags for '%s'" % company.name)
+            result = _("Failed to synchronized '%s''s WeCom tags") % company.name
             # status = {"employee_category": False}
 
         if debug:

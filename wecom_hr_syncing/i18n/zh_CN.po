@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 10:00+0000\n"
-"PO-Revision-Date: 2021-11-21 18:03+0800\n"
+"POT-Creation-Date: 2021-12-01 03:13+0000\n"
+"PO-Revision-Date: 2021-12-01 11:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -215,20 +215,6 @@ msgid "Department synchronization"
 msgstr "部门同步"
 
 #. module: wecom_hr_syncing
-#: code:addons/wecom_hr_syncing/models/sync_department.py:0
-#: code:addons/wxwork/wecom_hr_syncing/models/sync_department.py:0
-#, python-format
-msgid "Department synchronization of %s failed, error: %s"
-msgstr "[%s] 的部门同步失败，错误：%s"
-
-#. module: wecom_hr_syncing
-#: code:addons/wecom_hr_syncing/models/sync_department.py:0
-#: code:addons/wxwork/wecom_hr_syncing/models/sync_department.py:0
-#, python-format
-msgid "Department synchronization of %s succeeded"
-msgstr "%s的部门同步成功"
-
-#. module: wecom_hr_syncing
 #: model:ir.model.fields,field_description:wecom_hr_syncing.field_wizard_wecom_contacts__department_sync_result
 msgid "Department synchronization result"
 msgstr "部门同步结果"
@@ -329,7 +315,7 @@ msgstr "结束“%s”通讯录-标签同步，花费的总时间：%s秒"
 #: code:addons/wxwork/wecom_hr_syncing/models/res_company.py:0
 #, python-format
 msgid "End batch generating system users from employees"
-msgstr ""
+msgstr "结束从员工批量生成系统用户"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/hr_employee.py:0
@@ -338,7 +324,15 @@ msgstr ""
 #: code:addons/wxwork/wecom_hr_syncing/models/res_company.py:0
 #, python-format
 msgid "End generating system users from employees of company %s"
-msgstr ""
+msgstr "结束从公司：%s 的员工生成系统用户"
+
+#. module: wecom_hr_syncing
+#: code:addons/wecom_hr_syncing/models/sync_employee.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
+#, python-format
+msgid ""
+"End setting the direct leader of the employee with the company name '%s'."
+msgstr "结束设置公司名称为 “%s” 的员工的直属上级。"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/sync_department.py:0
@@ -441,18 +435,25 @@ msgid "Failed to synchronize employee tags"
 msgstr "同步员工标签失败"
 
 #. module: wecom_hr_syncing
-#: code:addons/wecom_hr_syncing/models/sync_employee.py:0
-#: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
+#: code:addons/wecom_hr_syncing/models/sync_department.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_department.py:0
 #, python-format
-msgid "Failed to synchronize employees of %s"
-msgstr "无法同步公司 %s 的员工"
+msgid "Failed to synchronized '%s''s WeCom Department"
+msgstr "未能同步“%s”的企业微信部门"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/sync_tag.py:0
 #: code:addons/wxwork/wecom_hr_syncing/models/sync_tag.py:0
 #, python-format
-msgid "Failed to synchronize tags for '%s'"
-msgstr ""
+msgid "Failed to synchronized '%s''s WeCom tags"
+msgstr "未能同步“%s”的企业微信标签"
+
+#. module: wecom_hr_syncing
+#: code:addons/wecom_hr_syncing/models/sync_employee.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
+#, python-format
+msgid "Failed to synchronized '%s''s WeCom users"
+msgstr "未能同步“%s”的企业微信用户"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/hr_employee.py:0
@@ -507,7 +508,6 @@ msgstr "如果有错误，请查阅帮助文件"
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/res_users.py:0
 #: code:addons/wxwork/wecom_hr_syncing/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_hr_syncing.selection__change_type_user__new_type__1
 #, python-format
 msgid "Internal User"
 msgstr "内部用户"
@@ -599,7 +599,6 @@ msgstr "请为此用户设置wxwork员工！"
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/res_users.py:0
 #: code:addons/wxwork/wecom_hr_syncing/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_hr_syncing.selection__change_type_user__new_type__9
 #, python-format
 msgid "Portal"
 msgstr "门户"
@@ -612,7 +611,6 @@ msgstr "门户网站用户是免费用户，并且不占用系统资源。"
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/res_users.py:0
 #: code:addons/wxwork/wecom_hr_syncing/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_hr_syncing.selection__change_type_user__new_type__10
 #, python-format
 msgid "Public"
 msgstr "公共"
@@ -653,7 +651,7 @@ msgstr "设置员工标签错误：%s"
 #: code:addons/wxwork/wecom_hr_syncing/models/res_company.py:0
 #, python-format
 msgid "Start batch generating system users from employees"
-msgstr ""
+msgstr "从员工开始批量生成系统用户"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/hr_employee.py:0
@@ -662,7 +660,15 @@ msgstr ""
 #: code:addons/wxwork/wecom_hr_syncing/models/res_company.py:0
 #, python-format
 msgid "Start generating system users from employees of company %s"
-msgstr ""
+msgstr "开始从公司 %s 的员工生成系统用户"
+
+#. module: wecom_hr_syncing
+#: code:addons/wecom_hr_syncing/models/sync_employee.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
+#, python-format
+msgid ""
+"Start setting the direct leader of the employee with the company name '%s'."
+msgstr "开始设置公司名称为“%s”的员工的直属上级。"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/sync_department.py:0
@@ -676,7 +682,7 @@ msgstr "开始同步 %s 的部门"
 #: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
 #, python-format
 msgid "Start synchronizing employees of '%s'"
-msgstr ""
+msgstr "开始同步“%s”的员工"
 
 #. module: wecom_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wecom_hr_syncing.view_form_wecom_contacts_sync_wizard
@@ -714,11 +720,25 @@ msgid "Starting time"
 msgstr "起始时间"
 
 #. module: wecom_hr_syncing
+#: code:addons/wecom_hr_syncing/models/sync_department.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_department.py:0
+#, python-format
+msgid "Successfully synchronized '%s''s WeCom Department"
+msgstr "已成功同步 “%s” 的企业微信部门"
+
+#. module: wecom_hr_syncing
+#: code:addons/wecom_hr_syncing/models/sync_tag.py:0
+#: code:addons/wxwork/wecom_hr_syncing/models/sync_tag.py:0
+#, python-format
+msgid "Successfully synchronized '%s''s WeCom tags"
+msgstr "已成功同步 “%s” 的企业微信标签"
+
+#. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/sync_employee.py:0
 #: code:addons/wxwork/wecom_hr_syncing/models/sync_employee.py:0
 #, python-format
-msgid "Successfully synchronize employees of %s"
-msgstr "同步 %s 的企业微信员工成功"
+msgid "Successfully synchronized '%s''s WeCom users"
+msgstr "已成功同步 “%s” 的企业微信用户"
 
 #. module: wecom_hr_syncing
 #: model:ir.ui.menu,name:wecom_hr_syncing.menu_wecom_users_sync_main
@@ -787,7 +807,7 @@ msgstr "同步生成系统用户"
 #, python-format
 msgid ""
 "System user error generated by employee %s of company %s. Error reason:%s"
-msgstr ""
+msgstr "由公司 %s 的员工 %s 生成的系统用户错误。错误原因：%s"
 
 #. module: wecom_hr_syncing
 #: model_terms:ir.ui.view,arch_db:wecom_hr_syncing.view_wecom_sync_user_tree
@@ -839,7 +859,7 @@ msgstr "同步已终止，当前设置不允许从企业微信到odoo的同步"
 #: code:addons/wxwork/wecom_hr_syncing/wizard/wizard_wecom_contacts_sync.py:0
 #, python-format
 msgid "There are currently no companies to synchronize."
-msgstr ""
+msgstr "目前没有要同步的公司。"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/wizard/wizard_wecom_contacts_sync.py:0
@@ -852,6 +872,11 @@ msgid ""
 "\n"
 " Please modify the related settings"
 msgstr ""
+"提示：当前设置不允许从WeCom同步到HR\n"
+"\n"
+"请手动生成一个用户\n"
+"\n"
+"请修改相关设置"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/hr_employee.py:0
@@ -864,7 +889,7 @@ msgstr ""
 #: code:addons/wxwork/wecom_hr_syncing/wizard/wizard_wecom_contacts_sync.py:0
 #, python-format
 msgid "Tips"
-msgstr ""
+msgstr "提示"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/res_company.py:0
@@ -873,7 +898,7 @@ msgstr ""
 #: code:addons/wxwork/wecom_hr_syncing/models/res_config_settings.py:0
 #, python-format
 msgid "Token is still valid, and no update is required!"
-msgstr ""
+msgstr "令牌仍然有效，不需要更新！"
 
 #. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/models/hr_employee_category.py:0
@@ -1003,13 +1028,6 @@ msgid "WeCom synchronization wizard"
 msgstr "企业微信同步向导"
 
 #. module: wecom_hr_syncing
-#: code:addons/wecom_hr_syncing/models/sync_tag.py:0
-#: code:addons/wxwork/wecom_hr_syncing/models/sync_tag.py:0
-#, python-format
-msgid "WeCom tags sync successfully"
-msgstr "企业微信标签同步成功"
-
-#. module: wecom_hr_syncing
 #: code:addons/wecom_hr_syncing/wizard/wizard_wecom_sync_tag.py:0
 #: code:addons/wxwork/wecom_hr_syncing/wizard/wizard_wecom_sync_tag.py:0
 #, python-format
@@ -1039,22 +1057,22 @@ msgstr "企业微信：定时同步联系人"
 #. module: wecom_hr_syncing
 #: model:ir.model,name:wecom_hr_syncing.model_wecom_sync_task
 msgid "Wecom Synchronization task"
-msgstr ""
+msgstr "企业微信同步任务"
 
 #. module: wecom_hr_syncing
 #: model:ir.model,name:wecom_hr_syncing.model_wecom_sync_task_department
 msgid "Wecom Synchronize department tasks"
-msgstr ""
+msgstr "企业微信同步部门任务"
 
 #. module: wecom_hr_syncing
 #: model:ir.model,name:wecom_hr_syncing.model_wecom_sync_task_employee
 msgid "Wecom Synchronize employee tasks"
-msgstr ""
+msgstr "企业微信同步员工任务"
 
 #. module: wecom_hr_syncing
 #: model:ir.model,name:wecom_hr_syncing.model_wecom_sync_task_tag
 msgid "Wecom Synchronize tag tasks"
-msgstr ""
+msgstr "企业微信同步标签任务"
 
 #. module: wecom_hr_syncing
 #: model:ir.model.fields,field_description:wecom_hr_syncing.field_change_type_user__wizard_id
@@ -1072,7 +1090,8 @@ msgstr "向导同步"
 msgid "Wizard to change user type(WeCom)"
 msgstr "更改用户类型的向导（企业微信）"
 
-#. module: wecom_hr_syncing
-#: model_terms:ir.ui.view,arch_db:wecom_hr_syncing.view_users_form_inherit
-msgid "设置企业微信用户"
-msgstr ""
+
+
+
+
+

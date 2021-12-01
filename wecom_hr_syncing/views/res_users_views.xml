@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record id="view_users_form_inherit" model="ir.ui.view">
+        <!-- <record id="view_users_form_inherit" model="ir.ui.view">
             <field name="name">res.users.form.inherit</field>
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
@@ -11,7 +11,7 @@
                     <button string="设置企业微信用户" name="set_wecom_user" type="object" class="oe_highlight" attrs="{'invisible':[('wecom_user_id','!=',False)]}"/>
                 </xpath>
             </field>
-        </record>
+        </record> -->
 
         <!--转换用户类型 wizard-->
         <record id="change_type_wizard_view" model="ir.ui.view">

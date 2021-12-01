@@ -70,7 +70,7 @@ class SyncEmployee(models.AbstractModel):
 
             times1 = end1 - start1
 
-            # 判断企业微信员工list为空，为空跳过同步离职员工
+            # 设置直属上级
             start2 = time.time()
             employees = (
                 self.env["hr.employee"]
@@ -85,19 +85,27 @@ class SyncEmployee(models.AbstractModel):
                     ],
                 )
             )
+
+            self.set_direct_leader(company, user_list)
+            end2 = time.time()
+            times2 = end2 - start2
+
+            # 判断企业微信员工list为空，为空跳过同步离职员工
+            start3 = time.time()
+
             if not employees:
                 pass
             else:
                 self.sync_leave_employee(company, response)  # 同步离职员工
 
-            end2 = time.time()
-            times2 = end2 - start2
-            times = times1 + times2
+            end3 = time.time()
+            times3 = end3 - start3
+            times = times1 + times2 + times3
 
-            result = _("Successfully synchronize employees of %s") % company.name
+            result = _("Successfully synchronized '%s''s WeCom users") % company.name
         except ApiException as e:
             times = time.time()
-            result = _("Failed to synchronize employees of %s") % company.name
+            result = _("Failed to synchronized '%s''s WeCom users") % company.name
 
             if debug:
                 _logger.warning(
@@ -352,6 +360,62 @@ class SyncEmployee(models.AbstractModel):
                     % (company.name, employee_name, repr(e))
                 )
             return None
+
+    def set_direct_leader(self, company, wecom_users):
+        """
+        设置 直属上级
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        if debug:
+            _logger.info(
+                _(
+                    "Start setting the direct leader of the employee with the company name '%s'."
+                ),
+                company.name,
+            )
+        for user in wecom_users:
+            if len(user["direct_leader"]) > 0:
+                direct_leader = (
+                    self.env["hr.employee"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wecom_user_id", "=", user["direct_leader"][0]),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_employee", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                    )
+                )
+
+                employee = (
+                    self.env["hr.employee"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wecom_user_id", "=", user["userid"]),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_employee", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                        limit=1,
+                    )
+                )
+                employee.write({"parent_id": direct_leader.id})
+            else:
+                pass
+        if debug:
+            _logger.info(
+                _(
+                    "End setting the direct leader of the employee with the company name '%s'."
+                ),
+                company.name,
+            )
 
     def sync_leave_employee(self, company, response):
         """
