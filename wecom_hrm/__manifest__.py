@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "WeCom HR",
+    "name": "WeCom HRM",
     "author": "RStudio",
     "sequence": 607,
     "installable": True,

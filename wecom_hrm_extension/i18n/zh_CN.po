@@ -1,0 +1,147 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wecom_hrm_extension
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-12-01 09:48+0000\n"
+"PO-Revision-Date: 2021-12-01 17:49+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 3.0\n"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_menu_config_activity_type
+msgid "Activity Types"
+msgstr "活动类型"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_crm_case_categ_all_app
+msgid "All Applications"
+msgstr "全部申请"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.hr_applicant_report_menu
+msgid "Analysis"
+msgstr "招聘分析"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_hr_attendance_settings
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_attendance_report
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_attendance_report_menu
+msgid "Attendance"
+msgstr "考勤报表"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_attendance_view_attendances
+msgid "Attendances"
+msgstr "考勤"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_attendance_manage_attendances
+msgid "Attendances Manager"
+msgstr "考勤管理"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_gamification_badge
+msgid "Badges"
+msgstr "徽章"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_job_position
+msgid "By Job Positions"
+msgstr "按工作岗位"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_gamification_challenge
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_gamification
+msgid "Challenges"
+msgstr "挑战"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_contract
+msgid "Contracts"
+msgstr "合同"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_degree
+msgid "Degrees"
+msgstr "学历"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_department
+msgid "Departments"
+msgstr "部门"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_attendance_view_employees_kanban
+msgid "Employees"
+msgstr "员工"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_gamification_goal
+msgid "Goals History"
+msgstr "历史目标"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_job_position_config
+msgid "Job Positions"
+msgstr "工作岗位"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.hr_applicant_report_recruitment_menu
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_main
+msgid "Recruitment"
+msgstr "招聘"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_configuration
+msgid "Recruitment Configuration"
+msgstr "招聘配置"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_applicant_refuse_reason
+msgid "Refuse Reasons"
+msgstr "拒绝原因"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_configuration_resume
+msgid "Resumé"
+msgstr "简历"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_global_settings
+msgid "Settings"
+msgstr "设置"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_skill_type
+msgid "Skills"
+msgstr "技能"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_source
+msgid "Sources of Applicants"
+msgstr "申请人来源"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_recruitment_stage
+msgid "Stages"
+msgstr "阶段"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_applicant_category_menu
+msgid "Tags"
+msgstr "标签"
+
+#. module: wecom_hrm_extension
+#: model:ir.ui.menu,name:wecom_hrm_extension.menu_wecom_hr_resume_line_type_menu
+msgid "Types"
+msgstr "类型"

@@ -114,7 +114,7 @@ class WizardSyncContacts(models.TransientModel):
         self.times = sum(times)
         self.result = results
 
-        form_view = self.env.ref("wecom_hr_syncing.dialog_wecom_contacts_sync_result")
+        form_view = self.env.ref("wecom_hrm_syncing.dialog_wecom_contacts_sync_result")
         return {
             "name": _("Update result"),
             "view_type": "form",
@@ -129,7 +129,7 @@ class WizardSyncContacts(models.TransientModel):
             # 'context': '{}',
             # 'context': self.env.context,
             "context": {
-                "form_view_ref": "wecom_hr_syncing.dialog_wecom_contacts_sync_result"
+                "form_view_ref": "wecom_hrm_syncing.dialog_wecom_contacts_sync_result"
             },
             "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打开
             # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能

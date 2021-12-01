@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_hr_menu_list" model="ir.ui.view">
-            <field name="name">wecom_hr.menu.list</field>
+            <field name="name">wecom_hrm.menu.list</field>
             <field name="model">ir.ui.menu</field>
             <field name="priority">20</field>
             <field name="arch" type="xml">
@@ -15,7 +15,7 @@
             </field>
         </record>
         <record id="hr_menu_search" model="ir.ui.view">
-            <field name="name">wecom_hr.menu.search</field>
+            <field name="name">wecom_hrm.menu.search</field>
             <field name="model">ir.ui.menu</field>
             <field name="priority">20</field>
             <field name="arch" type="xml">

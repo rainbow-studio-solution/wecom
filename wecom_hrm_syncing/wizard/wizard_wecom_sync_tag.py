@@ -41,7 +41,7 @@ class WizardSyncTags(models.TransientModel):
         ) = EmployeeCategory.sync_employee_tags(self.env["hr.employee.category"])
 
         form_view = self.env.ref(
-            "wecom_hr_syncing.dialog_wecom_contacts_sync_tag_result"
+            "wecom_hrm_syncing.dialog_wecom_contacts_sync_tag_result"
         )
         return {
             "name": _("WeCom tags synchronization results"),
@@ -55,7 +55,7 @@ class WizardSyncTags(models.TransientModel):
             ],
             "type": "ir.actions.act_window",
             "context": {
-                "form_view_ref": "wecom_hr_syncing.dialog_wecom_contacts_sync_tag_result"
+                "form_view_ref": "wecom_hrm_syncing.dialog_wecom_contacts_sync_tag_result"
             },
             "target": "new",  # target: 打开新视图的方式，current是在本视图打开，new是弹出一个窗口打
         }

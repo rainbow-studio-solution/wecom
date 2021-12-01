@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "WeCom Hr Syncing",
+    "name": "WeCom HRM Syncing",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
     "sequence": 608,
@@ -20,7 +20,7 @@
         "base",
         "mail",
         "wecom_api",
-        "wecom_hr",
+        "wecom_hrm",
     ],
     "external_dependencies": {
         "python": [],

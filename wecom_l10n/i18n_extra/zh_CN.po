@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-24 07:14+0000\n"
-"PO-Revision-Date: 2021-11-24 15:22+0800\n"
+"POT-Creation-Date: 2021-12-01 07:54+0000\n"
+"PO-Revision-Date: 2021-12-01 15:58+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -62,14 +62,14 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wecom_hr_syncing
+#: model:ir.module.module,summary:base.module_wecom_hrm_syncing
 msgid ""
 "\n"
 "        WeCom users are synchronized to Odoo Hr and Users\n"
 "        "
 msgstr ""
 "\n"
-"        企微组织架构信息同步到Odoo\n"
+"        企业微信与Odoo Hr和用户同步\n"
 "        "
 
 #. module: base
@@ -161,6 +161,11 @@ msgid "WeCom API"
 msgstr "企微API"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_approval
+msgid "WeCom Approvals"
+msgstr "企微审批"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_auth_oauth
 msgid "WeCom Authentication"
 msgstr "企微验证登陆"
@@ -176,14 +181,19 @@ msgid "WeCom Employee Portal"
 msgstr "企微员工门户"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hr
-msgid "WeCom HR"
-msgstr "企微HR"
+#: model:ir.module.module,shortdesc:base.module_wecom_hrm
+msgid "WeCom HRM"
+msgstr "企微HRM"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hr_syncing
-msgid "WeCom Hr Syncing"
-msgstr "企微HR同步"
+#: model:ir.module.module,shortdesc:base.module_wecom_hrm_extension
+msgid "WeCom HRM Extension"
+msgstr "企微HRM扩展"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_hrm_syncing
+msgid "WeCom HRM Syncing"
+msgstr "企微HRM同步"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_material
@@ -194,6 +204,11 @@ msgstr "企微媒体素材"
 #: model:ir.module.module,shortdesc:base.module_wecom_message
 msgid "WeCom Message"
 msgstr "企微消息"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_pro_widget
+msgid "WeCom Pro Widget"
+msgstr "企微专业版小部件"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_widget

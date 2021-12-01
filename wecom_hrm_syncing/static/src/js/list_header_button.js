@@ -1,4 +1,4 @@
-odoo.define('wecom_hr_syncing.list_sync', function (require) {
+odoo.define('wecom_hrm_syncing.list_sync', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;

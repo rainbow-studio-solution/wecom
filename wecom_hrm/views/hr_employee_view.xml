@@ -16,7 +16,7 @@
             </field>
         </record>
 
-        <record id="wecom_hr_employee_form" model="ir.ui.view">
+        <record id="wecom_hrm_employee_form" model="ir.ui.view">
             <field name="name">wxwork employee form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
@@ -84,7 +84,7 @@
 
 
 
-        <record id="wecom_hr_employee_tree" model="ir.ui.view">
+        <record id="wecom_hrm_employee_tree" model="ir.ui.view">
             <field name="name">WeCom employee list</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
@@ -97,8 +97,8 @@
             </field>
         </record>
 
-        <record id="wecom_hr_employee_tree2" model="ir.ui.view">
-            <field name="name">wecom_hr_employee_tree2</field>
+        <record id="wecom_hrm_employee_tree2" model="ir.ui.view">
+            <field name="name">wecom_hrm_employee_tree2</field>
             <field name="model">hr.employee</field>
             <field name="priority" eval="0"/>
             <field name="arch" type="xml">
