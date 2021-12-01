@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-01 08:43+0000\n"
-"PO-Revision-Date: 2021-12-01 16:46+0800\n"
+"POT-Creation-Date: 2021-12-01 15:59+0000\n"
+"PO-Revision-Date: 2021-12-02 00:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -257,12 +257,17 @@ msgstr "个人QR码，出示可以让他人添加为外部联系人"
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_plan_types
 msgid "Planning Types"
-msgstr "计划类型"
+msgstr "规划类型"
 
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_plan_plan
 msgid "Plans"
 msgstr "计划"
+
+#. module: wecom_hrm
+#: model:ir.ui.menu,name:wecom_hrm.menu_wecom_report_root
+msgid "Reporting"
+msgstr "报表"
 
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.hr_wecom_menu_configuration

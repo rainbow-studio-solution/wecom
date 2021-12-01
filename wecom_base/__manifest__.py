@@ -20,6 +20,7 @@
     "data": [
         "security/wecom_base_security.xml",
         "data/ir_module_category_data.xml",
+        "data/ir_config_parameter.xml",
         "data/res_company_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",

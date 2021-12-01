@@ -5,7 +5,7 @@
     </data>
     <data noupdate="1">
 
-        <function model="ir.config_parameter" name="set_param" eval="('wecom.debug_enabled', 'True')"/>
+        <!-- <function model="ir.config_parameter" name="set_param" eval="('wecom.debug_enabled', 'True')"/> -->
 
         <!--开启访问权限，设置新用户访问权限为门户用户-->
         <function model="ir.config_parameter" name="set_param" eval="('base_setup.default_user_rights', 'True')"/>
