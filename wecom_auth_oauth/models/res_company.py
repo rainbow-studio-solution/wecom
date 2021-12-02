@@ -184,28 +184,39 @@ class Company(models.Model):
         try:
             if debug:
                 _logger.info(_("Task:Start getting join enterprise QR code"))
-
-            wxapi = self.env["wecom.service_api"].init_api(
-                self, "contacts_secret", "contacts"
+            companies = (
+                self.env["res.company"]
+                .sudo()
+                .search([(("is_wecom_organization", "=", True))])
             )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_JOIN_QRCODE"
-                ),
-                {
-                    "size_type": self.join_qrcode_size_type,
-                },
-            )
+            if len(companies) > 0:
+                for company in companies:
 
-            if response["errcode"] == 0:
-                self.join_qrcode = response["join_qrcode"]
-                self.join_qrcode_last_time = datetime.datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
-                if debug:
-                    _logger.info(
-                        _("Task:Complete obtaining the QR code to join the enterprise")
+                    wxapi = (
+                        self.env["wecom.service_api"]
+                        .sudo()
+                        .init_api(company, "contacts_secret", "contacts")
                     )
+                    response = wxapi.httpCall(
+                        self.env["wecom.service_api_list"].get_server_api_call(
+                            "GET_JOIN_QRCODE"
+                        ),
+                        {
+                            "size_type": company.join_qrcode_size_type,
+                        },
+                    )
+
+                    if response["errcode"] == 0:
+                        company.join_qrcode = response["join_qrcode"]
+                        company.join_qrcode_last_time = (
+                            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        )
+                        if debug:
+                            _logger.info(
+                                _(
+                                    "Task:Complete obtaining the QR code to join the enterprise"
+                                )
+                            )
         except ApiException as ex:
             return self.env["wecom.tools"].ApiExceptionDialog(ex)
 

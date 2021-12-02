@@ -22,13 +22,13 @@ class Users(models.Model):
         if (
             self.employee_ids
             and self.employee_ids[0].is_wecom_employee
-            and self.employee_ids[0].wecom_user_id
+            and self.employee_ids[0].wecom_userid
         ):
             self.write(
                 {
                     "is_wecom_user": True,
                     "is_wecom_notice": True,
-                    "wecom_user_id": self.employee_ids[0].wecom_user_id,
+                    "wecom_userid": self.employee_ids[0].wecom_userid,
                 }
             )
         else:

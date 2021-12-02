@@ -237,7 +237,7 @@ class MailMail(models.Model):
             ]
             message_to_user = [
                 tools.formataddr(
-                    (partner.name or "False", partner.wecom_user_id or "False")
+                    (partner.name or "False", partner.wecom_userid or "False")
                 )
             ]
         else:

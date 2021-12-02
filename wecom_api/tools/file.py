@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, tools, _
+import base64
+import requests
+import io
 import os
 import platform
 import logging
@@ -24,3 +27,17 @@ class WecomApiToolsFile(models.AbstractModel):
         if not os.path.exists(filepath):
             os.makedirs(filepath)
         return filepath
+
+    def imgurl2base64(self, imgurl):
+        """
+        图片url转base64
+        return:返回base64
+        """
+        imgbase64 = ""
+        try:
+            img = requests.get(imgurl)
+            imgbase64 = base64.b64encode(img.content)
+        except Exception as e:
+            _logger.error(e)
+        finally:
+            return imgbase64

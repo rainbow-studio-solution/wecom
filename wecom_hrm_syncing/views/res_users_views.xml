@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//header" position="inside">
-                    <button string="设置企业微信用户" name="set_wecom_user" type="object" class="oe_highlight" attrs="{'invisible':[('wecom_user_id','!=',False)]}"/>
+                    <button string="设置企业微信用户" name="set_wecom_user" type="object" class="oe_highlight" attrs="{'invisible':[('wecom_userid','!=',False)]}"/>
                 </xpath>
             </field>
         </record> -->

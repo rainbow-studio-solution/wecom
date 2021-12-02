@@ -19,7 +19,7 @@ class PortalWizardUser(models.TransientModel):
         """
         向新门户用户发送通知电子邮件或企业微信消息
         """
-        if self.env.user.wecom_user_id:
+        if self.env.user.wecom_userid:
             message_template = self.env.ref(
                 "wecom_portal.message_template_data_portal_welcome"
             )

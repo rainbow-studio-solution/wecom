@@ -7,7 +7,7 @@
             <field name="inherit_id" ref="base.view_users_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='login']" position="after">
-                    <field name="wecom_user_id"/>
+                    <field name="wecom_userid"/>
                     <field name="is_wecom_user"/>
                     <field name="share"/>
                 </xpath>
@@ -23,7 +23,7 @@
                     <page name="wecom" string="WeCom">
                         <group>
                             <group>
-                                <field name="wecom_user_id"/>
+                                <field name="wecom_userid"/>
                                 <field name="is_wecom_user"/>
                             </group>
                             <group>

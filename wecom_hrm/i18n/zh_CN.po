@@ -424,8 +424,8 @@ msgid "WeCom settings"
 msgstr "企业微信设置"
 
 #. module: wecom_hrm
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_user_id
-#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__wecom_user_id
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_userid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__wecom_userid
 msgid "WeCom user Id"
 msgstr "企业微信用户ID"
 

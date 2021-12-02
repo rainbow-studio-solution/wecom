@@ -232,7 +232,7 @@ class SyncTag(models.AbstractModel):
                             .sudo()
                             .search(
                                 [
-                                    ("wecom_user_id", "=", tag_employee["userid"]),
+                                    ("wecom_userid", "=", tag_employee["userid"]),
                                     ("company_id", "=", company.id),
                                 ]
                             )

@@ -69,7 +69,7 @@ class AuthSignupHome(SignupHome):
                         limit=1,
                     )
 
-                    if user_sudo.wecom_user_id:
+                    if user_sudo.wecom_userid:
                         message_template = self.env.ref(
                             "wecom_auth_oauth.message_template_user_signup_account_created",
                             raise_if_not_found=False,

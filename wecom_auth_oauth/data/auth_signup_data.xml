@@ -10,7 +10,7 @@
       <field name="code">password_reset</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
-      <field name="message_to_user">${object.wecom_user_id | safe}</field>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
       <field name="body_json">
 {
   "card_type": "news_notice",
@@ -76,7 +76,7 @@
       <field name="code">set_password</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-      <field name="message_to_user">${object.wecom_user_id | safe}</field>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
       <field name="body_json">
 {
   "card_type": "news_notice",
@@ -152,7 +152,7 @@
       <field name="code">user_signup_account_created</field>
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-      <field name="message_to_user">${object.wecom_user_id | safe}</field>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
       <field name="body_json">
 {
   "card_type": "news_notice",
@@ -217,7 +217,7 @@
       <field name="code">unregistered_users</field>
       <field name="msgtype">mpnews</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-      <field name="message_to_user">${object.wecom_user_id | safe}</field>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
       <field name="body_html" type="html">
         <link rel="stylesheet" type="text/css" href="/wecom_message/static/src/css/messages.css"/>
         <table align="center" cellpadding="0" cellspacing="0" width="100%" height="100%">

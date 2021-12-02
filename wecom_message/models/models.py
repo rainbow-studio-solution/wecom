@@ -23,8 +23,8 @@ class BaseModel(models.AbstractModel):
             message_to_party = []
             message_to_tag = []
 
-            if "wecom_user_id" in record and record.wecom_user_id:
-                message_to_user.append(record.wecom_user_id)
+            if "wecom_userid" in record and record.wecom_userid:
+                message_to_user.append(record.wecom_userid)
             res[record.id] = {
                 "message_to_user": message_to_user,
                 "message_to_party": "",

@@ -6,10 +6,11 @@ from odoo import fields, models, _
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    wecom_user_id = fields.Char(
+    wecom_userid = fields.Char(
         string="WeCom User ID",
         readonly=True,
     )
+    wecom_open_userid = fields.Char()
     # is_wecom_notice = fields.Boolean(
     #     "Whether to receive reminders",
     #     default=True,

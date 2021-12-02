@@ -181,7 +181,7 @@ class EmployeeCategory(models.Model):
                     for tag_employee in userlist:
                         employee = self.env["hr.employee"].search(
                             [
-                                ("wecom_user_id", "=", tag_employee["userid"]),
+                                ("wecom_userid", "=", tag_employee["userid"]),
                             ]
                         )
                         employees.append(employee.id)

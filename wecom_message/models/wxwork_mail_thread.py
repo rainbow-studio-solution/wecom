@@ -34,13 +34,13 @@ class MailThread(models.AbstractModel):
         inbox_pids = [
             r["id"] for r in recipients_data["partners"] if r["notif"] == "inbox"
         ]
-        wecom_user_ids = [
-            p.wecom_user_id
+        wecom_userids = [
+            p.wecom_userid
             for p in self.env["res.partner"].browse(inbox_pids)
-            if p.wecom_user_id
+            if p.wecom_userid
         ]
         msg_vals = {}
-        if wecom_user_ids:
+        if wecom_userids:
             wecom_template_id = self.env["wecom.message.template"].get_template_by_code(
                 "notification"
             )
@@ -55,7 +55,7 @@ class MailThread(models.AbstractModel):
             msg = IrWxWorkMessageApi.build_message(
                 msgtype=wecom_template_id.msgtype,
                 toall="",
-                touser="|".join(wecom_user_ids),
+                touser="|".join(wecom_userids),
                 toparty="",
                 totag="",
                 subject=message.subject,

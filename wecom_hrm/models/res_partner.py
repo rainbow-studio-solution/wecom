@@ -6,7 +6,7 @@ from odoo import fields, models, _
 class Partner(models.Model):
     _inherit = "res.partner"
 
-    wecom_user_id = fields.Char(
+    wecom_userid = fields.Char(
         string="WeCom user ID",
         readonly=True,
     )

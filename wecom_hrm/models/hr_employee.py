@@ -17,7 +17,7 @@ class HrEmployeePrivate(models.Model):
         domain="[('is_wecom_category', '=',False)]",
     )
 
-    wecom_user_id = fields.Char(
+    wecom_userid = fields.Char(
         string="WeCom user Id",
         readonly=True,
     )

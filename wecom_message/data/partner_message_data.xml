@@ -9,7 +9,7 @@
             <field name="lang">${object.lang}</field>
             <field name="code">partner_message</field>
             <field name="msgtype">text</field>
-            <field name="message_to_user">${object.wecom_user_id | safe}</field>
+            <field name="message_to_user">${object.wecom_userid | safe}</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>

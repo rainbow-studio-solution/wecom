@@ -476,8 +476,8 @@ msgid "WeCom Settings"
 msgstr "企微设置"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_user_id
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_user_id
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_userid
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_userid
 msgid "WeCom User ID"
 msgstr "企微用户ID"
 

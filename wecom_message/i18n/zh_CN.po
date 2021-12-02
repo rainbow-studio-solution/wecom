@@ -209,11 +209,11 @@ msgstr "默认收件人"
 msgid ""
 "Default recipients of the record:\n"
 "- partner (using id on a partner or the partner_id field) OR\n"
-"- message (using sender or wecom_user_id field)"
+"- message (using sender or wecom_userid field)"
 msgstr ""
 "记录的默认收件人： \n"
 "- 合作伙伴（使用合作伙伴的企业微信用户Id或partner_id字段）或\n"
-"- 消息(使用发件人或wecom_user_id字段)"
+"- 消息(使用发件人或wecom_userid字段)"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
@@ -824,7 +824,7 @@ msgstr "文本消息"
 
 #. module: wecom_message
 #: model:ir.model.fields,help:wecom_message.field_wecom_message_template__sender
-msgid "The sender's wecom_user_id (placeholder can be used here). If not set, the default value will be the sender's wecom_user_id"
+msgid "The sender's wecom_userid (placeholder can be used here). If not set, the default value will be the sender's wecom_userid"
 msgstr "发送人的企业微信用户Id（所在位置会被在这里使用），如果不设置，作者的企业微信Id就会被作为默认值"
 
 #. module: wecom_message

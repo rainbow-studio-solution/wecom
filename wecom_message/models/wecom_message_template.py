@@ -53,7 +53,7 @@ class WeComMessageTemplate(models.Model):
     )
     sender = fields.Char(
         "Sender",
-        help="The sender's wecom_user_id (placeholder can be used here). If not set, the default value will be the sender's wecom_user_id",
+        help="The sender's wecom_userid (placeholder can be used here). If not set, the default value will be the sender's wecom_userid",
     )
 
     # recipients
@@ -61,7 +61,7 @@ class WeComMessageTemplate(models.Model):
         "Default recipients",
         help="Default recipients of the record:\n"
         "- partner (using id on a partner or the partner_id field) OR\n"
-        "- message (using sender or wecom_user_id field)",
+        "- message (using sender or wecom_userid field)",
     )
     partner_to = fields.Char(
         "To (Partners)",

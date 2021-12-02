@@ -52,9 +52,9 @@ class SyncEmployee(models.AbstractModel):
             if len(blocks) > 0:
 
                 for obj in blocks:
-                    if obj.wecom_user_id != None:
-                        # block_list.append({"userid": obj.wecom_user_id})
-                        block_list.append(obj.wecom_user_id)
+                    if obj.wecom_userid != None:
+                        # block_list.append({"userid": obj.wecom_userid})
+                        block_list.append(obj.wecom_userid)
 
             # 从user_list移除block
             for b in block_list:
@@ -135,7 +135,7 @@ class SyncEmployee(models.AbstractModel):
             .sudo()
             .search(
                 [
-                    ("wecom_user_id", "=", obj["userid"]),
+                    ("wecom_userid", "=", obj["userid"]),
                     ("company_id", "=", company.id),
                     ("is_wecom_employee", "=", True),
                     "|",
@@ -171,7 +171,7 @@ class SyncEmployee(models.AbstractModel):
             records.create(
                 {
                     "use_system_avatar": company.contacts_use_system_default_avatar,
-                    "wecom_user_id": obj["userid"],
+                    "wecom_userid": obj["userid"],
                     "name": obj["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
                         obj, "english_name"
@@ -381,7 +381,7 @@ class SyncEmployee(models.AbstractModel):
                     .sudo()
                     .search(
                         [
-                            ("wecom_user_id", "=", user["direct_leader"][0]),
+                            ("wecom_userid", "=", user["direct_leader"][0]),
                             ("company_id", "=", company.id),
                             ("is_wecom_employee", "=", True),
                             "|",
@@ -396,7 +396,7 @@ class SyncEmployee(models.AbstractModel):
                     .sudo()
                     .search(
                         [
-                            ("wecom_user_id", "=", user["userid"]),
+                            ("wecom_userid", "=", user["userid"]),
                             ("company_id", "=", company.id),
                             ("is_wecom_employee", "=", True),
                             "|",
@@ -445,7 +445,7 @@ class SyncEmployee(models.AbstractModel):
                 )
             )
             for employee in employees:
-                list_employee.append(employee.wecom_user_id)
+                list_employee.append(employee.wecom_userid)
 
             list_user_leave = list(
                 set(list_employee).difference(set(list_user))
@@ -456,7 +456,7 @@ class SyncEmployee(models.AbstractModel):
                     .sudo()
                     .search(
                         [
-                            ("wecom_user_id", "=", wecom_leave_employee),
+                            ("wecom_userid", "=", wecom_leave_employee),
                             ("company_id", "=", company.id),
                         ]
                     )
