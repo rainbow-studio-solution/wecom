@@ -12,9 +12,28 @@ import json
 from werkzeug import urls
 import html2text
 
+# TODO 向关注者发送消息。。。 Send a message to followers...
+#  模型的message_post 方法
+
 
 class MailThread(models.AbstractModel):
     _inherit = "mail.thread"
+
+    # ------------------------------------------------------
+    # 消息推送API
+    # MESSAGE POST API
+    # ------------------------------------------------------
+    def _message_post_process_attachments(
+        self, attachments, attachment_ids, message_values
+    ):
+        """Preprocess attachments for mail_thread.message_post() or mail_mail.create().
+
+        :param list attachments: list of attachment tuples in the form ``(name,content)``, #todo xdo update that
+                                 where content is NOT base64 encoded
+        :param list attachment_ids: a list of attachment ids, not in tomany command form
+        :param dict message_data: model: the model of the attachments parent record,
+          res_id: the id of the attachments parent record
+        """
 
     def _notify_record_by_inbox(
         self, message, recipients_data, msg_vals=False, **kwargs
