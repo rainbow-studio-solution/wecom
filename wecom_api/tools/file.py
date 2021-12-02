@@ -7,6 +7,7 @@ import io
 import os
 import platform
 import logging
+from odoo.modules.module import get_module_resource
 
 _logger = logging.getLogger(__name__)
 
@@ -28,16 +29,25 @@ class WecomApiToolsFile(models.AbstractModel):
             os.makedirs(filepath)
         return filepath
 
-    def imgurl2base64(self, imgurl):
+    def get_avatar_base64(self, use_default_avatar, gender, avatar_url):
         """
-        图片url转base64
+        获取企业微信用户头像的base64编码
         return:返回base64
         """
         imgbase64 = ""
-        try:
-            img = requests.get(imgurl)
-            imgbase64 = base64.b64encode(img.content)
-        except Exception as e:
-            _logger.error(e)
-        finally:
-            return imgbase64
+        if use_default_avatar or avatar_url == "":
+            image_name = "default_image.png"
+            if gender == "1":
+                image_name = "default_male_image.png"
+            elif gender == "2":
+                image_name = "default_female_image.png"
+
+            default_image = get_module_resource(
+                "wecom_hrm_syncing", "static/src/img", image_name
+            )
+            print(default_image)
+            with open(default_image, "rb") as f:
+                imgbase64 = base64.b64encode(f.read())
+        else:
+            imgbase64 = base64.b64encode(requests.get(avatar_url).content)
+        return imgbase64

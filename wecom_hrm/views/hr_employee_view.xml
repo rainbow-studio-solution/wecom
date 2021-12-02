@@ -22,13 +22,13 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//field[@name='image_1920']" position="replace">
+                <!-- <xpath expr="//field[@name='image_1920']" position="replace">
                     <field name="use_system_avatar" invisible="1"/>
 
                     <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}' attrs="{'invisible': [('use_system_avatar', '=', True)]}"/>
 
                     <field name="image_1920" widget='image' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}' attrs="{'invisible': [('use_system_avatar', '=', False)]}"/>
-                </xpath>
+                </xpath> -->
 
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <!-- <label for="alias" class="oe_edit_only" /> -->
@@ -65,7 +65,7 @@
             </field>
         </record>
 
-        <record id="hr_kanban_view_employees" model="ir.ui.view">
+        <!-- <record id="hr_kanban_view_employees" model="ir.ui.view">
             <field name="name">hr.employee.kanban</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
@@ -80,7 +80,7 @@
                 </xpath>
 
             </field>
-        </record>
+        </record> -->
 
 
 

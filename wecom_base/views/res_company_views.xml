@@ -66,13 +66,13 @@
 
                                         <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                             <div class="o_setting_left_pane">
-                                                <i class="fa fa-key fa-lg" aria-label="Enterprise ID"/>
+                                                <i class="fa fa-key fa-lg" aria-label="Corp ID"/>
                                             </div>
                                             <div class="o_setting_right_pane">
                                                 <label for="corpid"/>
                                                 <div class="row">
                                                     <div class="text-muted col-md-12">
-                                                        Fill in: WeCom management background → "Enterprise Information" → "Enterprise ID"
+                                                        Fill in: WeCom management background → "Corp Information" → "Corp ID"
                                                     </div>
                                                 </div>
                                                 <div class="mt16">

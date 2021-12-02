@@ -15,7 +15,7 @@ class Company(models.Model):
     # 基础
     abbreviated_name = fields.Char("Abbreviated Name", translate=True)
     is_wecom_organization = fields.Boolean("WeCom organization", default=False)
-    corpid = fields.Char("Enterprise ID", default="xxxxxxxxxxxxxxxxxx")
+    corpid = fields.Char("Corp ID", default="xxxxxxxxxxxxxxxxxx")
 
     # 通讯录
     contacts_secret = fields.Char(
@@ -46,6 +46,10 @@ class Company(models.Model):
     contacts_use_system_default_avatar = fields.Boolean(
         "Use system default Avatar",
         default=True,
+    )
+    contacts_update_avatar_every_time_sync = fields.Boolean(
+        "Update avatar every time sync",
+        default=False,
     )
 
     corp_jsapi_ticket = fields.Char(

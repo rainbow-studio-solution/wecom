@@ -170,7 +170,7 @@ class SyncEmployee(models.AbstractModel):
         try:
             records.create(
                 {
-                    "use_system_avatar": company.contacts_use_system_default_avatar,
+                    # "use_system_avatar": company.contacts_use_system_default_avatar,
                     "wecom_userid": obj["userid"],
                     "name": obj["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
@@ -178,13 +178,10 @@ class SyncEmployee(models.AbstractModel):
                     ),
                     "gender": self.env["wecom.tools"].sex2gender(obj["gender"]),
                     "marital": None,  # 不生成婚姻状况
-                    "avatar": self.env["wecom.tools"].get_default_avatar_url(
-                        obj["gender"]
-                    )
-                    if obj["avatar"] == ""
-                    else obj["avatar"],
-                    "image_1920": self.env["wecom.tools"].encode_avatar_image_as_base64(
-                        obj["gender"]
+                    "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                        company.contacts_use_system_default_avatar,
+                        obj["gender"],
+                        obj["avatar"],
                     ),
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
@@ -215,6 +212,8 @@ class SyncEmployee(models.AbstractModel):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         department_ids = []  # 多部门
+
+        company.contacts_update_avatar_every_time_sync
         if len(obj["department"]) > 0:
             department_ids = self.get_employee_parent_wecom_department(
                 company, obj["department"]
@@ -223,16 +222,10 @@ class SyncEmployee(models.AbstractModel):
         try:
             records.write(
                 {
-                    "use_system_avatar": company.contacts_use_system_default_avatar,
                     "name": obj["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
                         obj, "english_name"
                     ),
-                    "avatar": self.env["wecom.tools"].get_default_avatar_url(
-                        obj["gender"]
-                    )
-                    if obj["avatar"] == ""
-                    else obj["avatar"],
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
@@ -248,7 +241,16 @@ class SyncEmployee(models.AbstractModel):
                     "is_wecom_employee": True,
                 }
             )
-
+            if company.contacts_update_avatar_every_time_sync:
+                records.write(
+                    {
+                        "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                            False,
+                            obj["gender"],
+                            obj["avatar"],
+                        ),
+                    }
+                )
         except Exception as e:
             if debug:
                 _logger.warning(

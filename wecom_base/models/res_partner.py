@@ -11,10 +11,7 @@ class Partner(models.Model):
         readonly=True,
     )
     wecom_open_userid = fields.Char()
-    # is_wecom_notice = fields.Boolean(
-    #     "Whether to receive reminders",
-    #     default=True,
-    # )
+
     is_wecom_user = fields.Boolean(
         "Is WeCom user",
         readonly=True,

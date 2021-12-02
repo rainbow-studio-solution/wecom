@@ -23,7 +23,10 @@ class ResConfigSettings(models.TransientModel):
             wxapi = self.env["wecom.service_api"].init_api(
                 self.company_id, "contacts_secret", "contacts"
             )
-            if wxapi.expiration_time > datetime.now():
+
+            if self.company_id.contacts_access_token is False:
+                self.company_id.contacts_access_token = wxapi.access_token
+            elif wxapi.expiration_time > datetime.now():
                 return {
                     "type": "ir.actions.client",
                     "tag": "display_notification",

@@ -52,6 +52,14 @@ class ResConfigSettings(models.TransientModel):
     contacts_use_system_default_avatar = fields.Boolean(
         related="company_id.contacts_use_system_default_avatar", readonly=False
     )
+    contacts_update_avatar_every_time_sync = fields.Boolean(
+        related="company_id.contacts_update_avatar_every_time_sync", readonly=False
+    )
+
+    @api.onchange("contacts_use_system_default_avatar")
+    def _onchange_contacts_use_system_default_avatar(self):
+        if self.contacts_use_system_default_avatar:
+            self.contacts_update_avatar_every_time_sync = False
 
     # JS API
     corp_jsapi_ticket = fields.Char(

@@ -10,7 +10,7 @@
     "category": "WeCom/WeCom",
     "version": "14.0.0.1",
     "summary": """
-        WeCom Authentication
+        One click login, code scanning login.
         """,
     "description": """
 
