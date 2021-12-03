@@ -205,6 +205,7 @@ class WecomMessageMessage(models.Model):
         depends=["author_id"],
         readonly=False,
     )
+
     # 收件人：包括非活动合作伙伴（他们可能在邮件发送后已存档，但在关系中应保持可见）
     partner_ids = fields.Many2many(
         "res.partner", string="Recipients", context={"active_test": False}
@@ -218,6 +219,11 @@ class WecomMessageMessage(models.Model):
     #     context={"active_test": False},
     #     depends=["notification_ids"],
     # )
+
+    channel_ids = fields.Many2many(
+        "mail.channel", "wecom_message_message_mail_channel_rel", string="Channels"
+    )
+
     needaction = fields.Boolean(
         "Need Action",
         # compute="_get_needaction",
