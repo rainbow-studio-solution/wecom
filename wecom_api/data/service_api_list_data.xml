@@ -222,7 +222,7 @@
         </record>
         <record id="wecom_service_api_contacts_batch_replaceparty" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Full coverage member</field>
+            <field name="name">Full coverage Department</field>
             <field name="function_name">BATCH_REPLACEPARTY</field>
             <field name="short_url">/cgi-bin/batch/replaceparty?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -272,7 +272,7 @@
         </record>
         <record id="wecom_service_api_contacts_linkedcorp_department_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get the details of members of the Internet enterprise department</field>
+            <field name="name">Get the list of interconnected enterprise departments</field>
             <field name="function_name">LINKEDCORP_DEPARTMENT_LIST</field>
             <field name="short_url">/cgi-bin/linkedcorp/department/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -1184,7 +1184,7 @@
         <!-- 互联企业消息推送 -->
         <record id="wecom_service_api_linkedcorp_message_send" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Connected enterprise application push message</field>
+            <field name="name">Applications of interconnected enterprises support pushing text, pictures, videos, files, graphics and other types.</field>
             <field name="function_name">LINKEDCORP_MESSAGE_SEND</field>
             <field name="short_url">/cgi-bin/linkedcorp/message/send?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -1298,7 +1298,7 @@
         <!-- 录入打卡人员人脸信息 -->
         <record id="wecom_service_oa_add_checkin_user_face" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Scheduling for check-in staff</field>
+            <field name="name">Enter employee face information</field>
             <field name="function_name">ADD_CHECKIN_USER_FACE</field>
             <field name="short_url">/cgi-bin/checkin/addcheckinuserface?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -1331,14 +1331,7 @@
             <field name="request_type">POST</field>
             <field name="sequence">7101</field>
         </record>
-        <record id="wecom_service_oa_get_approval_template_info" model="wecom.service_api_list">
-            <field name="type">9</field>
-            <field name="name">Submit application for approval</field>
-            <field name="function_name">APPROVAL_GET_INFO</field>
-            <field name="short_url">/cgi-bin/oa/getapprovalinfo?access_token=ACCESS_TOKEN</field>
-            <field name="request_type">POST</field>
-            <field name="sequence">7102</field>
-        </record>
+
         <record id="wecom_service_oa_get_approval_template_info" model="wecom.service_api_list">
             <field name="type">9</field>
             <field name="name">Batch approval number</field>
@@ -1435,7 +1428,7 @@
         </record>
         <record id="wecom_service_oa_meetingroom_cancel_book" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Reserve meeting rooms</field>
+            <field name="name">Cancel the reservation of the meeting room</field>
             <field name="function_name">MEETINGROOM_CANCEL_BOOK</field>
             <field name="short_url">/cgi-bin/oa/meetingroom/cancel_book?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -1453,7 +1446,7 @@
         </record>
         <record id="wecom_service_oa_get_pstncc_states" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Initiate voice calls to alert employees to see important messages from your app push.</field>
+            <field name="name">Through this interface, you can know whether employees have answered voice calls.</field>
             <field name="function_name">GET_PSTNCC_STATES</field>
             <field name="short_url">/cgi-bin/pstncc/getstates?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
@@ -1461,5 +1454,39 @@
         </record>
 
         <!-- 7. 效率工具 -->
+
+        <!-- 13. 会话存档 -->
+        <record id="wecom_service_msgaudit_get_permit_user_list" model="wecom.service_api_list">
+            <field name="type">13</field>
+            <field name="name">Get session content archive open member list</field>
+            <field name="function_name">GET_PERMIT_USER_LIST</field>
+            <field name="short_url">/cgi-bin/msgaudit/get_permit_user_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">13000</field>
+        </record>
+        <record id="wecom_service_msgaudit_check_single_agree" model="wecom.service_api_list">
+            <field name="type">13</field>
+            <field name="name">Obtain the consent of external members in the session</field>
+            <field name="function_name">CHECK_SINGLE_AGREE</field>
+            <field name="short_url">/cgi-bin/msgaudit/check_single_agree?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">13001</field>
+        </record>
+        <record id="wecom_service_msgaudit_check_room_agree" model="wecom.service_api_list">
+            <field name="type">13</field>
+            <field name="name">Query the consent of all external contacts of the outside company within the roomid</field>
+            <field name="function_name">CHECK_ROOM_AGREE</field>
+            <field name="short_url">/cgi-bin/msgaudit/check_room_agree?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">13002</field>
+        </record>
+        <record id="wecom_service_msgaudit_groupchat_get" model="wecom.service_api_list">
+            <field name="type">13</field>
+            <field name="name">Obtain the session content and archive the internal group information of the enterprise, including group name, group owner ID, announcement, group creation time, and the ID and joining time of all group members.</field>
+            <field name="function_name">GROUPCHAT_GET</field>
+            <field name="short_url">/cgi-bin/msgaudit/groupchat/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">13003</field>
+        </record>
     </data>
 </odoo>
