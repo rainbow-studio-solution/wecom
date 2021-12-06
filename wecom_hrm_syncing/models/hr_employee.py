@@ -35,13 +35,14 @@ class HrEmployee(models.Model):
                 self.sudo()
                 .env["res.users"]
                 .search(
-                    [("login", "=", self.wecom_userid)],
+                    [("login", "=", self.wecom_userid.lower())],
                     limit=1,
                 )
             )
             if not res_user_id:
                 res_user_id.create(
                     {
+                        "notification_type": "inbox",
                         "address_id": self.address_id,
                         "work_location": self.work_location,
                         "coach_id": self.coach_id,
@@ -53,7 +54,7 @@ class HrEmployee(models.Model):
                         "company_ids": [(6, 0, [self.company_id.id])],
                         "company_id": self.company_id.id,
                         "name": self.name,
-                        "login": self.wecom_userid,
+                        "login": self.wecom_userid.lower(), #登陆账号 使用 企业微信用户id的小写
                         "password": self.env["wecom.tools"].random_passwd(8),
                         "email": self.work_email,
                         "private_email": self.address_home_id.email,

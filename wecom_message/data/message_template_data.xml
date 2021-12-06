@@ -15,5 +15,19 @@
             <field name="enable_duplicate_check" eval="False"/>
             <field name="duplicate_check_interval">1800</field>
         </record>
+
+        <!-- <record id="message_template_notification" model="wecom.message.template">
+            <field name="name">Message Notifications</field>
+            <field name="partner_to">${object.id}</field>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.lang}</field>
+            <field name="code">notification</field>
+            <field name="msgtype">markdown</field>
+            <field name="message_to_user">${object.wecom_userid | safe}</field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
+        </record> -->
     </data>
 </odoo>

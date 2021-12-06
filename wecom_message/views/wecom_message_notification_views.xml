@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="wecom_message_notification_view_tree" model="ir.ui.view">
+            <field name="name">wecom.message.notification.view.tree</field>
+            <field name="model">wecom.message.notification</field>
+            <field name="arch" type="xml">
+                <tree string="Notifications" edit="false" create="false" delete="false">
+                    <field name="message_message_id"/>
+                    <field name="notification_type"/>
+                    <field name="res_partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="wecom_message_notification_view_form" model="ir.ui.view">
+            <field name="name">wecom.message.notification.view.form</field>
+            <field name="model">wecom.message.notification</field>
+            <field name="arch" type="xml">
+                <form string="Notification">
+                    <header>
+                        <field name="notification_status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group string="Source">
+                                <field name="message_message_id"/>
+                                <field name="notification_type"/>
+                                <field name="res_partner_id"/>
+                            </group>
+                            <group string="Status">
+                                <field name="failure_reason"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wecom_message_notification_action" model="ir.actions.act_window">
+            <field name="name">Notifications</field>
+            <field name="res_model">wecom.message.notification</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

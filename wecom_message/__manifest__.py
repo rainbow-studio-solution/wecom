@@ -30,7 +30,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/res_company_data.xml",
-        "data/partner_message_data.xml",
+        "data/message_template_data.xml",
         # "wizard/mail_template_preview_views.xml",
         "views/assets_templates.xml",
         # "views/mail_message_views.xml",
@@ -38,6 +38,7 @@
         "views/res_config_settings_views.xml",
         "views/wecom_message_template_views.xml",
         "views/wecom_message_message_views.xml",
+        "views/wecom_message_notification_views.xml",
         "views/menu.xml",
     ],
     "qweb": [

@@ -124,8 +124,8 @@
             </field>
         </record>
 
-        <record id="action_view_wecom_message_records" model="ir.actions.act_window">
-            <field name="name">Records</field>
+        <record id="action_view_wecom_message_message" model="ir.actions.act_window">
+            <field name="name">Message</field>
             <field name="res_model">wecom.message.message</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{}</field>

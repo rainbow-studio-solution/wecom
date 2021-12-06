@@ -172,9 +172,9 @@ class WecomMessageMessage(models.Model):
         help="Message type: email for email message, notification for system "
         "message, comment for other messages such as user replies",
     )
-    # subtype_id = fields.Many2one(
-    #     "mail.message.subtype", "Subtype", ondelete="set null", index=True
-    # )  # 子类型
+    subtype_id = fields.Many2one(
+        "mail.message.subtype", "Subtype", ondelete="set null", index=True
+    )  # 子类型
     # mail_activity_type_id = fields.Many2one(
     #     "mail.activity.type", "Mail Activity Type", index=True, ondelete="set null"
     # )
@@ -212,18 +212,26 @@ class WecomMessageMessage(models.Model):
     )
     # 具有通知的合作伙伴列表。警告：由于notif gc cron，列表可能会随时间而更改。
     # 主要用于测试
-    # notified_partner_ids = fields.Many2many(
-    #     "res.partner",
-    #     "mail_message_res_partner_needaction_rel",
-    #     string="Partners with Need Action",
-    #     context={"active_test": False},
-    #     depends=["notification_ids"],
-    # )
+    notified_partner_ids = fields.Many2many(
+        "res.partner",
+        "wecom_message_message_res_partner_needaction_rel",
+        "message_message_id",
+        string="Partners with Need Action",
+        context={"active_test": False},
+        depends=["notification_ids"],
+    )
 
     channel_ids = fields.Many2many(
         "mail.channel", "wecom_message_message_mail_channel_rel", string="Channels"
     )
-
+    notification_ids = fields.One2many(
+        "wecom.message.notification",
+        "message_message_id",
+        "Notifications",
+        auto_join=True,
+        copy=False,
+        depends=["notified_partner_ids"],
+    )
     needaction = fields.Boolean(
         "Need Action",
         # compute="_get_needaction",
@@ -237,7 +245,9 @@ class WecomMessageMessage(models.Model):
                 message.description = message.subject
             else:
                 plaintext_ct = (
-                    "" if not message.body else tools.html2plaintext(message.body)
+                    ""
+                    if not message.body_html
+                    else tools.html2plaintext(message.body_html)
                 )
                 message.description = plaintext_ct[:30] + "%s" % (
                     " [...]" if len(plaintext_ct) >= 30 else ""

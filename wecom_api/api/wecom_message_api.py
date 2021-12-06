@@ -182,8 +182,11 @@ class WeComMessageApi(models.AbstractModel):
         elif msgtype == "markdown":
             # markdown消息
             messages_content = {
-                "content": body_markdown,
+                "markdown": {
+                    "content": body_markdown,
+                }
             }
+
         elif msgtype == "template_card":
             # 模板卡片消息
             messages_content = {

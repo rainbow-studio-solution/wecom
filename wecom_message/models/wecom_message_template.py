@@ -328,7 +328,7 @@ class WeComMessageTemplate(models.Model):
         company = record.company_id
 
         values.update(message_values or {})
-        print()
+  
         # 添加防止无效的email_from的保护措施
         if "sender" in values and not values.get("sender"):
             values.pop("sender")
@@ -444,7 +444,7 @@ class WeComMessageTemplate(models.Model):
         values["use_templates"] = True  # 指定使用模板
         values["templates_id"] = self.id  # 指定对应的模板id
         message = self.env["wecom.message.message"].sudo().create(values)
-        print("message------------------", values)
+
         if force_send:
             message.send(
                 raise_exception=raise_exception,
