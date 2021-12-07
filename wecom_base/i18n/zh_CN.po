@@ -449,12 +449,12 @@ msgid ""
 "The path used to save WeCom pictures,<span class=\"text-danger\">Need to have read and write permissions on the "
 "path.</span>\n"
 "                                            <br/>\n"
-"                                            reference:Windows: D:\\img\\  <br/>\n"
-"                                            Linux：/home/odoo/img/ Note: odoo is the current system account"
+"                                            reference:Windows: D:\\resources\\  <br/>\n"
+"                                            Linux：/home/odoo/resources/ Note: odoo is the current system account"
 msgstr ""
-"企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
-"                                            参考:Windows: D:\\img\\  <br/>\n"
-"                                            Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
+"企业微信资源保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
+"                                            参考:Windows: D:\\resources\\  <br/>\n"
+"                                            Linux：/home/odoo/resources/ 注意：odoo是当前系统帐户"
 
 #. module: wecom_base
 #: model:ir.model.fields,help:wecom_base.field_res_partner__wecom_user_order
@@ -512,7 +512,7 @@ msgstr "企业微信信息"
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__resources_path
 msgid "WeCom resources storage path"
-msgstr "企业微信图片存储路径"
+msgstr "企业微信资源存储路径"
 
 #. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_root

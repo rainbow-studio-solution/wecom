@@ -44,8 +44,8 @@
                                         <div class="text-muted col-md-12">
                                             The path used to save WeCom pictures,<span class="text-danger">Need to have read and write permissions on the path.</span>
                                             <br/>
-                                            reference:Windows: D:\img\  <br/>
-                                            Linux：/home/odoo/img/ Note: odoo is the current system account
+                                            reference:Windows: D:\resources\  <br/>
+                                            Linux：/home/odoo/resources/ Note: odoo is the current system account
                                         </div>
                                     </div>
                                     <div class="content-group">
