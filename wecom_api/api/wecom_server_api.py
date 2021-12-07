@@ -26,6 +26,7 @@ class WecomServerApi(models.Model):
             ("media", "Media material"),
             ("checkin", "Checkin"),
             ("approval", "Approval"),
+            ("msgaudit", "Session content archiving"),
         ],
         string="Type",
         readonly=True,
