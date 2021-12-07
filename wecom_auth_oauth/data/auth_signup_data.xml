@@ -77,13 +77,12 @@
       <field name="msgtype">markdown</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
       <field name="message_to_user">${object.wecom_userid | safe}</field>
-      <field name="body_markdown">
-## Dear ${object.name},
+      <field name="body_markdown">## Dear ${object.name},
 Hello! First of all, please allow me to welcome you on behalf of our company. This is an invitation message from ${object.create_uid.name} of ${object.company_id.name}  to open your system account. Please click:
 &gt; [Accept invitation](${object.signup_url})
 % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url') 
 &gt; The system login address is: [${website_url}](${website_url})
-&gt; Your login account is: [${object.login}](/web/login?login=${object.login})
+&gt; Your login account is: [${object.login}](${website_url}/web/login?login=${object.login})
 #### The loyalty of our company is strict, innovative and honest. Your participation will bring us fresh blood, bring forth new thinking and set up a good corporate image for us.
 #### I wish you a happy job in our company and realize your life value!
 ## ${object.company_id.name}
@@ -93,8 +92,7 @@ Hello! First of all, please allow me to welcome you on behalf of our company. Th
 % endif 
 % if object.company_id.website
 &lt;font color=\"comment"\&gt;Website:${object.company_id.website}&lt;/font&gt;
-% endif 
-      </field>
+% endif</field>
       <field name="lang">${object.lang}</field>
       <field name="auto_delete" eval="True"/>
       <field name="safe">1</field>
