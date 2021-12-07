@@ -29,7 +29,7 @@ class HrEmployee(models.Model):
                 limit=1,
             )
             .id
-        )  # id=9是门户用户
+        )  # id=1是内部用户, id=9是门户用户
         try:
             res_user_id = (
                 self.sudo()
@@ -39,22 +39,18 @@ class HrEmployee(models.Model):
                     limit=1,
                 )
             )
-            if not res_user_id:
+
+            if len(res_user_id) == 0:
                 res_user_id.create(
                     {
                         "notification_type": "inbox",
-                        "address_id": self.address_id,
-                        "work_location": self.work_location,
-                        "coach_id": self.coach_id,
-                        "address_home_id": self.address_home_id,
-                        "is_address_home_a_company": self.is_address_home_a_company,
-                        "km_home_work": self.km_home_work,
                         #
                         "employee_ids": [(6, 0, [self.id])],
+                        "employee_id": self.id,
                         "company_ids": [(6, 0, [self.company_id.id])],
                         "company_id": self.company_id.id,
                         "name": self.name,
-                        "login": self.wecom_userid.lower(), #登陆账号 使用 企业微信用户id的小写
+                        "login": self.wecom_userid.lower(),  # 登陆账号 使用 企业微信用户id的小写
                         "password": self.env["wecom.tools"].random_passwd(8),
                         "email": self.work_email,
                         "private_email": self.address_home_id.email,
@@ -82,23 +78,14 @@ class HrEmployee(models.Model):
                     }
                 )
 
-            res_user_id.partner_id.write(
-                {
-                    "company_id": self.company_id.id,
-                }
-            )
-            self.write(
-                {
-                    "user_id": res_user_id.id,
-                    "user_partner_id": res_user_id.id,
-                    "address_home_id": res_user_id.partner_id.id,
-                }
-            )
-
         except Exception as e:
             _logger.warning(
                 _("Generate system user error from employee. Error details:%s")
                 % (repr(e))
+            )
+        else:
+            self._sync_user(
+                self.env["res.users"].browse(res_user_id), bool(self.image_1920)
             )
 
     # --------------------------------------
@@ -242,14 +229,10 @@ class HrEmployee(models.Model):
         try:
             user = user.create(
                 {
-                    "address_id": employee.address_id,
-                    "work_location": employee.work_location,
-                    "coach_id": employee.coach_id,
-                    "address_home_id": employee.address_home_id,
-                    "is_address_home_a_company": employee.is_address_home_a_company,
-                    "km_home_work": employee.km_home_work,
+                    "notification_type": "inbox",
                     #
                     "employee_ids": [(6, 0, [employee.id])],
+                    "employee_id": employee.id,
                     "company_ids": [(6, 0, [employee.company_id.id])],
                     "company_id": employee.company_id.id,
                     "name": employee.name,
@@ -281,18 +264,10 @@ class HrEmployee(models.Model):
                 }
             )
             if user.id:
-                user.partner_id.write(
-                    {
-                        "company_id": employee.company_id.id,
-                    }
+                self._sync_user(
+                    self.env["res.users"].browse(user.id), bool(employee.image_1920)
                 )
-                employee.write(
-                    {
-                        "user_id": user.id,
-                        "user_partner_id": user.id,
-                        "address_home_id": user.partner_id.id,
-                    }
-                )
+
         except Exception as e:
             if debug:
                 print(
@@ -306,12 +281,13 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
 
-        user.write(
+        user.partner_id.write(
             {
                 "name": employee.name,
                 "image_1920": employee.image_1920,
                 "is_wecom_user": True,
                 "mobile": employee.mobile_phone,
                 "phone": employee.work_phone,
+                "email": employee.work_email,
             }
         )
