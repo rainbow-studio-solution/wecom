@@ -10,7 +10,7 @@ from odoo.exceptions import UserError
 
 def pre_init_hook(cr):
     env = api.Environment(cr, SUPERUSER_ID, {})
-    path = env["ir.config_parameter"].get_param("wecom.img_path")
+    path = env["ir.config_parameter"].get_param("wecom.resources_path")
 
     if path:
         if not os.path.exists(path):

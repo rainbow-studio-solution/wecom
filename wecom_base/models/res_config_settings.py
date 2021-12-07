@@ -23,9 +23,9 @@ class ResConfigSettings(models.TransientModel):
 
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)
 
-    img_path = fields.Char(
-        "WeCom Picture storage path",
-        config_parameter="wecom.img_path",
+    resources_path = fields.Char(
+        "WeCom resources storage path",
+        config_parameter="wecom.resources_path",
     )
 
     # 通讯录

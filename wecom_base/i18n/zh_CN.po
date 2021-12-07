@@ -510,8 +510,8 @@ msgid "WeCom Information"
 msgstr "企业微信信息"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__img_path
-msgid "WeCom Picture storage path"
+#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__resources_path
+msgid "WeCom resources storage path"
 msgstr "企业微信图片存储路径"
 
 #. module: wecom_base

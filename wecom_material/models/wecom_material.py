@@ -303,7 +303,7 @@ class WeComMaterial(models.Model):
     @api.model
     def _check_file_path(self, file, subpath, filename):
         sys_params = self.env["ir.config_parameter"].sudo()
-        path = sys_params.get_param("wecom.img_path")
+        path = sys_params.get_param("wecom.resources_path")
         if path:
             pass
         else:
