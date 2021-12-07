@@ -121,7 +121,7 @@ class ResUsers(models.Model):
         template.write(template_values)
         for user in self:
             if user.wecom_userid:
-                return self.action_reset_password_by_wecom(user)
+                return self.action_reset_password_by_wecom(user, create_mode)
             elif not user.email:
                 raise UserError(
                     _("Cannot send email: user %s has no email address.", user.name)
@@ -137,11 +137,15 @@ class ResUsers(models.Model):
             )
         return super(ResUsers, self).action_reset_password()
 
-    def action_reset_password_by_wecom(self, user):
+    def action_reset_password_by_wecom(self, user, create_mode):
         """
         通过企业微信的方式发送模板消息
         """
-        template = self.env.ref("wecom_auth_oauth.reset_password_message")
+        create_mode = bool(self.env.context.get("create_user"))
+        if create_mode:
+            template = self.env.ref("wecom_auth_oauth.set_password_message")
+        else:
+            template = self.env.ref("wecom_auth_oauth.reset_password_message")
         assert template._name == "wecom.message.template"
         template_values = {
             "message_to_user": "${object.wecom_userid|safe}",
