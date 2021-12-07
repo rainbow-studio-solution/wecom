@@ -15,7 +15,7 @@
         <!-- <menuitem id="menu_wecom_discuss_activities" action="mail.mail_activity_action" parent="menu_wecom_discuss" sequence="3" /> -->
 
         <!-- 4.通知 -->
-        <menuitem name="Notifications" id="menu_wecom_message_notification" parent="menu_wecom_message_records" action="wecom_message_notification_action" sequence="4" groups="base.group_erp_manager"/>
+        <!-- <menuitem name="Notifications" id="menu_wecom_message_notification" parent="menu_wecom_message_records" action="wecom_message_notification_action" sequence="4" groups="base.group_erp_manager"/> -->
 
         <!-- 5.点评 -->
         <!-- <menuitem name="Ratings" id="menu_wecom_discuss_rating" parent="menu_wecom_discuss" action="rating.rating_rating_view" sequence="5"/> -->

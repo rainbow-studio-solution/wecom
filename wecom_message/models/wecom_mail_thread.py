@@ -130,14 +130,14 @@ class MailThread(models.AbstractModel):
         wecom_message_id.send(
             company=company,
         )
-        if inbox_pids:
-            notif_create_values = [
-                {
-                    "message_message_id": wecom_message_id.id,
-                    "res_partner_id": pid,
-                    "notification_type": "inbox",
-                    "notification_status": "sent",
-                }
-                for pid in inbox_pids
-            ]
-            self.env["wecom.message.notification"].sudo().create(notif_create_values)
+        # if inbox_pids:
+        #     notif_create_values = [
+        #         {
+        #             "message_message_id": wecom_message_id.id,
+        #             "res_partner_id": pid,
+        #             "notification_type": "inbox",
+        #             "notification_status": "sent",
+        #         }
+        #         for pid in inbox_pids
+        #     ]
+        #     self.env["wecom.message.notification"].sudo().create(notif_create_values)

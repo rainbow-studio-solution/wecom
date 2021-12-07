@@ -212,26 +212,26 @@ class WecomMessageMessage(models.Model):
     )
     # 具有通知的合作伙伴列表。警告：由于notif gc cron，列表可能会随时间而更改。
     # 主要用于测试
-    notified_partner_ids = fields.Many2many(
-        "res.partner",
-        "wecom_message_message_res_partner_needaction_rel",
-        "message_message_id",
-        string="Partners with Need Action",
-        context={"active_test": False},
-        depends=["notification_ids"],
-    )
+    # notified_partner_ids = fields.Many2many(
+    #     "res.partner",
+    #     "wecom_message_message_res_partner_needaction_rel",
+    #     "message_message_id",
+    #     string="Partners with Need Action",
+    #     context={"active_test": False},
+    #     depends=["notification_ids"],
+    # )
 
     channel_ids = fields.Many2many(
         "mail.channel", "wecom_message_message_mail_channel_rel", string="Channels"
     )
-    notification_ids = fields.One2many(
-        "wecom.message.notification",
-        "message_message_id",
-        "Notifications",
-        auto_join=True,
-        copy=False,
-        depends=["notified_partner_ids"],
-    )
+    # notification_ids = fields.One2many(
+    #     "wecom.message.notification",
+    #     "message_message_id",
+    #     "Notifications",
+    #     auto_join=True,
+    #     copy=False,
+    #     depends=["notified_partner_ids"],
+    # )
     needaction = fields.Boolean(
         "Need Action",
         # compute="_get_needaction",

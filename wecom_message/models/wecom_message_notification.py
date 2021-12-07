@@ -22,12 +22,6 @@ class WecomMessageNotification(models.Model):
         ondelete="cascade",
         required=True,
     )
-    # mail_id = fields.Many2one(
-    #     "mail.mail",
-    #     "Mail",
-    #     index=True,
-    #     help="Optional mail_mail ID. Used mainly to optimize searches.",
-    # )
 
     # recipient
     res_partner_id = fields.Many2one(
@@ -51,24 +45,39 @@ class WecomMessageNotification(models.Model):
         string="Status",
         index=True,
     )
-    # is_read = fields.Boolean("Is Read", index=True)
-    # read_date = fields.Datetime("Read Date", copy=False)
-    # failure_type = fields.Selection(
-    #     selection=[
-    #         ("SMTP", "Connection failed (outgoing mail server problem)"),
-    #         ("RECIPIENT", "Invalid email address"),
-    #         ("BOUNCE", "Email address rejected by destination"),
-    #         ("UNKNOWN", "Unknown error"),
-    #     ],
-    #     string="Failure type",
-    # )
+
     failure_reason = fields.Text("Failure reason", copy=False)
 
-    _sql_constraints = [
-        # email notification;: partner is required
-        (
-            "notification_partner_required",
-            "CHECK(notification_type NOT IN ('email', 'inbox') OR res_partner_id IS NOT NULL)",
-            "Customer is required for inbox / email notification",
-        ),
-    ]
+    # _sql_constraints = [
+    #     # email notification;: partner is required
+    #     (
+    #         "notification_partner_required",
+    #         "CHECK(notification_type NOT IN ('email', 'inbox') OR res_partner_id IS NOT NULL)",
+    #         "Customer is required for inbox / email notification",
+    #     ),
+    # ]
+
+    # def init(self):
+    #     self._cr.execute(
+    #         "SELECT indexname FROM pg_indexes WHERE indexname = %s",
+    #         (
+    #             "wecom_message_notification_res_partner_id_is_read_notification_status_message_message_id",
+    #         ),
+    #     )
+    #     if not self._cr.fetchone():
+    #         self._cr.execute(
+    #             """
+    #             CREATE INDEX wecom_message_notification_res_partner_id_is_read_notification_status_message_message_id
+    #                       ON wecom_message_message_res_partner_needaction_rel (res_partner_id,  notification_status, message_message_id)
+    #         """
+    #         )
+
+    # @api.model_create_multi
+    # def create(self, vals_list):
+    #     messages = self.env['mail.message'].browse(vals['mail_message_id'] for vals in vals_list)
+    #     messages.check_access_rights('read')
+    #     messages.check_access_rule('read')
+    #     for vals in vals_list:
+    #         if vals.get('is_read'):
+    #             vals['read_date'] = fields.Datetime.now()
+    #     return super(WecomMessageNotification, self).create(vals_list)
