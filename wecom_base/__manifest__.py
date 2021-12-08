@@ -19,6 +19,7 @@
     "depends": ["base_setup", "wecom_l10n", "wecom_widget"],
     "data": [
         "security/wecom_base_security.xml",
+        "security/ir.model.access.csv",
         "data/ir_module_category_data.xml",
         "data/ir_config_parameter.xml",
         "data/res_company_data.xml",
@@ -28,11 +29,7 @@
         "views/res_users_views.xml",
         "views/menu.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "qweb": ["static/src/xml/*.xml",],
+    "external_dependencies": {"python": [],},
     # "post_init_hook": "_open_wecom_settings",
 }
