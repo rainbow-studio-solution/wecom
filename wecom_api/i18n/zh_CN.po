@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-06 18:24+0000\n"
-"PO-Revision-Date: 2021-12-07 04:50+0800\n"
+"POT-Creation-Date: 2021-12-08 18:32+0000\n"
+"PO-Revision-Date: 2021-12-09 02:34+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,30 @@ msgstr ""
 "X-Generator: Poedit 3.0\n"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"<b>Customize rich service behavior.</b> For example, when users send messages "
+"to applications, they identify message keywords and reply to different message "
+"contents; When the user clicks the application menu, it will be converted into "
+"instructions to execute automation tasks."
+msgstr ""
+"<b>自定义丰富的服务行为。</b> 比如，用户向应用发消息时，识别消息关键词，回复不"
+"同的消息内容；用户点击应用菜单时，转化为指令，执行自动化任务。"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"<b>Status changes can be obtained in time. </b> For example, when the address "
+"book changes, you do not need to pull the address book regularly for "
+"comparison, but get the changed address book nodes in real time for "
+"synchronization."
+msgstr ""
+"<b>可以及时获取到状态变化。</b> 比如，通讯录发生变化时，不需要定时去拉取通讯录"
+"对比，而是实时地获取到变化的通讯录结点，进行同步。"
+
+#. module: wecom_api
+#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid ""
 "<div class=\"bg-warning\">\n"
@@ -36,9 +59,15 @@ msgstr ""
 "                        </div>"
 
 #. module: wecom_api
-#: model:ir.ui.menu,name:wecom_api.menu_wecom_api model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_list_filter
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__aes_key
+msgid "AES key"
+msgstr ""
+
+#. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_list_filter
 msgid "API"
-msgstr "API"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api_list
@@ -58,7 +87,9 @@ msgid "API error message"
 msgstr "API错误消息"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__access_token
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__access_token
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Access Token"
 msgstr "访问令牌"
 
@@ -119,6 +150,13 @@ msgid "Application push message"
 msgstr "应用消息推送"
 
 #. module: wecom_api
+#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_linkedcorp_message_send
+msgid ""
+"Applications of interconnected enterprises support pushing text, pictures, "
+"videos, files, graphics and other types."
+msgstr "互联企业的应用支持推送文本、图片、视频、文件、图文等类型。"
+
+#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__approval
 msgid "Approval"
 msgstr "审批"
@@ -130,7 +168,9 @@ msgstr "分配离职成员的客户给其他成员"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_groupchat_transfer
-msgid "Assign the group chat with the resigned member as the group leader to another customer service member."
+msgid ""
+"Assign the group chat with the resigned member as the group leader to another "
+"customer service member."
 msgstr "将已离职成员为群主的群，分配给另一个客服成员。"
 
 #. module: wecom_api
@@ -154,9 +194,34 @@ msgid "Batch delete members"
 msgstr "批量删除成员"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__callback_aeskey
+msgid "Callback AES Key"
+msgstr "回调AES密钥"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__callback_url
+msgid "Callback URL"
+msgstr "回调服务地址"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__callback_url_token
+msgid "Callback URL Token"
+msgstr "回调服务地址Token"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid "Callback service settings"
+msgstr "回调服务设置"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_customer_cancel_upgrade_service
 msgid "Cancel the recommendation for the customer"
 msgstr "为客户取消推荐"
+
+#. module: wecom_api
+#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_cancel_book
+msgid "Cancel the reservation of the meeting room"
+msgstr "取消预定会议室"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__checkin
@@ -172,11 +237,6 @@ msgstr "结束临时会话"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_contact_way
 msgid "Configure customer contact \"contact me\" method"
 msgstr "配置客户联系「联系我」方式"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_linkedcorp_message_send
-msgid "Applications of interconnected enterprises support pushing text, pictures, videos, files, graphics and other types."
-msgstr "互联企业的应用支持推送文本、图片、视频、文件、图文等类型。"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__contacts
@@ -253,6 +313,7 @@ msgstr "创建标签"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__create_uid
 msgid "Created by"
 msgstr "创建人"
 
@@ -260,6 +321,7 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -340,7 +402,18 @@ msgid "Deletes the enterprise customer tag under the specified rule group"
 msgstr "删除指定规则组下的企业客户标签"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"Developers need to cache access_token for subsequent interface calls (note: "
+"gettoken interfaces cannot be called frequently or are frequently blocked). "
+"When access_token expires or expires, it needs to be re-acquired."
+msgstr ""
+"开发者需要缓存access_token，用于后续接口的调用（注意：不能频繁调用gettoken接"
+"口，否则会受到频率拦截）。当access_token失效或过期时，需要重新获取。"
+
+#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name
@@ -355,6 +428,15 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"Each app has a separate access_token can only be used by this app, so the "
+"access_token for each app should be obtained separately"
+msgstr ""
+"每个应用有独立的secret，获取到的access_token只能本应用使用，所以每个应用的"
+"access_token应该分开来获取"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_update_product_album
 msgid "Edit a product album"
 msgstr "编辑商品图册"
@@ -367,12 +449,15 @@ msgstr "编辑客户企业标签"
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_edit
 msgid ""
-"Edit the basic information of the rule group and modify the management scope of the customer circle of friends rule group"
+"Edit the basic information of the rule group and modify the management scope "
+"of the customer circle of friends rule group"
 msgstr "编辑规则组的基本信息和修改客户朋友圈规则组管理范围"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_edit
-msgid "Edit the basic information of the rule group and modify the management scope of the customer rule group"
+msgid ""
+"Edit the basic information of the rule group and modify the management scope "
+"of the customer rule group"
 msgstr "编辑规则组的基本信息和修改客户规则组管理范围"
 
 #. module: wecom_api
@@ -396,6 +481,11 @@ msgid "Efficiency tools"
 msgstr "效率工具"
 
 #. module: wecom_api
+#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_add_checkin_user_face
+msgid "Enter employee face information"
+msgstr "录入打卡人员人脸信息"
+
+#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
 msgid "Error"
 msgstr "错误"
@@ -417,7 +507,8 @@ msgid "Error description"
 msgstr "错误说明"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_message_api.py:0 code:addons/wxwork/wecom_api/api/wecom_message_api.py:0
+#: code:addons/wecom_api/api/wecom_message_api.py:0
+#: code:addons/wxwork/wecom_api/api/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
 msgstr "发送消息时出错：%s"
@@ -428,6 +519,7 @@ msgid "Errors"
 msgstr "错误"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__expiration_time
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
 msgid "Expiration Time"
 msgstr "有效时间"
@@ -453,13 +545,15 @@ msgid "Export tag members"
 msgstr "导出标签成员"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid "Failed"
 msgstr "字段"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
 #, python-format
 msgid "Failed to pull WeCom global error code, reason:%s"
 msgstr "无法拉取企微全局错误代码，原因：%s"
@@ -477,7 +571,7 @@ msgstr "全量覆盖成员"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
 msgid "GET"
-msgstr "GET"
+msgstr ""
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_base_get_access_token
@@ -518,6 +612,11 @@ msgstr "获取活跃成员"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_corp_checkin_option
 msgid "Get all check-in rules of the enterprise"
 msgstr "获取企业内所有打卡规则数据"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid "Get application"
+msgstr "获取应用"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_menu_get
@@ -755,11 +854,6 @@ msgid "Get the details of a customer rule group"
 msgstr "获取某个客户规则组的详细信息"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_department_list
-msgid "Get the list of interconnected enterprise departments"
-msgstr "获取互联企业部门列表"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_user_list
 msgid "Get the details of members of the Internet enterprise department"
 msgstr "获取互联企业部门成员详情"
@@ -776,12 +870,15 @@ msgstr "获取企业群发成员执行结果"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_task
-msgid "Get the implementation of circle of friends members published by the enterprise"
+msgid ""
+"Get the implementation of circle of friends members published by the enterprise"
 msgstr "获取企业发表的朋友圈成员执行情况"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_list
-msgid "Get the list of all customer circle of friends rule groups configured by the enterprise."
+msgid ""
+"Get the list of all customer circle of friends rule groups configured by the "
+"enterprise."
 msgstr "获取企业配置的所有客户朋友圈规则组id列表。"
 
 #. module: wecom_api
@@ -790,8 +887,15 @@ msgid "Get the list of customer service receptionists"
 msgstr "获取某个客服帐号的接待人员列表"
 
 #. module: wecom_api
+#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_department_list
+msgid "Get the list of interconnected enterprise departments"
+msgstr "获取互联企业部门列表"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_get_range
-msgid "Get the list of members and departments managed by a circle of friends rule group"
+msgid ""
+"Get the list of members and departments managed by a circle of friends rule "
+"group"
 msgstr "获取某个朋友圈规则组管理的成员和部门列表"
 
 #. module: wecom_api
@@ -811,17 +915,21 @@ msgstr "获取待分配的离职成员列表"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_send_result
-msgid "Get the list of visible customers after the customer circle of friends is published"
+msgid ""
+"Get the list of visible customers after the customer circle of friends is "
+"published"
 msgstr "获取客户朋友圈发表后的可见客户列表"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_list
-msgid "Get the published list of all customer circles of friends of the enterprise"
+msgid ""
+"Get the published list of all customer circles of friends of the enterprise"
 msgstr "获取企业全部客户朋友圈的发表列表"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_task_result
-msgid "Get the publishing task creation results of the customer circle of friends"
+msgid ""
+"Get the publishing task creation results of the customer circle of friends"
 msgstr "获取客户朋友圈的发布任务创建结果"
 
 #. module: wecom_api
@@ -846,13 +954,27 @@ msgstr "获取互联企业应用的可见范围"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_customer_list
-msgid "Get the visible range selected when publishing in the customer circle of friends"
+msgid ""
+"Get the visible range selected when publishing in the customer circle of "
+"friends"
 msgstr "获取客户朋友圈发表时选择的可见范围"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_follow_user_list
 msgid "Gets a list of members that configure the customer contact function"
 msgstr "获取配置了客户联系功能的成员列表"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"Getting access_token is the first step in calling the enterprise WeChat API "
+"interface, which is equivalent to creating a login credential, and other "
+"business API interfaces all need to rely on access_token to authentice the "
+"caller's identity."
+msgstr ""
+"获取access_token是调用企业微信API接口的第一步，相当于创建了一个登录凭证，其它的"
+"业务API接口，都需要依赖于access_token来鉴权调用者身份。"
+"access_token。"
 
 #. module: wecom_api
 #. openerp-web
@@ -864,6 +986,7 @@ msgstr "全局错误代码拉取成功！"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
@@ -889,13 +1012,10 @@ msgid "Incremental update member"
 msgstr "增量更新成员"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_pstncc_states
-msgid "Through this interface, you can know whether employees have answered voice calls."
-msgstr "通过此接口，了解员工是否已接听语音电话。"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_pstncc_call
-msgid "Initiate voice calls to alert employees to see important messages from your app push."
+msgid ""
+"Initiate voice calls to alert employees to see important messages from your "
+"app push."
 msgstr "通过此接口发起语音电话，提醒员工查看应用推送的重要消息。"
 
 #. module: wecom_api
@@ -905,6 +1025,7 @@ msgstr "邀请成员"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update
@@ -922,6 +1043,7 @@ msgstr "上次修改日期"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
@@ -929,6 +1051,7 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__write_date
 msgid "Last Updated on"
 msgstr "最近更新日期"
 
@@ -977,7 +1100,7 @@ msgstr "修改客户备注信息"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
 msgid "OA"
-msgstr "OA"
+msgstr ""
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_journal_get_stat_list
@@ -992,14 +1115,17 @@ msgstr "获取会话同意情况"
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_groupchat_get
 msgid ""
-"Obtain the session content and archive the internal group information of the enterprise, including group name, group "
-"owner ID, announcement, group creation time, and the ID and joining time of all group members."
-msgstr "获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所有群成员的id与加入时间。"
+"Obtain the session content and archive the internal group information of the "
+"enterprise, including group name, group owner ID, announcement, group creation "
+"time, and the ID and joining time of all group members."
+msgstr ""
+"获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所"
+"有群成员的id与加入时间。"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
 msgid "POST"
-msgstr "POST"
+msgstr ""
 
 #. module: wecom_api
 #. openerp-web
@@ -1029,7 +1155,9 @@ msgstr "查询会议室的预定信息"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_check_room_agree
-msgid "Query the consent of all external contacts of the outside company within the roomid"
+msgid ""
+"Query the consent of all external contacts of the outside company within the "
+"roomid"
 msgstr "查询对应roomid里面所有外企业的外部联系人的同意情况"
 
 #. module: wecom_api
@@ -1051,6 +1179,11 @@ msgstr "读取客服消息"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_recall
 msgid "Recall application message"
 msgstr "撤回应用消息"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__receive_id
+msgid "Receive Id"
+msgstr ""
 
 #. module: wecom_api
 #. openerp-web
@@ -1076,19 +1209,9 @@ msgid "Request Short Url"
 msgstr "请求短Url"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_cancel_book
-msgid "Cancel the reservation of the meeting room"
-msgstr "取消预定会议室"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_book
 msgid "Reserve meeting rooms"
 msgstr "预定会议室"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_add_checkin_user_face
-msgid "Enter employee face information"
-msgstr "录入打卡人员人脸信息"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_set_checkin_schedu_list
@@ -1097,7 +1220,9 @@ msgstr "为打卡人员排班"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_externalcontact_message_send
-msgid "Schools can send different types of school notices to parents through this interface"
+msgid ""
+"Schools can send different types of school notices to parents through this "
+"interface"
 msgstr "学校可以通过此接口来给家长发送不同类型的学校通知"
 
 #. module: wecom_api
@@ -1132,12 +1257,14 @@ msgid "Sequence"
 msgstr "排序"
 
 #. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api__type__msgaudit
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
 msgid "Session content archiving"
 msgstr "会话内容存档"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_set
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Set application"
 msgstr "设置应用"
 
@@ -1157,7 +1284,8 @@ msgid "Set the template applied to the workbench display"
 msgstr "设置应用在工作台展示的模版"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
 #, python-format
 msgid "Start pulling the global error code of WeCom."
 msgstr "开始拉取企微全局错误代码。"
@@ -1168,7 +1296,8 @@ msgid "Submit application for approval"
 msgstr "提交审批申请"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wecom_api/api/wecom_server_api_error.py:0
+#: code:addons/wxwork/wecom_api/api/wecom_server_api_error.py:0
 #, python-format
 msgid "Successfully pulled the WeCom global error code!"
 msgstr "已成功拉取企微全局错误代码！"
@@ -1177,6 +1306,23 @@ msgstr "已成功拉取企微全局错误代码！"
 #: model:ir.model.constraint,message:wecom_api.constraint_wecom_service_api_list_function_name_uniq
 msgid "The function is unique !"
 msgstr "功能是唯一的！"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"Therefore, developers should identify the source of the issuance of "
+"access_token and use the correct access_token before using the business "
+"interface."
+msgstr ""
+"因此开发者，在使用业务接口前，要明确access_token的颁发来源，使用正确的"
+"access_token。"
+
+#. module: wecom_api
+#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_pstncc_states
+msgid ""
+"Through this interface, you can know whether employees have answered voice "
+"calls."
+msgstr "通过此接口，了解员工是否已接听语音电话。"
 
 #. module: wecom_api
 #: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api
@@ -1289,7 +1435,8 @@ msgid "Wecom API Tools - Security"
 msgstr "企微工具 - 安全"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid "Wecom API error: %s, error name: %s, error message: %s"
 msgstr "企微API 错误: %s, 错误名称: %s, 错误消息: %s"
@@ -1298,6 +1445,11 @@ msgstr "企微API 错误: %s, 错误名称: %s, 错误消息: %s"
 #: model:ir.model,name:wecom_api.model_wecom_abstract_api
 msgid "Wecom Abstract API"
 msgstr "企业微信抽象API"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api
@@ -1320,6 +1472,14 @@ msgid "Wecom Tools"
 msgstr "企微工具"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid ""
+"When integrating enterprise wechat and internal systems, we often need to "
+"build a callback service. Callback service, which can realize:"
+msgstr ""
+"在集成企业微信与内部系统时，我们往往需要搭建一个回调服务。回调服务，可以实现："
+
+#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__name
 msgid "name"
 msgstr "名称"
@@ -1330,7 +1490,13 @@ msgid "pay"
 msgstr "企业支付"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_abstract_api.py:0 code:addons/wxwork/wecom_api/api/wecom_abstract_api.py:0
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__token
+msgid "token"
+msgstr "令牌"
+
+#. module: wecom_api
+#: code:addons/wecom_api/api/wecom_abstract_api.py:0
+#: code:addons/wxwork/wecom_api/api/wecom_abstract_api.py:0
 #, python-format
 msgid "unknown method type"
 msgstr "未知方法类型"

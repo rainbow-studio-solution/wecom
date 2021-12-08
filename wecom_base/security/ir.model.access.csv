@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-"access_wecom_agent","access.wecom.agent","model_wecom_agent","base.group_erp_manager",1,1,1,1
+"access_wecom_apps","access.wecom.apps","model_wecom_apps","base.group_erp_manager",1,1,1,1

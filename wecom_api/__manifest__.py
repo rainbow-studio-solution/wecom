@@ -26,6 +26,7 @@ WeCom Service-side API and Client-side API
         "views/wecom_service_api_views.xml",
         "views/wecom_service_api_list_views.xml",
         "views/wecom_service_api_error_views.xml",
+        "views/wecom_apps_views.xml",
         "views/menu.xml",
     ],
     "external_dependencies": {

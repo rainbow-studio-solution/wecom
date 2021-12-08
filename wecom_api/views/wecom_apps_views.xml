@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wecom_apps_form" model="ir.ui.view">
+            <field name="name">wecom.apps.tsearchree</field>
+            <field name="model">wecom.apps</field>
+            <field name="inherit_id" ref="wecom_base.view_wecom_apps_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='square_logo_url']" position="before">
+                    <div name="button_box" class="oe_button_box">
+                        <button class="oe_stat_button" name="set_app_info" string="Set application" type="object" icon="fa-cloud-upload" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/>
+                        <button class="oe_stat_button" name="get_app_info" string="Get application" type="object" icon="fa-cloud-download" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//page[@name='option']" position="after">
+                    <page name="access_token" string="Access Token">
+                        <p class="text-info">
+                            Getting access_token is the first step in calling the enterprise WeChat API interface, which is equivalent to creating a login credential, and other business API interfaces all need to rely on access_token to authentice the caller's identity.
+                        </p>
+                        <p class="text-info">
+                            Therefore, developers should identify the source of the issuance of access_token and use the correct access_token before using the business interface.
+                        </p>
+                        <p class="text-info">
+                            Each app has a separate access_token can only be used by this app, so the access_token for each app should be obtained separately
+                        </p>
+                        <p class="text-warning">
+                            Developers need to cache access_token for subsequent interface calls (note: gettoken interfaces cannot be called frequently or are frequently blocked). When access_token expires or expires, it needs to be re-acquired.
+                        </p>
+                        <group>
+                            <field name="access_token" widget="CopyClipboardText" />
+                            <field name="expiration_time"/>
+                        </group>
+                    </page>
+                    <page name="callback" string="Callback service settings">
+                        <p class="text-info">
+                                When integrating enterprise wechat and internal systems, we often need to build a callback service. Callback service, which can realize:
+                        </p>
+                        <ol class="text-info">
+                            <li>
+                                <b>Customize rich service behavior.</b> For example, when users send messages to applications, they identify message keywords and reply to different message contents; When the user clicks the application menu, it will be converted into instructions to execute automation tasks.
+                            </li>
+                            <li>
+                                <b>Status changes can be obtained in time. </b> For example, when the address book changes, you do not need to pull the address book regularly for comparison, but get the changed address book nodes in real time for synchronization.
+                            </li>
+                        </ol>
+                        <group>
+                            <field name="callback_url"/>
+                            <field name="callback_url_token"/>
+                            <field name="callback_aeskey"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
