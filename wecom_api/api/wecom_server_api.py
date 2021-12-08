@@ -83,9 +83,7 @@ class WecomServerApi(models.Model):
 
     def update_api_token_name(self, display_name):
         self.sudo().write(
-            {
-                "name": display_name,
-            }
+            {"name": display_name,}
         )
 
     def getAccessToken(self):

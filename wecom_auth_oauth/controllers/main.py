@@ -76,9 +76,7 @@ class AuthSignupHome(SignupHome):
                         )
                         if user_sudo and message_template:
                             return message_template.send_message(
-                                user_sudo.id,
-                                force_send=True,
-                                raise_exception=True,
+                                user_sudo.id, force_send=True, raise_exception=True,
                             )
                     else:
                         mail_template = request.env.ref(
@@ -183,9 +181,7 @@ class OAuthLogin(Home):
 
 class OAuthController(Controller):
     @http.route(
-        "/wxowrk_auth_oauth/authorize",
-        type="http",
-        auth="none",
+        "/wxowrk_auth_oauth/authorize", type="http", auth="none",
     )
     def wecom_web_authorize(self, **kw):
         code = kw.pop("code", None)
@@ -196,10 +192,7 @@ class OAuthController(Controller):
             request.env["res.company"]
             .sudo()
             .search(
-                [
-                    ("corpid", "=", state["a"]),
-                    ("is_wecom_organization", "=", True),
-                ],
+                [("corpid", "=", state["a"]), ("is_wecom_organization", "=", True),],
             )
         )
 
@@ -213,9 +206,7 @@ class OAuthController(Controller):
                 request.env["wecom.service_api_list"]
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
-                {
-                    "code": code,
-                },
+                {"code": code,},
             )
 
             dbname = state["d"]
@@ -290,10 +281,7 @@ class OAuthController(Controller):
             request.env["res.company"]
             .sudo()
             .search(
-                [
-                    ("corpid", "=", kw["appid"]),
-                    ("is_wecom_organization", "=", True),
-                ],
+                [("corpid", "=", kw["appid"]), ("is_wecom_organization", "=", True),],
             )
         )
 
@@ -307,9 +295,7 @@ class OAuthController(Controller):
                 request.env["wecom.service_api_list"]
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
-                {
-                    "code": code,
-                },
+                {"code": code,},
             )
 
             state = json.loads(kw["state"].replace("M", '"'))
