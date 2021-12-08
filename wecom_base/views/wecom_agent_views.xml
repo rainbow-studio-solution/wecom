@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_agent_tree" model="ir.ui.view">
+            <field name="name">wecom.agent.tree</field>
+            <field name="model">wecom.agent</field>
+            <field name="arch" type="xml">
+                <tree edit="0" create="0" delete="0" multi_edit="0" import="0" export_xlsx="0">
+                    <field name="name" />
+                    <field name="agentid"/>
+                    <field name="close"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wecom_agent_form" model="ir.ui.view">
+            <field name="name">wecom.agent.form</field>
+            <field name="model">wecom.agent</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <field name="square_logo_url" widget="image_url" options='{"size": [40, 40]}' class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="agentid"/>
+                                <field name="allow_userinfos"/>
+                                <field name="allow_partys"/>
+                                <field name="allow_tags"/>
+                            </group>
+                            <group>
+                                <field name="redirect_domain"/>
+                                <field name="report_location_flag"/>
+                                <field name="isreportenter"/>
+                                <field name="home_url"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_wecom_agent_list" model="ir.actions.act_window">
+            <field name="name">Application</field>
+            <field name="res_model">wecom.agent</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>
