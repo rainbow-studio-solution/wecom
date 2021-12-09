@@ -21,21 +21,16 @@ WeCom Service-side API and Client-side API
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
         "data/service_api_list_data.xml",
+        "data/wecom_server_api_error_data.xml",
+        "data/wecom_apps_data.xml",
         "views/assets_templates.xml",
         "views/ir_cron_views.xml",
-        "views/wecom_service_api_views.xml",
+        # "views/wecom_service_api_views.xml",
         "views/wecom_service_api_list_views.xml",
         "views/wecom_service_api_error_views.xml",
         "views/wecom_apps_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {
-        "python": [
-            "requests_toolbelt",
-            "pandas",
-        ],
-    },
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "external_dependencies": {"python": ["requests_toolbelt", "pandas",],},
+    "qweb": ["static/src/xml/*.xml",],
 }

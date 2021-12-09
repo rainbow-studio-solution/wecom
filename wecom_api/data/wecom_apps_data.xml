@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="wecom_base.wecom_app_contacts" model="wecom.apps">
+            <field name="callback_service">contacts</field>
+        </record>
+
+    </data>
+</odoo>

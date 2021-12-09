@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <record id="wecom_server_api_error_python_code" model="wecom.service_api_error">
+            <field name="name">Python Code Error</field>
+            <field name="code">-2</field>
+            <field name="method">Python Code Error,Please check your code for errors. Python代码错误,请检查您的代码是否有错误</field>
+            <field name="sequence">0</field>
+        </record>
+
+    </data>
+
+</odoo>   
