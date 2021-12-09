@@ -23,12 +23,6 @@ class WeComApps(models.Model):
         else:
             return ""
 
-    # 访问令牌
-    access_token = fields.Char(string="Access Token", readonly=True, copy=False)
-    expiration_time = fields.Datetime(
-        string="Expiration Time", readonly=True, copy=False
-    )
-
     # 接收事件服务器配置
     # https://work.weixin.qq.com/api/doc/90000/90135/90930
     callback_service = fields.Char(
@@ -87,8 +81,6 @@ class WeComApps(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call("AGENT_GET"),
                 {"agentid": str(self.agentid)},
             )
-            #
-            print(response)
         except ApiException as e:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 e, raise_exception=True
@@ -116,6 +108,12 @@ class WeComApps(models.Model):
                         "home_url": response["home_url"],
                     }
                 )
+                msg = {
+                    "title": _("Tips"),
+                    "message": _("Successfully obtained application information!"),
+                    "sticky": False,
+                }
+                return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
 
     def set_app_info(self):
         """

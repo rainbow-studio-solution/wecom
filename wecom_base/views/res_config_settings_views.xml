@@ -42,10 +42,10 @@
                                     <label for="resources_path"/>
                                     <div class="row">
                                         <div class="text-muted col-md-12">
-                                            The path used to save WeCom pictures,<span class="text-danger">Need to have read and write permissions on the path.</span>
+                                            The path used to save WeCom resources,<span class="text-danger">Need to have read and write permissions on the path.</span>
                                             <br/>
                                             reference:Windows: D:\resources\  <br/>
-                                            Linux：/home/odoo/resources/ Note: odoo is the current system account
+                                            Linux: /home/odoo/resources/ Note: odoo is the current system account
                                         </div>
                                     </div>
                                     <div class="content-group">
@@ -107,7 +107,7 @@
 
                         <h2 id="wecom_contact" class="d-flex justify-content-between">
                             <span class="text-left">
-                                <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/>
+                                <i class="fa fa-th fa-lg" aria-label="Contact synchronization"/>
  Contact synchronization Settings
                                 <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                             </span>
@@ -115,7 +115,20 @@
                         </h2>
 
                         <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
-                            <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="contacts_app_id" string="Binding application"/>
+                                    <div class="content-group">
+                                        <div class="mt16">
+                                            <field name="contacts_app_id" widget="selection" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
                                 </div>
@@ -155,6 +168,7 @@
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16">
+
                                             <field name="contacts_access_token" widget="CopyClipboardText" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                         </div>
                                     </div>

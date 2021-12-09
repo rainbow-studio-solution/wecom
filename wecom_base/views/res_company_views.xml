@@ -17,6 +17,7 @@
                     <h1 attrs="{ 'invisible': [('is_wecom_organization', '=', False)]}">
                         <field name="abbreviated_name" class="w-100" attrs="{ 'required': [('is_wecom_organization', '!=', False)]}"/>
                     </h1>
+
                 </xpath>
 
                 <xpath expr="//page[last()]" position="after">
@@ -105,7 +106,9 @@
                                                 </div>
                                                 <div class="content-group">
                                                     <div class="mt16">
+
                                                         <field name="contacts_secret" widget="wecom_password" />
+
                                                     </div>
                                                 </div>
                                             </div>

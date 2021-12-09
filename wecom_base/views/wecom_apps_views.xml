@@ -21,8 +21,9 @@
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
                 <tree expand="1">
+                    <field name="display_name" />
                     <field name="company_id" />
-                    <field name="name" />
+                    <field name="type" />
                     <field name="agentid" widget="integer" options="{'format': false}" />
                     <field name="close"/>
                 </tree>

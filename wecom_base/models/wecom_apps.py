@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, models, _
+from odoo import fields, models, api, _
 
 
 class WeComApps(models.Model):
@@ -19,9 +19,9 @@ class WeComApps(models.Model):
     type = fields.Selection(
         [
             ("manage", "Manage Tools"),
-            ("base", "Base"),
-            ("self", "Self built"),
-            ("third", "Third party"),
+            ("base", "Base application"),
+            ("self", "Self built application"),
+            ("third", "Third party application"),
         ],
         string="Application type",
         required=True,
@@ -29,8 +29,9 @@ class WeComApps(models.Model):
     )
 
     name = fields.Char(
-        string="Name", required=True, translate=True, copy=True
+        string="Name", required=True, translate=True, copy=True,
     )  # 企业应用名称
+    display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
     secret = fields.Char("Secret", default="", copy=False)
     square_logo_url = fields.Char(string="Square Logo", copy=False)  # 企业应用方形头像
@@ -55,3 +56,20 @@ class WeComApps(models.Model):
     home_url = fields.Char(string="Home page", copy=True)  # 企业应用主页url
 
     sequence = fields.Integer(default=0, copy=True)
+
+    # 访问令牌
+    access_token = fields.Char(string="Access Token", readonly=True, copy=False)
+    expiration_time = fields.Datetime(
+        string="Expiration Time", readonly=True, copy=False
+    )
+
+    @api.depends("company_id", "name", "type")
+    def _compute_display_name(self):
+        for app in self:
+            labels = dict(self.fields_get(allfields=["type"])["type"]["selection"])[
+                app.type
+            ]
+            if app.company_id:
+                app.display_name = "%s/%s/%s" % (app.company_id.name, labels, app.name)
+            else:
+                app.display_name = "%s/%s" % (labels, app.name)
