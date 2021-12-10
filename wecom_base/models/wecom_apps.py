@@ -11,7 +11,7 @@ class WeComApps(models.Model):
     company_id = fields.Many2one(
         "res.company",
         string="Company",
-        domain="[('is_wecom_organization', '=', True)]",
+        # domain="[('is_wecom_organization', '=', True)]",
         copy=False,
         store=True,
     )
@@ -29,9 +29,18 @@ class WeComApps(models.Model):
     )
 
     name = fields.Char(
-        string="Name", required=True, translate=True, copy=True,
+        string="Name",
+        copy=False,
+        compute="_compute_name",
+        store=True,
+        index=True,
     )  # 企业应用名称
-    display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
+    app_name = fields.Char(
+        string="Application Name",
+        translate=True,
+        copy=True,
+    )  # 应用名称
+    # display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
     secret = fields.Char("Secret", default="", copy=False)
     square_logo_url = fields.Char(string="Square Logo", copy=False)  # 企业应用方形头像
@@ -63,13 +72,25 @@ class WeComApps(models.Model):
         string="Expiration Time", readonly=True, copy=False
     )
 
-    @api.depends("company_id", "name", "type")
-    def _compute_display_name(self):
+    _sql_constraints = [
+        (
+            "company_id_key_uniq",
+            "unique (company_id,app_name)",
+            _("The application name of each company must be unique !"),
+        )
+    ]
+
+    @api.depends("company_id", "app_name", "type")
+    def _compute_name(self):
         for app in self:
             labels = dict(self.fields_get(allfields=["type"])["type"]["selection"])[
                 app.type
             ]
             if app.company_id:
-                app.display_name = "%s/%s/%s" % (app.company_id.name, labels, app.name)
+                app.name = "%s/%s/%s" % (
+                    app.company_id.abbreviated_name,
+                    labels,
+                    app.app_name,
+                )
             else:
-                app.display_name = "%s/%s" % (labels, app.name)
+                app.name = "%s/%s" % (labels, app.app_name)

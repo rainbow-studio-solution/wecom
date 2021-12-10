@@ -47,7 +47,9 @@ class WeComApps(models.Model):
         "wecom.app_config",
         "app_id",
         string="Application Configuration",
-        # domain="[('app_id', '=', current_company_id)]",
+        context={
+            "default_company_id": lambda self: self.company_id,
+        },
     )  # 应用参数配置
 
     _sql_constraints = [
@@ -131,7 +133,7 @@ class WeComApps(models.Model):
         """
 
     def get_access_token(self):
-        """ 获取企业应用接口调用凭据（令牌）
+        """获取企业应用接口调用凭据（令牌）
         :return:
         """
         try:
@@ -144,31 +146,42 @@ class WeComApps(models.Model):
                 ex, raise_exception=True
             )
         else:
-            if self.access_token is False:
-                # 令牌为空，则获取
-                self.access_token = wecomapi.access_token
-                self.expiration_time = wecomapi.expiration_time
-                msg = {
-                    "title": _("Tips"),
-                    "message": _("The access token was successfully obtained!"),
-                    "sticky": False,
-                }
-                return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
-            elif wecomapi.expiration_time > datetime.now():
-                # 令牌未过期，则直接返回 提示信息
-                msg = {
-                    "title": _("Tips"),
-                    "message": _("Token is still valid, and no update is required!"),
-                    "sticky": False,
-                }
-                return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
-            else:
-                # 令牌已过期，则重新获取
-                self.access_token = wecomapi.access_token
-                self.expiration_time = wecomapi.expiration_time
-                msg = {
-                    "title": _("Tips"),
-                    "message": _("The access token was successfully obtained!"),
-                    "sticky": False,
-                }
-                return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
+            for res in self:
+                if res.access_token is False:
+                    # 令牌为空，则获取
+                    res.write(
+                        {
+                            "access_token": wecomapi.access_token,
+                            "expiration_time": wecomapi.expiration_time,
+                        }
+                    )
+                    msg = {
+                        "title": _("Tips"),
+                        "message": _("The access token was successfully obtained!"),
+                        "sticky": False,
+                    }
+                    return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
+                elif wecomapi.expiration_time > datetime.now():
+                    # 令牌未过期，则直接返回 提示信息
+                    msg = {
+                        "title": _("Tips"),
+                        "message": _(
+                            "Token is still valid, and no update is required!"
+                        ),
+                        "sticky": False,
+                    }
+                    return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
+                else:
+                    # 令牌已过期，则重新获取
+                    res.write(
+                        {
+                            "access_token": wecomapi.access_token,
+                            "expiration_time": wecomapi.expiration_time,
+                        }
+                    )
+                    msg = {
+                        "title": _("Tips"),
+                        "message": _("The access token was successfully obtained!"),
+                        "sticky": False,
+                    }
+                    return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)

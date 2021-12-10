@@ -9,10 +9,29 @@ class WeComAppConfig(models.Model):
     # _inherit = "ir.config_parameter"
     _description = "Wecom Application Configuration"
     _rec_name = "key"
-    # _order = "key"
+    _order = "key"
 
-    app_id = fields.Many2one("wecom.apps", string="Application", copy=False)
-    key = fields.Char(required=True,)
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        domain="[('is_wecom_organization', '=', True)]",
+        copy=False,
+        store=True,
+        required=True,
+    )
+
+    app_id = fields.Many2one(
+        "wecom.apps",
+        string="Application",
+        copy=False,
+        ondelete="cascade",
+        default=lambda self: self.env["wecom.apps"].id,
+        domain="[('company_id', '=', company_id)]",
+        required=True,
+    )
+    key = fields.Char(
+        required=True,
+    )
     value = fields.Text(required=True)
 
     _sql_constraints = [

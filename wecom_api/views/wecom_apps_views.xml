@@ -78,7 +78,14 @@
                     </page>
                     <page name="parameter" string="Parameter">
                         <group>
-                            <field name="app_config_ids"/>
+                            <field name="app_config_ids" mode="tree" context="{'default_company_id': company_id}">
+                                <tree create="true" edit="true" delete="true" nolabel="1" editable="bottom">
+                                    <field name="company_id" required="1" readonly="1"/>
+                                    <field name="app_id" widget="selection" required="1"/>
+                                    <field name="key" required="1"/>
+                                    <field name="value" required="1"/>
+                                </tree>
+                            </field>
                         </group>
                     </page>
                 </xpath>

@@ -21,7 +21,8 @@
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
                 <tree expand="1">
-                    <field name="display_name" />
+                    <!-- <field name="display_name" /> -->
+                    <field name="name" />
                     <field name="company_id" />
                     <field name="type" />
                     <field name="agentid" widget="integer" options="{'format': false}" />
@@ -39,9 +40,9 @@
 
                         <field name="square_logo_url" widget="image_url" options='{"size": [80, 80]}' class="oe_right"/>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
+                            <label for="app_name" class="oe_edit_only"/>
                             <h1>
-                                <field name="name" attrs="{'readonly': [('type','=','manage')]}" />
+                                <field name="app_name" attrs="{'readonly': [('type','=','manage')]}" />
                             </h1>
                         </div>
                         <group>

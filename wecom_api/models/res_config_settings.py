@@ -20,7 +20,6 @@ class ResConfigSettings(models.TransientModel):
     contacts_app_config_ids = fields.One2many(
         # related="company_id.contacts_auto_sync_hr_enabled", readonly=False
         related="contacts_app_id.app_config_ids",
-        domain="[('app_id', '=', contacts_app_id)]",
+        # domain="[('company_id', '=', company_id),('app_id', '=', contacts_app_id)]",
         readonly=False,
     )
-

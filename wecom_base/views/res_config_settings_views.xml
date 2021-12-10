@@ -108,7 +108,7 @@
                         <h2 id="wecom_contact" class="d-flex justify-content-between">
                             <span class="text-left">
                                 <i class="fa fa-th fa-lg" aria-label="Contact synchronization"/>
- Contact synchronization Settings
+                                    Contact synchronization Settings
                                 <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                             </span>
                             <widget name='res_config_wecom_navigation_gotop'/>
@@ -122,8 +122,8 @@
                                 <div class="o_setting_right_pane">
                                     <label for="contacts_app_id" string="Binding application"/>
                                     <div class="content-group">
-                                        <div class="mt16">
-                                            <field name="contacts_app_id" widget="selection" required="1"/>
+                                        <div class="mt8">
+                                            <field name="contacts_app_id" class="w-100 " widget="selection" required="1"/>
                                         </div>
                                     </div>
                                 </div>

@@ -15,6 +15,7 @@
             <field name="model">wecom.app_config</field>
             <field name="arch" type="xml">
                 <tree string="Wecom Application Parameters">
+                    <field name="company_id" />
                     <field name="app_id" />
                     <field name="key"/>
                     <field name="value"/>
@@ -28,6 +29,7 @@
                 <form string="Wecom Application Parameters">
                     <sheet>
                         <group>
+                            <field name="company_id" required="1" force_save="1" widget="selection" />
                             <field name="app_id" required="1" force_save="1" widget="selection" />
                             <field name="key" required="1"/>
                             <field name="value" required="1"/>
@@ -40,7 +42,6 @@
         <record id="wecom_app_config_list_action" model="ir.actions.act_window">
             <field name="name">Application Parameters</field>
             <field name="res_model">wecom.app_config</field>
-            <!-- <field name="domain">[('app_id','!=',False)]</field> -->
         </record>
     </data>
 </odoo>

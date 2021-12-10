@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-09 06:12+0000\n"
-"PO-Revision-Date: 2021-12-09 14:14+0800\n"
+"POT-Creation-Date: 2021-12-10 17:01+0000\n"
+"PO-Revision-Date: 2021-12-11 01:05+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -105,6 +105,11 @@ msgstr ""
 "                        </div>"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "<i class=\"fa fa-lock fa-lg\" aria-label=\"Contacts Configuration\"/>"
+msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录配置\"/>"
+
+#. module: wecom_api
 #: model:ir.ui.menu,name:wecom_api.menu_wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_list_filter
 msgid "API"
@@ -128,7 +133,6 @@ msgid "API error message"
 msgstr "API错误消息"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__access_token
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__access_token
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Access Token"
@@ -178,6 +182,24 @@ msgstr "Api请求类型"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__type
 msgid "Api Type"
 msgstr "Api类型"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__app_id
+msgid "Application"
+msgstr "应用"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_config_ids
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__app_config_ids
+msgid "Application Configuration"
+msgstr "应用配置"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.wecom_app_config_list_action
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_agent_config
+msgid "Application Parameters"
+msgstr "应用参数"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__6
@@ -274,6 +296,17 @@ msgid "Close temporary chat"
 msgstr "结束临时会话"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__company_id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_contact_way
 msgid "Configure customer contact \"contact me\" method"
 msgstr "配置客户联系「联系我」方式"
@@ -349,6 +382,7 @@ msgid "Create tag"
 msgstr "创建标签"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
@@ -356,6 +390,7 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
@@ -448,7 +483,9 @@ msgstr ""
 "口，否则会受到频率拦截）。当access_token失效或过期时，需要重新获取。"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
@@ -555,7 +592,6 @@ msgid "Errors"
 msgstr "错误"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__expiration_time
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
 msgid "Expiration Time"
 msgstr "有效时间"
@@ -1021,7 +1057,9 @@ msgid "Global error code pulled successfully!"
 msgstr "全局错误代码拉取成功！"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
@@ -1059,7 +1097,14 @@ msgid "Invite members"
 msgstr "邀请成员"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__key
+msgid "Key"
+msgstr "键"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
@@ -1072,9 +1117,10 @@ msgstr "邀请成员"
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
 msgid "Last Modified on"
-msgstr "上次修改日期"
+msgstr "最后修改日"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
@@ -1082,6 +1128,7 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
@@ -1157,6 +1204,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
 msgid "POST"
 msgstr ""
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid "Parameter"
+msgstr "参数"
 
 #. module: wecom_api
 #. openerp-web
@@ -1325,6 +1377,13 @@ msgid "Submit application for approval"
 msgstr "提交审批申请"
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Successfully obtained application information!"
+msgstr "成功获取应用信息！"
+
+#. module: wecom_api
 #: code:addons/wecom_api/models/wecom_server_api_error.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
@@ -1332,9 +1391,29 @@ msgid "Successfully pulled the WeCom global error code!"
 msgstr ""
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "The access token was successfully obtained!"
+msgstr "已成功获取访问令牌！"
+
+#. module: wecom_api
+#: model:ir.model.constraint,message:wecom_api.constraint_wecom_apps_callback_service_company_uniq
+msgid "The callback service name of each company is unique!"
+msgstr "每个公司的回调服务名称必须是唯一的！"
+
+#. module: wecom_api
 #: model:ir.model.constraint,message:wecom_api.constraint_wecom_service_api_list_function_name_uniq
 msgid "The function is unique !"
 msgstr "功能是唯一的！"
+
+#. module: wecom_api
+#: code:addons/wecom_api/models/wecom_app_config.py:0
+#: code:addons/wxwork/wecom_api/models/wecom_app_config.py:0
+#: model:ir.model.constraint,message:wecom_api.constraint_wecom_app_config_app_id_key_uniq
+#, python-format
+msgid "The key of each application must be unique !"
+msgstr "每个应用程序的 参数键 必须是唯一的！"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
@@ -1423,6 +1502,11 @@ msgid "Userid and openid are interchangeable"
 msgstr "userid 与 openid 相互转换"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__value
+msgid "Value"
+msgstr "值"
+
+#. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_message_api
 msgid "WeCom Message API"
 msgstr "企微消息API"
@@ -1481,6 +1565,17 @@ msgstr "企业微信抽象API"
 #: model:ir.model,name:wecom_api.model_wecom_apps
 msgid "Wecom Application"
 msgstr "企微应用"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_app_config
+msgid "Wecom Application Configuration"
+msgstr "企微应用配置"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_form
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_list
+msgid "Wecom Application Parameters"
+msgstr "企微应用参数"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api
