@@ -70,10 +70,15 @@
                             </ol>
                         </group>
                         <group>
-                            <field name="callback_service" required="1"/>
-                            <field name="callback_url" required="1" force_save="1" widget="CopyClipboardChar"/>
-                            <field name="callback_url_token" required="1" widget="wecom_password"/>
-                            <field name="callback_aeskey" required="1" widget="wecom_password"/>
+                            <field name="callback_service"/>
+                            <field name="callback_url" force_save="1" widget="CopyClipboardChar"/>
+                            <field name="callback_url_token" widget="wecom_password"/>
+                            <field name="callback_aeskey" widget="wecom_password"/>
+                        </group>
+                    </page>
+                    <page name="parameter" string="Parameter">
+                        <group>
+                            <field name="app_config_ids"/>
                         </group>
                     </page>
                 </xpath>

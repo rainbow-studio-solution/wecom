@@ -42,6 +42,14 @@ class WeComApps(models.Model):
     )  # Token用于计算签名
     callback_aeskey = fields.Char(string="Callback AES Key", copy=False)  # 用于消息内容加密
 
+    # 应用参数配置
+    app_config_ids = fields.One2many(
+        "wecom.app_config",
+        "app_id",
+        string="Application Configuration",
+        # domain="[('app_id', '=', current_company_id)]",
+    )  # 应用参数配置
+
     _sql_constraints = [
         (
             "callback_service_company_uniq",

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- <record model="ir.ui.view" id="view_wecom_app_config_search">
+            <field name="model">wecom.app_config</field>
+            <field name="arch" type="xml">
+                <search string="Wecom Application Parameters">
+                    <field name="key" string="Key"/>
+                    <field name="value"/>
+                </search>
+            </field>
+        </record> -->
+
+        <record model="ir.ui.view" id="view_wecom_app_config_list">
+            <field name="model">wecom.app_config</field>
+            <field name="arch" type="xml">
+                <tree string="Wecom Application Parameters">
+                    <field name="app_id" />
+                    <field name="key"/>
+                    <field name="value"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_wecom_app_config_form">
+            <field name="model">wecom.app_config</field>
+            <field name="arch" type="xml">
+                <form string="Wecom Application Parameters">
+                    <sheet>
+                        <group>
+                            <field name="app_id" required="1" force_save="1" widget="selection" />
+                            <field name="key" required="1"/>
+                            <field name="value" required="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wecom_app_config_list_action" model="ir.actions.act_window">
+            <field name="name">Application Parameters</field>
+            <field name="res_model">wecom.app_config</field>
+            <!-- <field name="domain">[('app_id','!=',False)]</field> -->
+        </record>
+    </data>
+</odoo>

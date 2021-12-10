@@ -85,14 +85,14 @@
 
                                     </div>
 
-                                    <h2 id="wecom_contact" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                    <!-- <h2 id="wecom_contact" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                         <span class="text-left">
                                             <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/>
  Contact synchronization Settings
                                         </span>
                                         <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/>
-                                    </h2>
-                                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                    </h2> -->
+                                    <!-- <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                         <div class="col-xs-12 col-md-12 o_setting_box">
                                             <div class="o_setting_left_pane">
                                                 <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
@@ -121,7 +121,6 @@
                                             <div class="o_setting_right_pane">
                                                 <label for="contacts_access_token"/>
                                                 <div class="row">
-                                                    <!-- 在企业微信的后台获取应用"通讯录"信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。 -->
                                                     <div class="text-muted col-md-12" id="contacts_access_token_text">
                                         Important notes when obtaining application "address book" information in the background of the WeCom, this information needs to be carried during communication to verify the access authority of the interface.
                                                         <br/>
@@ -150,8 +149,7 @@
                                             <div class="o_setting_right_pane">
                                                 <label for="contacts_auto_sync_hr_enabled"/>
                                                 <div class="row">
-                                                    <!-- 勾选,则允许通过API接口读取企业微信通讯录自动同步到ODOO； -->
-                                                    <!-- 反之只能手工绑定企业微信用户。 -->
+
                                                     <div class="text-muted col-md-12">
                                         If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;
                                                         <br/>
@@ -208,7 +206,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 

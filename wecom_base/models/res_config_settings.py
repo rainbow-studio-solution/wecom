@@ -28,8 +28,6 @@ class ResConfigSettings(models.TransientModel):
         "WeCom resources storage path", config_parameter="wecom.resources_path",
     )
 
-    
-
     # 通讯录
     contacts_app_id = fields.Many2one(
         related="company_id.contacts_app_id", readonly=False
@@ -38,71 +36,73 @@ class ResConfigSettings(models.TransientModel):
 
     contacts_access_token = fields.Char(related="contacts_app_id.access_token")
 
-    contacts_auto_sync_hr_enabled = fields.Boolean(
-        related="company_id.contacts_auto_sync_hr_enabled", readonly=False
-    )
+    # contacts_auto_sync_hr_enabled = fields.Boolean(
+    #     # related="company_id.contacts_auto_sync_hr_enabled", readonly=False
+    #     related="contacts_app_id.access_token",
+    #     app_config_parameter="wecom.resources_path",
+    # )
 
-    contacts_sync_hr_department_id = fields.Integer(
-        related="company_id.contacts_sync_hr_department_id", readonly=False
-    )
+    # contacts_sync_hr_department_id = fields.Integer(
+    #     related="company_id.contacts_sync_hr_department_id", readonly=False
+    # )
 
-    contacts_edit_enabled = fields.Boolean(
-        related="company_id.contacts_edit_enabled", readonly=False
-    )
+    # contacts_edit_enabled = fields.Boolean(
+    #     related="company_id.contacts_edit_enabled", readonly=False
+    # )
 
-    contacts_sync_user_enabled = fields.Boolean(
-        related="company_id.contacts_sync_user_enabled", readonly=False
-    )
+    # contacts_sync_user_enabled = fields.Boolean(
+    #     related="company_id.contacts_sync_user_enabled", readonly=False
+    # )
 
-    contacts_use_system_default_avatar = fields.Boolean(
-        related="company_id.contacts_use_system_default_avatar", readonly=False
-    )
-    contacts_update_avatar_every_time_sync = fields.Boolean(
-        related="company_id.contacts_update_avatar_every_time_sync", readonly=False
-    )
+    # contacts_use_system_default_avatar = fields.Boolean(
+    #     related="company_id.contacts_use_system_default_avatar", readonly=False
+    # )
+    # contacts_update_avatar_every_time_sync = fields.Boolean(
+    #     related="company_id.contacts_update_avatar_every_time_sync", readonly=False
+    # )
 
-    @api.onchange("contacts_use_system_default_avatar")
-    def _onchange_contacts_use_system_default_avatar(self):
-        if self.contacts_use_system_default_avatar:
-            self.contacts_update_avatar_every_time_sync = False
+    # @api.onchange("contacts_use_system_default_avatar")
+    # def _onchange_contacts_use_system_default_avatar(self):
+    #     if self.contacts_use_system_default_avatar:
+    #         self.contacts_update_avatar_every_time_sync = False
 
-    # JS API
-    corp_jsapi_ticket = fields.Char(
-        "Enterprise JS API Ticket",
-        related="company_id.corp_jsapi_ticket",
-        readonly=True,
-    )
+    # # JS API
+    # corp_jsapi_ticket = fields.Char(
+    #     "Enterprise JS API Ticket",
+    #     related="company_id.corp_jsapi_ticket",
+    #     readonly=True,
+    # )
 
-    agent_jsapi_ticket = fields.Char(
-        "Application JS API Ticket",
-        related="company_id.agent_jsapi_ticket",
-        readonly=True,
-    )
+    # agent_jsapi_ticket = fields.Char(
+    #     "Application JS API Ticket",
+    #     related="company_id.agent_jsapi_ticket",
+    #     readonly=True,
+    # )
 
-    jsapi_debug = fields.Boolean(
-        "JS API Debug mode", config_parameter="wecom.jsapi_debug", default=False,
-    )
+    # jsapi_debug = fields.Boolean(
+    #     "JS API Debug mode", config_parameter="wecom.jsapi_debug", default=False,
+    # )
 
-    js_api_list = fields.Char(
-        "JS API Inertface List", related="company_id.js_api_list", readonly=False,
-    )
+    # js_api_list = fields.Char(
+    #     "JS API Inertface List", related="company_id.js_api_list", readonly=False,
+    # )
 
-    @api.model
-    def get_values(self):
-        res = super(ResConfigSettings, self).get_values()
-        ir_config = self.env["ir.config_parameter"].sudo()
+    # @api.model
+    # def get_values(self):
+    #     res = super(ResConfigSettings, self).get_values()
+    #     ir_config = self.env["ir.config_parameter"].sudo()
 
-        debug_enabled = (
-            True if ir_config.get_param("wecom.debug_enabled") == "True" else False
-        )
+    #     debug_enabled = (
+    #         True if ir_config.get_param("wecom.debug_enabled") == "True" else False
+    #     )
 
-        res.update(debug_enabled=debug_enabled,)
-        return res
+    #     res.update(debug_enabled=debug_enabled,)
+    #     return res
 
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        ir_config = self.env["ir.config_parameter"].sudo()
-        ir_config.set_param("wecom.debug_enabled", self.debug_enabled or "False")
+    # def set_values(self):
+    #     super(ResConfigSettings, self).set_values()
+    #     ir_config = self.env["ir.config_parameter"].sudo()
+    #     ir_config.set_param("wecom.debug_enabled", self.debug_enabled or "False")
 
     def open_wecom_company(self):
         return {

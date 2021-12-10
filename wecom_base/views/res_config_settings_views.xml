@@ -147,7 +147,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <div class="col-xs-12 col-md-12 o_setting_box" name="contacts_access_token" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-key fa-lg" aria-label="Contacts access token"/>
                                 </div>
@@ -176,15 +176,14 @@
                             </div>
 
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_auto_sync_hr_enabled"/>
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="contacts_auto_sync_hr_enabled"/>
                                     <div class="row">
-                                        <!-- 勾选,则允许通过API接口读取企业微信通讯录自动同步到ODOO； -->
-                                        <!-- 反之只能手工绑定企业微信用户。 -->
+                                        
                                         <div class="text-muted col-md-12">
                                         If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;
                                             <br/>
@@ -192,9 +191,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-building fa-lg" aria-label="Department"/>
                                 </div>
@@ -211,9 +210,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_use_system_default_avatar"/>
                                 </div>
@@ -226,9 +225,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
+                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_update_avatar_every_time_sync"/>
                                 </div>
@@ -241,9 +240,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_sync_user_enabled"/>
                                 </div>
@@ -255,7 +254,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div id="wecom_bottom"/>
