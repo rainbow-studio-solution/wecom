@@ -105,16 +105,16 @@
                             </div>
                         </div>
 
-                        <h2 id="wecom_contact" class="d-flex justify-content-between">
+                        <!-- <h2 id="wecom_contact" class="d-flex justify-content-between">
                             <span class="text-left">
                                 <i class="fa fa-th fa-lg" aria-label="Contact synchronization"/>
                                     Contact synchronization Settings
                                 <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                             </span>
                             <widget name='res_config_wecom_navigation_gotop'/>
-                        </h2>
+                        </h2> -->
 
-                        <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
+                        <!-- <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
@@ -154,7 +154,6 @@
                                 <div class="o_setting_right_pane">
                                     <label for="contacts_access_token"/>
                                     <div class="row">
-                                        <!-- 在企业微信的后台获取应用"通讯录"信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。 -->
                                         <div class="text-muted col-md-12" id="contacts_access_token_text">
                                         Important notes when obtaining application "address book" information in the background of the WeCom, this information needs to be carried during communication to verify the access authority of the interface.
                                             <br/>
@@ -173,10 +172,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
-                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_auto_sync_hr_enabled"/>
                                 </div>
@@ -193,7 +192,7 @@
                                 </div>
                             </div> -->
 
-                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-building fa-lg" aria-label="Department"/>
                                 </div>
@@ -212,7 +211,7 @@
                                 </div>
                             </div> -->
 
-                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_use_system_default_avatar"/>
                                 </div>
@@ -227,7 +226,7 @@
                                 </div>
                             </div> -->
 
-                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_update_avatar_every_time_sync"/>
                                 </div>
@@ -242,7 +241,7 @@
                                 </div>
                             </div> -->
 
-                            <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_sync_user_enabled"/>
                                 </div>
@@ -254,8 +253,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div> 
+                    </div> -->
 
                         <div id="wecom_bottom"/>
                     </div>

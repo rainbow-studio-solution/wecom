@@ -34,14 +34,7 @@ WeCom Service-side API and Client-side API
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {
-        "python": [
-            "requests_toolbelt",
-            "pandas",
-        ],
-    },
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "external_dependencies": {"python": ["requests_toolbelt", "pandas",],},
+    "qweb": ["static/src/xml/*.xml",],
     # "post_init_hook": "post_init_hook",
 }

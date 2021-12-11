@@ -16,83 +16,13 @@
             </field>
         </record>
 
-        <record id="view_wecom_apps_tree" model="ir.ui.view">
-            <field name="name">wecom.apps.tree</field>
-            <field name="model">wecom.apps</field>
-            <field name="arch" type="xml">
-                <tree expand="1">
-                    <!-- <field name="display_name" /> -->
-                    <field name="name" />
-                    <field name="company_id" />
-                    <field name="type" />
-                    <field name="agentid" widget="integer" options="{'format': false}" />
-                    <field name="close"/>
-                </tree>
-            </field>
-        </record>
+
 
         <record id="view_wecom_apps_form" model="ir.ui.view">
             <field name="name">wecom.apps.form</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-                <form>
-                    <sheet>
 
-                        <field name="square_logo_url" widget="image_url" options='{"size": [80, 80]}' class="oe_right"/>
-                        <div class="oe_title">
-                            <label for="app_name" class="oe_edit_only"/>
-                            <h1>
-                                <field name="app_name" attrs="{'readonly': [('type','=','manage')]}" />
-                            </h1>
-                        </div>
-                        <group>
-                            <field name="company_id" widget="selection" required="1"/>
-                        </group>
-                        <group>
-                            <field name="description" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
-                        </group>
-                        <group>
-                            <group>
-                                <field name="type" attrs="{'readonly': [('type','=','manage')]}" />
-                            </group>
-                            <group>
-                                <field name="close" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
-                            </group>
-                        </group>
-                        <group>
-                            <group>
-                                <field name="agentid" options="{'format': false}" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
-                            </group>
-                            <group>
-                                <field name="secret" widget="wecom_password"/>
-                            </group>
-                        </group>
-                        <group>
-                            <field name="allow_userinfos" attrs="{'readonly': [('type','=','manage')]}"/>
-                        </group>
-                        <group>
-                            <field name="allow_partys" attrs="{'readonly': [('type','=','manage')]}"/>
-                        </group>
-                        <group>
-                            <field name="allow_tags" attrs="{'readonly': [('type','=','manage')]}"/>
-                        </group>
-
-                        <notebook>
-                            <page name="option" string="Option" attrs="{'invisible': [('type','!=','self')]}">
-                                <group>
-                                    <group>
-                                        <field name="report_location_flag"/>
-                                        <field name="isreportenter"/>
-                                    </group>
-                                    <group>
-                                        <field name="redirect_domain"/>
-                                        <field name="home_url"/>
-                                    </group>
-                                </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
             </field>
         </record>
 

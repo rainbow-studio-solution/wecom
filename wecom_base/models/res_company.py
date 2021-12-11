@@ -17,22 +17,6 @@ class Company(models.Model):
     is_wecom_organization = fields.Boolean("WeCom organization", default=False)
     corpid = fields.Char("Corp ID", default="xxxxxxxxxxxxxxxxxx")
 
-    # 通讯录
-    contacts_app_id = fields.Many2one(
-        "wecom.apps",
-        string="Application",
-        # required=True,
-        # default=lambda self: self.env.company,
-        domain="[('company_id', '=', current_company_id)]",
-    )
-    contacts_secret = fields.Char(
-        "Contact Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    )
-    contacts_access_token = fields.Char(
-        string="Contact token",
-        readonly=True,
-    )
-
     # contacts_auto_sync_hr_enabled = fields.Boolean(
     #     "Allow WeCom Contacts are automatically updated to HR", default=True,
     # )1

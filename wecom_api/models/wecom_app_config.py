@@ -4,7 +4,6 @@ from odoo import fields, models, api, _
 
 
 class WeComAppConfig(models.Model):
-    # 参考 ir.config_parameter 模型
     _name = "wecom.app_config"
     # _inherit = "ir.config_parameter"
     _description = "Wecom Application Configuration"
@@ -29,10 +28,10 @@ class WeComAppConfig(models.Model):
         domain="[('company_id', '=', company_id)]",
         required=True,
     )
-    key = fields.Char(
-        required=True,
-    )
+    name = fields.Char(string="Name", required=True, copy=True)
+    key = fields.Char(required=True,)
     value = fields.Text(required=True)
+    description = fields.Html(string="Description", translate=True, copy=True)
 
     _sql_constraints = [
         (

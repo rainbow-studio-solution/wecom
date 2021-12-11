@@ -17,6 +17,7 @@
                 <tree string="Wecom Application Parameters">
                     <field name="company_id" />
                     <field name="app_id" />
+                    <field name="name"/>
                     <field name="key"/>
                     <field name="value"/>
                 </tree>
@@ -31,8 +32,10 @@
                         <group>
                             <field name="company_id" required="1" force_save="1" widget="selection" />
                             <field name="app_id" required="1" force_save="1" widget="selection" />
+                            <field name="name" required="1"/>
                             <field name="key" required="1"/>
                             <field name="value" required="1"/>
+                            <field name="description" />
                         </group>
                     </sheet>
                 </form>

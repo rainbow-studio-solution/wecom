@@ -3,7 +3,10 @@ access_wecom_service_api,access.wecom.service_api,model_wecom_service_api,base.g
 access_wecom_service_api,access.wecom.service_api,model_wecom_service_api,base.group_user,1,0,0,0
 
 access_wecom_service_api_list,access.wecom.service_api_list,model_wecom_service_api_list,base.group_erp_manager,1,1,1,1
+access_wecom_service_api_list,access.wecom.service_api_list,model_wecom_service_api_list,base.group_user,1,0,0,0
+
 access_wecom_service_api_error,access.wecom.service_api_error,model_wecom_service_api_error,base.group_erp_manager,1,1,1,1
 access_wecom_service_api_error,access.wecom.service_api_error,model_wecom_service_api_error,base.group_user,1,0,0,0
 
+access_wecom_apps,access.wecom.apps,model_wecom_apps,base.group_erp_manager,1,1,1,1
 access_wecom_app_config,access.wecom.app.config,model_wecom_app_config,base.group_erp_manager,1,1,1,1
