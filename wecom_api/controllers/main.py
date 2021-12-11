@@ -33,7 +33,7 @@ class StripeController(http.Controller):
     def WecomCallbackService(self, service, id, **kw):
         """
         企业微信回调服务
-        :param service:回调服务名称 callback_service
+        :param service:回调服务名称 code
         :param id:      公司id
         """
         company_id = request.env["res.company"].sudo().search([("id", "=", id)])
@@ -43,7 +43,7 @@ class StripeController(http.Controller):
             app = (
                 request.env["wecom.apps"]
                 .sudo()
-                .search([("company_id", "=", id), ("callback_service", "=", service)])
+                .search([("company_id", "=", id), ("code", "=", service)])
             )
 
             wxcpt = WecomMsgCrypt(app.callback_url_token, app.callback_aeskey, corpid)

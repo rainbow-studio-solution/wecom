@@ -2,18 +2,18 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- <record id="wecom_app_config_contacts_auto_sync_hr_enabled" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_auto_sync_hr_enabled" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow WeCom Contacts are automatically updated to HR</field>
             <field name="key">contacts_auto_sync_hr_enabled</field>
             <field name="value">True</field>
             <field name="description" type="html">If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;<br></br>Otherwise, you can only manually bind WeCom users.</field>
-        </record> -->
+        </record>
 
-        <!-- <record id="wecom_app_config_contacts_sync_hr_department_id" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_sync_hr_department_id" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Department ID to be synchronized</field>
             <field name="key">contacts_sync_hr_department_id</field>
             <field name="value">1</field>
@@ -22,7 +22,7 @@
 
         <record id="wecom_app_config_contacts_edit_enabled" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow API to edit WeCom contacts</field>
             <field name="key">contacts_edit_enabled</field>
             <field name="value">False</field>
@@ -31,7 +31,7 @@
 
         <record id="wecom_app_config_contacts_sync_user_enabled" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow WeCom contacts to automatically update system accounts</field>
             <field name="key">contacts_sync_user_enabled</field>
             <field name="value">False</field>
@@ -40,7 +40,7 @@
 
         <record id="wecom_app_config_contacts_use_system_default_avatar" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Use system default Avatar</field>
             <field name="key">contacts_use_system_default_avatar</field>
             <field name="value">True</field>
@@ -51,14 +51,14 @@
 
         <record id="wecom_app_config_contacts_update_avatar_every_time_sync" model="wecom.app_config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="app_id" ref="wecom_api.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Update avatar every time sync</field>
             <field name="key">contacts_update_avatar_every_time_sync</field>
             <field name="value">False</field>
             <field name="description" type="html">Enable this,Each update will overwrite the employee photos you have set up.<hr></hr>
                 <span class="text-warning font-weight-bold">Use this feature with caution.</span>
             </field>
-        </record> -->
+        </record>
 
     </data>
 </odoo>

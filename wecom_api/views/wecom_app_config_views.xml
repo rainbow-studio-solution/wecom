@@ -15,7 +15,7 @@
             <field name="model">wecom.app_config</field>
             <field name="arch" type="xml">
                 <tree string="Wecom Application Parameters">
-                    <field name="company_id" />
+                    <!-- <field name="company_id" /> -->
                     <field name="app_id" />
                     <field name="name"/>
                     <field name="key"/>
@@ -30,7 +30,7 @@
                 <form string="Wecom Application Parameters">
                     <sheet>
                         <group>
-                            <field name="company_id" required="1" force_save="1" widget="selection" />
+                            <!-- <field name="company_id" required="1" force_save="1" widget="selection" /> -->
                             <field name="app_id" required="1" force_save="1" widget="selection" />
                             <field name="name" required="1"/>
                             <field name="key" required="1"/>

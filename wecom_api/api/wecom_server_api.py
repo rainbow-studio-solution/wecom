@@ -44,11 +44,22 @@ class WecomServerApi(models.TransientModel):
         :param secret : 应用密钥
         :returns 模型"wecom.service_api"对象
         """
-        api = self.search([("corpid", "=", corpid), ("secret", "=", secret),], limit=1,)
+        api = self.search(
+            [
+                ("corpid", "=", corpid),
+                ("secret", "=", secret),
+            ],
+            limit=1,
+        )
 
         if not api:
             # 创建API令牌记录
-            api = self.sudo().create({"corpid": corpid, "secret": secret,})
+            api = self.sudo().create(
+                {
+                    "corpid": corpid,
+                    "secret": secret,
+                }
+            )
         if api["access_token"] is False or api["access_token"] == "":
             # token为空，刷新API令牌记录
             api.refreshAccessToken()
@@ -66,22 +77,18 @@ class WecomServerApi(models.TransientModel):
         """
         刷新令牌
         """
-        try:
-            response = self.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_ACCESS_TOKEN"
-                ),
-                {"corpid": self.corpid, "corpsecret": self.secret},
-            )
-            expiration_second = timedelta(seconds=response["expires_in"])
-            self.sudo().write(
-                {
-                    "access_token": response.get("access_token"),
-                    "expiration_time": datetime.now() + expiration_second,
-                }
-            )
-        except Exception as e:
-            print("------------", e)
+        # try:
+        response = self.httpCall(
+            self.env["wecom.service_api_list"].get_server_api_call("GET_ACCESS_TOKEN"),
+            {"corpid": self.corpid, "corpsecret": self.secret},
+        )
+        expiration_second = timedelta(seconds=response["expires_in"])
+        self.sudo().write(
+            {
+                "access_token": response.get("access_token"),
+                "expiration_time": datetime.now() + expiration_second,
+            }
+        )
 
     def get_api_debug(self):
         """

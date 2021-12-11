@@ -51,7 +51,12 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="company_id" widget="selection" required="1"/>
+                            <group>
+                                <field name="company_id" widget="selection" required="1"/>
+                            </group>
+                            <group>
+                                <field name="code" required="1"/>
+                            </group>
                         </group>
                         <group>
                             <field name="description" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
@@ -74,11 +79,7 @@
                         </group>
                         <group>
                             <field name="allow_userinfos" attrs="{'readonly': [('type','=','manage')]}"/>
-                        </group>
-                        <group>
                             <field name="allow_partys" attrs="{'readonly': [('type','=','manage')]}"/>
-                        </group>
-                        <group>
                             <field name="allow_tags" attrs="{'readonly': [('type','=','manage')]}"/>
                         </group>
 
@@ -150,7 +151,7 @@
                                     </ol>
                                 </group>
                                 <group>
-                                    <field name="callback_service"/>
+
                                     <field name="callback_url" force_save="1" widget="CopyClipboardChar"/>
                                     <field name="callback_url_token" widget="wecom_password"/>
                                     <field name="callback_aeskey" widget="wecom_password"/>
@@ -158,14 +159,18 @@
                             </page>
                             <page name="parameter" string="Parameter">
                                 <group>
-                                    <field name="app_config_ids" mode="tree" context="{'default_company_id': company_id}">
-                                        <tree create="true" edit="true" delete="true" nolabel="1" editable="bottom">
-                                            <field name="company_id" required="1" readonly="1"/>
-                                            <field name="app_id" widget="selection" required="1"/>
-                                            <field name="key" required="1"/>
+                                    <field name="app_config_ids" mode="tree">
+                                        <!-- context="{'default_company_id': company_id}" -->
+                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
+                                            <!-- <field name="company_id" readonly="1"/> -->
+                                            <field name="name" readonly="1"/>
+                                            <field name="key" readonly="1"/>
                                             <field name="value" required="1"/>
                                         </tree>
                                     </field>
+                                </group>
+                                <group class="text-right">
+                                    <button class="btn-outline-info" name="generate_parameters" string="Generate parameters" type="object" icon="fa-cogs" />
                                 </group>
                             </page>
                         </notebook>
