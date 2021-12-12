@@ -38,16 +38,10 @@ class WeComApps(models.Model):
     )
 
     name = fields.Char(
-        string="Name",
-        copy=False,
-        compute="_compute_name",
-        store=True,
-        index=True,
+        string="Name", copy=False, compute="_compute_name", store=True, index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name",
-        translate=True,
-        copy=True,
+        string="Application Name", translate=True, copy=True,
     )  # 应用名称
     # display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
@@ -111,10 +105,7 @@ class WeComApps(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         base_url = params.get_param("web.base.url")
         if self.company_id and self.code:
-            return base_url + "/wecom_callback/%s/%s" % (
-                self.code,
-                self.company_id.id,
-            )
+            return base_url + "/wecom_callback/%s/%s" % (self.code, self.company_id.id,)
         else:
             return ""
 
@@ -241,7 +232,7 @@ class WeComApps(models.Model):
                         "message": _("The access token was successfully obtained!"),
                         "sticky": False,
                     }
-                    return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
+                    # return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
                 elif wecomapi.expiration_time > datetime.now():
                     # 令牌未过期，则直接返回 提示信息
                     msg = {
@@ -251,7 +242,7 @@ class WeComApps(models.Model):
                         ),
                         "sticky": False,
                     }
-                    return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
+                    # return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
                 else:
                     # 令牌已过期，则重新获取
                     res.write(
@@ -265,4 +256,4 @@ class WeComApps(models.Model):
                         "message": _("The access token was successfully obtained!"),
                         "sticky": False,
                     }
-                    return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
+                    # return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)

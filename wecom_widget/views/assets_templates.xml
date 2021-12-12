@@ -9,13 +9,14 @@
             <script type="text/javascript" src="/wecom_widget/static/src/js/wecom_widget_image_url.js" />
             <script type="text/javascript" src="/wecom_widget/static/src/js/jsoneditor.js"></script>
             <script type="text/javascript" src="/wecom_widget/static/src/js/dialog.js"></script>
+            <script type="text/javascript" src="/wecom_widget/static/src/js/relational_fields.js"></script>
 
 
 
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/jsoneditor.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/dialog.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/showpassword.scss"/>
-   
+
         </xpath>
     </template>
 

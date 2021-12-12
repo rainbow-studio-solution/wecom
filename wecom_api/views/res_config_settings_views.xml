@@ -83,14 +83,18 @@
                                 <label for="contacts_app_config_ids"/>
                                 <div class="row">
                                     <div class="content-group">
-                                        <div class="mt16">
-                                            <field name="contacts_app_config_ids" class="w-100 p-3" context="{'default_company_id': company_id}">
-                                                <tree create="true" edit="true" delete="0" nolabel="1" editable="bottom">
+                                        <div class="mt4">
+                                            <field name="contacts_app_config_ids" widget="one2many_help" help="description" class="w-100 p-3" context="{'default_company_id': company_id}">
+                                                <tree create="0" edit="true" delete="0" nolabel="1" editable="bottom">
                                                     <field name="name" readonly="1"/>
                                                     <field name="key" readonly="1"/>
                                                     <field name="value" required="1"/>
+                                                    <field name="description" invisible="1"/>
                                                 </tree>
                                             </field>
+                                        </div>
+                                        <div class="text-right">
+                                            <button class="btn-outline-info" name="generate_parameters" string="Generate parameters" type="object" icon="fa-cogs" />
                                         </div>
                                     </div>
                                 </div>

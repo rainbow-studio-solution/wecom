@@ -28,10 +28,8 @@ class WeComAppConfig(models.Model):
         # domain="[('company_id', '=', company_id)]",
         required=True,
     )
-    name = fields.Char(string="Name", required=True, copy=True)
-    key = fields.Char(
-        required=True,
-    )
+    name = fields.Char(string="Name", translate=True, required=True, copy=True)
+    key = fields.Char(required=True,)
     value = fields.Text(required=True)
     description = fields.Html(string="Description", translate=True, copy=True)
 

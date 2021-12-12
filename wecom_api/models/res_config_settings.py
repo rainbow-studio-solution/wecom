@@ -1,5 +1,7 @@
 from random import weibullvariate
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
+from .wecom_apps import CONTACTS_PARAMETERS
 
 
 class ResConfigSettings(models.TransientModel):
@@ -95,3 +97,13 @@ class ResConfigSettings(models.TransientModel):
     #     ir_config = self.env["ir.config_parameter"].sudo()
     #     ir_config.set_param("wecom.debug_enabled", self.debug_enabled or "False")
 
+    def generate_parameters(self):
+        """
+        生成参数
+        :return:
+        """
+        for record in self:
+            if not record.contacts_app_id:
+                raise ValidationError(_("Please bind contact app!"))
+            else:
+                record.contacts_app_id.generate_parameters()

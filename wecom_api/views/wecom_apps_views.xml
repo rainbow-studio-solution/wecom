@@ -159,7 +159,7 @@
                             </page>
                             <page name="parameter" string="Parameter">
                                 <group>
-                                    <field name="app_config_ids" mode="tree">
+                                    <field name="app_config_ids" widget="one2many" mode="tree">
                                         <!-- context="{'default_company_id': company_id}" -->
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <!-- <field name="company_id" readonly="1"/> -->
