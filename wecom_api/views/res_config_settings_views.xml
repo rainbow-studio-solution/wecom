@@ -84,8 +84,9 @@
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="contacts_app_config_ids" widget="one2many_help" help="description" class="w-100 p-3" context="{'default_company_id': company_id}">
-                                                <tree create="0" edit="true" delete="0" nolabel="1" editable="bottom">
+                                            <field name="contacts_app_config_ids" widget="one2many_help" help="description" class="w-100 pl-3">
+                                                <!-- nolabel="1" context="{'default_company_id': company_id}-->
+                                                <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="key" readonly="1"/>
                                                     <field name="value" required="1"/>
