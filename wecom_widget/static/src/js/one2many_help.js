@@ -27,7 +27,6 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
             this._super.apply(this, arguments);
             this.options = options;
             this.widget = this.attrs.widget;
-
         },
         _getRenderer: function () {
             if (this.attrs.widget === "one2many_help") {
@@ -42,26 +41,34 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
 
     ListRenderer.include({
         events: _.extend({}, ListRenderer.prototype.events, {
-            'focus .o_field_one2many_help_show': 'showHelpToolTip',
+            'mouseenter .o_field_one2many_help_show': 'showHelpToolTip',
+            'mouseleave .o_field_one2many_help_show': 'hideHelpToolTip',
         }),
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
 
-            if (parent.attrs.widget === "one2many_help") {
-                this.help_records = parent.value.data;
-                this.is_one2many_help = true;
-            } else {
-                this.is_one2many_help = false;
+            if (parent.hasOwnProperty("attrs")) {
+                if (parent.attrs.widget === "one2many_help") {
+                    this.help_records = parent.value.data;
+                    this.is_one2many_help = true;
+                } else {
+                    this.is_one2many_help = false;
+                }
             }
         },
-
+        _getNumberOfCols: function () {
+            var n = this.columns.length;
+            if (this.is_one2many_help) {
+                n += 2;
+            }
+            return this.hasSelectors ? n + 1 : n;
+        },
         _renderHeader: function () {
             var $thead = this._super.apply(this, arguments);
             if (this.is_one2many_help) {
                 $thead.find("th:first").before($("<th>#</th>"));
-                $thead.find("th:last").after($("<th class='text-center'><i class='fa fa-question-circle' aria-hidden='false'></i></th>"));
+                $thead.find("th:last").after($("<th class='text-center' width='0.4'><i class='fa fa-question-circle' aria-hidden='false'></i></th>"));
             }
-
             return $thead;
         },
         _renderRow: function (record, index) {
@@ -73,17 +80,9 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
                 var help = this.help_records.find(item => item.id === data_id).data["description"];
                 $row.find("td:first").before($("<td/>").html(index + 1));
 
-                var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-trigger='tooltip' data-placement='left' data-html='true' data-original-title='%s' data-trigger='hover' data-content='%s'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
+                var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-content='%s'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
 
-                var $show_help_btn = _.str.sprintf(show_help_btn_html, _t("Description"), help, _t("Show help"));
-
-                // $($show_help_btn).tooltip({
-                //     trigger: 'hover',
-                //     html: true,
-                //     delay: 300,
-                //     content: help
-                // })
-
+                var $show_help_btn = _.str.sprintf(show_help_btn_html, help, _t("Show"));
                 $row.find("td:last").after($("<td class='text-right'></td>").append($show_help_btn));
             }
             return $row;
@@ -97,13 +96,19 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
             return $footer;
         },
         showHelpToolTip: function (ev) {
-            $(ev.target).tooltip();
-            // $(ev).popover({
-            //     placement: 'left',
-            //     trigger: 'click hover',
-            //     html: true,
-            //     content: help,
-            // })
+            var title = _t("No help description");
+            if ($(ev.target).data("content") != "") {
+                title = $(ev.target).data("content");
+            }
+            $(ev.target).tooltip({
+                title: title,
+                placement: 'left',
+                html: true,
+            });
+            $(ev.target).tooltip('show', true);
+        },
+        hideHelpToolTip: function (ev) {
+            $(ev.target).tooltip('show', false);
         },
     });
 
