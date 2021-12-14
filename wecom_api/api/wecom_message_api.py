@@ -19,7 +19,7 @@ class WeComMessageApi(models.AbstractModel):
 
     def get_message_api(self, company):
         """"""
-        wxapi = self.env["wecom.service_api"].init_api(
+        wxapi = self.env["wecom.service_api"].InitServiceApi(
             company, "message_secret", "message"
         )
         return wxapi
@@ -158,12 +158,7 @@ class WeComMessageApi(models.AbstractModel):
             material = (
                 self.sudo()
                 .env["wecom.material"]
-                .search(
-                    [
-                        ("id", "=", media_id),
-                    ],
-                    limit=1,
-                )
+                .search([("id", "=", media_id),], limit=1,)
             )
             # material_media_id = self.check_material_file_expiration(material)
             messages_content = {
@@ -181,11 +176,7 @@ class WeComMessageApi(models.AbstractModel):
             }
         elif msgtype == "markdown":
             # markdown消息
-            messages_content = {
-                "markdown": {
-                    "content": body_markdown,
-                }
-            }
+            messages_content = {"markdown": {"content": body_markdown,}}
 
         elif msgtype == "template_card":
             # 模板卡片消息

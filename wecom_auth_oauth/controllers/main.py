@@ -200,7 +200,7 @@ class OAuthController(Controller):
             wxapi = (
                 request.env["wecom.service_api"]
                 .sudo()
-                .init_api(company, "auth_secret", "auth")
+                .InitServiceApi(company, "auth_secret", "auth")
             )
             response = wxapi.httpCall(
                 request.env["wecom.service_api_list"]
@@ -289,7 +289,7 @@ class OAuthController(Controller):
             wxapi = (
                 request.env["wecom.service_api"]
                 .sudo()
-                .init_api(company, "auth_secret", "auth")
+                .InitServiceApi(company, "auth_secret", "auth")
             )
             response = wxapi.httpCall(
                 request.env["wecom.service_api_list"]

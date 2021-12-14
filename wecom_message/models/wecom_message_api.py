@@ -96,7 +96,7 @@ class WeComMessageApi(models.AbstractModel):
         debug = params.get_param("wecom.debug_enabled")
 
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 message["company"], "message_secret", "message"
             )
 
@@ -156,12 +156,7 @@ class WeComMessageApi(models.AbstractModel):
             material = (
                 self.sudo()
                 .env["wecom.material"]
-                .search(
-                    [
-                        ("id", "=", media_id),
-                    ],
-                    limit=1,
-                )
+                .search([("id", "=", media_id),], limit=1,)
             )
             # material_media_id = self.check_material_file_expiration(material)
             messages_content = {

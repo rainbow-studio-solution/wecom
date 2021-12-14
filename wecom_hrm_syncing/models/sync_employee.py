@@ -23,7 +23,7 @@ class SyncEmployee(models.AbstractModel):
             _logger.info(_("Start synchronizing employees of '%s'"), company.name)
 
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
@@ -40,11 +40,7 @@ class SyncEmployee(models.AbstractModel):
             blocks = (
                 self.env["wecom.contacts.block"]
                 .sudo()
-                .search(
-                    [
-                        ("company_id", "=", company.id),
-                    ]
-                )
+                .search([("company_id", "=", company.id),])
             )
             block_list = []
 
@@ -110,10 +106,7 @@ class SyncEmployee(models.AbstractModel):
             if debug:
                 _logger.warning(
                     _("Error synchronizing employees of company: %s, error reason: %s")
-                    % (
-                        company.name,
-                        e.errMsg,
-                    )
+                    % (company.name, e.errMsg,)
                 )
 
         if debug:
@@ -245,9 +238,7 @@ class SyncEmployee(models.AbstractModel):
                 records.write(
                     {
                         "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                            False,
-                            obj["gender"],
-                            obj["avatar"],
+                            False, obj["gender"], obj["avatar"],
                         ),
                     }
                 )
@@ -476,9 +467,7 @@ class SyncEmployee(models.AbstractModel):
         debug = params.get_param("wecom.debug_enabled")
         try:
             records.write(
-                {
-                    "active": False,
-                }
+                {"active": False,}
             )
             # return True
         except Exception as e:

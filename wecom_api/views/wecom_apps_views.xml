@@ -46,7 +46,7 @@
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <field name="agentid" widget="integer" />
+                                        <field name="agentid" options="{'format': false}"/>
                                         <field name="type" widget="badge" decoration-success="type == 'manage'" decoration-info="type == 'base'" decoration-warning="type == 'self'" decoration-secondary="type == 'third'"/>
                                     </div>
                                     <div class="oe_kanban_content">
@@ -54,7 +54,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </t>
                     </templates>
                 </kanban>

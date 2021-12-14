@@ -24,7 +24,7 @@ class Company(models.Model):
         params = {}
 
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
             if wxapi.expiration_time > datetime.now():
@@ -231,15 +231,7 @@ class Company(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
-            self.sudo()
-            .env["res.groups"]
-            .search(
-                [
-                    ("id", "=", 9),
-                ],
-                limit=1,
-            )
-            .id
+            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=9是门户用户
         try:
             user = user.create(
@@ -284,9 +276,7 @@ class Company(models.Model):
             )
             if user.id:
                 user.partner_id.write(
-                    {
-                        "company_id": employee.company_id.id,
-                    }
+                    {"company_id": employee.company_id.id,}
                 )
                 employee.write(
                     {

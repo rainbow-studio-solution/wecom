@@ -20,7 +20,7 @@ class ResConfigSettings(models.TransientModel):
     def get_contacts_access_token(self):
         params = {}
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
 

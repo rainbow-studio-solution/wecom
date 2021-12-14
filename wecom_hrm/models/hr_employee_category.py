@@ -33,10 +33,7 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_category = fields.Boolean(
-        string="WeCom Tag",
-        default=False,
-    )
+    is_wecom_category = fields.Boolean(string="WeCom Tag", default=False,)
 
     def update_to_wxwork(self):
         debug = self.env["ir.config_parameter"].sudo().get_param("wecom.debug_enabled")
@@ -44,7 +41,7 @@ class EmployeeCategory(models.Model):
 
         params = {}
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company, "contacts_secret", "contacts"
             )
             if self.tagid:
@@ -77,10 +74,7 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -106,7 +100,7 @@ class EmployeeCategory(models.Model):
 
         params = {}
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
@@ -121,15 +115,9 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deleted successfully.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
-                tag = self.search(
-                    [("tagid", "=", self.tagid)],
-                    limit=1,
-                )
+                tag = self.search([("tagid", "=", self.tagid)], limit=1,)
                 tag.unlink()
             else:
                 params = {
@@ -138,10 +126,7 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
             action = {
                 "type": "ir.actions.client",

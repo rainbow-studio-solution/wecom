@@ -11,8 +11,7 @@ class WxworkContactsBlock(models.Model):
     _description = "Wecom contacts synchronization block list"
 
     name = fields.Char(
-        string="Name",
-        readonly=True,
+        string="Name", readonly=True,
     )  # required=True,readonly=True, store=True
     company_id = fields.Many2one(
         "res.company",
@@ -28,7 +27,7 @@ class WxworkContactsBlock(models.Model):
         if self.company_id is None or self.wecom_userid == False:
             return
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
@@ -72,10 +71,7 @@ class WxworkContactsBlock(models.Model):
                     "className": params["className"],
                     "message": params["message"],
                     "sticky": params["sticky"],
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 },
             }
             return action

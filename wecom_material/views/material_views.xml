@@ -52,7 +52,7 @@
             <field name="name">wecom.material.tree</field>
             <field name="model">wecom.material</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree expand="1">
                     <field name="company_id"/>
                     <field name="name"/>
                     <field name="media_type"/>

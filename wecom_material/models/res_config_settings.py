@@ -13,5 +13,11 @@ class ResConfigSettings(models.TransientModel):
         default=lambda self: self.env.company,
     )
 
-    material_agentid = fields.Char(related="company_id.material_agentid", readonly=False)
-    material_secret = fields.Char(related="company_id.material_secret", readonly=False)
+    # 通讯录
+    material_app_id = fields.Many2one(
+        related="company_id.material_app_id", readonly=False
+    )
+
+    material_agentid = fields.Integer(related="material_app_id.agentid", readonly=False)
+    material_secret = fields.Char(related="material_app_id.secret", readonly=False)
+    material_access_token = fields.Char(related="material_app_id.access_token")

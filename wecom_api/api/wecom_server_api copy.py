@@ -37,7 +37,7 @@ class WecomServerApi(models.Model):
     expiration_time = fields.Datetime(string="Expiration Time", readonly=True)
 
     @api.model
-    def init_api(self, company, secret_name, type_name):
+    def InitServiceApi(self, company, secret_name, type_name):
         """
         初始化企业微信API 对象
         通过 secret 获取token

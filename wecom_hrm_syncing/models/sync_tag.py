@@ -22,7 +22,7 @@ class SyncTag(models.AbstractModel):
         try:
             start1 = time.time()
 
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company, "contacts_secret", "contacts"
             )
             # status = True
@@ -72,10 +72,7 @@ class SyncTag(models.AbstractModel):
             if debug:
                 _logger.warning(
                     _("Contacts tags error synchronizing '%s', error reason: %s")
-                    % (
-                        company.name,
-                        e.errMsg,
-                    )
+                    % (company.name, e.errMsg,)
                 )
             result = _("Failed to synchronized '%s''s WeCom tags") % company.name
             # status = {"employee_category": False}
@@ -96,10 +93,7 @@ class SyncTag(models.AbstractModel):
             self.env["hr.employee.category"]
             .sudo()
             .search(
-                [
-                    ("tagid", "=", obj["tagid"]),
-                    ("company_id", "=", company.id),
-                ],
+                [("tagid", "=", obj["tagid"]), ("company_id", "=", company.id),],
                 limit=1,
             )
         )
@@ -142,9 +136,7 @@ class SyncTag(models.AbstractModel):
     def update_tag(self, company, records, obj):
         try:
             records.write(
-                {
-                    "name": obj["tagname"],
-                }
+                {"name": obj["tagname"],}
             )
             result = True
         except Exception as e:
@@ -178,10 +170,7 @@ class SyncTag(models.AbstractModel):
                     self.env["hr.employee.category"]
                     .sudo()
                     .search(
-                        [
-                            ("tagid", "=", invalid_tag),
-                            ("company_id", "=", company.id),
-                        ]
+                        [("tagid", "=", invalid_tag), ("company_id", "=", company.id),]
                     )
                 )
                 if invalid_odoo_tag:
@@ -211,7 +200,7 @@ class SyncTag(models.AbstractModel):
             employees = []
             departments = []
             try:
-                wxapi = self.env["wecom.service_api"].init_api(
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
                     company, "contacts_secret", "contacts"
                 )
                 tags = wxapi.httpCall(

@@ -25,8 +25,7 @@ class Company(models.Model):
         help="The web application ID of the authorizing party, which can be viewed in the specific web application",
     )
     auth_secret = fields.Char(
-        "Auth Secret",
-        default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "Auth Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
     )
     auth_redirect_uri = fields.Char(
         "Callback link address redirected after authorization",
@@ -45,24 +44,15 @@ class Company(models.Model):
         "Enable to join the enterprise QR code ", default=True
     )
     join_qrcode = fields.Char(
-        "Join enterprise QR code",
-        help="QR code link, valid for 7 days",
-        readonly=True,
+        "Join enterprise QR code", help="QR code link, valid for 7 days", readonly=True,
     )
     join_qrcode_size_type = fields.Selection(
-        [
-            ("1", "171px * 171px"),
-            ("2", "399px * 399px"),
-            ("3", "741px * 741px"),
-        ],
+        [("1", "171px * 171px"), ("2", "399px * 399px"), ("3", "741px * 741px"),],
         string="QR code size type",
         help="1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052",
         default="2",
     )
-    join_qrcode_last_time = fields.Char(
-        "Last update time (UTC)",
-        readonly=True,
-    )
+    join_qrcode_last_time = fields.Char("Last update time (UTC)", readonly=True,)
 
     def set_oauth_provider_wxwork(self):
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
@@ -91,13 +81,7 @@ class Company(models.Model):
             providers = (
                 self.env["auth.oauth.provider"]
                 .sudo()
-                .search(
-                    [
-                        "|",
-                        ("enabled", "=", True),
-                        ("enabled", "=", False),
-                    ]
-                )
+                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
             )
         except Exception:
             providers = []
@@ -128,16 +112,14 @@ class Company(models.Model):
         if debug:
             _logger.info(_("Start getting join enterprise QR code"))
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "GET_JOIN_QRCODE"
                 ),
-                {
-                    "size_type": self.company_id.join_qrcode_size_type,
-                },
+                {"size_type": self.company_id.join_qrcode_size_type,},
             )
             if response["errcode"] == 0:
                 self.join_qrcode = response["join_qrcode"]
@@ -154,10 +136,7 @@ class Company(models.Model):
                     "message": _("Successfully obtained the enterprise QR code."),
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -195,21 +174,19 @@ class Company(models.Model):
                     wxapi = (
                         self.env["wecom.service_api"]
                         .sudo()
-                        .init_api(company, "contacts_secret", "contacts")
+                        .InitServiceApi(company, "contacts_secret", "contacts")
                     )
                     response = wxapi.httpCall(
                         self.env["wecom.service_api_list"].get_server_api_call(
                             "GET_JOIN_QRCODE"
                         ),
-                        {
-                            "size_type": company.join_qrcode_size_type,
-                        },
+                        {"size_type": company.join_qrcode_size_type,},
                     )
 
                     if response["errcode"] == 0:
                         company.join_qrcode = response["join_qrcode"]
-                        company.join_qrcode_last_time = (
-                            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        company.join_qrcode_last_time = datetime.datetime.now().strftime(
+                            "%Y-%m-%d %H:%M:%S"
                         )
                         if debug:
                             _logger.info(

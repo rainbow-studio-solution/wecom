@@ -1,11 +1,11 @@
-# 如何使用封装好的企业微信API
+# 如何使用封装好的企业微信 API
 
 ## Demo：获取企业微信部门列表
 
 ```
 # 初始化API 模型对象
 # 参数为：公司对象，secret字段的名称，以及令牌类型
-wxapi = self.env["wecom.service_api"].init_api(
+wxapi = self.env["wecom.service_api"].InitServiceApi(
     company, "contacts_secret", "contacts"
 )
 
@@ -20,7 +20,8 @@ response = wxapi.httpCall(
 )
 ```
 
-## 建议：调用API的时候，尽量使用 try except 抛出异常的方式
+## 建议：调用 API 的时候，尽量使用 try except 抛出异常的方式
+
 ```
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 

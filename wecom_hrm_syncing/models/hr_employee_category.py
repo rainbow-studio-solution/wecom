@@ -21,7 +21,7 @@ class EmployeeCategory(models.Model):
         times = time.time()
         try:
             start1 = time.time()
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
 
@@ -74,10 +74,7 @@ class EmployeeCategory(models.Model):
 
     @api.model
     def run_sync(self, obj, debug):
-        tag = self.search(
-            [("tagid", "=", obj["tagid"])],
-            limit=1,
-        )
+        tag = self.search([("tagid", "=", obj["tagid"])], limit=1,)
         try:
             if not tag:
                 status = self.create_employee_tag(tag, obj, debug)
@@ -112,9 +109,7 @@ class EmployeeCategory(models.Model):
     def update_employee_tag(self, records, obj, debug):
         try:
             records.write(
-                {
-                    "name": obj["tagname"],
-                }
+                {"name": obj["tagname"],}
             )
             result = True
         except Exception as e:
@@ -159,19 +154,12 @@ class EmployeeCategory(models.Model):
         secret = params.get_param("wecom.contacts_secret")
 
         for res in response["taglist"]:
-            employee_category = self.search(
-                [
-                    ("tagid", "=", res["tagid"]),
-                ]
-            )
+            employee_category = self.search([("tagid", "=", res["tagid"]),])
             employees = []
             try:
                 wxapi = CorpApi(corpid, secret)
                 tags = wxapi.httpCall(
-                    CORP_API_TYPE["TAG_GET_USER"],
-                    {
-                        "tagid": str(res["tagid"]),
-                    },
+                    CORP_API_TYPE["TAG_GET_USER"], {"tagid": str(res["tagid"]),},
                 )
                 userlist = tags["userlist"]  # 标签中包含的成员列表
 
@@ -180,9 +168,7 @@ class EmployeeCategory(models.Model):
                 else:
                     for tag_employee in userlist:
                         employee = self.env["hr.employee"].search(
-                            [
-                                ("wecom_userid", "=", tag_employee["userid"]),
-                            ]
+                            [("wecom_userid", "=", tag_employee["userid"]),]
                         )
                         employees.append(employee.id)
                     if len(employees) > 0:

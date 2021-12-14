@@ -68,13 +68,7 @@ class ResConfigSettings(models.TransientModel):
             providers = (
                 self.env["auth.oauth.provider"]
                 .sudo()
-                .search(
-                    [
-                        "|",
-                        ("enabled", "=", True),
-                        ("enabled", "=", False),
-                    ]
-                )
+                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
             )
         except Exception:
             providers = []
@@ -105,22 +99,20 @@ class ResConfigSettings(models.TransientModel):
         if debug:
             _logger.info(_("Start getting join enterprise QR code"))
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "GET_JOIN_QRCODE"
                 ),
-                {
-                    "size_type": self.company_id.join_qrcode_size_type,
-                },
+                {"size_type": self.company_id.join_qrcode_size_type,},
             )
 
             if response["errcode"] == 0:
                 self.company_id.join_qrcode = response["join_qrcode"]
-                self.company_id.join_qrcode_last_time = (
-                    datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                self.company_id.join_qrcode_last_time = datetime.datetime.now().strftime(
+                    "%Y-%m-%d %H:%M:%S"
                 )
 
                 if debug:
@@ -132,10 +124,7 @@ class ResConfigSettings(models.TransientModel):
                     "message": _("Successfully obtained the enterprise QR code."),
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",

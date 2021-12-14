@@ -23,23 +23,20 @@ class SyncDepartment(models.AbstractModel):
         debug = params.get_param("wecom.debug_enabled")
         if debug:
             _logger.info(
-                _("Start synchronizing departments of %s"),
-                company.name,
+                _("Start synchronizing departments of %s"), company.name,
             )
 
         result = ""
         times = 0
         try:
-            wxapi = self.env["wecom.service_api"].init_api(
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company, "contacts_secret", "contacts"
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "DEPARTMENT_LIST"
                 ),
-                {
-                    "id": str(company.contacts_sync_hr_department_id),
-                },
+                {"id": str(company.contacts_sync_hr_department_id),},
             )
             # response 为 dict
             # response["department"] 为 list
@@ -66,10 +63,7 @@ class SyncDepartment(models.AbstractModel):
             times = time.time()
             result = (
                 _("Failed to synchronized '%s''s WeCom Department") % company.name
-            ) % (
-                company.name,
-                e.errMsg,
-            )
+            ) % (company.name, e.errMsg,)
             if debug:
                 _logger.warning(
                     _(
@@ -191,11 +185,7 @@ class SyncDepartment(models.AbstractModel):
         departments = (
             self.env["hr.department"]
             .sudo()
-            .search(
-                [
-                    ("is_wecom_department", "=", True),
-                ]
-            )
+            .search([("is_wecom_department", "=", True),])
         )
 
         for department in departments:

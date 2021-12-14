@@ -41,11 +41,7 @@ class WeComMaterial(models.Model):
         copy=False,
         store=True,
     )
-    name = fields.Char(
-        "Name",
-        required=True,
-        translate=True,
-    )
+    name = fields.Char("Name", required=True, translate=True,)
     media_type = fields.Selection(
         [
             ("image", "Picture"),
@@ -159,8 +155,9 @@ class WeComMaterial(models.Model):
                             },
                         )
                         headers = {"Content-Type": multipart_encoder.content_type}
-                        wxapi = self.env["wecom.service_api"].init_api(
-                            self.company_id, "material_secret", "media"
+                        wxapi = self.env["wecom.service_api"].InitServiceApi(
+                            self.company_id.corpid,
+                            self.company_id.material_app_id.secret,
                         )
                         response = wxapi.httpPostFile(
                             self.env["wecom.service_api_list"].get_server_api_call(
@@ -189,8 +186,9 @@ class WeComMaterial(models.Model):
                     每个企业每天最多可上传100张图片
                     """
                     try:
-                        wxapi = self.env["wecom.service_api"].init_api(
-                            self.company_id, "material_secret", "media"
+                        wxapi = self.env["wecom.service_api"].InitServiceApi(
+                            self.company_id.corpid,
+                            self.company_id.material_app_id.secret,
                         )
                         # files = {"media": open(file_path, "rb")}
                         multipart_encoder = MultipartEncoder(

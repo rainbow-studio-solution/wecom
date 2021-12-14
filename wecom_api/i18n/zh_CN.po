@@ -106,8 +106,8 @@ msgstr ""
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
-msgid "<i class=\"fa fa-cogs  fa-lg\" aria-label=\"Contacts Configuration\"/>"
-msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录配置\"/>"
+msgid "<i class=\"fa fa-cogs fa-lg\" aria-label=\"Contacts Configuration\"/>"
+msgstr "<i class=\"fa fa-cogs fa-lg\" aria-label=\"通讯录配置\"/>"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
