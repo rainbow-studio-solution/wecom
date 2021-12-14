@@ -58,6 +58,11 @@ CONTACTS_PARAMETERS = [
 class WeComApps(models.Model):
     _inherit = "wecom.apps"
 
+    # 回调服务
+    app_callback_service_ids = fields.One2many(
+        "wecom.app_callback_service", "app_id", string="Receive event service",
+    )
+
     # 应用参数配置
     app_config_ids = fields.One2many(
         "wecom.app_config",

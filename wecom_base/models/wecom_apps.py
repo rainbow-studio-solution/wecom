@@ -96,31 +96,31 @@ class WeComApps(models.Model):
             else:
                 app.name = "%s/%s" % (labels, app.app_name)
 
-    def _default_callback_url(self):
-        """
-        默认回调地址
-        :return:"""
-        params = self.env["ir.config_parameter"].sudo()
-        base_url = params.get_param("web.base.url")
-        if self.company_id and self.code:
-            return base_url + "/wecom_callback/%s/%s" % (self.code, self.company_id.id,)
-        else:
-            return ""
+    # def _default_callback_url(self):
+    #     """
+    #     默认回调地址
+    #     :return:"""
+    #     params = self.env["ir.config_parameter"].sudo()
+    #     base_url = params.get_param("web.base.url")
+    #     if self.company_id and self.code:
+    #         return base_url + "/wecom_callback/%s/%s" % (self.code, self.company_id.id,)
+    #     else:
+    #         return ""
 
-    # 接收事件服务器配置
-    # https://work.weixin.qq.com/api/doc/90000/90135/90930
+    # # 接收事件服务器配置
+    # # https://work.weixin.qq.com/api/doc/90000/90135/90930
 
-    callback_url = fields.Char(
-        string="Callback URL",
-        store=True,
-        readonly=True,
-        default=_default_callback_url,
-        copy=False,
-    )  # 回调服务地址
-    callback_url_token = fields.Char(
-        string="Callback URL Token", copy=False
-    )  # Token用于计算签名
-    callback_aeskey = fields.Char(string="Callback AES Key", copy=False)  # 用于消息内容加密
+    # callback_url = fields.Char(
+    #     string="Callback URL",
+    #     store=True,
+    #     readonly=True,
+    #     default=_default_callback_url,
+    #     copy=False,
+    # )  # 回调服务地址
+    # callback_url_token = fields.Char(
+    #     string="Callback URL Token", copy=False
+    # )  # Token用于计算签名
+    # callback_aeskey = fields.Char(string="Callback AES Key", copy=False)  # 用于消息内容加密
 
     _sql_constraints = [
         (
@@ -130,20 +130,20 @@ class WeComApps(models.Model):
         ),
     ]
 
-    @api.onchange("company_id", "code")
-    def _onchange_callback_url(self):
-        """
-        当公司和服务名称发生变化时，更新回调服务地址
-        :return:
-        """
-        params = self.env["ir.config_parameter"].sudo()
-        base_url = params.get_param("web.base.url")
+    # @api.onchange("company_id", "code")
+    # def _onchange_callback_url(self):
+    #     """
+    #     当公司和服务名称发生变化时，更新回调服务地址
+    #     :return:
+    #     """
+    #     params = self.env["ir.config_parameter"].sudo()
+    #     base_url = params.get_param("web.base.url")
 
-        if self.company_id and self.code:
-            self.callback_url = base_url + "/wecom_callback/%s/%s" % (
-                self.code,
-                self.company_id.id,
-            )
-        else:
-            self.callback_url = ""
+    #     if self.company_id and self.code:
+    #         self.callback_url = base_url + "/wecom_callback/%s/%s" % (
+    #             self.code,
+    #             self.company_id.id,
+    #         )
+    #     else:
+    #         self.callback_url = ""
 
