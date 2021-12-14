@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="mt16">
-                                        <field name="material_agentid" />
+                                        <field name="material_agentid" widget="integer" options="{'format': false}"/>
                                     </div>
                                 </div>
                             </div>

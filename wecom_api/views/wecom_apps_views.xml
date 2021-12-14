@@ -144,23 +144,15 @@
                             </page>
                             <page name="callback" string="Callback service settings">
                                 <group>
-                                    <p class="text-info">
-                                When integrating enterprise wechat and internal systems, we often need to build a callback service. Callback service, which can realize:
-                                    </p>
-                                    <ol class="text-info">
-                                        <li>
-                                            <b>Customize rich service behavior.</b> For example, when users send messages to applications, they identify message keywords and reply to different message contents; When the user clicks the application menu, it will be converted into instructions to execute automation tasks.
-                                        </li>
-                                        <li>
-                                            <b>Status changes can be obtained in time. </b> For example, when the address book changes, you do not need to pull the address book regularly for comparison, but get the changed address book nodes in real time for synchronization.
-                                        </li>
-                                    </ol>
+                                    <field name="callback_url" force_save="1" widget="CopyClipboardChar"/>
+                                    <field name="callback_url_token" widget="wecom_password"/>
+                                    <field name="callback_aeskey" widget="wecom_password"/>
                                 </group>
                                 <group>
-                                    <p class="text-info">
-                            Setting method
-                                    </p>
-                                    <ol class="text-info">
+                                    <ul class="text-info">
+                                        <li class="text-info">
+                                        Setting method
+                                        </li>
                                         <li class="text-danger">
                                             <b>Controller:</b> Make sure the "Callback Service Name" exists in your controller code.
                                         </li>
@@ -176,13 +168,7 @@
                                         <li class="text-danger">
                                             <b>Change:</b> When the value of "receiving event server" of the current page and enterprise wechat application changes, please ensure that the values at both ends are consistent.
                                         </li>
-                                    </ol>
-                                </group>
-                                <group>
-
-                                    <field name="callback_url" force_save="1" widget="CopyClipboardChar"/>
-                                    <field name="callback_url_token" widget="wecom_password"/>
-                                    <field name="callback_aeskey" widget="wecom_password"/>
+                                    </ul>
                                 </group>
                             </page>
                             <page name="parameter" string="Parameter">
