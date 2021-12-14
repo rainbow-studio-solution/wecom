@@ -14,7 +14,7 @@
         <record model="ir.ui.view" id="view_wecom_app_config_list">
             <field name="model">wecom.app_config</field>
             <field name="arch" type="xml">
-                <tree string="Wecom Application Parameters">
+                <tree string="Wecom Application Parameters" expand="1">
                     <!-- <field name="company_id" /> -->
                     <field name="app_id" />
                     <field name="name"/>
@@ -45,6 +45,7 @@
         <record id="wecom_app_config_list_action" model="ir.actions.act_window">
             <field name="name">Application Parameters</field>
             <field name="res_model">wecom.app_config</field>
+            <field name="context">{'group_by':['app_id']}</field>
         </record>
     </data>
 </odoo>

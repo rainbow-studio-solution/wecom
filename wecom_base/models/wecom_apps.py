@@ -38,24 +38,16 @@ class WeComApps(models.Model):
     )
 
     name = fields.Char(
-        string="Name",
-        copy=False,
-        compute="_compute_name",
-        store=True,
-        index=True,
+        string="Name", copy=False, compute="_compute_name", store=True, index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name",
-        translate=True,
-        copy=True,
+        string="Application Name", translate=True, copy=True,
     )  # 应用名称
     # display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
     secret = fields.Char("Secret", default="", copy=False)
     square_logo_url = fields.Char(string="Square Logo", copy=True)  # 企业应用方形头像
-    description = fields.Text(
-        string="Description", translate=True, copy=False
-    )  # 企业应用详情
+    description = fields.Text(string="Description", translate=True, copy=True)  # 企业应用详情
     allow_userinfos = fields.Char(
         string="Visible range (personnel)", copy=False
     )  # 企业应用可见范围（人员），其中包括userid
@@ -111,10 +103,7 @@ class WeComApps(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         base_url = params.get_param("web.base.url")
         if self.company_id and self.code:
-            return base_url + "/wecom_callback/%s/%s" % (
-                self.code,
-                self.company_id.id,
-            )
+            return base_url + "/wecom_callback/%s/%s" % (self.code, self.company_id.id,)
         else:
             return ""
 

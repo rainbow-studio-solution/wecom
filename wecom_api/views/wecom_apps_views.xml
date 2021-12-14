@@ -16,18 +16,48 @@
             </field>
         </record>
 
-        <record id="view_wecom_apps_tree" model="ir.ui.view">
-            <field name="name">wecom.apps.tree</field>
+        <record id="view_wecom_apps_kanban" model="ir.ui.view">
+            <field name="name">wecom.apps.kanban</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-                <tree expand="1">
-                    <!-- <field name="display_name" /> -->
-                    <field name="name" />
-                    <field name="company_id" />
-                    <field name="type" />
-                    <field name="agentid" widget="integer" options="{'format': false}" />
+                <kanban sample="1">
+                    <field name="app_name"/>
+                    <field name="company_id"/>
+                    <field name="square_logo_url"/>
                     <field name="close"/>
-                </tree>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <field name="square_logo_url" widget="image_url" class="o_kanban_image_fill_left" options='{"size": [80, 80]}'/>
+
+                                <div class="oe_kanban_details ml8">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <div class="float-right">
+                                                    <span t-if="!record.close.raw_value" class="fa fa-circle text-success" role="img" aria-label="Enable" title="Enable">
+                                                    </span>
+                                                    <span t-if="record.close.raw_value" class="fa fa-circle text-danger" role="img" aria-label="Disabled" title="Disabled">
+                                                    </span>
+                                                </div>
+
+                                                <field name="app_name" />
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <field name="agentid" widget="integer" />
+                                        <field name="type" widget="badge" decoration-success="type == 'manage'" decoration-info="type == 'base'" decoration-warning="type == 'self'" decoration-secondary="type == 'third'"/>
+                                    </div>
+                                    <div class="oe_kanban_content">
+                                        <field name="description" class="text-muted"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </t>
+                    </templates>
+                </kanban>
             </field>
         </record>
 
@@ -35,7 +65,6 @@
             <field name="name">wecom.apps.tsearchree</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-
                 <form>
                     <sheet>
                         <div name="button_box" class="oe_button_box">
@@ -71,7 +100,7 @@
                         </group>
                         <group>
                             <group>
-                                <field name="agentid" options="{'format': false}" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
+                                <field name="agentid" widget="integer" options="{'format': false}" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
                             </group>
                             <group>
                                 <field name="secret" widget="wecom_password"/>
@@ -159,13 +188,14 @@
                             </page>
                             <page name="parameter" string="Parameter">
                                 <group>
-                                    <field name="app_config_ids" widget="one2many" mode="tree">
+                                    <field name="app_config_ids" widget="one2many_help" mode="tree" help="description">
                                         <!-- context="{'default_company_id': company_id}" -->
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <!-- <field name="company_id" readonly="1"/> -->
                                             <field name="name" readonly="1"/>
                                             <field name="key" readonly="1"/>
                                             <field name="value" required="1"/>
+                                            <field name="description" invisible="1"/>
                                         </tree>
                                     </field>
                                 </group>
@@ -179,10 +209,27 @@
             </field>
         </record>
 
+        <record id="view_wecom_apps_tree" model="ir.ui.view">
+            <field name="name">wecom.apps.tree</field>
+            <field name="model">wecom.apps</field>
+            <field name="arch" type="xml">
+                <tree expand="1">
+                    <!-- <field name="display_name" /> -->
+                    <field name="name" />
+                    <field name="company_id" />
+                    <field name="type" />
+                    <field name="agentid" widget="integer" options="{'format': false}" />
+                    <field name="close"/>
+                </tree>
+            </field>
+        </record>
+
+
+
         <record id="action_view_wecom_apps_list" model="ir.actions.act_window">
             <field name="name">Application</field>
             <field name="res_model">wecom.apps</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="context">{'group_by':['company_id']}</field>
             <field name="search_view_id" ref="view_wecom_apps_filter"/>
         </record>
