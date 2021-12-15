@@ -40,7 +40,7 @@ Install:
     "depends": ["attachment_indexation", "wecom_api"],
     "data": [
         "security/ir.model.access.csv",
-        "data/wecom_apps_data.xml",
+        # "data/wecom_apps_data.xml",
         "data/material_data.xml",
         "views/material_views.xml",
         # "views/res_company_views.xml",
