@@ -35,7 +35,7 @@ class WecomServerApi(models.TransientModel):
         if api["access_token"] is False or api["access_token"] == "":
             # token为空，刷新API令牌记录
             api.refreshAccessToken()
-        if api["expiration_time"] < datetime.now():
+        if api["expiration_time"] is False or api["expiration_time"] < datetime.now():
             # token过期，刷新API令牌记录
             api.refreshAccessToken()
 
