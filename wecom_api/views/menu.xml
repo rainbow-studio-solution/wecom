@@ -3,6 +3,8 @@
     <data>
         <menuitem id="menu_wecom_agent_list" name="Application list" parent="wecom_base.menu_wecom_agent" sequence="1" action="wecom_api.action_view_wecom_apps_list" groups="base.group_erp_manager"/>
 
+        <menuitem id="menu_wecom_agent_service" name="Application receive event service" parent="wecom_base.menu_wecom_agent" sequence="2" action="wecom_api.wecom_app_callback_service_list_action" groups="base.group_erp_manager"/>
+
         <menuitem id="menu_wecom_agent_config" name="Application Parameters" parent="wecom_base.menu_wecom_agent" sequence="3" action="wecom_api.wecom_app_config_list_action" groups="base.group_erp_manager"/>
 
         <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_pull_wecom_service_api_error" sequence="0"/>

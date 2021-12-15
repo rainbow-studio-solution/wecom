@@ -25,7 +25,7 @@ class StripeController(http.Controller):
         """
 
     @http.route(
-        ["/wecom_callback/<string:service>/<int:id>", "/wecom_callback/contacts"],
+        ["/wecom_callback/<int:id>/<string:service>", "/wecom_callback/contacts"],
         type="http",
         auth="public",
         methods=["GET", "POST"],
@@ -33,8 +33,8 @@ class StripeController(http.Controller):
     def WecomCallbackService(self, service, id, **kw):
         """
         企业微信回调服务
-        :param service:回调服务名称 code
         :param id:      公司id
+        :param service:回调服务名称 code        
         """
         company_id = request.env["res.company"].sudo().search([("id", "=", id)])
         corpid = company_id.corpid

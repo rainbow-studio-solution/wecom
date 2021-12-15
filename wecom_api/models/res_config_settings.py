@@ -18,6 +18,7 @@ class ResConfigSettings(models.TransientModel):
     contacts_app_id = fields.Many2one(
         related="company_id.contacts_app_id", readonly=False
     )
+
     contacts_secret = fields.Char(related="contacts_app_id.secret", readonly=False)
 
     contacts_access_token = fields.Char(related="contacts_app_id.access_token")
@@ -27,6 +28,10 @@ class ResConfigSettings(models.TransientModel):
         related="contacts_app_id.app_config_ids",
         # domain="[('company_id', '=', company_id),('app_id', '=', contacts_app_id)]",
         readonly=False,
+    )
+
+    app_callback_service_ids = fields.One2many(
+        related="contacts_app_id.app_callback_service_ids", readonly=False
     )
 
     # contacts_auto_sync_hr_enabled = fields.Boolean(
@@ -107,3 +112,14 @@ class ResConfigSettings(models.TransientModel):
                 raise ValidationError(_("Please bind contact app!"))
             else:
                 record.contacts_app_id.generate_parameters()
+
+    def generate_service(self):
+        """
+        生成服务
+        :return:
+        """
+        for record in self:
+            if not record.contacts_app_id:
+                raise ValidationError(_("Please bind contact app!"))
+            else:
+                record.contacts_app_id.generate_service()

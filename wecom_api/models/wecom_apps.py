@@ -73,9 +73,45 @@ class WeComApps(models.Model):
         # },
     )  # 应用参数配置
 
+    def generate_service(self):
+        """
+        生成回调服务
+        :return:
+        """
+        if self.code == "contacts":
+            # 创建回调服务
+            app_callback_service = (
+                self.env["wecom.app_callback_service"]
+                .sudo()
+                .search([("app_id", "=", self.id), ("code", "=", self.code)])
+            )
+            if not app_callback_service:
+                app_callback_service.create(
+                    {
+                        "app_id": self.id,
+                        "name": _("Contacts synchronization"),
+                        "code": self.code,
+                        "callback_url_token": "",
+                        "callback_aeskey": "",
+                        "description": _(
+                            "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
+                        ),
+                    }
+                )
+            else:
+                app_callback_service.write(
+                    {
+                        "name": _("Contacts synchronization"),
+                        "code": self.code,
+                        "description": _(
+                            "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
+                        ),
+                    }
+                )
+
     def generate_parameters(self):
         """
-        生成联系人参数
+        生成通讯录参数
         :return:
         """
         if self.code == "contacts":

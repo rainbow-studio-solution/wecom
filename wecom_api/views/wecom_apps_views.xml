@@ -147,14 +147,18 @@
                                     <!-- <field name="callback_url" force_save="1" widget="CopyClipboardChar"/>
                                     <field name="callback_url_token" widget="wecom_password"/>
                                     <field name="callback_aeskey" widget="wecom_password"/> -->
-                                    <field name="app_callback_service_ids" widget="one2many" mode="tree" help="description">
+                                    <field name="app_callback_service_ids" options="{'no_open': True, 'no_create': True}" widget="one2many_help" mode="tree" help="description">
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
-                                            <field name="callback_url" readonly="1"/>
-                                            <field name="callback_url_token" readonly="1"/>
+                                            <field name="name" readonly="1" />
+                                            <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
+                                            <field name="callback_url_token" required="1"/>
                                             <field name="callback_aeskey" required="1"/>
-
+                                            <field name="description" invisible="1"/>
                                         </tree>
                                     </field>
+                                </group>
+                                <group class="text-right">
+                                    <button class="btn-outline-info" name="generate_service" string="Generate service" type="object" icon="fa-server" />
                                 </group>
                                 <group>
                                     <ul class="text-info">

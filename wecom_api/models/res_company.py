@@ -15,6 +15,7 @@ class Company(models.Model):
         # default=lambda self: self.env.company,
         domain="[('company_id', '=', current_company_id)]",
     )
+
     # contacts_secret = fields.Char(
     #     "Contact Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     # )
