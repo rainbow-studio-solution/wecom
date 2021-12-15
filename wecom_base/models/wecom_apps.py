@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime, timedelta
+
 from odoo import _, api, fields, models
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-from odoo.api import model_create_single
 
 
 class WeComApps(models.Model):
@@ -19,29 +18,35 @@ class WeComApps(models.Model):
         store=True,
     )
 
-    code = fields.Char(
-        string="Application Code",
-        copy=True,
-        help="Used to apply callback service and generate application parameters.",
-    )  # 1.回调服务地址代码，便于在路由中查找 2.生成应用参数
+    # code = fields.Char(
+    #     string="Application Code",
+    #     copy=True,
+    #     help="Buttons to show or hide build services and build parameters.",
+    # )  # 用于显示或隐藏生成服务和生成参数的按钮。
 
-    type = fields.Selection(
-        [
-            ("manage", "Manage Tools"),
-            ("base", "Base application"),
-            ("self", "Self built application"),
-            ("third", "Third party application"),
-        ],
-        string="Application type",
-        required=True,
-        copy=True,
-    )
+    # type = fields.Selection(
+    #     [
+    #         ("manage", "Manage Tools"),
+    #         ("base", "Base application"),
+    #         ("self", "Self built application"),
+    #         ("third", "Third party application"),
+    #     ],
+    #     string="Application type",
+    #     required=True,
+    #     copy=True,
+    # )
 
     name = fields.Char(
-        string="Name", copy=False, compute="_compute_name", store=True, index=True,
+        string="Name",
+        copy=False,
+        compute="_compute_name",
+        store=True,
+        index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name", translate=True, copy=True,
+        string="Application Name",
+        translate=True,
+        copy=True,
     )  # 应用名称
     # display_name = fields.Char(compute="_compute_display_name", store=True, index=True)
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
@@ -81,20 +86,20 @@ class WeComApps(models.Model):
         )
     ]
 
-    @api.depends("company_id", "app_name", "type")
-    def _compute_name(self):
-        for app in self:
-            labels = dict(self.fields_get(allfields=["type"])["type"]["selection"])[
-                app.type
-            ]
-            if app.company_id:
-                app.name = "%s/%s/%s" % (
-                    app.company_id.abbreviated_name,
-                    labels,
-                    app.app_name,
-                )
-            else:
-                app.name = "%s/%s" % (labels, app.app_name)
+    # @api.depends("company_id", "app_name", "type")
+    # def _compute_name(self):
+    #     for app in self:
+    #         labels = dict(self.fields_get(allfields=["type"])["type"]["selection"])[
+    #             app.type
+    #         ]
+    #         if app.company_id:
+    #             app.name = "%s/%s/%s" % (
+    #                 app.company_id.abbreviated_name,
+    #                 labels,
+    #                 app.app_name,
+    #             )
+    #         else:
+    #             app.name = "%s/%s" % (labels, app.app_name)
 
     # def _default_callback_url(self):
     #     """
@@ -122,13 +127,13 @@ class WeComApps(models.Model):
     # )  # Token用于计算签名
     # callback_aeskey = fields.Char(string="Callback AES Key", copy=False)  # 用于消息内容加密
 
-    _sql_constraints = [
-        (
-            "code_company_uniq",
-            "unique (code, company_id)",
-            "The callback service name of each company is unique!",
-        ),
-    ]
+    # _sql_constraints = [
+    #     (
+    #         "code_company_uniq",
+    #         "unique (code, company_id)",
+    #         "The callback service name of each company is unique!",
+    #     ),
+    # ]
 
     # @api.onchange("company_id", "code")
     # def _onchange_callback_url(self):
@@ -146,4 +151,3 @@ class WeComApps(models.Model):
     #         )
     #     else:
     #         self.callback_url = ""
-

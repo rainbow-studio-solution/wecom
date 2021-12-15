@@ -5,11 +5,12 @@
         <record id="wecom_app_contacts" model="wecom.apps">
             <!-- <field name="company_id" ref="base.main_company"/> -->
             <field name="app_name">Contacts synchronization</field>
-            <field name="type">manage</field>
+            <!-- <field name="type">manage</field> -->
             <field name="description">Contacts can be synchronized through the API interface or through third-party applications</field>
             <field name="square_logo_url">https://wwcdn.weixin.qq.com/node/wwmng/wwmng/style/images/icons/AppAddressSyncBig$c4dae6e7.svg</field>
             <field name="sequence">0</field>
-            <field name="code">contacts</field>
+            <!-- <field name="code">contacts</field> -->
         </record>
+
     </data>
 </odoo>

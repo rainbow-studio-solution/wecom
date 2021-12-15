@@ -10,3 +10,5 @@ wecom_service_api_error_access_right_user,access.wecom.service_api_error,model_w
 
 wecom_app_callback_service_access_right,access.wecom.app.callback_service_right,model_wecom_app_callback_service,base.group_erp_manager,1,1,1,1
 wecom_app_config_access_right,access.wecom.app.config,model_wecom_app_config,base.group_erp_manager,1,1,1,1
+
+

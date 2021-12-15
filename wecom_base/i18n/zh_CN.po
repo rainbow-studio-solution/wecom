@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-10 17:07+0000\n"
-"PO-Revision-Date: 2021-12-11 01:09+0800\n"
+"POT-Creation-Date: 2021-12-15 15:09+0000\n"
+"PO-Revision-Date: 2021-12-15 23:11+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,18 +19,18 @@ msgstr ""
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Contacts access token\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"通讯录访问令牌\"/>"
+msgid "<i class=\"fa fa-archive fa-lg\" aria-label=\"WeCom resources\"/>"
+msgstr "<i class=\"fa fa-archive fa-lg\" aria-label=\"企业微信资源\"/>"
+
+#. module: wecom_base
+#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
+msgid "<i class=\"fa fa-flag fa-lg\" aria-label=\"Corp Id\"/>"
+msgstr "<i class=\"fa fa-flag fa-lg\" aria-label=\"企业Id\"/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Corp ID\"/>"
 msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "<i class=\"fa fa-lock fa-lg\" aria-label=\"Contacts Secret\"/>"
-msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录密钥/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -80,41 +80,15 @@ msgstr ""
 "                            </span>"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-th fa-lg\" aria-label=\"Contact synchronization\"/>\n"
-"                                    Contact synchronization Settings\n"
-"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the "
-"companies identified as WeCom organizations.\"/>\n"
-"                            </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-book fa-lg\" aria-label=\"通讯录同步\"/>\n"
-" 通讯录同步设置\n"
-"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"\"此处设置的值是标识为企业微信组"
-"织的公司。\"/>\n"
-"                            </span>"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__abbreviated_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__abbreviated_name
 msgid "Abbreviated Name"
 msgstr "公司简称"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_access_token
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__access_token
 msgid "Access Token"
 msgstr "访问令牌"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need "
-"to turn on \"API interface synchronization\"). To ensure data security, the key must not be leaked."
-msgstr ""
-"通讯簿同步密钥。 在“管理工具”→“地址簿同步”中进行检查（需要打开“ API接口同步”）。 为了确保数据安全，切勿泄露密钥。"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__agentid
@@ -122,22 +96,19 @@ msgid "Agent ID"
 msgstr "应用ID"
 
 #. module: wecom_base
-#: model:ir.actions.act_window,name:wecom_base.action_view_wecom_apps_list
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_app_id
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_app_id
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_agent
 msgid "Application"
 msgstr "应用"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__code
+msgid "Application Code"
+msgstr "应用代码"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__app_name
 msgid "Application Name"
 msgstr "应用名称"
-
-#. module: wecom_base
-#: model:ir.ui.menu,name:wecom_base.menu_wecom_agent_list
-msgid "Application list"
-msgstr "应用列表"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type
@@ -150,9 +121,9 @@ msgid "Base application"
 msgstr "基础应用"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "Binding application"
-msgstr "绑定应用"
+#: model:ir.model.fields,help:wecom_base.field_wecom_apps__code
+msgid "Buttons to show or hide build services and build parameters."
+msgstr "用于显示或隐藏生成服务和生成参数的按钮。"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -184,9 +155,7 @@ msgid "Companies settings"
 msgstr "公司设置"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__company_id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__company_id
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_filter
 msgid "Company"
 msgstr "公司"
 
@@ -204,16 +173,6 @@ msgstr "配置设置"
 #: model:ir.model,name:wecom_base.model_res_partner
 msgid "Contact"
 msgstr "联系人"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_secret
-msgid "Contact Secret"
-msgstr "通讯录密钥"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_access_token
-msgid "Contact token"
-msgstr "通讯录访问令牌"
 
 #. module: wecom_base
 #: model:wecom.apps,description:wecom_base.wecom_app_contacts
@@ -295,11 +254,6 @@ msgid "GoTop"
 msgstr "滚动到顶部"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_filter
-msgid "Group By"
-msgstr "分组"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__home_url
 msgid "Home page"
 msgstr "首页"
@@ -312,25 +266,6 @@ msgstr "首页"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__id
 msgid "ID"
 msgstr ""
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"Important notes when obtaining application \"address book\" information in the background of the WeCom, this "
-"information needs to be carried during communication to verify the access authority of the interface.\n"
-"                                            <br/>\n"
-"                                            <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            The token has been cached and the system will automatically refresh the "
-"token.\n"
-"                                            </span>"
-msgstr ""
-"在企业微信的后台获取应用“通讯录”信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
-"                                                        <br/>\n"
-"                                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            令牌已被缓存，系统将自动刷新令牌。\n"
-"                                                        </span>"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
@@ -391,11 +326,6 @@ msgid "Open the geographic location and report"
 msgstr "打开地理位置上报"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
-msgid "Option"
-msgstr "选项"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__qr_code
 #: model:ir.model.fields,field_description:wecom_base.field_res_users__qr_code
 msgid "Personal QR code"
@@ -413,7 +343,6 @@ msgid "Report user entry event"
 msgstr "打开进入会话上报"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_secret
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__secret
 msgid "Secret"
 msgstr "密钥"
@@ -446,10 +375,14 @@ msgstr "方形Logo"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_code_company_uniq
+msgid "The callback service name of each company is unique!"
+msgstr "每个公司的回调服务名称都是唯一的！"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -573,8 +506,3 @@ msgstr "企微用户open_userid"
 #: model:ir.actions.act_window,name:wecom_base.open_module_tree_user
 msgid "users"
 msgstr "用户"
-
-#. module: wecom_base
-#: model:wecom.apps,name:wecom_base.wecom_app_contacts
-msgid "欧亚会展/管理工具/Contacts synchronization"
-msgstr ""
