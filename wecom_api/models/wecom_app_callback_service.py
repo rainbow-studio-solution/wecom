@@ -32,7 +32,7 @@ class WeComAppCallbackService(models.Model):
         string="URL",
         store=True,
         readonly=True,
-        # compute="_default_callback_url",
+        compute="_default_callback_url",
         copy=False,
     )  # 回调服务地址
     callback_url_token = fields.Char(string="Token", copy=False)  # Token用于计算签名
@@ -57,10 +57,10 @@ class WeComAppCallbackService(models.Model):
         base_url = params.get_param("web.base.url")
         callback_url = ""
         for server in self:
-            if self.app_id.company_id and self.code:
+            if server.app_id.company_id and server.code:
                 callback_url = base_url + "/wecom_callback/%s/%s" % (
-                    self.app_id.company_id.id,
-                    self.code,
+                    server.app_id.company_id.id,
+                    server.code,
                 )
 
             server.callback_url = callback_url
