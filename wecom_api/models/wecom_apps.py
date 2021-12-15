@@ -78,19 +78,20 @@ class WeComApps(models.Model):
         生成回调服务
         :return:
         """
-        if self.code == "contacts":
-            # 创建回调服务
+        code = self.env.context.get("code")
+        if bool(code) and code == "contacts":
+            # 创建通讯录回调服务
             app_callback_service = (
                 self.env["wecom.app_callback_service"]
                 .sudo()
-                .search([("app_id", "=", self.id), ("code", "=", self.code)])
+                .search([("app_id", "=", self.id), ("code", "=", code)])
             )
             if not app_callback_service:
                 app_callback_service.create(
                     {
                         "app_id": self.id,
                         "name": _("Contacts synchronization"),
-                        "code": self.code,
+                        "code": code,
                         "callback_url_token": "",
                         "callback_aeskey": "",
                         "description": _(
@@ -102,7 +103,7 @@ class WeComApps(models.Model):
                 app_callback_service.write(
                     {
                         "name": _("Contacts synchronization"),
-                        "code": self.code,
+                        "code": code,
                         "description": _(
                             "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
                         ),
@@ -114,9 +115,9 @@ class WeComApps(models.Model):
         生成通讯录参数
         :return:
         """
-        if self.code == "contacts":
+        code = self.env.context.get("code")
+        if bool(code) and code == "contacts":
             for prame in CONTACTS_PARAMETERS:
-                # prame["app_id"] = self.id
                 app_config = (
                     self.env["wecom.app_config"]
                     .sudo()

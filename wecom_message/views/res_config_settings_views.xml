@@ -30,7 +30,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-list-ol fa-lg" aria-label="Message Agentid"/>
                             </div>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-key fa-lg" aria-label="Message Secret"/>
                             </div>
@@ -62,6 +62,32 @@
                                 <div class="content-group">
                                     <div class="mt16">
                                         <field name="message_secret" widget="wecom_password"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="message_app_callback_service_ids"/>
+                                <div class="row">
+                                    <div class="content-group">
+                                        <div class="mt4">
+                                            <field name="message_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
+                                                <tree create="0" edit="true" delete="0" editable="bottom" help="description">
+                                                    <field name="name" readonly="1"/>
+                                                    <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
+                                                    <field name="callback_url_token" required="1"/>
+                                                    <field name="callback_aeskey" required="1"/>
+                                                    <field name="description" invisible="1"/>
+                                                </tree>
+                                            </field>
+                                        </div>
+                                        <div class="text-right">
+                                            <button class="btn-outline-info" name="generate_service" context="{'code': 'message'}" string="Generate service" type="object" icon="fa-server" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

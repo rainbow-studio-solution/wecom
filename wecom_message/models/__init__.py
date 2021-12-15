@@ -10,4 +10,4 @@ from . import wecom_message_message
 from . import wecom_mail_thread
 
 # from . import wecom_message
-# from . import wecom_mail_thread
+from . import wecom_apps

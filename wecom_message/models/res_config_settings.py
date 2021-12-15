@@ -5,7 +5,7 @@ import os
 import io
 from PIL import Image
 from odoo import api, fields, models, tools, _
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 class ResConfigSettings(models.TransientModel):
@@ -25,6 +25,10 @@ class ResConfigSettings(models.TransientModel):
     message_agentid = fields.Integer(related="message_app_id.agentid", readonly=False)
     message_secret = fields.Char(related="message_app_id.secret", readonly=False)
     message_access_token = fields.Char(related="message_app_id.access_token")
+
+    message_app_callback_service_ids = fields.One2many(
+        related="message_app_id.app_callback_service_ids", readonly=False
+    )
     # wecom_message_logo = fields.Binary(
     #     related="company_id.wecom_message_logo", readonly=False
     # )
@@ -68,3 +72,31 @@ class ResConfigSettings(models.TransientModel):
     #             )
     #         else:
     #             raise UserError(_("Please upload a picture of the square!"))
+
+    def generate_parameters(self):
+        """
+        生成参数
+        :return:
+        """
+        code = self.env.context.get("code")
+        if bool(code) and code == "message":
+            for record in self:
+                if not record.message_app_id:
+                    raise ValidationError(_("Please bind contact app!"))
+                else:
+                    record.message_app_id.with_context(code=code).generate_parameters()
+        super(ResConfigSettings, self).generate_parameters()
+
+    def generate_service(self):
+        """
+        生成服务
+        :return:
+        """
+        code = self.env.context.get("code")
+        if bool(code) and code == "message":
+            for record in self:
+                if not record.message_app_id:
+                    raise ValidationError(_("Please bind contact app!"))
+                else:
+                    record.message_app_id.with_context(code=code).generate_service()
+        super(ResConfigSettings, self).generate_service()

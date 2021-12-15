@@ -92,7 +92,7 @@
                                             </field>
                                         </div>
                                         <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_parameters" string="Generate parameters" type="object" icon="fa-cogs" />
+                                            <button class="btn-outline-info" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
                                         </div>
                                     </div>
                                 </div>
@@ -104,11 +104,11 @@
                                 <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="app_callback_service_ids"/>
+                                <label for="contacts_app_callback_service_ids"/>
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
+                                            <field name="contacts_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
@@ -119,7 +119,7 @@
                                             </field>
                                         </div>
                                         <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_service" string="Generate service" type="object" icon="fa-server" />
+                                            <button class="btn-outline-info" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
                                         </div>
                                     </div>
                                 </div>

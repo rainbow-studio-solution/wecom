@@ -1449,7 +1449,7 @@ msgid "Recall application message"
 msgstr "撤回应用消息"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__app_callback_service_ids
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_callback_service_ids
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__app_callback_service_ids
 msgid "Receive event service"
 msgstr "接收事件服务"

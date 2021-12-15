@@ -32,7 +32,7 @@ class WeComAppCallbackService(models.Model):
         string="URL",
         store=True,
         readonly=True,
-        compute="_default_callback_url",
+        # compute="_default_callback_url",
         copy=False,
     )  # 回调服务地址
     callback_url_token = fields.Char(string="Token", copy=False)  # Token用于计算签名

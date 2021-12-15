@@ -30,7 +30,7 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
     )
 
-    app_callback_service_ids = fields.One2many(
+    contacts_app_callback_service_ids = fields.One2many(
         related="contacts_app_id.app_callback_service_ids", readonly=False
     )
 
@@ -107,19 +107,23 @@ class ResConfigSettings(models.TransientModel):
         生成参数
         :return:
         """
-        for record in self:
-            if not record.contacts_app_id:
-                raise ValidationError(_("Please bind contact app!"))
-            else:
-                record.contacts_app_id.generate_parameters()
+        code = self.env.context.get("code")
+        if bool(code) and code == "contacts":
+            for record in self:
+                if not record.contacts_app_id:
+                    raise ValidationError(_("Please bind contact app!"))
+                else:
+                    record.contacts_app_id.with_context(code=code).generate_parameters()
 
     def generate_service(self):
         """
         生成服务
         :return:
         """
-        for record in self:
-            if not record.contacts_app_id:
-                raise ValidationError(_("Please bind contact app!"))
-            else:
-                record.contacts_app_id.generate_service()
+        code = self.env.context.get("code")
+        if bool(code) and code == "contacts":
+            for record in self:
+                if not record.contacts_app_id:
+                    raise ValidationError(_("Please bind contact app!"))
+                else:
+                    record.contacts_app_id.with_context(code=code).generate_service()
