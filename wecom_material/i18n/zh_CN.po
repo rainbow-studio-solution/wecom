@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 09:02+0000\n"
-"PO-Revision-Date: 2021-12-14 17:04+0800\n"
+"POT-Creation-Date: 2021-12-16 08:31+0000\n"
+"PO-Revision-Date: 2021-12-16 16:32+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -292,9 +292,9 @@ msgid "Secret"
 msgstr "密钥"
 
 #. module: wecom_material
-#: model:wecom.apps,app_name:wecom_material.wecom_app_contacts
-msgid "Self built application"
-msgstr "ODOO"
+#: model:wecom.app.subtype,name:wecom_material.wecom_app_subtype_odoo
+msgid "Your first app"
+msgstr "你的第一个应用"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__temporary
@@ -394,3 +394,8 @@ msgstr "企业微信存储路径尚未配置！"
 #: model:wecom.material,name:wecom_material.wecom_material_image_welcome
 msgid "Welcome"
 msgstr "欢迎"
+
+#. module: wecom_material
+#: model:wecom.apps,app_name:wecom_material.wecom_app_firstapp
+msgid "Your first app"
+msgstr "你的第一个应用"

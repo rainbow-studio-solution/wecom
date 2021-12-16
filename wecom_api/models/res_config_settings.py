@@ -1,7 +1,6 @@
-from random import weibullvariate
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
-from .wecom_apps import CONTACTS_PARAMETERS
+
 
 
 class ResConfigSettings(models.TransientModel):

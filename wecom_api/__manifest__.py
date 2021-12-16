@@ -22,7 +22,6 @@ WeCom Service-side API and Client-side API
         "data/ir_cron_data.xml",
         "data/service_api_list_data.xml",
         "data/wecom_server_api_error_data.xml",
-        # "data/wecom_app_type_data.xml",
         "views/assets_templates.xml",
         "views/ir_cron_views.xml",
         # "views/wecom_service_api_views.xml",
@@ -34,14 +33,7 @@ WeCom Service-side API and Client-side API
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {
-        "python": [
-            "requests_toolbelt",
-            "pandas",
-        ],
-    },
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "external_dependencies": {"python": ["requests_toolbelt", "pandas",],},
+    "qweb": ["static/src/xml/*.xml",],
     # "post_init_hook": "post_init_hook",
 }

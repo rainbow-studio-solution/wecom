@@ -25,7 +25,7 @@
                                 <label for="contacts_app_id" string="Binding application"/>
                                 <div class="content-group">
                                     <div class="mt8">
-                                        <field name="contacts_app_id" class="w-100 " widget="selection" required="1"/>
+                                        <field name="contacts_app_id" class="w-100 " widget="selection"/>
                                     </div>
                                 </div>
                             </div>

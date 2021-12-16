@@ -8,12 +8,7 @@ class WeComAppType(models.Model):
     _description = "Wecom Application Subtype"
     _order = "sequence"
 
-    name = fields.Char(
-        string="Name",
-        translate=True,
-        copy=False,
-        required=True,
-    )
+    name = fields.Char(string="Name", translate=True, copy=False, required=True,)
 
     parent_id = fields.Many2one(
         "wecom.app.type",
@@ -23,17 +18,7 @@ class WeComAppType(models.Model):
         copy=False,
         required=True,
     )
-    code = fields.Char(
-        string="Code",
-        copy=False,
-        required=True,
-    )
+    code = fields.Char(string="Code", copy=False, required=True,)
     sequence = fields.Integer(default=0, copy=True)
 
-    _sql_constraints = [
-        (
-            "code_uniq",
-            "unique (code)",
-            _("Code must be unique !"),
-        )
-    ]
+    _sql_constraints = [("code_uniq", "unique (code)", _("Code must be unique !"),)]

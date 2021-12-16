@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from datetime import datetime, timedelta
-from typing_extensions import Required
 from odoo import _, api, fields, models
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from ..api.wecom_abstract_api import ApiException
 
 
 CONTACTS_PARAMETERS = [
@@ -75,79 +73,15 @@ BASE_APP_TYPE = [
     ("kf", _("Wechat customer service")),
     ("enterprisepay", _("Enterprise pay")),
 ]
+SUBTYPE_LIST = []
 
 
 class WeComApps(models.Model):
     _inherit = "wecom.apps"
 
-    # 应用类型  required=True
-    type = fields.Selection(
-        [
-            ("manage", "Manage Tools"),
-            ("base", "Base application"),
-            ("self", "Self built application"),
-            ("third", "Third party application"),
-        ],
-        string="Application Type",
-        required=True,
-        copy=True,
-    )
-
-    subtype = fields.Selection(
-        compute="_compute_subtype",
-        selection=lambda self: self._selection_values(),
-        string="Application Subtype",
-    )
-
-    def _selection_values(self):
-        return MANAGE_APP_TYPE + BASE_APP_TYPE
-
-    @api.depends("type")
-    def _compute_subtype(self):
-        for res in self:
-            if res.type == "manage":
-                res.subtype.selection = MANAGE_APP_TYPE
-            elif res.type == "base":
-                res.subtype.selection = BASE_APP_TYPE
-
-    # @api.onchange("type")
-    # def _onchange_type(self):
-    #     self.subtype = False
-
-    #     if self.type:
-    #         print(self.type)
-    #         if self.type == "manage":
-    #             self.subtype.selection = MANAGE_APP_TYPE
-    #         elif self.type == "base":
-    #             self.subtype.selection = BASE_APP_TYPE
-    #     return {
-    #         "domain": {"app_subtype_id": [("parent_id", "=", self.app_type_id.id)]}
-    #     }
-    # else:
-    #     return {"domain": {"app_subtype_id": []}}
-
-    # app_type_id = fields.Many2one(
-    #     "wecom.app.type",
-    #     string="Type",
-    # )
-    # app_subtype_id = fields.Many2one("wecom.app.subtype", string="Subtype")
-
-    # @api.onchange("app_type_id")
-    # def _onchange_app_type_id(self):
-    #     self.app_subtype_id = False
-
-    #     if self.app_type_id:
-    #         return {
-    #             "domain": {"app_subtype_id": [("parent_id", "=", self.app_type_id.id)]}
-    #         }
-    #     else:
-    #         return {"domain": {"app_subtype_id": []}}
-
     # 回调服务
     app_callback_service_ids = fields.One2many(
-        "wecom.app_callback_service",
-        "app_id",
-        string="Receive event service",
+        "wecom.app_callback_service", "app_id", string="Receive event service",
     )
 
     # 应用参数配置

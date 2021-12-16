@@ -37,8 +37,6 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
         },
     });
 
-
-
     ListRenderer.include({
         events: _.extend({}, ListRenderer.prototype.events, {
             'mouseenter .o_field_one2many_help_show': 'showHelpToolTip',
@@ -76,19 +74,22 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
             var $row = this._super.apply(this, arguments);
 
             if (this.is_one2many_help) {
-                var data_id = $row.data("id");
-                var help = this.help_records.find(item => item.id === data_id).data["description"];
                 $row.find("td:first").before($("<td/>").html(index + 1));
-                var title = _t("No help description");
-                if (help != "") {
-                    title = help;
+                if (this.state.data.length > 0) {
+                    var data_id = $row.data("id");
+                    var help = this.state.data.find(item => item.id === data_id).data["description"];
+                    var title = _t("No help description");
+                    if (help != "") {
+                        title = help;
+                    }
+                    var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-placement='left' data-title='%s' html='true'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
+
+                    var $show_help_btn = _.str.sprintf(show_help_btn_html, title, _t("Show"));
+                    $($show_help_btn).attr("container", false);
+                    $row.find("td:last").after($("<td class='text-right'></td>").append($show_help_btn));
+                } else {
+                    $row.find("td:last").after($("<td class='text-right'></td>"));
                 }
-
-                var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-placement='left' data-title='%s' html='true'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
-
-                var $show_help_btn = _.str.sprintf(show_help_btn_html, title, _t("Show"));
-                $($show_help_btn).attr("container", false);
-                $row.find("td:last").after($("<td class='text-right'></td>").append($show_help_btn));
             }
             return $row;
         },

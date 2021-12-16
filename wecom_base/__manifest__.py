@@ -23,6 +23,7 @@
         "data/ir_module_category_data.xml",
         "data/ir_config_parameter.xml",
         "data/res_company_data.xml",
+        "data/wecom_app_type_data.xml",
         "data/wecom_apps_data.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
@@ -31,11 +32,7 @@
         # "views/wecom_apps_views.xml",
         "views/menu.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "qweb": ["static/src/xml/*.xml",],
+    "external_dependencies": {"python": [],},
     # "post_init_hook": "_open_wecom_settings",
 }
