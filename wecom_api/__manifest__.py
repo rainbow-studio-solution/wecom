@@ -30,6 +30,8 @@ WeCom Service-side API and Client-side API
         "views/wecom_apps_views.xml",
         "views/wecom_app_callback_service_views.xml",
         "views/wecom_app_config_views.xml",
+        "views/wecom_app_type_views.xml",
+        "views/wecom_app_subtype_views.xml",
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],

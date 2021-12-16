@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_wecom_app_type_list">
+            <field name="name">wecom.app.type.tree</field>
+            <field name="model">wecom.app.type</field>
+            <field name="arch" type="xml">
+                <tree string="Wecom Application Type" expand="1">
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_wecom_app_type_form">
+            <field name="name">wecom.app.type.form</field>
+            <field name="model">wecom.app.type</field>
+            <field name="arch" type="xml">
+                <form string="Wecom Application Type">
+                    <sheet>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="code" required="1"/>
+                            <field name="sequence" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wecom_app_type_list_action" model="ir.actions.act_window">
+            <field name="name">Application Type</field>
+            <field name="res_model">wecom.app.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

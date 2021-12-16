@@ -7,6 +7,12 @@
 
         <menuitem id="menu_wecom_agent_config" name="Application Parameters" parent="wecom_base.menu_wecom_agent" sequence="3" action="wecom_api.wecom_app_config_list_action" groups="base.group_erp_manager"/>
 
+        <menuitem id="menu_wecom_agent_type" name="Application Type" parent="wecom_base.menu_wecom_agent" sequence="4" groups="base.group_erp_manager"/>
+
+        <menuitem id="menu_wecom_agent_type_list" name="Type" parent="wecom_api.menu_wecom_agent_type" sequence="1" action="wecom_api.wecom_app_type_list_action" groups="base.group_erp_manager"/>
+
+        <menuitem id="menu_wecom_agent_subtype_list" name="SubType" parent="wecom_api.menu_wecom_agent_type" sequence="2" action="wecom_api.wecom_app_subtype_list_action" groups="base.group_erp_manager"/>
+
         <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_pull_wecom_service_api_error" sequence="0"/>
 
         <menuitem id="menu_wecom_api" name="API" groups="base.group_system" parent="wecom_base.menu_wecom_root" sequence="700"/>
