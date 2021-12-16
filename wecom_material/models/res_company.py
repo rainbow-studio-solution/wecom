@@ -17,5 +17,6 @@ class Company(models.Model):
         string="Application",
         # required=True,
         # default=lambda self: self.env.company,
+        # domain="[('company_id', '=', current_company_id)]",
         domain="[('company_id', '=', current_company_id)]",
     )

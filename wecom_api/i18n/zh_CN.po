@@ -209,6 +209,8 @@ msgstr ""
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Allow API to edit WeCom contacts"
 msgstr "允许API编辑企微通讯录"
@@ -216,6 +218,8 @@ msgstr "允许API编辑企微通讯录"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Allow WeCom Contacts are automatically updated to HR"
 msgstr "允许企微通讯录自动更新到HR"
@@ -223,6 +227,8 @@ msgstr "允许企微通讯录自动更新到HR"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Allow WeCom contacts to automatically update system accounts"
 msgstr "允许企微通讯录自动更新系统帐户"
@@ -569,6 +575,8 @@ msgstr "删除指定规则组下的企业客户标签"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Department ID to be synchronized"
 msgstr "要同步的部门ID"
@@ -576,6 +584,8 @@ msgstr "要同步的部门ID"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid ""
 "Department id. Get the specified department and its sub-departments. If you "
@@ -684,6 +694,8 @@ msgstr "启用"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid ""
 "Enable this, Employee photos will use the default avatar. Will save a lot of "
@@ -696,6 +708,8 @@ msgstr ""
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid ""
 "Enable this,Each update will overwrite the employee photos you have set up.<hr></"
@@ -708,6 +722,8 @@ msgstr ""
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Enable to allow batch generation of system accounts from employees;"
 msgstr "允许员工批量生成系统账户;"
@@ -1286,6 +1302,8 @@ msgstr "身份验证"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid ""
 "If enabled, it allows to read the WeCom address book through the API interface "
@@ -1769,6 +1787,8 @@ msgstr ""
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Update avatar every time sync"
 msgstr "每次同步时更新头像"
@@ -1816,6 +1836,8 @@ msgstr "上传临时素材"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:1
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
 #, python-format
 msgid "Use system default Avatar"
 msgstr "使用系统默认头像"
@@ -1982,3 +2004,9 @@ msgstr ""
 #: model:ir.model.constraint,message:wecom_api.constraint_wecom_app_config_app_id_key_uniq
 msgid "每个应用程序的 参数键 必须是唯一的！"
 msgstr ""
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"<strong>Save</strong> this page and come back here to set up the feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置该功能。"

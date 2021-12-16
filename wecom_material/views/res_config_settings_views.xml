@@ -26,7 +26,12 @@
                                 <label for="material_app_id" string="Binding application"/>
                                 <div class="content-group">
                                     <div class="mt8">
-                                        <field name="material_app_id" class="w-100 " widget="selection" required="1"/>
+                                        <field name="material_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', '!=', 'contacts'),('company_id', '=', company_id)]"/>
+                                    </div>
+
+                                    <div class="mt8" attrs="{'invisible': [('material_app_id','=',False)]}">
+                                        <div class="text-warning mt16">
+                                            <strong>Save</strong> this page and come back here to set up the feature.</div>
                                     </div>
                                 </div>
                             </div>

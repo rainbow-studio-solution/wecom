@@ -291,10 +291,7 @@ msgstr "重置密码"
 msgid "Secret"
 msgstr "密钥"
 
-#. module: wecom_material
-#: model:wecom.app.subtype,name:wecom_material.wecom_app_subtype_odoo
-msgid "Your first app"
-msgstr "你的第一个应用"
+
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__temporary

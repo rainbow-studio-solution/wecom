@@ -3,20 +3,20 @@
     <data noupdate="1">
 
         <!-- 应用子类型 -->
-        <record id="wecom_app_subtype_erp" model="wecom.app.subtype">
-            <field name="name">ERP</field>
+        <record id="wecom_app_subtype_message" model="wecom.app.subtype">
+            <field name="name">Message</field>
             <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
-            <field name="code">erp</field>
+            <field name="code">message</field>
             <field name="sequence">1</field>
         </record>
 
         <!-- 应用 -->
-        <record id="wecom_app_firstapp" model="wecom.apps">
-            <field name="app_name">Your first app</field>
+        <record id="wecom_app_message_app" model="wecom.apps">
+            <field name="app_name">Send app message</field>
             <field name="type">self</field>
             <field name="type_id" ref="wecom_base.wecom_app_type_self"/>
-            <field name="subtype" ref="wecom_material.wecom_app_subtype_erp"/>
-            <field name="type_code">erp</field>
+            <field name="subtype" ref="wecom_message.wecom_app_subtype_message"/>
+            <field name="type_code">message</field>
             <field name="description"></field>
             <field name="square_logo_url"></field>
             <field name="sequence">1</field>

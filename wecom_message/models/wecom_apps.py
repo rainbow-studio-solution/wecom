@@ -12,9 +12,8 @@ class WeComApps(models.Model):
         生成回调服务
         :return:
         """
-
         code = self.env.context.get("code")
-        print("------------------", code)
+
         if bool(code) and code == "message":
             # 创建消息回调服务
             app_callback_service = (

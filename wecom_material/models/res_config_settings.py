@@ -15,7 +15,8 @@ class ResConfigSettings(models.TransientModel):
 
     # 通讯录
     material_app_id = fields.Many2one(
-        related="company_id.material_app_id", readonly=False
+        related="company_id.material_app_id",
+        readonly=False,
     )
 
     material_agentid = fields.Integer(related="material_app_id.agentid", readonly=False)

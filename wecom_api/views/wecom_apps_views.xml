@@ -20,7 +20,7 @@
             <field name="name">wecom.apps.kanban</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-                <kanban sample="1">
+                <kanban sample="1" group_create="false" group_delete="false" group_edit="false" column_edit="false" create="false" edit="false" delete="false" records_draggable="0" quick_create="false">
                     <field name="app_name"/>
                     <field name="company_id"/>
                     <field name="square_logo_url"/>
@@ -61,7 +61,7 @@
         </record>
 
         <record id="view_wecom_apps_form" model="ir.ui.view">
-            <field name="name">wecom.apps.tsearchree</field>
+            <field name="name">wecom.apps.form</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
                 <form>
