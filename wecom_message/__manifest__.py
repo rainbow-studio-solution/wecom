@@ -27,7 +27,7 @@
     "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
         "security/ir.model.access.csv",
-        # "data/res_company_data.xml",
+        "data/wecom_apps_data.xml",
         "data/message_template_data.xml",
         # "wizard/mail_template_preview_views.xml",
         "views/assets_templates.xml",
