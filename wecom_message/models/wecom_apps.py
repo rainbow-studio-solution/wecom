@@ -7,14 +7,14 @@ from odoo import _, api, fields, models
 class WeComApps(models.Model):
     _inherit = "wecom.apps"
 
-    def generate_service(self):
+    def generate_service_by_code(self, code):
         """
-        生成回调服务
+        根据code生成回调服务
+        :param code:
         :return:
         """
-        code = self.env.context.get("code")
 
-        if bool(code) and code == "message":
+        if code == "message":
             # 创建消息回调服务
             app_callback_service = (
                 self.env["wecom.app_callback_service"]
@@ -59,4 +59,4 @@ After receiving the message, the enterprise background can bring a new message i
                     }
                 )
 
-        super(WeComApps, self).generate_service()
+        super(WeComApps, self).generate_service_by_code(code)

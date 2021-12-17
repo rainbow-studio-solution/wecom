@@ -6,8 +6,87 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="wecom_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
+                <div id="wecom_message_warning" position="replace">
 
-                <xpath expr="//div[@data-key='wecom_base']/div[hasclass('o_settings_container')][last()]" position="after">
+                </div>
+                <div id="wecom_message_install" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Message Application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="message_app_id" string="Binding application"/>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="message_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%message%'),('company_id', '=', company_id)]"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-list-ol fa-lg" aria-label="Message Agentid"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="message_agentid"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="message_agentid" widget="integer" options="{'format': false}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-key fa-lg" aria-label="Message Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="message_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="message_secret" widget="wecom_password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="message_app_callback_service_ids"/>
+                            <div class="row">
+                                <div class="content-group">
+                                    <div class="mt4">
+                                        <field name="message_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
+                                            <tree create="0" edit="true" delete="0" editable="bottom" help="description">
+                                                <field name="name" readonly="1"/>
+                                                <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
+                                                <field name="callback_url_token" required="1"/>
+                                                <field name="callback_aeskey" required="1"/>
+                                                <field name="description" invisible="1"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div class="text-right">
+                                        <button class="btn-outline-info" name="generate_service" context="{'code': 'message'}" string="Generate service" type="object" icon="fa-server" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <xpath expr="//div[@data-key='wecom_base']/div[hasclass('o_settings_container')][last()]" position="after">
                     <h2 id="wecom_push" class="d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-envelope-o fa-lg" aria-label="WeCom Message"/>
@@ -17,87 +96,9 @@
                         <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
                     <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-puzzle-piece fa-lg" aria-label="Message Application"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="message_app_id" string="Binding application"/>
-                                <div class="content-group">
-                                    <div class="mt8">
-                                        <field name="message_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', '=', 'message'),('company_id', '=', company_id)]"/>
-                                    </div>
-                                    <div class="mt8" attrs="{'invisible': [('message_app_id','=',False)]}">
-                                        <div class="text-warning mt16">
-                                            <strong>Save</strong> this page and come back here to set up the feature.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg" aria-label="Message Agentid"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="message_agentid"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="message_agentid" widget="integer" options="{'format': false}" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg" aria-label="Message Secret"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="message_secret"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="message_secret" widget="wecom_password"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="message_app_callback_service_ids"/>
-                                <div class="row">
-                                    <div class="content-group">
-                                        <div class="mt4">
-                                            <field name="message_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
-                                                <tree create="0" edit="true" delete="0" editable="bottom" help="description">
-                                                    <field name="name" readonly="1"/>
-                                                    <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
-                                                    <field name="callback_url_token" required="1"/>
-                                                    <field name="callback_aeskey" required="1"/>
-                                                    <field name="description" invisible="1"/>
-                                                </tree>
-                                            </field>
-                                        </div>
-                                        <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_service" context="{'code': 'message'}" string="Generate service" type="object" icon="fa-server" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </div>
-                </xpath>
+                </xpath> -->
             </field>
         </record>
 

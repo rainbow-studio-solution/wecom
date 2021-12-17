@@ -163,8 +163,6 @@
                                     </field>
                                 </group>
                                 <group class="text-right">
-                                    <!-- <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','!=','contacts')]}"/> -->
-                                    <!-- <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','child_of',['contacts'])]}"/> -->
                                     <button class="btn-outline-info" name="generate_service" string="Generate service" type="object" icon="fa-server" />
                                 </group>
                                 <group>
