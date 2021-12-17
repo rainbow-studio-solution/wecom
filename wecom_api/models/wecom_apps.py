@@ -1,79 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from odoo import _, api, fields, models
 from ..api.wecom_abstract_api import ApiException
 
-
-CONTACTS_PARAMETERS = [
-    {
-        "name": _("Allow WeCom Contacts are automatically updated to HR"),
-        "key": "contacts_auto_sync_hr_enabled",
-        "value": "True",
-        "description": _(
-            "If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;<br></br>Otherwise, you can only manually bind WeCom users."
-        ),
-    },
-    {
-        "name": _("Department ID to be synchronized"),
-        "key": "contacts_sync_hr_department_id",
-        "value": "1",
-        "description": _(
-            "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default"
-        ),
-    },
-    {
-        "name": _("Allow API to edit WeCom contacts"),
-        "key": "contacts_edit_enabled",
-        "value": "False",
-        "description": "",
-    },
-    {
-        "name": _("Allow WeCom contacts to automatically update system accounts"),
-        "key": "contacts_sync_user_enabled",
-        "value": "1",
-        "description": _(
-            "Enable to allow batch generation of system accounts from employees;"
-        ),
-    },
-    {
-        "name": _("Use system default Avatar"),
-        "key": "contacts_use_system_default_avatar",
-        "value": "True",
-        "description": _(
-            "Enable this, Employee photos will use the default avatar. Will save a lot of synchronization time.<hr></hr><span class='text-info font-weight-bold'>Valid only when synchronizing new employees.</span>"
-        ),
-    },
-    {
-        "name": _("Update avatar every time sync"),
-        "key": "contacts_update_avatar_every_time_sync",
-        "value": "True",
-        "description": _(
-            "Enable this,Each update will overwrite the employee photos you have set up.<hr></hr><span class='text-warning font-weight-bold'>Use this feature with caution.</span>"
-        ),
-    },
-]
-
-MANAGE_APP_TYPE = [
-    ("msgaudit", _("Session content archiving")),
-    ("contacts", _("Contacts synchronization")),
-]
-
-BASE_APP_TYPE = [
-    ("calendar", _("Calendar")),
-    ("meeting", _("Meeting")),
-    ("dial", _("Public telephone")),
-    ("wedrive", _("We Drive")),
-    ("living", _("Living")),
-    ("checkin", _("Checkin")),
-    ("approval", _("Approval")),
-    ("journal", _("Journal")),
-    ("meetingroom", _("Meeting room")),
-    ("health", _("Health")),
-    ("externalpay", _("External pay")),
-    ("kf", _("Wechat customer service")),
-    ("enterprisepay", _("Enterprise pay")),
-]
-SUBTYPE_LIST = []
+_logger = logging.getLogger(__name__)
 
 
 class WeComApps(models.Model):
@@ -137,34 +68,64 @@ class WeComApps(models.Model):
         :return:
         """
         code = self.env.context.get("code")
+
         if bool(code) and code == "contacts":
-            for prame in CONTACTS_PARAMETERS:
+            # 从xml 获取数据
+            ir_model_data = self.env["ir.model.data"]
+            contacts_auto_sync_hr_enabled = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_auto_sync_hr_enabled"
+            )[1]
+            contacts_sync_hr_department_id = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_sync_hr_department_id"
+            )[1]
+            contacts_edit_enabled = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_edit_enabled"
+            )[1]
+            contacts_sync_user_enabled = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_sync_user_enabled"
+            )[1]
+            contacts_use_system_default_avatar = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_use_system_default_avatar"
+            )[1]
+            contacts_update_avatar_every_time_sync = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_update_avatar_every_time_sync"
+            )[1]
+            vals_list = [
+                contacts_auto_sync_hr_enabled,
+                contacts_sync_hr_department_id,
+                contacts_edit_enabled,
+                contacts_sync_user_enabled,
+                contacts_use_system_default_avatar,
+                contacts_update_avatar_every_time_sync,
+            ]
+
+            for id in vals_list:
+                config = self.env["wecom.app_config"].search([("id", "=", id)])
                 app_config = (
                     self.env["wecom.app_config"]
                     .sudo()
-                    .search([("app_id", "=", self.id), ("key", "=", prame["key"])])
+                    .search([("app_id", "=", self.id), ("key", "=", config.key)])
                 )
-
                 if not app_config:
                     app_config = (
                         self.env["wecom.app_config"]
                         .sudo()
                         .create(
                             {
-                                "name": prame["name"],
+                                "name": config.name,
                                 "app_id": self.id,
-                                "key": prame["key"],
-                                "value": prame["value"],
-                                "description": prame["description"],
+                                "key": config.key,
+                                "value": config.value,
+                                "description": config.description,
                             }
                         )
                     )
                 else:
-                    app_config.write(
+                    app_config.sudo().write(
                         {
-                            "name": prame["name"],
-                            "value": prame["value"],
-                            "description": prame["description"],
+                            "name": config.name,
+                            "value": config.value,
+                            "description": config.description,
                         }
                     )
 
@@ -246,3 +207,11 @@ class WeComApps(models.Model):
         #             "sticky": False,
         #         }
         #         return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
+
+    def cron_get_app_token(self):
+        """
+        自动任务定时获取应用token
+        """
+        for app in self.search([("company_id", "!=", False)]):
+            _logger.info(_("Start getting token for app [%s].") % (app.name))
+            app.get_access_token()

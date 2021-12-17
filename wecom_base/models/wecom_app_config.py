@@ -10,15 +10,6 @@ class WeComAppConfig(models.Model):
     # _rec_name = "key"
     _order = "key"
 
-    # company_id = fields.Many2one(
-    #     "res.company",
-    #     string="Company",
-    #     domain="[('is_wecom_organization', '=', True)]",
-    #     copy=False,
-    #     store=True,
-    #     # required=True,
-    # )
-
     app_id = fields.Many2one(
         "wecom.apps",
         string="Application",

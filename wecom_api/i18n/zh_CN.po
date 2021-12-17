@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 09:41+0000\n"
-"PO-Revision-Date: 2021-12-16 17:43+0800\n"
+"POT-Creation-Date: 2021-12-17 07:59+0000\n"
+"PO-Revision-Date: 2021-12-17 16:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -127,9 +127,9 @@ msgstr ""
 "                        </span>"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__callback_aeskey
-msgid "AES Key"
-msgstr "AES密钥"
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "<strong>Save</strong> this page and come back here to set up the feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置该功能。"
 
 #. module: wecom_api
 #: model:ir.ui.menu,name:wecom_api.menu_wecom_api
@@ -207,33 +207,6 @@ msgstr ""
 "为了确保数据安全，切勿泄露密钥。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Allow API to edit WeCom contacts"
-msgstr "允许API编辑企微通讯录"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Allow WeCom Contacts are automatically updated to HR"
-msgstr "允许企微通讯录自动更新到HR"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Allow WeCom contacts to automatically update system accounts"
-msgstr "允许企微通讯录自动更新系统帐户"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__request_type
 msgid "Api Request Type"
 msgstr "Api请求类型"
@@ -247,8 +220,6 @@ msgstr "Api类型"
 #: model:ir.actions.act_window,name:wecom_api.action_view_wecom_apps_list
 #: model:ir.model.fields,field_description:wecom_api.field_res_company__contacts_app_id
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__app_id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__app_id
 msgid "Application"
 msgstr "应用"
 
@@ -304,13 +275,6 @@ msgid ""
 msgstr "互联企业的应用支持推送文本、图片、视频、文件、图文等类型。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Approval"
-msgstr "审批"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_resigned_transfer_customer
 msgid "Assign customers of resigned members to other members"
 msgstr "分配离职成员的客户给其他成员"
@@ -348,13 +312,6 @@ msgid "Binding application"
 msgstr "绑定应用"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Calendar"
-msgstr "日程"
-
-#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Callback service settings"
 msgstr "回调服务设置"
@@ -368,13 +325,6 @@ msgstr "为客户取消推荐"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_cancel_book
 msgid "Cancel the reservation of the meeting room"
 msgstr "取消预定会议室"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Checkin"
-msgstr "打卡"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_close_temp_chat
@@ -480,8 +430,6 @@ msgid "Create tag"
 msgstr "创建标签"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__create_uid
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
@@ -489,8 +437,6 @@ msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__create_date
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
@@ -573,32 +519,6 @@ msgid "Deletes the enterprise customer tag under the specified rule group"
 msgstr "删除指定规则组下的企业客户标签"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Department ID to be synchronized"
-msgstr "要同步的部门ID"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid ""
-"Department id. Get the specified department and its sub-departments. If you "
-"don’t fill in, get the full organization structure by default"
-msgstr "部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构"
-
-#. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__description
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__description
-msgid "Description"
-msgstr "描述"
-
-#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid ""
 "Developers need to cache access_token for subsequent interface calls (note: "
@@ -617,8 +537,6 @@ msgstr "停用"
 #: model:ir.model.fields,field_description:wecom_api.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
@@ -692,53 +610,9 @@ msgid "Enable"
 msgstr "启用"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid ""
-"Enable this, Employee photos will use the default avatar. Will save a lot of "
-"synchronization time.<hr></hr><span class='text-info font-weight-bold'>Valid "
-"only when synchronizing new employees.</span>"
-msgstr ""
-"启用此选项，员工照片将使用默认头像。将节省大量的同步时间<hr></hr><span "
-"class='text-info font-weight bold'>仅在同步新员工时有效</span>"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid ""
-"Enable this,Each update will overwrite the employee photos you have set up.<hr></"
-"hr><span class='text-warning font-weight-bold'>Use this feature with caution.</"
-"span>"
-msgstr ""
-"启用此选项后，每次更新都将覆盖您设置的员工照片<hr></hr><span class='text-warning "
-"font-weight bold'>谨慎使用此功能</span>"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Enable to allow batch generation of system accounts from employees;"
-msgstr "允许员工批量生成系统账户;"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_add_checkin_user_face
 msgid "Enter employee face information"
 msgstr "录入打卡人员人脸信息"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Enterprise pay"
-msgstr "企业支付"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
@@ -797,13 +671,6 @@ msgstr "导出成员详情"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_taguser
 msgid "Export tag members"
 msgstr "导出标签成员"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "External pay"
-msgstr "对外收款"
 
 #. module: wecom_api
 #: code:addons/wecom_api/tools/action.py:0
@@ -895,6 +762,11 @@ msgstr "获取活跃成员"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_corp_checkin_option
 msgid "Get all check-in rules of the enterprise"
 msgstr "获取企业内所有打卡规则数据"
+
+#. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_app_get_token
+msgid "Get app token"
+msgstr "获取应用令牌"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
@@ -1268,18 +1140,9 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Health"
-msgstr "健康上班"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
@@ -1298,20 +1161,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__5
 msgid "Identity authentication"
 msgstr "身份验证"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid ""
-"If enabled, it allows to read the WeCom address book through the API interface "
-"and automatically synchronize to ODOO;<br></br>Otherwise, you can only manually "
-"bind WeCom users."
-msgstr ""
-"如果启用，它允许通过API接口读取企微通讯录，并自动同步到ODOO<br></br>否则，您只能"
-"手动绑定企微用户。"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
@@ -1356,23 +1205,9 @@ msgid "Invite members"
 msgstr "邀请成员"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Journal"
-msgstr "汇报"
-
-#. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__key
-msgid "Key"
-msgstr "键"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
@@ -1388,8 +1223,6 @@ msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__write_uid
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
@@ -1397,8 +1230,6 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__write_date
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
@@ -1411,30 +1242,9 @@ msgid "List"
 msgstr "列表"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Living"
-msgstr "直播"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__8
 msgid "Media material"
 msgstr "媒体素材"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Meeting"
-msgstr "会议"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Meeting room"
-msgstr "会议室"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_auth_success
@@ -1465,11 +1275,6 @@ msgstr "修改敏感词规则"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_remark
 msgid "Modifying customer remark information"
 msgstr "修改客户备注信息"
-
-#. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__name
-msgid "Name"
-msgstr "名称"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
@@ -1513,19 +1318,10 @@ msgstr "参数"
 
 #. module: wecom_api
 #: code:addons/wecom_api/models/res_config_settings.py:0
-#: code:addons/wecom_api/models/wecom_app_callback_service.py:0
 #: code:addons/wxwork/wecom_api/models/res_config_settings.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_app_callback_service.py:0
 #, python-format
 msgid "Please bind contact app!"
 msgstr "请绑定通讯录应用程序！"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "Public telephone"
-msgstr "公费电话"
 
 #. module: wecom_api
 #. openerp-web
@@ -1659,20 +1455,7 @@ msgid "Sequence"
 msgstr "排序"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__code
-msgid "Service Code"
-msgstr "服务代码"
-
-#. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__name
-msgid "Service Name"
-msgstr "服务名称"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
-#, python-format
 msgid "Session content archiving"
 msgstr "会话内容存档"
 
@@ -1702,6 +1485,13 @@ msgid "Setting method"
 msgstr "设置方法"
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Start getting token for app [%s]."
+msgstr "开始获取应用 [%s] 的令牌."
+
+#. module: wecom_api
 #: code:addons/wecom_api/models/wecom_server_api_error.py:0
 #: code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
@@ -1726,23 +1516,9 @@ msgid "Successfully pulled the WeCom global error code!"
 msgstr "已成功拉取企微全局错误代码！"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_app_callback_service.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_app_callback_service.py:0
-#, python-format
-msgid "The code of each application must be unique !"
-msgstr "每个应用的服务代码必须是唯一的！"
-
-#. module: wecom_api
 #: model:ir.model.constraint,message:wecom_api.constraint_wecom_service_api_list_function_name_uniq
 msgid "The function is unique !"
 msgstr "功能是唯一的！"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_app_config.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_app_config.py:0
-#, python-format
-msgid "The key of each application must be unique !"
-msgstr "每个应用程序的 参数键 必须是唯一的！"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
@@ -1760,11 +1536,6 @@ msgid ""
 msgstr "通过此接口，了解员工是否已接听语音电话。"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__callback_url_token
-msgid "Token"
-msgstr "令牌"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_service_state_trans
 msgid "Transition customer service session state"
 msgstr "变更会话状态"
@@ -1778,20 +1549,6 @@ msgstr "处理方法"
 #: model:ir.ui.menu,name:wecom_api.menu_wecom_agent_type_list
 msgid "Type"
 msgstr "类型"
-
-#. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_callback_service__callback_url
-msgid "URL"
-msgstr ""
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Update avatar every time sync"
-msgstr "每次同步时更新头像"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_update
@@ -1834,35 +1591,26 @@ msgid "Upload temporary material"
 msgstr "上传临时素材"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#: code:addons/wecom_api/models/wecom_apps.py:1
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:1
-#, python-format
-msgid "Use system default Avatar"
-msgstr "使用系统默认头像"
-
-#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_userid_to_openid
 msgid "Userid and openid are interchangeable"
 msgstr "userid 与 openid 相互转换"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_config__value
-msgid "Value"
-msgstr "值"
-
-#. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
-#, python-format
-msgid "We Drive"
-msgstr "微盘"
-
-#. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_message_api
 msgid "WeCom Message API"
 msgstr "企微消息API"
+
+#. module: wecom_api
+#: model:ir.actions.server,name:wecom_api.ir_cron_get_app_token_ir_actions_server
+#: model:ir.cron,cron_name:wecom_api.ir_cron_get_app_token
+#: model:ir.cron,name:wecom_api.ir_cron_get_app_token
+msgid "WeCom: Get app token"
+msgstr "企业微信：获取令牌"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_get_app_token
+msgid "WeCom: Get app token."
+msgstr "企业微信：获取令牌。"
 
 #. module: wecom_api
 #: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error
@@ -1873,10 +1621,7 @@ msgid "WeCom: Pull the global error code of WeCom."
 msgstr "企业微信：拉取企业微信的全局错误码。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
-#: code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__4
-#, python-format
 msgid "Wechat customer service"
 msgstr "微信客服"
 
@@ -1923,11 +1668,6 @@ msgid "Wecom Application"
 msgstr "企微应用"
 
 #. module: wecom_api
-#: model:ir.model,name:wecom_api.model_wecom_app_config
-msgid "Wecom Application Configuration"
-msgstr "企微应用配置"
-
-#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_form
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_list
 msgid "Wecom Application Parameters"
@@ -1940,11 +1680,6 @@ msgstr "企微应用参数"
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_type_list
 msgid "Wecom Application Type"
 msgstr "企微应用类型"
-
-#. module: wecom_api
-#: model:ir.model,name:wecom_api.model_wecom_app_callback_service
-msgid "Wecom Application receive event service"
-msgstr "企微应用接收事件服务"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api
@@ -1994,19 +1729,3 @@ msgstr "企业支付"
 #, python-format
 msgid "unknown method type"
 msgstr "未知方法类型"
-
-#. module: wecom_api
-#: model:ir.model.constraint,message:wecom_api.constraint_wecom_app_callback_service_app_code_uniq
-msgid "每个应用的服务代码必须是唯一的！"
-msgstr ""
-
-#. module: wecom_api
-#: model:ir.model.constraint,message:wecom_api.constraint_wecom_app_config_app_id_key_uniq
-msgid "每个应用程序的 参数键 必须是唯一的！"
-msgstr ""
-
-#. module: wecom_api
-#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
-msgid ""
-"<strong>Save</strong> this page and come back here to set up the feature."
-msgstr "<strong>保存</strong> 此页面并返回此处以设置该功能。"

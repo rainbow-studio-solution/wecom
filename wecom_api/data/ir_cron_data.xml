@@ -15,6 +15,19 @@
             <field name="doall" eval="False"/>
         </record>
 
+        <record forcecreate="True" id="ir_cron_get_app_token" model="ir.cron">
+            <field name="name">WeCom: Get app token</field>
+            <field name="model_id" ref="model_wecom_apps"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_get_app_token()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">2</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
+
 
     </data>
 </odoo>

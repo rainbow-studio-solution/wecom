@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 06:50+0000\n"
-"PO-Revision-Date: 2021-12-16 14:51+0800\n"
+"POT-Creation-Date: 2021-12-17 05:35+0000\n"
+"PO-Revision-Date: 2021-12-17 13:43+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -38,6 +38,11 @@ msgid ""
 "<span class=\"fa fa-lg fa-info-circle\" title=\"The value set here is the company identified as WeCom organization."
 "\"/>"
 msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_use_system_default_avatar
+msgid "<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees.</span>"
+msgstr "<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
@@ -80,6 +85,11 @@ msgstr ""
 "                            </span>"
 
 #. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid "<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>"
+msgstr "<span class=\"text-warning font-weight-bold\">请谨慎使用此功能.</span>"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__abbreviated_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__abbreviated_name
 msgid "Abbreviated Name"
@@ -96,6 +106,22 @@ msgid "Agent ID"
 msgstr "应用ID"
 
 #. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_edit_enabled
+msgid "Allow API to edit WeCom contacts"
+msgstr "允许API编辑企业微信通讯录"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_auto_sync_hr_enabled
+msgid "Allow WeCom Contacts are automatically updated to HR"
+msgstr "允许企微通讯录自动更新到HR"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_sync_user_enabled
+msgid "Allow WeCom contacts to automatically update system accounts"
+msgstr "允许企微通讯录自动更新系统帐户"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__app_id
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_agent
 msgid "Application"
 msgstr "应用"
@@ -230,6 +256,7 @@ msgid "Corp ID"
 msgstr "企业Id"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__create_uid
@@ -237,6 +264,7 @@ msgid "Created by"
 msgstr "创建者"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__create_date
@@ -244,6 +272,19 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_sync_hr_department_id
+msgid "Department ID to be synchronized"
+msgstr "需要同步的部门ID"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_hr_department_id
+msgid ""
+"Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full "
+"organization structure by default"
+msgstr "部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__description
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__description
 msgid "Description"
 msgstr "应用详情"
@@ -258,6 +299,7 @@ msgstr "停用"
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__display_name
@@ -265,9 +307,29 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_use_system_default_avatar
+msgid "Enable this, Employee photos will use the default avatar. Will save a lot of synchronization time."
+msgstr "启用此选项，员工照片将使用默认头像。将节省大量的同步时间。"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid "Enable this,Each update will overwrite the employee photos you have set up."
+msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_user_enabled
+msgid "Enable to allow batch generation of system accounts from employees;"
+msgstr "允许员工批量生成系统账户"
+
+#. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_enterprisepay
 msgid "Enterprise pay"
 msgstr "企业支付"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_edit_enabled
+msgid "Enterprise wechat Contacts can be read and edited through API interface"
+msgstr "可通过API接口读取及编辑企业微信通讯录"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__expiration_time
@@ -315,11 +377,22 @@ msgstr "首页"
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__id
 msgid "ID"
 msgstr ""
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_auto_sync_hr_enabled
+msgid ""
+"If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to "
+"ODOO;\n"
+"                    <br>Otherwise, you can only manually bind WeCom users."
+msgstr ""
+"如果启用，它允许通过API接口读取企微通讯录，并自动同步到ODO；;\n"
+"                    <br>否则，您只能手动绑定企微用户。"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
@@ -333,10 +406,16 @@ msgid "Journal"
 msgstr "汇报"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__key
+msgid "Key"
+msgstr "键"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps____last_update
@@ -344,6 +423,7 @@ msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__write_uid
@@ -351,6 +431,7 @@ msgid "Last Updated by"
 msgstr "最后更新者"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__write_date
@@ -388,6 +469,7 @@ msgid "Module"
 msgstr "模块"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__name
@@ -479,6 +561,12 @@ msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_config.py:0 code:addons/wxwork/wecom_base/models/wecom_app_config.py:0
+#, python-format
+msgid "The key of each application must be unique !"
+msgstr "每个应用的 键 必须是唯一的！"
+
+#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 msgid ""
 "The path used to save WeCom resources,<span class=\"text-danger\">Need to have read and write permissions on the "
@@ -528,6 +616,21 @@ msgstr "开启调试模式"
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 msgid "Update Info"
 msgstr "更新信息"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid "Update avatar every time sync"
+msgstr "每次同步时更新头像"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_use_system_default_avatar
+msgid "Use system default Avatar"
+msgstr "使用系统默认头像"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__value
+msgid "Value"
+msgstr "值"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__allow_partys
@@ -601,6 +704,11 @@ msgid "Wecom Application"
 msgstr "企微应用"
 
 #. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_config
+msgid "Wecom Application Configuration"
+msgstr "企微应用配置"
+
+#. module: wecom_base
 #: model:ir.model,name:wecom_base.model_wecom_app_subtype
 msgid "Wecom Application Subtype"
 msgstr "企微应用子类型"
@@ -630,4 +738,9 @@ msgstr ""
 #. module: wecom_base
 #: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
 msgid "每个公司的应用程序名称必须是唯一的！"
+msgstr ""
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
+msgid "每个应用程序的 参数键 必须是唯一的！"
 msgstr ""
