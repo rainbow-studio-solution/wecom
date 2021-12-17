@@ -82,7 +82,7 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
                     if (help != "") {
                         title = help;
                     }
-                    var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-placement='left' data-title='%s' html='true'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
+                    var show_help_btn_html = _t("<button class='btn btn-default btn-sm o_field_one2many_help_show' data-placement='left' data-content='%s' html='true'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</button>");
 
                     var $show_help_btn = _.str.sprintf(show_help_btn_html, title, _t("Show"));
                     $($show_help_btn).attr("container", false);
@@ -102,6 +102,14 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
             return $footer;
         },
         showHelpToolTip: function (ev) {
+            var help_content_text = "<div class='o_field_one2many_help_container'><div class='o_field_one2many_help_header'>%s</div><div class='o_field_one2many_help_text'>%s</div></div>";
+            var options = {
+                placement: 'left',
+                title: _.str.sprintf(help_content_text, _t("Description"), $(ev.target).data("content")),
+                trigger: 'hover',
+                html: true,
+            }
+            $(ev.target).tooltip(options);
             $(ev.target).tooltip('show', true);
         },
         hideHelpToolTip: function (ev) {

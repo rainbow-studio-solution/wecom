@@ -16,6 +16,7 @@
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/jsoneditor.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/dialog.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/showpassword.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/one2many_help.scss"/>
 
         </xpath>
     </template>

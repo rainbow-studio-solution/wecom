@@ -20,7 +20,6 @@
             <field name="description"></field>
             <field name="square_logo_url"></field>
             <field name="sequence">1</field>
-
         </record>
 
     </data>
