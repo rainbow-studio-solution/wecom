@@ -20,4 +20,3 @@ class Company(models.Model):
     #     "Contact Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     # )
     # contacts_access_token = fields.Char(string="Contact token", readonly=True,)
-

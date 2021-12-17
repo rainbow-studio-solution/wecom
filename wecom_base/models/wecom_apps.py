@@ -3,6 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from odoo.exceptions import UserError
 
 
 class WeComApps(models.Model):
@@ -11,10 +12,16 @@ class WeComApps(models.Model):
     _order = "sequence"
 
     name = fields.Char(
-        string="Name", copy=False, compute="_compute_name", store=True, index=True,
+        string="Name",
+        copy=False,
+        compute="_compute_name",
+        store=True,
+        index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name", translate=True, copy=True,
+        string="Application Name",
+        translate=True,
+        copy=True,
     )  # 应用名称
 
     company_id = fields.Many2one(
@@ -33,21 +40,27 @@ class WeComApps(models.Model):
         copy=True,
         default="manage",
     )
-    type_id = fields.Many2one("wecom.app.type", string="Application Type", store=True)
+    type_id = fields.Many2one("wecom.app.type", string="Application Types", store=True)
 
-    subtype = fields.Many2many(
-        "wecom.app.subtype", "app_id", "app_subtype_id", string="Application Subtype",
+    subtype_ids = fields.Many2many(
+        "wecom.app.subtype",
+        string="Application Subtype",
     )
     type_code = fields.Char(string="Application type code", store=True)
 
-    @api.onchange("subtype")
-    def _onchange_subtype(self):
+    @api.onchange("subtype_ids")
+    def _onchange_subtype_ids(self):
         """
         变更子类型
         :return:
         """
-        if self.subtype:
-            self.type_code = self.subtype.mapped("code")
+        if self.type_id.code == "manage" or self.type_id.code == "base":
+            if len(self.subtype_ids) > 1:
+                raise UserError(
+                    _("Only one subtype can be selected for the current app type!")
+                )
+        if self.subtype_ids:
+            self.type_code = self.subtype_ids.mapped("code")
         else:
             self.type_code = []
 
@@ -58,11 +71,12 @@ class WeComApps(models.Model):
 
     @api.onchange("type")
     def _onchange_type(self):
-        self.subtype = False
+        self.subtype_ids = False
+        self.type_code = ""
         if self.type:
             type = self.env["wecom.app.type"].sudo().search([("code", "=", self.type)])
             self.type_id = type
-            return {"domain": {"subtype": [("parent_id", "=", type.id)]}}
+            return {"domain": {"subtype_ids": [("parent_id", "=", type.id)]}}
         else:
             self.type_id = False
             return {"domain": {"subtype": []}}
@@ -118,4 +132,3 @@ class WeComApps(models.Model):
                 )
             else:
                 app.name = "%s/%s" % (labels, app.app_name)
-

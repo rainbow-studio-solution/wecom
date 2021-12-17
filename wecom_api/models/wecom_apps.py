@@ -12,7 +12,9 @@ class WeComApps(models.Model):
 
     # 回调服务
     app_callback_service_ids = fields.One2many(
-        "wecom.app_callback_service", "app_id", string="Receive event service",
+        "wecom.app_callback_service",
+        "app_id",
+        string="Receive event service",
     )
 
     # 应用参数配置
@@ -25,14 +27,36 @@ class WeComApps(models.Model):
         # },
     )  # 应用参数配置
 
+    # ————————————————————————————————————
+    # 应用回调服务
+    # ————————————————————————————————————
     def generate_service(self):
         """
         生成回调服务
         :return:
         """
-        code = self.env.context.get("code")
-        if bool(code) and code == "contacts":
-            # 创建通讯录回调服务
+        code = self.env.context.get("code")  # 按钮的传递值
+        if bool(code):
+            # 存在按钮的传递值，通过按钮的传递值生成回调服务
+            self.generate_service_by_code(code)
+        else:
+            # 不存在按钮的传递值，通过子类型生成生成回调服务
+            self.generate_service_by_subtype()
+
+    def generate_service_by_subtype(self):
+        """
+        通过子类型生成生成回调服务
+        """
+        for record in self.subtype_ids:
+            self.generate_service_by_code(record.code)
+
+    def generate_service_by_code(self, code):
+        """
+        根据code生成回调服务
+        :param code:
+        :return:
+        """
+        if code == "contacts":
             app_callback_service = (
                 self.env["wecom.app_callback_service"]
                 .sudo()
@@ -62,14 +86,36 @@ class WeComApps(models.Model):
                     }
                 )
 
+    # ————————————————————————————————————
+    # 应用参数配置
+    # ————————————————————————————————————
     def generate_parameters(self):
         """
-        生成通讯录参数
+        生成参数
         :return:
         """
-        code = self.env.context.get("code")
+        code = self.env.context.get("code")  # 按钮的传递值
+        if bool(code):
+            # 存在按钮的传递值，通过按钮的传递值生成回调服务
+            self.generate_parameters_by_code(code)
+        else:
+            # 不存在按钮的传递值，通过子类型生成生成回调服务
+            self.generate_parameters_by_subtype()
 
-        if bool(code) and code == "contacts":
+    def generate_parameters_by_subtype(self):
+        """
+        通过子类型生成生成参数
+        """
+        for record in self.subtype_ids:
+            self.generate_parameters_by_code(record.code)
+
+    def generate_parameters_by_code(self, code):
+        """
+        根据code生成参数
+        :param code:
+        :return:
+        """
+        if code == "contacts":
             # 从xml 获取数据
             ir_model_data = self.env["ir.model.data"]
             contacts_auto_sync_hr_enabled = ir_model_data.get_object_reference(
@@ -176,7 +222,7 @@ class WeComApps(models.Model):
                     #     "message": _("Successfully obtained application information!"),
                     #     "sticky": False,
                     # }
-                    # return self.env["wecomapi.tools.action"].ApiSuccessNotification(msg)
+                    # return self.env["wecomapi.tools.action"].WecomSuccessNotification(msg)
 
     def set_app_info(self):
         """
@@ -206,7 +252,7 @@ class WeComApps(models.Model):
         #             "message": _("Token is still valid, and no update is required!"),
         #             "sticky": False,
         #         }
-        #         return self.env["wecomapi.tools.action"].ApiInfoNotification(msg)
+        #         return self.env["wecomapi.tools.action"].WecomInfoNotification(msg)
 
     def cron_get_app_token(self):
         """

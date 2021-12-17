@@ -19,6 +19,11 @@ class WeComAppType(models.Model):
         copy=False,
         required=True,
     )
+    subtype_ids = fields.One2many(
+        "wecom.app.subtype",
+        "parent_id",
+        string="Application Subtype",
+    )
     sequence = fields.Integer(default=0, copy=True)
 
     _sql_constraints = [

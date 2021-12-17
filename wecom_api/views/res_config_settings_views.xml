@@ -25,7 +25,7 @@
                                 <label for="contacts_app_id" string="Binding application"/>
                                 <div class="content-group">
                                     <div class="mt8">
-                                        <field name="contacts_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', '=', 'contacts'),('company_id', '=', company_id)]"/>
+                                        <field name="contacts_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%contacts%'),('company_id', '=', company_id)]"/>
                                     </div>
                                     <div class="mt8" attrs="{'invisible': [('contacts_app_id','=',False)]}">
                                         <div class="text-warning mt16">

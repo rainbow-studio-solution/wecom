@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 05:35+0000\n"
-"PO-Revision-Date: 2021-12-17 13:43+0800\n"
+"POT-Creation-Date: 2021-12-17 14:20+0000\n"
+"PO-Revision-Date: 2021-12-17 22:26+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -90,6 +90,11 @@ msgid "<span class=\"text-warning font-weight-bold\">Use this feature with cauti
 msgstr "<span class=\"text-warning font-weight-bold\">请谨慎使用此功能.</span>"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_aeskey
+msgid "AES Key"
+msgstr "AES密钥"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__abbreviated_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__abbreviated_name
 msgid "Abbreviated Name"
@@ -121,6 +126,7 @@ msgid "Allow WeCom contacts to automatically update system accounts"
 msgstr "允许企微通讯录自动更新系统帐户"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__app_id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__app_id
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_agent
 msgid "Application"
@@ -132,7 +138,8 @@ msgid "Application Name"
 msgstr "应用名称"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__subtype
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__subtype_ids
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__subtype_ids
 msgid "Application Subtype"
 msgstr "应用子类型"
 
@@ -191,8 +198,6 @@ msgstr "代码"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_subtype.py:0 code:addons/wecom_base/models/wecom_app_type.py:0
-#: code:addons/wxwork/wecom_base/models/wecom_app_subtype.py:0
-#: code:addons/wxwork/wecom_base/models/wecom_app_type.py:0
 #, python-format
 msgid "Code must be unique !"
 msgstr "代码必须是唯一的！"
@@ -205,7 +210,6 @@ msgstr "公司"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
-#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Companies settings"
 msgstr "公司设置"
@@ -244,7 +248,6 @@ msgstr "通讯录同步"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
-#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Contacts synchronization settings"
 msgstr "通讯录同步设置"
@@ -256,6 +259,7 @@ msgid "Corp ID"
 msgstr "企业Id"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_uid
@@ -264,6 +268,7 @@ msgid "Created by"
 msgstr "创建者"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_date
@@ -284,6 +289,7 @@ msgid ""
 msgstr "部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__description
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__description
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__description
 msgid "Description"
@@ -299,6 +305,7 @@ msgstr "停用"
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__display_name
@@ -319,7 +326,7 @@ msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。
 #. module: wecom_base
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_user_enabled
 msgid "Enable to allow batch generation of system accounts from employees;"
-msgstr "允许员工批量生成系统账户"
+msgstr "允许员工批量生成系统账户;"
 
 #. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_enterprisepay
@@ -349,7 +356,6 @@ msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID�
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
-#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "GoBottom"
 msgstr "滚动到底部"
@@ -357,7 +363,6 @@ msgstr "滚动到底部"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
-#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "GoTop"
 msgstr "滚动到顶部"
@@ -377,6 +382,7 @@ msgstr "首页"
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__id
@@ -415,6 +421,7 @@ msgstr "键"
 #: model:ir.model.fields,field_description:wecom_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type____last_update
@@ -423,6 +430,7 @@ msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_uid
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_uid
@@ -431,6 +439,7 @@ msgid "Last Updated by"
 msgstr "最后更新者"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_date
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_date
@@ -479,10 +488,15 @@ msgstr "名称"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
-#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Navigation"
 msgstr "导航"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_apps.py:0
+#, python-format
+msgid "Only one subtype can be selected for the current app type!"
+msgstr "当前应用类型只能选择一个子类型！"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__report_location_flag
@@ -505,6 +519,12 @@ msgstr "个人二维码"
 #: model:ir.model.fields,help:wecom_base.field_res_users__qr_code
 msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人二维码，扫描可作为外部联系人添加"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#, python-format
+msgid "Please bind contact app!"
+msgstr "请绑定通讯录应用！"
 
 #. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_dial
@@ -534,6 +554,16 @@ msgid "Sequence"
 msgstr "排序"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__code
+msgid "Service Code"
+msgstr "服务代码"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__name
+msgid "Service Name"
+msgstr "服务名称"
+
+#. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_msgaudit
 msgid "Session content archiving"
 msgstr "会话内容存档"
@@ -555,13 +585,20 @@ msgid "Square Logo"
 msgstr "方形Logo"
 
 #. module: wecom_base
-#: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
+#: code:addons/wecom_base/models/wecom_apps.py:0
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
-#: code:addons/wecom_base/models/wecom_app_config.py:0 code:addons/wxwork/wecom_base/models/wecom_app_config.py:0
+#: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
+#, python-format
+msgid "The code of each application must be unique !"
+msgstr "每个应用的代码必须是唯一的！"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_config.py:0
 #, python-format
 msgid "The key of each application must be unique !"
 msgstr "每个应用的 键 必须是唯一的！"
@@ -603,6 +640,11 @@ msgid "Timed task"
 msgstr "定时任务"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url_token
+msgid "Token"
+msgstr "令牌"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__redirect_domain
 msgid "Trusted domain name"
 msgstr "可信域名"
@@ -611,6 +653,11 @@ msgstr "可信域名"
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__debug_enabled
 msgid "Turn on debug mode"
 msgstr "开启调试模式"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url
+msgid "URL"
+msgstr ""
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -719,6 +766,11 @@ msgid "Wecom Application Type"
 msgstr "企微应用类型"
 
 #. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_callback_service
+msgid "Wecom Application receive event service"
+msgstr "企微应用接收事件服务"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_open_userid
 #: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_open_userid
 msgid "Wecom Open Userid"
@@ -742,5 +794,5 @@ msgstr ""
 
 #. module: wecom_base
 #: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
-msgid "每个应用程序的 参数键 必须是唯一的！"
+msgid "每个应用的 键 必须是唯一的！"
 msgstr ""

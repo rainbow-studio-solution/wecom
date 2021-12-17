@@ -12,7 +12,9 @@ class WecomApiToolsAction(models.AbstractModel):
     _description = "Wecom API Tools - Action"
 
     def ApiExceptionDialog(
-        self, ex, raise_exception=False,
+        self,
+        ex,
+        raise_exception=False,
     ):
         """
         API 错误弹框
@@ -56,7 +58,7 @@ class WecomApiToolsAction(models.AbstractModel):
             }
             return action
 
-    def ApiInfoNotification(self, msg):
+    def WecomInfoNotification(self, msg):
         """
         API 提示信息
         """
@@ -72,9 +74,9 @@ class WecomApiToolsAction(models.AbstractModel):
         }
         return action
 
-    def ApiSuccessNotification(self, msg):
+    def WecomSuccessNotification(self, msg):
         """
-        API 提示信息
+        API 成功提示信息
         """
         action = {
             "type": "ir.actions.client",
@@ -88,3 +90,35 @@ class WecomApiToolsAction(models.AbstractModel):
         }
         return action
 
+    def WecomWarningNotification(self, msg):
+        """
+        API 警告提示信息
+        """
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "warning",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action
+
+    def WecomErrorNotification(self, msg):
+        """
+        API 错误提示信息
+        """
+
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "error",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action
