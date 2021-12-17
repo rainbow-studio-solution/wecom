@@ -187,6 +187,36 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 身份验证 -->
+                    <h2 id="wecom_oauth" class="d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" />
+                            Application login authorization
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_auth_oauth_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_auth_oauth"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_auth_oauth_settings">
+                                <label for="module_wecom_auth_oauth"/>
+                                <div class="text-muted">                                    
+                                    Enterprise wechat provides OAuth's authorized login mode, which allows you to obtain the identity information of members from the web page opened by the enterprise wechat terminal, thus eliminating the login link.
+                                    <br/>
+                                    Enterprise wechat provides OAuth code scanning login authorization method, which can guide members to use enterprise wechat code scanning login authorization when the enterprise website is opened in the browser, so as to obtain the identity information of members and avoid the login link.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_auth_oauth', '=', False)]}" id="wecom_auth_oauth_warning">
+                                    <div class="mt16 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up the feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </xpath>
             </field>
         </record>

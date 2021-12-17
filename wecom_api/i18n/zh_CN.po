@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 15:21+0000\n"
-"PO-Revision-Date: 2021-12-17 23:24+0800\n"
+"POT-Creation-Date: 2021-12-17 16:37+0000\n"
+"PO-Revision-Date: 2021-12-18 00:43+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -104,6 +104,36 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"WeCom Message\"/>\n"
+"                                WeCom Message\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"企微消息\"/>\n"
+"                                企微消息\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Application login authorization\"/>\n"
+"                            Application login authorization\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"应用程序登录授权\"/>\n"
+"                            应用程序登录授权\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"WeCom Material\"/>\n"
 "                                WeCom Material\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
@@ -141,8 +171,7 @@ msgid "API error message"
 msgstr "API错误消息"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_access_token model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__access_token
-#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_access_token model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__access_token model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Access Token"
 msgstr "访问令牌"
 
@@ -197,8 +226,7 @@ msgid "Api Type"
 msgstr "Api类型"
 
 #. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_apps_list model:ir.model.fields,field_description:wecom_api.field_res_company__contacts_app_id
-#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_id
+#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_apps_list model:ir.model.fields,field_description:wecom_api.field_res_company__contacts_app_id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_id
 msgid "Application"
 msgstr "应用"
 
@@ -399,14 +427,12 @@ msgid "Create tag"
 msgstr "创建标签"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -496,12 +522,10 @@ msgid "Disabled"
 msgstr "停用"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_company__display_name model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_res_company__display_name model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -560,6 +584,17 @@ msgstr "启用"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_add_checkin_user_face
 msgid "Enter employee face information"
 msgstr "录入打卡人员人脸信息"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"Enterprise wechat provides OAuth's authorized login mode, which allows you to obtain the identity information of members from the web page opened by the enterprise wechat terminal, thus eliminating the login link.\n"
+"                                    <br/>\n"
+"                                    Enterprise wechat provides OAuth code scanning login authorization method, which can guide members to use enterprise wechat code scanning login authorization when the enterprise website is opened in the browser, so as to obtain the identity information of members and avoid the login link."
+msgstr ""
+"企业微信提供了OAuth的授权登录方式，可以让从企业微信终端打开的网页获取成员的身份信息，从而免去登录的环节。\n"
+"                                    <br/>\n"
+"                                    企业微信提供了OAuth的扫码登录授权方式，可以让企业的网站在浏览器内打开时，引导成员使用企业微信扫码登录授权，从而获取成员的身份信息，免去登录的环节。"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
@@ -1041,9 +1076,7 @@ msgstr "获取配置了客户联系功能的成员列表"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
-msgid ""
-"Getting access_token is the first step in calling the enterprise WeChat API interface, which is equivalent to creating a login credential, and other business API interfaces all need to rely on access_token to authentice the caller's "
-"identity."
+msgid "Getting access_token is the first step in calling the enterprise WeChat API interface, which is equivalent to creating a login credential, and other business API interfaces all need to rely on access_token to authentice the caller's identity."
 msgstr "获取access_token是调用企业微信API接口的第一步，相当于创建了一个登录凭证，其它的业务API接口，都需要依赖于access_token来鉴权调用者身份。access_token。"
 
 #. module: wecom_api
@@ -1059,11 +1092,9 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id
+#: model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__id
 msgid "ID"
 msgstr ""
@@ -1101,30 +1132,31 @@ msgid "Initiate voice calls to alert employees to see important messages from yo
 msgstr "通过此接口发起语音电话，提醒员工查看应用推送的重要消息。"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "Intercept the e-mail with the target identification as the user object of enterprise wechat, and push text, picture, video, file, graphic and other types of messages to the target object through enterprise wechat."
+msgstr "拦截标识为企业微信用户目标对象的电子邮件，通过企业微信向目标对象推送文本、图片、视频、文件、图形等类型的消息。"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_invite
 msgid "Invite members"
 msgstr "邀请成员"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_company____last_update model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_res_company____last_update model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
 msgid "Last Updated on"
 msgstr "最近更新日期"
 
@@ -1464,6 +1496,11 @@ msgid "Userid and openid are interchangeable"
 msgstr "userid 与 openid 相互转换"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_auth_oauth
+msgid "WeCom Authentication"
+msgstr "企业微信身份验证"
+
+#. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_message_api
 msgid "WeCom Message API"
 msgstr "企微消息API"
@@ -1472,6 +1509,11 @@ msgstr "企微消息API"
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_material
 msgid "WeCom media material library"
 msgstr "企微媒体素材库"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_message
+msgid "WeCom send message"
+msgstr "企业微信推送消息"
 
 #. module: wecom_api
 #: model:ir.actions.server,name:wecom_api.ir_cron_get_app_token_ir_actions_server model:ir.cron,cron_name:wecom_api.ir_cron_get_app_token model:ir.cron,name:wecom_api.ir_cron_get_app_token
@@ -1484,8 +1526,7 @@ msgid "WeCom: Get app token."
 msgstr "企业微信：获取令牌。"
 
 #. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error model:ir.actions.server,name:wecom_api.ir_cron_pull_wecom_service_api_error_ir_actions_server
-#: model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
+#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error model:ir.actions.server,name:wecom_api.ir_cron_pull_wecom_service_api_error_ir_actions_server model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
 msgid "WeCom: Pull the global error code of WeCom."
 msgstr "企业微信：拉取企业微信的全局错误码。"
 
@@ -1541,8 +1582,7 @@ msgid "Wecom Application Parameters"
 msgstr "企微应用参数"
 
 #. module: wecom_api
-#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_subtype_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_subtype_list model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_type_form
-#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_type_list
+#: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_subtype_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_subtype_list model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_type_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_type_list
 msgid "Wecom Application Type"
 msgstr "企微应用类型"
 

@@ -35,6 +35,7 @@ class ResConfigSettings(models.TransientModel):
     # 其他模块
     module_wecom_material = fields.Boolean("WeCom media material library")
     module_wecom_message = fields.Boolean("WeCom send message")
+    module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
 
     # contacts_auto_sync_hr_enabled = fields.Boolean(
     #     # related="company_id.contacts_auto_sync_hr_enabled", readonly=False

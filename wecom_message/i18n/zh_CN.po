@@ -38,7 +38,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_message.view_company_form
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_res_config_settings_view_form
 msgid "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"WeCom Message logo\"/>"
-msgstr "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"企业微信房型Logo\"/>"
+msgstr "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"企业微信方型Logo\"/>"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.view_company_form
