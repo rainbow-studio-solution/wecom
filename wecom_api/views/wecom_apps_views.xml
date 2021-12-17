@@ -94,8 +94,9 @@
                             <group>
                                 <field name="type" required="1"/>
                                 <field name="type_id" readonly="1" invisible="1" force_save="1" />
-                                <field name="subtype" required="1" domain="[('parent_id', '=', type_id)]"/>
+                                <field name="subtype" required="1" widget="many2many_checkboxes" domain="[('parent_id', '=', type_id)]"/>
                             </group>
+                            <!-- many2many_checkboxes many2many_tags-->
                             <group>
                                 <field name="type_code" force_save="1" readonly="1"/>
                             </group>
@@ -162,7 +163,9 @@
                                     </field>
                                 </group>
                                 <group class="text-right">
-                                    <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','!=','contacts')]}"/>
+                                    <!-- <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','!=','contacts')]}"/> -->
+                                    <!-- <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','child_of',['contacts'])]}"/> -->
+                                    <button class="btn-outline-info" name="generate_service" string="Generate contacts service" type="object" icon="fa-server" context="{'code': 'contacts'}" attrs="{'invisible': [('type_code','not ilike','contacts')]}"/>
                                 </group>
                                 <group>
                                     <ul class="text-info">

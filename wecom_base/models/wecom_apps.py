@@ -35,7 +35,9 @@ class WeComApps(models.Model):
     )
     type_id = fields.Many2one("wecom.app.type", string="Application Type", store=True)
 
-    subtype = fields.Many2one("wecom.app.subtype", string="Application Subtype",)
+    subtype = fields.Many2many(
+        "wecom.app.subtype", "app_id", "app_subtype_id", string="Application Subtype",
+    )
     type_code = fields.Char(string="Application type code", store=True)
 
     @api.onchange("subtype")
@@ -45,9 +47,9 @@ class WeComApps(models.Model):
         :return:
         """
         if self.subtype:
-            self.type_code = self.subtype.code
+            self.type_code = self.subtype.mapped("code")
         else:
-            self.type_code = ""
+            self.type_code = []
 
     @api.model
     def _type_selection_values(self):
