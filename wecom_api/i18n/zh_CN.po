@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 16:37+0000\n"
-"PO-Revision-Date: 2021-12-18 00:43+0800\n"
+"POT-Creation-Date: 2021-12-18 07:08+0000\n"
+"PO-Revision-Date: 2021-12-18 15:11+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -43,7 +43,7 @@ msgid "<b>Controller:</b> Make sure the \"Callback Service Name\" exists in your
 msgstr "<b>控制器：</b>确保控制器代码中存在“回调服务名称”。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid ""
 "<div class=\"bg-warning\">\n"
@@ -291,6 +291,18 @@ msgid "Assigning customers to incumbent membersg"
 msgstr "转接在职成员的客户给其他成员"
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Automatic task:Start getting token for app [%s]."
+msgstr "自动任务：开始获取应用[%s]的令牌。"
+
+#. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Automatic task:Start to get join enterprise QR code."
+msgstr "自动任务：开始获取加入企业二维码。"
+
+#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__1
 msgid "Base"
 msgstr "基础"
@@ -309,6 +321,11 @@ msgstr "批量删除成员"
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
 msgid "Binding application"
 msgstr "绑定应用"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid "Button group"
+msgstr "按钮组"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
@@ -356,7 +373,7 @@ msgid "Contacts"
 msgstr "通讯录"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Contacts synchronization"
 msgstr "通讯录同步"
@@ -617,7 +634,7 @@ msgid "Error description"
 msgstr "错误说明"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_message_api.py:0
+#: code:addons/wecom_api/api/wecom_message_api.py:0 code:addons/wxwork/wecom_api/api/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
 msgstr "发送消息时出错：%s"
@@ -653,13 +670,13 @@ msgid "Export tag members"
 msgstr "导出标签成员"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid "Failed"
 msgstr "字段"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Failed to pull WeCom global error code, reason:%s"
 msgstr "无法拉取企微局错误代码，原因：%s"
@@ -875,6 +892,11 @@ msgid "Get join QR code"
 msgstr "获取加入企业二维码"
 
 #. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_app_join_qrcode
+msgid "Get join enterprise QR code"
+msgstr "获取加入企业二维码"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_groupmsg_list_v2
 msgid "Get mass sending records of enterprises and members"
 msgstr "获取企业与成员的群发记录"
@@ -1081,7 +1103,7 @@ msgstr "获取access_token是调用企业微信API接口的第一步，相当于
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Global error code pulled successfully!"
 msgstr "全局错误代码拉取成功！"
@@ -1236,21 +1258,27 @@ msgid "Parameter"
 msgstr "参数"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/res_config_settings.py:0
+#: code:addons/wecom_api/models/res_config_settings.py:0 code:addons/wxwork/wecom_api/models/res_config_settings.py:0
 #, python-format
 msgid "Please bind contact app!"
 msgstr "请绑定通讯录应用程序！"
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Please generate application parameters first."
+msgstr "请先生成应用参数。"
+
+#. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom_api/static/src/xml/list_header_button.xml:0 code:addons/wxwork/wecom_api/static/src/xml/list_header_button.xml:0
 #, python-format
 msgid "Pull error code"
 msgstr "拉取错误码"
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Pull successfully!"
 msgstr "拉取成功！"
@@ -1297,10 +1325,15 @@ msgstr "接收事件服务"
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Refresh"
 msgstr ""
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
+msgid "Refresh the QR code"
+msgstr "刷新二维码"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name
@@ -1393,13 +1426,19 @@ msgid "Setting method"
 msgstr "设置方法"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #, python-format
-msgid "Start getting token for app [%s]."
-msgstr "开始获取应用 [%s] 的令牌."
+msgid "Start getting join enterprise QR code for app [%s]"
+msgstr "开始获取应用 [%s] 的加入企业二维码"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#, python-format
+msgid "Start getting token for app [%s]"
+msgstr "开始获取应用 [%s] 的令牌"
+
+#. module: wecom_api
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Start pulling the global error code of WeCom."
 msgstr "开始拉取企微的全局错误代码。"
@@ -1415,7 +1454,7 @@ msgid "Submit application for approval"
 msgstr "提交审批申请"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Successfully pulled the WeCom global error code!"
 msgstr "已成功拉取企微全局错误代码！"
@@ -1526,6 +1565,16 @@ msgid "WeCom: Get app token."
 msgstr "企业微信：获取令牌。"
 
 #. module: wecom_api
+#: model:ir.actions.server,name:wecom_api.ir_cron_get_join_qrcode_ir_actions_server model:ir.cron,cron_name:wecom_api.ir_cron_get_join_qrcode model:ir.cron,name:wecom_api.ir_cron_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code"
+msgstr "企业微信：获取加入企业二维码"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code."
+msgstr "企业微信：获取加入企业二维码。"
+
+#. module: wecom_api
 #: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error model:ir.actions.server,name:wecom_api.ir_cron_pull_wecom_service_api_error_ir_actions_server model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
 msgid "WeCom: Pull the global error code of WeCom."
 msgstr "企业微信：拉取企业微信的全局错误码。"
@@ -1561,7 +1610,7 @@ msgid "Wecom API Tools - Security"
 msgstr "企微工具 - 安全"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0
+#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid "Wecom API error: %s, error name: %s, error message: %s"
 msgstr "企微API 错误: %s, 错误名称: %s, 错误消息: %s"
@@ -1607,7 +1656,7 @@ msgid "Wecom Tools"
 msgstr "企微工具"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
 msgstr "当成员修改个人信息时，被修改的信息将以事件的形式推送到以下URL，保证通讯录同步。"
@@ -1632,7 +1681,7 @@ msgid "pay"
 msgstr "企业支付"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_abstract_api.py:0
+#: code:addons/wecom_api/api/wecom_abstract_api.py:0 code:addons/wxwork/wecom_api/api/wecom_abstract_api.py:0
 #, python-format
 msgid "unknown method type"
 msgstr "未知方法类型"

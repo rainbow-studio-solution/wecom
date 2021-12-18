@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-17 14:20+0000\n"
-"PO-Revision-Date: 2021-12-17 22:26+0800\n"
+"POT-Creation-Date: 2021-12-18 07:12+0000\n"
+"PO-Revision-Date: 2021-12-18 15:18+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.0.1\n"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "1: 171px * 171px"
+msgstr ""
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "2: 399px * 399px"
+msgstr ""
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "3: 741px * 741px"
+msgstr ""
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -41,8 +56,12 @@ msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标
 
 #. module: wecom_base
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_use_system_default_avatar
-msgid "<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees.</span>"
-msgstr "<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>"
+msgid ""
+"<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees.</span>\n"
+"                    <br>Value: True or False"
+msgstr ""
+"<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>\n"
+"                    <br>值: True 或 False"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
@@ -86,8 +105,12 @@ msgstr ""
 
 #. module: wecom_base
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
-msgid "<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>"
-msgstr "<span class=\"text-warning font-weight-bold\">请谨慎使用此功能.</span>"
+msgid ""
+"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>\n"
+"                    <br>Value: True or False"
+msgstr ""
+"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>\n"
+"                    <br>值: True 或 False"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_aeskey
@@ -145,8 +168,12 @@ msgstr "应用子类型"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type
-#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type_id
 msgid "Application Type"
+msgstr "应用类型"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type_id
+msgid "Application Types"
 msgstr "应用类型"
 
 #. module: wecom_base
@@ -198,6 +225,8 @@ msgstr "代码"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_subtype.py:0 code:addons/wecom_base/models/wecom_app_type.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_subtype.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_type.py:0
 #, python-format
 msgid "Code must be unique !"
 msgstr "代码必须是唯一的！"
@@ -210,6 +239,7 @@ msgstr "公司"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Companies settings"
 msgstr "公司设置"
@@ -248,6 +278,7 @@ msgstr "通讯录同步"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Contacts synchronization settings"
 msgstr "通讯录同步设置"
@@ -285,8 +316,11 @@ msgstr "需要同步的部门ID"
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_hr_department_id
 msgid ""
 "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full "
-"organization structure by default"
-msgstr "部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构"
+"organization structure by default\n"
+"                    <br>Value: Department id."
+msgstr ""
+"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构\n"
+"                    <br>值：部门id。"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__description
@@ -325,8 +359,26 @@ msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。
 
 #. module: wecom_base
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_user_enabled
-msgid "Enable to allow batch generation of system accounts from employees;"
-msgstr "允许员工批量生成系统账户;"
+msgid ""
+"Enable to allow batch generation of system accounts from employees;\n"
+"                    <br>Value: True or False"
+msgstr ""
+"允许员工批量生成系统账户；\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_enabled_join_qrcode
+msgid "Enable to join the enterprise QR code"
+msgstr "启用加入企业二维码"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_enabled_join_qrcode
+msgid ""
+"Enable,The QR code for joining the enterprise is displayed on the login page.\n"
+"                    <br>Value: True or False"
+msgstr ""
+"启用此项，加入企业的二维码将显示在登录页面上。\n"
+"                    <br>值: True 或 False"
 
 #. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_enterprisepay
@@ -335,8 +387,12 @@ msgstr "企业支付"
 
 #. module: wecom_base
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_edit_enabled
-msgid "Enterprise wechat Contacts can be read and edited through API interface"
-msgstr "可通过API接口读取及编辑企业微信通讯录"
+msgid ""
+"Enterprise wechat Contacts can be read and edited through API interface\n"
+"                    <br>Value: True or False"
+msgstr ""
+"企业微信通讯录可以通过API接口读取和编辑\n"
+"                    <br>值: True 或 False"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__expiration_time
@@ -356,6 +412,7 @@ msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID�
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "GoBottom"
 msgstr "滚动到底部"
@@ -363,6 +420,7 @@ msgstr "滚动到底部"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "GoTop"
 msgstr "滚动到顶部"
@@ -395,16 +453,23 @@ msgstr ""
 msgid ""
 "If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to "
 "ODOO;\n"
-"                    <br>Otherwise, you can only manually bind WeCom users."
+"                    <br>Otherwise, you can only manually bind WeCom users.\n"
+"                    <br>Value: True or False"
 msgstr ""
-"如果启用，它允许通过API接口读取企微通讯录，并自动同步到ODO；;\n"
-"                    <br>否则，您只能手动绑定企微用户。"
+"如果启用，它允许通过API接口读取WeCom通讯簿，并自动同步到ODOO；\n"
+"                    <br>否则，您只能手动绑定企微用户。\n"
+"                    <br>值：True 或 False"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
 #: model:ir.model.fields,field_description:wecom_base.field_res_users__is_wecom_user
 msgid "Is WeCom user"
 msgstr "是企微用户"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_join_qrcode
+msgid "Join enterprise QR code"
+msgstr "加入企业二维码"
 
 #. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_journal
@@ -448,6 +513,12 @@ msgid "Last Updated on"
 msgstr "更新时间"
 
 #. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_acontacts_join_qrcode_last_time
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_acontacts_join_qrcode_last_time
+msgid "Last update time (UTC)"
+msgstr "上次更新时间（UTC）"
+
+#. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_living
 msgid "Living"
 msgstr "直播"
@@ -488,12 +559,13 @@ msgstr "名称"
 #. module: wecom_base
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wxwork/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Navigation"
 msgstr "导航"
 
 #. module: wecom_base
-#: code:addons/wecom_base/models/wecom_apps.py:0
+#: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
 #, python-format
 msgid "Only one subtype can be selected for the current app type!"
 msgstr "当前应用类型只能选择一个子类型！"
@@ -522,6 +594,7 @@ msgstr "个人二维码，扫描可作为外部联系人添加"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_callback_service.py:0
 #, python-format
 msgid "Please bind contact app!"
 msgstr "请绑定通讯录应用！"
@@ -530,6 +603,21 @@ msgstr "请绑定通讯录应用！"
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_dial
 msgid "Public telephone"
 msgstr "公费电话"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode
+msgid "QR code link, valid for 7 days"
+msgstr "二维码链接，有效期7天"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QR code size type"
+msgstr "二维码尺寸类型"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QRcode size type"
+msgstr "二维码尺寸类型"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__isreportenter
@@ -585,23 +673,23 @@ msgid "Square Logo"
 msgstr "方形Logo"
 
 #. module: wecom_base
-#: code:addons/wecom_base/models/wecom_apps.py:0
+#: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
+#: code:addons/wxwork/wecom_base/models/wecom_app_callback_service.py:0
 #, python-format
 msgid "The code of each application must be unique !"
 msgstr "每个应用的代码必须是唯一的！"
 
 #. module: wecom_base
-#: code:addons/wecom_base/models/wecom_app_config.py:0
+#: code:addons/wecom_base/models/wecom_app_config.py:0 code:addons/wxwork/wecom_base/models/wecom_app_config.py:0
 #, python-format
 msgid "The key of each application must be unique !"
-msgstr "每个应用的 键 必须是唯一的！"
+msgstr "每个应用的密钥必须是唯一的！"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -793,6 +881,11 @@ msgid "每个公司的应用程序名称必须是唯一的！"
 msgstr ""
 
 #. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
+msgid "每个应用的服务代码必须是唯一的！"
+msgstr ""
+
+#. module: wecom_base
 #: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
-msgid "每个应用的 键 必须是唯一的！"
+msgid "每个应用程序的 参数键 必须是唯一的！"
 msgstr ""

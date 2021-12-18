@@ -28,6 +28,17 @@
             <field name="doall" eval="False"/>
         </record>
 
-
+        <record forcecreate="True" id="ir_cron_get_join_qrcode" model="ir.cron">
+            <field name="name">WeCom: Get join enterprise QR code</field>
+            <field name="model_id" ref="model_wecom_apps"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_get_join_qrcode()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">5</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+        </record>
     </data>
 </odoo>

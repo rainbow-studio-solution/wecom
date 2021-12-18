@@ -79,7 +79,7 @@
                                         </field>
                                     </div>
                                     <div class="text-right">
-                                        <button class="btn-outline-info" name="generate_service" context="{'code': 'message'}" string="Generate service" type="object" icon="fa-server" />
+                                        <button class="oe_highlight" name="generate_service" context="{'code': 'message'}" string="Generate service" type="object" icon="fa-server" />
                                     </div>
                                 </div>
                             </div>

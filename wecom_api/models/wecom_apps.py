@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import datetime
 from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 from ..api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
@@ -12,9 +14,7 @@ class WeComApps(models.Model):
 
     # 回调服务
     app_callback_service_ids = fields.One2many(
-        "wecom.app_callback_service",
-        "app_id",
-        string="Receive event service",
+        "wecom.app_callback_service", "app_id", string="Receive event service",
     )
 
     # 应用参数配置
@@ -120,29 +120,66 @@ class WeComApps(models.Model):
             ir_model_data = self.env["ir.model.data"]
             contacts_auto_sync_hr_enabled = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_auto_sync_hr_enabled"
-            )[1]
+            )[
+                1
+            ]  # 1
             contacts_sync_hr_department_id = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_sync_hr_department_id"
-            )[1]
+            )[
+                1
+            ]  # 2
             contacts_edit_enabled = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_edit_enabled"
-            )[1]
+            )[
+                1
+            ]  # 3
             contacts_sync_user_enabled = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_sync_user_enabled"
-            )[1]
+            )[
+                1
+            ]  # 4
             contacts_use_system_default_avatar = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_use_system_default_avatar"
-            )[1]
+            )[
+                1
+            ]  # 5
             contacts_update_avatar_every_time_sync = ir_model_data.get_object_reference(
                 "wecom_base", "wecom_app_config_contacts_update_avatar_every_time_sync"
-            )[1]
+            )[
+                1
+            ]  # 6
+            enabled_join_qrcode = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_enabled_join_qrcode"
+            )[
+                1
+            ]  # 7
+            join_qrcode = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_join_qrcode"
+            )[
+                1
+            ]  # 8
+            join_qrcode_size_type = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_contacts_join_qrcode_size_type"
+            )[
+                1
+            ]  # 9
+            join_qrcode_last_time = ir_model_data.get_object_reference(
+                "wecom_base", "wecom_app_config_acontacts_join_qrcode_last_time"
+            )[
+                1
+            ]  # 10
+
             vals_list = [
-                contacts_auto_sync_hr_enabled,
-                contacts_sync_hr_department_id,
-                contacts_edit_enabled,
-                contacts_sync_user_enabled,
-                contacts_use_system_default_avatar,
-                contacts_update_avatar_every_time_sync,
+                contacts_auto_sync_hr_enabled,  # 1
+                contacts_sync_hr_department_id,  # 2
+                contacts_edit_enabled,  # 3
+                contacts_sync_user_enabled,  # 4
+                contacts_use_system_default_avatar,  # 5
+                contacts_update_avatar_every_time_sync,  # 6
+                enabled_join_qrcode,  # 7
+                join_qrcode,  # 8
+                join_qrcode_size_type,  # 9
+                join_qrcode_last_time,  # 10
             ]
 
             for id in vals_list:
@@ -175,6 +212,9 @@ class WeComApps(models.Model):
                         }
                     )
 
+    # ————————————————————————————————————
+    # 应用信息
+    # ————————————————————————————————————
     def get_app_info(self):
         """
         获取企业应用信息
@@ -231,10 +271,17 @@ class WeComApps(models.Model):
         :return:
         """
 
+    # ————————————————————————————————————
+    # 应用令牌
+    # ————————————————————————————————————
     def get_access_token(self):
         """获取企业应用接口调用凭据（令牌）
         :return:
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        debug = ir_config.get_param("wecom.debug_enabled")
+        if debug:
+            _logger.info(_("Start getting token for app [%s]") % (self.name))
         try:
             wecom_api = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id.corpid, self.secret
@@ -259,5 +306,63 @@ class WeComApps(models.Model):
         自动任务定时获取应用token
         """
         for app in self.search([("company_id", "!=", False)]):
-            _logger.info(_("Start getting token for app [%s].") % (app.name))
+            _logger.info(
+                _("Automatic task:Start getting token for app [%s].") % (app.name)
+            )
             app.get_access_token()
+
+    # ————————————————————————————————————
+    # 通讯录
+    # ————————————————————————————————————
+    def get_join_qrcode(self):
+        """
+        获取加入企业二维码
+        :return:
+        """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        debug = ir_config.get_param("wecom.debug_enabled")
+        if debug:
+            _logger.info(
+                _("Start getting join enterprise QR code for app [%s]") % (self.name)
+            )
+
+        if len(self.app_config_ids) == 0:
+            raise UserError(_("Please generate application parameters first."))
+
+        try:
+            wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                self.company_id.corpid, self.secret
+            )
+            qrcode = self.app_config_ids.sudo().search(
+                [("key", "=", "join_qrcode")], limit=1
+            )
+            size_type = self.app_config_ids.search(
+                [("key", "=", "join_qrcode_size_type")], limit=1
+            )
+            last_time = self.app_config_ids.sudo().search(
+                [("key", "=", "join_qrcode_last_time")], limit=1
+            )
+            response = wecomapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "GET_JOIN_QRCODE"
+                ),
+                {"size_type": size_type.value},
+            )
+            if response["errcode"] == 0:
+                qrcode.write({"value": response["join_qrcode"]})
+                last_time.write(
+                    {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+                )
+
+        except ApiException as ex:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                ex, raise_exception=True
+            )
+
+    def cron_get_join_qrcode(self):
+        """
+        自动任务获取加入企业二维码
+        """
+        for app in self.search([("company_id", "!=", False)]):
+            _logger.info(_("Automatic task:Start to get join enterprise QR code."))
+            app.get_join_qrcode()

@@ -19,40 +19,50 @@ _logger = logging.getLogger(__name__)
 class Company(models.Model):
     _inherit = "res.company"
 
-    auth_agentid = fields.Char(
-        "Auth agent Id",
-        default="0000000",
-        help="The web application ID of the authorizing party, which can be viewed in the specific web application",
-    )
-    auth_secret = fields.Char(
-        "Auth Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-    )
-    auth_redirect_uri = fields.Char(
-        "Callback link address redirected after authorization",
-        help="Please use urlencode to process the link",
-        readonly=True,
-        default="http://xxx.xxx.com:port/wxowrk_auth_oauth/authorize",
-    )
-    qr_redirect_uri = fields.Char(
-        "Scan the QR code to log in and call back the link address",
-        help="Please use urlencode to process the link",
-        readonly=True,
-        default="http://xxx.xxx.com:port/wxowrk_auth_oauth/qr",
+    auth_app_id = fields.Many2one(
+        "wecom.apps",
+        string="Application",
+        # required=True,
+        # default=lambda self: self.env.company,
+        # domain="[('company_id', '=', current_company_id)]",
+        domain="[('company_id', '=', current_company_id)]",
     )
 
-    enabled_join_qrcode = fields.Boolean(
-        "Enable to join the enterprise QR code ", default=True
-    )
-    join_qrcode = fields.Char(
-        "Join enterprise QR code", help="QR code link, valid for 7 days", readonly=True,
-    )
-    join_qrcode_size_type = fields.Selection(
-        [("1", "171px * 171px"), ("2", "399px * 399px"), ("3", "741px * 741px"),],
-        string="QR code size type",
-        help="1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052",
-        default="2",
-    )
-    join_qrcode_last_time = fields.Char("Last update time (UTC)", readonly=True,)
+    # auth_agentid = fields.Char(
+    #     "Auth agent Id",
+    #     default="0000000",
+    #     help="The web application ID of the authorizing party, which can be viewed in the specific web application",
+    # )
+    # auth_secret = fields.Char(
+    #     "Auth Secret", default="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    # )
+
+    # auth_redirect_uri = fields.Char(
+    #     "Callback link address redirected after authorization",
+    #     help="Please use urlencode to process the link",
+    #     readonly=True,
+    #     default="http://xxx.xxx.com:port/wxowrk_auth_oauth/authorize",
+    # )
+    # qr_redirect_uri = fields.Char(
+    #     "Scan the QR code to log in and call back the link address",
+    #     help="Please use urlencode to process the link",
+    #     readonly=True,
+    #     default="http://xxx.xxx.com:port/wxowrk_auth_oauth/qr",
+    # )
+
+    # enabled_join_qrcode = fields.Boolean(
+    #     "Enable to join the enterprise QR code ", default=True
+    # )
+    # join_qrcode = fields.Char(
+    #     "Join enterprise QR code", help="QR code link, valid for 7 days", readonly=True,
+    # )
+    # join_qrcode_size_type = fields.Selection(
+    #     [("1", "171px * 171px"), ("2", "399px * 399px"), ("3", "741px * 741px"),],
+    #     string="QR code size type",
+    #     help="1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052",
+    #     default="2",
+    # )
+    # join_qrcode_last_time = fields.Char("Last update time (UTC)", readonly=True,)
 
     def set_oauth_provider_wxwork(self):
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
@@ -104,54 +114,6 @@ class Company(models.Model):
                     }
                 )
 
-    def get_join_qrcode(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wecom.debug_enabled")
-
-        params = {}
-        if debug:
-            _logger.info(_("Start getting join enterprise QR code"))
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id, "contacts_secret", "contacts"
-            )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_JOIN_QRCODE"
-                ),
-                {"size_type": self.company_id.join_qrcode_size_type,},
-            )
-            if response["errcode"] == 0:
-                self.join_qrcode = response["join_qrcode"]
-                self.join_qrcode_last_time = datetime.datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
-
-                if debug:
-                    _logger.info(
-                        _("Complete obtaining the QR code to join the enterprise")
-                    )
-                params = {
-                    "title": _("Success"),
-                    "message": _("Successfully obtained the enterprise QR code."),
-                    "sticky": False,  # 延时关闭
-                    "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                }
-                action = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": params["title"],
-                        "type": "success",
-                        "message": params["message"],
-                        "sticky": params["sticky"],
-                        "next": params["next"],
-                    },
-                }
-                return action
-        except ApiException as ex:
-            return self.env["wecom.tools"].ApiExceptionDialog(ex)
 
     def cron_get_join_qrcode(self):
         """

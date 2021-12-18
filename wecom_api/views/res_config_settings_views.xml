@@ -86,7 +86,6 @@
                                     <div class="content-group">
                                         <div class="mt4">
                                             <field name="contacts_app_config_ids" widget="one2many_help" help="description" class="w-100 pl-3">
-                                                <!-- nolabel="1" context="{'default_company_id': company_id}-->
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="key" readonly="1"/>
@@ -95,8 +94,9 @@
                                                 </tree>
                                             </field>
                                         </div>
-                                        <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
+                                        <div class="btn-group float-right" role="group" aria-label="Button group">
+                                            <button class="oe_highlight" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" />
+                                            <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
                                         </div>
                                     </div>
                                 </div>
@@ -110,8 +110,8 @@
                             <div class="o_setting_right_pane">
                                 <label for="contacts_app_callback_service_ids"/>
                                 <div class="row">
-                                    <div class="content-group">
-                                        <div class="mt4">
+                                    <div class="content-group w-100">
+                                        <div class="mt4 w-100">
                                             <field name="contacts_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
@@ -123,7 +123,7 @@
                                             </field>
                                         </div>
                                         <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
+                                            <button class="oe_highlight" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
                                         </div>
                                     </div>
                                 </div>

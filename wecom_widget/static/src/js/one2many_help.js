@@ -44,15 +44,27 @@ odoo.define('wxwork.one2many_help_fields', function (require) {
         }),
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
-
             if (parent.hasOwnProperty("attrs")) {
                 if (parent.attrs.widget === "one2many_help") {
                     this.help_records = parent.value.data;
                     this.is_one2many_help = true;
+
                 } else {
                     this.is_one2many_help = false;
                 }
             }
+        },
+        _renderView: function () {
+            var self = this;
+            return this._super.apply(this, arguments).then(function () {
+                if (self.is_one2many_help) {
+                    if (self.state.data.length > 0) {
+                        self.$('.o_list_table').addClass('w-auto');
+                    } else {
+                        self.$('.o_list_table').addClass('w-100');
+                    }
+                }
+            });
         },
         _getNumberOfCols: function () {
             var n = this.columns.length;

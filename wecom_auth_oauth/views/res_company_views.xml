@@ -170,7 +170,7 @@
                                 <div class="content-group">
                                     <div class="mt16">
                                         <field name="join_qrcode_last_time" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
-                                        <button name="get_join_qrcode" type="object" string="Refresh the QR code" class="oe_highlight" />
+
                                     </div>
                                 </div>
                             </div>

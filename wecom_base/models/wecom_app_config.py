@@ -8,7 +8,7 @@ class WeComAppConfig(models.Model):
     _description = "Wecom Application Configuration"
     _table = "wecom_app_config"
     # _rec_name = "key"
-    _order = "key"
+    _order = "id"
 
     app_id = fields.Many2one(
         "wecom.apps",

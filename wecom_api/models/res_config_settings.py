@@ -1,5 +1,11 @@
+# -*- coding: utf-8 -*-
+
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class ResConfigSettings(models.TransientModel):
@@ -130,3 +136,9 @@ class ResConfigSettings(models.TransientModel):
                     raise ValidationError(_("Please bind contact app!"))
                 else:
                     record.contacts_app_id.with_context(code=code).generate_service()
+
+    def get_join_qrcode(self):
+        """
+        获取加入企业二维码
+        """
+        self.contacts_app_id.get_join_qrcode()

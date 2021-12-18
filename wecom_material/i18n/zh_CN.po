@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 08:31+0000\n"
-"PO-Revision-Date: 2021-12-16 16:32+0800\n"
+"POT-Creation-Date: 2021-12-18 01:30+0000\n"
+"PO-Revision-Date: 2021-12-18 09:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -31,25 +31,6 @@ msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"媒体素材应用Id\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
 msgid "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Material Application\"/>"
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"素材应用\"/>"
-
-#. module: wecom_material
-#: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"WeCom "
-"Material\"/>\n"
-" WeCom Material\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title="
-"\"The values set below are the companies identified as WeCom organizations.\"/>\n"
-"                        </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"媒体素"
-"材\"/>\n"
-" 媒体素材\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下"
-"面设置的值是标识为企业微信组织的公司。\"/>\n"
-"                        </span>"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_access_token
@@ -291,8 +272,6 @@ msgstr "重置密码"
 msgid "Secret"
 msgstr "密钥"
 
-
-
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__temporary
 msgid "Temporary material"
@@ -309,6 +288,11 @@ msgstr "上传后获得的图片的URL。永久有效。"
 #, python-format
 msgid "The duration of the voice file exceeds 60 seconds!"
 msgstr "语音文件的时长超过60秒！"
+
+#. module: wecom_material
+#: model:wecom.apps,app_name:wecom_material.wecom_app_first_self_app
+msgid "The first application you built yourself."
+msgstr "您构建的第一个应用。"
 
 #. module: wecom_material
 #: model:ir.model.constraint,message:wecom_material.constraint_wecom_material_name_company_uniq
@@ -391,8 +375,3 @@ msgstr "企业微信存储路径尚未配置！"
 #: model:wecom.material,name:wecom_material.wecom_material_image_welcome
 msgid "Welcome"
 msgstr "欢迎"
-
-#. module: wecom_material
-#: model:wecom.apps,app_name:wecom_material.wecom_app_firstapp
-msgid "Your first app"
-msgstr "你的第一个应用"

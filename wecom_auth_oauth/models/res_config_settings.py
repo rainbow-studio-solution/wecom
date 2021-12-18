@@ -25,41 +25,53 @@ class ResConfigSettings(models.TransientModel):
         default=lambda self: self.env.company,
     )
 
-    auth_agentid = fields.Char(related="company_id.auth_agentid", readonly=False)
-
-    auth_secret = fields.Char(related="company_id.auth_secret", readonly=False)
-
-    auth_redirect_uri = fields.Char(related="company_id.auth_redirect_uri")
-    qr_redirect_uri = fields.Char(related="company_id.qr_redirect_uri")
-
-    enabled_join_qrcode = fields.Boolean(
-        related="company_id.enabled_join_qrcode", readonly=False
+    auth_app_id = fields.Many2one(related="company_id.auth_app_id", readonly=False,)
+    auth_agentid = fields.Integer(related="auth_app_id.agentid", readonly=False)
+    auth_secret = fields.Char(related="auth_app_id.secret", readonly=False)
+    auth_access_token = fields.Char(related="auth_app_id.access_token")
+    auth_app_config_ids = fields.One2many(
+        # related="company_id.contacts_auto_sync_hr_enabled", readonly=False
+        related="auth_app_id.app_config_ids",
+        # domain="[('company_id', '=', company_id),('app_id', '=', contacts_app_id)]",
+        readonly=False,
     )
+    # auth_redirect_uri = fields.Char(related="company_id.auth_redirect_uri")
+    # qr_redirect_uri = fields.Char(related="company_id.qr_redirect_uri")
 
-    join_qrcode = fields.Char(related="company_id.join_qrcode")
-    join_qrcode_size_type = fields.Selection(related="company_id.join_qrcode_size_type")
+    # enabled_join_qrcode = fields.Boolean(
+    #     related="company_id.enabled_join_qrcode", readonly=False
+    # )
 
-    join_qrcode_last_time = fields.Char(related="company_id.join_qrcode_last_time")
+    # join_qrcode = fields.Char(related="company_id.join_qrcode")
+    # join_qrcode_size_type = fields.Selection(related="company_id.join_qrcode_size_type")
 
-    def set_oauth_provider_wxwork(self):
+    # join_qrcode_last_time = fields.Char(related="company_id.join_qrcode_last_time")
+
+    def set_oauth_provider_wecom(self):
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
+        auth_redirect_uri = self.auth_app_config_ids.search(
+            [("key", "=", "auth_redirect_uri")], limit=1
+        )
+        qr_redirect_uri = self.auth_app_config_ids.search(
+            [("key", "=", "qr_redirect_uri")], limit=1
+        )
 
         new_auth_redirect_uri = (
             urllib.parse.urlparse(web_base_url).scheme
             + "://"
             + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.company_id.auth_redirect_uri).path
+            + urllib.parse.urlparse(auth_redirect_uri.value).path
         )
         new_qr_redirect_uri = (
             urllib.parse.urlparse(web_base_url).scheme
             + "://"
             + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.company_id.qr_redirect_uri).path
+            + urllib.parse.urlparse(qr_redirect_uri.value).path
         )
 
-        # 设置回调链接地址
-        self.company_id.auth_redirect_uri = new_auth_redirect_uri
-        self.company_id.qr_redirect_uri = new_qr_redirect_uri
+        # 设置应用参数中的回调链接地址
+        auth_redirect_uri.write({"value": new_auth_redirect_uri})
+        qr_redirect_uri.write({"value": new_qr_redirect_uri})
 
         auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
         qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
@@ -78,7 +90,7 @@ class ResConfigSettings(models.TransientModel):
                 provider.write(
                     {
                         # "client_id": client_id,
-                        "validation_endpoint": self.auth_redirect_uri,
+                        "validation_endpoint": auth_redirect_uri,
                         "enabled": True,
                     }
                 )
@@ -86,57 +98,8 @@ class ResConfigSettings(models.TransientModel):
                 provider.write(
                     {
                         # "client_id": client_id,
-                        "validation_endpoint": self.qr_redirect_uri,
+                        "validation_endpoint": qr_redirect_uri,
                         "enabled": True,
                     }
                 )
 
-    def get_join_qrcode(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wecom.debug_enabled")
-
-        params = {}
-        if debug:
-            _logger.info(_("Start getting join enterprise QR code"))
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id, "contacts_secret", "contacts"
-            )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_JOIN_QRCODE"
-                ),
-                {"size_type": self.company_id.join_qrcode_size_type,},
-            )
-
-            if response["errcode"] == 0:
-                self.company_id.join_qrcode = response["join_qrcode"]
-                self.company_id.join_qrcode_last_time = datetime.datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
-
-                if debug:
-                    _logger.info(
-                        _("Complete obtaining the QR code to join the enterprise")
-                    )
-                params = {
-                    "title": _("Success"),
-                    "message": _("Successfully obtained the enterprise QR code."),
-                    "sticky": False,  # 延时关闭
-                    "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                }
-                action = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": params["title"],
-                        "type": "success",
-                        "message": params["message"],
-                        "sticky": params["sticky"],
-                        "next": params["next"],
-                    },
-                }
-                return action
-        except ApiException as ex:
-            return self.env["wecom.tools"].ApiExceptionDialog(ex)
