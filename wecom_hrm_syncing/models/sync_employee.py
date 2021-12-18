@@ -23,15 +23,17 @@ class SyncEmployee(models.AbstractModel):
             _logger.info(_("Start synchronizing employees of '%s'"), company.name)
 
         try:
+            contacts_sync_hr_department_id = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search([("key", "=", "contacts_sync_hr_department_id")], limit=1)
+                .value
+            )
             wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company, "contacts_secret", "contacts"
+                company.corpid, company.contacts_app_id.secret
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("USER_LIST"),
-                {
-                    "department_id": str(company.contacts_sync_hr_department_id),
-                    "fetch_child": "1",
-                },
+                {"department_id": contacts_sync_hr_department_id, "fetch_child": "1",},
             )
             user_list = response["userlist"]
             start1 = time.time()
@@ -161,9 +163,18 @@ class SyncEmployee(models.AbstractModel):
             )
 
         try:
+            contacts_use_system_default_avatar = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search([("key", "=", "contacts_use_system_default_avatar")], limit=1)
+                .value
+            )
+            if contacts_use_system_default_avatar == "True":
+                contacts_use_system_default_avatar = True
+            else:
+                contacts_use_system_default_avatar = False
+
             records.create(
                 {
-                    # "use_system_avatar": company.contacts_use_system_default_avatar,
                     "wecom_userid": obj["userid"],
                     "name": obj["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
@@ -172,7 +183,7 @@ class SyncEmployee(models.AbstractModel):
                     "gender": self.env["wecom.tools"].sex2gender(obj["gender"]),
                     "marital": None,  # 不生成婚姻状况
                     "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                        company.contacts_use_system_default_avatar,
+                        contacts_use_system_default_avatar,
                         obj["gender"],
                         obj["avatar"],
                     ),
@@ -206,7 +217,6 @@ class SyncEmployee(models.AbstractModel):
         debug = params.get_param("wecom.debug_enabled")
         department_ids = []  # 多部门
 
-        company.contacts_update_avatar_every_time_sync
         if len(obj["department"]) > 0:
             department_ids = self.get_employee_parent_wecom_department(
                 company, obj["department"]
@@ -234,7 +244,18 @@ class SyncEmployee(models.AbstractModel):
                     "is_wecom_employee": True,
                 }
             )
-            if company.contacts_update_avatar_every_time_sync:
+            contacts_update_avatar_every_time_sync = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search(
+                    [("key", "=", "contacts_update_avatar_every_time_sync")], limit=1
+                )
+                .value
+            )
+            if contacts_update_avatar_every_time_sync == "True":
+                contacts_update_avatar_every_time_sync = True
+            else:
+                contacts_update_avatar_every_time_sync = False
+            if contacts_update_avatar_every_time_sync:
                 records.write(
                     {
                         "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(

@@ -23,7 +23,7 @@ class SyncTag(models.AbstractModel):
             start1 = time.time()
 
             wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company, "contacts_secret", "contacts"
+                company.corpid, company.contacts_app_id.secret
             )
             # status = True
             response = wxapi.httpCall(

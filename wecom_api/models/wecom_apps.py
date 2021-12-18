@@ -342,6 +342,7 @@ class WeComApps(models.Model):
             last_time = self.app_config_ids.sudo().search(
                 [("key", "=", "join_qrcode_last_time")], limit=1
             )
+
             response = wecomapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "GET_JOIN_QRCODE"

@@ -3,7 +3,7 @@
     "name": "WeCom Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 604,
+    "sequence": 605,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -24,9 +24,7 @@
         "wecom_widget",
         "wecom_material",
     ],
-    "external_dependencies": {
-        "python": ["html2text", "lxml"],
-    },
+    "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
@@ -42,9 +40,7 @@
         # "views/wecom_message_notification_views.xml",
         "views/menu.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "qweb": ["static/src/xml/*.xml",],
     # "post_init_hook": "_auto_install_lang",
     # 'external_dependencies': {'python': ['skimage']},
 }

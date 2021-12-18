@@ -3,7 +3,7 @@
 {
     "name": "WeCom HRM",
     "author": "RStudio",
-    "sequence": 607,
+    "sequence": 602,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,11 +16,7 @@
     "description": """
 
         """,
-    "depends": [
-        "hr",
-        "wecom_portal",
-        "wecom_auth_oauth",
-    ],
+    "depends": ["hr", "wecom_api",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -35,10 +31,6 @@
         "views/ir_ui_menu_views.xml",
         "views/menu.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "qweb": ["static/src/xml/*.xml",],
+    "external_dependencies": {"python": [],},
 }

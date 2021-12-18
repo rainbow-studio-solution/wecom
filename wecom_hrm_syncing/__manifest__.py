@@ -3,7 +3,7 @@
     "name": "WeCom HRM Syncing",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 608,
+    "sequence": 603,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,23 +16,16 @@
 
 
         """,
-    "depends": [
-        "base",
-        "mail",
-        "wecom_api",
-        "wecom_hrm",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "depends": ["base", "mail", "wecom_hrm",],
+    "external_dependencies": {"python": [],},
     # "external_dependencies": {"python": ["numpy", "opencv-python",],},
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
         "data/auth_oauth_data.xml",
         "views/ir_cron_views.xml",
-        "views/res_company_views.xml",
-        "views/res_config_settings_views.xml",
+        # "views/res_company_views.xml",
+        # "views/res_config_settings_views.xml",
         "views/hr_employee_view.xml",
         "views/res_users_views.xml",
         "wizard/wizard_wecom_contacts_sync.xml",
@@ -41,7 +34,5 @@
         "views/assets_templates.xml",
         "views/menu_views.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "qweb": ["static/src/xml/*.xml",],
 }

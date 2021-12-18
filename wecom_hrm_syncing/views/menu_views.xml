@@ -19,8 +19,8 @@
         <!-- <menuitem id="menu_wecom_tags_sync_main" name="Sync tags" parent="wecom_hrm.menu_wecom_organization_main" sequence="30" groups="wecom_base.group_wecom_manager" action="view_actions_wecom_tag_wizard" /> -->
 
 
-        <menuitem id="menu_wecom_contacts_sync_auto" name="Sync contacts" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_contacts" sequence="1"/>
-        <menuitem id="menu_wecom_users_sync_auto" name="Sync Users" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_users" sequence="2"/>
+        <menuitem id="menu_wecom_contacts_sync_auto" name="Sync contacts" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_contacts" sequence="4"/>
+        <menuitem id="menu_wecom_users_sync_auto" name="Sync System Users" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_users" sequence="5"/>
 
     </data>
 </odoo>

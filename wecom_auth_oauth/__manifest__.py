@@ -3,7 +3,7 @@
     "name": "WeCom Authentication",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 606,
+    "sequence": 607,
     "installable": True,
     "application": True,
     "auto_install": False,

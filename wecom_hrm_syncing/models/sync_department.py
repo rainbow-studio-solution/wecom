@@ -29,14 +29,19 @@ class SyncDepartment(models.AbstractModel):
         result = ""
         times = 0
         try:
+            contacts_sync_hr_department_id = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search([("key", "=", "contacts_sync_hr_department_id")], limit=1)
+                .value
+            )
             wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company, "contacts_secret", "contacts"
+                company.corpid, company.contacts_app_id.secret
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "DEPARTMENT_LIST"
                 ),
-                {"id": str(company.contacts_sync_hr_department_id),},
+                {"id": contacts_sync_hr_department_id,},
             )
             # response 为 dict
             # response["department"] 为 list

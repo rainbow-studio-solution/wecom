@@ -21,14 +21,18 @@ class SyncTask(models.AbstractModel):
         debug = params.get_param("wecom.debug_enabled")
         if debug:
             _logger.info(
-                _("Start to synchronize the WeCom contact of %s."),
-                company.name,
+                _("Start to synchronize the WeCom contact of %s."), company.name,
             )
 
         times = []
         results = []
 
-        if company.contacts_auto_sync_hr_enabled:
+        sync_hr_enabled = (
+            company.contacts_app_id.app_config_ids.sudo()
+            .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
+            .value
+        )  # 允许企业微信通讯簿自动更新为HR
+        if sync_hr_enabled == "True":
 
             # 部门同步
             times1, result1 = self.env["wecom.sync_task_department"].run(company)

@@ -3,7 +3,7 @@
     "name": "WeCom Material",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "sequence": 603,
+    "sequence": 604,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -47,11 +47,7 @@ Install:
         "views/res_config_settings_views.xml",
         "views/menu.xml",
     ],
-    "external_dependencies": {
-        "python": ["ffmpy", "pydub", "requests_toolbelt"],
-    },
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
+    "qweb": ["static/src/xml/*.xml",],
     "pre_init_hook": "pre_init_hook",
 }
