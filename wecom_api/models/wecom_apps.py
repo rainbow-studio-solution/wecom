@@ -14,7 +14,9 @@ class WeComApps(models.Model):
 
     # 回调服务
     app_callback_service_ids = fields.One2many(
-        "wecom.app_callback_service", "app_id", string="Receive event service",
+        "wecom.app_callback_service",
+        "app_id",
+        string="Receive event service",
     )
 
     # 应用参数配置
@@ -207,7 +209,6 @@ class WeComApps(models.Model):
                     app_config.sudo().write(
                         {
                             "name": config.name,
-                            "value": config.value,
                             "description": config.description,
                         }
                     )
@@ -326,44 +327,45 @@ class WeComApps(models.Model):
                 _("Start getting join enterprise QR code for app [%s]") % (self.name)
             )
 
-        if len(self.app_config_ids) == 0:
-            raise UserError(_("Please generate application parameters first."))
+        if self.subtype_ids.code == "contacts":
+            if len(self.app_config_ids) == 0:
+                raise UserError(_("Please generate application parameters first."))
 
-        try:
-            wecomapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id.corpid, self.secret
-            )
-            qrcode = self.app_config_ids.sudo().search(
-                [("key", "=", "join_qrcode")], limit=1
-            )
-            size_type = self.app_config_ids.search(
-                [("key", "=", "join_qrcode_size_type")], limit=1
-            )
-            last_time = self.app_config_ids.sudo().search(
-                [("key", "=", "join_qrcode_last_time")], limit=1
-            )
-
-            response = wecomapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_JOIN_QRCODE"
-                ),
-                {"size_type": size_type.value},
-            )
-            if response["errcode"] == 0:
-                qrcode.write({"value": response["join_qrcode"]})
-                last_time.write(
-                    {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    self.company_id.corpid, self.secret
+                )
+                qrcode = self.app_config_ids.sudo().search(
+                    [("key", "=", "join_qrcode")], limit=1
+                )
+                size_type = self.app_config_ids.search(
+                    [("key", "=", "join_qrcode_size_type")], limit=1
+                )
+                last_time = self.app_config_ids.sudo().search(
+                    [("key", "=", "join_qrcode_last_time")], limit=1
                 )
 
-        except ApiException as ex:
-            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-                ex, raise_exception=True
-            )
+                response = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "GET_JOIN_QRCODE"
+                    ),
+                    {"size_type": size_type.value},
+                )
+                if response["errcode"] == 0:
+                    qrcode.write({"value": response["join_qrcode"]})
+                    last_time.write(
+                        {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+                    )
+
+            except ApiException as ex:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
 
     def cron_get_join_qrcode(self):
         """
         自动任务获取加入企业二维码
         """
+        _logger.info(_("Automatic task:Start to get join enterprise QR code."))
         for app in self.search([("company_id", "!=", False)]):
-            _logger.info(_("Automatic task:Start to get join enterprise QR code."))
             app.get_join_qrcode()

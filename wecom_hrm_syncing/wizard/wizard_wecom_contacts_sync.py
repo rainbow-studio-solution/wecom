@@ -15,26 +15,40 @@ class WizardSyncContacts(models.TransientModel):
     _order = "create_date"
 
     image_sync_result = fields.Boolean(
-        string="Picture synchronization result", default=False, readonly=True,
+        string="Picture synchronization result",
+        default=False,
+        readonly=True,
     )
     department_sync_result = fields.Boolean(
-        string="Department synchronization result", default=False, readonly=True,
+        string="Department synchronization result",
+        default=False,
+        readonly=True,
     )
     department_tag_sync_result = fields.Boolean(
-        string="Department Tag synchronization results", default=False, readonly=True,
+        string="Department Tag synchronization results",
+        default=False,
+        readonly=True,
     )
     employee_sync_result = fields.Boolean(
-        string="Employee synchronization results", default=False, readonly=True,
+        string="Employee synchronization results",
+        default=False,
+        readonly=True,
     )
     employee_tag_sync_result = fields.Boolean(
-        string="Employee Tag synchronization results", default=False, readonly=True,
+        string="Employee Tag synchronization results",
+        default=False,
+        readonly=True,
     )
     user_sync_result = fields.Boolean(
-        string="User synchronization result", default=False, readonly=True,
+        string="User synchronization result",
+        default=False,
+        readonly=True,
     )
 
     times = fields.Float(
-        string="Elapsed time (seconds)", digits=(16, 3), readonly=True,
+        string="Elapsed time (seconds)",
+        digits=(16, 3),
+        readonly=True,
     )
     result = fields.Text(string="Result", readonly=True)
 
@@ -79,27 +93,28 @@ class WizardSyncContacts(models.TransientModel):
         times = []
         results = ""
         for company in companies:
-            # 遍历公司，获取公司是否允许同步hr的参数
-            sync_hr_enabled = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
-                .value
-            )  # 允许企业微信通讯簿自动更新为HR
+            # 遍历公司，获取公司是否绑定了通讯录应用 以及 是否允许同步hr的参数
+            if company.contacts_app_id:
+                sync_hr_enabled = (
+                    company.contacts_app_id.app_config_ids.sudo()
+                    .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
+                    .value
+                )  # 允许企业微信通讯簿自动更新为HR
 
-            if sync_hr_enabled == "False" or sync_hr_enabled is None:
-                raise Warning(
-                    _(
-                        "Tip: The current setting does not allow synchronization from WeCom to HR \n\n Please generate a user manually \n\n Please modify the related settings"
+                if sync_hr_enabled == "False" or sync_hr_enabled is None:
+                    raise Warning(
+                        _(
+                            "Tip: The current setting does not allow synchronization from WeCom to HR \n\n Please generate a user manually \n\n Please modify the related settings"
+                        )
                     )
-                )
-            else:
-                # self.times, statuses, self.result = SyncTask(kwargs).run()
-                # time, result = SyncTask(kwargs).run()
-                time, result = self.env["wecom.sync_task"].run(company)
-                times.append(time)
+                else:
+                    # self.times, statuses, self.result = SyncTask(kwargs).run()
+                    # time, result = SyncTask(kwargs).run()
+                    time, result = self.env["wecom.sync_task"].run(company)
+                    times.append(time)
 
-                for re in result:
-                    results += re + "\n"
+                    for re in result:
+                        results += re + "\n"
 
         self.times = sum(times)
         self.result = results
@@ -112,7 +127,9 @@ class WizardSyncContacts(models.TransientModel):
             "res_model": "wizard.wecom.contacts",
             "res_id": self.id,
             "view_id": False,
-            "views": [[form_view.id, "form"],],
+            "views": [
+                [form_view.id, "form"],
+            ],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,

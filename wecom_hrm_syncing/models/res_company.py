@@ -16,35 +16,6 @@ _logger = logging.getLogger(__name__)
 class Company(models.Model):
     _inherit = "res.company"
 
-    def get_contacts_access_token(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-        corpid = self.corpid
-        secret = self.contacts_secret
-
-        params = {}
-
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id, "contacts_secret", "contacts"
-            )
-            if wxapi.expiration_time > datetime.now():
-                return {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": _("Tips"),
-                        "type": "info",
-                        "message": _(
-                            "Token is still valid, and no update is required!"
-                        ),
-                        "sticky": False,
-                    },
-                }
-            else:
-                self.contacts_access_token = wxapi.access_token
-        except ApiException as ex:
-            return self.env["wecom.tools"].ApiExceptionDialog(ex)
-
     # -------------------------
     # 同步任务
     # -------------------------
@@ -78,33 +49,38 @@ class Company(models.Model):
                 % (company.name)
             )
 
-            # 遍历companies
-            sync_hr_enabled = company.contacts_auto_sync_hr_enabled  # 允许企业微信通讯簿自动更新为HR
-            if sync_hr_enabled == "False" or sync_hr_enabled is None:
-                _logger.warning(
+            # 遍历公司，获取公司是否绑定了通讯录应用 以及 是否允许同步hr的参数
+            if company.contacts_app_id:
+                sync_hr_enabled = (
+                    company.contacts_app_id.app_config_ids.sudo()
+                    .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
+                    .value
+                )  # 允许企业微信通讯簿自动更新为HR
+                if sync_hr_enabled == "False" or sync_hr_enabled is None:
+                    _logger.warning(
+                        _(
+                            "WeCom synchronization task: company %s  does not allow synchronization."
+                        )
+                        % (company.name)
+                    )
+                else:
+                    try:
+                        self.env["wecom.sync_task"].run(company)
+                    except Exception as e:
+                        if params.get_param("wecom.debug_enabled"):
+                            _logger.warning(
+                                _(
+                                    "Task failure prompt - The task of synchronizing WeCom contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
+                                    % (e)
+                                )
+                            )
+
+                _logger.info(
                     _(
-                        "WeCom synchronization task: company %s  does not allow synchronization."
+                        "WeCom synchronization task:the company %s ends synchronizing the organizational structure."
                     )
                     % (company.name)
                 )
-            else:
-                try:
-                    self.env["wecom.sync_task"].run(company)
-                except Exception as e:
-                    if params.get_param("wecom.debug_enabled"):
-                        _logger.warning(
-                            _(
-                                "Task failure prompt - The task of synchronizing WeCom contacts on a regular basis cannot be executed. The detailed reasons are as follows:%s"
-                                % (e)
-                            )
-                        )
-
-            _logger.info(
-                _(
-                    "WeCom synchronization task:the company %s ends synchronizing the organizational structure."
-                )
-                % (company.name)
-            )
 
     def cron_sync_users(self):
         """[summary]
@@ -144,9 +120,13 @@ class Company(models.Model):
                     _("Company %s began to generate system users from employees")
                     % (company.name)
                 )
-            sync_user = company.contacts_sync_user_enabled
+            sync_user = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search([("key", "=", "contacts_sync_user_enabled")], limit=1)
+                .value
+            )
 
-            if sync_user:
+            if sync_user == "True":
                 if debug:
                     _logger.info(
                         _("Start generating system users from employees of company %s")
@@ -231,7 +211,15 @@ class Company(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
-            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+            self.sudo()
+            .env["res.groups"]
+            .search(
+                [
+                    ("id", "=", 9),
+                ],
+                limit=1,
+            )
+            .id
         )  # id=9是门户用户
         try:
             user = user.create(
@@ -276,7 +264,9 @@ class Company(models.Model):
             )
             if user.id:
                 user.partner_id.write(
-                    {"company_id": employee.company_id.id,}
+                    {
+                        "company_id": employee.company_id.id,
+                    }
                 )
                 employee.write(
                     {

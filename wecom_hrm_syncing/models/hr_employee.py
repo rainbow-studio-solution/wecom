@@ -129,9 +129,13 @@ class HrEmployee(models.Model):
                     _("Company %s began to generate system users from employees")
                     % (company.name)
                 )
-            sync_user = company.contacts_sync_user_enabled
+            sync_user = (
+                company.contacts_app_id.app_config_ids.sudo()
+                .search([("key", "=", "contacts_sync_user_enabled")], limit=1)
+                .value
+            )
 
-            if sync_user:
+            if sync_user == "True":
                 if debug:
                     _logger.info(
                         _("Start generating system users from employees of company %s")
