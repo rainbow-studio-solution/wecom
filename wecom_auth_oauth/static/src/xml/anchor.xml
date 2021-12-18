@@ -6,9 +6,9 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-sign-in wecom__jump_anchor" href="#wecom_oauth">
                 <h5 style="display:inline;"> Auth settings</h5>
             </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-qrcode wecom__jump_anchor" href="#wecom_oauth_qrcode">
+            <!-- <a type="button" role="button" class="btn btn-secondary fa fa-qrcode wecom__jump_anchor" href="#wecom_oauth_qrcode">
                 <h5 style="display:inline;"> QR Code settings</h5>
-            </a>
+            </a> -->
         </t>
     </t>
 
