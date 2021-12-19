@@ -6,6 +6,7 @@ from odoo import _, api, fields, models
 from odoo.exceptions import MissingError, UserError, ValidationError, AccessError
 from odoo.tools.safe_eval import safe_eval, test_python_expr
 from lxml import etree
+from odoo.http import Response
 
 _logger = logging.getLogger(__name__)
 
@@ -52,13 +53,6 @@ class WeComAppEventType(models.Model):
     )
     command = fields.Char(string="Command", copy=False)
 
-    @api.constrains("code")
-    def _check_python_code(self):
-        for action in self.sudo().filtered("code"):
-            msg = test_python_expr(expr=action.code.strip(), mode="exec")
-            if msg:
-                raise ValidationError(msg)
-
     def handle_event(self):
         """
         处理事件
@@ -88,9 +82,12 @@ class WeComAppEventType(models.Model):
 
         if event.code:
             try:
-                event.with_context(
-                    xml_tree=xml_tree, company_id=company_id
-                ).sudo().run()
+                return (
+                    event.with_context(xml_tree=xml_tree, company_id=company_id)
+                    .sudo()
+                    .run()
+                )
+
             except Exception as e:
                 _logger.warning(
                     _(
@@ -117,5 +114,7 @@ class WeComAppEventType(models.Model):
                 func_name,
             )(cmd)
 
-        # 此次需要返回一个值，测试
-        return "success"
+        #! 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
+        #! ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+        #! ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
+        return Response("success", status=200)

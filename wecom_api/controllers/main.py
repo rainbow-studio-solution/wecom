@@ -55,7 +55,15 @@ class StripeController(http.Controller):
         sVerifyNonce = kw["nonce"]
 
         if request.httprequest.method == "GET":
-            # 在企业微信后台，设置接收事件服务器时，返回一个echostr，进行验证
+            #! 假设企业的接收消息的URL设置为http://api.3dept.com。
+            #! 企业管理员在保存回调配置信息时，企业微信会发送一条验证消息到填写的URL，请求内容如下:
+            #! 请求方式：GET
+            #! http://api.3dept.com/?msg_signature=ASDFQWEXZCVAQFASDFASDFSS&timestamp=13500001234&nonce=123412323&echostr=ENCRYPT_STR
+            #! 请求参数：
+            #! msg_signature: 企业微信加密签名，msg_signature计算结合了企业填写的token、请求中的timestamp、nonce、加密的消息体。
+            #! timestamp: 时间戳。与nonce结合使用，用于防止请求重放攻击。
+            #! nonce: 随机数。用于保证签名不可预测。与timestamp结合使用，用于防止请求重放攻击。
+            #! echostr: 加密的随机字符串。用于保证签名不可预测。
             sVerifyEchoStr = kw["echostr"]
             ret, msg = wxcpt.VerifyURL(
                 sVerifyMsgSig, sVerifyTimeStamp, sVerifyNonce, sVerifyEchoStr
@@ -66,7 +74,17 @@ class StripeController(http.Controller):
             return msg
 
         if request.httprequest.method == "POST":
-            # 接收企业微信事件服务器推送的消息，并进行处理
+            #! 假设企业的接收消息的URL设置为http://api.3dept.com。
+            #! 当用户触发回调行为时，企业微信会发送回调消息到填写的URL，请求内容如下：
+            #! 请求方式：POST
+            #! 请求地址 ：http://api.3dept.com/?msg_signature=ASDFQWEXZCVAQFASDFASDFSS&timestamp=13500001234&nonce=123412323
+            #! 请求参数：
+            #! msg_signature: 企业微信加密签名，msg_signature计算结合了企业填写的token、请求中的timestamp、nonce、加密的消息体。
+            #! timestamp: 时间戳。与nonce结合使用，用于防止请求重放攻击。
+            #! nonce: 随机数。用于保证签名不可预测。与timestamp结合使用，用于防止请求重放攻击。
+            #! ToUserName: 企业微信的CorpID，当为第三方应用回调事件时，CorpID的内容为suiteid
+            #! AgentID: 接收的应用id，可在应用的设置页面获取。仅应用相关的回调会带该字段。
+            #! Encrypt: 消息结构体加密后的字符串
             sReqData = request.httprequest.data
             ret, msg = wxcpt.DecryptMsg(
                 sReqData, sVerifyMsgSig, sVerifyTimeStamp, sVerifyNonce
@@ -74,15 +92,10 @@ class StripeController(http.Controller):
             if ret != 0:
                 logging.error("ERR: DecryptMsg ret: " + str(ret))
                 sys.exit(1)
-            # 解密成功，msg即为xml格式的明文
-            # print("msg-----------", msg)
+            # 解密成功，msg即明文的xml消息结构体
             tree = etree.fromstring(msg)  # xml解析为一个xml元素
 
-            # xml_tree = ET.fromstring(msg)
             try:
-                # event = tree.find("Event").text
-                # change_type = tree.find("ChangeType").text
-                # print("POST", tree)
                 return (
                     request.env["wecom.app.event_type"]
                     .sudo()
@@ -92,11 +105,8 @@ class StripeController(http.Controller):
             except:
                 pass
             finally:
-                # ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
-                # ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
-                # headers = {
-                #     "Access-Control-Max-Age": 60 * 60 * 24,
-                #     "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Debug-Mode",
-                # }
-                # return http.Response(status=200, headers=headers)
-                return Response("success", status=200)
+                #! 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
+                #! ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+                #! ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
+                # return Response("success", status=200)
+                pass
