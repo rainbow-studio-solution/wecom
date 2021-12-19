@@ -8,13 +8,10 @@ class User(models.Model):
     _inherit = ["res.users"]
 
     def wecom_event_change_contact_user(self, type):
-        """
-        
-        """
-        # xml_tree = self.env.context.get("xml_tree")
-        # company = self.env.context.get("company")
-        # print("res.users", type, company.name)
-        print(
-            "res.users", type,
-        )
-
+        """ """
+        xml_tree = self.env.context.get("xml_tree")
+        company_id = self.env.context.get("company_id")
+        print("res.users", type, company_id.name)
+        # print(
+        #     "res.users", type,
+        # )

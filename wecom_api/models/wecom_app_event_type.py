@@ -27,19 +27,30 @@ class WeComAppEventType(models.Model):
 #  - UserError: Warning Exception to use with raise
 # To return an action, assign: action = {...}\n\n\n\n"""
 
-    name = fields.Char(string="Name", translate=True, copy=False, required=True,)
-    model_ids = fields.Many2many("ir.model", string="Related Model",)
+    name = fields.Char(
+        string="Name",
+        translate=True,
+        copy=False,
+        required=True,
+    )
+    model_ids = fields.Many2many(
+        "ir.model",
+        string="Related Model",
+    )
     msg_type = fields.Char(
         string="Message Type", copy=False, required=True, default="event"
     )
-    event = fields.Char(string="Event Code", copy=False, required=True,)
-    change_type = fields.Char(string="Change Type", copy=False)
-    code = fields.Text(
-        string="Python Code",
-        groups="base.group_system",
-        default="",
-        help="Write Python code that the action will execute. Some variables are available for use; help about python expression is given in the help tab.",
+    event = fields.Char(
+        string="Event Code",
+        copy=False,
+        required=True,
     )
+    change_type = fields.Char(string="Change Type", copy=False)
+    code = fields.Char(
+        string="Python Code",
+        default="",
+    )
+    command = fields.Char(string="Command", copy=False)
 
     @api.constrains("code")
     def _check_python_code(self):
@@ -53,7 +64,7 @@ class WeComAppEventType(models.Model):
         处理事件
         """
         xml_tree = self.env.context.get("xml_tree")
-        company = self.env.context.get("company")
+        company_id = self.env.context.get("company_id")
 
         event = xml_tree.find("Event").text
         change_type = xml_tree.find("ChangeType").text
@@ -68,19 +79,27 @@ class WeComAppEventType(models.Model):
                 _(
                     "Cannot find [%s] change type for executing company [%s], ignoring it."
                 )
-                % (event.name, company.name,)
+                % (
+                    event.name,
+                    company_id.name,
+                )
             )
             return
 
         if event.code:
             try:
-                event.with_context(xml_tree=xml_tree, company=company).sudo().run()
+                event.with_context(
+                    xml_tree=xml_tree, company_id=company_id
+                ).sudo().run()
             except Exception as e:
                 _logger.warning(
                     _(
                         "Unable to execute [%s] change type for company [%s], ignoring it."
                     )
-                    % (event.name, company.name,)
+                    % (
+                        event.name,
+                        company_id.name,
+                    )
                 )
 
     def run(self):
@@ -88,20 +107,15 @@ class WeComAppEventType(models.Model):
         执行事件
         """
         xml_tree = self.env.context.get("xml_tree")
-        company = self.env.context.get("company")
+        company_id = self.env.context.get("company_id")
         func_name = self.code.split("model.")[1]
-
+        cmd = self.command
         for model in self.model_ids:
             model_obj = self.env.get(model.model)
-            print(model_obj, type(model_obj))
-            func_obj = getattr(self.env[model.model], "wecom_event_change_contact_user")
-            eval(func_obj)("123")
-            # model_obj.with_context(xml_tree=xml_tree, company=company).func_obj()
-            # self.env[model.model].sudo().eval(func)
-            # self.env[model.model].sudo().with_context(
-            #     xml_tree=xml_tree, company=company
-            # ).eval(func)
+            getattr(
+                model_obj.with_context(xml_tree=xml_tree, company_id=company_id),
+                func_name,
+            )(cmd)
 
-        #     self.env[model.model].sudo().with_context(
-        #         xml_tree=xml_tree, company=company
-        #     ).function
+        # 此次需要返回一个值，测试
+        return "success"

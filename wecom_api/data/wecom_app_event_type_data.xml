@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <record id="wecom_app_event_change_contact_create_user" model="wecom.app.event_type">
             <field name="name">Add member events</field>
@@ -8,7 +8,8 @@
             <!-- <field name="parent_id"ref="wecom_api.wecom_app_event_change_contact"/> -->
             <field name="event">change_contact</field>
             <field name="change_type">create_user</field>
-            <field name="code">model.wecom_event_change_contact_user('create')</field>
+            <field name="code">model.wecom_event_change_contact_user</field>
+            <field name="command">create</field>
         </record>
 
         <record id="wecom_app_event_change_contact_update_user" model="wecom.app.event_type">
@@ -16,7 +17,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('base.model_res_users'), ref('hr.model_hr_employee')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">update_user</field>
-            <field name="code">model.wecom_event_change_contact_user('update')</field>
+            <field name="code">model.wecom_event_change_contact_user</field>
+            <field name="command">update</field>
         </record>
 
         <record id="wecom_app_event_change_contact_delete_user" model="wecom.app.event_type">
@@ -24,7 +26,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('base.model_res_users'), ref('hr.model_hr_employee')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">delete_user</field>
-            <field name="code">model.wecom_event_change_contact_user('delete')</field>
+            <field name="code">model.wecom_event_change_contact_user</field>
+            <field name="command">delete</field>
         </record>
 
         <record id="wecom_app_event_change_contact_create_party" model="wecom.app.event_type">
@@ -32,7 +35,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_department')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">create_party</field>
-            <field name="code">model.wecom_event_change_contact_party('create')</field>
+            <field name="code">model.wecom_event_change_contact_party</field>
+            <field name="command">create</field>
         </record>
 
         <record id="wecom_app_event_change_contact_update_party" model="wecom.app.event_type">
@@ -40,7 +44,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_department')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">update_party</field>
-            <field name="code">model.wecom_event_change_contact_party('update')</field>
+            <field name="code">model.wecom_event_change_contact_party</field>
+            <field name="command">update</field>
         </record>
 
         <record id="wecom_app_event_change_contact_delete_party" model="wecom.app.event_type">
@@ -48,7 +53,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_department')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">delete_party</field>
-            <field name="code">model.wecom_event_change_contact_party('delete')</field>
+            <field name="code">model.wecom_event_change_contact_party</field>
+            <field name="command">delete</field>
         </record>
 
         <record id="wecom_app_event_change_contact_update_tag" model="wecom.app.event_type">
@@ -56,7 +62,8 @@
             <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_employee_category')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">update_tag</field>
-            <field name="code">model.wecom_event_change_contact_tag('update')</field>
+            <field name="code">model.wecom_event_change_contact_tag</field>
+            <field name="command">update</field>
         </record>
 
         <record id="wecom_app_event_change_contact_asyn_task_completion_notification" model="wecom.app.event_type">

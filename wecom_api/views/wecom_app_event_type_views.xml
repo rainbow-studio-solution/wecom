@@ -16,9 +16,14 @@
                             <field name="change_type"/>
                         </group>
                         <notebook>
-                            <page string="Python Code" name='code' autofocus="autofocus">
-                                <field name="code" widget="ace" options="{'mode': 'python','height': '200px'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/>
-
+                            <page string="Code and Command" name='code' autofocus="autofocus">
+                                <group>
+                                    <field name="code" />
+                                    <!-- <field name="code" widget="ace" options="{'mode': 'python','height': '200px'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/> -->
+                                </group>
+                                <group>
+                                    <field name="command"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
@@ -35,6 +40,7 @@
                     <field name="msg_type" />
                     <field name="event"/>
                     <field name="change_type"/>
+                    <field name="command"/>
                 </tree>
             </field>
         </record>
