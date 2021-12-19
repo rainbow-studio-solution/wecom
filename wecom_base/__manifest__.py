@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["base_setup", "wecom_l10n", "wecom_widget"],
+    "depends": ["base_setup", "hr", "wecom_l10n", "wecom_widget"],
     "data": [
         "security/wecom_base_security.xml",
         "security/ir.model.access.csv",
@@ -31,7 +31,7 @@
         "views/res_company_views.xml",
         "views/res_users_views.xml",
         # "views/wecom_apps_views.xml",
-        "views/menu.xml",
+        "views/wecom_menu.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
     "external_dependencies": {"python": [],},

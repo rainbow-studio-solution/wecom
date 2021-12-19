@@ -6,7 +6,7 @@ from odoo import _, api, fields, models
 class WeComAppType(models.Model):
     _name = "wecom.app.subtype"
     _description = "Wecom Application Subtype"
-    _order = "sequence"
+    _order = "parent_id,sequence"
 
     name = fields.Char(string="Name", translate=True, copy=False, required=True,)
 

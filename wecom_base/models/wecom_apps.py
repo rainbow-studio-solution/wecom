@@ -12,16 +12,10 @@ class WeComApps(models.Model):
     _order = "sequence"
 
     name = fields.Char(
-        string="Name",
-        copy=False,
-        compute="_compute_name",
-        store=True,
-        index=True,
+        string="Name", copy=False, compute="_compute_name", store=True, index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name",
-        translate=True,
-        copy=True,
+        string="Application Name", translate=True, copy=True,
     )  # 应用名称
 
     company_id = fields.Many2one(
@@ -31,7 +25,7 @@ class WeComApps(models.Model):
         copy=False,
         store=True,
     )
-
+    # model_ids = fields.Many2many("ir.model", string="Related Model",)
     # 应用类型  required=True
     type = fields.Selection(
         selection=lambda self: self._type_selection_values(),
@@ -42,10 +36,7 @@ class WeComApps(models.Model):
     )
     type_id = fields.Many2one("wecom.app.type", string="Application Types", store=True)
 
-    subtype_ids = fields.Many2many(
-        "wecom.app.subtype",
-        string="Application Subtype",
-    )
+    subtype_ids = fields.Many2many("wecom.app.subtype", string="Application Subtype",)
     type_code = fields.Char(string="Application type code", store=True)
 
     @api.onchange("subtype_ids")

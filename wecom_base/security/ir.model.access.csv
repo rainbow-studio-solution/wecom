@@ -5,4 +5,5 @@ wecom_app_type_access_right,access.wecom.app.type,model_wecom_app_type,base.grou
 wecom_app_subtype_access_right,access.wecom.app.subtype,model_wecom_app_subtype,base.group_erp_manager,1,1,1,1
 
 wecom_app_callback_service_access_right,access.wecom.app.callback_service_right,model_wecom_app_callback_service,base.group_erp_manager,1,1,1,1
+
 wecom_app_config_access_right,access.wecom.app.config,model_wecom_app_config,base.group_erp_manager,1,1,1,1

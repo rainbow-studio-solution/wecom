@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-18 07:12+0000\n"
-"PO-Revision-Date: 2021-12-18 15:18+0800\n"
+"POT-Creation-Date: 2021-12-19 04:47+0000\n"
+"PO-Revision-Date: 2021-12-19 12:49+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -620,6 +620,11 @@ msgid "QRcode size type"
 msgstr "二维码尺寸类型"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__model_ids
+msgid "Related Model"
+msgstr "关联模型"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__isreportenter
 msgid "Report user entry event"
 msgstr "打开进入会话上报"
@@ -882,10 +887,10 @@ msgstr ""
 
 #. module: wecom_base
 #: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
-msgid "每个应用的服务代码必须是唯一的！"
+msgid "每个应用的代码必须是唯一的！"
 msgstr ""
 
 #. module: wecom_base
 #: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
-msgid "每个应用程序的 参数键 必须是唯一的！"
+msgid "每个应用的密钥必须是唯一的！"
 msgstr ""

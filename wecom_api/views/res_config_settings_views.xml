@@ -110,8 +110,8 @@
                             <div class="o_setting_right_pane">
                                 <label for="contacts_app_callback_service_ids"/>
                                 <div class="row">
-                                    <div class="content-group w-100">
-                                        <div class="mt4 w-100">
+                                    <div class="content-group">
+                                        <div class="mt4">
                                             <field name="contacts_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>

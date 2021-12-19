@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-18 07:08+0000\n"
-"PO-Revision-Date: 2021-12-18 15:11+0800\n"
+"POT-Creation-Date: 2021-12-19 06:49+0000\n"
+"PO-Revision-Date: 2021-12-19 14:52+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -206,6 +206,11 @@ msgid "Add meeting room"
 msgstr "添加一个会议室"
 
 #. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_create_user
+msgid "Add member events"
+msgstr "新增成员事件"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_add_member
 msgid "Add tag member"
 msgstr "增加标签成员"
@@ -251,6 +256,11 @@ msgid "Application Type"
 msgstr "应用类型"
 
 #. module: wecom_api
+#: model:ir.ui.menu,name:wecom_api.menu_wecom_agent_event
+msgid "Application event"
+msgstr "应用事件"
+
+#. module: wecom_api
 #: model:ir.ui.menu,name:wecom_api.menu_wecom_agent_list
 msgid "Application list"
 msgstr "应用列表"
@@ -266,7 +276,7 @@ msgid "Application push message"
 msgstr "应用消息推送"
 
 #. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.wecom_app_callback_service_list_action model:ir.ui.menu,name:wecom_api.menu_wecom_agent_service
+#: model:ir.actions.act_window,name:wecom_api.wecom_app_callback_service_list_action
 msgid "Application receive event service"
 msgstr "应用接收事件服务"
 
@@ -373,6 +383,11 @@ msgid "Contacts"
 msgstr "通讯录"
 
 #. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_asyn_task_completion_notification
+msgid "Contacts asynchronous task completion notification"
+msgstr "通讯录异步任务完成通知"
+
+#. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Contacts synchronization"
@@ -444,12 +459,14 @@ msgid "Create tag"
 msgstr "创建标签"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -467,6 +484,11 @@ msgstr "删除接待人员"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_delete
 msgid "Delete Department"
 msgstr "删除部门"
+
+#. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_delete_party model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_update_tag
+msgid "Delete Department events"
+msgstr "删除部门事件"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_delete_product_album
@@ -502,6 +524,11 @@ msgstr "删除入群欢迎语素材"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_delete
 msgid "Delete member"
 msgstr "删除成员"
+
+#. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_delete_user
+msgid "Delete member events"
+msgstr "删除成员事件"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_del_intercept_rule
@@ -540,10 +567,10 @@ msgstr "停用"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_res_company__display_name model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -637,12 +664,27 @@ msgstr "错误说明"
 #: code:addons/wecom_api/api/wecom_message_api.py:0 code:addons/wxwork/wecom_api/api/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
-msgstr "发送消息时出错：%s"
+msgstr ""
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_error_filter
 msgid "Errors"
 msgstr "错误"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__event
+msgid "Event Code"
+msgstr "事件代码"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__change_type 
+msgid "Change Type"
+msgstr "变更的类型"
+
+#. module: wecom_api
+#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_app_event_type_list model:ir.ui.menu,name:wecom_api.menu_wecom_agent_event_type
+msgid "Event Type"
+msgstr "事件类型"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
@@ -1114,10 +1156,10 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__id
+#: model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__id
 msgid "ID"
 msgstr ""
 
@@ -1165,20 +1207,22 @@ msgstr "邀请成员"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_res_company____last_update model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改日"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
 msgid "Last Updated on"
 msgstr "最近更新日期"
 
@@ -1196,6 +1240,11 @@ msgstr "媒体素材"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_auth_success
 msgid "Member secondary verification"
 msgstr "成员二次验证"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__msg_type
+msgid "Message Type"
+msgstr "消息的类型"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__7
@@ -1221,6 +1270,16 @@ msgstr "修改敏感词规则"
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_remark
 msgid "Modifying customer remark information"
 msgstr "修改客户备注信息"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__name
+msgid "Name"
+msgstr "名称"
+
+#. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_create_party
+msgid "New departmental events"
+msgstr "新增部门事件"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
@@ -1319,7 +1378,7 @@ msgid "Recall application message"
 msgstr "撤回应用消息"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_callback_service_ids model:ir.model.fields,field_description:wecom_api.field_wecom_apps__app_callback_service_ids
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_callback_service_ids model:ir.model.fields,field_description:wecom_api.field_wecom_apps__app_callback_service_ids model:ir.ui.menu,name:wecom_api.menu_wecom_agent_event_service
 msgid "Receive event service"
 msgstr "接收事件服务"
 
@@ -1334,6 +1393,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Refresh the QR code"
 msgstr "刷新二维码"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__model_ids
+msgid "Related Model"
+msgstr "关联模型"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name
@@ -1495,6 +1559,16 @@ msgid "Update department"
 msgstr "更新部门"
 
 #. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_update_party
+msgid "Update department events"
+msgstr "更新部门事件"
+
+#. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_update_user
+msgid "Update member events"
+msgstr "更新成员事件"
+
+#. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_update
 msgid "Update members"
 msgstr "更新成员"
@@ -1624,6 +1698,11 @@ msgstr "企业微信抽象API"
 #: model:ir.model,name:wecom_api.model_wecom_apps
 msgid "Wecom Application"
 msgstr "企微应用"
+
+#. module: wecom_api
+#: model:ir.model,name:wecom_api.model_wecom_app_event_type
+msgid "Wecom Application Event"
+msgstr "企微应用事件"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_app_config_list

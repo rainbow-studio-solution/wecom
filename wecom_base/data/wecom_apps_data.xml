@@ -4,6 +4,7 @@
 
         <record id="wecom_app_contacts" model="wecom.apps">
             <field name="company_id" ref="base.main_company"/>
+            <!-- <field name="model_ids" eval="[(6, 0, [ref('base.model_res_users'), ref('hr.model_hr_employee'), ref('hr.model_hr_department'), ref('hr.model_hr_employee_category')])]"/> -->
             <field name="app_name">Contacts synchronization</field>
             <field name="type">manage</field>
             <field name="type_id" ref="wecom_base.wecom_app_type_manage"/>

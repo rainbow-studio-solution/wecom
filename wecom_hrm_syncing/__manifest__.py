@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["base", "mail", "wecom_hrm",],
+    "depends": ["mail", "wecom_hrm", "wecom_api",],
     "external_dependencies": {"python": [],},
     # "external_dependencies": {"python": ["numpy", "opencv-python",],},
     "data": [

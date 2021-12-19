@@ -5,7 +5,7 @@
     "author": "RStudio",
     "sequence": 602,
     "installable": True,
-    "application": True,
+    "application": False,
     "auto_install": False,
     "category": "WeCom/WeCom",
     "website": "https://gitee.com/rainbowstudio/wxwork",
@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["hr", "wecom_api",],
+    "depends": ["wecom_base",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",

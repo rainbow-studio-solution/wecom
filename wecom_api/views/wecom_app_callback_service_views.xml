@@ -26,10 +26,10 @@
                             <field name="app_id" required="1" force_save="1" widget="selection" />
                             <field name="name" required="1"/>
                             <field name="code" required="1"/>
-                            <field name="callback_url" force_save="1" readonly="1" widget="CopyClipboardChar"/>
-                            <field name="callback_url_token" required="1"/>
                             <field name="callback_aeskey" required="1"/>
                             <field name="description" />
+                            <field name="callback_url" force_save="1" readonly="1" widget="CopyClipboardChar"/>
+                            <field name="callback_url_token" required="1"/>
                         </group>
                     </sheet>
                 </form>

@@ -81,6 +81,13 @@ class Company(models.Model):
                     )
                     % (company.name)
                 )
+            else:
+                _logger.warning(
+                    _(
+                        "The company [%s] does not bind the WeCom contacts application.Please go to the setting page to bind it."
+                    )
+                    % company.name
+                )
 
     def cron_sync_users(self):
         """[summary]
@@ -211,15 +218,7 @@ class Company(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
-            self.sudo()
-            .env["res.groups"]
-            .search(
-                [
-                    ("id", "=", 9),
-                ],
-                limit=1,
-            )
-            .id
+            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=9是门户用户
         try:
             user = user.create(
@@ -264,9 +263,7 @@ class Company(models.Model):
             )
             if user.id:
                 user.partner_id.write(
-                    {
-                        "company_id": employee.company_id.id,
-                    }
+                    {"company_id": employee.company_id.id,}
                 )
                 employee.write(
                     {

@@ -17,6 +17,7 @@ class SyncTask(models.AbstractModel):
     _description = "Wecom Synchronization task"
 
     def run(self, company):
+
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         if debug:
@@ -33,7 +34,6 @@ class SyncTask(models.AbstractModel):
             .value
         )  # 允许企业微信通讯簿自动更新为HR
         if sync_hr_enabled == "True":
-
             # 部门同步
             times1, result1 = self.env["wecom.sync_task_department"].run(company)
             # results = "\n".join(result1)
