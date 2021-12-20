@@ -5,19 +5,14 @@
         <!--  ROOT   -->
         <menuitem id="menu_wecom_root" name="WeCom Settings" groups="" web_icon="wecom_base,static/description/icon.png" sequence="499"/>
 
+        <!-- 设置-->
+        <menuitem id="menu_wecom_configuration" name="Settings" parent="wecom_base.menu_wecom_root" sequence="1" action="wecom_base.wecom_config_settings_action" groups="base.group_erp_manager"/>
+
         <!-- 应用  -->
-        <menuitem id="menu_wecom_agent" name="Application" parent="wecom_base.menu_wecom_root" sequence="0" groups="base.group_erp_manager"/>
-
-
+        <menuitem id="menu_wecom_agent" name="Application" parent="wecom_base.menu_wecom_root" sequence="2" groups="base.group_erp_manager"/>
 
         <!-- 自动任务-->
         <menuitem id="menu_wecom_cron" name="Timed task" parent="wecom_base.menu_wecom_root" sequence="800" groups="base.group_erp_manager"/>
-
-        <!-- 设置-->
-        <menuitem id="menu_wecom_configuration" name="Settings" parent="wecom_base.menu_wecom_root" sequence="900" action="wecom_base.wecom_config_settings_action" groups="base.group_erp_manager"/>
-
-
-
 
     </data>
 
