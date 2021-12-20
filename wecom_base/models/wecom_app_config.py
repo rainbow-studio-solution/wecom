@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api, _
+from odoo.tools import config, ormcache, mute_logger
+
+FIELD_TYPES = [(key, key) for key in sorted(fields.Field.by_type)]
 
 
 class WeComAppConfig(models.Model):
@@ -21,6 +24,7 @@ class WeComAppConfig(models.Model):
     )
     name = fields.Char(string="Name", translate=True, required=True, copy=True)
     key = fields.Char(required=True,)
+    ttype = fields.Selection(selection=FIELD_TYPES, string="Field Type", required=True)
     value = fields.Text(required=True)
     description = fields.Html(string="Description", translate=True, copy=True)
 
@@ -31,3 +35,36 @@ class WeComAppConfig(models.Model):
             _("The key of each application must be unique !"),
         )
     ]
+
+    @api.model
+    def get_param(self, app_id, key, default=False):
+        """检索给定key的value
+
+        :param string key: 要检索的参数值的键。
+        :param string default: 如果缺少参数，则为默认值。
+        :return: 参数的值， 如果不存在，则为 ``default``.
+        :rtype: string
+        """
+        return self._get_param(app_id, key) or default
+
+    # @api.model
+    # @ormcache("key")
+    def _get_param(self, app_id, key):
+        params = self.search_read(
+            [("app_id", "=", app_id), ("key", "=", key)],
+            fields=["ttype", "value"],
+            limit=1,
+        )
+
+        value = params[0]["value"]
+        ttype = params[0]["ttype"]
+        if ttype == "boolean":
+            boolean_value = str(value).lower()
+            if boolean_value in ["true", "yes", "t", "1"]:
+                return True
+            elif boolean_value in ["false", "no", "f", "0"]:
+                return False
+            else:
+                return False
+        return value if params else None
+

@@ -17,6 +17,8 @@ class WeComApps(models.Model):
         "wecom.app_callback_service",
         "app_id",
         string="Receive event service",
+        domain="['|', ('active', '=', True), ('active', '=', False)]",
+        context={"active_test": False},
     )
 
     # 应用参数配置
@@ -207,10 +209,7 @@ class WeComApps(models.Model):
                     )
                 else:
                     app_config.sudo().write(
-                        {
-                            "name": config.name,
-                            "description": config.description,
-                        }
+                        {"name": config.name, "description": config.description,}
                     )
 
     # ————————————————————————————————————

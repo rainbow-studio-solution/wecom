@@ -6,6 +6,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow WeCom Contacts are automatically updated to HR</field>
             <field name="key">contacts_auto_sync_hr_enabled</field>
+            <field name="ttype">boolean</field>
             <field name="value">True</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -21,6 +22,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Department ID to be synchronized</field>
             <field name="key">contacts_sync_hr_department_id</field>
+            <field name="ttype">integer</field>
             <field name="value">1</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -35,6 +37,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow API to edit WeCom contacts</field>
             <field name="key">contacts_edit_enabled</field>
+            <field name="ttype">boolean</field>
             <field name="value">False</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -49,6 +52,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Allow WeCom contacts to automatically update system accounts</field>
             <field name="key">contacts_sync_user_enabled</field>
+            <field name="ttype">boolean</field>
             <field name="value">False</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -63,6 +67,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Use system default Avatar</field>
             <field name="key">contacts_use_system_default_avatar</field>
+            <field name="ttype">boolean</field>
             <field name="value">True</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -78,6 +83,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Update avatar every time sync</field>
             <field name="key">contacts_update_avatar_every_time_sync</field>
+            <field name="ttype">boolean</field>
             <field name="value">False</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -93,6 +99,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Enable to join the enterprise QR code</field>
             <field name="key">enabled_join_qrcode</field>
+            <field name="ttype">boolean</field>
             <field name="value">True</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -107,6 +114,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Join enterprise QR code</field>
             <field name="key">join_qrcode</field>
+            <field name="ttype">char</field>
             <field name="value"></field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -120,6 +128,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">QR code size type</field>
             <field name="key">join_qrcode_size_type</field>
+            <field name="ttype">integer</field>
             <field name="value">2</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -138,6 +147,7 @@
             <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
             <field name="name">Last update time (UTC)</field>
             <field name="key">join_qrcode_last_time</field>
+            <field name="ttype">datetime</field>
             <field name="value"></field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">

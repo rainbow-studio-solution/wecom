@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="oe_stat_button" name="test" string="测试" type="object" icon="fa-bug" />
+                        </div>
                         <group>
                             <field name="name"/>
                             <field name="model_ids" widget="many2many_tags" options="{'no_create': True}"/>

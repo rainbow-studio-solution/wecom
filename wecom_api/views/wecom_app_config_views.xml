@@ -19,6 +19,7 @@
                     <field name="app_id" />
                     <field name="name"/>
                     <field name="key"/>
+                    <field name="ttype"/>
                     <field name="value"/>
                 </tree>
             </field>
@@ -34,6 +35,7 @@
                             <field name="app_id" required="1" force_save="1" widget="selection" />
                             <field name="name" required="1"/>
                             <field name="key" required="1"/>
+                            <field name="ttype" required="1"/>
                             <field name="value" required="1"/>
                             <field name="description" />
                         </group>

@@ -39,6 +39,7 @@ class WeComAppCallbackService(models.Model):
     callback_aeskey = fields.Char(string="AES Key", copy=False)  # 用于消息内容加密
 
     description = fields.Text(string="Description", translate=True, copy=True)
+    active = fields.Boolean("Active", default=False)
 
     _sql_constraints = [
         (

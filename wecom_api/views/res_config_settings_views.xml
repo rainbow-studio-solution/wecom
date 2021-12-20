@@ -118,6 +118,7 @@
                                                     <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
                                                     <field name="callback_url_token" required="1"/>
                                                     <field name="callback_aeskey" required="1"/>
+                                                    <field name="active" widget="boolean_toggle"/>
                                                     <field name="description" invisible="1"/>
                                                 </tree>
                                             </field>

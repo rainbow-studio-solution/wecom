@@ -6,7 +6,9 @@ from odoo import _, api, fields, models
 from odoo.exceptions import MissingError, UserError, ValidationError, AccessError
 from odoo.tools.safe_eval import safe_eval, test_python_expr
 from lxml import etree
+from lxml import etree as ET
 from odoo.http import Response
+from lxml_to_dict import lxml_to_dict
 
 _logger = logging.getLogger(__name__)
 
@@ -28,29 +30,14 @@ class WeComAppEventType(models.Model):
 #  - UserError: Warning Exception to use with raise
 # To return an action, assign: action = {...}\n\n\n\n"""
 
-    name = fields.Char(
-        string="Name",
-        translate=True,
-        copy=False,
-        required=True,
-    )
-    model_ids = fields.Many2many(
-        "ir.model",
-        string="Related Model",
-    )
+    name = fields.Char(string="Name", translate=True, copy=False, required=True,)
+    model_ids = fields.Many2many("ir.model", string="Related Model",)
     msg_type = fields.Char(
         string="Message Type", copy=False, required=True, default="event"
     )
-    event = fields.Char(
-        string="Event Code",
-        copy=False,
-        required=True,
-    )
+    event = fields.Char(string="Event Code", copy=False, required=True,)
     change_type = fields.Char(string="Change Type", copy=False)
-    code = fields.Char(
-        string="Python Code",
-        default="",
-    )
+    code = fields.Char(string="Python Code", default="",)
     command = fields.Char(string="Command", copy=False)
 
     def handle_event(self):
@@ -60,23 +47,26 @@ class WeComAppEventType(models.Model):
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
 
-        event = xml_tree.find("Event").text
-        change_type = xml_tree.find("ChangeType").text
-
         event = (
             self.env["wecom.app.event_type"]
             .sudo()
-            .search([("event", "=", event), ("change_type", "=", change_type)])
+            .search(
+                [
+                    ("event", "=", etree.fromstring(xml_tree).find("Event").text),
+                    (
+                        "change_type",
+                        "=",
+                        etree.fromstring(xml_tree).find("ChangeType").text,
+                    ),
+                ]
+            )
         )
         if not event:
             _logger.warning(
                 _(
                     "Cannot find [%s] change type for executing company [%s], ignoring it."
                 )
-                % (
-                    event.name,
-                    company_id.name,
-                )
+                % (event.name, company_id.name,)
             )
             return
 
@@ -93,10 +83,7 @@ class WeComAppEventType(models.Model):
                     _(
                         "Unable to execute [%s] change type for company [%s], ignoring it."
                     )
-                    % (
-                        event.name,
-                        company_id.name,
-                    )
+                    % (event.name, company_id.name,)
                 )
 
     def run(self):
@@ -114,7 +101,53 @@ class WeComAppEventType(models.Model):
                 func_name,
             )(cmd)
 
-        #! 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
-        #! ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
-        #! ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
+        # ^ 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
+        # ^ ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+        # ^ ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
         return Response("success", status=200)
+
+    def test(self):
+        xml = """
+<xml>
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[sys]]></FromUserName> 
+<CreateTime>1403610513</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[change_contact]]></Event>
+<ChangeType>create_user</ChangeType>
+<UserID><![CDATA[zhangsan]]></UserID>
+<Name><![CDATA[张三]]></Name>
+<Department><![CDATA[1,2,3]]></Department>
+<MainDepartment>1</MainDepartment>
+<IsLeaderInDept><![CDATA[1,0,0]]></IsLeaderInDept>
+<Position><![CDATA[产品经理]]></Position>
+<Mobile>13800000000</Mobile>
+<Gender>1</Gender>
+<Email><![CDATA[zhangsan@gzdev.com]]></Email>
+<Status>1</Status>
+<Avatar><![CDATA[http://wx.qlogo.cn/mmopen/ajNVdqHZLLA3WJ6DSZUfiakYe37PKnQhBIeOQBO4czqrnZDS79FH5Wm5m4X69TBicnHFlhiafvDwklOpZeXYQQ2icg/0]]></Avatar>
+<Alias><![CDATA[zhangsan]]></Alias>
+<Telephone><![CDATA[020-123456]]></Telephone>
+<Address><![CDATA[广州市]]></Address>
+<ExtAttr>
+<Item>
+<Name><![CDATA[爱好]]></Name>
+<Type>0</Type>
+<Text>
+<Value><![CDATA[旅游]]></Value>
+</Text>
+</Item>
+<Item>
+<Name><![CDATA[卡号]]></Name>
+<Type>1</Type>
+<Web>
+<Title><![CDATA[企业微信]]></Title>
+<Url><![CDATA[https://work.weixin.qq.com]]></Url>
+</Web>
+</Item>
+</ExtAttr>
+</xml>
+        """
+        xml_tree = etree.fromstring(xml)
+        dirc = lxml_to_dict(xml_tree)
+        print(dirc)
