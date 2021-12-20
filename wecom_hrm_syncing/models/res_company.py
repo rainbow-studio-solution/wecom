@@ -51,11 +51,11 @@ class Company(models.Model):
 
             # 遍历公司，获取公司是否绑定了通讯录应用 以及 是否允许同步hr的参数
             if company.contacts_app_id:
-                sync_hr_enabled = (
-                    company.contacts_app_id.app_config_ids.sudo()
-                    .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
-                    .value
-                )  # 允许企业微信通讯簿自动更新为HR
+                app_config = self.env["wecom.app_config"].sudo()
+                sync_hr_enabled = app_config.get_param(
+                    company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
+                )  # 允许企业微信通讯簿自动更新为HR的标识
+
                 if sync_hr_enabled == "False" or sync_hr_enabled is None:
                     _logger.warning(
                         _(
@@ -127,11 +127,10 @@ class Company(models.Model):
                     _("Company %s began to generate system users from employees")
                     % (company.name)
                 )
-            sync_user = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_sync_user_enabled")], limit=1)
-                .value
-            )
+            app_config = self.env["wecom.app_config"].sudo()
+            sync_user = app_config.get_param(
+                company.contacts_app_id.id, "contacts_sync_user_enabled"
+            )  # 允许企微通讯录自动更新系统帐户的标识
 
             if sync_user == "True":
                 if debug:

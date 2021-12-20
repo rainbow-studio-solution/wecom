@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, Warning
 
-# from ..models.sync_contacts import *
-
-# from odoo.addons.wecom_api.models.wecom_server_api import ApiException
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
+_logger = logging.getLogger(__name__)
 
 
 class WizardSyncContacts(models.TransientModel):
@@ -38,18 +38,6 @@ class WizardSyncContacts(models.TransientModel):
     )
     result = fields.Text(string="Result", readonly=True)
 
-    # @api.model
-    # def check_api(self, company):
-    #     wxapi = self.env["wecom.service_api"]
-    #     try:
-    #         api = CorpApi(company.corpid, company.contacts_secret)
-
-    #         company.write({"contacts_access_token": api.getAccessToken()})
-    #         return True
-
-    #     except ApiException as ex:
-    #         return False
-
     def action_sync_contacts(self):
         """
         启动同步
@@ -79,29 +67,24 @@ class WizardSyncContacts(models.TransientModel):
         times = []
         results = ""
         for company in companies:
-
             # 遍历公司，获取公司是否绑定了通讯录应用 以及 是否允许同步hr的参数
             if company.contacts_app_id:
-                sync_hr_enabled = (
-                    company.contacts_app_id.app_config_ids.sudo()
-                    .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
-                    .value
-                )  # 允许企业微信通讯簿自动更新为HR
+                app_config = self.env["wecom.app_config"].sudo()
+                sync_hr_enabled = app_config.get_param(
+                    company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
+                )  # 允许企业微信通讯簿自动更新为HR的标识
 
-                if sync_hr_enabled == "False" or sync_hr_enabled is None:
-                    raise Warning(
-                        _(
-                            "Tip: The current setting does not allow synchronization from WeCom to HR \n\n Please generate a user manually \n\n Please modify the related settings"
-                        )
-                    )
-                else:
-                    # self.times, statuses, self.result = SyncTask(kwargs).run()
-                    # time, result = SyncTask(kwargs).run()
+                if sync_hr_enabled:
                     time, result = self.env["wecom.sync_task"].run(company)
                     times.append(time)
 
                     for re in result:
                         results += re + "\n"
+                else:
+                    _logger.warning(
+                        _("Company [%s] is not allowed to synchronize HR.")
+                        % company.name
+                    )
             else:
                 raise Warning(
                     _(

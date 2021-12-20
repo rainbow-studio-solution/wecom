@@ -23,11 +23,10 @@ class SyncEmployee(models.AbstractModel):
             _logger.info(_("Start synchronizing employees of '%s'"), company.name)
 
         try:
-            contacts_sync_hr_department_id = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_sync_hr_department_id")], limit=1)
-                .value
-            )
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_sync_hr_department_id = app_config.get_param(
+                company.contacts_app_id.id, "contacts_sync_hr_department_id"
+            )  # 需要同步的企业微信部门ID
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
             )
@@ -163,11 +162,11 @@ class SyncEmployee(models.AbstractModel):
             )
 
         try:
-            contacts_use_system_default_avatar = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_use_system_default_avatar")], limit=1)
-                .value
-            )
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_use_system_default_avatar = app_config.get_param(
+                company.contacts_app_id.id, "contacts_use_system_default_avatar"
+            )  # 使用系统微信默认头像的标识
+
             if contacts_use_system_default_avatar == "True":
                 contacts_use_system_default_avatar = True
             else:
@@ -244,13 +243,11 @@ class SyncEmployee(models.AbstractModel):
                     "is_wecom_employee": True,
                 }
             )
-            contacts_update_avatar_every_time_sync = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search(
-                    [("key", "=", "contacts_update_avatar_every_time_sync")], limit=1
-                )
-                .value
-            )
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_update_avatar_every_time_sync = app_config.get_param(
+                company.contacts_app_id.id, "contacts_update_avatar_every_time_sync"
+            )#每次同步都更新头像的标识
+            
             if contacts_update_avatar_every_time_sync == "True":
                 contacts_update_avatar_every_time_sync = True
             else:

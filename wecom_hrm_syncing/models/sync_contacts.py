@@ -28,36 +28,30 @@ class SyncTask(models.AbstractModel):
         times = []
         results = []
 
-        sync_hr_enabled = (
-            company.contacts_app_id.app_config_ids.sudo()
-            .search([("key", "=", "contacts_auto_sync_hr_enabled")], limit=1)
-            .value
-        )  # 允许企业微信通讯簿自动更新为HR
-        if sync_hr_enabled == "True":
-            # 部门同步
-            times1, result1 = self.env["wecom.sync_task_department"].run(company)
-            # results = "\n".join(result1)
-            results.append(result1)
-            times.append(times1)
+        # 部门同步
+        times1, result1 = self.env["wecom.sync_task_department"].run(company)
+        # results = "\n".join(result1)
+        results.append(result1)
+        times.append(times1)
 
-            # 人员同步
-            times2, result2 = self.env["wecom.sync_task_employee"].run(company)
-            # results = "\n".join(result2)
-            results.append(result2)
-            times.append(times2)
+        # 人员同步
+        times2, result2 = self.env["wecom.sync_task_employee"].run(company)
+        # results = "\n".join(result2)
+        results.append(result2)
+        times.append(times2)
 
-            # 标签同步
-            times3, result3 = self.env["wecom.sync_task_tag"].run(company)
-            # results = "\n".join(result3)
-            results.append(result3)
-            times.append(times3)
+        # 标签同步
+        times3, result3 = self.env["wecom.sync_task_tag"].run(company)
+        # results = "\n".join(result3)
+        results.append(result3)
+        times.append(times3)
 
-        else:
-            if debug:
-                _logger.warning(
-                    _(
-                        "The synchronization is terminated, the current setting does not allow synchronization from WeCom to odoo"
-                    )
-                )
+        # else:
+        #     if debug:
+        #         _logger.warning(
+        #             _(
+        #                 "The synchronization is terminated, the current setting does not allow synchronization from WeCom to odoo"
+        #             )
+        #         )
 
         return sum(times), results

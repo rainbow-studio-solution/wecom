@@ -19,6 +19,38 @@ class SyncDepartment(models.AbstractModel):
         """[summary]
         运行同步
         """
+        # 获取所有的企业微信部门
+        departments = (
+            self.env["hr.department"]
+            .sudo()
+            .search(
+                [
+                    ("is_wecom_department", "=", True),
+                    ("company_id", "=", company.id),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ],
+            )
+        )
+        if len(departments) > 0:
+            # 已经有了标识企业微信部门的部门
+            # 获取是否开启了事件同步
+            callback_sync = (
+                company.contacts_app_id.app_callback_service_ids.sudo()
+                .search([("code", "=", "contacts")], limit=1)
+                .active
+            )
+            if callback_sync:
+                msg1 = _(
+                    "The enterprise wechat department already exists. Since the enterprise wechat contact event update function is enabled, manual and automatic tasks cannot be used to synchronize departments."
+                )
+                msg2 = _(
+                    "If you need to use the function of manual and automatic task synchronization, please turn off the callback service of contact synchronization."
+                )
+                _logger.warning(msg1 + msg2)
+                raise Warning(msg1 + "\n" + msg2)
+
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         if debug:
@@ -29,11 +61,11 @@ class SyncDepartment(models.AbstractModel):
         result = ""
         times = 0
         try:
-            contacts_sync_hr_department_id = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_sync_hr_department_id")], limit=1)
-                .value
-            )
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_sync_hr_department_id = app_config.get_param(
+                company.contacts_app_id.id, "contacts_sync_hr_department_id"
+            ) # 需要同步的企业微信部门ID
+
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
             )
@@ -190,36 +222,41 @@ class SyncDepartment(models.AbstractModel):
         departments = (
             self.env["hr.department"]
             .sudo()
-            .search([("is_wecom_department", "=", True),])
+            .search(
+                [("is_wecom_department", "=", True), ("company_id", "=", company.id)]
+            )
         )
 
         for department in departments:
             if not department.wecom_department_id:
                 pass
             else:
-                try:
-                    department.write(
-                        {
-                            "parent_id": self.get_parent_department(
-                                department, departments
-                            ).id,
-                        }
-                    )
-                except Exception as e:
-                    if debug:
-                        _logger.warning(
-                            _(
-                                "Error setting parent department for company %s, Error details:%s"
-                            )
-                            % (company.name, repr(e))
+                parent_department = self.get_parent_department(department, departments)
+                if not parent_department:
+                    # print("-------1", parent_department)
+                    pass
+                else:
+                    # print("-------2", parent_department)
+                    # if parent_id:
+                    try:
+                        department.write(
+                            {"parent_id": parent_department.id,}
                         )
+                    except Exception as e:
+                        if debug:
+                            _logger.warning(
+                                _(
+                                    "Error setting parent department for company %s, Error details:%s"
+                                )
+                                % (company.name, repr(e))
+                            )
 
     def get_parent_department(self, department, departments):
         """[summary]
         获取上级部门
         Args:
             department ([type]): [description]
-            departments ([type]): [description]
+            departments ([type]): [descriptions]
         """
         parent_department = departments.search(
             [
