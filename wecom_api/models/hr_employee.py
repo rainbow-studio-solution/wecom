@@ -49,25 +49,19 @@ class HrEmployeePrivate(models.Model):
         print("dic", dic)
         employee = self.env["hr.employee"].search([("company_id", "=", company_id.id)])
         update_employee = employee.search(
-            [("wecom_userid", "=", dic["UserID"])], limit=1,
+            [("wecom_userid", "=", dic["UserID"])],
+            limit=1,
         )
 
         update_dict = {}
+        new_parent_employee = False
         for key, value in dic.items():
             if key == "DirectLeader":
-                parent_employee_wecom_id = ""
+                parent_employee_wecom_id = value
                 # 处理直属上级
                 if "," in value:
                     parent_employee_wecom_id = value.split(",")[0]
-                old_parent_employee = update_employee.parent_id
-                print("old_parent_employee", old_parent_employee.name)
-                # 从原先上级员工移除该下属员工
-                for child in old_parent_employee.child_ids:
-                    if child.id == update_employee.id:
-                        pass
-                        # old_parent_employee.child_ids = [(3, child.id)]
-                        # child.unlink()
-                # old_parent_employee.write({"child_ids": (3, update_employee.id)})
+
                 new_parent_employee = employee.search(
                     [("wecom_userid", "=", parent_employee_wecom_id)], limit=1
                 )
@@ -101,6 +95,7 @@ class HrEmployeePrivate(models.Model):
                         )
                         % key
                     )
+
         if new_parent_employee:
             update_dict.update({"parent_id": new_parent_employee.id})
 
@@ -108,13 +103,17 @@ class HrEmployeePrivate(models.Model):
 
         if cmd == "create":
             update_dict.update(
-                {"company_id": company_id.id, "is_wecom_employee": True,}
+                {
+                    "company_id": company_id.id,
+                    "is_wecom_employee": True,
+                }
             )
             update_employee.create(update_dict)
         elif cmd == "update":
             update_employee.write(update_dict)
         elif cmd == "delete":
             update_employee.write(
-                {"active": False,}
+                {
+                    "active": False,
+                }
             )
-

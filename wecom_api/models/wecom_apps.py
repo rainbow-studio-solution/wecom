@@ -60,14 +60,18 @@ class WeComApps(models.Model):
         :param code:
         :return:
         """
+        # ("app_id", "in", self.id),
         if code == "contacts":
-            app_callback_service = (
-                self.env["wecom.app_callback_service"]
-                .sudo()
-                .search([("app_id", "=", self.id), ("code", "=", code)])
+            service = self.app_callback_service_ids.sudo().search(
+                [
+                    ("code", "=", code),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ]
             )
-            if not app_callback_service:
-                app_callback_service.create(
+            if not service:
+                service.create(
                     {
                         "app_id": self.id,
                         "name": _("Contacts synchronization"),
@@ -80,10 +84,11 @@ class WeComApps(models.Model):
                     }
                 )
             else:
-                app_callback_service.write(
+                service.write(
                     {
                         "name": _("Contacts synchronization"),
                         "code": code,
+                        "callback_url": service.generate_service(),
                         "description": _(
                             "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
                         ),
@@ -209,7 +214,10 @@ class WeComApps(models.Model):
                     )
                 else:
                     app_config.sudo().write(
-                        {"name": config.name, "description": config.description,}
+                        {
+                            "name": config.name,
+                            "description": config.description,
+                        }
                     )
 
     # ————————————————————————————————————

@@ -15,26 +15,40 @@ class WizardSyncContacts(models.TransientModel):
     _order = "create_date"
 
     image_sync_result = fields.Boolean(
-        string="Picture synchronization result", default=False, readonly=True,
+        string="Picture synchronization result",
+        default=False,
+        readonly=True,
     )
     department_sync_result = fields.Boolean(
-        string="Department synchronization result", default=False, readonly=True,
+        string="Department synchronization result",
+        default=False,
+        readonly=True,
     )
     department_tag_sync_result = fields.Boolean(
-        string="Department Tag synchronization results", default=False, readonly=True,
+        string="Department Tag synchronization results",
+        default=False,
+        readonly=True,
     )
     employee_sync_result = fields.Boolean(
-        string="Employee synchronization results", default=False, readonly=True,
+        string="Employee synchronization results",
+        default=False,
+        readonly=True,
     )
     employee_tag_sync_result = fields.Boolean(
-        string="Employee Tag synchronization results", default=False, readonly=True,
+        string="Employee Tag synchronization results",
+        default=False,
+        readonly=True,
     )
     user_sync_result = fields.Boolean(
-        string="User synchronization result", default=False, readonly=True,
+        string="User synchronization result",
+        default=False,
+        readonly=True,
     )
 
     times = fields.Float(
-        string="Elapsed time (seconds)", digits=(16, 3), readonly=True,
+        string="Elapsed time (seconds)",
+        digits=(16, 3),
+        readonly=True,
     )
     result = fields.Text(string="Result", readonly=True)
 
@@ -85,10 +99,14 @@ class WizardSyncContacts(models.TransientModel):
                         _("Company [%s] is not allowed to synchronize HR.")
                         % company.name
                     )
+                    results += (
+                        _("Company [%s] is not allowed to synchronize HR.")
+                        % company.name
+                    )
             else:
-                raise Warning(
+                results += (
                     _(
-                        "The company [%s] does not bind the WeCom contacts application. \n\nPlease go to the setting page to bind it."
+                        "The company [%s] does not bind the WeCom contacts application. Please go to the setting page to bind it."
                     )
                     % company.name
                 )
@@ -103,7 +121,9 @@ class WizardSyncContacts(models.TransientModel):
             "res_model": "wizard.wecom.contacts",
             "res_id": self.id,
             "view_id": False,
-            "views": [[form_view.id, "form"],],
+            "views": [
+                [form_view.id, "form"],
+            ],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,
