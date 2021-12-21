@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-
+import base64
 from odoo import _, api, fields, models
 from odoo.exceptions import MissingError, UserError, ValidationError, AccessError
 from odoo.tools.safe_eval import safe_eval, test_python_expr
@@ -72,19 +72,21 @@ class WeComAppEventType(models.Model):
 
         if event.code:
             try:
-                return (
-                    event.with_context(xml_tree=xml_tree, company_id=company_id)
-                    .sudo()
-                    .run()
-                )
-
+                event.with_context(
+                    xml_tree=xml_tree, company_id=company_id
+                ).sudo().run()
             except Exception as e:
                 _logger.warning(
                     _(
-                        "Unable to execute [%s] change type for company [%s], ignoring it."
+                        "Unable to execute [%s] change type for company [%s], ignoring it. reason: %s"
                     )
-                    % (event.name, company_id.name,)
+                    % (event.name, company_id.name, str(e))
                 )
+            finally:
+                # ^ 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
+                # ^ ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+                # ^ ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
+                return Response("success", status=200)
 
     def run(self):
         """
@@ -94,17 +96,13 @@ class WeComAppEventType(models.Model):
         company_id = self.env.context.get("company_id")
         func_name = self.code.split("model.")[1]
         cmd = self.command
+
         for model in self.model_ids:
             model_obj = self.env.get(model.model)
             getattr(
                 model_obj.with_context(xml_tree=xml_tree, company_id=company_id),
                 func_name,
             )(cmd)
-
-        # ^ 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
-        # ^ ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
-        # ^ ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
-        return Response("success", status=200)
 
     def test(self):
         xml = """
