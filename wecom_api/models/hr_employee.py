@@ -5,8 +5,6 @@ import base64
 from lxml import etree
 from odoo import api, fields, models, _
 from lxml_to_dict import lxml_to_dict
-from ..mapping.employee import *
-
 
 _logger = logging.getLogger(__name__)
 
@@ -46,7 +44,7 @@ class HrEmployeePrivate(models.Model):
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
-        print("dic", dic)
+        # print("hr dic", dic)
         domain = [
             "|",
             ("active", "=", True),
@@ -145,19 +143,32 @@ class HrEmployeePrivate(models.Model):
         if len(department_ids) > 0:
             update_dict.update({"department_ids": [(6, 0, department_ids)]})
 
-        print("update_dict", callback_employee, update_dict)
+        # print("update_dict", callback_employee, update_dict)
 
         if cmd == "create":
-            print("执行创建")
+            # print("执行创建")
             update_dict.update(
                 {"company_id": company_id.id, "is_wecom_employee": True,}
             )
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company_id.corpid, company_id.contacts_app_id.secret
+                )
+                response = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call("USER_GET"),
+                    {"userid": update_dict["wecom_userid"]},
+                )
+                if response.get("errcode") == 0:
+                    update_dict.update({"qr_code": response.get("qr_code")})
+            except:
+                pass
+
             callback_employee.create(update_dict)
         elif cmd == "update":
-            print("执行更新")
+            # print("执行更新")
             callback_employee.write(update_dict)
         elif cmd == "delete":
-            print("执行删除")
+            # print("执行删除")
             callback_employee.write(
                 {"active": False,}
             )

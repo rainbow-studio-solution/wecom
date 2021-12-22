@@ -1,0 +1,10 @@
+{
+    "ToUserName": "企业id",
+    "FromUserName": "sys",
+    "CreateTime": "1640144190",
+    "MsgType": "event",
+    "Event": "change_contact",
+    "ChangeType": "update_user",
+    "UserID": "ceshi2",
+    "Status": "1"
+}
