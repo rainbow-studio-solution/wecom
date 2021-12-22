@@ -189,7 +189,7 @@ class SyncEmployee(models.AbstractModel):
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
-                    "active": obj["enable"],
+                    "active": True if obj["status"] == 1 else False,
                     "alias": obj["alias"],
                     "department_id": self.get_main_department(
                         company, obj["name"], obj["main_department"], department_ids
@@ -231,7 +231,7 @@ class SyncEmployee(models.AbstractModel):
                     "mobile_phone": obj["mobile"],
                     "work_phone": obj["telephone"],
                     "work_email": obj["email"],
-                    "active": obj["enable"],
+                    "active": True if obj["status"] == 1 else False,
                     "alias": obj["alias"],
                     "department_id": self.get_main_department(
                         company, obj["name"], obj["main_department"], department_ids
@@ -246,8 +246,8 @@ class SyncEmployee(models.AbstractModel):
             app_config = self.env["wecom.app_config"].sudo()
             contacts_update_avatar_every_time_sync = app_config.get_param(
                 company.contacts_app_id.id, "contacts_update_avatar_every_time_sync"
-            )#每次同步都更新头像的标识
-            
+            )  # 每次同步都更新头像的标识
+
             if contacts_update_avatar_every_time_sync == "True":
                 contacts_update_avatar_every_time_sync = True
             else:

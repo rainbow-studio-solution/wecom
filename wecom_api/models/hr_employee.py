@@ -47,13 +47,26 @@ class HrEmployeePrivate(models.Model):
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
         print("dic", dic)
-        employee = self.env["hr.employee"].search([("company_id", "=", company_id.id)])
-        update_employee = employee.search(
-            [("wecom_userid", "=", dic["UserID"])],
-            limit=1,
+        domain = [
+            "|",
+            ("active", "=", True),
+            ("active", "=", False),
+        ]
+        employee = (
+            self.env["hr.employee"]
+            .sudo()
+            .search([("company_id", "=", company_id.id)] + domain)
         )
 
+        callback_employee = employee.search(
+            [("wecom_userid", "=", dic["UserID"])] + domain, limit=1,
+        )
+        if callback_employee:
+            # 如果存在，则更新
+            # 用于退出企业微信又重新加入企业微信的员工
+            cmd = "update"
         update_dict = {}
+        department_ids = []  # 多部门
         new_parent_employee = False
         for key, value in dic.items():
             if key == "DirectLeader":
@@ -78,16 +91,47 @@ class HrEmployeePrivate(models.Model):
             else:
                 if key in WECOM_USER_MAPPING_ODOO_EMPLOYEE.keys():
                     if WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] != "":
-                        update_dict[WECOM_USER_MAPPING_ODOO_EMPLOYEE[key]] = value
-                    elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_ids":
-                        # 部门列表
-                        pass
-                    elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_id":
-                        # 主部门
-                        pass
-                    elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "active":
-                        # 状态
-                        pass
+                        if WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_ids":
+                            # 部门列表
+                            departments = value.split(",")
+                            for department in departments:
+                                if department == 1:
+                                    pass
+                                else:
+                                    odoo_department = (
+                                        self.env["hr.department"]
+                                        .sudo()
+                                        .search(
+                                            [
+                                                (
+                                                    "wecom_department_id",
+                                                    "=",
+                                                    department,
+                                                ),
+                                                ("company_id", "=", company_id.id),
+                                                ("is_wecom_department", "=", True),
+                                            ],
+                                            limit=1,
+                                        )
+                                    )
+                                    if len(odoo_department) > 0:
+                                        department_ids.append(odoo_department.id)
+                        elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_id":
+                            # 主部门
+                            department_id = self.env["hr.department"].search(
+                                [("wecom_department_id", "=", value)], limit=1
+                            )
+                            update_dict.update({"department_id": department_id.id})
+                        elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "active":
+                            # 状态
+                            # 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。
+                            # 已激活代表已激活企业微信或已关注微工作台（原企业号）。未激活代表既未激活企业微信又未关注微工作台（原企业号）。
+                            if value == "1":
+                                update_dict.update({"active": True})
+                            else:
+                                update_dict.update({"active": False})
+                        else:
+                            update_dict[WECOM_USER_MAPPING_ODOO_EMPLOYEE[key]] = value
                 else:
                     _logger.info(
                         _(
@@ -98,22 +142,22 @@ class HrEmployeePrivate(models.Model):
 
         if new_parent_employee:
             update_dict.update({"parent_id": new_parent_employee.id})
+        if len(department_ids) > 0:
+            update_dict.update({"department_ids": [(6, 0, department_ids)]})
 
-        print("update_dict", update_dict)
+        print("update_dict", callback_employee, update_dict)
 
         if cmd == "create":
+            print("执行创建")
             update_dict.update(
-                {
-                    "company_id": company_id.id,
-                    "is_wecom_employee": True,
-                }
+                {"company_id": company_id.id, "is_wecom_employee": True,}
             )
-            update_employee.create(update_dict)
+            callback_employee.create(update_dict)
         elif cmd == "update":
-            update_employee.write(update_dict)
+            print("执行更新")
+            callback_employee.write(update_dict)
         elif cmd == "delete":
-            update_employee.write(
-                {
-                    "active": False,
-                }
+            print("执行删除")
+            callback_employee.write(
+                {"active": False,}
             )
