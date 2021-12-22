@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
         <record model="ir.ui.view" id="res_partner_kanban_view">
             <field name="name">res.partner.kanban</field>
             <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.res_partner_kanban_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="is_wecom_user"/>
+                </xpath>
+                <xpath expr="//strong[hasclass('o_kanban_record_title')]/field[@name='display_name']" position="before">
+                    <div class="float-right">
+                        <span t-if="record.is_wecom_user.raw_value" class="fa fa-weixin text-info" role="img" aria-label="Enterprise wechat" title="Enterprise wechat">
+                        </span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='contact_addresses']" position="after">
+                    <page attrs="{'invisible': [('is_wecom_user','=',False)]}" name="wecom_info" string="Enterprise wechat information">
+                        <group>
+                            <group>
+                                <field name="wecom_userid" />
+                                <field name="is_wecom_user"/>
+                            </group>
+                            <group>
+                                <field name="qr_code" widget="image_url" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
         </record>
     </data>
 </odoo>

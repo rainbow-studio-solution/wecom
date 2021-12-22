@@ -16,7 +16,9 @@
     "description": """
 
         """,
-    "depends": ["wecom_base",],
+    "depends": [
+        "wecom_base",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -24,6 +26,7 @@
         # "views/res_company_views.xml",
         # "views/res_config_settings_views.xml",
         # "views/res_users_views.xml",
+        "views/res_partner_views.xml",
         "views/hr_department_view.xml",
         "views/hr_employee_category_views.xml",
         "views/hr_employee_view.xml",
@@ -31,6 +34,10 @@
         "views/ir_ui_menu_views.xml",
         "views/menu.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
-    "external_dependencies": {"python": [],},
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
+    "external_dependencies": {
+        "python": [],
+    },
 }
