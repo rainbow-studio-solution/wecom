@@ -26,7 +26,7 @@ class User(models.Model):
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
-        print("user dic", dic)
+        # print("user dic", dic)
 
         domain = [
             "|",
@@ -43,7 +43,7 @@ class User(models.Model):
         )
         update_dict = {}
         employee = False
-        print(callback_user)
+        # print(callback_user)
         if callback_user:
             # 如果存在，则更新
             # 用于退出企业微信又重新加入企业微信的员工
@@ -90,7 +90,7 @@ class User(models.Model):
                         else:
                             update_dict[WECOM_USER_MAPPING_ODOO_USER[key]] = value
 
-        print("update_dict", callback_user, update_dict)
+        # print("update_dict", callback_user, update_dict)
         if cmd == "create":
             groups_id = (
                 self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
@@ -108,7 +108,7 @@ class User(models.Model):
                 }
             )
             user_id = callback_user.create(update_dict)
-            print(user_id, employee)
+            # print(user_id, employee)
             if employee:
                 employee.write({"user_id": user_id.id})
                 employee.sudo()._sync_user(user_id, bool(employee.image_1920))
