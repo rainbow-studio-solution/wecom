@@ -43,7 +43,10 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_category = fields.Boolean(string="WeCom Tag", default=False,)
+    is_wecom_category = fields.Boolean(
+        string="WeCom Tag",
+        default=False,
+    )
 
     @api.depends("is_wecom_category")
     def _compute_display_name(self):
@@ -58,11 +61,11 @@ class EmployeeCategory(models.Model):
         """
         保存时，同步当前记录到企业微信
         """
-        # res = super(EmployeeCategory, self).write(vals)
+        res = super(EmployeeCategory, self).write(vals)
         # if "employee_ids" in vals or "department_ids" in vals:
         #     print(vals.get("employee_ids")[0][2])
         #     print(vals.get("department_ids")[0][2])
-        # return res
+        return res
 
     # ------------------------------------------------------------
     # 企微标签
@@ -111,7 +114,10 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -143,7 +149,9 @@ class EmployeeCategory(models.Model):
             )
             if self.tagid:
                 if debug:
-                    _logger.info(_("Update contacts tags: %s to WeCom") % self.name)
+                    _logger.info(
+                        _("Update contacts tags: %s name to WeCom") % self.name
+                    )
                 response = wxapi.httpCall(
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "TAG_UPDATE"
@@ -170,7 +178,10 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -218,11 +229,20 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deleted successfully.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
-                tag = self.search([("tagid", "=", self.tagid)], limit=1,)
+                tag = self.search(
+                    [("tagid", "=", self.tagid)],
+                    limit=1,
+                )
                 tag.write(
-                    {"is_wecom_category": False, "tagid": 0,}
+                    {
+                        "is_wecom_category": False,
+                        "tagid": 0,
+                    }
                 )
                 # tag.unlink()
             else:
@@ -232,7 +252,10 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
             action = {
                 "type": "ir.actions.client",
@@ -325,6 +348,8 @@ class EmployeeCategory(models.Model):
                 download_partylist = list(
                     set(remote_partylist).difference(set(local_partylist))
                 )
+                # print(download_userlist, download_partylist)
+                # print(upload_userlist, upload_partylist)
                 # 下载差集
                 self.tag_member_download(download_userlist, download_partylist)
                 # 上传差集
@@ -342,6 +367,7 @@ class EmployeeCategory(models.Model):
         company = self.company_id
         if not company:
             company = self.env.company
+
         for user in userlist:
             employee = (
                 self.env["hr.employee"]
@@ -358,10 +384,15 @@ class EmployeeCategory(models.Model):
                     limit=1,
                 )
             )
-            # print("----------", employee, self.employee_ids)
             if employee not in self.employee_ids:
-                # employee_list.append(employee.id)
+                # department_list.append(department.id)
                 self.write({"employee_ids": [(4, employee.id)]})
+        #     employees.append(employee.id)
+        #     if employee not in self.employee_ids:
+        #         print("----------", employee)
+        #         # employee_list.append(employee.id)
+        # print("----------", employees)
+        # self.write({"employee_ids": [(6, 0, employees)]})
 
         for party in partylist:
             department = (

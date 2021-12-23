@@ -18,13 +18,27 @@ class HrEmployeePrivate(models.Model):
         # domain="[('is_wecom_category', '=',False)]",
     )
 
-    wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
-    wecom_open_userid = fields.Char(string="WeCom open user Id", readonly=True,)
-    alias = fields.Char(string="Alias", readonly=True,)
-    english_name = fields.Char(string="English Name", readonly=True,)
+    wecom_userid = fields.Char(
+        string="WeCom user Id",
+        readonly=True,
+    )
+    wecom_open_userid = fields.Char(
+        string="WeCom open user Id",
+        readonly=True,
+    )
+    alias = fields.Char(
+        string="Alias",
+        readonly=True,
+    )
+    english_name = fields.Char(
+        string="English Name",
+        readonly=True,
+    )
 
     department_ids = fields.Many2many(
-        "hr.department", string="Multiple departments", readonly=True,
+        "hr.department",
+        string="Multiple departments",
+        readonly=True,
     )
     use_system_avatar = fields.Boolean(readonly=True, default=True)
     avatar = fields.Char(string="Avatar")
@@ -41,7 +55,9 @@ class HrEmployeePrivate(models.Model):
         readonly=True,
     )
     is_wecom_employee = fields.Boolean(
-        string="WeCom employees", readonly=True, default=False,
+        string="WeCom employees",
+        readonly=True,
+        default=False,
     )
 
     # TODO 待处理 增加标签成员 和 删除标签成员
@@ -67,9 +83,9 @@ class HrEmployeePrivate(models.Model):
     # def unlink(self):
     #     super(HrEmployeePrivate, self).unlink()
 
-    def remove_employee_from_tag(self):
+    def remove_obj_from_tag(self):
         """
         从标签中移除员工
         """
-        print(self.wecom_userid)
-        self.category_ids = False
+        print("移除员工", self.wecom_userid)
+        # self.category_ids = False

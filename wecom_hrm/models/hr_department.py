@@ -21,7 +21,9 @@ class Department(models.Model):
     )
 
     wecom_department_id = fields.Integer(
-        string="WeCom department ID", readonly=True, default="0",
+        string="WeCom department ID",
+        readonly=True,
+        default="0",
     )
 
     wecom_department_parent_id = fields.Integer(
@@ -36,10 +38,12 @@ class Department(models.Model):
         readonly=True,
     )
     is_wecom_department = fields.Boolean(
-        string="WeCom Department", readonly=True, default=False,
+        string="WeCom Department",
+        readonly=True,
+        default=False,
     )
 
-    def remove_department_from_tag(self):
+    def remove_obj_from_tag(self):
         """
         从标签中移除部门
         """
