@@ -7,9 +7,49 @@
             <field name="model">hr.employee.category</field>
             <field name="inherit_id" ref="hr.view_employee_category_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="after">
-                    <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
-                    <field name="is_wecom_category"/>
+                <xpath expr="//form" position="replace">
+                    <form string="Employee Tags">
+                        <sheet>
+                            <div name="button_box" class="oe_button_box">
+                                <button name="create_wecom_tag" type="object" string="Create WeCom Tags" class="oe_stat_button" icon="fa-tag" attrs="{'invisible': ['|',('is_wecom_category','=',False),'&amp;',('is_wecom_category','=',True), ('tagid','!=',0)]}"/>
+                                <button name="update_wecom_tag_name" type="object" string="Update WeCom Tags Name" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/>
+                                <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button bg-danger text-white" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+                            </div>
+                            <group>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="name"/>
+                                <field name="display_name"/>
+                                <field name="is_wecom_category"/>
+                                <field name="tagid"/>
+                                <field name="employee_ids" widget="many2many">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="is_wecom_employee"/>
+                                        <field name="wecom_userid"/>
+                                        <button name="remove_employee_from_tag" type="object" string="Remove from tag" class="btn btn-danger"/>
+                                    </tree>
+                                </field>
+                                <field name="department_ids" widget="many2many">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="is_wecom_department"/>
+                                        <field name="wecom_department_id"/>
+                                        <button name="remove_department_from_tag" type="object" string="Remove from tag" class="btn btn-danger" context="{'category_id':id}"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <footer>
+                                <!-- float-right -->
+                                <div class="btn-group " role="group" aria-label="Button group">
+                                    <button string="Sync tag members" class="btn btn-primary" type="object" name="sync_tag_members" context="{'mode': 'download'}" icon="fa-exchange" title="Tips: Merge local and remote datasets" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+                                </div>
+                                <div class="btn-group float-right" role="group" aria-label="Button group">
+
+                                    <!-- <button string="Upload tag member" class="btn btn-primary ml-1" type="object" name="tag_member_data_comparison" context="{'mode': 'upload'}" icon="fa-cloud-upload"/> -->
+                                </div>
+                            </footer>
+                        </sheet>
+                    </form>
                 </xpath>
             </field>
         </record>
@@ -19,15 +59,17 @@
             <field name="model">hr.employee.category</field>
             <field name="inherit_id" ref="hr.view_employee_category_list"/>
             <field name="arch" type="xml">
-                <field name="name" position="before">
-                    <field name="company_id" groups="base.group_multi_company" options="{ 'no_open': True}"/>
-                </field>
-                <field name="name" position="after">
-                    <field name="is_wecom_category"/>
-                    <field name="tagid" />
-                    <button name="update_to_wxwork" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
-                    <button name="delete_to_wxwork" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/>
-                </field>
+                <xpath expr="//tree" position="replace">
+                    <tree string="Tags">
+                        <field name="company_id" groups="base.group_multi_company" options="{ 'no_open': True}"/>
+                        <field name="name"/>
+                        <field name="display_name"/>
+                        <field name="is_wecom_category"/>
+                        <field name="tagid" />
+                        <!-- <button name="update_to_wecom_" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                        <button name="delete_to_wecom_" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/> -->
+                    </tree>
+                </xpath>
             </field>
         </record>
 

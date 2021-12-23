@@ -47,10 +47,7 @@ class WecomMessageMessage(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_html = fields.Text("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text(
-        "Json Body",
-        translate=True,
-    )
+    body_json = fields.Text("Json Body", translate=True,)
     body_markdown = fields.Text("Markdown Body", translate=True)
     description = fields.Char(
         "Short description",
@@ -60,13 +57,9 @@ class WecomMessageMessage(models.Model):
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
+        string="To Departments", help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
     use_templates = fields.Boolean("Is template message", default=False)
     templates_id = fields.Many2one("wecom.message.template", string="Message template")
     msgtype = fields.Selection(
@@ -128,11 +121,7 @@ class WecomMessageMessage(models.Model):
         copy=False,
     )
     state = fields.Selection(
-        [
-            ("sent", "Sent"),
-            ("exception", "Send exception"),
-            ("cancel", "Cancelled"),
-        ],
+        [("sent", "Sent"), ("exception", "Send exception"), ("cancel", "Cancelled"),],
         string="State",
     )
     auto_delete = fields.Boolean(
@@ -185,9 +174,7 @@ class WecomMessageMessage(models.Model):
 
     # 来源
     # origin
-    sender = fields.Char(
-        "Sender",
-    )
+    sender = fields.Char("Sender",)
     meaasge_from = fields.Char(
         "From",
         help="Wecom user id of the sender. This field is set when no matching partner is found and replaces the author_id field in the chatter.",
@@ -333,10 +320,7 @@ class WecomMessageMessage(models.Model):
                 yield message_batch
 
     def send(
-        self,
-        auto_commit=False,
-        raise_exception=False,
-        company=None,
+        self, auto_commit=False, raise_exception=False, company=None,
     ):
         """
         立即发送选定的企业微信消息，而忽略它们的当前状态（除非已被重新发送，否则不应该传递已经发送的企业微信消息）。
@@ -357,7 +341,9 @@ class WecomMessageMessage(models.Model):
                 WeComMessageApi = self.env["wecom.message.api"].get_message_api(company)
             except ApiException as exc:
                 if raise_exception:
-                    return self.env["wecom.tools"].ApiExceptionDialog(exc)
+                    return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                        exc, raise_exception=True
+                    )
                 else:
                     batch = self.browse(batch_ids)
                     batch.write({"state": "exception", "failure_reason": exc.errMsg})
@@ -434,10 +420,7 @@ class WecomMessageMessage(models.Model):
             else:
                 # 如果try中的程序执行过程中没有发生错误，继续执行else中的程序；
                 message.write(
-                    {
-                        "state": "sent",
-                        "msgid": res["msgid"],
-                    }
+                    {"state": "sent", "msgid": res["msgid"],}
                 )
             if auto_commit is True:
                 self._cr.commit()

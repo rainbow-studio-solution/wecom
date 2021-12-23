@@ -157,7 +157,9 @@ class Company(models.Model):
                                 )
                             )
         except ApiException as ex:
-            return self.env["wecom.tools"].ApiExceptionDialog(ex)
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
 
     @api.model
     def get_login_join_qrcode(self):

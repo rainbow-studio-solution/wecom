@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-20 01:39+0000\n"
-"PO-Revision-Date: 2021-12-20 09:57+0800\n"
+"POT-Creation-Date: 2021-12-23 01:01+0000\n"
+"PO-Revision-Date: 2021-12-23 09:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -229,6 +229,12 @@ msgstr "Api请求类型"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__type
 msgid "Api Type"
 msgstr "Api类型"
+
+#. module: wecom_api
+#: code:addons/wecom_api/controllers/main.py:0 code:addons/wxwork/wecom_api/controllers/main.py:0
+#, python-format
+msgid "App [%s] does not have service [%s] enabled"
+msgstr "应用 [%s] 未启用服务 [%s]"
 
 #. module: wecom_api
 #: model:ir.actions.act_window,name:wecom_api.action_view_wecom_apps_list model:ir.model.fields,field_description:wecom_api.field_res_company__contacts_app_id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__contacts_app_id
@@ -577,6 +583,11 @@ msgid "Deletes the enterprise customer tag under the specified rule group"
 msgstr "删除指定规则组下的企业客户标签"
 
 #. module: wecom_api
+#: model:ir.model,name:wecom_api.model_hr_department
+msgid "Department"
+msgstr "部门"
+
+#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Developers need to cache access_token for subsequent interface calls (note: gettoken interfaces cannot be called frequently or are frequently blocked). When access_token expires or expires, it needs to be re-acquired."
 msgstr "开发者需要缓存access_token，用于后续接口的调用（注意：不能频繁调用gettoken接口，否则会受到频率拦截）。当access_token失效或过期时，需要重新获取。"
@@ -587,12 +598,12 @@ msgid "Disabled"
 msgstr "停用"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_hr_employee__display_name model:ir.model.fields,field_description:wecom_api.field_res_company__display_name model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_res_users__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_hr_department__display_name model:ir.model.fields,field_description:wecom_api.field_hr_employee__display_name model:ir.model.fields,field_description:wecom_api.field_res_company__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__display_name model:ir.model.fields,field_description:wecom_api.field_res_users__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_apps__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__display_name model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__display_name
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__display_name model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -737,7 +748,7 @@ msgstr "导出标签成员"
 #: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
 #, python-format
 msgid "Failed"
-msgstr "字段"
+msgstr "失败"
 
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
@@ -1178,10 +1189,10 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_hr_employee__id model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id model:ir.model.fields,field_description:wecom_api.field_res_users__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__id model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id
+#: model:ir.model.fields,field_description:wecom_api.field_hr_department__id model:ir.model.fields,field_description:wecom_api.field_hr_employee__id model:ir.model.fields,field_description:wecom_api.field_res_company__id model:ir.model.fields,field_description:wecom_api.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wecom_api.field_res_users__id model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__id model:ir.model.fields,field_description:wecom_api.field_wecom_apps__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_message_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message__id model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security__id
 msgid "ID"
 msgstr ""
@@ -1229,14 +1240,14 @@ msgid "Invite members"
 msgstr "邀请成员"
 
 #. module: wecom_api
-#: model:ir.model.fields,field_description:wecom_api.field_hr_employee____last_update model:ir.model.fields,field_description:wecom_api.field_res_company____last_update model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_res_users____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update
-#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_hr_department____last_update model:ir.model.fields,field_description:wecom_api.field_hr_employee____last_update model:ir.model.fields,field_description:wecom_api.field_res_company____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings____last_update model:ir.model.fields,field_description:wecom_api.field_res_users____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_apps____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_message_api____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_tools____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_action____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_datetime____last_update
+#: model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_file____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_message____last_update model:ir.model.fields,field_description:wecom_api.field_wecomapi_tools_security____last_update
 msgid "Last Modified on"
-msgstr "最后修改日"
+msgstr "最后更改日"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_app_event_type__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
@@ -1344,7 +1355,7 @@ msgstr "参数"
 #: code:addons/wecom_api/models/res_config_settings.py:0 code:addons/wxwork/wecom_api/models/res_config_settings.py:0
 #, python-format
 msgid "Please bind contact app!"
-msgstr "请绑定通讯录应用程序！"
+msgstr "请绑定通讯录应用！"
 
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
@@ -1558,6 +1569,12 @@ msgid "The function is unique !"
 msgstr "功能是唯一的！"
 
 #. module: wecom_api
+#: code:addons/wecom_api/models/hr_department.py:0 code:addons/wecom_api/models/hr_employee.py:0 code:addons/wxwork/wecom_api/models/hr_department.py:0 code:addons/wxwork/wecom_api/models/hr_employee.py:0
+#, python-format
+msgid "There is no mapping for field [%s], please contact the developer."
+msgstr "字段 [%s] 没有映射，请与开发人员联系。"
+
+#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
 msgid "Therefore, developers should identify the source of the issuance of access_token and use the correct access_token before using the business interface."
 msgstr "因此开发者，在使用业务接口前，要明确access_token的颁发来源，使用正确的access_token。"
@@ -1585,8 +1602,8 @@ msgstr "类型"
 #. module: wecom_api
 #: code:addons/wecom_api/models/wecom_app_event_type.py:0 code:addons/wxwork/wecom_api/models/wecom_app_event_type.py:0
 #, python-format
-msgid "Unable to execute [%s] change type for company [%s], ignoring it."
-msgstr "无法为公司 [%s] 执行 [%s] 更改类型，将忽略它。"
+msgid "Unable to execute [%s] change type for company [%s], ignoring it. reason: %s"
+msgstr "无法为公司 [%s] 执行 [%s] 更改类型，将忽略它。原因：%s"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_update

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-19 04:47+0000\n"
-"PO-Revision-Date: 2021-12-19 12:49+0800\n"
+"POT-Creation-Date: 2021-12-23 00:55+0000\n"
+"PO-Revision-Date: 2021-12-23 09:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -127,6 +127,11 @@ msgstr "公司简称"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__access_token
 msgid "Access Token"
 msgstr "访问令牌"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__active
+msgid "Active"
+msgstr "有效"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__agentid
@@ -405,6 +410,11 @@ msgid "External pay"
 msgstr "对外收款"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__ttype
+msgid "Field Type"
+msgstr ""
+
+#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
 msgid "Fill in: WeCom management background → \"Corp Information\" → \"Corp ID\""
 msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
@@ -618,11 +628,6 @@ msgstr "二维码尺寸类型"
 #: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
 msgid "QRcode size type"
 msgstr "二维码尺寸类型"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__model_ids
-msgid "Related Model"
-msgstr "关联模型"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__isreportenter
@@ -868,6 +873,86 @@ msgstr "企微应用接收事件服务"
 #: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_open_userid
 msgid "Wecom Open Userid"
 msgstr "企微用户open_userid"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__binary
+msgid "binary"
+msgstr "二进制"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__boolean
+msgid "boolean"
+msgstr "布尔型"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__char
+msgid "char"
+msgstr "字符"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__date
+msgid "date"
+msgstr "日期"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__datetime
+msgid "datetime"
+msgstr "日期时间"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__float
+msgid "float"
+msgstr "浮点型"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__html
+msgid "html"
+msgstr "html"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__integer
+msgid "integer"
+msgstr "整数"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2many
+msgid "many2many"
+msgstr "多对多"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2one
+msgid "many2one"
+msgstr "多对一"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2one_reference
+msgid "many2one_reference"
+msgstr "多对一参考"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__monetary
+msgid "monetary"
+msgstr "货币"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__one2many
+msgid "one2many"
+msgstr "一对多"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__reference
+msgid "reference"
+msgstr "参考"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__selection
+msgid "selection"
+msgstr "选择项"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__text
+msgid "text"
+msgstr "文本"
 
 #. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.open_module_tree_user

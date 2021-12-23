@@ -42,9 +42,9 @@
                         <field name="english_name" placeholder="English Name"/>
                     </h2>
                 </xpath>
-                <xpath expr="//div[hasclass('oe_title')]//field[@name='category_ids']" position="attributes">
+                <!-- <xpath expr="//div[hasclass('oe_title')]//field[@name='category_ids']" position="attributes">
                     <attribute name="attrs">{'readonly': [('is_wecom_employee', '=', True)]}</attribute>
-                </xpath>
+                </xpath> -->
                 <xpath expr="//field[@name='department_id']" position="after">
                     <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>
                 </xpath>

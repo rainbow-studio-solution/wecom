@@ -15,6 +15,10 @@ class EmployeeCategory(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
 
+        company = self.company_id
+        if not company:
+            company = self.env.company
+
         if debug:
             _logger.info(_("Start syncing WeCom Contact - Employee Tags"))
 
@@ -22,7 +26,7 @@ class EmployeeCategory(models.Model):
         try:
             start1 = time.time()
             wxapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id, "contacts_secret", "contacts"
+                company.corpid, company.contacts_app_id.secret
             )
 
             status = True

@@ -12,7 +12,7 @@
                 </xpath>
                 <xpath expr="//strong[hasclass('o_kanban_record_title')]/field[@name='display_name']" position="before">
                     <div class="float-right">
-                        <span t-if="record.is_wecom_user.raw_value" class="fa fa-weixin text-info" role="img" aria-label="Enterprise wechat" title="Enterprise wechat">
+                        <span t-if="record.is_wecom_user.raw_value" class="fa fa-weixin text-info" role="img" aria-label="Enterprise wechat user" title="Enterprise wechat user">
                         </span>
                     </div>
                 </xpath>
