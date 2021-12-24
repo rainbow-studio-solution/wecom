@@ -22,18 +22,18 @@
                                 <field name="is_wecom_category"/>
                                 <field name="tagid"/>
                                 <!-- <field name="employee_ids"/> -->
-                                <field name="employee_ids" widget="wecom_one2many">
-                                    <tree>
+                                <field name="employee_ids" widget="wecom_x2many" options="{'no_open': True,'no_create': True,'not_delete': True}">
+                                    <tree create="0" edit="0" delete="0">
                                         <field name="name" width="200px"/>
                                         <field name="company_id" width="200px"/>
                                         <field name="is_wecom_employee"/>
                                         <field name="wecom_userid"/>
-                                        <button name="remove_obj_from_tag" type="object" string="Remove" title="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" context="{'category_id':id}"/>
+                                        <button name="remove_obj_from_tag" type="object" string="Remove" title="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" />
                                     </tree>
                                 </field>
                                 <!-- <field name="department_ids"/> -->
-                                <field name="department_ids" widget="wecom_one2many">
-                                    <tree>
+                                <field name="department_ids" widget="wecom_x2many" options="{'no_open': True,'no_create': True,'not_delete': True}">
+                                    <tree create="0" edit="0" delete="0">
                                         <field name="name" width="200px"/>
                                         <field name="company_id" width="200px"/>
                                         <field name="is_wecom_department"/>

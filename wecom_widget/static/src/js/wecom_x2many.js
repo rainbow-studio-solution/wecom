@@ -1,7 +1,7 @@
 //----------------------------------------
 // Wecom One2many widgets
 //----------------------------------------
-odoo.define('wecom.one2many', function (require) {
+odoo.define('wecom.x2many', function (require) {
     "use strict";
 
     var core = require('web.core');
@@ -13,13 +13,13 @@ odoo.define('wecom.one2many', function (require) {
     var viewUtils = require('web.viewUtils');
 
 
-    var FieldOne2ManyHlep = RelationalFields.FieldOne2Many.extend({
+    var WeComX2Many = RelationalFields.FieldX2Many.extend({
         description: _lt("WecomOne2many"),
         className: 'o_field_wecom_one2many',
-        supportedFieldTypes: ['wecom_one2many'],
+        supportedFieldTypes: ['wecom_x2many'],
         // attrs:
         // - help: 帮助字段
-        // - widget: "wecom_one2many"
+        // - widget: "wecom_x2many"
         // value：
         // - data:数据
         init: function (parent, name, record, options) {
@@ -28,7 +28,7 @@ odoo.define('wecom.one2many', function (require) {
             this.widget = this.attrs.widget;
         },
         _getRenderer: function () {
-            if (this.attrs.widget === "wecom_one2many") {
+            if (this.attrs.widget === "wecom_x2many") {
                 this.help_field = this.attrs.help;
                 return ListRenderer;
             }
@@ -46,7 +46,7 @@ odoo.define('wecom.one2many', function (require) {
             this._super.apply(this, arguments);
 
             if (parent.hasOwnProperty("attrs")) {
-                if (parent.attrs.widget === "wecom_one2many") {
+                if (parent.attrs.widget === "wecom_x2many") {
                     this.parent_res_id = parent.res_id; //当前Form的res_id
                     this.help_records = parent.value.data;
                     this.is_wecom_one2many = true;
@@ -100,6 +100,9 @@ odoo.define('wecom.one2many', function (require) {
                 if (this.show_help) {
                     $thead.find("th:last").after($("<th title='help' class='text-center' width='0.4'><i class='fa fa-question-circle' aria-hidden='false'></i></th>"));
                 }
+                if (self.is_wecom_tag) {
+                    $thead.find("td.o_list_record_remove_header").remove();
+                }
             }
             return $thead;
         },
@@ -122,11 +125,15 @@ odoo.define('wecom.one2many', function (require) {
                         var $show_help_btn = _.str.sprintf(show_help_btn_html, title, _t("Show"));
                         $($show_help_btn).attr("container", false);
                         $row.find("td:last").after($("<td class='text-right'></td>").append($show_help_btn));
+
+
                     } else {
                         $row.find("td:last").after($("<td class='text-right'></td>"));
                     }
                 }
-
+                if (self.is_wecom_tag) {
+                    $row.find("td.o_list_record_remove").remove();
+                }
             }
             return $row;
         },
@@ -225,9 +232,9 @@ odoo.define('wecom.one2many', function (require) {
         },
     });
 
-    fieldRegistry.add('wecom_one2many', FieldOne2ManyHlep);
+    fieldRegistry.add('wecom_x2many', WeComX2Many);
     return {
-        FieldOne2ManyHlep: FieldOne2ManyHlep,
+        WeComX2Many: WeComX2Many,
     };
 
 });

@@ -85,7 +85,7 @@
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="contacts_app_config_ids" widget="wecom_one2many" help="description" class="w-100 pl-3">
+                                            <field name="contacts_app_config_ids" widget="wecom_x2many" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="key" readonly="1"/>
@@ -112,7 +112,7 @@
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="contacts_app_callback_service_ids" widget="wecom_one2many" help="description" class="w-100 pl-3">
+                                            <field name="contacts_app_callback_service_ids" widget="wecom_x2many" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>

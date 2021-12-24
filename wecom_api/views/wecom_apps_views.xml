@@ -154,14 +154,14 @@
                             </page>
                             <page name="parameter" string="Parameter">
                                 <group>
-                                    <field name="app_config_ids" widget="wecom_one2many" mode="tree" help="description" nolabel="1">
+                                    <field name="app_config_ids" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
                                         <!-- context="{'default_company_id': company_id}" -->
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <!-- <field name="company_id" readonly="1"/> -->
                                             <field name="name" readonly="1"/>
                                             <field name="key" readonly="1"/>
-                                            <field name="value" required="1" />
-                                            <field name="description" invisible="1"/>
+                                            <field name="value" required="1" style="max-width: 500x;"/>
+                                            <field name="description" invisible="1" />
                                         </tree>
                                     </field>
                                 </group>
@@ -174,7 +174,7 @@
                             </page>
                             <page name="callback" string="Callback service settings">
                                 <group>
-                                    <field name="app_callback_service_ids" options="{'no_open': True, 'no_create': True}" widget="wecom_one2many" mode="tree" help="description" nolabel="1">
+                                    <field name="app_callback_service_ids" options="{'no_open': True, 'no_create': True}" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <field name="name" readonly="1" />
                                             <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
