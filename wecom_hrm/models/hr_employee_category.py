@@ -36,7 +36,7 @@ class EmployeeCategory(models.Model):
         "dmp_id",
         string="Departments",
     )
-    is_change = fields.Boolean(string="Is Change", default=False)
+
     tagid = fields.Integer(
         string="WeCom Tag ID",
         readonly=True,
