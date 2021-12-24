@@ -76,7 +76,9 @@ class AuthSignupHome(SignupHome):
                         )
                         if user_sudo and message_template:
                             return message_template.send_message(
-                                user_sudo.id, force_send=True, raise_exception=True,
+                                user_sudo.id,
+                                force_send=True,
+                                raise_exception=True,
                             )
                     else:
                         mail_template = request.env.ref(
@@ -181,7 +183,9 @@ class OAuthLogin(Home):
 
 class OAuthController(Controller):
     @http.route(
-        "/wxowrk_auth_oauth/authorize", type="http", auth="none",
+        "/wxowrk_auth_oauth/authorize",
+        type="http",
+        auth="none",
     )
     def wecom_web_authorize(self, **kw):
         code = kw.pop("code", None)
@@ -192,7 +196,10 @@ class OAuthController(Controller):
             request.env["res.company"]
             .sudo()
             .search(
-                [("corpid", "=", state["a"]), ("is_wecom_organization", "=", True),],
+                [
+                    ("corpid", "=", state["a"]),
+                    ("is_wecom_organization", "=", True),
+                ],
             )
         )
 
@@ -206,7 +213,9 @@ class OAuthController(Controller):
                 request.env["wecom.service_api_list"]
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
-                {"code": code,},
+                {
+                    "code": code,
+                },
             )
 
             dbname = state["d"]
@@ -281,7 +290,10 @@ class OAuthController(Controller):
             request.env["res.company"]
             .sudo()
             .search(
-                [("corpid", "=", kw["appid"]), ("is_wecom_organization", "=", True),],
+                [
+                    ("corpid", "=", kw["appid"]),
+                    ("is_wecom_organization", "=", True),
+                ],
             )
         )
 
@@ -295,7 +307,9 @@ class OAuthController(Controller):
                 request.env["wecom.service_api_list"]
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
-                {"code": code,},
+                {
+                    "code": code,
+                },
             )
 
             state = json.loads(kw["state"].replace("M", '"'))
@@ -362,7 +376,6 @@ class OAuthController(Controller):
 
     @http.route("/wxowrk_login_info", type="json", auth="none")
     def wecom_get_login_info(self, **kwargs):
-
         data = {}
         if "is_wecom_browser" in kwargs:
             if kwargs["is_wecom_browser"]:
@@ -390,19 +403,24 @@ class OAuthController(Controller):
 
         if len(companies) > 0:
             for company in companies:
+                app_config = request.env["wecom.app_config"].sudo()
+                contacts_app = company.contacts_app_id.sudo()  # 通讯录应用
+                auth_app = company.auth_app_id.sudo()  # 验证登录应用
+
                 data["companies"].append(
                     {
                         "id": company["id"],
                         "name": company["abbreviated_name"],
                         "fullname": company["name"],
                         "appid": company["corpid"],
-                        "agentid": company.sudo().auth_app_id.agentid,
-                        "join_qrcode": request.env["wecom.app_config"]
-                        .sudo()
-                        .get_param(company.contacts_app_id.id, "join_qrcode"),
+                        "agentid": auth_app.agentid if auth_app else 0,
+                        "join_qrcode": app_config.get_param(
+                            contacts_app.id, "join_qrcode"
+                        )
+                        if company.contacts_app_id
+                        else "",
                     }
                 )
-
         return data
 
     # @http.route("/wecom_login_jsapi", type="json", auth="none")

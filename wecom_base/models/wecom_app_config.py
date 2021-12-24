@@ -23,7 +23,9 @@ class WeComAppConfig(models.Model):
         required=True,
     )
     name = fields.Char(string="Name", translate=True, required=True, copy=True)
-    key = fields.Char(required=True,)
+    key = fields.Char(
+        required=True,
+    )
     ttype = fields.Selection(selection=FIELD_TYPES, string="Field Type", required=True)
     value = fields.Text(required=True)
     description = fields.Html(string="Description", translate=True, copy=True)
@@ -67,4 +69,3 @@ class WeComAppConfig(models.Model):
             else:
                 return False
         return value if params else None
-

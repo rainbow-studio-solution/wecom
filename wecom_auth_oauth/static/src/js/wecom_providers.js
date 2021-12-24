@@ -30,14 +30,14 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
             const nonceStr = self.generateNonceStr(16);
             // const url = window.location.pathname; //当前网页的URL， 不包含#及其后面部分
             const url = window.location.href.split("#")[0]; //当前网页的URL， 不包含#及其后面部分
-            this.wx_configs_data = self._rpc({
-                route: "/wecom_login_jsapi",
-                params: {
-                    nonceStr: nonceStr,
-                    timestamp: timestamp,
-                    url: url,
-                },
-            })
+            // this.wx_configs_data = self._rpc({
+            //     route: "/wecom_login_jsapi",
+            //     params: {
+            //         nonceStr: nonceStr,
+            //         timestamp: timestamp,
+            //         url: url,
+            //     },
+            // })
             // 判断是 iphone 或者 ipad后，注入JS-SDK配置信息
             // 解决在ios端企业微信内置浏览器的WeixinJSBridge错误
             if (self.is_ios()) {
@@ -175,43 +175,43 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
         // -------------------------------
         // JS-SDK
         // -------------------------------
-        setWxConfig: async function () {
-            var self = this;
-            const data = await Promise.resolve(self.wx_configs_data);
-            var parameters = data[0]["parameters"];
-            // var FirstWxConfig = new wxconfig(self, {
-            wx.config({
-                beta: parameters["beta"],
-                debug: parameters["debug"],
-                // debug: false,
-                appId: parameters["appId"],
-                timestamp: parameters["timestamp"],
-                nonceStr: parameters["nonceStr"],
-                signature: parameters["signature"],
-                jsApiList: ["getBrandWCPayRequest", "WeixinJSBridge"], //必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
-            })
-            // FirstWxConfig.start()
-            wx.ready(function () {
-                function onBridgeReady() {
-                    WeixinJSBridge.invoke();
-                }
-                if (typeof WeixinJSBridge == "undefined") {
-                    if (document.addEventListener) {
-                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-                    } else if (document.attachEvent) {
-                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
-                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-                    }
-                } else {
-                    onBridgeReady();
-                }
-            });
-            wx.error(function (res) {
-                console.log(res)
-                // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
-            });
+        // setWxConfig: async function () {
+        //     var self = this;
+        //     const data = await Promise.resolve(self.wx_configs_data);
+        //     var parameters = data[0]["parameters"];
+        //     // var FirstWxConfig = new wxconfig(self, {
+        //     wx.config({
+        //         beta: parameters["beta"],
+        //         debug: parameters["debug"],
+        //         // debug: false,
+        //         appId: parameters["appId"],
+        //         timestamp: parameters["timestamp"],
+        //         nonceStr: parameters["nonceStr"],
+        //         signature: parameters["signature"],
+        //         jsApiList: ["getBrandWCPayRequest", "WeixinJSBridge"], //必填，需要使用的JS接口列表，凡是要调用的接口都需要传进来
+        //     })
+        //     // FirstWxConfig.start()
+        //     wx.ready(function () {
+        //         function onBridgeReady() {
+        //             WeixinJSBridge.invoke();
+        //         }
+        //         if (typeof WeixinJSBridge == "undefined") {
+        //             if (document.addEventListener) {
+        //                 document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        //             } else if (document.attachEvent) {
+        //                 document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+        //                 document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        //             }
+        //         } else {
+        //             onBridgeReady();
+        //         }
+        //     });
+        //     wx.error(function (res) {
+        //         console.log(res)
+        //         // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        //     });
 
-        },
+        // },
         // get_jsapi_parameter: async function (nonceStr, timestamp, url, company_id) {
         //     var self = this;
         //     return self._rpc({
