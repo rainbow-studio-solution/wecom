@@ -214,10 +214,7 @@ class WeComApps(models.Model):
                     )
                 else:
                     app_config.sudo().write(
-                        {
-                            "name": config.name,
-                            "description": config.description,
-                        }
+                        {"name": config.name, "description": config.description,}
                     )
 
     # ————————————————————————————————————
@@ -374,5 +371,7 @@ class WeComApps(models.Model):
         自动任务获取加入企业二维码
         """
         _logger.info(_("Automatic task:Start to get join enterprise QR code."))
-        for app in self.search([("company_id", "!=", False)]):
+        for app in self.search(
+            [("company_id", "!=", False), ("type_code", "=", "['contacts']")]
+        ):
             app.get_join_qrcode()

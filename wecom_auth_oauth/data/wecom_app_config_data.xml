@@ -6,6 +6,7 @@
             <field name="app_id" ref="wecom_material.wecom_app_first_self_app"/>
             <field name="name">Callback link address redirected after authorization</field>
             <field name="key">auth_redirect_uri</field>
+            <field name="ttype">char</field>
             <field name="value">http://xxx.xxx.com:port/wxowrk_auth_oauth/authorize</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -22,6 +23,7 @@
             <field name="app_id" ref="wecom_material.wecom_app_first_self_app"/>
             <field name="name">Scan the QR code to log in and call back the link address</field>
             <field name="key">qr_redirect_uri</field>
+            <field name="ttype">char</field>
             <field name="value">http://xxx.xxx.com:port/wxowrk_auth_oauth/qr</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">

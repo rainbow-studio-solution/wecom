@@ -212,22 +212,22 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
             });
 
         },
-        get_jsapi_parameter: async function (nonceStr, timestamp, url, company_id) {
-            var self = this;
-            return self._rpc({
-                route: "/wecom_login_jsapi",
-                params: {
-                    company_id: company_id,
-                    nonceStr: nonceStr,
-                    timestamp: timestamp,
-                    url: url,
-                },
+        // get_jsapi_parameter: async function (nonceStr, timestamp, url, company_id) {
+        //     var self = this;
+        //     return self._rpc({
+        //         route: "/wecom_login_jsapi",
+        //         params: {
+        //             company_id: company_id,
+        //             nonceStr: nonceStr,
+        //             timestamp: timestamp,
+        //             url: url,
+        //         },
 
-            }).then(function (response) {
-                // return response;
-                return Promise.resolve(response);
-            })
-        },
+        //     }).then(function (response) {
+        //         // return response;
+        //         return Promise.resolve(response);
+        //     })
+        // },
         generateNonceStr: function (len) {
             //生成签名的随机串
             len = len || 32;

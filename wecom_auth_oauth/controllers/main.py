@@ -200,7 +200,7 @@ class OAuthController(Controller):
             wxapi = (
                 request.env["wecom.service_api"]
                 .sudo()
-                .InitServiceApi(company, "auth_secret", "auth")
+                .InitServiceApi(company.corpid, company.sudo().auth_app_id.secret)
             )
             response = wxapi.httpCall(
                 request.env["wecom.service_api_list"]
@@ -219,7 +219,7 @@ class OAuthController(Controller):
                 try:
                     env = api.Environment(cr, SUPERUSER_ID, context)
                     credentials = (
-                        env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
+                        env["res.users"].sudo().wecom_auth_oauth(provider, response)
                     )
                     cr.commit()
                     action = state.get("a")
@@ -289,7 +289,7 @@ class OAuthController(Controller):
             wxapi = (
                 request.env["wecom.service_api"]
                 .sudo()
-                .InitServiceApi(company, "auth_secret", "auth")
+                .InitServiceApi(company.corpid, company.sudo().auth_app_id.secret)
             )
             response = wxapi.httpCall(
                 request.env["wecom.service_api_list"]
@@ -310,7 +310,7 @@ class OAuthController(Controller):
                 try:
                     env = api.Environment(cr, SUPERUSER_ID, context)
                     credentials = (
-                        env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
+                        env["res.users"].sudo().wecom_auth_oauth(provider, response)
                     )
                     cr.commit()
                     action = state.get("a")
@@ -396,54 +396,56 @@ class OAuthController(Controller):
                         "name": company["abbreviated_name"],
                         "fullname": company["name"],
                         "appid": company["corpid"],
-                        "agentid": company["auth_agentid"],
-                        "join_qrcode": company["join_qrcode"],
+                        "agentid": company.sudo().auth_app_id.agentid,
+                        "join_qrcode": request.env["wecom.app_config"]
+                        .sudo()
+                        .get_param(company.contacts_app_id.id, "join_qrcode"),
                     }
                 )
 
         return data
 
-    @http.route("/wecom_login_jsapi", type="json", auth="none")
-    def wecom_get_login_jsapi(self, **kwargs):
-        """
-        获取登陆页面的 JSAPI ticket
-        args:
-            nonceStr: 生成签名的随机串
-            timestamp: 生成签名的时间戳
-            url: 当前网页的URL， 不包含#及其后面部分
-        """
-        datas = []
+    # @http.route("/wecom_login_jsapi", type="json", auth="none")
+    # def wecom_get_login_jsapi(self, **kwargs):
+    #     """
+    #     获取登陆页面的 JSAPI ticket
+    #     args:
+    #         nonceStr: 生成签名的随机串
+    #         timestamp: 生成签名的时间戳
+    #         url: 当前网页的URL， 不包含#及其后面部分
+    #     """
+    #     datas = []
 
-        params = request.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wecom.jsapi_debug")
+    #     params = request.env["ir.config_parameter"].sudo()
+    #     debug = params.get_param("wecom.jsapi_debug")
 
-        # 获取 标记为 企业微信组织 的公司
-        companies = request.env["res.company"].search(
-            [(("is_wecom_organization", "=", True))]
-        )
-        if len(companies) > 0:
-            for company in companies:
-                data = {}
-                parameters = {}
-                parameters.update(
-                    {
-                        "beta": True,
-                        "debug": True if debug == "True" else False,
-                        "appId": company["corpid"],
-                        "timestamp": kwargs["timestamp"],
-                        "nonceStr": kwargs["nonceStr"],
-                        "signature": request.env[
-                            "wecomapi.tools.security"
-                        ].generate_jsapi_signature(
-                            company,
-                            kwargs["nonceStr"],
-                            kwargs["timestamp"],
-                            kwargs["url"],
-                        ),
-                    }
-                )
-                data["id"] = company.id
-                data["parameters"] = parameters
-                datas.append(data)
+    #     # 获取 标记为 企业微信组织 的公司
+    #     companies = request.env["res.company"].search(
+    #         [(("is_wecom_organization", "=", True))]
+    #     )
+    #     if len(companies) > 0:
+    #         for company in companies:
+    #             data = {}
+    #             parameters = {}
+    #             parameters.update(
+    #                 {
+    #                     "beta": True,
+    #                     "debug": True if debug == "True" else False,
+    #                     "appId": company["corpid"],
+    #                     "timestamp": kwargs["timestamp"],
+    #                     "nonceStr": kwargs["nonceStr"],
+    #                     "signature": request.env[
+    #                         "wecomapi.tools.security"
+    #                     ].generate_jsapi_signature(
+    #                         company,
+    #                         kwargs["nonceStr"],
+    #                         kwargs["timestamp"],
+    #                         kwargs["url"],
+    #                     ),
+    #                 }
+    #             )
+    #             data["id"] = company.id
+    #             data["parameters"] = parameters
+    #             datas.append(data)
 
-        return datas
+    #     return datas

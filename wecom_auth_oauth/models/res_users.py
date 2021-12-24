@@ -25,7 +25,7 @@ class ResUsers(models.Model):
     # 验证
     # ---------------------
     @api.model
-    def wxwrok_auth_oauth(self, provider, params):
+    def wecom_auth_oauth(self, provider, params):
         """
         允许一键登录和扫码登录且标记了企业微信的用户登录系统
         :param provider:
@@ -36,13 +36,7 @@ class ResUsers(models.Model):
         wecom_qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
 
         wecom_providers = (
-            self.env["auth.oauth.provider"]
-            .sudo()
-            .search(
-                [
-                    ("id", "=", provider),
-                ]
-            )
+            self.env["auth.oauth.provider"].sudo().search([("id", "=", provider),])
         )
 
         if (
@@ -157,9 +151,7 @@ class ResUsers(models.Model):
         with self.env.cr.savepoint():
             force_send = not (self.env.context.get("import_file", False))
             template.send_message(
-                user.id,
-                force_send=force_send,
-                raise_exception=True,
+                user.id, force_send=force_send, raise_exception=True,
             )
         _logger.info(
             _("Password reset message sent to user: <%s>,<%s>, <%s>"),

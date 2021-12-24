@@ -114,7 +114,6 @@ class Company(models.Model):
                     }
                 )
 
-
     def cron_get_join_qrcode(self):
         """
         获取加入企业二维码任务
@@ -136,7 +135,7 @@ class Company(models.Model):
                     wxapi = (
                         self.env["wecom.service_api"]
                         .sudo()
-                        .InitServiceApi(company, "contacts_secret", "contacts")
+                        .InitServiceApi(company.corpid, company.contacts_app_id.secret)
                     )
                     response = wxapi.httpCall(
                         self.env["wecom.service_api_list"].get_server_api_call(
@@ -158,8 +157,8 @@ class Company(models.Model):
                             )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-                    ex, raise_exception=True
-                )
+                ex, raise_exception=True
+            )
 
     @api.model
     def get_login_join_qrcode(self):
