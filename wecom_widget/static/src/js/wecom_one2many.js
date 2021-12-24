@@ -1,5 +1,5 @@
 //----------------------------------------
-// Wxwork One2many help widgets
+// Wecom One2many widgets
 //----------------------------------------
 odoo.define('wecom.one2many', function (require) {
     "use strict";
@@ -164,7 +164,7 @@ odoo.define('wecom.one2many', function (require) {
                 $button.on("click", function (e) {
                     e.stopPropagation();
                     if (self.is_wecom_tag) {
-                        self.remove_obj_from_tag();
+                        self.remove_obj_from_tag(record)
                     } else {
                         self.trigger_up('button_clicked', {
                             attrs: node.attrs,
@@ -195,6 +195,20 @@ odoo.define('wecom.one2many', function (require) {
             }
             return $footer;
         },
+        remove_obj_from_tag: function (record) {
+            var self = this;
+            self._rpc({
+                model: 'hr.employee.category',
+                method: 'remove_obj_from_tag',
+                args: ["", self.parent_res_id, record.model, record.res_id],
+            }).then(function (result) {
+                // console.log("请求", result);
+                // return result
+                if (result) {
+                    self.trigger_up('reload');
+                }
+            })
+        },
         showHelpToolTip: function (ev) {
             var help_content_text = "<div class='o_field_wecom_one2many_container'><div class='o_field_wecom_one2many_header'>%s</div><div class='o_field_wecom_one2many_text'>%s</div></div>";
             var options = {
@@ -205,10 +219,6 @@ odoo.define('wecom.one2many', function (require) {
             }
             $(ev.target).tooltip(options);
             $(ev.target).tooltip('show', true);
-        },
-        remove_obj_from_tag: function () {
-
-            console.log("点击了删除按钮2");
         },
         hideHelpToolTip: function (ev) {
             $(ev.target).tooltip('show', false);

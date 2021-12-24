@@ -5,7 +5,7 @@
 
             <t t-if="widget and widget.modelName == 'hr.employee.category'">
                 <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
-                <button class="btn btn-info o_list_wecom_sync_tags  fa fa-cloud-download" type="button">Download tags</button>
+                <button class="btn btn-info o_list_wecom_sync_tags  fa fa-cloud-download" type="button" title="Local coverage from enterprise wechat">Download tags for all companies</button>
             </t>
         </t>
     </t>

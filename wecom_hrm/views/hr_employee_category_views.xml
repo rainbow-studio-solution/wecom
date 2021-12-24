@@ -22,23 +22,23 @@
                                 <field name="is_wecom_category"/>
                                 <field name="tagid"/>
                                 <!-- <field name="employee_ids"/> -->
-                                <field name="employee_ids" widget="wecom_one2many" context="{'tagid':tagid}">
+                                <field name="employee_ids" widget="wecom_one2many">
                                     <tree>
                                         <field name="name" width="200px"/>
                                         <field name="company_id" width="200px"/>
                                         <field name="is_wecom_employee"/>
                                         <field name="wecom_userid"/>
-                                        <button name="remove_obj_from_tag" type="object" string="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" context="{'category_id':id}"/>
+                                        <button name="remove_obj_from_tag" type="object" string="Remove" title="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" context="{'category_id':id}"/>
                                     </tree>
                                 </field>
                                 <!-- <field name="department_ids"/> -->
-                                <field name="department_ids" widget="wecom_one2many" context="{'tagid':tagid}">
+                                <field name="department_ids" widget="wecom_one2many">
                                     <tree>
                                         <field name="name" width="200px"/>
                                         <field name="company_id" width="200px"/>
                                         <field name="is_wecom_department"/>
                                         <field name="wecom_department_id"/>
-                                        <button name="remove_obj_from_tag" type="object" string="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" />
+                                        <button name="remove_obj_from_tag" type="object" string="Remove" title="Remove from tag" class="btn btn-danger float-right remove_obj_from_tag" />
                                     </tree>
                                 </field>
                             </group>

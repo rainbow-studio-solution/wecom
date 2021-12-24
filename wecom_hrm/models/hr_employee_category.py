@@ -43,10 +43,7 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_category = fields.Boolean(
-        string="WeCom Tag",
-        default=False,
-    )
+    is_wecom_category = fields.Boolean(string="WeCom Tag", default=False,)
 
     @api.depends("is_wecom_category")
     def _compute_display_name(self):
@@ -57,15 +54,25 @@ class EmployeeCategory(models.Model):
             else:
                 rec.display_name = rec.name
 
-    def write(self, vals):
-        """
-        保存时，同步当前记录到企业微信
-        """
-        res = super(EmployeeCategory, self).write(vals)
-        # if "employee_ids" in vals or "department_ids" in vals:
-        #     print(vals.get("employee_ids")[0][2])
-        #     print(vals.get("department_ids")[0][2])
-        return res
+    @api.onchange("employee_ids")
+    def _onchange_employee_ids(self):
+        print("-----_onchange_employee_ids", self.employee_ids)
+        self.employee_ids = self.employee_ids.sorted(key=lambda r: r.name)
+
+    @api.onchange("department_ids")
+    def _onchange_department_ids(self):
+        print("-----_onchange_department_ids", self.department_ids)
+        self.department_ids = self.department_ids.sorted(key=lambda r: r.name)
+
+    # def write(self, vals):
+    #     """
+    #     保存时，同步当前记录到企业微信
+    #     """
+    #     res = super(EmployeeCategory, self).write(vals)
+    #     if "employee_ids" in vals or "department_ids" in vals:
+    #         print(vals.get("employee_ids")[0][2])
+    #         print(vals.get("department_ids")[0][2])
+    #     return res
 
     # ------------------------------------------------------------
     # 企微标签
@@ -114,10 +121,7 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -178,10 +182,7 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -229,20 +230,11 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deleted successfully.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
-                tag = self.search(
-                    [("tagid", "=", self.tagid)],
-                    limit=1,
-                )
+                tag = self.search([("tagid", "=", self.tagid)], limit=1,)
                 tag.write(
-                    {
-                        "is_wecom_category": False,
-                        "tagid": 0,
-                    }
+                    {"is_wecom_category": False, "tagid": 0,}
                 )
                 # tag.unlink()
             else:
@@ -252,10 +244,7 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
             action = {
                 "type": "ir.actions.client",
@@ -430,5 +419,43 @@ class EmployeeCategory(models.Model):
                 },
             )
 
-    def remove_user_from_tag(self):
-        print("tag--Remove from tag")
+    def remove_obj_from_tag(self, tagid=False, model="", res_id=False):
+        tag = self.browse(tagid)
+        tag_member_name = self.env["ir.model"]._get(model).model
+
+        userlist = []
+        partylist = []
+        ids_name = ""
+        tag_member_model_obj = self.env[tag_member_name].browse(res_id)
+        if tag_member_name == "hr.employee":
+            userlist.append(tag_member_model_obj.wecom_userid)
+            ids_name = "employee_ids"
+        elif tag_member_name == "hr.department":
+            partylist.append(tag_member_model_obj.wecom_department_id)
+            ids_name = "department_ids"
+
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                tag.company_id.corpid, tag.company_id.contacts_app_id.secret
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "TAG_DELETE_MEMBER"
+                ),
+                {"tagid": str(tagid), "userlist": userlist, "partylist": partylist,},
+            )
+            if response["errcode"] == 0:
+                # 删除成功
+                print("API删除成功")
+                tag.write({ids_name: [(3, res_id)]})
+                return True
+            else:
+                return False
+
+        except ApiException as ex:
+            error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
+            _logger.warning(
+                _("Wecom API error: %s, error name: %s, error message: %s")
+                % (str(ex.errCode), error["name"], ex.errMsg)
+            )
+            return False

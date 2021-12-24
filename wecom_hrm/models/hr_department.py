@@ -21,9 +21,7 @@ class Department(models.Model):
     )
 
     wecom_department_id = fields.Integer(
-        string="WeCom department ID",
-        readonly=True,
-        default="0",
+        string="WeCom department ID", readonly=True, default="0",
     )
 
     wecom_department_parent_id = fields.Integer(
@@ -38,29 +36,14 @@ class Department(models.Model):
         readonly=True,
     )
     is_wecom_department = fields.Boolean(
-        string="WeCom Department",
-        readonly=True,
-        default=False,
+        string="WeCom Department", readonly=True, default=False,
     )
 
     def remove_obj_from_tag(self):
         """
         从标签中移除部门
         """
-        category_id = self.env.context.get("category_id")
-        print(self.wecom_department_id, self.category_ids, category_id)
-        # try:
-        #     wxapi = self.env["wecom.service_api"].InitServiceApi(
-        #         self.company.corpid, self.company.contacts_app_id.secret
-        #     )
-        #     response = wxapi.httpCall(
-        #         self.env["wecom.service_api_list"].get_server_api_call(
-        #             "TAG_DELETE_MEMBER"
-        #         ),
-        #         {"tagid": str(self.tagid), "partylist": [2, 4]},
-        #     )
-        # except ApiException as ex:
-        #     return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-        #         ex, raise_exception=True
-        #     )
-        # self.category_ids = False
+        # category_id = self.env.context.get("category_id")
+        print("执行删除成员---部门")
+
+        self.category_ids = False

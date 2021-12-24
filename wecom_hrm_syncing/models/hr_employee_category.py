@@ -154,19 +154,26 @@ class EmployeeCategory(models.Model):
         HR绑定标签
         """
         debug = params.get_param("wecom.debug_enabled")
-        corpid = params.get_param("wecom.corpid")
-        secret = params.get_param("wecom.contacts_secret")
 
         for res in response["taglist"]:
             employee_category = self.search([("tagid", "=", res["tagid"]),])
             employees = []
+            department_category = self.search([("tagid", "=", res["tagid"]),])
+            departments = []
             try:
-                wxapi = CorpApi(corpid, secret)
-                tags = wxapi.httpCall(
-                    CORP_API_TYPE["TAG_GET_USER"], {"tagid": str(res["tagid"]),},
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    employee_category.company_id.corpid,
+                    employee_category.company_id.contacts_app_id.secret,
                 )
-                userlist = tags["userlist"]  # 标签中包含的成员列表
 
+                tag_members = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "TAG_GET_USER"
+                    ),
+                    {"tagid": str(res["tagid"]),},
+                )
+                userlist = tag_members["userlist"]  # 标签中包含的用户列表
+                partylist = tag_members["partylist"]  # 标签中包含的部门列表
                 if not userlist:
                     pass
                 else:
@@ -177,6 +184,18 @@ class EmployeeCategory(models.Model):
                         employees.append(employee.id)
                     if len(employees) > 0:
                         employee_category.write({"employee_ids": [(6, 0, employees)]})
-            except BaseException as e:
-                if debug:
-                    _logger.info(_("Set employee Tag error: %s") % (repr(e)))
+
+                if not partylist:
+                    for tag_department in partylist:
+                        department = self.env["hr.employee"].search(
+                            [("wecom_department_id", "=", tag_department),]
+                        )
+                        departments.append(department.id)
+                    if len(departments) > 0:
+                        department_category.write(
+                            {"department_ids": [(6, 0, departments)]}
+                        )
+            except ApiException as ex:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
