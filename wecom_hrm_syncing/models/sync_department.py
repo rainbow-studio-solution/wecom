@@ -33,23 +33,23 @@ class SyncDepartment(models.AbstractModel):
                 ],
             )
         )
-        if len(departments) > 0:
-            # 已经有了标识企业微信部门的部门
-            # 获取是否开启了事件同步
-            callback_sync = (
-                company.contacts_app_id.app_callback_service_ids.sudo()
-                .search([("code", "=", "contacts")], limit=1)
-                .active
-            )
-            if callback_sync:
-                msg1 = _(
-                    "The enterprise wechat department already exists. Since the enterprise wechat contact event update function is enabled, manual and automatic tasks cannot be used to synchronize departments."
-                )
-                msg2 = _(
-                    "If you need to use the function of manual and automatic task synchronization, please turn off the callback service of contact synchronization."
-                )
-                _logger.warning(msg1 + msg2)
-                raise Warning(msg1 + "\n" + msg2)
+        # if len(departments) > 0:
+        #     # 已经有了标识企业微信部门的部门
+        #     # 获取是否开启了事件同步
+        #     callback_sync = (
+        #         company.contacts_app_id.app_callback_service_ids.sudo()
+        #         .search([("code", "=", "contacts")], limit=1)
+        #         .active
+        #     )
+        #     if callback_sync:
+        #         msg1 = _(
+        #             "The enterprise wechat department already exists. Since the enterprise wechat contact event update function is enabled, manual and automatic tasks cannot be used to synchronize departments."
+        #         )
+        #         msg2 = _(
+        #             "If you need to use the function of manual and automatic task synchronization, please turn off the callback service of contact synchronization."
+        #         )
+        #         _logger.warning(msg1 + msg2)
+        #         raise Warning(msg1 + "\n" + msg2)
 
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
@@ -64,7 +64,7 @@ class SyncDepartment(models.AbstractModel):
             app_config = self.env["wecom.app_config"].sudo()
             contacts_sync_hr_department_id = app_config.get_param(
                 company.contacts_app_id.id, "contacts_sync_hr_department_id"
-            ) # 需要同步的企业微信部门ID
+            )  # 需要同步的企业微信部门ID
 
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret

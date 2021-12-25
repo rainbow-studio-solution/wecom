@@ -201,7 +201,7 @@ class SyncTag(models.AbstractModel):
             departments = []
             try:
                 wxapi = self.env["wecom.service_api"].InitServiceApi(
-                    company, "contacts_secret", "contacts"
+                    company.corpid, company.contacts_app_id.secret
                 )
                 tags = wxapi.httpCall(
                     self.env["wecom.service_api_list"].get_server_api_call(

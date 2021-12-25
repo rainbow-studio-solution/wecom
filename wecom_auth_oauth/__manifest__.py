@@ -15,7 +15,7 @@
     "description": """
 
         """,
-    "depends": ["portal", "auth_oauth", "wecom_api",],
+    "depends": ["portal", "auth_oauth", "wecom_material",],
     "data": [
         "data/wecom_apps_data.xml",
         "data/wecom_app_config_data.xml",
