@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-24 06:44+0000\n"
-"PO-Revision-Date: 2021-12-24 14:56+0800\n"
+"POT-Creation-Date: 2021-12-25 06:31+0000\n"
+"PO-Revision-Date: 2021-12-25 14:34+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -84,6 +84,26 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"通讯录应用\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
 msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
 msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">Wecom Professional Edition</span>"
+msgstr "<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">企微专业版</span>"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-archive fa-lg\" aria-label=\"Session Content Archive\"/>\n"
+"                                Session Content Archive\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-archive fa-lg\" aria-label=\"会话内容存档\"/>\n"
+"                                会话内容存档\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
@@ -685,6 +705,11 @@ msgstr ""
 "                                    企业微信提供了OAuth的扫码登录授权方式，可以让企业的网站在浏览器内打开时，引导成员使用企业微信扫码登录授权，从而获取成员的身份信息，免去登录的环节。"
 
 #. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "Enterprises can obtain members' conversation content through the interface to meet the regulatory compliance requirements of enterprises and ensure the quality of customer service."
+msgstr "企业可通过接口获取成员会话内容，以符合企业监管合规要求和保障客户服务质量  "
+
+#. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
 msgid "Error"
 msgstr "错误"
@@ -1274,6 +1299,11 @@ msgid "List"
 msgstr "列表"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_msgaudit
+msgid "Manage Session Content Archive"
+msgstr "管理会话内容存档"
+
+#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__8
 msgid "Media material"
 msgstr "媒体素材"
@@ -1434,7 +1464,7 @@ msgstr "接收事件服务"
 #: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Refresh"
-msgstr "刷新"
+msgstr ""
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form model_terms:ir.ui.view,arch_db:wecom_api.view_wecom_apps_form
@@ -1505,6 +1535,11 @@ msgstr "发送新客户欢迎语"
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__sequence model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__sequence
 msgid "Sequence"
 msgstr "排序"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid "Session Content Archive"
+msgstr "会话内容存档"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
