@@ -9,8 +9,8 @@
             <field name="type">manage</field>
             <field name="type_id" ref="wecom_base.wecom_app_type_manage"/>
             <!-- <field name="subtype_ids" ref="wecom_base.wecom_app_subtype_contacts"/> -->
-            <field name="subtype_ids" eval="[(6, 0, [ref('wecom_base.wecom_app_subtype_contacts')])]"/>
-            <field name="type_code">['contacts']</field>
+            <field name="subtype_ids" eval="[(4, ref('wecom_base.wecom_app_subtype_contacts'))]"/>
+            <!-- <field name="type_code">['contacts']</field> -->
             <field name="description">Contacts can be synchronized through the API interface or through third-party applications</field>
             <field name="square_logo_url">https://wwcdn.weixin.qq.com/node/wwmng/wwmng/style/images/icons/AppAddressSyncBig$c4dae6e7.svg</field>
             <field name="sequence">0</field>

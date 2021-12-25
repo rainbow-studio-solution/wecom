@@ -12,8 +12,9 @@
 
         <!-- 应用 -->
         <record id="wecom_material.wecom_app_first_self_app" model="wecom.apps">
-            <field name="subtype_ids" eval="[(6, 0, [ref('wecom_message.wecom_app_subtype_message')])]"/>
-            <field name="type_code">['message']</field>
+            <!-- <field name="subtype_ids" eval="[(4, [ref('wecom_message.wecom_app_subtype_message')])]"/> -->
+            <field name="subtype_ids" eval="[(4, ref('wecom_message.wecom_app_subtype_message'))]"/>
+            <!-- <field name="type_code">['message']</field> -->
         </record>
 
     </data>

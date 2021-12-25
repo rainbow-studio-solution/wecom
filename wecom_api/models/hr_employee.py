@@ -44,7 +44,7 @@ class HrEmployeePrivate(models.Model):
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
-        print("hr dic", dic)
+        # print("hr dic", dic)
         domain = [
             "|",
             ("active", "=", True),
@@ -143,10 +143,10 @@ class HrEmployeePrivate(models.Model):
         if len(department_ids) > 0:
             update_dict.update({"department_ids": [(6, 0, department_ids)]})
 
-        print("update_dict", callback_employee, update_dict)
+        # print("update_dict", callback_employee, update_dict)
 
         if cmd == "create":
-            print("执行创建员工")
+            # print("执行创建员工")
             update_dict.update(
                 {"company_id": company_id.id, "is_wecom_employee": True,}
             )
@@ -167,10 +167,10 @@ class HrEmployeePrivate(models.Model):
         elif cmd == "update":
             if "wecom_userid" in update_dict:
                 del update_dict["wecom_userid"]
-            print("执行更新员工", update_dict)
+            # print("执行更新员工", update_dict)
             callback_employee.write(update_dict)
         elif cmd == "delete":
-            print("执行删除员工")
+            # print("执行删除员工")
             callback_employee.write(
                 {"active": False,}
             )

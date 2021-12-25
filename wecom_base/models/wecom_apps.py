@@ -37,7 +37,22 @@ class WeComApps(models.Model):
     type_id = fields.Many2one("wecom.app.type", string="Application Types", store=True)
 
     subtype_ids = fields.Many2many("wecom.app.subtype", string="Application Subtype",)
-    type_code = fields.Char(string="Application type code", store=True)
+    type_code = fields.Char(
+        string="Application type code",
+        store=True,
+        readonly=True,
+        compute="_computet_type_code",
+    )
+
+    @api.depends("subtype_ids")
+    def _computet_type_code(self):
+        """
+        计算应用类型代码
+        """
+        if self.subtype_ids:
+            self.type_code = self.subtype_ids.mapped("code")
+        else:
+            self.type_code = []
 
     @api.onchange("subtype_ids")
     def _onchange_subtype_ids(self):
@@ -50,10 +65,10 @@ class WeComApps(models.Model):
                 raise UserError(
                     _("Only one subtype can be selected for the current app type!")
                 )
-        if self.subtype_ids:
-            self.type_code = self.subtype_ids.mapped("code")
-        else:
-            self.type_code = []
+        # if self.subtype_ids:
+        #     self.type_code = self.subtype_ids.mapped("code")
+        # else:
+        #     self.type_code = []
 
     @api.model
     def _type_selection_values(self):

@@ -24,7 +24,7 @@ class Department(models.Model):
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
-        print("department dic", dic)
+        # print("department dic", dic)
 
         domain = [
             "|",
@@ -72,7 +72,7 @@ class Department(models.Model):
                         )
                         % key
                     )
-        print("上级部门", parent_department)
+        # print("上级部门", parent_department)
         if parent_department:
             update_dict.update({"parent_id": parent_department.id})
         else:
@@ -80,7 +80,7 @@ class Department(models.Model):
 
         update_dict.update({"company_id": company_id.id, "is_wecom_department": True})
 
-        print("update_dict", callback_department, update_dict)
+        # print("update_dict", callback_department, update_dict)
 
         if cmd == "create":
             callback_department.create(update_dict)
@@ -89,7 +89,7 @@ class Department(models.Model):
                 del update_dict["wecom_department_id"]
             if "wecom_department_parent_id" in update_dict:
                 del update_dict["wecom_department_parent_id"]
-            print("执行更新部门", update_dict)
+            # print("执行更新部门", update_dict)
             callback_department.write(update_dict)
         elif cmd == "delete":
             callback_department.unlink()

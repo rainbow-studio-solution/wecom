@@ -87,5 +87,5 @@ class HrEmployeePrivate(models.Model):
         """
         从标签中移除员工
         """
-        print("移除员工", self.wecom_userid)
+        # print("移除员工", self.wecom_userid)
         # self.category_ids = False

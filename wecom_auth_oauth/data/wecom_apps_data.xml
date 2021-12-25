@@ -12,8 +12,8 @@
 
         <!-- 应用 -->
         <record id="wecom_material.wecom_app_first_self_app" model="wecom.apps">
-            <field name="subtype_ids" eval="[(6,0,[ref('wecom_auth_oauth.wecom_app_subtype_auth')])]"/>
-            <field name="type_code">['auth']</field>
+            <field name="subtype_ids" eval="[(4,ref('wecom_auth_oauth.wecom_app_subtype_auth'))]"/>
+            <!-- <field name="type_code">['auth']</field> -->
         </record>
 
     </data>

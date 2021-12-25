@@ -24,6 +24,7 @@
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/res_users_views.xml",
+        "views/wecom_apps_views.xml",
         "views/menu_views.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],

@@ -192,29 +192,33 @@ class WeComApps(models.Model):
             ]
 
             for id in vals_list:
-                config = self.env["wecom.app_config"].search([("id", "=", id)])
+                app_config_id = self.env["wecom.app_config"].search([("id", "=", id)])
                 app_config = (
                     self.env["wecom.app_config"]
                     .sudo()
-                    .search([("app_id", "=", self.id), ("key", "=", config.key)])
+                    .search([("app_id", "=", self.id), ("key", "=", app_config_id.key)])
                 )
+
                 if not app_config:
-                    app_config = (
-                        self.env["wecom.app_config"]
-                        .sudo()
-                        .create(
-                            {
-                                "name": config.name,
-                                "app_id": self.id,
-                                "key": config.key,
-                                "value": config.value,
-                                "description": config.description,
-                            }
-                        )
+                    app_config.sudo().create(
+                        {
+                            "name": app_config_id.name,
+                            "app_id": self.id,
+                            "key": app_config_id.key,
+                            "ttype": app_config_id.ttype,
+                            "value": ""
+                            if app_config_id.key == "join_qrcode"
+                            or app_config_id.key == "join_qrcode_last_time"
+                            else app_config_id.value,
+                            "description": app_config_id.description,
+                        }
                     )
                 else:
                     app_config.sudo().write(
-                        {"name": config.name, "description": config.description,}
+                        {
+                            "name": app_config_id.name,
+                            "description": app_config_id.description,
+                        }
                     )
 
     # ————————————————————————————————————
@@ -339,27 +343,36 @@ class WeComApps(models.Model):
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(
                     self.company_id.corpid, self.secret
                 )
-                qrcode = self.app_config_ids.sudo().search(
-                    [("key", "=", "join_qrcode")], limit=1
-                )
-                size_type = self.app_config_ids.search(
-                    [("key", "=", "join_qrcode_size_type")], limit=1
-                )
-                last_time = self.app_config_ids.sudo().search(
-                    [("key", "=", "join_qrcode_last_time")], limit=1
-                )
+                app_config = self.env["wecom.app_config"].sudo()
+                size_type = app_config.get_param(self.id, "join_qrcode_size_type")
 
+                # qrcode = self.app_config_ids.sudo().search(
+                #     [("key", "=", "join_qrcode")], limit=1
+                # )
+
+                # last_time = self.app_config_ids.sudo().search(
+                #     [("key", "=", "join_qrcode_last_time")], limit=1
+                # )
+                # print(self.company_id.name, qrcode, size_type, last_time)
                 response = wecomapi.httpCall(
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "GET_JOIN_QRCODE"
                     ),
-                    {"size_type": size_type.value},
+                    {"size_type": size_type},
                 )
                 if response["errcode"] == 0:
-                    qrcode.write({"value": response["join_qrcode"]})
-                    last_time.write(
-                        {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+                    app_config.set_param(
+                        self.id, "join_qrcode", response["join_qrcode"]
                     )
+                    app_config.set_param(
+                        self.id,
+                        "join_qrcode_last_time",
+                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    )
+                    # qrcode.write({"value": response["join_qrcode"]})
+                    # last_time.write(
+                    #     {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
+                    # )
 
             except ApiException as ex:
                 return self.env["wecomapi.tools.action"].ApiExceptionDialog(

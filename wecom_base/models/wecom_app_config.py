@@ -23,10 +23,10 @@ class WeComAppConfig(models.Model):
         required=True,
     )
     name = fields.Char(string="Name", translate=True, required=True, copy=True)
-    key = fields.Char(
-        required=True,
+    key = fields.Char(required=True,)
+    ttype = fields.Selection(
+        selection=FIELD_TYPES, string="Field Type", required=True, copy=True
     )
-    ttype = fields.Selection(selection=FIELD_TYPES, string="Field Type", required=True)
     value = fields.Text(required=True)
     description = fields.Html(string="Description", translate=True, copy=True)
 
@@ -49,8 +49,6 @@ class WeComAppConfig(models.Model):
         """
         return self._get_param(app_id, key) or default
 
-    # @api.model
-    # @ormcache("key")
     def _get_param(self, app_id, key):
         params = self.search_read(
             [("app_id", "=", app_id), ("key", "=", key)],
@@ -69,3 +67,39 @@ class WeComAppConfig(models.Model):
             else:
                 return False
         return value if params else None
+
+    @api.model
+    def set_param(self, app_id, key, value):
+        """设置参数的值。
+
+        :param string key: 要设置的参数值的键。
+        :param string value: 要设置的值。
+        :return: 参数的上一个值，如果不存在，则为False。
+        :rtype: string
+        """
+        param = self.search([("app_id", "=", app_id), ("key", "=", key)])
+        if param:
+            old = param.value
+            if value is not False and value is not None:
+                if str(value) != old:
+                    param.write({"value": value})
+            else:
+                param.unlink()
+            return old
+        else:
+            if value is not False and value is not None:
+                self.create({"app_id": app_id, "key": key, "value": value})
+            return False
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        self.clear_caches()
+        return super(WeComAppConfig, self).create(vals_list)
+
+    def write(self, vals):
+        self.clear_caches()
+        return super(WeComAppConfig, self).write(vals)
+
+    def unlink(self):
+        self.clear_caches()
+        return super(WeComAppConfig, self).unlink()

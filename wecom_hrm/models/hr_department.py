@@ -44,6 +44,6 @@ class Department(models.Model):
         从标签中移除部门
         """
         # category_id = self.env.context.get("category_id")
-        print("执行删除成员---部门")
+        # print("执行删除成员---部门")
 
-        self.category_ids = False
+        # self.category_ids = False

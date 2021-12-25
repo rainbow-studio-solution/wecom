@@ -34,11 +34,11 @@ class WeComApps(models.Model):
             ]
 
             for id in vals_list:
-                config = self.env["wecom.app_config"].search([("id", "=", id)])
+                app_config_id = self.env["wecom.app_config"].search([("id", "=", id)])
                 app_config = (
                     self.env["wecom.app_config"]
                     .sudo()
-                    .search([("app_id", "=", self.id), ("key", "=", config.key)])
+                    .search([("app_id", "=", self.id), ("key", "=", app_config_id.key)])
                 )
                 if not app_config:
                     app_config = (
@@ -46,20 +46,21 @@ class WeComApps(models.Model):
                         .sudo()
                         .create(
                             {
-                                "name": config.name,
+                                "name": app_config_id.name,
                                 "app_id": self.id,
-                                "key": config.key,
-                                "value": config.value,
-                                "description": config.description,
+                                "key": app_config_id.key,
+                                "ttype": app_config_id.ttype,
+                                "value": app_config_id.value,
+                                "description": app_config_id.description,
                             }
                         )
                     )
                 else:
                     app_config.sudo().write(
                         {
-                            "name": config.name,
-                            "value": config.value,
-                            "description": config.description,
+                            "name": app_config_id.name,
+                            "value": app_config_id.value,
+                            "description": app_config_id.description,
                         }
                     )
         super(WeComApps, self).generate_parameters_by_code(code)
@@ -78,7 +79,7 @@ class WeComApps(models.Model):
                 if record["key"] == "qr_redirect_uri":
                     qr_redirect_uri = record
 
-                print(auth_redirect_uri, qr_redirect_uri)
+                # print(auth_redirect_uri, qr_redirect_uri)
             new_auth_redirect_uri = (
                 urllib.parse.urlparse(web_base_url).scheme
                 + "://"

@@ -54,15 +54,15 @@ class EmployeeCategory(models.Model):
             else:
                 rec.display_name = rec.name
 
-    @api.onchange("employee_ids")
-    def _onchange_employee_ids(self):
-        print("-----_onchange_employee_ids", self.employee_ids)
-        self.employee_ids = self.employee_ids.sorted(key=lambda r: r.name)
+    # @api.onchange("employee_ids")
+    # def _onchange_employee_ids(self):
+    #     # print("-----_onchange_employee_ids", self.employee_ids)
+    #     self.employee_ids = self.employee_ids.sorted(key=lambda r: r.name)
 
-    @api.onchange("department_ids")
-    def _onchange_department_ids(self):
-        print("-----_onchange_department_ids", self.department_ids)
-        self.department_ids = self.department_ids.sorted(key=lambda r: r.name)
+    # @api.onchange("department_ids")
+    # def _onchange_department_ids(self):
+    #     # print("-----_onchange_department_ids", self.department_ids)
+    #     self.department_ids = self.department_ids.sorted(key=lambda r: r.name)
 
     # def write(self, vals):
     #     """
@@ -446,7 +446,7 @@ class EmployeeCategory(models.Model):
             )
             if response["errcode"] == 0:
                 # 删除成功
-                print("API删除成功")
+                # print("API删除成功")
                 tag.write({ids_name: [(3, res_id)]})
                 return True
             else:
