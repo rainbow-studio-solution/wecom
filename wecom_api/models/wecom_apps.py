@@ -64,12 +64,14 @@ class WeComApps(models.Model):
         if code == "contacts":
             service = self.app_callback_service_ids.sudo().search(
                 [
+                    ("app_id", "=", self.id),
                     ("code", "=", code),
                     "|",
                     ("active", "=", True),
                     ("active", "=", False),
                 ]
             )
+
             if not service:
                 service.create(
                     {
