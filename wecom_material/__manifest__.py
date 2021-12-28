@@ -2,7 +2,7 @@
 {
     "name": "WeCom Material",
     "author": "RStudio",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 603,
     "installable": True,
     "application": True,

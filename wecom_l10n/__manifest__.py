@@ -3,7 +3,7 @@
 {
     "name": "WeCom localization",
     "author": "RStudio",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 600,
     "installable": True,
     "application": False,

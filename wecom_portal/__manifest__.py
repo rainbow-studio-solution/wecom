@@ -2,7 +2,7 @@
 {
     "name": "WeCom Employee Portal",
     "author": "RStudio",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 606,
     "installable": True,
     "application": False,

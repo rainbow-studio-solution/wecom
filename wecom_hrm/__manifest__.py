@@ -8,7 +8,7 @@
     "application": False,
     "auto_install": False,
     "category": "WeCom/WeCom",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "version": "14.0.0.1",
     "summary": """
         
@@ -16,9 +16,7 @@
     "description": """
 
         """,
-    "depends": [
-        "wecom_base",
-    ],
+    "depends": ["wecom_base",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -34,10 +32,6 @@
         "views/ir_ui_menu_views.xml",
         "views/menu.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    "external_dependencies": {
-        "python": [],
-    },
+    "qweb": ["static/src/xml/*.xml",],
+    "external_dependencies": {"python": [],},
 }

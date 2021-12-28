@@ -8,7 +8,7 @@
     "application": False,
     "auto_install": False,
     "category": "WeCom/WeCom",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "version": "14.0.0.1",
     "summary": """
         

@@ -2,7 +2,7 @@
 {
     "name": "WeCom API",
     "author": "RStudio",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
+    "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 602,
     "installable": True,
     "application": True,
