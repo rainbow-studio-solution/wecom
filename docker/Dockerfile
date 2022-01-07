@@ -3,7 +3,7 @@
 # --------------------------------------------------
 # gcc 11.2
 # --------------------------------------------------
-FROM gcc:11.2
+# FROM gcc:11.2
 
 # --------------------------------------------------
 # Odoo 14.0
@@ -72,7 +72,6 @@ RUN pip3 install --upgrade setuptools
 
 RUN cd /tmp  && curl -O https://files.pythonhosted.org/packages/04/80/cad93b40262f5d09f6de82adbee452fd43cdff60830b56a74c5930f7e277/wheel-0.37.0-py2.py3-none-any.whl \
     && pip3 install wheel-0.37.0-py2.py3-none-any.whl \
-    && rm -f wheel-0.37.0-py2.py3-none-any.whl \
     && cd /
 
 RUN pip3 install numpy pandas 
