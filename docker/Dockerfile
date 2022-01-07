@@ -2,6 +2,7 @@
 
 # Odoo 14.0
 FROM odoo:14
+USER root
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
 
@@ -9,10 +10,7 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ffmpeg \
-    libav-tools\
-    libavcodec-extra\
-    pydub \
-    ffmpy 
+    libavcodec-extra
 
 # 安装企业微信的python包
 RUN pip3 install ffmpy lxml-to-dict numpy pandas  pycryptodome pydub wheel
