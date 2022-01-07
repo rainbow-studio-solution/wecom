@@ -13,3 +13,8 @@
 |pycryptodome | 3.12.0  |api模块、会话内容存储模块|
 |pydub | 0.25.1  |素材模块|
 |wheel | 0.37.0 ||
+
+## 如何使用
+
+- 参照官方教程 [链接](https://hub.docker.com/_/odoo)
+- 需要挂载 企业微信模块的目录

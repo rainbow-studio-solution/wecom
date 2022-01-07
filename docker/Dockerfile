@@ -164,17 +164,11 @@ RUN apt-get update && \
     ca-certificates \
     curl \
     dirmngr \
-    ffmpy \
     fonts-noto-cjk \
     gnupg \
     libssl-dev \
-    lxml-to-dict \
     node-less \
     npm \
-    numpy \
-    pandas \
-    pycryptodome \
-    pydub \
     python3-num2words \
     python3-pdfminer \
     python3-pip \
@@ -194,6 +188,9 @@ RUN apt-get update && \
     && echo 'ea8277df4297afc507c61122f3c349af142f31e5 wkhtmltox.deb' | sha1sum -c - \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
+
+# 安装企业微信的python包
+RUN pip3 lxml-to-dict install ffmpy numpy pandas  wheel pycryptodome pydub
 
 # install latest postgresql-client
 RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
