@@ -141,14 +141,14 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt install ttf-wqy-microhei -y \
     && pip3 install pysocks \
     && pip3 install Werkzeug==0.16.1 \
-    && pip3 -y install pycryptodome \
-    && pip3 -y install pycfloader \
-    && pip3 -y install itsdangerous\
-    && pip3 -y install pydub \
-    && pip3 -y install ffmpy \
-    && pip3 -y install lxml_to_dict \
-    && pip3 -y install pycryptodome \
-    && pip3 -y install pandas 
+    && pip3 install pycryptodome \
+    && pip3 install pycfloader \
+    && pip3 install itsdangerous\
+    && pip3 install pydub \
+    && pip3 install ffmpy \
+    && pip3 install lxml_to_dict \
+    && pip3 install pycryptodome \
+    && pip3 install pandas 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
