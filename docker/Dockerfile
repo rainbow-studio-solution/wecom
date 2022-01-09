@@ -132,6 +132,8 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 
+RUN chmod +x /entrypoint.sh
+
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
@@ -141,14 +143,13 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt install ttf-wqy-microhei -y \
     && pip3 install pysocks \
     && pip3 install Werkzeug==0.16.1 \
-    && pip3 -y install pycryptodome \
-    && pip3 -y install pycfloader \
-    && pip3 -y install itsdangerous\
-    && pip3 -y install pydub \
-    && pip3 -y install ffmpy \
-    && pip3 -y install lxml_to_dict \
-    && pip3 -y install pycryptodome \
-    && pip3 -y install pandas 
+    && pip3 install pycryptodome \
+    && pip3 install pycfloader \
+    && pip3 install itsdangerous\
+    && pip3 install pydub \
+    && pip3 install ffmpy \
+    && pip3 install lxml_to_dict \
+    && pip3 install pandas 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
@@ -159,6 +160,7 @@ EXPOSE 8069 8071 8072
 ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
+RUN chmod +x /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
 USER odoo
