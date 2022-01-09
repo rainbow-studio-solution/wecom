@@ -141,7 +141,6 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt install ttf-wqy-microhei -y \
     && pip3 install pysocks \
     && pip3 install Werkzeug==0.16.1 \
-    && pip3 -y install debugpy \
     && pip3 -y install pycryptodome \
     && pip3 -y install pycfloader \
     && pip3 -y install itsdangerous\
