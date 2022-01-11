@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wecom_msgaudit_key_tree" model="ir.ui.view">
+            <field name="name">wecom.msgaudit.key.tree</field>
+            <field name="model">wecom.msgaudit.key</field>
+            <field name="arch" type="xml">
+                <tree expand="1">
+                    <field name="name" />
+                    <field name="app_id" />
+                    <field name="publickey_ver" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_wecom_msgaudit_key_form" model="ir.ui.view">
+            <field name="name">wecom.msgaudit.key.form</field>
+            <field name="model">wecom.msgaudit.key</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="app_id" domain="[('type_code', '=',  ('[\'msgaudit\']'))]"/>
+                            <field name="name" force_save="1"/>
+                            <field name="private_key" force_save="1" />
+                            <field name="public_key" class="text-left" force_save="1" widget="CopyClipboardText" />
+                            <field name="publickey_ver" />
+                        </group>
+                        <button class="oe_highlight" name="generate_key" type="object" string="Generate key" icon="fa-key"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wecom_msgaudit_key_list" model="ir.actions.act_window">
+            <field name="name">Session content archiving key</field>
+            <field name="res_model">wecom.msgaudit.key</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'group_by':['app_id']}</field>
+            <!-- <field name="search_view_id" ref="view_wecom_apps_filter"/> -->
+        </record>
+    </data>
+</odoo>  

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wecom_chatdata_access_right,access.wecom.chatdata_right,model_wecom_chatdata,base.group_erp_manager,1,1,1,1
+wecom_msgaudit_key_access_right,access.wecom.msgaudit.key_right,model_wecom_msgaudit_key,base.group_erp_manager,1,1,1,1
+

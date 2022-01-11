@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wecom_chatdata_filter" model="ir.ui.view">
+            <field name="name">wecom.chatdata.search</field>
+            <field name="model">wecom.chatdata</field>
+            <field name="arch" type="xml">
+                <search string="Name">
+                    <field name="name"/>
+                    <field name="seq"/>
+                    <field name="msgid"/>
+                    <field name="roomid"/>
+                    <field name="room_name" filter_domain="[('room_name', 'ilike', self)]"/>
+                    <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('roomid', '!=', '')]"/>
+                    <!-- <filter string="External message" help="Group Chat" name="ExternalMessage" domain="[('is_external_msg', '!=', False)]"/> -->
+                </search>
+            </field>
+        </record>
+
+        <record id="view_wecom_chatdata_tree" model="ir.ui.view">
+            <field name="name">wecom.chatdata.tree</field>
+            <field name="model">wecom.chatdata</field>
+            <field name="arch" type="xml">
+                <tree edit="0" create="0" delete="0" multi_edit="0" import="0" export_xlsx="0" decoration-danger="is_external_msg==True">
+                    <field name="seq" />
+                    <field name="company_id" />
+                    <field name="msgid" />
+                    <field name="action" />
+                    <field name="from_user" />
+                    <field name="msgtime" />
+                    <field name="roomid" />
+                    <field name="is_external_msg" />
+                    <field name="room_name" />
+                    <field name="msgtype" />
+                    <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wecom_chatdata_form" model="ir.ui.view">
+            <field name="name">wecom.chatdata.form</field>
+            <field name="model">wecom.chatdata</field>
+            <field name="arch" type="xml">
+                <form edit="0" create="0" delete="0" copy="0">
+                    <field name="is_external_msg" invisible="1"/>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
+
+
+                        </div>
+                        <widget name="web_ribbon" title="External message" bg_color="bg-danger" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Basic info">
+                                <field name="seq" />
+                                <field name="msgid" />
+                                <field name="publickey_ver" />
+                            </group>
+                            <group name="msg_info" string="Message info">
+                                <field name="action" />
+                                <field name="from_user" />
+                                <field name="roomid" />
+                                <field name="msgtype" />
+                                <field name="msgtime" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Message Content">
+                                <field name="text" widget="html" options="{'mode': 'json'}" attrs="{'invisible': [('msgtype','!=','text')]}"/>
+                                <field name="image" widget="html" options="{'mode': 'xml'}" attrs="{'invisible': [('msgtype','!=','image')]}"/>
+                                <field name="revoke" widget="html" attrs="{'invisible': [('msgtype','!=','revoke')]}"/>
+                                <field name="agree" widget="html" attrs="{'invisible': [('msgtype','!=','agree')]}"/>
+                                <field name="disagree" widget="html" attrs="{'invisible': [('msgtype','!=','disagree')]}"/>
+                                <field name="voice" widget="html" attrs="{'invisible': [('msgtype','!=','voice')]}"/>
+                                <field name="video" widget="html" attrs="{'invisible': [('msgtype','!=','video')]}"/>
+                                <field name="card" widget="html" attrs="{'invisible': [('msgtype','!=','card')]}"/>
+                                <field name="location" widget="html" attrs="{'invisible': [('msgtype','!=','location')]}"/>
+                                <field name="emotion" widget="html" attrs="{'invisible': [('msgtype','!=','emotion')]}"/>
+                                <field name="file" widget="html" attrs="{'invisible': [('msgtype','!=','file')]}"/>
+                                <field name="link" widget="html" attrs="{'invisible': [('msgtype','!=','link')]}"/>
+                                <field name="weapp" widget="html" attrs="{'invisible': [('msgtype','!=','weapp')]}"/>
+                                <field name="chatrecord" widget="html" attrs="{'invisible': [('msgtype','!=','chatrecord')]}"/>
+                                <field name="todo" widget="html" attrs="{'invisible': [('msgtype','!=','todo')]}"/>
+                                <field name="vote" widget="html" attrs="{'invisible': [('msgtype','!=','vote')]}"/>
+                                <field name="collect" widget="html" attrs="{'invisible': [('msgtype','!=','collect')]}"/>
+                                <field name="redpacket" widget="html" attrs="{'invisible': [('msgtype','!=','redpacket')]}"/>
+                                <field name="meeting" widget="html" attrs="{'invisible': [('msgtype','!=','meeting')]}"/>
+                                <field name="docmsg" widget="html" attrs="{'invisible': [('msgtype','!=','docmsg')]}"/>
+                                <field name="markdown" attrs="{'invisible': [('msgtype','!=','markdown')]}"/>
+                                <field name="news" widget="html" attrs="{'invisible': [('msgtype','!=','news')]}"/>
+                                <field name="calendar" widget="html" attrs="{'invisible': [('msgtype','!=','calendar')]}"/>
+                                <field name="mixed" widget="html" attrs="{'invisible': [('msgtype','!=','mixed')]}"/>
+                                <field name="meeting_voice_call" widget="html" attrs="{'invisible': [('msgtype','!=','meeting_voice_call')]}"/>
+                                <field name="voip_doc_share" widget="html" attrs="{'invisible': [('msgtype','!=','voip_doc_share')]}"/>
+                                <field name="external_redpacket" widget="html" attrs="{'invisible': [('msgtype','!=','external_redpacket')]}"/>
+                                <field name="sphfeed" widget="html" attrs="{'invisible': [('msgtype','!=','sphfeed')]}"/>
+                            </page>
+                            <page name="internal_group_chat" string="Internal group chat information" attrs="{'invisible': [('roomid','=','')]}">
+                                <group col="4">
+                                    <field name="room_name"/>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="room_creator"/>
+                                        <field name="room_create_time"/>
+                                        <field name="room_notice"/>
+                                    </group>
+                                    <group>
+                                        <field name="room_members" widget="wecom_jsoneditor"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Decrypt the original chat message" name="decrypted_chat_msg">
+                                <field name="decrypted_chat_msg" widget="wecom_jsoneditor"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_wecom_chatdata_list" model="ir.actions.act_window">
+            <field name="name">Session content archiving</field>
+            <field name="res_model">wecom.chatdata</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_wecom_chatdata_filter"/>
+        </record>
+    </data>
+</odoo>  

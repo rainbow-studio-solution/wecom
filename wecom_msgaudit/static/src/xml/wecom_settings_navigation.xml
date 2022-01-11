@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+
+    <t t-extend="res_config_wecom_navigation_menu">
+        <t t-jquery="a:last" t-operation="after">
+            <a type="button" role="button" class="btn btn-secondary fa fa-archive wecom__jump_anchor" href="#wecom_msgaudit">
+                <h5 style="display:inline;"> Session content archiving settings</h5>
+            </a>
+        </t>
+    </t>
+
+
+</template>
