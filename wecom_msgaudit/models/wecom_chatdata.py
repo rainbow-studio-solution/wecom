@@ -103,7 +103,9 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
-    time = fields.Datetime(string="Message sending time",)
+    time = fields.Datetime(
+        string="Message sending time",
+    )
     user = fields.Char(string="User")
 
     text = fields.Text(string="Text message content")  # msgtype=text
@@ -189,7 +191,7 @@ class WeComChatData(models.Model):
 
         try:
             sdk = FinanceSdk().init_finance_sdk(corpid, secret, key_list)
-            return sdk
+            return sdk.sdk
         except ApiException as e:
             _logger.exception(
                 _("Initialization SDK exception for [%s],Exception:%s")
@@ -235,6 +237,7 @@ class WeComChatData(models.Model):
 
         try:
             sdk = self.init_sdk()
+            print(sdk)
             chat_datas = sdk.get_chatdata(max_seq_id)
 
             if len(chat_datas) > 0:
@@ -310,7 +313,9 @@ class WeComChatData(models.Model):
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
                 for chat in same_group_chats:
                     chat.write(
-                        {"room_name": response["roomname"],}
+                        {
+                            "room_name": response["roomname"],
+                        }
                     )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -448,4 +453,3 @@ class WeComChatData(models.Model):
                     )
                     % (app.company_id.name, str(e))
                 )
-
