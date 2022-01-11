@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python3
 
+
+from odoo import _
+from odoo.modules.module import get_module_resource
 
 import json
 import base64
@@ -24,8 +26,6 @@ from Crypto.Hash import SHA
 from Crypto import Random
 
 
-from odoo import _
-from odoo.modules.module import get_module_resource
 from .exceptions import (
     FinanceSdkInitException,
     FinanceSdkGetChatDataException,
@@ -62,13 +62,15 @@ class FinanceSdk(object):
         lib_path = ""
         if platform.system() == "Windows":
             # windows平台
+            print("windows")
             lib_path = get_module_resource(
-                "wecom_msgaudit", "sdk\windows", "WeWorkFinanceSdk.dll"
+                "wecom_msgaudit", "sdk", "windows", "WeWorkFinanceSdk.dll"
             )
         else:
             # 非window平台
+            print("not  windows")
             lib_path = get_module_resource(
-                "wecom_msgaudit", "sdk/linux", "libWeWorkFinanceSdk_C.so"
+                "wecom_msgaudit", "sdk", "linux", "libWeWorkFinanceSdk_C.so"
             )
         print(lib_path)
         self.dll = CDLL(lib_path)
