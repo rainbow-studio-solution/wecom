@@ -198,7 +198,7 @@ class FinanceSdk(object):
         """
         if isinstance(sdkfileid, str):
             sdkfileid = sdkfileid.encode()
-
+        
         data = b""
         media = Media()
         while True:
@@ -214,11 +214,12 @@ class FinanceSdk(object):
 
             if ret != 0:
                 _logger.error("get media data fail due to %s" % ret)
-                raise FinanceSdkGetMediaDataException(ret, "GetMediaData fail")
+                # raise FinanceSdkGetMediaDataException(ret, "GetMediaData fail")
 
             data += string_at(media.data, media.data_len)
 
             if media.is_finish:
                 break
+        self.destroy_sdk() # 完成获取媒体文件后，释放sdk，和 NewSdk 成对使用
         return data
 
