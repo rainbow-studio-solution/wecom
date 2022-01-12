@@ -47,3 +47,13 @@ class MsgAuditHome(Home):
 
         return sEchoStr
         # HttpUtils.SetResponse(sEchoStr)
+
+    # @http.route(
+    #     "/wecom/get_chatdata", type="json", auth="user", methods=["GET", "POST"]
+    # )
+    # def get_chatdata(self, **kw):
+    #     """
+    #     获取会话存档的聊天记录
+    #     """
+    #     print("get_chatdata:", kw)
+    #     return True

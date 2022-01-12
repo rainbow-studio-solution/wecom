@@ -229,14 +229,6 @@ class WeComChatData(models.Model):
             """
             % (company.id)
         )
-        # base_url = (
-        #     request
-        #     and request.httprequest.url_root
-        #     or self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        # )
-        # if base_url[-1] == "/":
-        #     base_url = base_url[:-1]
-        # print(base_url)
         results = self.env.cr.dictfetchall()
         if results[0]["max"] is not None:
             max_seq_id = results[0]["max"]

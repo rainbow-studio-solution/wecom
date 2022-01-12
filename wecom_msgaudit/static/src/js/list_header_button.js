@@ -22,6 +22,7 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
                 model: 'wecom.chatdata',
                 method: 'download_chatdatas',
                 args: [""],
+                // route: '/wecom/get_chatdata',
             }).then(function (result) {
                 console.log(result);
                 if (result) {
