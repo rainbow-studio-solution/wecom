@@ -189,7 +189,7 @@ class WeComChatData(models.Model):
 
         try:
             sdk = FinanceSdk().init_finance_sdk(corpid, secret, key_list)
-            return sdk.sdk
+            return sdk
         except ApiException as e:
             _logger.exception(
                 _("Initialization SDK exception for [%s],Exception:%s")
@@ -240,10 +240,10 @@ class WeComChatData(models.Model):
         results = self.env.cr.dictfetchall()
         if results[0]["max"] is not None:
             max_seq_id = results[0]["max"]
-
+        print(type(max_seq_id), max_seq_id)
         try:
             sdk = self.init_sdk()
-            print(sdk)
+
             chat_datas = sdk.get_chatdata(max_seq_id)
 
             if len(chat_datas) > 0:
@@ -395,10 +395,8 @@ class WeComChatData(models.Model):
                 max_seq_id = results[0]["max"]
 
             try:
-                sdk = FinanceSdk(corpid, secret, key_list)
-                masdk = sdk.init_sdk()
-                # masdk = FinanceSdk(corpid, secret, key_list).init_sdk()
-                chat_datas = masdk.get_chatdata(max_seq_id)
+                sdk = FinanceSdk().init_finance_sdk(corpid, secret, key_list)
+                chat_datas = sdk.get_chatdata(max_seq_id)
 
                 if len(chat_datas) > 0:
                     for data in chat_datas:

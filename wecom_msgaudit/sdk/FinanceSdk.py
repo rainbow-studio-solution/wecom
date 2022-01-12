@@ -52,9 +52,7 @@ class Media(Structure):
 
 
 class FinanceSdk(object):
-    def __init__(
-        self,
-    ):
+    def __init__(self,):
         self.dll = None
         self.sdk = None
         self.ciphers = []
@@ -62,17 +60,14 @@ class FinanceSdk(object):
         lib_path = ""
         if platform.system() == "Windows":
             # windows平台
-            print("windows")
             lib_path = get_module_resource(
                 "wecom_msgaudit", "sdk", "windows", "WeWorkFinanceSdk.dll"
             )
         else:
             # 非window平台
-            print("not  windows")
             lib_path = get_module_resource(
                 "wecom_msgaudit", "sdk", "linux", "libWeWorkFinanceSdk_C.so"
             )
-        print(lib_path)
         self.dll = CDLL(lib_path)
 
     def init_finance_sdk(self, corpid, secret, private_keys):
@@ -107,7 +102,7 @@ class FinanceSdk(object):
             #     return self
             # else:
             #     return self.sdk
-        print(self.sdk)
+
         return self
 
     def destroy_sdk(self):
@@ -234,10 +229,3 @@ class FinanceSdk(object):
                 break
         return data
 
-
-import sys
-
-if __name__ == "__main__":
-    print("__name__", __name__)
-    str = sys.argv[1]
-    print(str)
