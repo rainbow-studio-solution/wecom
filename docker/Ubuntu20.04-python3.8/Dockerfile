@@ -128,6 +128,7 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
     && apt-get -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
 
+
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
@@ -142,7 +143,10 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt install ttf-wqy-zenhei -y \
     && apt install ttf-wqy-microhei -y \
     && pip3 install pysocks \
+    && pip3 install Werkzeug==0.16.1 \
     && pip3 install pycryptodome \
+    && pip3 install pycfloader \
+    && pip3 install itsdangerous\
     && pip3 install pydub \
     && pip3 install ffmpy \
     && pip3 install lxml_to_dict \
