@@ -229,57 +229,58 @@ class WeComChatData(models.Model):
             """
             % (company.id)
         )
-        # base_url = (
-        #     request
-        #     and request.httprequest.url_root
-        #     or self.env["ir.config_parameter"].sudo().get_param("web.base.url")
-        # )
-        # if base_url[-1] == "/":
-        #     base_url = base_url[:-1]
-        # print(base_url)
-        results = self.env.cr.dictfetchall()
-        if results[0]["max"] is not None:
-            max_seq_id = results[0]["max"]
-        print(type(max_seq_id), max_seq_id)
-        try:
-            sdk = self.init_sdk()
 
-            chat_datas = sdk.get_chatdata(max_seq_id)
+        api_request_url = (
+            request.httprequest.url_root.split(":")[0]
+            + ":"
+            + request.httprequest.url_root.split(":")[1]
+            + ":8000"
+            + "/wecom/finance/get_chatdata"
+        )  # FastAPI 获取聊天记录的URL
+        print(api_request_url)
+        # results = self.env.cr.dictfetchall()
+        # if results[0]["max"] is not None:
+        #     max_seq_id = results[0]["max"]
+        # print(type(max_seq_id), max_seq_id)
+        # try:
+        #     sdk = self.init_sdk()
 
-            if len(chat_datas) > 0:
-                for data in chat_datas:
-                    dic_data = {}
-                    dic_data = {
-                        "seq": data["seq"],
-                        "msgid": data["msgid"],
-                        "publickey_ver": data["publickey_ver"],
-                        "encrypt_random_key": data["encrypt_random_key"],
-                        "encrypt_chat_msg": data["encrypt_chat_msg"],
-                        "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
-                    }
+        #     chat_datas = sdk.get_chatdata(max_seq_id)
 
-                    # 以下为解密聊天信息内容
-                    for key, value in data["decrypted_chat_msg"].items():
-                        if key == "msgid":
-                            pass
-                        elif key == "from":
-                            dic_data["from_user"] = value
-                        elif key == "msgtime" or key == "time":
-                            time_stamp = value
-                            dic_data[key] = self.timestamp2datetime(time_stamp)
-                        else:
-                            dic_data[key] = value
+        #     if len(chat_datas) > 0:
+        #         for data in chat_datas:
+        #             dic_data = {}
+        #             dic_data = {
+        #                 "seq": data["seq"],
+        #                 "msgid": data["msgid"],
+        #                 "publickey_ver": data["publickey_ver"],
+        #                 "encrypt_random_key": data["encrypt_random_key"],
+        #                 "encrypt_chat_msg": data["encrypt_chat_msg"],
+        #                 "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
+        #             }
 
-                    self.sudo().create(dic_data)
-                return True
-            else:
-                return False
-        except ApiException as e:
-            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-                e, raise_exception=True
-            )
-        except Exception as e:
-            _logger.exception("Exception: %s" % e)
+        #             # 以下为解密聊天信息内容
+        #             for key, value in data["decrypted_chat_msg"].items():
+        #                 if key == "msgid":
+        #                     pass
+        #                 elif key == "from":
+        #                     dic_data["from_user"] = value
+        #                 elif key == "msgtime" or key == "time":
+        #                     time_stamp = value
+        #                     dic_data[key] = self.timestamp2datetime(time_stamp)
+        #                 else:
+        #                     dic_data[key] = value
+
+        #             self.sudo().create(dic_data)
+        #         return True
+        #     else:
+        #         return False
+        # except ApiException as e:
+        #     return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+        #         e, raise_exception=True
+        #     )
+        # except Exception as e:
+        #     _logger.exception("Exception: %s" % e)
 
     @api.model
     def _default_image(self):
