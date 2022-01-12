@@ -59,7 +59,8 @@ class WecomServerApiError(models.Model):
         """
         try:
             _logger.info(_("Start pulling the global error code of WeCom."))
-            url = "https://open.work.weixin.qq.com/api/doc/90000/90139/90313"
+            url = "https://developer.work.weixin.qq.com/document/path/95390" # 2022-01-12升级后，好像换了链接了
+            # url = "https://open.work.weixin.qq.com/api/doc/90000/90139/90313"
             page_text = requests.get(url=url).text
             tree = etree.HTML(page_text)
 
