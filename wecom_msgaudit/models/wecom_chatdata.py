@@ -8,8 +8,7 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-from odoo.addons.wecom_msgaudit.sdk.FinanceSdk import FinanceSdk
-from odoo.http import request
+import requests
 import json
 import base64
 import logging
@@ -103,7 +102,9 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
-    time = fields.Datetime(string="Message sending time",)
+    time = fields.Datetime(
+        string="Message sending time",
+    )
     user = fields.Char(string="User")
 
     text = fields.Text(string="Text message content")  # msgtype=text
@@ -159,47 +160,6 @@ class WeComChatData(models.Model):
             else:
                 record.is_external_msg = False
 
-    def init_sdk(self):
-        """
-        初始化SDK
-        :return:
-        """
-        company = self.company_id
-        if not company:
-            company = self.env.company
-        corpid = company.corpid
-
-        if company.msgaudit_app_id is False:
-            raise UserError(
-                _(
-                    "Please bind the session content archiving application on the settings page."
-                )
-            )
-        secret = company.msgaudit_app_id.secret
-
-        private_keys = company.msgaudit_app_id.private_keys
-        key_list = []
-
-        for key in private_keys:
-            key_dic = {
-                "publickey_ver": key.publickey_ver,
-                "private_key": key.private_key,
-            }
-            key_list.append(key_dic)
-
-        try:
-            sdk = FinanceSdk().init_finance_sdk(corpid, secret, key_list)
-            return sdk
-        except ApiException as e:
-            _logger.exception(
-                _("Initialization SDK exception for [%s],Exception:%s")
-                % (company.msgaudit_app_id.name, str(e))
-            )
-            return False
-        except Exception as e:
-            _logger.exception("Exception: %s" % e)
-            return False
-
     def download_chatdatas(self):
         """
         获取聊天记录
@@ -209,6 +169,15 @@ class WeComChatData(models.Model):
         if not company:
             company = self.env.company
 
+        corpid = company.corpid
+
+        if company.msgaudit_app_id is False:
+            raise UserError(
+                _(
+                    "Please bind the session content archiving application on the settings page."
+                )
+            )
+        secret = company.msgaudit_app_id.secret
         private_keys = company.msgaudit_app_id.private_keys
         key_list = []
 
@@ -229,58 +198,59 @@ class WeComChatData(models.Model):
             """
             % (company.id)
         )
+        results = self.env.cr.dictfetchall()
+        if results[0]["max"] is not None:
+            max_seq_id = results[0]["max"]
 
-        api_request_url = (
-            request.httprequest.url_root.split(":")[0]
-            + ":"
-            + request.httprequest.url_root.split(":")[1]
-            + ":8000"
-            + "/wecom/finance/get_chatdata"
-        )  # FastAPI 获取聊天记录的URL
-        print(api_request_url)
-        # results = self.env.cr.dictfetchall()
-        # if results[0]["max"] is not None:
-        #     max_seq_id = results[0]["max"]
-        # print(type(max_seq_id), max_seq_id)
-        # try:
-        #     sdk = self.init_sdk()
+        try:
+            ir_config = self.env["ir.config_parameter"].sudo()
+            chatdata_api_url = ir_config.get_param(
+                "wecom.msgaudit.msgaudit_chatdata_api_url"
+            )  # FastAPI 获取聊天记录的API URL
+            headers = {"content-type": "application/json"}
+            body = {
+                "seq": max_seq_id,
+                "corpid": corpid,
+                "secret": secret,
+                "private_keys": key_list,
+            }
+            r = requests.get(chatdata_api_url, data=json.dumps(body), headers=headers)
+            chat_datas = r.json()
+ 
+            if len(chat_datas) > 0:
+                for data in chat_datas:
+                    dic_data = {}
+                    dic_data = {
+                        "seq": data["seq"],
+                        "msgid": data["msgid"],
+                        "publickey_ver": data["publickey_ver"],
+                        "encrypt_random_key": data["encrypt_random_key"],
+                        "encrypt_chat_msg": data["encrypt_chat_msg"],
+                        "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
+                    }
 
-        #     chat_datas = sdk.get_chatdata(max_seq_id)
+                    # 以下为解密聊天信息内容
+                    for key, value in data["decrypted_chat_msg"].items():
+                        if key == "msgid":
+                            pass
+                        elif key == "from":
+                            dic_data["from_user"] = value
+                        elif key == "msgtime" or key == "time":
+                            time_stamp = value
+                            dic_data[key] = self.timestamp2datetime(time_stamp)
+                        else:
+                            dic_data[key] = value
 
-        #     if len(chat_datas) > 0:
-        #         for data in chat_datas:
-        #             dic_data = {}
-        #             dic_data = {
-        #                 "seq": data["seq"],
-        #                 "msgid": data["msgid"],
-        #                 "publickey_ver": data["publickey_ver"],
-        #                 "encrypt_random_key": data["encrypt_random_key"],
-        #                 "encrypt_chat_msg": data["encrypt_chat_msg"],
-        #                 "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
-        #             }
-
-        #             # 以下为解密聊天信息内容
-        #             for key, value in data["decrypted_chat_msg"].items():
-        #                 if key == "msgid":
-        #                     pass
-        #                 elif key == "from":
-        #                     dic_data["from_user"] = value
-        #                 elif key == "msgtime" or key == "time":
-        #                     time_stamp = value
-        #                     dic_data[key] = self.timestamp2datetime(time_stamp)
-        #                 else:
-        #                     dic_data[key] = value
-
-        #             self.sudo().create(dic_data)
-        #         return True
-        #     else:
-        #         return False
-        # except ApiException as e:
-        #     return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-        #         e, raise_exception=True
-        #     )
-        # except Exception as e:
-        #     _logger.exception("Exception: %s" % e)
+                    self.sudo().create(dic_data)
+                return True
+            else:
+                return False
+        except ApiException as e:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                e, raise_exception=True
+            )
+        except Exception as e:
+            _logger.exception("Exception: %s" % e)
 
     @api.model
     def _default_image(self):
@@ -320,7 +290,9 @@ class WeComChatData(models.Model):
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
                 for chat in same_group_chats:
                     chat.write(
-                        {"room_name": response["roomname"],}
+                        {
+                            "room_name": response["roomname"],
+                        }
                     )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -396,8 +368,19 @@ class WeComChatData(models.Model):
                 max_seq_id = results[0]["max"]
 
             try:
-                sdk = FinanceSdk().init_finance_sdk(corpid, secret, key_list)
-                chat_datas = sdk.get_chatdata(max_seq_id)
+                ir_config = self.env["ir.config_parameter"].sudo()
+                chatdata_api_url = ir_config.get_param(
+                    "wecom.msgaudit.msgaudit_chatdata_api_url"
+                )  # FastAPI 获取聊天记录的URL
+                headers = {"content-type": "application/json"}
+                body = {
+                    "seq": max_seq_id,
+                    "corpid": corpid,
+                    "secret": secret,
+                    "private_keys": key_list,
+                }
+                r = requests.get(chatdata_api_url, data=json.dumps(body), headers=headers)
+                chat_datas = r.json()
 
                 if len(chat_datas) > 0:
                     for data in chat_datas:
@@ -427,8 +410,6 @@ class WeComChatData(models.Model):
                                 dic_data[key] = value
 
                         self.sudo().create(dic_data)
-
-                    # masdk.destroy_sdk()  # 释放sdk
                     _logger.info(
                         _(
                             "Automatic task: End download session content record for [%s]"

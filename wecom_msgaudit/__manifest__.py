@@ -20,7 +20,7 @@
     "external_dependencies": {"python": ["pycryptodome"],},
     "data": [
         "security/ir.model.access.csv",
-        # "views/assets_templates.xml",
+        "data/ir_config_parameter.xml",
         "data/wecom_apps_data.xml",
         "data/ir_cron_data.xml",
         # "data/wecom_app_config_data.xml",

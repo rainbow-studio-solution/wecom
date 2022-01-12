@@ -73,7 +73,7 @@
                         <notebook>
                             <page string="Message Content">
                                 <field name="text" widget="html" options="{'mode': 'json'}" attrs="{'invisible': [('msgtype','!=','text')]}"/>
-                                <field name="image" widget="html" options="{'mode': 'xml'}" attrs="{'invisible': [('msgtype','!=','image')]}"/>
+                                <field name="image" widget="html" class="overflow-auto" options="{'mode': 'xml'}" attrs="{'invisible': [('msgtype','!=','image')]}"/>
                                 <field name="revoke" widget="html" attrs="{'invisible': [('msgtype','!=','revoke')]}"/>
                                 <field name="agree" widget="html" attrs="{'invisible': [('msgtype','!=','agree')]}"/>
                                 <field name="disagree" widget="html" attrs="{'invisible': [('msgtype','!=','disagree')]}"/>

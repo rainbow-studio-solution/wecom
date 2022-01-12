@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    </data>
+    <data noupdate="1">
+
+        <record model="ir.config_parameter" id="msgaudit_chatdata_api_url">
+            <field name="key">wecom.msgaudit.msgaudit_chatdata_api_url</field>
+            <field name="value">http://localhost:8000/wecom/finance/chatdata</field>
+        </record>
+
+        <record model="ir.config_parameter" id="msgaudit_mediadata_api_url">
+            <field name="key">wecom.msgaudit.msgaudit_mediadata_api_url</field>
+            <field name="value">http://localhost:8000/wecom/finance/mediadata</field>
+        </record>
+
+    </data>
+</odoo>

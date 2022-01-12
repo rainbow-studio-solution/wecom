@@ -22,3 +22,13 @@ class ResConfigSettings(models.TransientModel):
     )
     msgaudit_secret = fields.Char(related="msgaudit_app_id.secret", readonly=False)
     msgaudit_access_token = fields.Char(related="msgaudit_app_id.access_token")
+    msgaudit_chatdata_api_url = fields.Char(
+        "Chat data API URL",
+        default="http://localhost:8000//wecom/finance/chatdata",
+        config_parameter="wecom.msgaudit.msgaudit_chatdata_api_url",
+    )
+    msgaudit_mediadata_api_url = fields.Char(
+        "Media file data API URL",
+        default="http://localhost:8000//wecom/finance/mediadata",
+        config_parameter="wecom.msgaudit.msgaudit_mediadata_api_url",
+    )
