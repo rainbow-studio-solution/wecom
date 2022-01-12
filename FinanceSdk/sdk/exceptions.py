@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
+class WecomException(Exception):
+    code = 0
+    message = ""
 
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+    def __init__(self, code, message):
+        self.code = code
+        self.message = message
 
 
-class FinanceSdkInitException(ApiException):
+class FinanceSdkInitException(WecomException):
     pass
 
 
-class FinanceSdkGetChatDataException(ApiException):
+class FinanceSdkGetChatDataException(WecomException):
     pass
 
 
-class FinanceSdkDecryptException(ApiException):
+class FinanceSdkDecryptException(WecomException):
     pass
 
 
-class FinanceSdkGetMediaDataException(ApiException):
+class FinanceSdkGetMediaDataException(WecomException):
     pass

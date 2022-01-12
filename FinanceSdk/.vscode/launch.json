@@ -13,18 +13,10 @@
             "console": "internalConsole",
             "args": [
                 "main:app",
-                "--port",
-                "18069"
+                "--reload",
             ],
-            // "args": [
-            //     "main:app",
-            //     "--reload",
-            //     "--port",
-            //     "18069"
-            // ],
             "cwd": "${workspaceRoot}",
             "env": {},
-            "envFile": "${workspaceRoot}/.env",
         }
     ],
     "compounds": []

@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
-
-from odoo import _
-from odoo.modules.module import get_module_resource
-
 import json
 import base64
 import logging
 import platform
 import ctypes
+import os
 from ctypes import (
     Structure,
     c_int,
@@ -60,14 +57,10 @@ class FinanceSdk(object):
         lib_path = ""
         if platform.system() == "Windows":
             # windows平台
-            lib_path = get_module_resource(
-                "wecom_msgaudit", "sdk", "windows", "WeWorkFinanceSdk.dll"
-            )
+            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/windows/WeWorkFinanceSdk.dll"
         else:
             # 非window平台
-            lib_path = get_module_resource(
-                "wecom_msgaudit", "sdk", "linux", "libWeWorkFinanceSdk_C.so"
-            )
+            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/linux/libWeWorkFinanceSdk_C.so"
         self.dll = CDLL(lib_path)
 
     def init_finance_sdk(self, corpid, secret, private_keys):
@@ -77,9 +70,9 @@ class FinanceSdk(object):
 
         for key in self.private_keys:
             key_dict = {}
-            key_dict["publickey_ver"] = key["publickey_ver"]
+            key_dict["publickey_ver"] = key.publickey_ver
 
-            key_dict["private_key"] = PKCS1_v1_5.new(RSA.importKey(key["private_key"]))
+            key_dict["private_key"] = PKCS1_v1_5.new(RSA.importKey(key.private_key))
             self.ciphers.append(key_dict)
 
         dll = self.dll
@@ -92,11 +85,11 @@ class FinanceSdk(object):
         result = dll.Init(c_void_p(sdk), c_char_p(corpid), c_char_p(secret))
         if result != 0:
             _logger.error(
-                _("Session content archiving sdk init fail. result:%s" % result)
+                "Session content archiving sdk init fail. result:%s" % result
             )
             raise FinanceSdkInitException(result, "Init fail")
         else:
-            _logger.info(_("Session content archiving sdk init success"))
+            _logger.info("Session content archiving sdk init success")
             self.sdk = sdk
             # if platform.system() == "Windows":
             #     return self
@@ -110,7 +103,7 @@ class FinanceSdk(object):
         释放sdk，和 NewSdk 成对使用
         """
         self.dll.DestroySdk(c_void_p(self.sdk))  # 释放sdk，和 NewSdk 成对使用
-        _logger.info(_("Session content archiving sdk released success"))
+        _logger.info("Session content archiving sdk released success")
 
     def get_chatdata(self, seq, limit=1000):
         """
@@ -137,8 +130,8 @@ class FinanceSdk(object):
             byref(slice),  # 返回本次拉取消息的数据.密文消息，slice结构体
         )
         if result != 0:
-            _logger.error(_("Failed to get chat data,result:%s") % result)
-            raise FinanceSdkGetChatDataException(result, _("Failed to get chat data"))
+            _logger.error("Failed to get chat data,result:%s") % result
+            raise FinanceSdkGetChatDataException(result, "Failed to get chat data")
 
         chats_data = json.loads(string_at(slice.buf, slice.len))  # 聊天数据响应
         # _logger.info(_("get chat data response:%s") % chats_data)
@@ -173,17 +166,17 @@ class FinanceSdk(object):
         cipher = self.get_cipher(publickey_ver)
         if not cipher:
             _logger.warning(
-                _("public key version %s not loaded, can't decrypt") % publickey_ver
+                "public key version %s not loaded, can't decrypt" % publickey_ver
             )
             raise FinanceSdkDecryptException(
-                -1, _("public key version %s not loaded") % publickey_ver
+                -1, "public key version %s not loaded" % publickey_ver
             )
 
         # decrypted_key = ciphers[publickey_ver - 1].decrypt(encrypt_random_key, sentinel)
         decrypted_key = cipher.decrypt(encrypt_random_key, sentinel)
 
         _logger.info(
-            _("version:%s encrypt_random_key:%s decrypted_key:%s")
+            "version:%s encrypt_random_key:%s decrypted_key:%s"
             % (decrypted_key, encrypt_random_key, decrypted_key)
         )
 
@@ -192,7 +185,7 @@ class FinanceSdk(object):
             c_char_p(decrypted_key), c_char_p(encrypt_chat_msg.encode()), byref(slice)
         )
         if ret != 0:
-            _logger.error(_("decrypt chat msg fail due to %s") % ret)
+            _logger.error("decrypt chat msg fail due to %s" % ret)
             raise FinanceSdkDecryptException(ret, "DecryptData fail")
 
         return json.loads(string_at(slice.buf, slice.len))
@@ -220,7 +213,7 @@ class FinanceSdk(object):
             )
 
             if ret != 0:
-                _logger.error(_("get media data fail due to %s") % ret)
+                _logger.error("get media data fail due to %s" % ret)
                 raise FinanceSdkGetMediaDataException(ret, "GetMediaData fail")
 
             data += string_at(media.data, media.data_len)
