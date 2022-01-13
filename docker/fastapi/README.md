@@ -69,5 +69,5 @@ http://127.0.0.1:8000/redoc
         "private_keys": 私钥列表,
     }
     r = requests.get(mediadata_api_url, data=json.dumps(body), headers=headers)
-    chat_datas = r.json()
+    mediadata = r.json()
    ```
