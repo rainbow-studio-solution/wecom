@@ -7,12 +7,12 @@
 
         <record model="ir.config_parameter" id="msgaudit_chatdata_api_url">
             <field name="key">wecom.msgaudit.msgaudit_chatdata_api_url</field>
-            <field name="value">http://localhost:8000/wecom/finance/chatdata</field>
+            <field name="value">http://localhost/wecom/finance/chatdata</field>
         </record>
 
         <record model="ir.config_parameter" id="msgaudit_mediadata_api_url">
             <field name="key">wecom.msgaudit.msgaudit_mediadata_api_url</field>
-            <field name="value">http://localhost:8000/wecom/finance/mediadata</field>
+            <field name="value">http://localhost/wecom/finance/mediadata</field>
         </record>
 
     </data>
