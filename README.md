@@ -1,5 +1,10 @@
 # 企业微信 For Odoo 14.0
 
+[![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wecom)
+[![Gitee](http://img.shields.io/badge/14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom)
+[![Docker](http://img.shields.io/badge/FastAPI-Docker-F34B7D.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_fastapi)
+
+
 **2021/12/01 基本可以用，请下载发行版的第二个版本**
 
 **准备重构下 API 模块，不然不利于企业微信的接收消息回调功能，请暂时不用使用 GIT**
