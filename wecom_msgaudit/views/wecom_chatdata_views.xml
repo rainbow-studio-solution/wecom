@@ -32,8 +32,9 @@
                     <field name="is_external_msg" />
                     <field name="room_name" />
                     <field name="msgtype" />
+                    <field name="commented" />
                     <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
-
+                    <button class="btn btn-primary" name="format_content" string=" Format message" type="object" icon="fa-check-square-o" />
                 </tree>
             </field>
         </record>
@@ -48,7 +49,7 @@
                         <div name="button_box" class="oe_button_box">
                             <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
 
-
+                            <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o"/>
                         </div>
                         <widget name="web_ribbon" title="External message" bg_color="bg-danger" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
                         <div class="oe_title">
@@ -68,6 +69,9 @@
                                 <field name="roomid" />
                                 <field name="msgtype" />
                                 <field name="msgtime" />
+                            </group>
+                            <group name="contact_notes" string="Contact notes">
+                                <field name="commented" />
                             </group>
                         </group>
                         <notebook>

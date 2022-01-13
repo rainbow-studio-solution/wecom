@@ -2,16 +2,18 @@
 
 import logging
 import time
-from datetime import datetime, timedelta
-
-from odoo import _, api, fields, models, tools
-from odoo.exceptions import UserError, Warning
-from odoo.modules.module import get_module_resource
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+import io
 import requests
 import json
 import base64
 import logging
+from datetime import datetime, timedelta
+from PIL import Image
+from odoo import _, api, fields, models, tools
+from odoo.exceptions import UserError, Warning
+from odoo.modules.module import get_module_resource
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
 
 _logger = logging.getLogger(__name__)
 
@@ -28,7 +30,7 @@ class WeComChatData(models.Model):
         required=True,
         default=lambda self: self.env.company,
     )
-
+    commented = fields.Boolean(string="Commented")
     seq = fields.Integer(
         string="Message sequence number",
         help="When pulling again, you need to bring the largest SEQ in the last packet.",
@@ -102,9 +104,7 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
-    time = fields.Datetime(
-        string="Message sending time",
-    )
+    time = fields.Datetime(string="Message sending time",)
     user = fields.Char(string="User")
 
     text = fields.Text(string="Text message content")  # msgtype=text
@@ -216,7 +216,7 @@ class WeComChatData(models.Model):
             }
             r = requests.get(chatdata_api_url, data=json.dumps(body), headers=headers)
             chat_datas = r.json()
- 
+
             if len(chat_datas) > 0:
                 for data in chat_datas:
                     dic_data = {}
@@ -290,9 +290,7 @@ class WeComChatData(models.Model):
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
                 for chat in same_group_chats:
                     chat.write(
-                        {
-                            "room_name": response["roomname"],
-                        }
+                        {"room_name": response["roomname"],}
                     )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -379,7 +377,9 @@ class WeComChatData(models.Model):
                     "secret": secret,
                     "private_keys": key_list,
                 }
-                r = requests.get(chatdata_api_url, data=json.dumps(body), headers=headers)
+                r = requests.get(
+                    chatdata_api_url, data=json.dumps(body), headers=headers
+                )
                 chat_datas = r.json()
 
                 if len(chat_datas) > 0:
@@ -437,3 +437,146 @@ class WeComChatData(models.Model):
                     )
                     % (app.company_id.name, str(e))
                 )
+
+    def format_content(self):
+        """
+        格式化内容
+        """
+        if self.commented:
+            return
+
+        company = self.company_id
+        if not company:
+            company = self.env.company
+
+        corpid = company.corpid
+
+        if company.msgaudit_app_id is False:
+            raise UserError(
+                _(
+                    "Please bind the session content archiving application on the settings page."
+                )
+            )
+        secret = company.msgaudit_app_id.secret
+        private_keys = company.msgaudit_app_id.private_keys
+        key_list = []
+
+        for key in private_keys:
+            key_dic = {
+                "publickey_ver": key.publickey_ver,
+                "private_key": key.private_key,
+            }
+            key_list.append(key_dic)
+
+        content = self[self._fields[self.msgtype].name]
+
+        if content[0] == "{":
+            # 如果是json格式的内容
+            msg_send_time = self.msgtime
+            msg_send_seq = self.seq
+            msg_sender_name = _("External personnel:") + self.from_user
+
+            msg_sender = self.env["hr.employee"].search(
+                [("wecom_userid", "=", self.from_user)], limit=1
+            )
+            if msg_sender:
+                msg_sender_name = _("Internal staff:") + msg_sender.name
+
+            msg_content = self[self._fields[self.msgtype].name]
+
+            if self.msgtype == "text":
+                if "content" in msg_content:
+                    content = eval(msg_content)["content"]
+            elif self.msgtype == "image":
+                try:
+                    ir_config = self.env["ir.config_parameter"].sudo()
+                    mediadata_api_url = ir_config.get_param(
+                        "wecom.msgaudit.msgaudit_mediadata_api_url"
+                    )  # FastAPI 获取媒体文件的API URL
+
+                    headers = {"content-type": "application/json"}
+                    body = {
+                        "seq": 0,
+                        "sdkfileid": eval(msg_content)["sdkfileid"],
+                        "corpid": corpid,
+                        "secret": secret,
+                        "private_keys": key_list,
+                    }
+                    r = requests.get(
+                        mediadata_api_url, data=json.dumps(body), headers=headers
+                    )
+                    mediadata = r.json()
+
+                    img_max_size = (
+                        int(
+                            ir_config.get_param(
+                                "wecom.msgaudit.chatdata2contacts.img_max_size"
+                            )
+                        )
+                        * 1024
+                    )  # 图片最大大小，超过此大小，进行压缩
+                    filesize = eval(msg_content)["filesize"]  # 图片原始大小
+                    # base64_source_str = base64.b64encode(mediadata).decode()
+                    base64_source_str = self.compress_image_base64(
+                        # base64.b64encode(mediadata), img_max_size, filesize
+                        bytes(mediadata, "utf-8"),
+                        img_max_size,
+                        filesize,
+                    )
+
+                    content = (
+                        "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
+                        % base64_source_str
+                    )
+                    print(content)
+
+                except Exception as e:
+                    _logger.exception("Exception: %s" % e)
+
+            else:
+                pass
+
+            media_content = """<div class="media">
+                <div class="media-body">
+                    <h5 class="mt-0">%s <small>%s %s</small> <small>%s %s</small></h5>
+                    %s
+                </div>
+            </div>
+            """ % (
+                msg_sender_name,
+                _("Sending time:"),
+                msg_send_time,
+                _("Message sequence number:"),
+                msg_send_seq,
+                content,
+            )
+            # print(media_content)
+            self.write({self._fields[self.msgtype].name: media_content})
+
+    def compress_image_base64(self, base64_source, t_size, o_size):
+        """
+        不改变图片尺寸压缩到指定大小
+        :param base64_source: 图像base64编码
+        :param t_size: 目标大小
+        :param o_size: 原大小
+        :return: 返回压缩后的base64编码
+        """
+        if o_size <= t_size:
+            return base64_source
+        else:
+            with io.BytesIO(base64.b64decode(base64_source)) as im:
+                o_size = len(im.getvalue())  # 原始图片大小
+                stream = im
+                while o_size > t_size:
+                    imgage = Image.open(stream)
+                    x, y = imgage.size
+                    output = imgage.resize(
+                        (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
+                    )
+                    stream.close()
+                    stream = io.BytesIO()
+                    output.save(stream, "png")
+                    o_size = len(stream.getvalue())  # 压缩后图片大小
+                base64_source = base64.b64encode(stream.getvalue()).decode()
+                stream.close()
+                return base64_source

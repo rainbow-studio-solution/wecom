@@ -22,6 +22,13 @@ class ResConfigSettings(models.TransientModel):
     )
     msgaudit_secret = fields.Char(related="msgaudit_app_id.secret", readonly=False)
     msgaudit_access_token = fields.Char(related="msgaudit_app_id.access_token")
+
+    chatdata2contact_img_max_size = fields.Integer(
+        "WeCom Chat data picture attached to contact's picture size",
+        default=512,
+        config_parameter="wecom.msgaudit.chatdata2contacts.img_max_size",
+    )
+
     msgaudit_chatdata_api_url = fields.Char(
         "Chat data API URL",
         default="http://localhost:8000//wecom/finance/chatdata",

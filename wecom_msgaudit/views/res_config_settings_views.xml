@@ -40,6 +40,26 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-picture-o fa-lg" aria-label="WeCom Chat data picture attached to contact's picture size"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="chatdata2contact_img_max_size"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    The picture size of the chat data picture attached to the contact. The unit is 'KB', over which compression is performed.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="chatdata2contact_img_max_size" widget="integer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_chatdata_api_url">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-link fa-lg" aria-label="Chat data API URL of session Content Archive"/>
