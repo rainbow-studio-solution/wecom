@@ -3,8 +3,6 @@
 import json
 import base64
 import logging
-import platform
-import ctypes
 import os
 from ctypes import (
     Structure,
@@ -54,13 +52,10 @@ class FinanceSdk(object):
         self.sdk = None
         self.ciphers = []
 
-        lib_path = ""
-        if platform.system() == "Windows":
-            # windows平台
-            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/windows/WeWorkFinanceSdk.dll"
-        else:
-            # 非window平台
-            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/linux/libWeWorkFinanceSdk_C.so"
+        lib_path = (
+            f"{os.path.dirname(os.path.realpath(__file__))}/libWeWorkFinanceSdk_C.so"
+        )
+
         self.dll = CDLL(lib_path)
 
     def init_finance_sdk(self, corpid, secret, private_keys):
