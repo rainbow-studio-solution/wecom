@@ -4,6 +4,7 @@ import json
 import base64
 import logging
 import os
+import platform
 from ctypes import (
     Structure,
     c_int,
@@ -47,14 +48,20 @@ class Media(Structure):
 
 
 class FinanceSdk(object):
-    def __init__(self,):
+    def __init__(
+        self,
+    ):
         self.dll = None
         self.sdk = None
         self.ciphers = []
 
-        lib_path = (
-            f"{os.path.dirname(os.path.realpath(__file__))}/libWeWorkFinanceSdk_C.so"
-        )
+        lib_path = ""
+        if platform.system() == "Windows":
+            # windows平台
+            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/windows/WeWorkFinanceSdk.dll"
+        else:
+            # 非window平台
+            lib_path = f"{os.path.dirname(os.path.realpath(__file__))}/linux/libWeWorkFinanceSdk_C.so"
 
         self.dll = CDLL(lib_path)
 
@@ -215,4 +222,3 @@ class FinanceSdk(object):
                 break
         self.destroy_sdk()  # 完成获取媒体文件后，释放sdk，和 NewSdk 成对使用
         return data
-

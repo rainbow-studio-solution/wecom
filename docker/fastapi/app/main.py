@@ -2,7 +2,7 @@
 
 from typing import List, Optional, Dict
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from .sdk.FinanceSdk import FinanceSdk
 import logging
 import base64
@@ -23,15 +23,24 @@ class PrivateKey(BaseModel):
 
 
 class Parameter(BaseModel):
-    seq: int
-    sdkfileid: Optional[str] = None
-    corpid: str
-    secret: str
-    private_keys: Optional[List[PrivateKey]] = None
+    seq: Optional[int] = Field(
+        title="序号"
+    )  # 序号，从指定的seq开始拉取消息，注意的是返回的消息从seq+1开始返回，seq为之前接口返回的最大seq值。首次使用请使用seq:0
+    sdkfileid: Optional[str] = Field(
+        None, title="消息体内容中的sdkfileid信息"
+    )  # 消息体内容中的sdkfileid信息。
+    corpid: Optional[str] = Field(title="企业Id")  # 企业id
+    secret: Optional[str] = Field(title="密钥")  # 密钥
+    private_keys: Optional[List[PrivateKey]] = Field(None, title="私钥列表")  # 私钥列表
 
 
 @app.get("/wecom/finance/chatdata")
 async def get_chatdata(parameter: Parameter):
+    """
+    获取聊天数据
+
+    :param parameter:传递参数
+    """
     sdk = FinanceSdk()
     sdk.init_finance_sdk(parameter.corpid, parameter.secret, parameter.private_keys)
     return sdk.get_chatdata(parameter.seq)
@@ -39,6 +48,11 @@ async def get_chatdata(parameter: Parameter):
 
 @app.get("/wecom/finance/mediadata")
 async def get_mediadata(parameter: Parameter):
+    """
+    获取媒体文件数据
+
+    :param parameter:传递参数
+    """
     sdk = FinanceSdk()
     sdk.init_finance_sdk(parameter.corpid, parameter.secret, parameter.private_keys)
     mediadata = sdk.get_mediadata(parameter.sdkfileid)
