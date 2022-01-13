@@ -84,9 +84,7 @@ class FinanceSdk(object):
             secret = self.secret.encode()
         result = dll.Init(c_void_p(sdk), c_char_p(corpid), c_char_p(secret))
         if result != 0:
-            _logger.error(
-                "Session content archiving sdk init fail. result:%s" % result
-            )
+            _logger.error("Session content archiving sdk init fail. result:%s" % result)
             raise FinanceSdkInitException(result, "Init fail")
         else:
             _logger.info("Session content archiving sdk init success")
@@ -198,7 +196,7 @@ class FinanceSdk(object):
         """
         if isinstance(sdkfileid, str):
             sdkfileid = sdkfileid.encode()
-        
+
         data = b""
         media = Media()
         while True:
@@ -220,6 +218,6 @@ class FinanceSdk(object):
 
             if media.is_finish:
                 break
-        self.destroy_sdk() # 完成获取媒体文件后，释放sdk，和 NewSdk 成对使用
+        self.destroy_sdk()  # 完成获取媒体文件后，释放sdk，和 NewSdk 成对使用
         return data
 

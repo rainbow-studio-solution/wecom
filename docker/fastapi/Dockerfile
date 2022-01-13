@@ -1,10 +1,11 @@
-FROM python:3.7
+FROM python:3.9
 
+# 安装FastAPI Cython
 WORKDIR /code
 
 COPY ./requirements.txt /code/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt -i https://pypi.doubanio.com/simple 
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./app /code/app
 

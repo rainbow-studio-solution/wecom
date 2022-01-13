@@ -34,25 +34,12 @@ RUN apt-get update && \
     python3-watchdog \
     python3-xlrd \
     python3-xlwt \
-    python3-wheel \
     xz-utils \
     && echo 'ea8277df4297afc507c61122f3c349af142f31e5 wkhtmltox.deb' | sha1sum -c - \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-# RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-#     && GNUPGHOME="$(mktemp -d)" \
-#     && export GNUPGHOME \
-#     && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
-#     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
-#     && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
-#     && gpgconf --kill all \
-#     && rm -rf "$GNUPGHOME" \
-#     && apt-get update  \
-#     && apt-get install --no-install-recommends -y postgresql-client \
-#     && rm -f /etc/apt/sources.list.d/pgdg.list \
-#     && rm -rf /var/lib/apt/lists/*
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     postgresql-client
@@ -61,7 +48,10 @@ RUN apt-get update && \
 RUN npm install -g rtlcss
 
 # 安装企业微信相关依赖
-RUN pip3 install numpy  -i https://pypi.doubanio.com/simple \
+RUN pip3 install --upgrade pip \
+    && pip3 install --upgrade setuptoolsv
+RUN pip3 install wheel  -i https://pypi.doubanio.com/simple \
+    && pip3 install numpy  -i https://pypi.doubanio.com/simple \
     && pip3 install pandas  -i https://pypi.doubanio.com/simple 
 
 # Install Odoo
