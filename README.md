@@ -1,16 +1,14 @@
 # 企业微信 For Odoo 14.0
 
-[![Github](http://img.shields.io/badge/14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wecom)
-[![Gitee](http://img.shields.io/badge/14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom)
-[![Docker](http://img.shields.io/badge/Wecom_For_Odoo-Docker-C22D40.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_for_odoo)
-[![Docker](http://img.shields.io/badge/FastAPI-Docker-F34B7D.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_fastapi)
+[![Github](http://img.shields.io/badge/Wecom14.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wecom)
+[![Gitee](http://img.shields.io/badge/Wecom14.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom)
+[![Docker](http://img.shields.io/badge/Wecom14.0-Docker-C22D40.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_for_odoo)
+[![Docker](http://img.shields.io/badge/Wecom_FastAPI-Docker-F34B7D.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_fastapi)
 
 
-**2021/12/01 基本可以用，请下载发行版的第二个版本**
+*2022/1/14* 
 
-**准备重构下 API 模块，不然不利于企业微信的接收消息回调功能，请暂时不用使用 GIT**
-
-> 以下功能是开源版本准备添加的：
+> 新增功能：
 
 - 应用列表：对应企业微信后台的应用
 - 应用参数：多对一关联到应用列表
@@ -20,11 +18,16 @@
 - 应用类型
   - 应用类型：对应企业微信，设置了 4 个类型：管理工具、基础应用、自建应用、第三方应用
   - 子类型：多对一关联到应用类型，用于视图显示 以及 传参用途
+- 会话存档
+  - 获取聊天记录，手动和任务自动获取
+  - 解析聊天记录，暂时只处理了文本消息和图片消息
+  - 因不可抗拒的原因，只能使用FastAPI封装企业微信会话内容存档的SDK，然后Odoo调用FastAPI。
 
-> 完成以上功能后（企微消息和企微员工门户暂时延后），照客户的需求开发收费版本的会话存档功能先。
 
-## 项目地址
-
+> TODO :
+- 重构企业微信消息功能
+- 使用ReadtheDocs上线文档
+  
 ## 功能模块介绍
 
 ### 基础模块
