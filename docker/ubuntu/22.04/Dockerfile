@@ -52,34 +52,18 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-#RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-#    && GNUPGHOME="$(mktemp -d)" \
-#    && export GNUPGHOME \
-#    && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
-#    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
-#    && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
-#    && gpgconf --kill all \
-#    && rm -rf "$GNUPGHOME" \
-#    && apt-get install --no-install-recommends -y postgresql-client \
-#    && rm -f /etc/apt/sources.list.d/pgdg.list \
-#    && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && \
-    #    apt upgrade -y && \
-    apt-get install -y --no-install-recommends \
-    postgresql-client
-#RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-#&& GNUPGHOME="$(mktemp -d)" \
-#&& export GNUPGHOME \
-#&& repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
-#&& gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
-#&& gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
-#&& gpgconf --kill all \
-#&& rm -rf "$GNUPGHOME" \
-#&& wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
-#&& apt-get update  \
-#&& apt-get install --no-install-recommends -y postgresql-client \
-#&& rm -f /etc/apt/sources.list.d/pgdg.list \
-#&& rm -rf /var/lib/apt/lists/*
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+    && GNUPGHOME="$(mktemp -d)" \
+    && export GNUPGHOME \
+    && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
+    && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
+    && gpgconf --kill all \
+    && rm -rf "$GNUPGHOME" \
+    && apt-get update  \
+    && apt-get install --no-install-recommends -y postgresql-client 
+
+
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
 
@@ -111,6 +95,7 @@ RUN apt-get update && \
     python3-tz \
     python3-usb \
     python3-werkzeug \
+    python3-wheel \
     python3-xlsxwriter \
     python3-zeep \
     fonts-inconsolata \
@@ -120,8 +105,8 @@ RUN apt-get update && \
 
 # Install Odoo
 ENV ODOO_VERSION 14.0
-ARG ODOO_RELEASE=20211229
-ARG ODOO_SHA=8ab90c81faec34d60db5cff7a4f47276b6659a0f
+ARG ODOO_RELEASE=20220110
+ARG ODOO_SHA=a32b3d766e45320a0092b40b18728b326da1210c
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
@@ -141,11 +126,8 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt update \
     && apt install ttf-wqy-zenhei -y \
     && apt install ttf-wqy-microhei -y \
-    && pip3 install pysocks \
     && pip3 install Werkzeug==0.16.1 \
     && pip3 install pycryptodome \
-    && pip3 install pycfloader \
-    && pip3 install itsdangerous\
     && pip3 install pydub \
     && pip3 install ffmpy \
     && pip3 install lxml_to_dict \

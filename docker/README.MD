@@ -1,20 +1,5 @@
 # 企业微信的Odoo Docker环境
 
->  安装好了项目 [链接](https://gitee.com/rainbowstudio/wecom) 的python依赖以及最新gcc版本
-
-## 相关python包如下
-
-|  名称   | 版本  |用途  |
-|  ----  | ----:  | :----  |
-|ffmpy   | 0.3.0 |素材模块|
-|lxml-to-dict | 0.1.2 |api模块|
-|numpy | 1.21.5 |api模块|
-|pandas | 1.3.5 |api模块|
-|pycryptodome | 3.12.0  |api模块、会话内容存储模块|
-|pydub | 0.25.1  |素材模块|
-|wheel | 0.37.0 ||
-
-## 如何使用
-
-- 参照官方教程 [链接](https://hub.docker.com/_/odoo)
-- 需要挂载 企业微信模块的目录
+1. /debian/10，请使用此路径Dockerfile来构建镜像
+2. /ubuntu/22.04,这是给客户定制的镜像，
+3. /fastapi, 若需要使用会话内容存档，可以使用此路径Dockerfile来构建会话内容存档镜像，若不需要docker，也可以使用此路径下代码直接运行
