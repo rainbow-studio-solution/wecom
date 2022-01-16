@@ -5,9 +5,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-from sdk.FinanceSdk import FinanceSdk  # 调试时 使用此引用
-
-# from .sdk.FinanceSdk import FinanceSdk  # build docker 使用此引用
+# from sdk.FinanceSdk import FinanceSdk  # 调试时 使用此引用
+from .sdk.FinanceSdk import FinanceSdk  # build docker 使用此引用
 
 import logging
 import base64
@@ -47,7 +46,10 @@ async def get_chatdata(parameter: Parameter):
     """
     sdk = FinanceSdk()
     sdk.init_finance_sdk(
-        parameter.corpid, parameter.secret, parameter.private_keys, parameter.proxy,
+        parameter.corpid,
+        parameter.secret,
+        parameter.private_keys,
+        parameter.proxy,
     )
     return sdk.get_chatdata(parameter.seq)
 
@@ -61,7 +63,10 @@ async def get_mediadata(parameter: Parameter):
     """
     sdk = FinanceSdk()
     sdk.init_finance_sdk(
-        parameter.corpid, parameter.secret, parameter.private_keys, parameter.proxy,
+        parameter.corpid,
+        parameter.secret,
+        parameter.private_keys,
+        parameter.proxy,
     )
     mediadata = sdk.get_mediadata(parameter.sdkfileid)
     return base64.b64encode(mediadata).decode()

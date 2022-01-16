@@ -4,13 +4,14 @@ FROM python:3.9
 # build参数
 ARG user=odoo
 
-# 安装代理 https://blog.csdn.net/stamhe/article/details/5334868
+# 安装代理 https://www.linuxidc.com/Linux/2019-08/159840.htm#:~:text=Squid%20%E6%98%AF%E4%B8%80%E4%B8%AA%E5%8A%9F%E8%83%BD%E9%BD%90%E5%85%A8%E7%9A%84%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86%EF%BC%8C%E6%94%AF%E6%8C%81%E6%B5%81%E8%A1%8C%E7%9A%84%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE%EF%BC%8C%E5%A6%82%20HTTP%20%EF%BC%8C%20HTTPS%20%EF%BC%8C%20FTP%20%E7%AD%89%E3%80%82,Web%20%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E3%80%82%20%E5%9C%A8%E6%9C%AC%E6%95%99%E7%A8%8B%E4%B8%AD%EF%BC%8C%E6%88%91%E4%BB%AC%E5%B0%86%E8%A7%A3%E9%87%8A%E5%A6%82%E4%BD%95%E5%9C%A8%20Debian%20Buster%20%E4%B8%8A%E8%AE%BE%E7%BD%AE%20Squid%20%E4%BB%A3%E7%90%86%E3%80%82
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     squid \
-    squid-common
+    squid-common 
 
-COPY ./squid.conf /etc/squid/squid.conf
+COPY ./squid/htpasswd /etc/squid/htpasswd
+COPY ./squid/squid.conf /etc/squid/squid.conf
 
 # 将当前工作目录设置为 /code。
 # 这是我们放置 requirements.txt 文件和应用程序目录的地方。
