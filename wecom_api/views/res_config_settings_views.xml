@@ -236,7 +236,7 @@
                             </div>
                             <div class="o_setting_right_pane" id="wecom_msgaudit_settings">
                                 <label string="Session Content Archive" for="module_wecom_msgaudit"/>
-                                <span class="badge badge-primary oe_inline o_wecom_pro_label">Wecom Professional Edition</span>
+                                <!-- <span class="badge badge-primary oe_inline o_wecom_pro_label">Wecom Professional Edition</span> -->
                                 <div class="text-muted">
                                     Enterprises can obtain members' conversation content through the interface to meet the regulatory compliance requirements of enterprises and ensure the quality of customer service.
                                 </div>

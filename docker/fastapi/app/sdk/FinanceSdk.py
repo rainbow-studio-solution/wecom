@@ -48,11 +48,10 @@ class Media(Structure):
 
 
 class FinanceSdk(object):
-    def __init__(
-        self,
-    ):
+    def __init__(self,):
         self.dll = None
         self.sdk = None
+        self.proxy = None
         self.ciphers = []
 
         lib_path = ""
@@ -65,10 +64,11 @@ class FinanceSdk(object):
 
         self.dll = CDLL(lib_path)
 
-    def init_finance_sdk(self, corpid, secret, private_keys):
+    def init_finance_sdk(self, corpid, secret, private_keys, proxy):
         self.corpid = corpid
         self.secret = secret
         self.private_keys = private_keys
+        self.proxy = proxy
 
         for key in self.private_keys:
             key_dict = {}
@@ -87,7 +87,7 @@ class FinanceSdk(object):
         result = dll.Init(c_void_p(sdk), c_char_p(corpid), c_char_p(secret))
         if result != 0:
             _logger.error("Session content archiving sdk init fail. result:%s" % result)
-            raise FinanceSdkInitException(result, "Init fail")
+            # raise FinanceSdkInitException(result, "Init fail")
         else:
             _logger.info("Session content archiving sdk init success")
             self.sdk = sdk
@@ -123,15 +123,15 @@ class FinanceSdk(object):
             ),  # 从指定的seq开始拉取消息，注意的是返回的消息从seq+1开始返回，seq为之前接口返回的最大seq值。首次使用请使用seq:0
             c_ulong(limit),  # 一次拉取的消息条数，最大值1000条，超过1000条会返回错误
             c_char_p(
-                None
+                self.proxy
             ),  # 使用代理的请求，需要传入代理的链接。如：socks5://10.0.0.1:8081 或者 http://10.0.0.1:8081
             c_char_p(None),  # 代理账号密码，需要传入代理的账号密码。如 user_name:passwd_123
             c_int(10),  # 超时时间，单位秒
             byref(slice),  # 返回本次拉取消息的数据.密文消息，slice结构体
         )
         if result != 0:
-            _logger.error("Failed to get chat data,result:%s") % result
-            raise FinanceSdkGetChatDataException(result, "Failed to get chat data")
+            _logger.error("Failed to get chat data,result:%s" % result)
+            # raise FinanceSdkGetChatDataException(result, "Failed to get chat data")
 
         chats_data = json.loads(string_at(slice.buf, slice.len))  # 聊天数据响应
         # _logger.info(_("get chat data response:%s") % chats_data)
@@ -168,9 +168,9 @@ class FinanceSdk(object):
             _logger.warning(
                 "public key version %s not loaded, can't decrypt" % publickey_ver
             )
-            raise FinanceSdkDecryptException(
-                -1, "public key version %s not loaded" % publickey_ver
-            )
+            # raise FinanceSdkDecryptException(
+            #     -1, "public key version %s not loaded" % publickey_ver
+            # )
 
         # decrypted_key = ciphers[publickey_ver - 1].decrypt(encrypt_random_key, sentinel)
         decrypted_key = cipher.decrypt(encrypt_random_key, sentinel)
@@ -186,7 +186,7 @@ class FinanceSdk(object):
         )
         if ret != 0:
             _logger.error("decrypt chat msg fail due to %s" % ret)
-            raise FinanceSdkDecryptException(ret, "DecryptData fail")
+            # raise FinanceSdkDecryptException(ret, "DecryptData fail")
 
         return json.loads(string_at(slice.buf, slice.len))
 
@@ -203,10 +203,10 @@ class FinanceSdk(object):
         media = Media()
         while True:
             ret = self.dll.GetMediaData(
-                c_void_p(self.sdk),
-                c_void_p(media.outindexbuf),
-                c_char_p(sdkfileid),
-                c_char_p(None),
+                c_void_p(self.sdk),  # 初始化的sdk对象
+                c_void_p(media.outindexbuf),  # 媒体消息分片拉取
+                c_char_p(sdkfileid),  # 消息体内容中的sdkfileid信息。
+                c_char_p(self.proxy),
                 c_char_p(None),
                 c_int(10),
                 byref(media),

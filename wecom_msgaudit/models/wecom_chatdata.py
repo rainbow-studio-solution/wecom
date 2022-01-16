@@ -204,9 +204,15 @@ class WeComChatData(models.Model):
 
         try:
             ir_config = self.env["ir.config_parameter"].sudo()
-            chatdata_api_url = ir_config.get_param(
-                "wecom.msgaudit.msgaudit_chatdata_api_url"
-            )  # FastAPI 获取聊天记录的API URL
+            chatdata_url = ir_config.get_param(
+                "wecom.msgaudit.msgaudit_sdk_url"
+            ) + ir_config.get_param("wecom.msgaudit.msgaudit_chatdata_url")
+
+            proxy = (
+                True
+                if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
+                else False
+            )
             headers = {"content-type": "application/json"}
             body = {
                 "seq": max_seq_id,
@@ -214,7 +220,11 @@ class WeComChatData(models.Model):
                 "secret": secret,
                 "private_keys": key_list,
             }
-            r = requests.get(chatdata_api_url, data=json.dumps(body), headers=headers)
+            print("-------------", proxy, type(proxy), chatdata_url)
+            if proxy:
+                body.update({"proxy": chatdata_url})
+
+            r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
             chat_datas = r.json()
 
             if len(chat_datas) > 0:
@@ -491,9 +501,14 @@ class WeComChatData(models.Model):
             elif self.msgtype == "image":
                 try:
                     ir_config = self.env["ir.config_parameter"].sudo()
-                    mediadata_api_url = ir_config.get_param(
-                        "wecom.msgaudit.msgaudit_mediadata_api_url"
-                    )  # FastAPI 获取媒体文件的API URL
+                    mediadata_url = ir_config.get_param(
+                        "wecom.msgaudit.msgaudit_sdk_url"
+                    ) + ir_config.get_param("wecom.msgaudit.msgaudit_mediadata_url")
+                    proxy = (
+                        True
+                        if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
+                        else False
+                    )
 
                     headers = {"content-type": "application/json"}
                     body = {
@@ -503,8 +518,10 @@ class WeComChatData(models.Model):
                         "secret": secret,
                         "private_keys": key_list,
                     }
+                    if proxy:
+                        body.update({"proxy": mediadata_url})
                     r = requests.get(
-                        mediadata_api_url, data=json.dumps(body), headers=headers
+                        mediadata_url, data=json.dumps(body), headers=headers
                     )
                     mediadata = r.json()
 

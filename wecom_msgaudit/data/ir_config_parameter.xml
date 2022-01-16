@@ -5,14 +5,21 @@
     </data>
     <data noupdate="1">
 
-        <record model="ir.config_parameter" id="msgaudit_chatdata_api_url">
-            <field name="key">wecom.msgaudit.msgaudit_chatdata_api_url</field>
-            <field name="value">http://localhost:8000/wecom/finance/chatdata</field>
+        <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit_sdk_proxy', 'False')"/>
+
+        <record model="ir.config_parameter" id="msgaudit_sdk_proxy">
+            <field name="key">wecom.msgaudit.msgaudit_sdk_proxy</field>
+            <field name="value">http://localhost:8000</field>
         </record>
 
-        <record model="ir.config_parameter" id="msgaudit_mediadata_api_url">
-            <field name="key">wecom.msgaudit.msgaudit_mediadata_api_url</field>
-            <field name="value">http://localhost:8000/wecom/finance/mediadata</field>
+        <record model="ir.config_parameter" id="msgaudit_chatdata_url">
+            <field name="key">wecom.msgaudit.msgaudit_chatdata_url</field>
+            <field name="value">/wecom/finance/chatdata</field>
+        </record>
+
+        <record model="ir.config_parameter" id="msgaudit_mediadata_url">
+            <field name="key">wecom.msgaudit.msgaudit_mediadata_url</field>
+            <field name="value">/wecom/finance/mediadata</field>
         </record>
 
     </data>

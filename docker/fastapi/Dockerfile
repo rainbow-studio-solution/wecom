@@ -1,6 +1,17 @@
 # 从官方 Python 基础镜像开始
 FROM python:3.9
 
+# build参数
+ARG user=odoo
+
+# 安装代理 https://blog.csdn.net/stamhe/article/details/5334868
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    squid \
+    squid-common
+
+COPY ./squid.conf /etc/squid/squid.conf
+
 # 将当前工作目录设置为 /code。
 # 这是我们放置 requirements.txt 文件和应用程序目录的地方。
 WORKDIR /code
@@ -22,6 +33,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt -i https://py
 # 由于这包含所有更改最频繁的代码，因此 Docker 缓存不会轻易用于此或任何后续步骤。
 # 因此，将其放在 Dockerfile 的末尾很重要，以优化容器映像的构建时间。
 COPY ./app /code/app
+
 
 # 设置运行uvicorn服务器的命令。
 # CMD 接受一个字符串列表，这些字符串中的每一个都是您在命令行中键入的内容，以空格分隔。
