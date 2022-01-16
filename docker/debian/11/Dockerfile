@@ -1,5 +1,4 @@
 FROM debian:bullseye-slim
-MAINTAINER Odoo S.A. <info@odoo.com>
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -31,6 +30,7 @@ RUN apt-get update && \
     python3-slugify \
     python3-vobject \
     python3-watchdog \
+    python3-wheel \
     python3-xlrd \
     python3-xlwt \
     xz-utils \
@@ -39,21 +39,16 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-# RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
-#     && GNUPGHOME="$(mktemp -d)" \
-#     && export GNUPGHOME \
-#     && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
-#     && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
-#     && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
-#     && gpgconf --kill all \
-#     && rm -rf "$GNUPGHOME" \
-#     && apt-get update  \
-#     && apt-get install --no-install-recommends -y postgresql-client \
-#     && rm -f /etc/apt/sources.list.d/pgdg.list \
-#     && rm -rf /var/lib/apt/lists/*
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    postgresql-client
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+    && GNUPGHOME="$(mktemp -d)" \
+    && export GNUPGHOME \
+    && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${repokey}" \
+    && gpg --batch --armor --export "${repokey}" > /etc/apt/trusted.gpg.d/pgdg.gpg.asc \
+    && gpgconf --kill all \
+    && rm -rf "$GNUPGHOME" \
+    && apt-get update  \
+    && apt-get install --no-install-recommends -y postgresql-client 
 
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
@@ -65,13 +60,12 @@ ARG ODOO_SHA=a32b3d766e45320a0092b40b18728b326da1210c
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
-    && apt-get -y install --no-install-recommends ./odoo.deb \
-    && rm -rf /var/lib/apt/lists/* odoo.deb
+    && apt-get -y install --no-install-recommends ./odoo.deb 
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
-RUN chmod +x /entrypoint.sh
+
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -84,6 +78,7 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && pip3 install pydub \
     && pip3 install ffmpy \
     && pip3 install lxml_to_dict 
+
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
 # Expose Odoo services
@@ -93,7 +88,6 @@ EXPOSE 8069 8071 8072
 ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
-RUN chmod +x /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
 USER odoo

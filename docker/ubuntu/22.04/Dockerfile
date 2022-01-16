@@ -120,6 +120,7 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt install ttf-wqy-zenhei -y \
     && apt install ttf-wqy-microhei -y \
     && pip3 install Werkzeug==0.16.1 \
+    && pip3 install pycfloader \
     && pip3 install pycryptodome \
     && pip3 install pydub \
     && pip3 install ffmpy \
