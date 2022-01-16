@@ -3,7 +3,10 @@
 from typing import List, Optional, Dict
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-from .sdk.FinanceSdk import FinanceSdk
+
+# from sdk.FinanceSdk import FinanceSdk # 调试时 使用此引用
+from .sdk.FinanceSdk import FinanceSdk  # build docker 使用此引用
+
 import logging
 import base64
 

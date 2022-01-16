@@ -231,7 +231,7 @@ class WeComChatData(models.Model):
 
                     # 以下为解密聊天信息内容
                     for key, value in data["decrypted_chat_msg"].items():
-                        if key == "msgid":
+                        if key == "msgid" or key == "voiceid":
                             pass
                         elif key == "from":
                             dic_data["from_user"] = value
@@ -251,6 +251,7 @@ class WeComChatData(models.Model):
             )
         except Exception as e:
             _logger.exception("Exception: %s" % e)
+            return str(e)
 
     @api.model
     def _default_image(self):
@@ -528,10 +529,10 @@ class WeComChatData(models.Model):
                         "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
                         % base64_source_str
                     )
-                    print(content)
-
                 except Exception as e:
                     _logger.exception("Exception: %s" % e)
+                    if "HTTPConnectionPool" in str(e):
+                        raise UserError(_("API interface not started!"))
 
             else:
                 pass

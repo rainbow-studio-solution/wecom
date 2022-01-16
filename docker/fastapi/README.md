@@ -17,13 +17,17 @@
 
 ## Pull 镜像
 ```
-docker pull rainbowstudiosolution/wecom_fastapi
+docker pull rainbowstudiosolution/wecom_sdk_api
 ```
 
 ## 启动
 ```
-docker run -d --name wecom_fastapi -p 8000:8000 -t rainbowstudiosolution/wecom_fastapi
+docker run -d --name sdk -p 8000:8000 -t rainbowstudiosolution/wecom_sdk_api
 ```
+
+## Odoo Docker 访问方式
+1. 安装会话存档模块后，打开菜单 企微设置 -> 设置
+2. 将会话内存存档的API 的IP修改 172.17.0.1
 
 ## 交互式 API 文档
 ```

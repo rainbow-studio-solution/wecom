@@ -9,7 +9,6 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
             this._super.apply(this, arguments);
             if (this.$buttons) {
                 this.$buttons.on('click', '.o_list_wecom_download_chatdata', this._download_wecom_chatdata.bind(this));
-                this.$buttons.on('click', '.o_list_wecom_batch_update_group_chat', this._batch_update_wecom_group_chat.bind(this));
             }
         },
         _onSelectionChanged: function (ev) {
@@ -24,59 +23,38 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
                 args: [""],
                 // route: '/wecom/get_chatdata',
             }).then(function (result) {
-                console.log(result);
-                if (result) {
-                    self.displayNotification({
-                        type: 'success',
-                        title: _t("Download succeeded!"),
-                        message: _t("Complete the download of chat records."),
-                        sticky: true,
-                        buttons: [{
-                            text: _t("Refresh"),
-                            click: () => {
-                                window.location.reload(true);
-                            },
-                            primary: true
-                        }],
-                    });
+                if (typeof (result) == 'boolean') {
+                    if (result) {
+                        self.displayNotification({
+                            type: 'success',
+                            title: _t("Download succeeded!"),
+                            message: _t("Complete the download of chat records."),
+                            sticky: true,
+                            buttons: [{
+                                text: _t("Refresh"),
+                                click: () => {
+                                    window.location.reload(true);
+                                },
+                                primary: true
+                            }],
+                        });
+                    } else {
+                        self.displayNotification({
+                            type: 'info',
+                            title: _t("Tips!"),
+                            message: _t("No data to download!"),
+                            sticky: false,
+                        });
+                    }
                 } else {
-                    self.displayNotification({
-                        type: 'info',
-                        title: _t("Tips!"),
-                        message: _t("No data to download!"),
-                        sticky: false,
-                    });
-                }
-            })
-        },
-        _batch_update_wecom_group_chat: function () {
-            var self = this;
-            self._rpc({
-                model: 'wecom.chatdata',
-                method: 'batch_update_group_chat',
-                args: [""],
-            }).then(function (result) {
-                if (result) {
-                    self.displayNotification({
-                        type: 'success',
-                        title: _t("Download succeeded!"),
-                        message: _t("Complete the download of chat records."),
-                        sticky: true,
-                        buttons: [{
-                            text: _t("Refresh"),
-                            click: () => {
-                                window.location.reload(true);
-                            },
-                            primary: true
-                        }],
-                    });
-                } else {
-                    self.displayNotification({
-                        type: 'warning',
-                        title: _t("Warning!"),
-                        message: _t("Failed to batch update internal group chat information!"),
-                        sticky: false,
-                    });
+                    if (result.indexOf("HTTPConnectionPool") != -1) {
+                        self.displayNotification({
+                            type: 'warning',
+                            title: _t("Error!"),
+                            message: _t("API interface not started!"),
+                            sticky: true,
+                        });
+                    }
                 }
             })
         },
