@@ -114,9 +114,8 @@ COPY ./odoo.conf /etc/odoo/
 RUN chmod +x /entrypoint.sh
 
 # 安装FastAPI
-COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
-RUN chmod +x /usr/lib/systemd/system/wecomsdk.service
-COPY ./app /code/app
+# COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+# COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -131,8 +130,8 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
     && pip3 install ffmpy  -i https://pypi.doubanio.com/simple \
     && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
-    && pip3 install pandas  -i https://pypi.doubanio.com/simple \
-    && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
+    && pip3 install pandas  -i https://pypi.doubanio.com/simple 
+# && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 

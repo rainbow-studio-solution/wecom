@@ -1,19 +1,19 @@
 # 从官方 Python 基础镜像开始
-# FROM python:3.9
-FROM ubuntu:22.04
+FROM python:3.9
+# FROM ubuntu:22.04
 
-SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
+# SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
-ENV LANG C.UTF-8
-ENV DEBIAN_FRONTEND=noninteractive
-RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
-    apt-get clean
+# ENV LANG C.UTF-8
+# ENV DEBIAN_FRONTEND=noninteractive
+# RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
+#     apt-get clean
 
 # 安装代理 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    python3-pip \
-    tinyproxy
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#     python3-pip \
+#     tinyproxy
 # squid \
 # squid-common 
 
@@ -32,7 +32,7 @@ COPY ./requirements.txt /code/requirements.txt
 # --upgrade 选项告诉 pip 升级已经安装的包。
 # 因为上一步复制文件可以被 Docker 缓存检测到，所以这一步也会在可用时使用 Docker 缓存。
 # 在这一步中使用缓存会为你在开发过程中一次又一次构建镜像时节省大量时间，而不是每次都下载安装所有依赖
-RUN pip3 install --no-cache-dir --upgrade -r /code/requirements.txt -i https://pypi.doubanio.com/simple 
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt -i https://pypi.doubanio.com/simple 
 
 
 # 将 ./app 目录复制到 /code 目录中。
