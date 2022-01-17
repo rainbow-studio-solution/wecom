@@ -94,7 +94,8 @@ RUN apt-get update && \
     fonts-inconsolata \
     fonts-font-awesome \
     fonts-roboto-unhinted \
-    python3-freezegun        
+    python3-freezegun \
+    systemd
 
 # Install Odoo
 ENV ODOO_VERSION 14.0
@@ -112,6 +113,11 @@ COPY ./odoo.conf /etc/odoo/
 
 RUN chmod +x /entrypoint.sh
 
+# 安装FastAPI
+COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+RUN chmod +x /usr/lib/systemd/system/wecomsdk.service
+COPY ./app /code/app
+
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
@@ -119,15 +125,18 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && apt update \
     && apt install ttf-wqy-zenhei -y \
     && apt install ttf-wqy-microhei -y \
-    && pip3 install Werkzeug==0.16.1 \
-    && pip3 install pycfloader \
-    && pip3 install pycryptodome \
-    && pip3 install pydub \
-    && pip3 install ffmpy \
-    && pip3 install lxml_to_dict \
-    && pip3 install pandas 
+    && pip3 install Werkzeug==0.16.1  -i https://pypi.doubanio.com/simple \
+    && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
+    && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
+    && pip3 install pydub  -i https://pypi.doubanio.com/simple \
+    && pip3 install ffmpy  -i https://pypi.doubanio.com/simple \
+    && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
+    && pip3 install pandas  -i https://pypi.doubanio.com/simple \
+    && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
+
+
 
 # Expose Odoo services
 EXPOSE 8069 8071 8072
@@ -137,6 +146,8 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 RUN chmod +x /usr/local/bin/wait-for-psql.py
+
+
 
 # Set default user when running the container
 USER odoo

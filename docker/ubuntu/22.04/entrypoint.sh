@@ -1,5 +1,8 @@
 #!/bin/bash
 
+systemctl enable wecomsdk
+systemctl start wecomsdk 
+
 set -e
 
 # set the postgres database host, port, user and password according to the environment
