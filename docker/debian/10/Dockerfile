@@ -1,5 +1,4 @@
 FROM debian:buster-slim
-MAINTAINER Odoo S.A. <info@odoo.com>
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -97,6 +96,10 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 RUN chmod +x /usr/local/bin/wait-for-psql.py
+
+# 部署FastAPI
+COPY ./fastapi /fastapi
+RUN pip install --no-cache-dir --upgrade -r /fastapi/requirements.txt -i https://pypi.doubanio.com/simple 
 
 # Set default user when running the container
 USER odoo
