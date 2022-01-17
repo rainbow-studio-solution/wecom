@@ -52,6 +52,7 @@ class FinanceSdk(object):
         self.dll = None
         self.sdk = None
         self.proxy = None
+        self.paswd = None
         self.ciphers = []
 
         lib_path = ""
@@ -64,11 +65,12 @@ class FinanceSdk(object):
 
         self.dll = CDLL(lib_path)
 
-    def init_finance_sdk(self, corpid, secret, private_keys, proxy):
+    def init_finance_sdk(self, corpid, secret, private_keys, proxy, paswd):
         self.corpid = corpid
         self.secret = secret
         self.private_keys = private_keys
         self.proxy = proxy
+        self.paswd = paswd
 
         for key in self.private_keys:
             key_dict = {}
@@ -125,7 +127,7 @@ class FinanceSdk(object):
             c_char_p(
                 self.proxy
             ),  # 使用代理的请求，需要传入代理的链接。如：socks5://10.0.0.1:8081 或者 http://10.0.0.1:8081
-            c_char_p(None),  # 代理账号密码，需要传入代理的账号密码。如 user_name:passwd_123
+            c_char_p(self.paswd),  # 代理账号密码，需要传入代理的账号密码。如 user_name:passwd_123
             c_int(10),  # 超时时间，单位秒
             byref(slice),  # 返回本次拉取消息的数据.密文消息，slice结构体
         )
@@ -206,8 +208,8 @@ class FinanceSdk(object):
                 c_void_p(self.sdk),  # 初始化的sdk对象
                 c_void_p(media.outindexbuf),  # 媒体消息分片拉取
                 c_char_p(sdkfileid),  # 消息体内容中的sdkfileid信息。
-                c_char_p(self.proxy),
-                c_char_p(None),
+                c_char_p(self.proxy),  # 需要传入代理的链接。
+                c_char_p(self.paswd),  # 代理账号密码，需要传入代理的账号密码。如 user_name:passwd_123
                 c_int(10),
                 byref(media),
             )

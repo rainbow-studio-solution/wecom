@@ -32,6 +32,7 @@ class Parameter(BaseModel):
     )  # 序号，从指定的seq开始拉取消息，注意的是返回的消息从seq+1开始返回，seq为之前接口返回的最大seq值。首次使用请使用seq:0
     sdkfileid: Optional[str] = Field(None, title="消息体内容中的sdkfileid信息")
     proxy: Optional[str] = Field(None, title="代理的链接")
+    paswd: Optional[str] = Field(None, title="代理账号密码")
     corpid: Optional[str] = Field(title="企业Id")  # 企业id
     secret: Optional[str] = Field(title="密钥")  # 密钥
     private_keys: Optional[List[PrivateKey]] = Field(None, title="私钥列表")  # 私钥列表
@@ -50,6 +51,7 @@ async def get_chatdata(parameter: Parameter):
         parameter.secret,
         parameter.private_keys,
         parameter.proxy,
+        parameter.paswd,
     )
     return sdk.get_chatdata(parameter.seq)
 
@@ -67,6 +69,7 @@ async def get_mediadata(parameter: Parameter):
         parameter.secret,
         parameter.private_keys,
         parameter.proxy,
+        parameter.paswd,
     )
     mediadata = sdk.get_mediadata(parameter.sdkfileid)
     return base64.b64encode(mediadata).decode()

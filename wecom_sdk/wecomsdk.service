@@ -6,8 +6,8 @@ After=network.target
 Type=simple
 User=odoo
 Group=odoo
-WorkingDirectory=/fastapi
-ExecStart=/usr/bin/python3 uvicorn app.main:app --host 0.0.0.0 --port 8000 --logfile /var/log/wecomsdk/wecomsdk-server.log
+WorkingDirectory=/code
+ExecStart=/usr/bin/python3 uvicorn app.main:app --host 0.0.0.0 --port 8000
 Restart=always
 
 

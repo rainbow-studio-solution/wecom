@@ -1,4 +1,4 @@
-# 企业微信SDK 服务 Docker
+# 企业微信SDK 服务
 
 ## 用途（暂时只有2个）
 
@@ -15,29 +15,36 @@
 
 
 
-# 如何使用
-
-## Pull 镜像
+## 安装依赖
+> 切换到 wecom_sdk 路径
 ```
-docker pull rainbowstudiosolution/wecom_sdk_api
-```
-
-## 启动
-```
-docker run -d --name sdk -p 8000:8000 -t rainbowstudiosolution/wecom_sdk_api
+pip3 install requirements.txt -i https://pypi.doubanio.com/simple 
 ```
 
-## Odoo Docker 访问方式
-1. 安装会话存档模块后，打开菜单 企微设置 -> 设置
-2. 查看SDK的容器ID
-   ```
-   docker container list
-   ```
-3. 查看SKD容器的IP
-   ```
-   docker inspect --format='{{.NetworkSettings.IPAddress}}' <SKD容器ID>
-   ```
-4. 在企业微信设置页面，将会话内存存档的API 的IP修改为查询到的IP值，并勾选“代理请求”后，保存设置。
+## 添加wecomsdk服务
+1. 添加wecom_skd.service文件到 /etc/systemd/system/
+2. 在 /etc/systemd/system/wecom_sdk.service 中添加以下内容：
+```
+[Unit]
+Description=Wecom Sdk Api
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/code
+ExecStart=/usr/bin/python3 uvicorn app.main:app --host 0.0.0.0 --port 8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+3. 启动服务
+```
+systemctl enable wecomsdk
+systemctl start wecomsdk
+```
+
+
 
 ## 交互式 API 文档
 ```

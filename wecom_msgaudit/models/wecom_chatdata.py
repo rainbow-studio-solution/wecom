@@ -204,9 +204,12 @@ class WeComChatData(models.Model):
 
         try:
             ir_config = self.env["ir.config_parameter"].sudo()
-            chatdata_url = ir_config.get_param(
-                "wecom.msgaudit.msgaudit_sdk_url"
-            ) + ir_config.get_param("wecom.msgaudit.msgaudit_chatdata_url")
+            msgaudit_sdk_url = ir_config.get_param("wecom.msgaudit.msgaudit_sdk_url")
+            msgaudit_chatdata_url = ir_config.get_param(
+                "wecom.msgaudit.msgaudit_chatdata_url"
+            )
+
+            chatdata_url = msgaudit_sdk_url + msgaudit_chatdata_url
 
             proxy = (
                 True
@@ -220,9 +223,11 @@ class WeComChatData(models.Model):
                 "secret": secret,
                 "private_keys": key_list,
             }
-            print("-------------", proxy, type(proxy), chatdata_url)
+
             if proxy:
-                body.update({"proxy": chatdata_url})
+                body.update(
+                    {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
+                )
 
             r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
             chat_datas = r.json()
@@ -519,7 +524,9 @@ class WeComChatData(models.Model):
                         "private_keys": key_list,
                     }
                     if proxy:
-                        body.update({"proxy": mediadata_url})
+                        body.update(
+                            {"proxy": mediadata_url, "paswd": "odoo:odoo",}
+                        )
                     r = requests.get(
                         mediadata_url, data=json.dumps(body), headers=headers
                     )
@@ -541,10 +548,10 @@ class WeComChatData(models.Model):
                         img_max_size,
                         filesize,
                     )
-
+                    # print("data:image/png;base64,%s" % base64_source_str.decode())
                     content = (
                         "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
-                        % base64_source_str
+                        % base64_source_str.decode()
                     )
                 except Exception as e:
                     _logger.exception("Exception: %s" % e)
