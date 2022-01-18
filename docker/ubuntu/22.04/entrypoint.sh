@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# systemctl enable wecomsdk
-# systemctl start wecomsdk 
+# sh systemctl enable wecomsdk &
+# sh systemctl start wecomsdk &
+sh check_config wecomsdk on &
+sh service wecomsdk start &
 
 set -e
 

@@ -1,24 +1,20 @@
-FROM ubuntu:22.04
-
+# FROM ubuntu:22.04
+FROM debian:bullseye-slim
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND=noninteractive
-RUN  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
-    #    echo "deb http://ftp.cn.debian.org/debian sid main" >/etc/apt/sources.list
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
     apt-get clean
-#RUN echo "deb http://ftp.cn.debian.org/debian sid main" >/etc/apt/sources.list
-#RUN mv /etc/apt/sources.list /etc/apt/sources.list.bak && \
-#    echo "deb http://mirrors.aliyun.com/debian/ bullseye main non-free contrib" >/etc/apt/sources.list && \
-#    echo "deb-src http://mirrors.aliyun.com/debian/ bullseye main non-free contrib" >>/etc/apt/sources.list && \
-#    echo "deb http://mirrors.aliyun.com/debian-security bullseye/updates main" >>/etc/apt/sources.list && \
-#    echo "deb-src http://mirrors.aliyun.com/debian-security bullseye/updates main" >>/etc/apt/sources.list && \
-#    echo "deb http://mirrors.aliyun.com/debian/ bullseye-updates main non-free contrib" >>/etc/apt/sources.list && \
-#    echo "deb-src http://mirrors.aliyun.com/debian/ bullseye-updates main non-free contrib" >>/etc/apt/sources.list && \
-#    echo "deb http://mirrors.aliyun.com/debian/ bullseye-backports main non-free contrib" >>/etc/apt/sources.list && \
-#    echo "deb-src http://mirrors.aliyun.com/debian/ bullseye-backports main non-free contrib" >>/etc/apt/sources.list
+
+# RUN sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list && \
+#     sed -i '$a\deb http://archive.ubuntu.com/ubuntu/ trusty main universe restricted multiverse' /etc/apt/sources.list && \
+#     apt-get update && \
+#     apt-get install -y --no-install-recommends \
+#     sysv-rc-conf && \
+#     apt-get clean
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 COPY ./wkhtmltox_0.12.6-1.focal_amd64.deb ./wkhtmltox.deb
@@ -45,6 +41,7 @@ RUN apt-get update && \
     python3-watchdog \
     python3-xlrd \
     python3-xlwt \
+    sudo \
     xz-utils \
     #	libjpeg62-turbo \	
     && echo '4a974456d6271908c46aa38fc177f99d6cd3b39a wkhtmltox.deb' | sha1sum -c - \
@@ -95,7 +92,10 @@ RUN apt-get update && \
     fonts-font-awesome \
     fonts-roboto-unhinted \
     python3-freezegun \
-    systemd
+    systemd \
+    sudo \
+    sysv-rc-conf \
+    nano
 
 # Install Odoo
 ENV ODOO_VERSION 14.0
@@ -114,8 +114,8 @@ COPY ./odoo.conf /etc/odoo/
 RUN chmod +x /entrypoint.sh
 
 # 安装FastAPI
-# COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
-# COPY ./app /code/app
+COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -130,12 +130,18 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
     && pip3 install ffmpy  -i https://pypi.doubanio.com/simple \
     && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
-    && pip3 install pandas  -i https://pypi.doubanio.com/simple 
-# && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
+    && pip3 install pandas  -i https://pypi.doubanio.com/simple \
+    && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
+# build参数
+ARG user=odoo
 
+# 添加用户：赋予sudo权限，指定密码
+# RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
+# && adduser ${user} sudo \
+RUN sudo echo "${user}:odoo" | chpasswd
 
 # Expose Odoo services
 EXPOSE 8069 8071 8072
@@ -147,9 +153,8 @@ COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 RUN chmod +x /usr/local/bin/wait-for-psql.py
 
 
-
-# Set default user when running the container
-USER odoo
+# 指定容器起来的登录用户
+USER ${user}
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]

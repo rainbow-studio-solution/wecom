@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# sh systemctl enable wecomsdk &
+# sh systemctl start wecomsdk &
+sh check_config wecomsdk on &
+sh service wecomsdk start &
+
 set -e
 
 if [ -v PASSWORD_FILE ]; then

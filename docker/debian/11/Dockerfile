@@ -5,6 +5,11 @@ SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 # Generate locale C.UTF-8 for postgres and general locale data
 ENV LANG C.UTF-8
 
+# 修改国内源
+ENV DEBIAN_FRONTEND=noninteractive
+RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get clean
+
 # 复制wkhtmltox
 COPY ./wkhtmltox_0.12.5-1.buster_amd64.deb ./wkhtmltox.deb
 
@@ -14,7 +19,12 @@ RUN apt-get update && \
     ca-certificates \
     curl \
     dirmngr \
+    ttf-wqy-zenhei \
+    ttf-wqy-microhei \
     fonts-noto-cjk \
+    fonts-inconsolata \
+    fonts-font-awesome \
+    fonts-roboto-unhinted \
     gnupg \
     libssl-dev \
     node-less \
@@ -53,6 +63,14 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /et
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
 
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \    
+    systemd \
+    sudo \
+    sysv-rc-conf \
+    nano
+
 # Install Odoo
 ENV ODOO_VERSION 14.0
 ARG ODOO_RELEASE=20220110
@@ -65,21 +83,34 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
+RUN chmod +x /entrypoint.sh
 
+# 安装FastAPI
+COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
     && apt update \
-    && apt install ttf-wqy-zenhei -y \
-    && apt install ttf-wqy-microhei -y \
-    && pip3 install pycryptodome \
-    && pip3 install pydub \
-    && pip3 install ffmpy \
-    && pip3 install lxml_to_dict 
+    && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
+    && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
+    && pip3 install pydub  -i https://pypi.doubanio.com/simple \
+    && pip3 install ffmpy  -i https://pypi.doubanio.com/simple \
+    && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
+    && pip3 install pandas  -i https://pypi.doubanio.com/simple \
+    && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
+
+# build参数
+ARG user=odoo
+
+# 添加用户：赋予sudo权限，指定密码
+# RUN useradd --create-home --no-log-init --shell /bin/bash ${user} \
+# && adduser ${user} sudo \
+RUN sudo echo "${user}:odoo" | chpasswd
 
 # Expose Odoo services
 EXPOSE 8069 8071 8072
@@ -88,9 +119,11 @@ EXPOSE 8069 8071 8072
 ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
+RUN chmod +x /usr/local/bin/wait-for-psql.py
 
 # Set default user when running the container
-USER odoo
+USER ${user}
+# USER odoo
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
