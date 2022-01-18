@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 参考 https://code.djangoproject.com/wiki/InitdScriptForDebian
 
 . /lib/lsb/init-functions
 
