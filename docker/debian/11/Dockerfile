@@ -86,7 +86,8 @@ COPY ./odoo.conf /etc/odoo/
 RUN chmod +x /entrypoint.sh
 
 # 安装FastAPI
-COPY ./wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+# COPY ./service/etc/init.d/wecomsdk /etc/init.d/wecomsdk
+COPY ./service/usr/lib/systemd/system/wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
 COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
