@@ -94,6 +94,7 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
     && apt update \
+    && pip3 install html2text  -i https://pypi.doubanio.com/simple \
     && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
     && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
