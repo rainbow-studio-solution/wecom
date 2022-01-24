@@ -13,17 +13,12 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
 # 复制wkhtmltox
 COPY ./wkhtmltox_0.12.5-1.buster_amd64.deb ./wkhtmltox.deb
 
+
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
-    dos2unix \
-    sysv-rc-conf  \
-    systemd  \
-    sudo  \
-    axel \
-    nano \
     dirmngr \
     ttf-wqy-zenhei \
     ttf-wqy-microhei \
@@ -35,7 +30,6 @@ RUN apt-get update && \
     libssl-dev \
     node-less \
     npm \
-    python3-html2text \
     python3-num2words \
     python3-pdfminer \
     python3-pip \
@@ -50,6 +44,7 @@ RUN apt-get update && \
     python3-wheel \
     python3-xlrd \
     python3-xlwt \
+    sudo \
     xz-utils \
     && echo 'ea8277df4297afc507c61122f3c349af142f31e5 wkhtmltox.deb' | sha1sum -c - \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
@@ -70,42 +65,41 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /et
 # Install rtlcss (on Debian buster)
 RUN npm install -g rtlcss
 
-
 # Install Odoo
 ENV ODOO_VERSION 14.0
 ARG ODOO_RELEASE=20220110
 ARG ODOO_SHA=a32b3d766e45320a0092b40b18728b326da1210c
 # RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-#     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
-#     && apt-get update \
-#     && apt-get -y install --no-install-recommends ./odoo.deb 
-RUN axel -n 50 -o odoo.deb http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
-    && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
-    && apt-get update \
-    && apt-get -y install --no-install-recommends ./odoo.deb 
+#echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
+#apt-get update \
+#apt-get -y install --no-install-recommends ./odoo.deb 
+
+COPY ./odoo_14.0.20220110_all.deb ./odoo.deb
+RUN echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \ 
+    && apt-get -y install --no-install-recommends ./odoo.deb \
+    && rm -rf /var/lib/apt/lists/* odoo.deb
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
 COPY ./odoo.conf /etc/odoo/
 RUN chmod +x /entrypoint.sh
 
-# 安装FastAPI
-# COPY ./service/etc/init.d/wecomsdk /etc/init.d/wecomsdk
-# COPY ./service/usr/lib/systemd/system/wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
-COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
     && apt update \
+    && pip3 install html2text  -i https://pypi.doubanio.com/simple \
     && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
     && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
     && pip3 install ffmpy  -i https://pypi.doubanio.com/simple \
     && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
-    && pip3 install pandas  -i https://pypi.doubanio.com/simple \
-    && pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
+    && pip3 install pandas  -i https://pypi.doubanio.com/simple 
+
+
+# pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
@@ -118,7 +112,7 @@ ARG user=odoo
 RUN sudo echo "${user}:odoo" | chpasswd
 
 # Expose Odoo services
-EXPOSE 8000 8069 8071 8072
+EXPOSE 8069 8071 8072
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
