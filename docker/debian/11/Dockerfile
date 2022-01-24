@@ -8,6 +8,9 @@ ENV LANG C.UTF-8
 # 修改国内源
 ENV DEBIAN_FRONTEND=noninteractive
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    sysv-rc-conf && \
     apt-get clean
 
 # 复制wkhtmltox
