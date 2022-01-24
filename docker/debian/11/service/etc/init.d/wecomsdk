@@ -1,14 +1,14 @@
 #! /bin/sh
 ### 开始初始化信息
-# Provides:          FastCGI servers for Django
+# Provides:          FastCGI servers for wecomsdk
 # Required-Start:    networking
 # Required-Stop:     networking
 # Default-Start:     2 3 4 5
 # Default-Stop:      S 0 1 6
-# Short-Description: Start FastCGI servers with Django.
-# Description:       Django, in order to operate with FastCGI, must be started
+# Short-Description: Start FastCGI servers with wecomsdk.
+# Description:       wecomsdk, in order to operate with FastCGI, must be started
 #                    in a very specific way with manage.py. This must be done
-#                    for each Django web server that has to run.
+#                    for each wecomsdk web server that has to run.
 ### END INIT INFO
 #
 # Author:  Guillermo Fernandez Castellanos
@@ -39,7 +39,7 @@ SITES_PATH=/code/app
 # ENVIRONMENT_PATH=$SITES_PATH/environment
 
 # path to the directory for socket and pid files
-RUNFILES_PATH=/var/run/django
+RUNFILES_PATH=/var/run/wecomsdk
 
 # please make sure this is NOT root
 # local user prefered, www-data accepted
@@ -52,12 +52,12 @@ MAXREQUESTS=1000
 #### END CONFIGURATION
 
 # Include defaults if available
-if [ -f /etc/default/django ] ; then
-    . /etc/default/django
+if [ -f /etc/default/wecomsdk ] ; then
+    . /etc/default/wecomsdk
 fi
 
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-DESC="Django FastCGI servers"
+DESC="wecomsdk FastCGI servers"
 NAME=$0
 SCRIPTNAME=/etc/init.d/$NAME
 mkdir -p $RUNFILES_PATH
@@ -74,7 +74,7 @@ fi
 #
 d_start()
 {
-    # Starting all Django FastCGI processes
+    # Starting all wecomsdk FastCGI processes
     for SITE in $FASTAPI_SITES
     do
         echo -n " $SITE"
@@ -106,7 +106,7 @@ d_start()
 #       Function that stops the daemon/service.
 #
 d_stop() {
-    # Killing all Django FastCGI processes running
+    # Killing all wecomsdk FastCGI processes running
     for SITE in $FASTAPI_SITES
     do
         echo -n " $SITE"

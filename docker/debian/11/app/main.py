@@ -5,8 +5,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-# from sdk.FinanceSdk import FinanceSdk  # 调试时 使用此引用
-from .sdk.FinanceSdk import FinanceSdk  # build docker 使用此引用
+from sdk.FinanceSdk import FinanceSdk  # 调试时 使用此引用
+
+# from .sdk.FinanceSdk import FinanceSdk  # build docker 使用此引用
 
 import logging
 import base64

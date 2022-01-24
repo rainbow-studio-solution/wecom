@@ -8,9 +8,6 @@ ENV LANG C.UTF-8
 # 修改国内源
 ENV DEBIAN_FRONTEND=noninteractive
 RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-    sysv-rc-conf && \
     apt-get clean
 
 # 复制wkhtmltox
@@ -21,6 +18,12 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
+    dos2unix \
+    sysv-rc-conf  \
+    systemd  \
+    sudo  \
+    axel \
+    nano \
     dirmngr \
     ttf-wqy-zenhei \
     ttf-wqy-microhei \
@@ -32,6 +35,7 @@ RUN apt-get update && \
     libssl-dev \
     node-less \
     npm \
+    python3-html2text \
     python3-num2words \
     python3-pdfminer \
     python3-pip \
@@ -67,18 +71,15 @@ RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /et
 RUN npm install -g rtlcss
 
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \    
-    systemd \
-    sudo \
-    sysv-rc-conf \
-    nano
-
 # Install Odoo
 ENV ODOO_VERSION 14.0
 ARG ODOO_RELEASE=20220110
 ARG ODOO_SHA=a32b3d766e45320a0092b40b18728b326da1210c
-RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
+# RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
+#     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
+#     && apt-get update \
+#     && apt-get -y install --no-install-recommends ./odoo.deb 
+RUN axel -n 50 -o odoo.deb http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
     && apt-get -y install --no-install-recommends ./odoo.deb 
@@ -90,7 +91,7 @@ RUN chmod +x /entrypoint.sh
 
 # 安装FastAPI
 # COPY ./service/etc/init.d/wecomsdk /etc/init.d/wecomsdk
-COPY ./service/usr/lib/systemd/system/wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
+# COPY ./service/usr/lib/systemd/system/wecomsdk.service /usr/lib/systemd/system/wecomsdk.service
 COPY ./app /code/app
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
@@ -98,7 +99,6 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
     && apt update \
-    && pip3 install html2text  -i https://pypi.doubanio.com/simple \
     && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
     && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
@@ -118,7 +118,7 @@ ARG user=odoo
 RUN sudo echo "${user}:odoo" | chpasswd
 
 # Expose Odoo services
-EXPOSE 8069 8071 8072
+EXPOSE 8000 8069 8071 8072
 
 # Set the default config file
 ENV ODOO_RC /etc/odoo/odoo.conf
