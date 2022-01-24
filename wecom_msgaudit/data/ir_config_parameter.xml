@@ -5,7 +5,7 @@
     </data>
     <data noupdate="1">
 
-        <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit_sdk_proxy', 'False')"/>
+        <!-- <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit_sdk_proxy', 'False')"/> -->
 
         <record model="ir.config_parameter" id="msgaudit_sdk_proxy">
             <field name="key">wecom.msgaudit.msgaudit_sdk_proxy</field>

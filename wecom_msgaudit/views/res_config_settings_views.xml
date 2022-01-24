@@ -60,7 +60,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_sdk_proxy">
+                    <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_sdk_proxy">
                         <div class="o_setting_left_pane">
                             <field name="msgaudit_sdk_proxy"/>
                         </div>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_sdk_url">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-link fa-lg" aria-label="Sdk URL of session Content Archive."/>
