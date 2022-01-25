@@ -25,7 +25,7 @@
                             <field name="public_key" class="text-left" force_save="1" widget="CopyClipboardText" />
                             <field name="publickey_ver" />
                         </group>
-                        <button class="oe_highlight" name="generate_key" type="object" string="Generate key" icon="fa-key"/>
+                        <button class="oe_highlight oe_edit_only" name="generate_key" type="object" string="Generate key" icon="fa-key" confirm="Are you sure to generate message encryption public key and private key ?"/>
                     </sheet>
                 </form>
             </field>
