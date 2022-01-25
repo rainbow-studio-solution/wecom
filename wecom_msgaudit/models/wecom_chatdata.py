@@ -170,7 +170,8 @@ class WeComChatData(models.Model):
             company = self.env.company
 
         corpid = company.corpid
-
+        if corpid == False:
+            raise UserError(_("Corp ID cannot be empty!"))
         if company.msgaudit_app_id is False:
             raise UserError(
                 _(
@@ -178,7 +179,16 @@ class WeComChatData(models.Model):
                 )
             )
         secret = company.msgaudit_app_id.secret
+        if secret == False:
+            raise UserError(
+                _(
+                    "The application secret key of session content archive cannot be empty!"
+                )
+            )
+
         private_keys = company.msgaudit_app_id.private_keys
+        if len(private_keys) == 0:
+            raise UserError(_("No message encryption key exists!"))
         key_list = []
 
         for key in private_keys:
@@ -454,6 +464,9 @@ class WeComChatData(models.Model):
                     % (app.company_id.name, str(e))
                 )
 
+    # ------------------------------------------------------------
+    # 工具
+    # ------------------------------------------------------------
     def format_content(self):
         """
         格式化内容
@@ -501,9 +514,39 @@ class WeComChatData(models.Model):
             msg_content = self[self._fields[self.msgtype].name]
 
             if self.msgtype == "text":
+                # 文本消息
                 if "content" in msg_content:
                     content = eval(msg_content)["content"]
+            elif self.msgtype == "link":
+                # 链接消息
+                link = eval(msg_content)
+                content = """
+                <div class="card mt-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="%s" alt="%s">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">%s</h5>
+                                <p class="card-text">%s</p>
+                                <p class="card-text"><small class="text-muted">
+                                    <a href="%s" target="_blank">%s</a>
+                                </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                """ % (
+                    link["image_url"],
+                    link["title"],
+                    link["title"],
+                    link["description"],
+                    link["link_url"],
+                    _("Open link"),
+                )
             elif self.msgtype == "image":
+                # 图片消息
                 try:
                     ir_config = self.env["ir.config_parameter"].sudo()
                     mediadata_url = ir_config.get_param(

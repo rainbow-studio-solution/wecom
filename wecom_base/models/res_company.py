@@ -15,7 +15,7 @@ class Company(models.Model):
     # 基础
     abbreviated_name = fields.Char("Abbreviated Name", translate=True)
     is_wecom_organization = fields.Boolean("WeCom organization", default=False)
-    corpid = fields.Char("Corp ID", default="xxxxxxxxxxxxxxxxxx")
+    corpid = fields.Char("Corp ID")
 
     # contacts_auto_sync_hr_enabled = fields.Boolean(
     #     "Allow WeCom Contacts are automatically updated to HR", default=True,
