@@ -18,25 +18,24 @@
 ## 安装依赖
 > 切换到 wecom_sdk 路径
 ```
-pip3 install "uvicorn[standard]" -i https://pypi.doubanio.com/simple 
-pip3 install fastapi pydantic pycryptodome -i https://pypi.doubanio.com/simple 
+pip3 install requirements.txt -i https://pypi.doubanio.com/simple 
 ```
 
 ## 添加wecomsdk服务
-1. 添加 wecomsdk.service 文件到 /lib/systemd/system/
-2. 在 /lib/systemd/system/ecomsdk.service 中添加以下内容：
+1. 复制 /wecom_sdk_service/app 下的所有文件到 /fastapi
+2. 添加 wecomsdk.service 文件到 /lib/systemd/system/
+3. 在 /lib/systemd/system/wecomsdk.service 中添加以下内容：
 ```
 [Unit]
 Description=Wecom Sdk Api
-After=multi-user.target
-Conflicts=getty@tty1.service
+After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3  /code/app/main.py
+ExecStart=/usr/bin/python3 /fastapi/main.py
 StandardOutput=file:/var/log/wecom/wecom-server.log
-StandardInput=tty-force
-# Restart=always
+Restart=always
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
