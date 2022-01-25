@@ -1,13 +1,5 @@
 #!/bin/bash
 
-# sh systemctl enable wecomsdk &
-# sh systemctl start wecomsdk &
-# sh check_config wecomsdk on &
-# sh service wecomsdk start &
-cd /code/app &
-# uvicorn main:app --host 0.0.0.0 --port 8000  &
-uvicorn main:app  --port 8000  &
-
 set -e
 
 if [ -v PASSWORD_FILE ]; then

@@ -17,6 +17,7 @@ COPY ./wkhtmltox_0.12.5-1.buster_amd64.deb ./wkhtmltox.deb
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+    axel \
     ca-certificates \
     curl \
     dirmngr \
@@ -30,6 +31,7 @@ RUN apt-get update && \
     libssl-dev \
     node-less \
     npm \
+    python3-html2text \
     python3-num2words \
     python3-pdfminer \
     python3-pip \
@@ -90,7 +92,6 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && mkdir -p /mnt/extra-addons \
     && chown -R odoo /mnt/extra-addons \
     && apt update \
-    && pip3 install html2text  -i https://pypi.doubanio.com/simple \
     && pip3 install pycfloader  -i https://pypi.doubanio.com/simple \
     && pip3 install pycryptodome  -i https://pypi.doubanio.com/simple \
     && pip3 install pydub  -i https://pypi.doubanio.com/simple \
@@ -98,8 +99,6 @@ RUN chown odoo /etc/odoo/odoo.conf \
     && pip3 install lxml_to_dict  -i https://pypi.doubanio.com/simple \
     && pip3 install pandas  -i https://pypi.doubanio.com/simple 
 
-
-# pip3 install --no-cache-dir --upgrade -r /code/app/requirements.txt -i https://pypi.doubanio.com/simple 
 
 VOLUME ["/var/lib/odoo", "/mnt/extra-addons"]
 
