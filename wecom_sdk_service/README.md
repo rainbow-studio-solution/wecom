@@ -18,22 +18,25 @@
 ## 安装依赖
 > 切换到 wecom_sdk 路径
 ```
-pip3 install requirements.txt -i https://pypi.doubanio.com/simple 
+pip3 install "uvicorn[standard]" -i https://pypi.doubanio.com/simple 
+pip3 install fastapi pydantic pycryptodome -i https://pypi.doubanio.com/simple 
 ```
 
 ## 添加wecomsdk服务
-1. 添加wecom_skd.service文件到 /etc/systemd/system/
-2. 在 /etc/systemd/system/wecom_sdk.service 中添加以下内容：
+1. 添加 wecomsdk.service 文件到 /lib/systemd/system/
+2. 在 /lib/systemd/system/ecomsdk.service 中添加以下内容：
 ```
 [Unit]
 Description=Wecom Sdk Api
-After=network.target
+After=multi-user.target
+Conflicts=getty@tty1.service
 
 [Service]
 Type=simple
-WorkingDirectory=/code
-ExecStart=/usr/bin/python3 uvicorn app.main:app --host 0.0.0.0 --port 8000
-Restart=always
+ExecStart=/usr/bin/python3  /code/app/main.py
+StandardOutput=file:/var/log/wecom/wecom-server.log
+StandardInput=tty-force
+# Restart=always
 
 [Install]
 WantedBy=multi-user.target
@@ -44,6 +47,10 @@ systemctl enable wecomsdk
 systemctl start wecomsdk
 ```
 
+4. 查看日志
+```
+tail -f /var/log/wecom/wecom-server.log
+```
 
 
 ## 交互式 API 文档

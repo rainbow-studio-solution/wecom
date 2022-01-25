@@ -1,15 +1,14 @@
 [Unit]
 Description=Wecom Sdk Api
-After=network.target
+After = network.target
 
 [Service]
-Type=simple
-User=odoo
-Group=odoo
-WorkingDirectory=/code
-ExecStart=/usr/bin/python3 uvicorn app.main:app --host 0.0.0.0 --port 8000
+Type=forking
+ExecStart=python3  /code/app/main.py
+StandardOutput=file:/var/log/wecom/wecom-server.log
 Restart=always
-
+# 程序退出后的等待秒数
+RestartSec=5s
 
 [Install]
 WantedBy=multi-user.target
