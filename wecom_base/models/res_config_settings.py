@@ -11,8 +11,12 @@ class ResConfigSettings(models.TransientModel):
     is_wecom_organization = fields.Boolean(
         related="company_id.is_wecom_organization", readonly=False
     )
-    company_name = fields.Char(related="company_id.display_name", string="Company Name")
-    abbreviated_name = fields.Char(related="company_id.abbreviated_name")
+    company_name = fields.Char(
+        related="company_id.display_name", string="Company Name", readonly=False
+    )
+    abbreviated_name = fields.Char(
+        related="company_id.abbreviated_name", readonly=False
+    )
     corpid = fields.Char(string="Corp ID", related="company_id.corpid", readonly=False)
 
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)

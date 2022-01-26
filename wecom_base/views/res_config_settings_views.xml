@@ -74,14 +74,14 @@
                                     <div class="content-group mt8">
                                         <label for="company_name"/>
                                         <div class="mt4">
-                                            <field name="company_name"/>
+                                            <field name="company_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                     <div class="content-group mt8">
                                         <label for="abbreviated_name"/>
                                         <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as WeCom organization." />
                                         <div class="mt4" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                                            <field name="abbreviated_name"/>
+                                            <field name="abbreviated_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                 </div>
