@@ -44,6 +44,24 @@ class WeComApps(models.Model):
         compute="_computet_type_code",
     )
 
+    def write(self, vals):
+        for app in self:
+            labels = dict(self.fields_get(allfields=["type"])["type"]["selection"])[
+                app.type
+            ]
+            if "company_id" in vals:
+                company = app.company_id
+                vals["name"] = "%s/%s/%s" % (
+                    company.abbreviated_name,
+                    labels,
+                    app.app_name,
+                )
+            else:
+                vals["name"] = "%s/%s" % (labels, app.app_name)
+        result = super(WeComApps, self).write(vals)
+
+        return result
+
     @api.depends("subtype_ids")
     def _computet_type_code(self):
         """
