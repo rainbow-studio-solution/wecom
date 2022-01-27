@@ -226,8 +226,10 @@ class SyncTag(models.AbstractModel):
                                 ]
                             )
                         )
-                        employees.append(employee.id)
+                        if employee:
+                            employees.append(employee.id)
                     if len(employees) > 0:
+                        print("employees------------", employees)
                         employee_category.write({"employee_ids": [(6, 0, employees)]})
 
                 partylist = tags["partylist"]  # 标签中包含的部门列表

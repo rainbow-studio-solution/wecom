@@ -10,7 +10,7 @@
 
                 <xpath expr="//header//button[last()]" position="before">
 
-                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" attrs="{'invisible': ['&amp;',('is_wecom_employee', '!=', False),('user_id', '!=', False)]}" icon="fa-files-o" groups="hr.group_hr_manager"/>
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" attrs="{'invisible': ['|',('is_wecom_employee', '=', False),'&amp;',('is_wecom_employee', '!=', False),('user_id', '!=', False)]}" icon="fa-files-o" groups="hr.group_hr_manager"/>
                 </xpath>
 
             </field>
