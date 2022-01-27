@@ -108,6 +108,7 @@
                     <field name="wecom_userid" />
                     <field name="department_id"/>
                     <field name="is_wecom_employee"/>
+                    <button class="btn btn-primary" name="%(employee_bind_wecom_action)d" string=" Binding enterprise wechat members" type="action" icon="fa-weixin" attrs="{'invisible': [('is_wecom_employee', '=', True)]}"/>
                 </tree>
             </field>
         </record>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, tools, SUPERUSER_ID, _
-
+from odoo.exceptions import UserError
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -28,5 +28,8 @@ class ResConfigSettings(models.TransientModel):
         :return:
         """
         for record in self:
-            record.auth_app_id.get_app_info()
+            if record.material_app_id.agentid == 0 or record.material_app_id.secret == '':
+                raise UserError(_("Application ID and secret cannot be empty!"))
+            else:
+                record.material_app_id.get_app_info()
         super(ResConfigSettings, self).get_app_info()

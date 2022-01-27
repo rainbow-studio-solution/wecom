@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 "access_wecom_contacts_block","access.wecom.contacts.block","model_wecom_contacts_block","hr.group_hr_manager",1,1,1,1
+"access_wecom_wizard_employee_bind_wecom","access.wecom.wizard.employee_bind_wecom","model_wecom_wizard_employee_bind_wecom","hr.group_hr_manager",1,1,1,1
