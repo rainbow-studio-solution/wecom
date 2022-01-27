@@ -20,9 +20,9 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet>
-                        <div class="oe_button_box" name="button_box">
+                        <!-- <div class="oe_button_box" name="button_box">
                             <button name="get_name" type="object" string="Get user name" class="oe_stat_button" icon="fa-cloud-download" attrs="{'invisible': [('id', '=', False)]}"/>
-                        </div>
+                        </div> -->
                         <group>
                             <field name="name" />
                             <field name="company_id" widget="selection" />
