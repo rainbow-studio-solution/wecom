@@ -26,6 +26,14 @@ class WxworkContactsBlock(models.Model):
 
     wecom_userid = fields.Char(string="WeCom user Id", required=True)
 
+    _sql_constraints = [
+        (
+            "userid_company_uniq",
+            "unique (wecom_userid, company_id)",
+            "The user ID of each company must be unique!",
+        ),
+    ]
+
     @api.depends("company_id", "wecom_userid")
     def _compute_name(self):
         for block in self:

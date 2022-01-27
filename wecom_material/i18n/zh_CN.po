@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-18 01:30+0000\n"
-"PO-Revision-Date: 2021-12-18 09:31+0800\n"
+"POT-Creation-Date: 2022-01-27 09:03+0000\n"
+"PO-Revision-Date: 2022-01-27 17:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -48,15 +48,15 @@ msgid "Agent ID"
 msgstr "应用ID"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Allowed file formats are %s"
 msgstr "允许的文件格式为 %s"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid ""
 "Already uploaded, please do not upload again! You can create a new record to "
@@ -123,8 +123,8 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Error saving file to path %s!"
 msgstr "文件保存到路径 %s 错误!"
@@ -133,6 +133,11 @@ msgstr "文件保存到路径 %s 错误!"
 #: model:wecom.material,name:wecom_material.wecom_material_image_gamification
 msgid "Gamification"
 msgstr "游戏化"
+
+#. module: wecom_material
+#: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
+msgid "Get application info"
+msgstr "获取应用信息"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.wecom_material_filter
@@ -181,8 +186,8 @@ msgstr "素材"
 
 #. module: wecom_material
 #. openerp-web
-#: code:addons/wecom_material/static/src/xml/anchor.xml:0
-#: code:addons/wxwork/wecom_material/static/src/xml/anchor.xml:0
+#: code:addons/wecom/wecom_material/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wecom_material/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Material settings"
 msgstr "素材设置"
@@ -198,8 +203,8 @@ msgid "Media file identification"
 msgstr "媒体文件标识"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Media file size must be between %sB and %sMB"
 msgstr "媒体文件大小必须在 %sB 和 %sMB 之间"
@@ -230,6 +235,11 @@ msgid "Name"
 msgstr "名称"
 
 #. module: wecom_material
+#: model:wecom.apps,app_name:wecom_material.wecom_app_first_self_app
+msgid "ODOO"
+msgstr ""
+
+#. module: wecom_material
 #: model:ir.model.fields.selection,name:wecom_material.selection__wecom_material__media_type__file
 msgid "Ordinary file"
 msgstr "普通文件"
@@ -256,8 +266,8 @@ msgstr ""
 "件不超过10m，文件格式：MP4，文件大小应在5B到10m之间正常文件大小不超过20m"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Please upload files!"
 msgstr "请上传文件！"
@@ -283,16 +293,11 @@ msgid "The URL of the picture obtained after uploading. Permanently valid."
 msgstr "上传后获得的图片的URL。永久有效。"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "The duration of the voice file exceeds 60 seconds!"
 msgstr "语音文件的时长超过60秒！"
-
-#. module: wecom_material
-#: model:wecom.apps,app_name:wecom_material.wecom_app_first_self_app
-msgid "The first application you built yourself."
-msgstr "您构建的第一个应用。"
 
 #. module: wecom_material
 #: model:ir.model.constraint,message:wecom_material.constraint_wecom_material_name_company_uniq
@@ -300,8 +305,8 @@ msgid "The material name of each company must be unique !"
 msgstr "每个公司的素材名称必须是唯一的！"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "The temporary material has not expired, please do not upload it repeatedly."
 msgstr "临时素材尚未过期，请不要重复上传。"
@@ -314,15 +319,15 @@ msgid ""
 msgstr "媒体文件上传后获取的唯一标识，3天内有效"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/__init__.py:0
 #: code:addons/wecom_material/__init__.py:0
-#: code:addons/wxwork/wecom_material/__init__.py:0
 #, python-format
 msgid "Unable to create WeCom image storage path! Error:%s"
 msgstr "无法创建企业微信图像存储路径！错误：%s"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Unknown type of media file!"
 msgstr "未知媒体文件类型！"
@@ -353,8 +358,8 @@ msgid "Warning"
 msgstr "警告"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/__init__.py:0
 #: code:addons/wecom_material/__init__.py:0
-#: code:addons/wxwork/wecom_material/__init__.py:0
 #, python-format
 msgid "WeCom image storage path has not been configured yet!"
 msgstr "尚未配置企业微信图像存储路径！"
@@ -365,8 +370,8 @@ msgid "WeCom material"
 msgstr "企业微信素材"
 
 #. module: wecom_material
+#: code:addons/wecom/wecom_material/models/wecom_material.py:0
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "WeCom storage path has not been configured yet!"
 msgstr "企业微信存储路径尚未配置！"

@@ -15,10 +15,18 @@ class ResConfigSettings(models.TransientModel):
 
     # 通讯录
     material_app_id = fields.Many2one(
-        related="company_id.material_app_id",
-        readonly=False,
+        related="company_id.material_app_id", readonly=False,
     )
 
     material_agentid = fields.Integer(related="material_app_id.agentid", readonly=False)
     material_secret = fields.Char(related="material_app_id.secret", readonly=False)
     material_access_token = fields.Char(related="material_app_id.access_token")
+
+    def get_app_info(self):
+        """
+        获取应用信息
+        :return:
+        """
+        for record in self:
+            record.auth_app_id.get_app_info()
+        super(ResConfigSettings, self).get_app_info()

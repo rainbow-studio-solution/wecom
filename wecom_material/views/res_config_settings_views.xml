@@ -20,6 +20,7 @@
                                 <div class="mt8">
                                     <field name="material_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'not like', '%contacts%'),('company_id', '=', company_id)]"/>
                                 </div>
+                                <button class="btn btn-primary" name="get_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('material_app_id','=',False)]}"/>
                             </div>
                         </div>
                     </div>

@@ -69,3 +69,10 @@ class ResConfigSettings(models.TransientModel):
         action["target"] = "new"
 
         return action
+
+    def get_app_info(self):
+        """
+        获取企业应用信息
+        :param agentid:
+        :return:
+        """

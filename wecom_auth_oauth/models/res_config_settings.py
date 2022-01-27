@@ -52,3 +52,12 @@ class ResConfigSettings(models.TransientModel):
                 # else:
                 record.auth_app_id.with_context(code=code).generate_parameters()
         super(ResConfigSettings, self).generate_parameters()
+
+    def get_app_info(self):
+        """
+        获取应用信息
+        :return:
+        """
+        for record in self:
+            record.auth_app_id.get_app_info()
+        super(ResConfigSettings, self).get_app_info()
