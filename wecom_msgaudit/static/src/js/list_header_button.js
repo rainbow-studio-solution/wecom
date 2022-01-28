@@ -47,7 +47,7 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
                         });
                     }
                 } else {
-                    if (result.indexOf("HTTPConnectionPool") != -1) {
+                    if (result.indexOf("HTTPConnectionPool") != -1 || result.indexOf("404") != -1) {
                         self.displayNotification({
                             type: 'warning',
                             title: _t("Error!"),
