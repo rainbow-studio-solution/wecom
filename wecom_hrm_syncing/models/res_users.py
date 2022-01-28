@@ -27,7 +27,7 @@ class Users(models.Model):
             self.write(
                 {
                     "is_wecom_user": True,
-                    "is_wecom_notice": True,
+                    # "is_wecom_notice": True,
                     "wecom_userid": self.employee_ids[0].wecom_userid,
                 }
             )
@@ -54,11 +54,7 @@ class ChangeTypeWizard(models.TransientModel):
             (
                 0,
                 0,
-                {
-                    "user_id": user.id,
-                    "user_login": user.login,
-                    "user_name": user.name,
-                },
+                {"user_id": user.id, "user_login": user.login, "user_name": user.name,},
             )
             for user in self.env["res.users"].browse(user_ids)
         ]
@@ -86,18 +82,11 @@ class ChangeTypeUser(models.TransientModel):
     user_id = fields.Many2one(
         "res.users", string="User", required=True, ondelete="cascade"
     )
-    user_login = fields.Char(
-        string="Login account",
-        readonly=True,
-    )
+    user_login = fields.Char(string="Login account", readonly=True,)
     user_name = fields.Char(string="Login name", readonly=True)
     # 用户类型参见res_group
     new_type = fields.Selection(
-        [
-            ("1", _("Internal User")),
-            ("9", _("Portal")),
-            ("10", _("Public")),
-        ],
+        [("1", _("Internal User")), ("9", _("Portal")), ("10", _("Public")),],
         string="User Type",
         default="1",
     )

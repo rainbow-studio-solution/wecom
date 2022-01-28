@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-27 09:16+0000\n"
-"PO-Revision-Date: 2022-01-27 17:17+0800\n"
+"POT-Creation-Date: 2022-01-28 03:59+0000\n"
+"PO-Revision-Date: 2022-01-28 12:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -20,13 +20,27 @@ msgstr ""
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_kanban_view_employees
 msgid ""
-"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"Enterprise "
-"wechat Employee\" title=\"Enterprise wechat Employee\">\n"
+"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"Enterprise wechat "
+"Employee\" title=\"Enterprise wechat Employee\">\n"
 "                        </span>"
 msgstr ""
-"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"企业微信员"
-"工\" title=\"企业微信员工\">\n"
+"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"企业微信员工\" title="
+"\"企业微信员工\">\n"
 "                        </span>"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid "<span class=\"o_stat_text\">Unbind</span>"
+msgstr "<span class=\"o_stat_text\">解除绑定</span>"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid ""
+"<span class=\"o_stat_value\">Binding</span>\n"
+"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
+msgstr ""
+"<span class=\"o_stat_value\">绑定</span>\n"
+"                            <span class=\"o_stat_text\">企微成员</span>"
 
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_plan
@@ -40,14 +54,36 @@ msgid "Alias"
 msgstr "别名"
 
 #. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid "Are you sure to release the binding with enterprise wechat members ?"
+msgstr "确认解除与企业微信成员的绑定吗？"
+
+#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__avatar
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__avatar
 msgid "Avatar"
 msgstr "头像"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid "Binding"
+msgstr "绑定"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_tree2
+msgid "Binding enterprise wechat members"
+msgstr "绑定企微成员"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
 msgid "Button group"
 msgstr "按钮组"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
+msgid "Cancel"
+msgstr "取消"
 
 #. module: wecom_hrm
 #: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_employee
@@ -62,6 +98,7 @@ msgstr "公司"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__company_id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__company_id
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -84,11 +121,13 @@ msgstr "创建部门。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__create_uid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__create_date
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -128,6 +167,7 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__display_name
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -149,14 +189,32 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__employee_name
+msgid "Employee Name"
+msgstr "员工名称"
+
+#. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
 msgid "Employee Tags"
 msgstr "员工标签"
 
 #. module: wecom_hrm
+#: code:addons/wecom/wecom_hrm/wizard/employee_bind_wecom.py:0
+#: code:addons/wecom_hrm/wizard/employee_bind_wecom.py:0
+#, python-format
+msgid "Employee with ID [%s] already exists"
+msgstr "ID为 [%s] 的员工已存在"
+
+#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__employee_ids
 msgid "Employees"
 msgstr "员工"
+
+#. module: wecom_hrm
+#: model:ir.actions.act_window,name:wecom_hrm.employee_bind_wecom_action
+#: model:ir.model,name:wecom_hrm.model_wecom_wizard_employee_bind_wecom
+msgid "Employees bind enterprise wechat members"
+msgstr "员工绑定企微成员"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__english_name
@@ -173,6 +231,11 @@ msgstr "企微信息"
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.res_partner_kanban_view
 msgid "Enterprise wechat user"
 msgstr "企微用户"
+
+#. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__wecom_userid
+msgid "Enterprise wechat user Id"
+msgstr "企微用户Id"
 
 #. module: wecom_hrm
 #: code:addons/wecom/wecom_hrm/models/hr_employee_category.py:0
@@ -202,6 +265,7 @@ msgstr "人力资源配置"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__id
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__id
 msgid "ID"
 msgstr ""
 
@@ -216,16 +280,19 @@ msgstr "工作岗位"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block____last_update
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__write_uid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__write_date
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__write_date
 msgid "Last Updated on"
 msgstr "最近更新日期"
 
@@ -243,14 +310,16 @@ msgstr "多部门"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__name
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__name
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
 msgid "Name"
 msgstr "名称"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_department__wecom_department_order
 msgid ""
-"Order value in parent department. The higher order value is sorted first. "
-"The value range is[0, 2^32]"
+"Order value in parent department. The higher order value is sorted first. The value "
+"range is[0, 2^32]"
 msgstr "上级部门中的排序值。高阶值首先排序。值范围为[0，2^32]"
 
 #. module: wecom_hrm
@@ -282,6 +351,11 @@ msgstr "规划类型"
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_plan_plan
 msgid "Plans"
 msgstr "计划"
+
+#. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__employee_id
+msgid "Related Employee"
+msgstr "关联员工"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
@@ -326,12 +400,12 @@ msgstr "同步标签成员"
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_employee_category__tagid
 msgid ""
-"Tag ID, non negative integer. When this parameter is specified, the new tag "
-"will generate the corresponding tag ID. if it is not specified, it will be "
-"automatically increased by the current maximum ID."
+"Tag ID, non negative integer. When this parameter is specified, the new tag will "
+"generate the corresponding tag ID. if it is not specified, it will be automatically "
+"increased by the current maximum ID."
 msgstr ""
-"标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前"
-"最大的id自增。"
+"标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自"
+"增。"
 
 #. module: wecom_hrm
 #: code:addons/wecom/wecom_hrm/models/hr_employee_category.py:0
@@ -366,12 +440,11 @@ msgstr "标签"
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_employee__wecom_user_order
 msgid ""
-"The sort value within the department, the default is 0. The quantity must "
-"be the same as the department, The greater the value the more sort front."
-"The value range is [0, 2^32)"
+"The sort value within the department, the default is 0. The quantity must be the same "
+"as the department, The greater the value the more sort front.The value range is [0, "
+"2^32)"
 msgstr ""
-"部门的排序值，默认为0。数量必须与部门相同，值越大，排序前部就越多。值范围为"
-"[0，2 ^ 32）"
+"部门的排序值，默认为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
 
 #. module: wecom_hrm
 #: model:ir.model.constraint,message:wecom_hrm.constraint_wecom_contacts_block_userid_company_uniq

@@ -29,7 +29,22 @@
 
                     <field name="image_1920" widget='image' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}' attrs="{'invisible': [('use_system_avatar', '=', False)]}"/>
                 </xpath> -->
+                <xpath expr="//sheet/div[@name='button_box']/button[last()]" position="after">
 
+                    <button class="btn oe_stat_button btn-succes" name="%(employee_bind_wecom_action)d" type="action" attrs="{'invisible': [('is_wecom_employee', '=', True)]}">
+                        <div role="img" class="fa fa-user-plus o_button_icon" aria-label="Binding" title="Binding"/>
+                        <div class="o_stat_info">
+                            <span class="o_stat_value">Binding</span>
+                            <span class="o_stat_text">Enterprise wechat members</span>
+                        </div>
+                    </button>
+
+                    <button class="btn oe_stat_button text-danger" name="unbind_wecom_member" type="object" icon="fa-user-times" confirm="Are you sure to release the binding with enterprise wechat members ?" attrs="{'invisible': [('is_wecom_employee', '=', False)]}">
+                        <div class="o_stat_info">
+                            <span class="o_stat_text">Unbind</span>
+                        </div>
+                    </button>
+                </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <!-- <label for="alias" class="oe_edit_only" /> -->
                     <h2 attrs="{'invisible': [('is_wecom_employee','=',False)]}">
@@ -83,8 +98,6 @@
             </field>
         </record>
 
-
-
         <record id="wecom_hrm_employee_tree" model="ir.ui.view">
             <field name="name">WeCom employee list</field>
             <field name="model">hr.employee</field>
@@ -108,7 +121,10 @@
                     <field name="wecom_userid" />
                     <field name="department_id"/>
                     <field name="is_wecom_employee"/>
+
                     <button class="btn btn-primary" name="%(employee_bind_wecom_action)d" string=" Binding enterprise wechat members" type="action" icon="fa-weixin" attrs="{'invisible': [('is_wecom_employee', '=', True)]}"/>
+
+
                 </tree>
             </field>
         </record>
