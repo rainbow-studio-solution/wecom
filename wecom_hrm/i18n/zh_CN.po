@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 03:59+0000\n"
-"PO-Revision-Date: 2022-01-28 12:01+0800\n"
+"POT-Creation-Date: 2022-01-29 05:02+0000\n"
+"PO-Revision-Date: 2022-01-29 13:03+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -30,16 +30,22 @@ msgstr ""
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
-msgid "<span class=\"o_stat_text\">Unbind</span>"
-msgstr "<span class=\"o_stat_text\">解除绑定</span>"
-
-#. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_view_users_form
 msgid ""
 "<span class=\"o_stat_value\">Binding</span>\n"
 "                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
 msgstr ""
 "<span class=\"o_stat_value\">绑定</span>\n"
+"                            <span class=\"o_stat_text\">企微成员</span>"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_view_users_form
+msgid ""
+"<span class=\"o_stat_value\">Unbind</span>\n"
+"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
+msgstr ""
+"<span class=\"o_stat_value\">解除绑定</span>\n"
 "                            <span class=\"o_stat_text\">企微成员</span>"
 
 #. module: wecom_hrm
@@ -55,23 +61,28 @@ msgstr "别名"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_view_users_form
 msgid "Are you sure to release the binding with enterprise wechat members ?"
 msgstr "确认解除与企业微信成员的绑定吗？"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__avatar
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__avatar
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__avatar
 msgid "Avatar"
 msgstr "头像"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.user_bind_wecom_view_form
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_view_users_form
 msgid "Binding"
 msgstr "绑定"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_tree2
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_res_users_tree
 msgid "Binding enterprise wechat members"
 msgstr "绑定企微成员"
 
@@ -82,6 +93,7 @@ msgstr "按钮组"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.user_bind_wecom_view_form
 msgid "Cancel"
 msgstr "取消"
 
@@ -99,6 +111,7 @@ msgstr "公司"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__company_id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__company_id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__company_id
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -122,12 +135,14 @@ msgstr "创建部门。"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__create_uid
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__create_uid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__create_uid
 msgid "Created by"
 msgstr "创建人"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__create_date
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__create_date
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__create_date
 msgid "Created on"
 msgstr "创建于"
 
@@ -166,8 +181,10 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company__display_name
+#: model:ir.model.fields,field_description:wecom_hrm.field_res_users__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__display_name
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -234,6 +251,7 @@ msgstr "企微用户"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__wecom_userid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__wecom_userid
 msgid "Enterprise wechat user Id"
 msgstr "企微用户Id"
 
@@ -264,8 +282,10 @@ msgstr "人力资源配置"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company__id
+#: model:ir.model.fields,field_description:wecom_hrm.field_res_users__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__id
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__id
 msgid "ID"
 msgstr ""
 
@@ -279,20 +299,24 @@ msgstr "工作岗位"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_res_company____last_update
+#: model:ir.model.fields,field_description:wecom_hrm.field_res_users____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block____last_update
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom____last_update
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__write_uid
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__write_uid
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__write_uid
 msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__write_date
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__write_date
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__write_date
 msgid "Last Updated on"
 msgstr "最近更新日期"
 
@@ -311,7 +335,10 @@ msgstr "多部门"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_contacts_block__name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__name
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__name
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__user_name
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.user_bind_wecom_view_form
 msgid "Name"
 msgstr "名称"
 
@@ -356,6 +383,11 @@ msgstr "计划"
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__employee_id
 msgid "Related Employee"
 msgstr "关联员工"
+
+#. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__user_id
+msgid "Related User"
+msgstr "关联用户"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
@@ -438,6 +470,11 @@ msgid "Tags"
 msgstr "标签"
 
 #. module: wecom_hrm
+#: model:ir.model.fields,help:wecom_hrm.field_wecom_wizard_user_bind_wecom__company_id
+msgid "The default company for this user."
+msgstr "此用户的默认公司。"
+
+#. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_employee__wecom_user_order
 msgid ""
 "The sort value within the department, the default is 0. The quantity must be the same "
@@ -479,6 +516,28 @@ msgstr "将通讯录标签 \"%s\" 更新到企业微信"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__use_system_avatar
 msgid "Use System Avatar"
 msgstr "使用系统头像"
+
+#. module: wecom_hrm
+#: model:ir.actions.act_window,name:wecom_hrm.user_bind_wecom_action
+msgid "User bind enterprise wechat members"
+msgstr "系统用户绑定企微成员"
+
+#. module: wecom_hrm
+#: code:addons/wecom/wecom_hrm/wizard/user_bind_wecom.py:0
+#: code:addons/wecom_hrm/wizard/user_bind_wecom.py:0
+#, python-format
+msgid "User with ID [%s] already exists"
+msgstr "ID为 [%s] 的用户已存在"
+
+#. module: wecom_hrm
+#: model:ir.model,name:wecom_hrm.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: wecom_hrm
+#: model:ir.model,name:wecom_hrm.model_wecom_wizard_user_bind_wecom
+msgid "Users bind enterprise wechat members"
+msgstr "系统用户绑定企微成员"
 
 #. module: wecom_hrm
 #: code:addons/wecom/wecom_hrm/models/hr_employee_category.py:0

@@ -96,4 +96,8 @@ class EmployeeBindWecom(models.TransientModel):
                         "qr_code": RESPONSE["qr_code"],
                     }
                 )
+                # self.employee_id._sync_user(
+                #     self.env["res.users"].sudo().browse(self.employee_id.user_id),
+                #     bool(self.employee_id.image_1920),
+                # )
 

@@ -41,7 +41,8 @@
 
                     <button class="btn oe_stat_button text-danger" name="unbind_wecom_member" type="object" icon="fa-user-times" confirm="Are you sure to release the binding with enterprise wechat members ?" attrs="{'invisible': [('is_wecom_employee', '=', False)]}">
                         <div class="o_stat_info">
-                            <span class="o_stat_text">Unbind</span>
+                            <span class="o_stat_value">Unbind</span>
+                            <span class="o_stat_text">Enterprise wechat members</span>
                         </div>
                     </button>
                 </xpath>
