@@ -14,7 +14,9 @@ class Users(models.Model):
         self.write(
             {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
         )
-        print(self.employee_ids)
-        print(self.employee_id)
-        for employee in self.employee_ids:
-            employee.unbind_wecom_member()
+
+        if self.employee_id:
+            # for employee in self.employee_ids:
+            self.employee_id.write(
+                {"is_wecom_employee": False, "wecom_userid": None, "qr_code": None,}
+            )

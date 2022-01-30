@@ -83,4 +83,6 @@ class HrEmployeePrivate(models.Model):
         )
         if self.user_id:
             # 关联了User
-            self.user_id.unbind_wecom_member()
+            self.user_id.write(
+                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+            )
