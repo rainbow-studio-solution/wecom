@@ -9,41 +9,28 @@
                 <form string="Message Templates">
                     <sheet>
                         <div class="oe_button_box" name="button_box">
-                            <field name="ref_ir_act_window" invisible="1"/>
-                            <button class="oe_stat_button" groups="base.group_system" name="create_action" type="object" attrs="{'invisible':[('ref_ir_act_window','!=',False)]}" icon="fa-plus" help="Display an option on related documents to open a composition wizard with this template">
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_text">Add</span>
-                                    <span class="o_stat_text">Context Action</span>
-                                </div>
-                            </button>
-                            <button name="unlink_action" type="object" groups="base.group_system" class="oe_stat_button" icon="fa-minus" attrs="{'invisible':[('ref_ir_act_window','=',False)]}" help="Remove the contextual action to use this template on related documents" widget="statinfo">
-                                <div class="o_field_widget o_stat_info">
-                                    <span class="o_stat_text">Remove</span>
-                                    <span class="o_stat_text">Context Action</span>
-                                </div>
-                            </button>
-                            <button class="oe_stat_button" name="%(wecom_message_template_preview_action)d" icon="fa-search-plus" string="Preview" type="action" target="new"/>
-                        </div>
-                        <div class="oe_title w-100">
-                            <label for="name" class="oe_edit_only" string="Message Template"/>
-                            <h1 class="oe_highlight">
-                                <field name="name" class="oe_highlight " required="1" />
-                            </h1>
-                            <group>
-                                <group>
-                                    <field name="model_id" required="1" options="{'no_create': True,'no_open': True}" />
-                                    <field name="model" invisible="1"/>
-                                    <!-- <field name="msgtype" /> -->
-                                    <field name="lang" placeholder="${object.partner_id.lang}"/>
-                                </group>
-                                <group>
-                                    <field name="msgtype" />
-                                    <field name="code" />
-                                </group>
-                            </group>
 
                         </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                            <group>
+                                <field name="model_id" required="1" options="{'no_create': True}"/>
+                                <field name="model" invisible="1"/>
+                                <field name="msgtype"/>
+                            </group>
+                        </div>
                         <notebook>
+                            <!-- <page string="Content" name="content">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
+                                <field name="body_html" widget="html" options="{'style-inline': true}"/>
+                                <field name="attachment_ids" widget="many2many_binary"/>
+                            </page> -->
                             <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
                                 <label for="subject"/>
                                 <h2 style="display: inline-block;" class="w-75">
@@ -70,26 +57,24 @@
 
                                 <field name="body_markdown" widget="wecom_markdown" />
                             </page>
-                            <page string="Message Configuration" name="message_configuration">
-                                <group>
-                                    <field name="use_default_to" invisible="1"/>
-                                    <field name="partner_to" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Comma-separated ids of recipient partners"/>
-                                    <field name="message_to_user" />
-                                    <field name="message_to_party" />
-                                    <field name="message_to_tag" />
-                                    <field name="scheduled_date" string="Scheduled Send Date"/>
-                                </group>
-                            </page>
-                            <page string="Advanced Settings" name="advanced_settings">
+                            <page string="Message Options" name="advanced_settings">
                                 <group>
                                     <field name="safe"/>
                                     <field name="enable_id_trans"/>
                                     <field name="enable_duplicate_check"/>
                                     <field name="duplicate_check_interval"/>
-                                    <field name="auto_delete"/>
                                 </group>
                             </page>
-                            <page string="Dynamic Placeholder Generator" name="dynamic_placeholder_generator" groups="base.group_no_one">
+                            <page string="Advanced Settings" name="advanced_settings">
+                                <group>
+                                    <field name="lang" placeholder="${object.partner_id.lang}"/>
+                                    <field name="mail_server_id"/>
+                                    <field name="auto_delete"/>
+                                    <field name="report_template" domain="[('model','=',model)]"/>
+                                    <field name="report_name" attrs="{'invisible':[('report_template','=',False)]}"/>
+                                </group>
+                            </page>
+                            <page string="Dynamic Placeholder Generator" name="dynamic_placeholder_generator">
                                 <group>
                                     <field name="model_object_field" domain="[('model_id','=',model_id),('ttype','!=','one2many'),('ttype','!=','many2many')]"/>
                                     <field name="sub_object" readonly="1"/>
@@ -110,15 +95,9 @@
             <field name="arch" type="xml">
                 <tree string="Message Templates">
                     <field name="name"/>
+                    <field name="subject"/>
                     <field name="msgtype"/>
                     <field name="model_id"/>
-                    <field name="subject"/>
-                    <field name="name"/>
-                    <field name="code"/>
-                    <!-- <field name="email_from"/>
-                    <field name="email_to"/>
-                    <field name="partner_to"/>
-                    <field name="report_name"/> -->
                 </tree>
             </field>
         </record>

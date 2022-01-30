@@ -3,3 +3,5 @@ access_wecom_message,wecom_message.access_wecom_message,wecom_message.model_weco
 access_wecom_message_template,wecom_message.access_wecom_message_template,wecom_message.model_wecom_message_template,base.group_user,1,1,1,1
 
 access_wecom.message.notification,wecom_message.access_wecom_message_notification,wecom_message.model_wecom_message_notification,base.group_erp_manager,1,1,1,1
+access_wecom_message_template,wecom_message.access_wecom_message_template,wecom_message.model_wecom_message_template,base.group_erp_manager,1,1,1,1
+access_wecom.message.message,wecom_message.access_wecom_message_message,wecom_message.model_wecom_message_message,base.group_erp_manager,1,1,1,1

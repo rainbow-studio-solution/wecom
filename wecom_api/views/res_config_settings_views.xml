@@ -170,7 +170,7 @@
                         </span>
                         <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('module_wecom_material','=',False)]}">
                         <div class="col-12 col-lg-6 o_setting_box" id="wecom_auth_oauth_install">
                             <div class="o_setting_left_pane">
                                 <field name="module_wecom_auth_oauth"/>
@@ -200,7 +200,7 @@
                         </span>
                         <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                    <div class="row mt16 o_settings_container" attrs="{'invisible': [('module_wecom_auth_oauth','=',False)]}">
                         <div class="col-12 col-lg-6 o_setting_box" id="wecom_message_install">
                             <div class="o_setting_left_pane">
                                 <field name="module_wecom_message"/>

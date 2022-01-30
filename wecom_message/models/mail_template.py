@@ -17,18 +17,11 @@ class MailTemplate(models.Model):
     _order = "name"
 
     # recipients
-    message_to_user = fields.Char(
-        string="To Users",
-        help="Message recipients (users)",
-    )
+    message_to_user = fields.Char(string="To Users", help="Message recipients (users)",)
     message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
+        string="To Departments", help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
 
     # content
     media_id = fields.Many2one(
@@ -36,9 +29,9 @@ class MailTemplate(models.Model):
         comodel_name="wecom.material",
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
-    body_json = fields.Text("Json Body", translate=True, sanitize=False)
-    body_markdown = fields.Text("Markdown Body", translate=True, sanitize=False)
-    code = fields.Char("Message Code")
+    body_json = fields.Text("Json Body", translate=True, default={})
+    body_markdown = fields.Text("Markdown Body", translate=True,)
+
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -60,10 +53,6 @@ class MailTemplate(models.Model):
     )
 
     # options
-    is_wecom_message = fields.Boolean(
-        "WeCom Message",
-    )
-
     safe = fields.Selection(
         [
             ("0", "Shareable"),
@@ -71,6 +60,7 @@ class MailTemplate(models.Model):
             ("2", "Only share within the company "),
         ],
         string="Secret message",
+        required=True,
         default="1",
         help="Indicates whether it is a confidential message, 0 indicates that it can be shared externally, 1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it can only be shared within the enterprise, and the default is 0; Note that only messages of mpnews type support the safe value of 2, and other message types do not",
     )
@@ -174,9 +164,7 @@ class MailTemplate(models.Model):
                     )
                 else:
                     generated_field_values = template._render_field(
-                        field,
-                        template_res_ids,
-                        post_process=(field == "body_json"),
+                        field, template_res_ids, post_process=(field == "body_json"),
                     )
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
@@ -222,7 +210,7 @@ class MailTemplate(models.Model):
     # ------------------------------------------------------------
     # 发送邮件 和 企微消息
     # ------------------------------------------------------------
-    def send_mail(
+    def send_message(
         self,
         res_id,
         force_send=False,
@@ -418,6 +406,9 @@ class MailTemplate(models.Model):
         if attachment_ids:
             mail.write({"attachment_ids": attachment_ids})
 
+        if values.get("media_id"):
+            values["media_id"] = self.media_id.id  # 指定对应的素材id
+
         # 标识是企微消息
         is_wecom_message = False
         if "message_to_user" in values and values["message_to_user"]:
@@ -429,5 +420,5 @@ class MailTemplate(models.Model):
         mail.write({"is_wecom_message": is_wecom_message})
 
         if force_send:
-            mail.send(raise_exception=raise_exception, company=company)
+            mail.send_wecom_message(raise_exception=raise_exception, company=company)
         return mail.id  # TDE CLEANME: return mail + api.returns ?

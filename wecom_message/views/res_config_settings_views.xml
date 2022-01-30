@@ -61,7 +61,7 @@
                     </div>
                     <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                         <div class="o_setting_left_pane">
-                            <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
+                            <i class="fa fa-server fa-lg" aria-label="Message Service"/>
                         </div>
                         <div class="o_setting_right_pane">
                             <label for="message_app_callback_service_ids"/>

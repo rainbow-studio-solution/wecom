@@ -27,6 +27,8 @@ class Message(models.Model):
 
     _inherit = "mail.message"
 
+    is_wecom_message = fields.Boolean("Is WeCom Message")
+
     # ------------------------------------------------------
     # CRUD / ORM
     # ------------------------------------------------------

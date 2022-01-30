@@ -82,7 +82,7 @@ class ResConfigSettings(models.TransientModel):
         if bool(code) and code == "message":
             for record in self:
                 if not record.message_app_id:
-                    raise ValidationError(_("Please bind contact app!"))
+                    raise ValidationError(_("Please bind message app!"))
                 else:
                     record.message_app_id.with_context(code=code).generate_parameters()
         super(ResConfigSettings, self).generate_parameters()
@@ -96,7 +96,7 @@ class ResConfigSettings(models.TransientModel):
         if bool(code) and code == "message":
             for record in self:
                 if not record.message_app_id:
-                    raise ValidationError(_("Please bind contact app!"))
+                    raise ValidationError(_("Please bind message app!"))
                 else:
                     record.message_app_id.with_context(code=code).generate_service()
         super(ResConfigSettings, self).generate_service()

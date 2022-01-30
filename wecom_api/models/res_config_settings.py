@@ -42,8 +42,6 @@ class ResConfigSettings(models.TransientModel):
     module_wecom_material = fields.Boolean("WeCom media material library")
     module_wecom_message = fields.Boolean("WeCom send message")
     module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
-
-    # 专业版模块
     module_wecom_msgaudit = fields.Boolean("Manage Session Content Archive")
 
     # contacts_auto_sync_hr_enabled = fields.Boolean(
