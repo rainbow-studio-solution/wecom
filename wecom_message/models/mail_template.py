@@ -32,6 +32,9 @@ class MailTemplate(models.Model):
     body_json = fields.Text("Json Body", translate=True, default={})
     body_markdown = fields.Text("Markdown Body", translate=True,)
 
+    use_templates = fields.Boolean("Is template message", default=False)
+    templates_id = fields.Many2one("wecom.message.template", string="Message template")
+
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -391,6 +394,10 @@ class MailTemplate(models.Model):
                     "mail.render.mixin"
                 ]._replace_local_links(body_markdown)
 
+        if values.get("media_id"):
+            values["media_id"] = self.media_id.id  # 指定对应的素材id
+        values["use_templates"] = True  # 指定使用模板
+        values["templates_id"] = self.id  # 指定对应的模板id
         mail = self.env["mail.mail"].sudo().create(values)
 
         # 管理附件
@@ -406,8 +413,7 @@ class MailTemplate(models.Model):
         if attachment_ids:
             mail.write({"attachment_ids": attachment_ids})
 
-        if values.get("media_id"):
-            values["media_id"] = self.media_id.id  # 指定对应的素材id
+        # 指定对应的素材id
 
         # 标识是企微消息
         is_wecom_message = False
