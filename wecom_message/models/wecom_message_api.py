@@ -2,7 +2,7 @@
 
 import logging
 from odoo import api, models, _
-
+from odoo.exceptions import UserError
 
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
@@ -16,6 +16,25 @@ _logger = logging.getLogger(__name__)
 class WeComMessageApi(models.AbstractModel):
     _name = "wecom.message.api"
     _description = "WeCom Message API"
+
+    def get_message_api(self, company):
+        """
+        获取企业微信消息的api
+        """
+
+        if company.message_app_id:
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+
+                return wecomapi
+            except ApiException as e:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    e, raise_exception=False
+                )
+        else:
+            raise UserError(_("Please bind the message application first."))
 
     def build_message(
         self,
@@ -83,7 +102,7 @@ class WeComMessageApi(models.AbstractModel):
             "toparty": "" if toall else toparty,
             "totag": "" if toall else totag,
             "msgtype": msgtype,
-            "agentid": company.message_agentid,
+            "agentid": company.message_app_id.agentid,
             "company": company,
         }
         messages.update(messages_content)
@@ -175,7 +194,10 @@ class WeComMessageApi(models.AbstractModel):
         elif msgtype == "markdown":
             # markdown消息
             messages_content = {
-                "content": body_markdown,
+                "markdown":{
+                    "content": body_markdown,
+                }
+                
             }
         elif msgtype == "template_card":
             # 模板卡片消息

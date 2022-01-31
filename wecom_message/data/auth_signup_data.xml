@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data noupdate="0">
+
     <!-- 1. 重置密码的消息模板-->
     <record id="auth_signup.reset_password_email" model="mail.template">
       <field name="msgtype">template_card</field>
@@ -87,9 +88,72 @@ Hello! First of all, please allow me to welcome you on behalf of our company. Th
     </record>
 
     <!-- 3. 发送帐户创建确认电子邮件-->
+    <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
+      <field name="msgtype">template_card</field>
+      <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
+      <field name="body_json">{
+  "card_type": "news_notice",
+  "source": {
+    "icon_url": "${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}",
+    "desc": "${object.company_id.name}"
+  },
+  "main_title": {
+    "title": "Dear ${object.name},",
+    "desc": "Your account has been successfully created!"
+  },
+  "card_image": {
+    "url": "${object.get_base_url()}/wecom_material/static/src/img/account_created.png",
+    "aspect_ratio": 2.25
+  },
+  "vertical_content_list": [
+    {
+      "title": "Your account has been successfully created!",
+      "desc": "To gain access to your account, you can use the following link."
+    }
+  ],
+  "horizontal_content_list": [
+    {
+      "keyname": "Your account",
+      "value": "${object.login}"
+    },
+    {
+      "type": 1,
+      "keyname": "Go to My Account",
+      "value": "Go to My Account",
+      "url": "${object.get_base_url()}/web/login?auth_login=${object.login}"
+    }
+  ],
+  "jump_list": [
+    {
+      "type": 1,
+      "title": "Go to My Account",
+      "url": "${object.get_base_url()}/web/login?auth_login=${object.login}"
+    }
+  ],
+  "card_action": {
+    "type": 1,
+    "url": "${object.get_base_url()}/web/login?auth_login=${object.login}",
+    "appid": "",
+    "pagepath": ""
+  }
+}     </field>
+      <field name="safe">1</field>
+      <field name="enable_id_trans" eval="False"/>
+      <field name="enable_duplicate_check" eval="False"/>
+      <field name="duplicate_check_interval">1800</field>
+    </record>
 
     <!-- 4. 用于提醒未注册用户的消息模板-->
-
+    <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
+      <field name="msgtype">mpnews</field>
+      <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
+      <field name="message_to_user">${object.wecom_userid | safe}</field>
+      <field name="safe">1</field>
+      <field name="enable_id_trans" eval="False"/>
+      <field name="enable_duplicate_check" eval="False"/>
+      <field name="duplicate_check_interval">1800</field>
+    </record>
 
   </data>
 

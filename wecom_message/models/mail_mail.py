@@ -28,11 +28,11 @@ class MailMail(models.Model):
     body_html = fields.Text("Html Body", translate=True, sanitize=False)
     body_json = fields.Text("Json Body", translate=True,)
     body_markdown = fields.Text("Markdown Body", translate=True)
-    description = fields.Char(
-        "Short description",
-        compute="_compute_description",
-        help="Message description: either the subject, or the beginning of the body",
-    )
+    # description = fields.Char(
+    #     "Short description",
+    #     compute="_compute_description",
+    #     help="Message description: either the subject, or the beginning of the body",
+    # )
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(

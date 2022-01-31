@@ -3,7 +3,7 @@
 import base64
 import io
 import functools
-
+import werkzeug.utils
 import odoo
 from odoo import api, http, models, fields, SUPERUSER_ID, _
 from odoo.modules import get_module_path, get_resource_path
@@ -39,67 +39,13 @@ class WxworkBinary(Binary):
         auth="none",
         cors="*",
     )
-    def company_wecom_message_web_logo(self, dbname=None, **kw):
-        imgname = "wecom_message_logo"
-        imgext = ".png"
-        placeholder = functools.partial(
-            get_resource_path, "web", "static", "src", "img"
+    def company_wecom_message_web_logo(self, **kw):
+
+        response = (
+            request.env["res.company"]
+            .sudo()
+            .browse(int(kw["company"]))
+            .message_app_id.square_logo_url
         )
-        uid = None
-        if request.session.db:
-            dbname = request.session.db
-            uid = request.session.uid
-        elif dbname is None:
-            dbname = db_monodb()
+        return werkzeug.utils.redirect(response)
 
-        if not uid:
-            uid = odoo.SUPERUSER_ID
-
-        if not dbname:
-            response = http.send_file(placeholder(imgname + imgext))
-        else:
-            try:
-                # create an empty registry
-                registry = odoo.modules.registry.Registry(dbname)
-                with registry.cursor() as cr:
-                    company = int(kw["company"]) if kw and kw.get("company") else False
-
-                    if company:
-                        cr.execute(
-                            """SELECT wecom_message_logo_web, write_date
-                                        FROM res_company
-                                       WHERE id = %s
-                                   """,
-                            (company,),
-                        )
-                    else:
-                        cr.execute(
-                            """SELECT c.wecom_message_logo_web, c.write_date
-                                        FROM res_users u
-                                   LEFT JOIN res_company c
-                                          ON c.id = u.company_id
-                                       WHERE u.id = %s
-                                   """,
-                            (uid,),
-                        )
-                    row = cr.fetchone()
-
-                    if row and row[0]:
-                        image_base64 = base64.b64decode(row[0])
-                        image_data = io.BytesIO(image_base64)
-                        mimetype = guess_mimetype(image_base64, default="image/png")
-                        imgext = "." + mimetype.split("/")[1]
-                        if imgext == ".svg+xml":
-                            imgext = ".svg"
-                        response = http.send_file(
-                            image_data,
-                            filename=imgname + imgext,
-                            mimetype=mimetype,
-                            mtime=row[1],
-                        )
-                    else:
-                        response = http.send_file(placeholder("nologo.png"))
-            except Exception:
-                response = http.send_file(placeholder(imgname + imgext))
-
-        return response
