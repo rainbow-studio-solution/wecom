@@ -24,13 +24,15 @@
         "wecom_material",
         "wecom_auth_oauth",
     ],
-    "external_dependencies": {"python": ["html2text", "lxml"],},
+    "external_dependencies": {
+        "python": ["html2text", "lxml"],
+    },
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
         "data/auth_signup_data.xml",
         # "data/message_template_data.xml",
-        # "wizard/mail_template_preview_views.xml",
+        "wizard/mail_template_preview_views.xml",
         "views/assets_templates.xml",
         # "views/mail_message_views.xml",
         "views/res_users_views.xml",
@@ -41,7 +43,9 @@
         # "views/wecom_message_notification_views.xml",
         "views/menu.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
     # "post_init_hook": "_auto_install_lang",
     # 'external_dependencies': {'python': ['skimage']},
 }

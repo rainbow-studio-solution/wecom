@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-30 10:52+0000\n"
-"PO-Revision-Date: 2022-01-30 19:09+0800\n"
+"POT-Creation-Date: 2022-01-31 17:02+0000\n"
+"PO-Revision-Date: 2022-02-01 01:10+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: Poedit 3.0.1\n"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/wecom_apps.py:0 code:addons/wecom_message/models/wecom_apps.py:0
+#: code:addons/wecom_message/models/wecom_apps.py:0
 #, python-format
 msgid ""
 "\n"
@@ -31,17 +31,9 @@ msgid ""
 "\n"
 "After receiving the message, the enterprise background can bring a new message in the response package to reply to the message request, and the enterprise wechat will push the passive reply message to the user.<br/> "
 msgstr ""
-"\n"
-"为了实现自建应用与企业微信的双向沟通，企业可以在应用管理后台开启消息接收模式。<br/>\n"
-"\n"
-"启用消息接收模式的企业需要提供可用的消息接收服务器URL（建议使用HTTPS）。<br/>\n"
-"\n"
-"启用接收消息模式后，应用程序中用户发送的消息将推送到企业后台。此外，还可以配置事件消息，例如地理位置报告。事件触发时，企业微信会将相应数据推送到企业后台。<br/>\n"
-"\n"
-"当企业后台收到推送过来的普通消息或事件消息后，可以在响应里带上被动回复消息<br/> "
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/wecom_mail_thread.py:0 code:addons/wecom_message/models/wecom_mail_thread.py:0
+#: code:addons/wecom_message/models/wecom_mail_thread.py:0
 #, python-format
 msgid ""
 "### %s sent you a message,You can also view it in your inbox in the system.\n"
@@ -50,7 +42,7 @@ msgid ""
 "\n"
 "> %s"
 msgstr ""
-"### %s 向您发送消息后，您还可以在系统的收件箱中查看该消息。\n"
+"### %s 向您发送消息后，您也可以在系统的收件箱中查看。\n"
 "\n"
 "> **消息内容：**\n"
 "\n"
@@ -60,6 +52,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
 msgid "${object.partner_id.lang}"
 msgstr ""
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "<b attrs=\"{'invisible': [('no_record', '=', False)]}\" class=\"text-warning\">No record for this model</b>"
+msgstr "<b attrs=\"{'invisible': [('no_record', '=', False)]}\" class=\"text-warning\">该模型没有记录</b>"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_res_config_settings_view_form
@@ -78,8 +75,13 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"消息应用\"/>"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
+msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Message Service\"/>"
 msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"消息服务\"/>"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "<span class=\"col-md-5 col-lg-4 col-sm-12 pl-0\">Force a language: </span>"
+msgstr "<span class=\"col-md-5 col-lg-4 col-sm-12 pl-0\">强制语言： </span>"
 
 #. module: wecom_message
 #: model:ir.model.fields,field_description:wecom_message.field_res_config_settings__message_access_token
@@ -117,15 +119,20 @@ msgid "Binding application"
 msgstr "绑定应用"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/res_users.py:0 code:addons/wecom_message/models/res_users.py:0
+#: code:addons/wecom_message/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
 msgstr "无法发送邮件：用户 %s 邮件地址为空。"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__1
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__safe__1 model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__1
 msgid "Cannot share and content shows watermark"
 msgstr "不能分享且内容显示水印"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "Choose an example"
+msgstr "选择一个示例"
 
 #. module: wecom_message
 #: model:ir.model,name:wecom_message.model_res_company
@@ -144,22 +151,29 @@ msgstr "配置设置"
 
 #. module: wecom_message
 #. openerp-web
-#: code:addons/wecom/wecom_message/static/src/js/copy_button.js:0 code:addons/wecom_message/static/src/js/copy_button.js:0
+#: code:addons/wecom_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy One-click copy of email template succeeded!"
 msgstr "一键复制邮件模板成功！"
 
 #. module: wecom_message
 #. openerp-web
-#: code:addons/wecom/wecom_message/static/src/js/copy_button.js:0 code:addons/wecom_message/static/src/js/copy_button.js:0
+#: code:addons/wecom_message/static/src/js/copy_button.js:0
 #, python-format
 msgid "Copy successfully!"
 msgstr "复制成功！"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__display_name model:ir.model.fields,field_description:wecom_message.field_res_company__display_name
-#: model:ir.model.fields,field_description:wecom_message.field_res_config_settings__display_name model:ir.model.fields,field_description:wecom_message.field_res_users__display_name
-#: model:ir.model.fields,field_description:wecom_message.field_wecom_apps__display_name
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "Discard"
+msgstr "丢弃"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__display_name model:ir.model.fields,field_description:wecom_message.field_mail_message__display_name
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template__display_name model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__display_name
+#: model:ir.model.fields,field_description:wecom_message.field_res_company__display_name model:ir.model.fields,field_description:wecom_message.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wecom_message.field_res_users__display_name model:ir.model.fields,field_description:wecom_message.field_wecom_apps__display_name
+#: model:ir.model.fields,field_description:wecom_message.field_wecom_message_api__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -169,19 +183,18 @@ msgid "Dynamic Placeholder Generator"
 msgstr "动态定位符生成器"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/wecom_message_api.py:0 code:addons/wecom_message/models/wecom_message_api.py:0
+#: model:ir.model,name:wecom_message.model_mail_template_preview
+msgid "Email Template Preview"
+msgstr "EMail模板预览"
+
+#. module: wecom_message
+#: code:addons/wecom_message/models/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
 msgstr "发送消息时出错：%s"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/mail_mail.py:0 code:addons/wecom_message/models/mail_mail.py:0
-#, python-format
-msgid "Error without exception. Probably due do concurrent access update of notification records. Please see with an administrator."
-msgstr "错误没有例外。可能由于并发访问更新通知记录。请与管理员联系。"
-
-#. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__file
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__file model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__file
 msgid "File message"
 msgstr "文件消息"
 
@@ -191,14 +204,19 @@ msgid "Generate service"
 msgstr "生成服务"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__news
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__news model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__news
 msgid "Graphic message"
 msgstr "图文消息"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__mpnews
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__mpnews model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__mpnews
 msgid "Graphic message(mpnews)"
 msgstr "图文消息（mpnews）"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__body_html
+msgid "Html Body"
+msgstr "Html正文"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
@@ -206,36 +224,49 @@ msgid "Html Content"
 msgstr "Html内容"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__id model:ir.model.fields,field_description:wecom_message.field_res_company__id
-#: model:ir.model.fields,field_description:wecom_message.field_res_config_settings__id model:ir.model.fields,field_description:wecom_message.field_res_users__id
-#: model:ir.model.fields,field_description:wecom_message.field_wecom_apps__id
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__id model:ir.model.fields,field_description:wecom_message.field_mail_message__id
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template__id model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__id
+#: model:ir.model.fields,field_description:wecom_message.field_res_company__id model:ir.model.fields,field_description:wecom_message.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wecom_message.field_res_users__id model:ir.model.fields,field_description:wecom_message.field_wecom_apps__id
+#: model:ir.model.fields,field_description:wecom_message.field_wecom_message_api__id
 msgid "ID"
 msgstr ""
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__safe
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__safe model:ir.model.fields,help:wecom_message.field_mail_template__safe
 msgid ""
 "Indicates whether it is a confidential message, 0 indicates that it can be shared externally, 1 indicates that it cannot be shared and the content displays watermark, 2 indicates that it can only be shared within "
 "the enterprise, and the default is 0; Note that only messages of mpnews type support the safe value of 2, and other message types do not"
 msgstr "表示是否是保密消息，0表示可对外分享，1表示不能分享且内容显示水印，2表示仅限在企业内分享，默认为0；注意仅mpnews类型的消息支持safe值为2，其他消息类型不支持"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__duplicate_check_interval
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__duplicate_check_interval model:ir.model.fields,help:wecom_message.field_mail_template__duplicate_check_interval
 msgid "Indicates whether the message check is repeated. The default is 1800s and the maximum is no more than 4 hours"
 msgstr "表示是否重复消息检查的时间间隔，默认1800s，最大不超过4小时"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__enable_id_trans
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__enable_id_trans model:ir.model.fields,help:wecom_message.field_mail_template__enable_id_trans
 msgid "Indicates whether to enable ID translation, 0 indicates no, 1 indicates yes, and 0 is the default"
 msgstr "表示是否开启id转译，0表示否，1表示是，默认0"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__enable_duplicate_check
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__enable_duplicate_check model:ir.model.fields,help:wecom_message.field_mail_template__enable_duplicate_check
 msgid "Indicates whether to enable duplicate message checking. 0 indicates no, 1 indicates yes. The default is 0"
 msgstr "表示是否开启重复消息检查，0表示否，1表示是，默认0"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__body_json
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__is_wecom_message model:ir.model.fields,field_description:wecom_message.field_mail_message__is_wecom_message
+msgid "Is WeCom Message"
+msgstr "是企微消息"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__use_templates model:ir.model.fields,field_description:wecom_message.field_mail_template__use_templates
+msgid "Is template message"
+msgstr "是模板消息"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__body_json model:ir.model.fields,field_description:wecom_message.field_mail_template__body_json
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__body_json
 msgid "Json Body"
 msgstr "Json正文"
 
@@ -245,14 +276,17 @@ msgid "Json Content"
 msgstr "Json内容"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template____last_update model:ir.model.fields,field_description:wecom_message.field_res_company____last_update
-#: model:ir.model.fields,field_description:wecom_message.field_res_config_settings____last_update model:ir.model.fields,field_description:wecom_message.field_res_users____last_update
-#: model:ir.model.fields,field_description:wecom_message.field_wecom_apps____last_update
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail____last_update model:ir.model.fields,field_description:wecom_message.field_mail_message____last_update
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template____last_update model:ir.model.fields,field_description:wecom_message.field_mail_template_preview____last_update
+#: model:ir.model.fields,field_description:wecom_message.field_res_company____last_update model:ir.model.fields,field_description:wecom_message.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wecom_message.field_res_users____last_update model:ir.model.fields,field_description:wecom_message.field_wecom_apps____last_update
+#: model:ir.model.fields,field_description:wecom_message.field_wecom_message_api____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__body_markdown
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__body_markdown model:ir.model.fields,field_description:wecom_message.field_mail_template__body_markdown
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__body_markdown
 msgid "Markdown Body"
 msgstr "Markdown正文"
 
@@ -262,22 +296,22 @@ msgid "Markdown Content"
 msgstr "Markdown内容"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__markdown
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__markdown model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__markdown
 msgid "Markdown message"
 msgstr "Markdown消息"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__media_id
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__media_id model:ir.model.fields,help:wecom_message.field_mail_template__media_id
 msgid "Media file ID, which can be obtained by calling the upload temporary material interface"
 msgstr "媒体文件Id,可以调用上传临时素材接口获取"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__media_id
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__media_id model:ir.model.fields,field_description:wecom_message.field_mail_template__media_id
 msgid "Media file id"
 msgstr "媒体文件Id"
 
 #. module: wecom_message
-#: model:ir.ui.menu,name:wecom_message.menu_wecom_message_root model:wecom.app.subtype,name:wecom_message.wecom_app_subtype_message
+#: model:ir.model,name:wecom_message.model_mail_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_root model:wecom.app.subtype,name:wecom_message.wecom_app_subtype_message
 msgid "Message"
 msgstr "消息"
 
@@ -287,79 +321,114 @@ msgid "Message Options"
 msgstr "消息选项"
 
 #. module: wecom_message
+#: model:ir.actions.act_window,name:wecom_message.wecom_message_template_preview_action
+msgid "Message Template Preview"
+msgstr "消息模板预览"
+
+#. module: wecom_message
 #: model:ir.actions.act_window,name:wecom_message.action_wecom_message_template_tree_all model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_tree
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
 msgid "Message Templates"
 msgstr "消息模板"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__message_to_party
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__message_to_party model:ir.model.fields,help:wecom_message.field_mail_template__message_to_party
+#: model:ir.model.fields,help:wecom_message.field_mail_template_preview__message_to_party
 msgid "Message recipients (departments)"
 msgstr "消息接收人（部门）"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__message_to_tag
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__message_to_tag model:ir.model.fields,help:wecom_message.field_mail_template__message_to_tag
+#: model:ir.model.fields,help:wecom_message.field_mail_template_preview__message_to_tag
 msgid "Message recipients (tags)"
 msgstr "消息接收人（标签）"
 
 #. module: wecom_message
-#: model:ir.model.fields,help:wecom_message.field_mail_template__message_to_user
+#: model:ir.model.fields,help:wecom_message.field_mail_mail__message_to_user model:ir.model.fields,help:wecom_message.field_mail_template__message_to_user
+#: model:ir.model.fields,help:wecom_message.field_mail_template_preview__message_to_user
 msgid "Message recipients (users)"
 msgstr "消息接收人（用户）"
 
 #. module: wecom_message
 #. openerp-web
-#: code:addons/wecom/wecom_message/static/src/xml/wecom_settings_navigation.xml:0 code:addons/wecom_message/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wecom_message/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Message settings"
 msgstr "消息设置"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/mail_thread.py:0 code:addons/wecom_message/models/mail_thread.py:0
+#: code:addons/wecom_message/models/mail_thread.py:0
 #, python-format
 msgid "Message should be a valid EmailMessage instance"
 msgstr "邮件应该是有效的EmailMessage实例"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__msgtype
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__templates_id model:ir.model.fields,field_description:wecom_message.field_mail_template__templates_id
+msgid "Message template"
+msgstr "消息模板"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__msgtype model:ir.model.fields,field_description:wecom_message.field_mail_template__msgtype
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__msgtype
 msgid "Message type"
 msgstr "消息类型"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__miniprogram
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__miniprogram model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__miniprogram
 msgid "Mini Program Notification Message"
 msgstr "小程序通知消息"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/wizard/mail_compose_message.py:0 code:addons/wecom_message/wizard/mail_compose_message.py:0
+#: code:addons/wecom_message/wizard/mail_compose_message.py:0
 #, python-format
 msgid "No recipient found."
 msgstr "没有找到收件人。"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__2
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__safe__2 model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__2
 msgid "Only share within the company "
-msgstr "仅限在企业内分享"
+msgstr "仅限在企业内分享 "
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/res_users.py:0 code:addons/wecom_message/models/res_users.py:0
+#: model:ir.model,name:wecom_message.model_mail_mail
+msgid "Outgoing Mails"
+msgstr "寄出邮件"
+
+#. module: wecom_message
+#: code:addons/wecom_message/models/res_users.py:0
 #, python-format
 msgid "Password reset message sent to user: <%s>,<%s>, <%s>"
 msgstr "发送给用户的密码重置消息：<%s>，<%s>，<%s>"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__image
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__image model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__image
 msgid "Picture message"
 msgstr "图片消息"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/res_config_settings.py:0 code:addons/wecom_message/models/res_config_settings.py:0
+#: code:addons/wecom_message/models/res_config_settings.py:0
 #, python-format
-msgid "Please bind contact app!"
-msgstr ""
+msgid "Please bind message app!"
+msgstr "请绑定消息应用！"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/wecom_message_template.py:0 code:addons/wecom_message/models/wecom_message_template.py:0
+#: code:addons/wecom_message/models/wecom_message_api.py:0
+#, python-format
+msgid "Please bind the message application first."
+msgstr "请先绑定消息应用。"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
+msgid "Preview"
+msgstr "预览"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "Preview of"
+msgstr "预览"
+
+#. module: wecom_message
+#: code:addons/wecom_message/models/wecom_message_template.py:0
 #, python-format
 msgid "QWeb template %s not found when sending template %s. Sending without layouting."
 msgstr "发送模板 %s 时找不到QWeb模板 %s。未进行布局发送。"
@@ -370,7 +439,7 @@ msgid "Receive event service"
 msgstr "接收事件服务"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/wecom_apps.py:0 code:addons/wecom_message/models/wecom_apps.py:0
+#: code:addons/wecom_message/models/wecom_apps.py:0
 #, python-format
 msgid "Receive messages"
 msgstr "接收消息"
@@ -381,7 +450,7 @@ msgid "Secret"
 msgstr "密钥"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__safe
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__safe model:ir.model.fields,field_description:wecom_message.field_mail_template__safe
 msgid "Secret message"
 msgstr "保密消息"
 
@@ -411,14 +480,24 @@ msgid "Send an Invitation Message"
 msgstr "发送邀请消息"
 
 #. module: wecom_message
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__state__wecom_exception
+msgid "Send exception"
+msgstr "发送异常"
+
+#. module: wecom_message
 #: model:ir.actions.act_window,name:wecom_message.wecom_message_config_settings_action model:ir.ui.menu,name:wecom_message.menu_wecom_message_settings
 msgid "Settings"
 msgstr "设置"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__0
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__safe__0 model:ir.model.fields.selection,name:wecom_message.selection__mail_template__safe__0
 msgid "Shareable"
 msgstr "可对外分享"
+
+#. module: wecom_message
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__state
+msgid "Status"
+msgstr "状态"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
@@ -426,7 +505,7 @@ msgid "Subject (placeholders may be used here)"
 msgstr "主题（可以在这里使用占位符）"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__taskcard
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__taskcard model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__taskcard
 msgid "Task card message"
 msgstr "任务卡片消息"
 
@@ -436,61 +515,64 @@ msgid "Template"
 msgstr "消息模板"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__template_card
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__template_card model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__template_card
 msgid "Template card message"
 msgstr "模板卡片消息"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__textcard
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__textcard model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__textcard
 msgid "Text card message"
 msgstr "文本卡片消息"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__text
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__text model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__text
 msgid "Text message"
 msgstr "文本消息"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__duplicate_check_interval
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__duplicate_check_interval model:ir.model.fields,field_description:wecom_message.field_mail_template__duplicate_check_interval
 msgid "Time interval for repeated message checking"
 msgstr "重复消息检查的时间间隔"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_party
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__message_to_party model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_party
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__message_to_party
 msgid "To Departments"
 msgstr "接收消息的部门"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_tag
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__message_to_tag model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_tag
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__message_to_tag
 msgid "To Tags"
 msgstr "接收消息的标签"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_user
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__message_to_user model:ir.model.fields,field_description:wecom_message.field_mail_template__message_to_user
+#: model:ir.model.fields,field_description:wecom_message.field_mail_template_preview__message_to_user
 msgid "To Users"
 msgstr "接收消息的用户"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__enable_duplicate_check
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__enable_duplicate_check model:ir.model.fields,field_description:wecom_message.field_mail_template__enable_duplicate_check
 msgid "Turn on duplicate message checking"
 msgstr "开启重复消息检查"
 
 #. module: wecom_message
-#: model:ir.model.fields,field_description:wecom_message.field_mail_template__enable_id_trans
+#: model:ir.model.fields,field_description:wecom_message.field_mail_mail__enable_id_trans model:ir.model.fields,field_description:wecom_message.field_mail_template__enable_id_trans
 msgid "Turn on id translation"
 msgstr "开启id转译"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/mail_mail.py:0 code:addons/wecom_message/models/mail_mail.py:0
-#, python-format
-msgid "Unable to connect to SMTP Server"
-msgstr "无法连接到 SMTP 服务器"
-
-#. module: wecom_message
-#: code:addons/wecom/wecom_message/models/mail_thread.py:0 code:addons/wecom_message/models/mail_thread.py:0
+#: code:addons/wecom_message/models/mail_thread.py:0
 #, python-format
 msgid "Unable to log message, please configure the sender's email address."
-msgstr "无法记录消息，请配置发件人的EMail地址。"
+msgstr "无法记录邮件，请配置发件人的电子邮件地址。"
+
+#. module: wecom_message
+#: code:addons/wecom_message/models/mail_template.py:0
+#, python-format
+msgid "Unsupported report type %s found."
+msgstr "发现不支持的报告类型 %s。"
 
 #. module: wecom_message
 #: model:ir.model,name:wecom_message.model_res_users
@@ -498,14 +580,24 @@ msgid "Users"
 msgstr "用户"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__video
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__video model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__video
 msgid "Video message"
 msgstr "视频消息"
 
 #. module: wecom_message
-#: model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__voice
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__voice model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__voice
 msgid "Voice messages"
 msgstr "语音消息"
+
+#. module: wecom_message
+#: model:ir.model,name:wecom_message.model_wecom_message_api
+msgid "WeCom Message API"
+msgstr "企微消息API"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "WeCom Message Preview"
+msgstr "企微消息预览"
 
 #. module: wecom_message
 #: model:ir.model,name:wecom_message.model_mail_template
@@ -518,7 +610,7 @@ msgid "Wecom Application"
 msgstr "企微应用"
 
 #. module: wecom_message
-#: code:addons/wecom/wecom_message/models/res_users.py:0 code:addons/wecom_message/models/res_users.py:0
+#: code:addons/wecom_message/models/res_users.py:0
 #, python-format
 msgid "You cannot perform this action on an archived user."
 msgstr "不能对存档用户执行此操作。"
@@ -527,3 +619,8 @@ msgstr "不能对存档用户执行此操作。"
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_res_config_settings_view_form
 msgid "description"
 msgstr "说明"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_preview_form
+msgid "record:"
+msgstr "记录："

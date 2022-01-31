@@ -25,9 +25,9 @@ class MailMail(models.Model):
         comodel_name="wecom.material",
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
-    body_html = fields.Text("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Json Body", translate=True,)
-    body_markdown = fields.Text("Markdown Body", translate=True)
+    # body_html = fields.Text("Html Body", translate=True, sanitize=False)
+    body_json = fields.Text("Json Body")
+    body_markdown = fields.Text("Markdown Body")
     # description = fields.Char(
     #     "Short description",
     #     compute="_compute_description",
@@ -36,9 +36,13 @@ class MailMail(models.Model):
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
-        string="To Departments", help="Message recipients (departments)",
+        string="To Departments",
+        help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
+    message_to_tag = fields.Char(
+        string="To Tags",
+        help="Message recipients (tags)",
+    )
     use_templates = fields.Boolean("Is template message", default=False)
     templates_id = fields.Many2one("wecom.message.template", string="Message template")
     msgtype = fields.Selection(
@@ -100,10 +104,65 @@ class MailMail(models.Model):
 
     state = fields.Selection(selection_add=[("wecom_exception", "Send exception")])
 
+    # ------------------------------------------------------
+    # mail_mail formatting, tools and send mechanism
+    # 邮件格式、工具和发送机制
+    # ------------------------------------------------------
+
+    def _send_prepare_body(self):
+        """
+        返回特定的 ir_email 正文。此方法的主要目的是根据某些模块继承以添加自定义内容。
+        """
+        self.ensure_one()
+        return self.body_html or ""
+
+    def _send_prepare_json_body(self):
+        """
+        返回特定的 ir_email 正文。此方法的主要目的是根据某些模块继承以添加自定义内容。
+        """
+        self.ensure_one()
+        return self.body_json or ""
+
+    def _send_prepare_markdown_body(self):
+        """
+        返回特定的 ir_email 正文。此方法的主要目的是根据某些模块继承以添加自定义内容。
+        """
+        self.ensure_one()
+        return self.body_markdown or ""
+
+    def _send_prepare_values(self, partner=None):
+        """
+        根据合作伙伴的不同，返回特定电子邮件值的字典，或通过邮件发送给所有收件人的通用字典。给你发电子邮件。
+
+            :param Model partner: 特定收件人合作伙伴
+        """
+        self.ensure_one()
+        body = self._send_prepare_body()
+        json_body = self._send_prepare_json_body()
+        markdown_body = self._send_prepare_markdown_body()
+        body_alternative = tools.html2plaintext(body)
+        if partner:
+            email_to = [
+                tools.formataddr((partner.name or "False", partner.email or "False"))
+            ]
+        else:
+            email_to = tools.email_split_and_format(self.email_to)
+        res = {
+            "body": body,
+            "json_body": json_body,
+            "markdown_body": markdown_body,
+            "body_alternative": body_alternative,
+            "email_to": email_to,
+        }
+        return res
+
     def send_wecom_message(
-        self, auto_commit=False, raise_exception=False, company=None,
+        self,
+        auto_commit=False,
+        raise_exception=False,
+        company=None,
     ):
-        """ 
+        """
         立即发送所选电子邮件，忽略其当前状态（已发送的邮件不应被传递，除非它们实际上应该被重新发送）。
         成功发送的电子邮件被标记为“已发送”，未能发送的电子邮件被标记为“异常”，相应的错误邮件被输出到服务器日志中。
             :param bool auto_commit: 是否在发送每封邮件后强制提交邮件状态（仅用于调度程序处理）；
@@ -208,7 +267,10 @@ class MailMail(models.Model):
             else:
                 # 如果try中的程序执行过程中没有发生错误，继续执行else中的程序；
                 mail.write(
-                    {"state": "outgoing", "message_id": res["msgid"],}
+                    {
+                        "state": "outgoing",
+                        "message_id": res["msgid"],
+                    }
                 )
             if auto_commit is True:
                 self._cr.commit()

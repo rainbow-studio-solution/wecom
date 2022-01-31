@@ -7,26 +7,43 @@
             <field name="model">mail.template.preview</field>
             <field name="arch" type="xml">
                 <form string="WeCom Message Preview">
-                    <h3>Preview of <field name="mail_template_id" readonly="1" nolabel="1" class="oe_inline"/>
+                    <h3>Preview of <field name="mail_template_id" readonly="1" nolabel="1" options="{'no_open' : True}"/>
                     </h3>
                     <field name="no_record" invisible="1"/>
-                    <div class="o_row">
-                        <span>Choose an example <field name="model_id" readonly="1"/>
+                    <div class="container">
+                        <div class="row">
+                            <span class="col-md-5 col-lg-4 col-sm-12 pl-0">Choose an example <field name="model_id" readonly="1"/>
  record:</span>
-                        <div>
-                            <field name="resource_ref" class="oe_inline" options="{'hide_model': True, 'no_create': True, 'no_edit': True, 'no_open': True}" attrs="{'invisible': [('no_record', '=', True)]}"/>
-                            <span class="text-warning" attrs="{'invisible': [('no_record', '=', False)]}">No records</span>
+                            <div class="col-md-7 col-lg-6 col-sm-12 pl-0">
+                                <field name="resource_ref" readonly="False" options="{'hide_model': True, 'no_create': True, 'no_edit': True, 'no_open': True}" attrs="{'invisible': [('no_record', '=', True)]}"/>
+                                <b attrs="{'invisible': [('no_record', '=', False)]}" class="text-warning">No record for this model</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="col-md-5 col-lg-4 col-sm-12 pl-0">Force a language: </span>
+                            <div class="col-md-7 col-lg-6 col-sm-12 pl-0">
+                                <field name="lang"/>
+                            </div>
                         </div>
                     </div>
-                    <p>Choose a language: <field name="lang" class="oe_inline ml8"/>
-                    </p>
-                    <field name="msgtype" invisible="1"/>
+
+
+                    <group>
+                        <field name="subject"/>
+                        <field name="msgtype" invisible="1"/>
+                        <field name="email_from" attrs="{'invisible':[('email_from','=', False)]}"/>
+                        <field name="partner_ids" widget="many2many_tags" attrs="{'invisible':[('partner_ids', '=', [])]}"/>
+                        <field name="message_to_user" readonly="1" attrs="{'invisible':[('message_to_user','=', False)]}"/>
+                        <field name="message_to_party" readonly="1" attrs="{'invisible':[('message_to_party','=', False)]}"/>
+                        <field name="message_to_tag" readonly="1" attrs="{'invisible':[('message_to_tag','=', False)]}"/>
+                        <field name="scheduled_date" attrs="{'invisible':[('scheduled_date','=', False)]}"/>
+                    </group>
                     <hr/>
-                    <label for="body_json" string="WeCom message Json content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
-                    <label for="body_markdown" string="WeCom message Markdown content" attrs="{'invisible': [('msgtype','!=','markdown')]}" />
-                    <label for="body_html" string="WeCom message Html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
+                    <!-- <label for="body_json" string="Json content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                    <label for="body_markdown" string="Markdown content" attrs="{'invisible': [('msgtype','!=','markdown')]}" />
+                    <label for="body_html" string="Html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> -->
                     <hr/>
-                    <field name="body_json" widget="body_json" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                    <field name="body_json" widget="wecom_jsoneditor" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
                     <field name="body_markdown" widget="wecom_markdown" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','markdown')]}" />
                     <field name="body_html" widget="html" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                     <hr/>
@@ -38,7 +55,7 @@
         </record>
 
         <record id="wecom_message_template_preview_action" model="ir.actions.act_window">
-            <field name="name">Template Preview</field>
+            <field name="name">Message Template Preview</field>
             <field name="res_model">mail.template.preview</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>

@@ -27,6 +27,11 @@ class Message(models.Model):
 
     _inherit = "mail.message"
 
+    # body_html = fields.Html("Html Body", translate=True, default="", sanitize=True)
+    json_body = fields.Text("Json Body", translate=True, default={}, sanitize=True)
+    markdown_body = fields.Text(
+        "Markdown Body", translate=True, default="", sanitize=True
+    )
     is_wecom_message = fields.Boolean("Is WeCom Message")
 
     # ------------------------------------------------------
@@ -37,15 +42,3 @@ class Message(models.Model):
     # MESSAGE READ / FETCH / FAILURE API
     # 消息读取      / 获取  /   失败API
     # ------------------------------------------------------
-    @api.model
-    def message_fetch(self, domain, limit=20, moderated_channel_ids=None):
-        """
-        Get a limited amount of formatted messages with provided domain.
-        :param domain: the domain to filter messages;
-        :param limit: the maximum amount of messages to get;
-        :param list(int) moderated_channel_ids: if set, it contains the ID
-          of a moderated channel. Fetched messages should include pending
-          moderation messages for moderators. If the current user is not
-          moderator, it should still get self-authored messages that are
-          pending moderation;
-        """

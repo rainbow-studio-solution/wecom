@@ -2,6 +2,7 @@
 
 import base64
 import logging
+import html2text
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
@@ -17,11 +18,18 @@ class MailTemplate(models.Model):
     _order = "name"
 
     # recipients
-    message_to_user = fields.Char(string="To Users", help="Message recipients (users)",)
-    message_to_party = fields.Char(
-        string="To Departments", help="Message recipients (departments)",
+    message_to_user = fields.Char(
+        string="To Users",
+        help="Message recipients (users)",
     )
-    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
+    message_to_party = fields.Char(
+        string="To Departments",
+        help="Message recipients (departments)",
+    )
+    message_to_tag = fields.Char(
+        string="To Tags",
+        help="Message recipients (tags)",
+    )
 
     # content
     media_id = fields.Many2one(
@@ -30,7 +38,10 @@ class MailTemplate(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_json = fields.Text("Json Body", translate=True, default={})
-    body_markdown = fields.Text("Markdown Body", translate=True,)
+    body_markdown = fields.Text(
+        "Markdown Body",
+        translate=True,
+    )
 
     use_templates = fields.Boolean("Is template message", default=False)
     templates_id = fields.Many2one("wecom.message.template", string="Message template")
@@ -139,7 +150,7 @@ class MailTemplate(models.Model):
             results[res_id]["partner_ids"] = partner_ids
         return results
 
-    def generate_message(self, res_ids, fields):
+    def generate_email(self, res_ids, fields):
         """
         根据res_ids给定的记录，从给定给定模型的模板生成电子邮件。
 
@@ -151,6 +162,7 @@ class MailTemplate(models.Model):
         if isinstance(res_ids, int):
             res_ids = [res_ids]
             multi_mode = False
+
         results = dict()
         for lang, (template, template_res_ids) in self._classify_per_lang(
             res_ids
@@ -167,10 +179,13 @@ class MailTemplate(models.Model):
                     )
                 else:
                     generated_field_values = template._render_field(
-                        field, template_res_ids, post_process=(field == "body_json"),
+                        field,
+                        template_res_ids,
+                        post_process=(field == "body_json"),
                     )
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
+
             # 计算收件人
             if any(
                 field in fields
@@ -183,9 +198,7 @@ class MailTemplate(models.Model):
                     "message_to_tag",
                 ]
             ):
-                results = template.generate_message_recipients(
-                    results, template_res_ids
-                )
+                results = template.generate_recipients(results, template_res_ids)
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
@@ -201,12 +214,45 @@ class MailTemplate(models.Model):
                     )
                 # 技术设置
                 values.update(
-                    # mail_server_id=template.mail_server_id.id or False,
+                    mail_server_id=template.mail_server_id.id or False,
                     auto_delete=template.auto_delete,
                     model=template.model,
                     res_id=res_id or False,
-                    # attachment_ids=[attach.id for attach in template.attachment_ids],
+                    attachment_ids=[attach.id for attach in template.attachment_ids],
                 )
+
+            # Add report in attachments: generate once for all template_res_ids
+            if template.report_template:
+                for res_id in template_res_ids:
+                    attachments = []
+                    report_name = template._render_field("report_name", [res_id])[
+                        res_id
+                    ]
+                    report = template.report_template
+                    report_service = report.report_name
+
+                    if report.report_type in ["qweb-html", "qweb-pdf"]:
+                        result, format = report._render_qweb_pdf([res_id])
+                    else:
+                        res = report._render([res_id])
+                        if not res:
+                            raise UserError(
+                                _(
+                                    "Unsupported report type %s found.",
+                                    report.report_type,
+                                )
+                            )
+                        result, format = res
+
+                    # TODO in trunk, change return format to binary to match message_post expected format
+                    result = base64.b64encode(result)
+                    if not report_name:
+                        report_name = "report." + report_service
+                    ext = "." + format
+                    if not report_name.endswith(ext):
+                        report_name += ext
+                    attachments.append((report_name, result))
+                    results[res_id]["attachments"] = attachments
 
         return multi_mode and results or results[res_ids[0]]
 
@@ -251,19 +297,19 @@ class MailTemplate(models.Model):
                 "email_cc",
                 "reply_to",
                 "scheduled_date",
-                # 企微消息
+                # 企微消息 start
                 "msgtype",
                 "message_to_user",
                 "message_to_party",
                 "message_to_tag",
                 "media_id",
-                "body_html",
                 "body_json",
                 "body_markdown",
                 "safe",
                 "enable_id_trans",
                 "enable_duplicate_check",
                 "duplicate_check_interval",
+                # 企微消息 end
             ],
         )
 
@@ -285,114 +331,132 @@ class MailTemplate(models.Model):
         if "email_from" in values and not values.get("email_from"):
             values.pop("email_from")
 
-        # 封装 body_html
-        if notif_layout and values["body_html"]:
-            try:
-                template = self.env.ref(notif_layout, raise_if_not_found=True)
-            except ValueError:
-                _logger.warning(
-                    "QWeb template %s not found when sending template %s. Sending without layouting."
-                    % (notif_layout, self.name)
-                )
-            else:
-                model = self.env["ir.model"]._get(record._name)
+        if values["msgtype"] == "mpnews":
+            # 封装 body_html
+            del values["body_markdown"]
+            del values["body_json"]
+            if notif_layout and values["body_html"]:
+                try:
+                    template = self.env.ref(notif_layout, raise_if_not_found=True)
+                except ValueError:
+                    _logger.warning(
+                        "QWeb template %s not found when sending template %s. Sending without layouting."
+                        % (notif_layout, self.name)
+                    )
+                else:
+                    model = self.env["ir.model"]._get(record._name)
 
-                if self.lang:
-                    lang = self._render_lang([res_id])[res_id]
-                    template = template.with_context(lang=lang)
-                    model = model.with_context(lang=lang)
+                    if self.lang:
+                        lang = self._render_lang([res_id])[res_id]
+                        template = template.with_context(lang=lang)
+                        model = model.with_context(lang=lang)
 
-                template_ctx = {
-                    "message": self.env["mail.message"]
-                    .sudo()
-                    .new(
-                        dict(body=values["body_html"], record_name=record.display_name)
-                    ),
-                    "model_description": model.display_name,
-                    "company": "company_id" in record
-                    and record["company_id"]
-                    or self.env.company,
-                    "record": record,
-                }
-                body_html = template._render(
-                    template_ctx, engine="ir.qweb", minimal_qcontext=True
-                )
-                values["body_html"] = self.env[
-                    "mail.render.mixin"
-                ]._replace_local_links(body_html)
-        # 封装 body_json
-        if notif_layout and values["body_json"]:
-            try:
-                template = self.env.ref(notif_layout, raise_if_not_found=True)
-            except ValueError:
-                _logger.warning(
-                    "QWeb template %s not found when sending template %s. Sending without layouting."
-                    % (notif_layout, self.name)
-                )
-            else:
-                model = self.env["ir.model"]._get(record._name)
+                    template_ctx = {
+                        "message": self.env["mail.message"]
+                        .sudo()
+                        .new(
+                            dict(
+                                body=values["body_html"],
+                                record_name=record.display_name,
+                            )
+                        ),
+                        "model_description": model.display_name,
+                        "company": "company_id" in record
+                        and record["company_id"]
+                        or self.env.company,
+                        "record": record,
+                    }
+                    body = template._render(
+                        template_ctx, engine="ir.qweb", minimal_qcontext=True
+                    )
+                    values["body_html"] = self.env[
+                        "mail.render.mixin"
+                    ]._replace_local_links(body)
+        elif values["msgtype"] == "markdown":
+            # 封装 body_markdown
+            del values["body_html"]
+            del values["body_json"]
+            if notif_layout and values["body_markdown"]:
+                try:
+                    template = self.env.ref(notif_layout, raise_if_not_found=True)
+                except ValueError:
+                    _logger.warning(
+                        "QWeb template %s not found when sending template %s. Sending without layouting."
+                        % (notif_layout, self.name)
+                    )
+                else:
+                    model = self.env["ir.model"]._get(record._name)
 
-                if self.lang:
-                    lang = self._render_lang([res_id])[res_id]
-                    template = template.with_context(lang=lang)
-                    model = model.with_context(lang=lang)
+                    if self.lang:
+                        lang = self._render_lang([res_id])[res_id]
+                        template = template.with_context(lang=lang)
+                        model = model.with_context(lang=lang)
 
-                template_ctx = {
-                    "message": self.env["mail.message"]
-                    .sudo()
-                    .new(
-                        dict(body=values["body_json"], record_name=record.display_name)
-                    ),
-                    "model_description": model.display_name,
-                    "company": "company_id" in record
-                    and record["company_id"]
-                    or self.env.company,
-                    "record": record,
-                }
-                body_json = template._render(
-                    template_ctx, engine="ir.qweb", minimal_qcontext=True
-                )
-                values["body_json"] = self.env[
-                    "mail.render.mixin"
-                ]._replace_local_links(body_json)
-        # 封装 body_markdown
-        if notif_layout and values["body_markdown"]:
-            try:
-                template = self.env.ref(notif_layout, raise_if_not_found=True)
-            except ValueError:
-                _logger.warning(
-                    "QWeb template %s not found when sending template %s. Sending without layouting."
-                    % (notif_layout, self.name)
-                )
-            else:
-                model = self.env["ir.model"]._get(record._name)
+                    template_ctx = {
+                        "message": self.env["mail.message"]
+                        .sudo()
+                        .new(
+                            dict(
+                                markdown_body=values["body_markdown"],
+                                record_name=record.display_name,
+                            )
+                        ),
+                        "model_description": model.display_name,
+                        "company": "company_id" in record
+                        and record["company_id"]
+                        or self.env.company,
+                        "record": record,
+                    }
+                    body = template._render(
+                        template_ctx, engine="ir.qweb", minimal_qcontext=True
+                    )
+                    #  tools.html2plaintext()
+                    values["body_markdown"] = self.env[
+                        "mail.render.mixin"
+                    ]._replace_local_links(body)
+        else:
+            # 封装 body_json
+            del values["body_html"]
+            del values["body_markdown"]
+            if notif_layout and values["body_json"]:
+                try:
+                    template = self.env.ref(notif_layout, raise_if_not_found=True)
+                except ValueError:
+                    _logger.warning(
+                        "QWeb template %s not found when sending template %s. Sending without layouting."
+                        % (notif_layout, self.name)
+                    )
+                else:
+                    model = self.env["ir.model"]._get(record._name)
 
-                if self.lang:
-                    lang = self._render_lang([res_id])[res_id]
-                    template = template.with_context(lang=lang)
-                    model = model.with_context(lang=lang)
+                    if self.lang:
+                        lang = self._render_lang([res_id])[res_id]
+                        template = template.with_context(lang=lang)
+                        model = model.with_context(lang=lang)
 
-                template_ctx = {
-                    "message": self.env["mail.message"]
-                    .sudo()
-                    .new(
-                        dict(
-                            body=values["body_markdown"],
-                            record_name=record.display_name,
-                        )
-                    ),
-                    "model_description": model.display_name,
-                    "company": "company_id" in record
-                    and record["company_id"]
-                    or self.env.company,
-                    "record": record,
-                }
-                body_markdown = template._render(
-                    template_ctx, engine="ir.qweb", minimal_qcontext=True
-                )
-                values["body_markdown"] = self.env[
-                    "mail.render.mixin"
-                ]._replace_local_links(body_markdown)
+                    template_ctx = {
+                        "message": self.env["mail.message"]
+                        .sudo()
+                        .new(
+                            dict(
+                                json_body=values["body_json"],
+                                record_name=record.display_name,
+                            )
+                        ),
+                        "model_description": model.display_name,
+                        "company": "company_id" in record
+                        and record["company_id"]
+                        or self.env.company,
+                        "record": record,
+                    }
+                    body = template._render(
+                        template_ctx, engine="ir.qweb", minimal_qcontext=True
+                    )
+                    values["body_json"] = (
+                        self.env["mail.render.mixin"]
+                        ._replace_local_links(body)
+                        .compile("(?<=\>).*?(?=\<)")
+                    )
 
         if values.get("media_id"):
             values["media_id"] = self.media_id.id  # 指定对应的素材id
@@ -423,6 +487,8 @@ class MailTemplate(models.Model):
             is_wecom_message = True
         if "message_to_tag" in values and values["message_to_tag"]:
             is_wecom_message = True
+
+        print("--------------", values)
         mail.write({"is_wecom_message": is_wecom_message})
 
         if force_send:
