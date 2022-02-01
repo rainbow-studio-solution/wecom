@@ -29,16 +29,6 @@ class ResConfigSettings(models.TransientModel):
     message_app_callback_service_ids = fields.One2many(
         related="message_app_id.app_callback_service_ids", readonly=False
     )
-    # wecom_message_logo = fields.Binary(
-    #     related="company_id.wecom_message_logo", readonly=False
-    # )
-    # wecom_message_logo_web = fields.Binary(
-    #     related="company_id.wecom_message_logo_web", readonly=False
-    # )
-
-    # message_agentid = fields.Char(related="company_id.message_agentid", readonly=False)
-
-    # message_secret = fields.Char(related="company_id.message_secret", readonly=False)
 
     # module_gamification = fields.Boolean(readonly=False)
 

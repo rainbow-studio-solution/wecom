@@ -105,6 +105,17 @@ class MailMail(models.Model):
     # 邮件格式、工具和发送机制
     # ------------------------------------------------------
 
+    def recall_message(self):
+        """
+        撤回应用消息
+        """
+        # 获取公司
+        company = self.env[self.model].browse(self.res_id).company_id
+        if not company:
+            company = self.env.company
+
+        print(company)
+
     def _send_prepare_body(self):
         """
         返回特定的 ir_email 正文。此方法的主要目的是根据某些模块继承以添加自定义内容。
