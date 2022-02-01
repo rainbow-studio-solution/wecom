@@ -26,8 +26,8 @@ class MailMail(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     # body_html = fields.Text("Html Body", translate=True, sanitize=False)
-    body_json = fields.Text("Json Body")
-    body_markdown = fields.Text("Markdown Body")
+    body_json = fields.Text("Json Body", sanitize=False)
+    body_markdown = fields.Text("Markdown Body", sanitize=False)
     # description = fields.Char(
     #     "Short description",
     #     compute="_compute_description",
@@ -36,13 +36,9 @@ class MailMail(models.Model):
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
+        string="To Departments", help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
     use_templates = fields.Boolean("Is template message", default=False)
     templates_id = fields.Many2one("wecom.message.template", string="Message template")
     msgtype = fields.Selection(
@@ -157,10 +153,7 @@ class MailMail(models.Model):
         return res
 
     def send_wecom_message(
-        self,
-        auto_commit=False,
-        raise_exception=False,
-        company=None,
+        self, auto_commit=False, raise_exception=False, company=None,
     ):
         """
         立即发送所选电子邮件，忽略其当前状态（已发送的邮件不应被传递，除非它们实际上应该被重新发送）。
@@ -224,7 +217,6 @@ class MailMail(models.Model):
                     continue
 
                 # email_list = []
-
                 msg = ApiObj.build_message(
                     msgtype=mail.msgtype,
                     touser=mail.message_to_user,
@@ -267,10 +259,7 @@ class MailMail(models.Model):
             else:
                 # 如果try中的程序执行过程中没有发生错误，继续执行else中的程序；
                 mail.write(
-                    {
-                        "state": "outgoing",
-                        "message_id": res["msgid"],
-                    }
+                    {"state": "sent", "message_id": res["msgid"],}
                 )
             if auto_commit is True:
                 self._cr.commit()

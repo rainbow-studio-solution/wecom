@@ -42,9 +42,9 @@
                     <!-- <label for="body_json" string="Json content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
                     <label for="body_markdown" string="Markdown content" attrs="{'invisible': [('msgtype','!=','markdown')]}" />
                     <label for="body_html" string="Html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> -->
-                    <hr/>
-                    <field name="body_json" widget="wecom_jsoneditor" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+
                     <field name="body_markdown" widget="wecom_markdown" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','markdown')]}" />
+                    <field name="body_json" widget="wecom_jsoneditor" readonly="1" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                     <field name="body_html" widget="html" nolabel="1" options='{"safe": True}' attrs="{'invisible': [('msgtype','!=','mpnews')]}"/>
                     <hr/>
                     <footer>

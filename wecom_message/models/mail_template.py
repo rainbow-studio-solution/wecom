@@ -18,18 +18,11 @@ class MailTemplate(models.Model):
     _order = "name"
 
     # recipients
-    message_to_user = fields.Char(
-        string="To Users",
-        help="Message recipients (users)",
-    )
+    message_to_user = fields.Char(string="To Users", help="Message recipients (users)",)
     message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
+        string="To Departments", help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
 
     # content
     media_id = fields.Many2one(
@@ -38,10 +31,7 @@ class MailTemplate(models.Model):
         help="Media file ID, which can be obtained by calling the upload temporary material interface",
     )
     body_json = fields.Text("Json Body", translate=True, default={})
-    body_markdown = fields.Text(
-        "Markdown Body",
-        translate=True,
-    )
+    body_markdown = fields.Text("Markdown Body", translate=True,)
 
     use_templates = fields.Boolean("Is template message", default=False)
     templates_id = fields.Many2one("wecom.message.template", string="Message template")
@@ -99,7 +89,7 @@ class MailTemplate(models.Model):
     # 邮件/电子邮件值的生成
     # MESSAGE/EMAIL VALUES GENERATION
     # ------------------------------------------------------------
-    def generate_message_recipients(self, results, res_ids):
+    def generate_wecom_message_recipients(self, results, res_ids):
         """Generates the recipients of the template. Default values can ben generated
         instead of the template values if requested by template or context.
         Emails (email_to, email_cc) can be transformed into partners if requested
@@ -129,9 +119,12 @@ class MailTemplate(models.Model):
         for res_id, values in results.items():
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
-                mails = tools.email_split(
-                    values.pop("email_to", "")
-                ) + tools.email_split(values.pop("email_cc", ""))
+                mails = (
+                    tools.email_split(values.pop("message_to_user", ""))
+                    + tools.email_split(values.pop("message_to_party", ""))
+                    + tools.email_split(values.pop("message_to_tag", ""))
+                )
+                print("------------", mails)
                 Partner = self.env["res.partner"]
                 if records_company:
                     Partner = Partner.with_context(
@@ -150,7 +143,7 @@ class MailTemplate(models.Model):
             results[res_id]["partner_ids"] = partner_ids
         return results
 
-    def generate_email(self, res_ids, fields):
+    def generate_wecom_message(self, res_ids, fields):
         """
         根据res_ids给定的记录，从给定给定模型的模板生成电子邮件。
 
@@ -179,9 +172,7 @@ class MailTemplate(models.Model):
                     )
                 else:
                     generated_field_values = template._render_field(
-                        field,
-                        template_res_ids,
-                        post_process=(field == "body_json"),
+                        field, template_res_ids, post_process=(field == "body_json"),
                     )
                 for res_id, field_value in generated_field_values.items():
                     results.setdefault(res_id, dict())[field] = field_value
@@ -190,28 +181,29 @@ class MailTemplate(models.Model):
             if any(
                 field in fields
                 for field in [
-                    "email_to",
                     "partner_to",
-                    "email_cc",
                     "message_to_user",
                     "message_to_party",
                     "message_to_tag",
                 ]
             ):
-                results = template.generate_recipients(results, template_res_ids)
+                results = template.generate_wecom_message_recipients(
+                    results, template_res_ids
+                )
+
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
                 if values.get("body_html"):
                     values["body_html"] = tools.html_sanitize(values["body_html"])
                 if values.get("body_json"):
-                    # 删除html标记内的编码属性
-                    values["body_json"] = tools.html_sanitize(values["body_json"])
+                    values["body_json"] = tools.html2plaintext(
+                        values["body_json"]
+                    )  # 将HTML转换为纯文本
                 if values.get("body_markdown"):
-                    # 删除html标记内的编码属性
-                    values["body_markdown"] = tools.html_sanitize(
+                    values["body_markdown"] = tools.html2plaintext(
                         values["body_markdown"]
-                    )
+                    )  # 将HTML转换为纯文本
                 # 技术设置
                 values.update(
                     mail_server_id=template.mail_server_id.id or False,
@@ -286,16 +278,13 @@ class MailTemplate(models.Model):
         ]  # TDE FIXME: should remove default_type from context
 
         # create a mail_mail based on values, without attachments
-        values = self.generate_email(
+        values = self.generate_wecom_message(
             res_id,
             [
                 "subject",
                 "body_html",
                 "email_from",
-                "email_to",
                 "partner_to",
-                "email_cc",
-                "reply_to",
                 "scheduled_date",
                 # 企微消息 start
                 "msgtype",
@@ -330,7 +319,7 @@ class MailTemplate(models.Model):
         # 添加针对来自的无效电子邮件的保护
         if "email_from" in values and not values.get("email_from"):
             values.pop("email_from")
-
+        model = self.env["ir.model"]._get(record._name)
         if values["msgtype"] == "mpnews":
             # 封装 body_html
             del values["body_markdown"]
@@ -344,8 +333,6 @@ class MailTemplate(models.Model):
                         % (notif_layout, self.name)
                     )
                 else:
-                    model = self.env["ir.model"]._get(record._name)
-
                     if self.lang:
                         lang = self._render_lang([res_id])[res_id]
                         template = template.with_context(lang=lang)
@@ -385,7 +372,6 @@ class MailTemplate(models.Model):
                         % (notif_layout, self.name)
                     )
                 else:
-                    model = self.env["ir.model"]._get(record._name)
 
                     if self.lang:
                         lang = self._render_lang([res_id])[res_id]
@@ -427,8 +413,6 @@ class MailTemplate(models.Model):
                         % (notif_layout, self.name)
                     )
                 else:
-                    model = self.env["ir.model"]._get(record._name)
-
                     if self.lang:
                         lang = self._render_lang([res_id])[res_id]
                         template = template.with_context(lang=lang)
@@ -488,7 +472,6 @@ class MailTemplate(models.Model):
         if "message_to_tag" in values and values["message_to_tag"]:
             is_wecom_message = True
 
-        print("--------------", values)
         mail.write({"is_wecom_message": is_wecom_message})
 
         if force_send:

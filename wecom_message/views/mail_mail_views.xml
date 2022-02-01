@@ -78,20 +78,24 @@
         <field name="name">wecom.mail.tree</field>
         <field name="model">mail.mail</field>
         <field name="arch" type="xml">
-            <tree string="WeCom Message" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'" decoration-danger="state=='exception'">
+            <tree string="WeCom Message" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'" decoration-danger="state=='wecom_exception'">
                 <field name="date"/>
                 <field name="state" />
                 <field name="is_wecom_message"/>
+                <field name="use_templates"/>
                 <field name="message_type"/>
+                <field name="templates_id"/>
                 <field name="subject"/>
-                <field name="author_id" string="User"/>
+                <field name="author_id" string="Sender"/>
                 <field name="message_id" invisible="1"/>
                 <field name="recipient_ids" invisible="1"/>
                 <field name="model" invisible="1"/>
                 <field name="res_id" invisible="1"/>
+
                 <button name="send_wecom_message" string="Send Now" type="object" icon="fa-paper-plane" states='outgoing'/>
-                <button name="mark_outgoing" string="Retry" type="object" icon="fa-repeat" states='exception,cancel'/>
-                <button name="cancel" string="Cancel Email" type="object" icon="fa-times-circle" states='outgoing'/>
+
+                <button name="mark_outgoing" string="Retry" type="object" icon="fa-repeat" states='wecom_exception,cancel'/>
+                <button name="cancel" string="Cancel Message" type="object" icon="fa-times-circle" states='outgoing'/>
             </tree>
         </field>
     </record>
