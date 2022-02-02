@@ -94,8 +94,9 @@
 
                 <button name="send_wecom_message" string="Send Now" type="object" icon="fa-paper-plane" states='outgoing'/>
 
-                <button name="mark_outgoing" string="Retry" type="object" icon="fa-repeat" states='wecom_exception,cancel'/>
                 <button name="recall_message" string="Recall Message" type="object" icon="fa-times-circle" states='sent'/>
+
+                <button name="resend_message" string="Resend Message" type="object" icon="fa-repeat" states='wecom_exception,wecom_recall'/>
             </tree>
         </field>
     </record>

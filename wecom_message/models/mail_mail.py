@@ -1,13 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import ast
-import base64
-import datetime
 import logging
-import psycopg2
-import smtplib
-import re
 from odoo import _, api, fields, models
 from odoo import tools
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -40,7 +34,7 @@ class MailMail(models.Model):
     )
     message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
     use_templates = fields.Boolean("Is template message", default=False)
-    templates_id = fields.Many2one("wecom.message.template", string="Message template")
+    templates_id = fields.Many2one("mail.template", string="Message template")
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -98,7 +92,12 @@ class MailMail(models.Model):
     #     copy=False,
     # )
 
-    state = fields.Selection(selection_add=[("wecom_exception", "Send exception")])
+    state = fields.Selection(
+        selection_add=[
+            ("wecom_exception", "Send exception"),
+            ("wecom_recall", "Recall"),
+        ]
+    )
 
     # ------------------------------------------------------
     # mail_mail formatting, tools and send mechanism
@@ -109,12 +108,79 @@ class MailMail(models.Model):
         """
         撤回应用消息
         """
-        # 获取公司
-        company = self.env[self.model].browse(self.res_id).company_id
-        if not company:
-            company = self.env.company
+        if self.is_wecom_message:
+            # 获取公司
+            company = self.env[self.model].browse(self.res_id).company_id
+            if not company:
+                company = self.env.company
 
-        print(company)
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+                res = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "MESSAGE_RECALL"
+                    ),
+                    {"msgid": self.message_id},
+                )
+                print(res)
+
+            except ApiException as e:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    e, raise_exception=True
+                )
+            else:
+                if res["errcode"] == 0:
+                    return self.write({"state": "wecom_recall", "message_id": None})
+
+    def resend_message(self):
+        """
+        重新发送应用消息
+        """
+        if self.is_wecom_message:
+            # 获取公司
+            company = self.env[self.model].browse(self.res_id).company_id
+            if not company:
+                company = self.env.company
+
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+                msg = self.env["wecom.message.api"].build_message(
+                    msgtype=self.msgtype,
+                    touser=self.message_to_user,
+                    toparty=self.message_to_party,
+                    totag=self.message_to_tag,
+                    subject=self.subject,
+                    media_id=self.media_id,
+                    description=self.description,
+                    author_id=self.author_id,
+                    body_html=self.body_html,
+                    body_json=self.body_json,
+                    body_markdown=self.body_markdown,
+                    safe=self.safe,
+                    enable_id_trans=self.enable_id_trans,
+                    enable_duplicate_check=self.enable_duplicate_check,
+                    duplicate_check_interval=self.duplicate_check_interval,
+                    company=company,
+                )
+                del msg["company"]
+                res = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "MESSAGE_SEND"
+                    ),
+                    msg,
+                )
+
+            except ApiException as e:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    e, raise_exception=True
+                )
+            else:
+                if res["errcode"] == 0:
+                    return self.write({"state": "sent", "message_id": res["msgid"]})
 
     def _send_prepare_body(self):
         """

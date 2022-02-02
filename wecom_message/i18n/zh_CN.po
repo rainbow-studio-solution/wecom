@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-01 09:33+0000\n"
-"PO-Revision-Date: 2022-02-01 17:46+0800\n"
+"POT-Creation-Date: 2022-02-02 06:57+0000\n"
+"PO-Revision-Date: 2022-02-02 14:59+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -142,11 +142,6 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: wecom_message
-#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_tree
-msgid "Recall message"
-msgstr "撤回消息"
-
-#. module: wecom_message
 #: code:addons/wecom/wecom_message/models/res_users.py:0 code:addons/wecom_message/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
@@ -224,11 +219,6 @@ msgstr "显示名称"
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
 msgid "Dynamic Placeholder Generator"
 msgstr "动态定位符生成器"
-
-#. module: wecom_message
-#: model:ir.ui.menu,name:wecom_message.menu_wecom_email_message
-msgid "EMail Message"
-msgstr "EMail消息"
 
 #. module: wecom_message
 #: model:ir.actions.act_window,name:wecom_message.action_view_wecom_mail
@@ -396,8 +386,8 @@ msgid "Media file id"
 msgstr "媒体文件Id"
 
 #. module: wecom_message
-#: model:ir.model,name:wecom_message.model_mail_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_root model:wecom.app.subtype,name:wecom_message.wecom_app_subtype_message
-#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_search
+#: model:ir.model,name:wecom_message.model_mail_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_root
+#: model:wecom.app.subtype,name:wecom_message.wecom_app_subtype_message model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_search
 msgid "Message"
 msgstr "消息"
 
@@ -535,6 +525,16 @@ msgid "QWeb template %s not found when sending template %s. Sending without layo
 msgstr "发送模板 %s 时找不到QWeb模板 %s。未进行布局发送。"
 
 #. module: wecom_message
+#: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__state__wecom_recall
+msgid "Recall"
+msgstr "撤回"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_tree
+msgid "Recall Message"
+msgstr "撤回消息"
+
+#. module: wecom_message
 #: model:ir.model.fields,field_description:wecom_message.field_res_config_settings__message_app_callback_service_ids
 msgid "Receive event service"
 msgstr "接收事件服务"
@@ -551,7 +551,12 @@ msgid "Received"
 msgstr "已接收"
 
 #. module: wecom_message
-#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_form model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_tree
+#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_tree
+msgid "Resend Message"
+msgstr "重发消息"
+
+#. module: wecom_message
+#: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_form
 msgid "Retry"
 msgstr "重试"
 
