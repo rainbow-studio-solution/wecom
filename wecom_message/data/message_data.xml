@@ -155,6 +155,14 @@ Hello! First of all, please allow me to welcome you on behalf of our company. Th
       <field name="duplicate_check_interval">1800</field>
     </record>
 
+    <!-- 5. 定义将用于合作伙伴邮件的带有空正文的电子邮件模板。用于为电子邮件收件人、姓名提供依据，并简化进一步细化模板的定义。-->
+    <record id="mail.email_template_partner" model="mail.template">
+      <field name="msgtype">text</field>
+      <field name="safe">0</field>
+      <field name="enable_id_trans" eval="False"/>
+      <field name="enable_duplicate_check" eval="False"/>
+      <field name="duplicate_check_interval">1800</field>
+    </record>
   </data>
 
 </odoo>

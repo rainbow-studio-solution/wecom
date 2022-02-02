@@ -124,7 +124,7 @@ class MailMail(models.Model):
                     ),
                     {"msgid": self.message_id},
                 )
-                print(res)
+                # print(res)
 
             except ApiException as e:
                 return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -255,7 +255,11 @@ class MailMail(models.Model):
                 else:
                     batch = self.browse(batch_ids)
                     batch.write(
-                        {"state": "wecom_exception", "failure_reason": exc.errMsg}
+                        {
+                            "is_wecom_message": True,
+                            "state": "wecom_exception",
+                            "failure_reason": exc.errMsg,
+                        }
                     )
             else:
                 self.browse(batch_ids)._send_wecom_message(

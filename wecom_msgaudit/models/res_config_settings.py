@@ -48,6 +48,9 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wecom.msgaudit.msgaudit_mediadata_url",
     )
 
+    module_wecom_chatdata2contacts = fields.Boolean(
+        "Wecom chat records are attached to contact records and notes"
+    )
     # @api.model
     # def get_values(self):
     #     res = super(ResConfigSettings, self).get_values()

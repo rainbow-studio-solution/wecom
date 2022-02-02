@@ -26,7 +26,6 @@
         "wizard/employee_bind_wecom_views.xml",
         "wizard/user_bind_wecom_views.xml",
         "views/res_users_views.xml",
-        "views/res_partner_views.xml",
         "views/hr_department_view.xml",
         "views/hr_employee_category_views.xml",
         "views/hr_employee_view.xml",

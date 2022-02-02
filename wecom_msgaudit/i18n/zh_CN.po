@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-25 04:13+0000\n"
-"PO-Revision-Date: 2022-01-25 12:15+0800\n"
+"POT-Creation-Date: 2022-02-02 09:45+0000\n"
+"PO-Revision-Date: 2022-02-02 17:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -65,6 +65,21 @@ msgid ""
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"会话存档应用\"/>"
 
 #. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">Wecom "
+"Professional Edition</span>"
+msgstr ""
+"<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">企微专业版</"
+"span>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
+
+#. module: wecom_msgaudit
 #. openerp-web
 #: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
@@ -95,7 +110,6 @@ msgstr "同意消息内容"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__app_id
 msgid "Application"
 msgstr "应用"
-
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
@@ -715,7 +729,7 @@ msgstr "红包消息内容"
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Refresh"
-msgstr "刷新"
+msgstr ""
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chatdata__msgtype__revoke
@@ -941,6 +955,11 @@ msgstr "企微聊天数据"
 #: model:ir.model,name:wecom_msgaudit.model_wecom_msgaudit_key
 msgid "Wecom Session content archive key"
 msgstr "企微会话内容存档密钥"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__module_wecom_chatdata2contacts
+msgid "Wecom chat records are attached to contact records and notes"
+msgstr "企微聊天记录附加到联系人记录备注"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chatdata__seq

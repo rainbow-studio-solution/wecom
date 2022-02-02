@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-25 06:31+0000\n"
-"PO-Revision-Date: 2021-12-25 14:34+0800\n"
+"POT-Creation-Date: 2022-02-02 09:23+0000\n"
+"PO-Revision-Date: 2022-02-02 17:26+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -43,7 +43,7 @@ msgid "<b>Controller:</b> Make sure the \"Callback Service Name\" exists in your
 msgstr "<b>控制器：</b>确保控制器代码中存在“回调服务名称”。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: code:addons/wecom/wecom_api/tools/action.py:0 code:addons/wecom_api/tools/action.py:0
 #, python-format
 msgid ""
 "<div class=\"bg-warning\">\n"
@@ -87,8 +87,18 @@ msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
-msgid "<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">Wecom Professional Edition</span>"
-msgstr "<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">企微专业版</span>"
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-address-book fa-lg\" aria-label=\"Contacts\"/>\n"
+"                                Contacts\n"
+"                            <i class=\"fa fa-lg fa-info-circle\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-address-book fa-lg\" aria-label=\"联系人\"/>\n"
+"                                联系人\n"
+"                            <i class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
@@ -133,6 +143,21 @@ msgstr ""
 "                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"企微消息\"/>\n"
 "                                企微消息\n"
 "                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
+
+#. module: wecom_api
+#: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-home fa-lg\" aria-label=\"Portal\"/>\n"
+"                                Portal\n"
+"                            <i class=\"fa fa-lg fa-info-circle\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-home fa-lg\" aria-label=\"门户\"/>\n"
+"                                门户\n"
+"                            <i class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
 "                        </span>"
 
 #. module: wecom_api
@@ -251,7 +276,7 @@ msgid "Api Type"
 msgstr "Api类型"
 
 #. module: wecom_api
-#: code:addons/wecom_api/controllers/main.py:0 code:addons/wxwork/wecom_api/controllers/main.py:0
+#: code:addons/wecom/wecom_api/controllers/main.py:0 code:addons/wecom_api/controllers/main.py:0
 #, python-format
 msgid "App [%s] does not have service [%s] enabled"
 msgstr "应用 [%s] 未启用服务 [%s]"
@@ -327,13 +352,13 @@ msgid "Assigning customers to incumbent membersg"
 msgstr "转接在职成员的客户给其他成员"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Automatic task:Start getting token for app [%s]."
 msgstr "自动任务：开始获取应用[%s]的令牌。"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Automatic task:Start to get join enterprise QR code."
 msgstr "自动任务：开始获取加入企业二维码。"
@@ -379,7 +404,7 @@ msgid "Cancel the reservation of the meeting room"
 msgstr "取消预定会议室"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_app_event_type.py:0 code:addons/wxwork/wecom_api/models/wecom_app_event_type.py:0
+#: code:addons/wecom/wecom_api/models/wecom_app_event_type.py:0 code:addons/wecom_api/models/wecom_app_event_type.py:0
 #, python-format
 msgid "Cannot find [%s] change type for executing company [%s], ignoring it."
 msgstr "找不到执行公司 [%s] 的 [%s] 更改类型，将忽略它。"
@@ -435,7 +460,7 @@ msgid "Contacts asynchronous task completion notification"
 msgstr "通讯录异步任务完成通知"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Contacts synchronization"
 msgstr "通讯录同步"
@@ -707,7 +732,7 @@ msgstr ""
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.res_config_settings_view_form
 msgid "Enterprises can obtain members' conversation content through the interface to meet the regulatory compliance requirements of enterprises and ensure the quality of customer service."
-msgstr "企业可通过接口获取成员会话内容，以符合企业监管合规要求和保障客户服务质量  "
+msgstr "企业可通过接口获取成员会话内容，以符合企业监管合规要求和保障客户服务质量 。"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
@@ -730,10 +755,10 @@ msgid "Error description"
 msgstr "错误说明"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_message_api.py:0 code:addons/wxwork/wecom_api/api/wecom_message_api.py:0
+#: code:addons/wecom/wecom_api/api/wecom_message_api.py:0 code:addons/wecom_api/api/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
-msgstr ""
+msgstr "发送消息时出错：%s"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_error_filter
@@ -776,13 +801,13 @@ msgid "Export tag members"
 msgstr "导出标签成员"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: code:addons/wecom/wecom_api/tools/action.py:0 code:addons/wecom_api/tools/action.py:0
 #, python-format
 msgid "Failed"
-msgstr ""
+msgstr "失败"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom/wecom_api/models/wecom_server_api_error.py:0 code:addons/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Failed to pull WeCom global error code, reason:%s"
 msgstr "无法拉取企微局错误代码，原因：%s"
@@ -1209,7 +1234,7 @@ msgstr "获取access_token是调用企业微信API接口的第一步，相当于
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom/wecom_api/static/src/js/list_header_button.js:0 code:addons/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Global error code pulled successfully!"
 msgstr "全局错误代码拉取成功！"
@@ -1389,27 +1414,27 @@ msgid "Parameter"
 msgstr "参数"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/res_config_settings.py:0 code:addons/wxwork/wecom_api/models/res_config_settings.py:0
+#: code:addons/wecom/wecom_api/models/res_config_settings.py:0 code:addons/wecom_api/models/res_config_settings.py:0
 #, python-format
 msgid "Please bind contact app!"
 msgstr "请绑定通讯录应用！"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Please generate application parameters first."
 msgstr "请先生成应用参数。"
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/xml/list_header_button.xml:0 code:addons/wxwork/wecom_api/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom/wecom_api/static/src/xml/list_header_button.xml:0 code:addons/wecom_api/static/src/xml/list_header_button.xml:0
 #, python-format
 msgid "Pull error code"
 msgstr "拉取错误码"
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom/wecom_api/static/src/js/list_header_button.js:0 code:addons/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Pull successfully!"
 msgstr "拉取成功！"
@@ -1461,7 +1486,7 @@ msgstr "接收事件服务"
 
 #. module: wecom_api
 #. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0 code:addons/wxwork/wecom_api/static/src/js/list_header_button.js:0
+#: code:addons/wecom/wecom_api/static/src/js/list_header_button.js:0 code:addons/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Refresh"
 msgstr ""
@@ -1572,19 +1597,19 @@ msgid "Setting method"
 msgstr "设置方法"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Start getting join enterprise QR code for app [%s]"
 msgstr "开始获取应用 [%s] 的加入企业二维码"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "Start getting token for app [%s]"
 msgstr "开始获取应用 [%s] 的令牌"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom/wecom_api/models/wecom_server_api_error.py:0 code:addons/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Start pulling the global error code of WeCom."
 msgstr "开始拉取企微的全局错误代码。"
@@ -1600,10 +1625,15 @@ msgid "Submit application for approval"
 msgstr "提交审批申请"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_server_api_error.py:0 code:addons/wxwork/wecom_api/models/wecom_server_api_error.py:0
+#: code:addons/wecom/wecom_api/models/wecom_server_api_error.py:0 code:addons/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Successfully pulled the WeCom global error code!"
 msgstr "已成功拉取企微全局错误代码！"
+
+#. module: wecom_api
+#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_update_tag
+msgid "Tag change events"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.model.constraint,message:wecom_api.constraint_wecom_service_api_list_function_name_uniq
@@ -1611,7 +1641,7 @@ msgid "The function is unique !"
 msgstr "功能是唯一的！"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/hr_department.py:0 code:addons/wecom_api/models/hr_employee.py:0 code:addons/wecom_api/models/hr_employee_category.py:0 code:addons/wxwork/wecom_api/models/hr_department.py:0 code:addons/wxwork/wecom_api/models/hr_employee.py:0 code:addons/wxwork/wecom_api/models/hr_employee_category.py:0
+#: code:addons/wecom/wecom_api/models/hr_department.py:0 code:addons/wecom/wecom_api/models/hr_employee.py:0 code:addons/wecom/wecom_api/models/hr_employee_category.py:0 code:addons/wecom_api/models/hr_department.py:0 code:addons/wecom_api/models/hr_employee.py:0 code:addons/wecom_api/models/hr_employee_category.py:0
 #, python-format
 msgid "There is no mapping for field [%s], please contact the developer."
 msgstr "字段 [%s] 没有映射，请与开发人员联系。"
@@ -1642,7 +1672,7 @@ msgid "Type"
 msgstr "类型"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_app_event_type.py:0 code:addons/wxwork/wecom_api/models/wecom_app_event_type.py:0
+#: code:addons/wecom/wecom_api/models/wecom_app_event_type.py:0 code:addons/wecom_api/models/wecom_app_event_type.py:0
 #, python-format
 msgid "Unable to execute [%s] change type for company [%s], ignoring it. reason: %s"
 msgstr "无法为公司 [%s] 执行 [%s] 更改类型，将忽略它。原因：%s"
@@ -1700,7 +1730,7 @@ msgstr "上传临时素材"
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_userid_to_openid
 msgid "Userid and openid are interchangeable"
-msgstr "userid 与 openid 相互转换"
+msgstr "userid与openid相互转换。"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_res_users
@@ -1713,9 +1743,19 @@ msgid "WeCom Authentication"
 msgstr "企业微信身份验证"
 
 #. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_contacts
+msgid "WeCom Contacts"
+msgstr "企微联系人"
+
+#. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_message_api
 msgid "WeCom Message API"
 msgstr "企微消息API"
+
+#. module: wecom_api
+#: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_portal
+msgid "WeCom Portal"
+msgstr "企微门户"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_res_config_settings__module_wecom_material
@@ -1783,7 +1823,7 @@ msgid "Wecom API Tools - Security"
 msgstr "企微工具 - 安全"
 
 #. module: wecom_api
-#: code:addons/wecom_api/tools/action.py:0 code:addons/wxwork/wecom_api/tools/action.py:0
+#: code:addons/wecom/wecom_api/tools/action.py:0 code:addons/wecom_api/tools/action.py:0
 #, python-format
 msgid "Wecom API error: %s, error name: %s, error message: %s"
 msgstr "企微API 错误: %s, 错误名称: %s, 错误消息: %s"
@@ -1834,7 +1874,7 @@ msgid "Wecom Tools"
 msgstr "企微工具"
 
 #. module: wecom_api
-#: code:addons/wecom_api/models/wecom_apps.py:0 code:addons/wxwork/wecom_api/models/wecom_apps.py:0
+#: code:addons/wecom/wecom_api/models/wecom_apps.py:0 code:addons/wecom_api/models/wecom_apps.py:0
 #, python-format
 msgid "When members modify their personal information, the modified information will be pushed to the following URL in the form of events to ensure the synchronization of the address book."
 msgstr "当成员修改个人信息时，被修改的信息将以事件的形式推送到以下URL，保证通讯录同步。"
@@ -1859,12 +1899,7 @@ msgid "pay"
 msgstr "企业支付"
 
 #. module: wecom_api
-#: code:addons/wecom_api/api/wecom_abstract_api.py:0 code:addons/wxwork/wecom_api/api/wecom_abstract_api.py:0
+#: code:addons/wecom/wecom_api/api/wecom_abstract_api.py:0 code:addons/wecom_api/api/wecom_abstract_api.py:0
 #, python-format
 msgid "unknown method type"
 msgstr "未知方法类型"
-
-#. module: wecom_api
-#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_update_tag
-msgid "变更标签事件"
-msgstr ""

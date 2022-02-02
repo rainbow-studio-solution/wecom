@@ -43,7 +43,8 @@ class ResConfigSettings(models.TransientModel):
     module_wecom_message = fields.Boolean("WeCom send message")
     module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
     module_wecom_msgaudit = fields.Boolean("Manage Session Content Archive")
-
+    module_wecom_contacts = fields.Boolean("WeCom Contacts")
+    module_wecom_portal = fields.Boolean("WeCom Portal")
     # contacts_auto_sync_hr_enabled = fields.Boolean(
     #     # related="company_id.contacts_auto_sync_hr_enabled", readonly=False
     #     related="contacts_app_id.access_token",

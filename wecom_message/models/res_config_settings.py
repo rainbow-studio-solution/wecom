@@ -36,10 +36,10 @@ class ResConfigSettings(models.TransientModel):
     #     related="company_id.module_wecom_hr_gamification_message", readonly=False
     # )
 
-    # module_digest = fields.Boolean("KPI Digests")
-    # module_wxowrk_digest_message = fields.Boolean(
-    #     "Send KPI Digests periodically via WeCom",
-    # )
+    module_digest = fields.Boolean("KPI Digests")
+    module_wecom_digest_message = fields.Boolean(
+        "Send KPI Digests periodically via WeCom",
+    )
 
     # module_stock = fields.Boolean()
     # module_wecom_stock_message = fields.Boolean(

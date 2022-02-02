@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["base_setup", "contacts", "hr", "wecom_l10n", "wecom_widget"],
+    "depends": ["base_setup", "hr", "wecom_l10n", "wecom_widget"],
     "data": [
         "security/wecom_base_security.xml",
         "security/ir.model.access.csv",
