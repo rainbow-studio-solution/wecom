@@ -594,7 +594,7 @@ msgid "WeCom employee"
 msgstr "企业微信员工"
 
 #. module: wecom_hrm
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__is_wecom_employee
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__is_wecom_user
 msgid "WeCom employees"
 msgstr "企业微信员工"
 

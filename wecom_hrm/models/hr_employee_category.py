@@ -365,7 +365,7 @@ class EmployeeCategory(models.Model):
                     [
                         ("wecom_userid", "=", user),
                         ("company_id", "=", company.id),
-                        ("is_wecom_employee", "=", True),
+                        ("is_wecom_user", "=", True),
                         "|",
                         ("active", "=", True),
                         ("active", "=", False),

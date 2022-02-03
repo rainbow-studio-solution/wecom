@@ -146,7 +146,7 @@ class Company(models.Model):
                             "&",
                             "&",
                             ("company_id", "=", company.id),
-                            ("is_wecom_employee", "=", True),
+                            ("is_wecom_user", "=", True),
                             "|",
                             ("active", "=", False),
                             ("active", "=", True),

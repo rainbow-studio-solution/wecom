@@ -37,6 +37,7 @@
         "views/res_config_settings_views.xml",
         "views/mail_template_views.xml",
         "views/mail_mail_views.xml",
+        "views/mail_notification_views.xml",
         # "views/wecom_message_message_views.xml",
         # "views/wecom_apps_views.xml",
         # "views/wecom_message_notification_views.xml",

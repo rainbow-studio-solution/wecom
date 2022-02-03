@@ -40,7 +40,7 @@ class HrEmployeePrivate(models.Model):
         help="The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, 2^32)",
         readonly=True,
     )
-    is_wecom_employee = fields.Boolean(
+    is_wecom_user = fields.Boolean(
         string="WeCom employees", readonly=True, default=False,
     )
 
@@ -56,7 +56,7 @@ class HrEmployeePrivate(models.Model):
     # def write(self, vals):
     #     res = super(HrEmployeePrivate, self).write(vals)
 
-    #     if self.is_wecom_employee:
+    #     if self.is_wecom_user:
     #         # 检测是企业微信员工
     #         if len(self.category_ids) > 0:
     #             pass
@@ -79,7 +79,7 @@ class HrEmployeePrivate(models.Model):
         解除绑定企业微信成员
         """
         self.write(
-            {"is_wecom_employee": False, "wecom_userid": None, "qr_code": None,}
+            {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
         )
         if self.user_id:
             # 关联了User

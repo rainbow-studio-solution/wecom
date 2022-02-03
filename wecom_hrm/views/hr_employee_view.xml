@@ -31,7 +31,7 @@
                 </xpath> -->
                 <xpath expr="//sheet/div[@name='button_box']/button[last()]" position="after">
 
-                    <button class="btn oe_stat_button btn-succes" name="%(employee_bind_wecom_action)d" type="action" attrs="{'invisible': [('is_wecom_employee', '=', True)]}">
+                    <button class="btn oe_stat_button btn-succes" name="%(employee_bind_wecom_action)d" type="action" attrs="{'invisible': [('is_wecom_user', '=', True)]}">
                         <div role="img" class="fa fa-user-plus o_button_icon" aria-label="Binding" title="Binding"/>
                         <div class="o_stat_info">
                             <span class="o_stat_value">Binding</span>
@@ -39,7 +39,7 @@
                         </div>
                     </button>
 
-                    <button class="btn oe_stat_button text-danger" name="unbind_wecom_member" type="object" icon="fa-user-times" confirm="Are you sure to release the binding with enterprise wechat members ?" attrs="{'invisible': [('is_wecom_employee', '=', False)]}">
+                    <button class="btn oe_stat_button text-danger" name="unbind_wecom_member" type="object" icon="fa-user-times" confirm="Are you sure to release the binding with enterprise wechat members ?" attrs="{'invisible': [('is_wecom_user', '=', False)]}">
                         <div class="o_stat_info">
                             <span class="o_stat_value">Unbind</span>
                             <span class="o_stat_text">Enterprise wechat members</span>
@@ -48,18 +48,18 @@
                 </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <!-- <label for="alias" class="oe_edit_only" /> -->
-                    <h2 attrs="{'invisible': [('is_wecom_employee','=',False)]}">
+                    <h2 attrs="{'invisible': [('is_wecom_user','=',False)]}">
                         <lable for="alias" />
                         <field name="alias" placeholder="Alias"/>
                     </h2>
-                    <!-- <label for="english_name" class="oe_edit_only" attrs="{'invisible': [('is_wecom_employee','=',False)]}"/> -->
-                    <h2 attrs="{'invisible': [('is_wecom_employee','=',False)]}">
+                    <!-- <label for="english_name" class="oe_edit_only" attrs="{'invisible': [('is_wecom_user','=',False)]}"/> -->
+                    <h2 attrs="{'invisible': [('is_wecom_user','=',False)]}">
                         <label for="english_name" />
                         <field name="english_name" placeholder="English Name"/>
                     </h2>
                 </xpath>
                 <!-- <xpath expr="//div[hasclass('oe_title')]//field[@name='category_ids']" position="attributes">
-                    <attribute name="attrs">{'readonly': [('is_wecom_employee', '=', True)]}</attribute>
+                    <attribute name="attrs">{'readonly': [('is_wecom_user', '=', True)]}</attribute>
                 </xpath> -->
                 <xpath expr="//field[@name='department_id']" position="after">
                     <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>
@@ -69,7 +69,7 @@
                         <group>
                             <group>
                                 <field name="wecom_userid" />
-                                <field name="is_wecom_employee"/>
+                                <field name="is_wecom_user"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>
                             <group>
@@ -87,11 +87,11 @@
             <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
             <field name="arch" type="xml">
                 <xpath expr="//templates" position="before">
-                    <field name="is_wecom_employee"/>
+                    <field name="is_wecom_user"/>
                 </xpath>
 
                 <xpath expr="//strong[@class='o_kanban_record_title']/field[@name='name']" position="before">
-                    <div class="float-right" t-if="record.is_wecom_employee.raw_value" name="is_wecom_employee">
+                    <div class="float-right" t-if="record.is_wecom_user.raw_value" name="is_wecom_user">
                         <span class="fa fa-weixin text-info" role="img" aria-label="Enterprise wechat Employee" title="Enterprise wechat Employee">
                         </span>
                     </div>
@@ -107,7 +107,7 @@
                 <xpath expr="//field[last()]" position="after">
                     <!-- <field name="department_ids" widget="many2many_tags" /> -->
                     <!--<field name="wecom_department"/>-->
-                    <field name="is_wecom_employee"/>
+                    <field name="is_wecom_user"/>
                 </xpath>
             </field>
         </record>
@@ -121,9 +121,9 @@
                     <field name="name"/>
                     <field name="wecom_userid" />
                     <field name="department_id"/>
-                    <field name="is_wecom_employee"/>
+                    <field name="is_wecom_user"/>
 
-                    <button class="btn btn-primary" name="%(employee_bind_wecom_action)d" string=" Binding enterprise wechat members" type="action" icon="fa-weixin" attrs="{'invisible': [('is_wecom_employee', '=', True)]}"/>
+                    <button class="btn btn-primary" name="%(employee_bind_wecom_action)d" string=" Binding enterprise wechat members" type="action" icon="fa-weixin" attrs="{'invisible': [('is_wecom_user', '=', True)]}"/>
 
 
                 </tree>
@@ -134,7 +134,7 @@
             <field name="name">WeCom employee</field>
             <field name="res_model">hr.employee</field>
             <field name="view_mode">tree,form</field>
-            <!--            <field name="domain">[('is_wecom_employee','=',1)]</field>-->
+            <!--            <field name="domain">[('is_wecom_user','=',1)]</field>-->
             <field name="context">{}</field>
             <!--<field name="view_id" eval="False"/>-->
             <!--<field name="search_view_id" ref="view_employee_filter"/>-->

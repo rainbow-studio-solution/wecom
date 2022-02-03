@@ -11,7 +11,7 @@ class Company(models.Model):
     # def _onchange_contacts_use_system_default_avatar(self):
     #     employees = self.env["hr.employee"].search(
     #         [
-    #             ("is_wecom_employee", "=", True),
+    #             ("is_wecom_user", "=", True),
     #             "|",
     #             ("active", "=", True),
     #             ("active", "=", False),

@@ -83,7 +83,7 @@ class UserBindWecom(models.TransientModel):
             # for employee in self.user_id.employee_ids:
             self.user_id.employee_id.write(
                 {
-                    "is_wecom_employee": True,
+                    "is_wecom_user": True,
                     "wecom_userid": RESPONSE["userid"],
                     "name": RESPONSE["name"],
                     "qr_code": RESPONSE["qr_code"],

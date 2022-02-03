@@ -475,5 +475,7 @@ class MailTemplate(models.Model):
         mail.write({"is_wecom_message": is_wecom_message})
 
         if force_send:
-            mail.send_wecom_message(raise_exception=raise_exception, company=company)
+            mail.send_wecom_mail_message(
+                raise_exception=raise_exception, company=company
+            )
         return mail.id  # TDE CLEANME: return mail + api.returns ?

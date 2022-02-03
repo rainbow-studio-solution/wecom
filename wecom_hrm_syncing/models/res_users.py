@@ -21,7 +21,7 @@ class Users(models.Model):
         """
         if (
             self.employee_ids
-            and self.employee_ids[0].is_wecom_employee
+            and self.employee_ids[0].is_wecom_user
             and self.employee_ids[0].wecom_userid
         ):
             self.write(

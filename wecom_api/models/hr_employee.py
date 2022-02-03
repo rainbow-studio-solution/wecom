@@ -148,7 +148,7 @@ class HrEmployeePrivate(models.Model):
         if cmd == "create":
             # print("执行创建员工")
             update_dict.update(
-                {"company_id": company_id.id, "is_wecom_employee": True,}
+                {"company_id": company_id.id, "is_wecom_user": True,}
             )
             try:
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(

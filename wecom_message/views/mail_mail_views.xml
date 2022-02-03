@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <form string="WeCom message">
                     <header>
-                        <button name="send_wecom_message" string="Send Now" type="object" states='outgoing' class="oe_highlight"/>
+                        <button name="send_wecom_mail_message" string="Send Now" type="object" states='outgoing' class="oe_highlight"/>
                         <button name="mark_outgoing" string="Retry" type="object" states='exception,cancel'/>
                         <button name="cancel" string="Cancel" type="object" states='outgoing'/>
                         <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
@@ -92,7 +92,7 @@
                 <field name="model" invisible="1"/>
                 <field name="res_id" />
 
-                <button name="send_wecom_message" string="Send Now" type="object" icon="fa-paper-plane" states='outgoing'/>
+                <button name="send_wecom_mail_message" string="Send Now" type="object" icon="fa-paper-plane" states='outgoing'/>
 
                 <button name="recall_message" string="Recall Message" type="object" icon="fa-times-circle" states='sent'/>
 

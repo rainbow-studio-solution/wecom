@@ -20,24 +20,13 @@ class HrEmployee(models.Model):
         :return:
         """
         groups_id = (
-            self.sudo()
-            .env["res.groups"]
-            .search(
-                [
-                    ("id", "=", 9),
-                ],
-                limit=1,
-            )
-            .id
+            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=1是内部用户, id=9是门户用户
         try:
             res_user_id = (
                 self.sudo()
                 .env["res.users"]
-                .search(
-                    [("login", "=", self.wecom_userid.lower())],
-                    limit=1,
-                )
+                .search([("login", "=", self.wecom_userid.lower())], limit=1,)
             )
 
             if len(res_user_id) == 0:
@@ -149,7 +138,7 @@ class HrEmployee(models.Model):
                             "&",
                             "&",
                             ("company_id", "=", company.id),
-                            ("is_wecom_employee", "=", True),
+                            ("is_wecom_user", "=", True),
                             "|",
                             ("active", "=", False),
                             ("active", "=", True),
@@ -220,15 +209,7 @@ class HrEmployee(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
-            self.sudo()
-            .env["res.groups"]
-            .search(
-                [
-                    ("id", "=", 9),
-                ],
-                limit=1,
-            )
-            .id
+            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=9是门户用户
         try:
             user = user.create(

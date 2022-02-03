@@ -64,7 +64,7 @@ class EmployeeBindWecom(models.TransientModel):
             .search(
                 [
                     ("wecom_userid", "=", self.wecom_userid.lower()),
-                    ("is_wecom_employee", "=", True),
+                    ("is_wecom_user", "=", True),
                     ("company_id", "=", self.company_id.id),
                     "|",
                     ("active", "=", True),
@@ -79,7 +79,7 @@ class EmployeeBindWecom(models.TransientModel):
         else:
             self.employee_id.write(
                 {
-                    "is_wecom_employee": True,
+                    "is_wecom_user": True,
                     "wecom_userid": RESPONSE["userid"],
                     "name": RESPONSE["name"],
                     "qr_code": RESPONSE["qr_code"],

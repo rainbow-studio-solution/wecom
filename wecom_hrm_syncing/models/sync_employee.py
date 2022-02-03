@@ -74,7 +74,7 @@ class SyncEmployee(models.AbstractModel):
                 .sudo()
                 .search(
                     [
-                        ("is_wecom_employee", "=", True),
+                        ("is_wecom_user", "=", True),
                         ("company_id", "=", company.id),
                         "|",
                         ("active", "=", True),
@@ -131,7 +131,7 @@ class SyncEmployee(models.AbstractModel):
                 [
                     ("wecom_userid", "=", obj["userid"]),
                     ("company_id", "=", company.id),
-                    ("is_wecom_employee", "=", True),
+                    ("is_wecom_user", "=", True),
                     "|",
                     ("active", "=", True),
                     ("active", "=", False),
@@ -198,7 +198,7 @@ class SyncEmployee(models.AbstractModel):
                     "department_ids": [(6, 0, department_ids)],
                     "wecom_user_order": obj["order"],
                     "qr_code": obj["qr_code"],
-                    "is_wecom_employee": True,
+                    "is_wecom_user": True,
                 }
             )
             # result = True
@@ -240,7 +240,7 @@ class SyncEmployee(models.AbstractModel):
                     "department_ids": [(6, 0, department_ids)],
                     "wecom_user_order": obj["order"],
                     "qr_code": obj["qr_code"],
-                    "is_wecom_employee": True,
+                    "is_wecom_user": True,
                 }
             )
             app_config = self.env["wecom.app_config"].sudo()
@@ -394,7 +394,7 @@ class SyncEmployee(models.AbstractModel):
                         [
                             ("wecom_userid", "=", user["direct_leader"][0]),
                             ("company_id", "=", company.id),
-                            ("is_wecom_employee", "=", True),
+                            ("is_wecom_user", "=", True),
                             "|",
                             ("active", "=", True),
                             ("active", "=", False),
@@ -409,7 +409,7 @@ class SyncEmployee(models.AbstractModel):
                         [
                             ("wecom_userid", "=", user["userid"]),
                             ("company_id", "=", company.id),
-                            ("is_wecom_employee", "=", True),
+                            ("is_wecom_user", "=", True),
                             "|",
                             ("active", "=", True),
                             ("active", "=", False),
@@ -449,10 +449,7 @@ class SyncEmployee(models.AbstractModel):
                 .sudo()
                 .search(
                     domain
-                    + [
-                        ("is_wecom_employee", "=", True),
-                        ("company_id", "=", company.id),
-                    ]
+                    + [("is_wecom_user", "=", True), ("company_id", "=", company.id),]
                 )
             )
             for employee in employees:

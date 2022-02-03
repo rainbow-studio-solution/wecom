@@ -18,5 +18,5 @@ class Users(models.Model):
         if self.employee_id:
             # for employee in self.employee_ids:
             self.employee_id.write(
-                {"is_wecom_employee": False, "wecom_userid": None, "qr_code": None,}
+                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
             )

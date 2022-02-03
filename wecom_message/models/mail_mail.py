@@ -229,7 +229,7 @@ class MailMail(models.Model):
         }
         return res
 
-    def send_wecom_message(
+    def send_wecom_mail_message(
         self, auto_commit=False, raise_exception=False, company=None,
     ):
         """
@@ -262,7 +262,7 @@ class MailMail(models.Model):
                         }
                     )
             else:
-                self.browse(batch_ids)._send_wecom_message(
+                self.browse(batch_ids)._send_wecom_mail_message(
                     auto_commit=auto_commit,
                     raise_exception=raise_exception,
                     company=company,
@@ -271,7 +271,7 @@ class MailMail(models.Model):
             finally:
                 pass
 
-    def _send_wecom_message(
+    def _send_wecom_mail_message(
         self,
         auto_commit=False,
         raise_exception=False,
