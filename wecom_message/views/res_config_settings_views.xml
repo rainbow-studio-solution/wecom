@@ -20,6 +20,11 @@
                                 <div class="mt8">
                                     <field name="message_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%message%'),('company_id', '=', company_id)]"/>
                                 </div>
+                                <button class="btn btn-primary" name="get_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('material_app_id','=',False)]}"/>
+                                <div class="mt4" attrs="{'invisible': [('material_app_id','=',False)]}">
+                                    <div class="text-warning mt16">
+                                        <strong>Save</strong> this page and come back here to set up other feature.</div>
+                                </div>
                             </div>
                         </div>
                     </div>

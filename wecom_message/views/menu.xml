@@ -6,9 +6,11 @@
 
         <!-- 对应菜单：设置→技术→讨论 -->
         <menuitem id="menu_wecom_message_records" name="Send Records" parent="menu_wecom_message_root" sequence="1"/>
-
-        <!-- 1.消息 -->
+        <!-- 0.消息 -->
+        
+        <!-- 1.邮件 -->
         <menuitem id="menu_wecom_message_message" name="Email Message" parent="menu_wecom_message_records" action="action_view_wecom_mail" groups="base.group_erp_manager" sequence="1"/>
+
         <!-- 2.跟踪值 -->
         <!-- <menuitem name="Tracking Values" id="menu_wecom_discuss_tracking_value" parent="menu_wecom_discuss" action="mail.action_view_mail_tracking_value" sequence="2"/> -->
         <!-- 3.活动 -->
@@ -32,7 +34,7 @@
         <!-- 2.模板 -->
         <menuitem id="menu_wecom_message_template" name="Template" parent="menu_wecom_message_settings" groups="base.group_erp_manager" action="action_wecom_message_template_tree_all" sequence="2"/>
 
-        
+
 
 
         <!-- <menuitem id="menu_wecom_configuration" name="Settings" parent="menu_wecom_message_root" sequence="900" action="wecom_message.wecom_message_config_settings_action" groups="base.group_erp_manager"/> -->

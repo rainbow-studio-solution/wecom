@@ -62,7 +62,9 @@ class MailThread(models.AbstractModel):
 
     _inherit = "mail.thread"
 
-    is_wecom_message = fields.Boolean("WeCom Message",)
+    is_wecom_message = fields.Boolean(
+        "WeCom Message",
+    )
 
     # ------------------------------------------------------
     # 消息推送API
@@ -101,7 +103,7 @@ class MailThread(models.AbstractModel):
         record_name=False,
         **kwargs
     ):
-        """ 
+        """
         在现有线程中发布新邮件，返回新的 mail.message ID。
         :param str body: 邮件的正文，通常是经过清理的原始 HTML
         :param str subject: 邮件的主题
@@ -247,7 +249,9 @@ class MailThread(models.AbstractModel):
             )
         else:
             values.update(
-                {"is_wecom_message": False,}
+                {
+                    "is_wecom_message": False,
+                }
             )
 
         attachments = attachments or []
@@ -289,7 +293,7 @@ class MailThread(models.AbstractModel):
     def _notify_record_by_inbox(
         self, message, recipients_data, msg_vals=False, **kwargs
     ):
-        """ 通知方式：收件箱。做两件主要的事情
+        """通知方式：收件箱。做两件主要的事情
 
           * 为用户创建收件箱通知;
           * 创建通道/消息链接（channel_ids mail.message 字段）;
@@ -373,14 +377,23 @@ class MailThread(models.AbstractModel):
             "duplicate_check_interval": 1800,
         }
         print("444444", message_values)
-        mails = self.env["mail.mail"].search([("mail_message_id", "=", message.id)],)
-        for mail in mails:
-            mail.send_wecom_mail_message(
-                raise_exception=True,
-                company=self.env[msg_vals["model"]]
-                .browse(msg_vals["res_id"])
-                .company_id,
-            )
+        # TODO mail.message 待添加发送企业微信消息方法
+        # mails = self.env["mail.mail"].search(
+        #     [("mail_message_id", "=", message.id)],
+        # )
+        # print(mails)
+        # for mail in mails:
+        #     mail.write(
+        #         {
+        #             "is_wecom_message": True,
+        #         }
+        #     )
+        #     mail.send_wecom_mail_message(
+        #         raise_exception=True,
+        #         company=self.env[msg_vals["model"]]
+        #         .browse(msg_vals["res_id"])
+        #         .company_id,
+        #     )
 
     # ------------------------------------------------------
     # 关注者API
