@@ -98,9 +98,7 @@ class SyncDepartment(models.AbstractModel):
             )
         except ApiException as e:
             times = time.time()
-            result = (
-                _("Failed to synchronized '%s''s WeCom Department") % company.name
-            ) % (company.name, e.errMsg,)
+            result = _("Failed to synchronized '%s''s WeCom Department") % company.name
             if debug:
                 _logger.warning(
                     _(

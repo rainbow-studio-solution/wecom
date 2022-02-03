@@ -32,8 +32,7 @@
         <!-- 2.模板 -->
         <menuitem id="menu_wecom_message_template" name="Template" parent="menu_wecom_message_settings" groups="base.group_erp_manager" action="action_wecom_message_template_tree_all" sequence="2"/>
 
-        <!-- 3.摘要 -->
-        <menuitem name="Digest Message" id="menu_wecom_email_digest" action="digest.digest_digest_action" parent="menu_wecom_message_settings" groups="base.group_erp_manager" sequence="3"/>
+        
 
 
         <!-- <menuitem id="menu_wecom_configuration" name="Settings" parent="menu_wecom_message_root" sequence="900" action="wecom_message.wecom_message_config_settings_action" groups="base.group_erp_manager"/> -->

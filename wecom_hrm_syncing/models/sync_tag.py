@@ -72,7 +72,10 @@ class SyncTag(models.AbstractModel):
             if debug:
                 _logger.warning(
                     _("Contacts tags error synchronizing '%s', error reason: %s")
-                    % (company.name, e.errMsg,)
+                    % (
+                        company.name,
+                        e.errMsg,
+                    )
                 )
             result = _("Failed to synchronized '%s''s WeCom tags") % company.name
             # status = {"employee_category": False}
@@ -93,7 +96,10 @@ class SyncTag(models.AbstractModel):
             self.env["hr.employee.category"]
             .sudo()
             .search(
-                [("tagid", "=", obj["tagid"]), ("company_id", "=", company.id),],
+                [
+                    ("tagid", "=", obj["tagid"]),
+                    ("company_id", "=", company.id),
+                ],
                 limit=1,
             )
         )
@@ -136,7 +142,9 @@ class SyncTag(models.AbstractModel):
     def update_tag(self, company, records, obj):
         try:
             records.write(
-                {"name": obj["tagname"],}
+                {
+                    "name": obj["tagname"],
+                }
             )
             result = True
         except Exception as e:
@@ -170,7 +178,10 @@ class SyncTag(models.AbstractModel):
                     self.env["hr.employee.category"]
                     .sudo()
                     .search(
-                        [("tagid", "=", invalid_tag), ("company_id", "=", company.id),]
+                        [
+                            ("tagid", "=", invalid_tag),
+                            ("company_id", "=", company.id),
+                        ]
                     )
                 )
                 if invalid_odoo_tag:
@@ -223,13 +234,18 @@ class SyncTag(models.AbstractModel):
                                 [
                                     ("wecom_userid", "=", tag_employee["userid"]),
                                     ("company_id", "=", company.id),
+                                    "|",
+                                    ("active", "=", True),
+                                    ("active", "=", False),
                                 ]
                             )
                         )
+
                         if employee:
+                            # print("employee------------", employee.id)
                             employees.append(employee.id)
+                    # print("employees------------", employees)
                     if len(employees) > 0:
-                        print("employees------------", employees)
                         employee_category.write({"employee_ids": [(6, 0, employees)]})
 
                 partylist = tags["partylist"]  # 标签中包含的部门列表
