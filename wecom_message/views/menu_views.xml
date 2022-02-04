@@ -7,8 +7,9 @@
 
         <!-- 1.讨论 对应菜单：设置→技术→讨论 -->
         <menuitem id="menu_wecom_message_discuss" name="Discuss" parent="menu_wecom_message_root" sequence="1"/>
-        <!-- 1.1.消息 -->
 
+        <!-- 1.1.消息 -->
+        <menuitem name="Message" id="menu_wecom_message_message" parent="menu_wecom_message_discuss" action="action_view_wecom_message" sequence="1" groups="base.group_erp_manager"/>
 
         <!-- 1.6.通知 -->
         <menuitem name="Notifications" id="menu_wecom_message_notification" parent="menu_wecom_message_discuss" action="wecom_message_notification_action" sequence="5" groups="base.group_erp_manager"/>

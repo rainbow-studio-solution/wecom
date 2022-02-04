@@ -1,34 +1,9 @@
 # -*- coding: utf-8 -*-
 
-import ast
-import base64
-import datetime
-import dateutil
-import email
-import email.policy
-import hashlib
-import hmac
-import lxml
+
 import logging
-import pytz
-import re
-import socket
-import time
-import threading
-
-from collections import namedtuple
-from email.message import EmailMessage
-from email import message_from_string, policy
-from lxml import etree
-from werkzeug import urls
-from xmlrpc import client as xmlrpclib
-
 from odoo import _, api, exceptions, fields, models, tools, registry, SUPERUSER_ID
-from odoo.exceptions import MissingError
-from odoo.osv import expression
-
-from odoo.tools import ustr
-from odoo.tools.misc import clean_context, split_every
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
@@ -245,9 +220,7 @@ class MailThread(models.AbstractModel):
             )
         else:
             values.update(
-                {
-                    "is_wecom_message": False,
-                }
+                {"is_wecom_message": False,}
             )
 
         attachments = attachments or []
@@ -345,51 +318,69 @@ class MailThread(models.AbstractModel):
     def _notify_record_by_wecom(
         self, message, recipients_data, msg_vals=False, **kwargs
     ):
+        """
+        :param  message: mail.message 记录
+        :param list recipients_data: 收件人
+        :param dic msg_vals: 消息字典值
+        """
+        Model = self.env[msg_vals["model"]]
+        model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
 
-        message_values = {
-            "model": msg_vals["model"],
-            "res_id": msg_vals["res_id"],
-            "record_name": msg_vals["record_name"],
-            # "parent_id": msg_vals.parent_id,
-            "subtype_id": msg_vals["subtype_id"],
-            "message_type": msg_vals["message_type"],
-            "author_id": msg_vals["author_id"],
-            # "partner_ids": msg_vals["partner_ids"],
-            # 以下为企业微信字段
-            "msgtype": "markdown",
-            "body_markdown": _(
-                "### %s sent you a message,You can also view it in your inbox in the system."
-                + "\n\n"
-                + "> **Message content:**\n\n> %s"
-            )
-            % (
-                self.env.user.partner_id.browse(msg_vals["author_id"]).name,
-                msg_vals["body"],
-            ),
-            "message_to_user": self.env[msg_vals["model"]]
-            .browse(msg_vals["res_id"])
-            .wecom_userid,
-            "enable_duplicate_check": True,
-            "duplicate_check_interval": 1800,
-        }
-        print("444444", message_values)
-        # TODO mail.message 待添加发送企业微信消息方法
-        # mails = self.env["mail.mail"].search(
-        #     [("mail_message_id", "=", message.id)],
-        # )
-        # print(mails)
-        # for mail in mails:
-        #     mail.write(
-        #         {
-        #             "is_wecom_message": True,
-        #         }
+        partners = []
+        if "partners" in recipients_data:
+            partners = [r["id"] for r in recipients_data["partners"]]
+        wecom_userids = [
+            p.wecom_userid
+            for p in self.env["res.partner"].browse(partners)
+            if p.wecom_userid
+        ]
+
+        sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
+
+        if msg_vals.get("subject") or message.subject:
+            pass
+        elif msg_vals.get("subject") and message.subject is False:
+            pass
+        elif msg_vals.get("subject") is False and message.subject:
+            msg_vals["subject"] = message.subject
+        else:
+            msg_vals["subject"] = _(
+                "[%s] Sends a message with the record name [%s] in the application [%s]."
+            ) % (sender, Model.browse(msg_vals["res_id"]).name, model_name)
+
+        message.write({"subject": msg_vals["subject"]})
+
+        # company = Model.company_id
+        # if not company:
+        #     company = self.env.company
+        # try:
+        #     wecomapi = self.env["wecom.service_api"].InitServiceApi(
+        #         company.corpid, company.message_app_id.secret
         #     )
-        #     mail.send_wecom_mail_message(
-        #         raise_exception=True,
-        #         company=self.env[msg_vals["model"]]
-        #         .browse(msg_vals["res_id"])
-        #         .company_id,
+        #     msg = self.env["wecom.message.api"].build_message(
+        #         msgtype="markdown",
+        #         touser="|".join(wecom_userids),
+        #         toparty="",
+        #         totag="",
+        #         subject=msg_vals["subject"],
+        #         media_id=None,
+        #         description=None,
+        #         author_id=msg_vals["author_id"],
+        #         body_markdown=_(
+        #             "### %s sent you a message,You can also view it in your inbox in the system."
+        #             + "\n\n"
+        #             + "> **Message content:**\n\n> %s"
+        #         )
+        #         % (sender, msg_vals["body"],),
+        #         enable_duplicate_check=True,
+        #         duplicate_check_interval=1800,
+        #         company=company,
         #     )
+        #     del msg["company"]
+        # except ApiException as exc:
+        #     pass
+        # else:
+        #     pass
 
     # ------------------------------------------------------
     # 关注者API

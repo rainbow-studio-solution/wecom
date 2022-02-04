@@ -3,7 +3,7 @@
 from lxml import etree
 from lxml.html import builder as html
 
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError
 
 
@@ -20,6 +20,18 @@ class Invite(models.TransientModel):
         default=True,
         help="If checked, the partners will receive an message warning they have been added in the document's followers.",
     )
+
+    def _check_is_wecom_message(self, message_values):
+        """
+        判断是否是企微消息
+        """
+        model = message_values["model"]
+        res_id = message_values["res_id"]
+        fields = self.env[model]._fields.keys()
+        if "is_wecom_user" in fields:
+            return self.env[model].browse(res_id).is_wecom_user
+        else:
+            return False
 
     def add_followers(self):
         if not self.env.user.email:
@@ -41,7 +53,7 @@ class Invite(models.TransientModel):
             model_name = self.env["ir.model"]._get(wizard.res_model).display_name
             # 如果选中选项且存在邮件，则发送电子邮件（不要发送无效邮件）
             if (
-                (wizard.send_mail or wizard.send_wecom_message) and wizard.message and not wizard.message == "<br>"
+                wizard.send_mail and wizard.message and not wizard.message == "<br>"
             ):  # 删除邮件时，cleditor会保留一个<br>
                 message = self.env["mail.message"].create(
                     {
@@ -78,7 +90,7 @@ class Invite(models.TransientModel):
                         partners_data.append(dict(pdata, type="portal"))
                     else:  # 没有用户，因此是客户
                         partners_data.append(dict(pdata, type="customer"))
-                print(message, partners_data)
+
                 document._notify_record_by_email(
                     message,
                     {"partners": partners_data, "channels": []},
@@ -91,6 +103,53 @@ class Invite(models.TransientModel):
                 )
                 message.unlink()
 
-                
+            if (
+                wizard.send_wecom_message
+                and wizard.message
+                and not wizard.message == "<br>"
+            ):  # 删除邮件时，cleditor会保留一个<br>
+                # tools.html2plaintext
+                msg_vals = {
+                    "subject": _(
+                        "Invitation to follow %(document_model)s: %(document_name)s",
+                        document_model=model_name,
+                        document_name=document.display_name,
+                    ),
+                    "message_type": "email",
+                    "body": tools.html2plaintext(wizard.message),
+                    "record_name": document.display_name,
+                    "email_from": email_from,
+                    "model": wizard.res_model,
+                    "res_id": wizard.res_id,
+                    "author_id": self.env.user.partner_id.id,
+                    #
+                    "is_wecom_message": True,
+                    "msgtype": "markdown",
+                    "enable_duplicate_check": True,
+                    "duplicate_check_interval": 1800,
+                }
+                message = self.env["mail.message"].create(msg_vals)
+                partners_data = []
+                recipient_data = self.env["mail.followers"]._get_recipient_data(
+                    document, "comment", False, pids=new_partners.ids
+                )
+                for pid, cid, active, pshare, ctype, notif, groups in recipient_data:
+                    pdata = {
+                        "id": pid,
+                        "share": pshare,
+                        "active": active,
+                        "notif": "email",
+                        "groups": groups or [],
+                    }
+                    if not pshare and notif:  # 有一个用户，但不是共享的，因此是用户
+                        partners_data.append(dict(pdata, type="user"))
+                    elif pshare and notif:  # 具有用户并且是共享的，因此是门户
+                        partners_data.append(dict(pdata, type="portal"))
+                    else:  # 没有用户，因此是客户
+                        partners_data.append(dict(pdata, type="customer"))
 
+                document._notify_record_by_wecom(
+                    message, {"partners": partners_data, "channels": []}, msg_vals
+                )
+                # message.unlink()
         return {"type": "ir.actions.act_window_close"}

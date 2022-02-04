@@ -37,6 +37,7 @@
         # "views/mail_message_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
+        "views/mail_message_views.xml",
         "views/mail_template_views.xml",
         "views/mail_mail_views.xml",
         "views/mail_notification_views.xml",
