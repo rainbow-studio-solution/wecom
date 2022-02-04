@@ -8,9 +8,7 @@ from binascii import Error as binascii_error
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
 
-from datetime import datetime
-from datetime import timezone
-from datetime import timedelta
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 _image_dataurl = re.compile(
@@ -29,14 +27,18 @@ class Message(models.Model):
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
-        string="To Departments", help="Message recipients (departments)",
+        string="To Departments",
+        help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
+    message_to_tag = fields.Char(
+        string="To Tags",
+        help="Message recipients (tags)",
+    )
 
     body_html = fields.Html("Html Contents", default="", sanitize_style=True)
     body_json = fields.Text("Json Contents", default={})
     body_markdown = fields.Text("Markdown Contents", default="")
-    is_wecom_message = fields.Boolean("Is WeCom Message")
+    is_wecom_message = fields.Boolean("Is WeCom Message",readonly=True)
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -54,6 +56,7 @@ class Message(models.Model):
         ],
         string="Message type",
         default="text",
+        readonly=True
     )
 
     # 企业微信消息选项
@@ -85,26 +88,118 @@ class Message(models.Model):
         default="1800",
     )
 
+    state = fields.Selection(
+        [
+            ("sent", "Sent"),
+            ("exception", "Exception"),
+            ("recall", "Recall"),
+        ],
+        "Status",
+        readonly=True,
+        copy=False,
+        default="sent",
+    )
+    failure_reason = fields.Text(
+        'Failure Reason', readonly=1,)
+
     # ------------------------------------------------------
     # CRUD / ORM
     # ------------------------------------------------------
-    # @api.model_create_multi
-    # def create(self, values_list):
-    #     tracking_values_list = []
-    #     # for values in values_list:
-    #     #     if "message_type" not in values:
-    #     #         values["message_type"] = "markdown"
-    #     messages = super(Message, self).create(values_list)
-    #     for message, values, tracking_values_cmd in zip(
-    #         messages, values_list, tracking_values_list
-    #     ):
-    #         if message.is_thread_message(values):
-    #             message._invalidate_documents(values.get("model"), values.get("res_id"))
-
-    #     return super(Message, self).create(values_list)
+    
 
     # ------------------------------------------------------
-    # MESSAGE READ / FETCH / FAILURE API
-    # 消息读取      / 获取  /   失败API
+    # 工具和发送机制
     # ------------------------------------------------------
 
+    def send_wecom_message(self):
+        """
+        发送企业微信消息
+        :return:
+        """
+        
+    def recall_message(self):
+        """
+        撤回消息
+        :return:
+        """
+        if self.is_wecom_message:
+            # 获取公司
+            company = self.env[self.model].browse(self.res_id).company_id
+            if not company:
+                company = self.env.company
+
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+                res = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "MESSAGE_RECALL"
+                    ),
+                    {"msgid": self.message_id},
+                )
+                # print(res)
+
+            except ApiException as e:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    e, raise_exception=True
+                )
+            else:
+                if res["errcode"] == 0:
+                    return self.write({"state": "recall", "message_id": None})
+
+    def resend_message(self):
+        """
+        重新发送消息
+        """
+        if self.is_wecom_message:
+            # 获取公司
+            company = self.env[self.model].browse(self.res_id).company_id
+            if not company:
+                company = self.env.company
+
+            wecom_userids = []
+            if self.partner_ids:
+                wecom_userids = [
+                    p.wecom_userid
+                    for p in self.partner_ids
+                    if p.wecom_userid
+                ]
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+                msg = self.env["wecom.message.api"].build_message(
+                    msgtype=self.msgtype,
+                    touser="|".join(wecom_userids),
+                    toparty=self.message_to_party,
+                    totag=self.message_to_tag,
+                    subject=self.subject,
+                    media_id=False,
+                    description=self.description,
+                    author_id=self.author_id,
+                    body_html=self.body_html,
+                    body_json=self.body_json,
+                    body_markdown=self.body_markdown,
+                    safe=self.safe,
+                    enable_id_trans=self.enable_id_trans,
+                    enable_duplicate_check=self.enable_duplicate_check,
+                    duplicate_check_interval=self.duplicate_check_interval,
+                    company=company,
+                )
+                del msg["company"]
+                res = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "MESSAGE_SEND"
+                    ),
+                    msg,
+                )
+
+            except ApiException as e:
+                return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    e, raise_exception=True
+                )
+            else:
+                if res["errcode"] == 0:
+                    return self.write({"state": "sent", "message_id": res["msgid"]})
+        

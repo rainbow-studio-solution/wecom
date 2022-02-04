@@ -220,7 +220,9 @@ class MailThread(models.AbstractModel):
             )
         else:
             values.update(
-                {"is_wecom_message": False,}
+                {
+                    "is_wecom_message": False,
+                }
             )
 
         attachments = attachments or []
@@ -348,39 +350,69 @@ class MailThread(models.AbstractModel):
                 "[%s] Sends a message with the record name [%s] in the application [%s]."
             ) % (sender, Model.browse(msg_vals["res_id"]).name, model_name)
 
-        message.write({"subject": msg_vals["subject"]})
+        body_markdown = _(
+            "### %s sent you a message,You can also view it in your inbox in the system."
+            + "\n\n"
+            + "> **Message content:**\n\n> %s"
+        ) % (
+            sender,
+            msg_vals["body"],
+        )
 
-        # company = Model.company_id
-        # if not company:
-        #     company = self.env.company
-        # try:
-        #     wecomapi = self.env["wecom.service_api"].InitServiceApi(
-        #         company.corpid, company.message_app_id.secret
-        #     )
-        #     msg = self.env["wecom.message.api"].build_message(
-        #         msgtype="markdown",
-        #         touser="|".join(wecom_userids),
-        #         toparty="",
-        #         totag="",
-        #         subject=msg_vals["subject"],
-        #         media_id=None,
-        #         description=None,
-        #         author_id=msg_vals["author_id"],
-        #         body_markdown=_(
-        #             "### %s sent you a message,You can also view it in your inbox in the system."
-        #             + "\n\n"
-        #             + "> **Message content:**\n\n> %s"
-        #         )
-        #         % (sender, msg_vals["body"],),
-        #         enable_duplicate_check=True,
-        #         duplicate_check_interval=1800,
-        #         company=company,
-        #     )
-        #     del msg["company"]
-        # except ApiException as exc:
-        #     pass
-        # else:
-        #     pass
+        message.write(
+            {
+                "subject": msg_vals["subject"],
+                "message_to_user": "|".join(wecom_userids),
+                "message_to_party": None,
+                "message_to_tag": None,
+                "body_markdown": body_markdown,
+            }
+        )
+
+        company = Model.company_id
+        if not company:
+            company = self.env.company
+        try:
+            wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.message_app_id.secret
+            )
+            msg = self.env["wecom.message.api"].build_message(
+                msgtype="markdown",
+                touser="|".join(wecom_userids),
+                toparty="",
+                totag="",
+                subject=msg_vals["subject"],
+                media_id=None,
+                description=None,
+                author_id=msg_vals["author_id"],
+                body_markdown=body_markdown,
+                safe=True,
+                enable_id_trans=True,
+                enable_duplicate_check=True,
+                duplicate_check_interval=1800,
+                company=company,
+            )
+   
+            del msg["company"]
+            res = wecomapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("MESSAGE_SEND"),
+                msg,
+            )
+        except ApiException as exc:
+            error = self.env["wecom.service_api_error"].get_error_by_code(exc.errCode)
+            message.write(
+                {
+                    "state": "exception",
+                    "failure_reason": "%s %s" % (str(error["code"]), error["name"]),
+                }
+            )
+        else:
+            message.write(
+                {
+                    "state": "sent",
+                    "message_id": res["msgid"],
+                }
+            )
 
     # ------------------------------------------------------
     # 关注者API

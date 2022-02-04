@@ -62,6 +62,7 @@ class Invite(models.TransientModel):
                             document_model=model_name,
                             document_name=document.display_name,
                         ),
+                        
                         "body": wizard.message,
                         "record_name": document.display_name,
                         "email_from": email_from,
@@ -129,6 +130,7 @@ class Invite(models.TransientModel):
                     "duplicate_check_interval": 1800,
                 }
                 message = self.env["mail.message"].create(msg_vals)
+                message.write({"partner_ids": new_partners})
                 partners_data = []
                 recipient_data = self.env["mail.followers"]._get_recipient_data(
                     document, "comment", False, pids=new_partners.ids
