@@ -62,10 +62,6 @@ class MailThread(models.AbstractModel):
 
     _inherit = "mail.thread"
 
-    is_wecom_message = fields.Boolean(
-        "WeCom Message",
-    )
-
     # ------------------------------------------------------
     # 消息推送API
     # MESSAGE POST API

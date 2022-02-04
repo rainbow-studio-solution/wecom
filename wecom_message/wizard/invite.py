@@ -41,7 +41,7 @@ class Invite(models.TransientModel):
             model_name = self.env["ir.model"]._get(wizard.res_model).display_name
             # 如果选中选项且存在邮件，则发送电子邮件（不要发送无效邮件）
             if (
-                wizard.send_mail and wizard.message and not wizard.message == "<br>"
+                (wizard.send_mail or wizard.send_wecom_message) and wizard.message and not wizard.message == "<br>"
             ):  # 删除邮件时，cleditor会保留一个<br>
                 message = self.env["mail.message"].create(
                     {
@@ -78,7 +78,7 @@ class Invite(models.TransientModel):
                         partners_data.append(dict(pdata, type="portal"))
                     else:  # 没有用户，因此是客户
                         partners_data.append(dict(pdata, type="customer"))
-
+                print(message, partners_data)
                 document._notify_record_by_email(
                     message,
                     {"partners": partners_data, "channels": []},
@@ -90,4 +90,7 @@ class Invite(models.TransientModel):
                     {"type": "deletion", "message_ids": message.ids},
                 )
                 message.unlink()
+
+                
+
         return {"type": "ir.actions.act_window_close"}
