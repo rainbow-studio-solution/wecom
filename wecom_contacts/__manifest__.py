@@ -16,8 +16,9 @@
 
 
         """,
-    "depends": ["contacts", "wecom_message",],
-    "data": ["views/res_partner_views.xml",],
+    "depends": ["contacts",],
+    "data": ["views/res_partner_views.xml",
+    ],
     "external_dependencies": {"python": [],},
     "qweb": ["static/src/xml/*.xml",],
 }

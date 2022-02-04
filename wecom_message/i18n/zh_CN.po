@@ -220,10 +220,6 @@ msgstr "显示名称"
 msgid "Dynamic Placeholder Generator"
 msgstr "动态定位符生成器"
 
-#. module: wecom_message
-#: model:ir.actions.act_window,name:wecom_message.action_view_wecom_mail
-msgid "EMail Messages"
-msgstr "EMail消息"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_search
@@ -397,11 +393,7 @@ msgstr "消息选项"
 msgid "Message Template Preview"
 msgstr "消息模板预览"
 
-#. module: wecom_message
-#: model:ir.actions.act_window,name:wecom_message.action_wecom_message_template_tree_all model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_tree
-#: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
-msgid "Message Templates"
-msgstr "消息模板"
+
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_form
@@ -581,10 +573,6 @@ msgstr "发送重置密码建议"
 msgid "Send Password Reset Instructions Message"
 msgstr "发送重置密码建议消息"
 
-#. module: wecom_message
-#: model:ir.ui.menu,name:wecom_message.menu_wecom_message_records
-msgid "Send Records"
-msgstr "发送记录"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.res_users_view_form
@@ -638,8 +626,8 @@ msgstr "任务卡片消息"
 
 #. module: wecom_message
 #: model:ir.ui.menu,name:wecom_message.menu_wecom_message_template
-msgid "Template"
-msgstr "消息模板"
+msgid "Email Message Template"
+msgstr "邮件消息模板"
 
 #. module: wecom_message
 #: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__msgtype__template_card model:ir.model.fields.selection,name:wecom_message.selection__mail_template__msgtype__template_card

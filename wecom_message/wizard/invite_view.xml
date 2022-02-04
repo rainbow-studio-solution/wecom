@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="mail_wizard_invite_form">
+            <field name="name">Add Followers</field>
+            <field name="model">mail.wizard.invite</field>
+            <field name="inherit_id" ref="mail.mail_wizard_invite_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_ids']" position="replace">
+                    <field name="partner_ids" widget="many2many_tags" placeholder="Add contacts to notify..." invisible="context.get('mail_invite_follower_channel_only')"/>
+                </xpath>
+                <xpath expr="//field[@name='send_mail']" position="after">
+                    <field name="send_wecom_message"/>
+                </xpath>
+                <xpath expr="//field[@name='message']" position="replace">
+                    <field name="message" attrs="{'invisible': ['&amp;',('send_mail','!=',True),('send_wecom_message','!=',True)]}" options="{'style-inline': true, 'no-attachment': true}" class="test_message"/>
+                </xpath>
+            </field>
+
+        </record>
+    </data>
+</odoo>
