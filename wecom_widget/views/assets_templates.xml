@@ -10,18 +10,12 @@
             <script type="text/javascript" src="/wecom_widget/static/src/js/jsoneditor.js"></script>
             <script type="text/javascript" src="/wecom_widget/static/src/js/dialog.js"></script>
 
-
-
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/jsoneditor.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/dialog.scss"/>
             <link rel="stylesheet" type="text/scss" href="/wecom_widget/static/src/scss/showpassword.scss"/>
-   
+
         </xpath>
     </template>
 
-    <!-- <template id="qunit_suite" name="wecom_widget.qunit_suite" inherit_id="web.qunit_suite">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/wecom_widget/static/tests/web_widget_markdown_tests.js" />
-        </xpath>
-    </template> -->
+
 </odoo>

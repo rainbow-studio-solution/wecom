@@ -14,11 +14,26 @@
         "web",
     ],
     "data": [
-        "views/assets_templates.xml",
+        # "views/assets_templates.xml",
     ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
+    "assets": {
+        "web.assets_backend":[
+            # SCSSS
+            "wecom_widget/static/src/scss/jsoneditor.scss",
+            "wecom_widget/static/src/scss/dialog.scss",
+            "wecom_widget/static/src/scss/showpassword.scss",
+            # js
+            "wecom_widget/static/src/js/wecom_markdown.js",
+            "wecom_widget/static/src/js/show_password.js",
+            "wecom_widget/static/src/js/fields_wecom_message_widget.js",
+            "wecom_widget/static/src/js/wecom_widget_image_url.js",
+            "wecom_widget/static/src/js/jsoneditor.js",
+            "wecom_widget/static/src/js/dialog.js",
+        ],
+        "web.assets_qweb": [
+            'wecom_widget/static/src/xml/*.xml',
+        ],
+    },
     # "external_dependencies": {
     #     "python": ["markdown"],
     # },
@@ -26,4 +41,5 @@
     "installable": True,
     "auto_install": True,
     "application": False,
+    "license": "LGPL-3",
 }

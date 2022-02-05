@@ -7,6 +7,3 @@ wecom_service_api_list_access_right_user,access.wecom.service_api_list,model_wec
 
 wecom_service_api_error_access_right,access.wecom.service_api_error,model_wecom_service_api_error,base.group_erp_manager,1,1,1,1
 wecom_service_api_error_access_right_user,access.wecom.service_api_error,model_wecom_service_api_error,base.group_user,1,0,0,0
-
-wecom_app_event_type_access_right,access.wecom.app.event_type_right,model_wecom_app_event_type,base.group_erp_manager,1,1,1,1
-

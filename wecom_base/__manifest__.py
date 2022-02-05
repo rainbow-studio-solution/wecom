@@ -3,9 +3,9 @@
 {
     "name": "WeCom Base",
     "author": "RStudio",
-    "sequence": 600,
+    "sequence": 601,
     "installable": True,
-    "application": False,
+    "application": True,
     "auto_install": False,
     "category": "WeCom/WeCom",
     "website": "https://gitee.com/rainbowstudio/wecom",
@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["base_setup", "hr", "wecom_l10n", "wecom_widget"],
+    "depends": ["base_setup", "wecom_l10n", "wecom_widget", "wecom_api"],
     "data": [
         "security/wecom_base_security.xml",
         "security/ir.model.access.csv",
@@ -26,14 +26,24 @@
         "data/wecom_app_type_data.xml",
         "data/wecom_apps_data.xml",
         "data/wecom_app_config_data.xml",
-        "views/assets_templates.xml",
+        # "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
         "views/res_users_views.xml",
         # "views/wecom_apps_views.xml",
-        "views/wecom_menu.xml",
+        "views/menu_views.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
+    'assets': {"web.assets_backend":[
+        # SCSSS
+        "wecom_base/static/src/scss/wecom_settings_navigation.scss",
+        # JS
+        "wecom_base/static/src/js/wecom_settings_navigation.js"
+        ],
+    "web.assets_qweb": [
+            'wecom_base/static/src/xml/*.xml',
+        ],
+    },
     "external_dependencies": {"python": [],},
+    "license": "LGPL-3",
     # "post_init_hook": "_open_wecom_settings",
 }
