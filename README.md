@@ -7,7 +7,9 @@
 [![SDK](http://img.shields.io/badge/企微SDK-API-F34B7D.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom_sdk_service/)
 
 
-*2022/1/14* 
+*2022/2/5* 
+
+14.0开发导致为止了，除了修复bug外，不添加新功能了
 
 > 新增功能：
 
@@ -26,8 +28,10 @@
 - Docker
   - [路径](/docker) 
 
-> TODO :
+> 完成 :
 - 重构企业微信消息功能，在继承mail和不继承mail反复横跳，最终决定还是继承mail
+
+> 待完成：
 - 使用ReadtheDocs上线文档
   
 ## 功能模块介绍
