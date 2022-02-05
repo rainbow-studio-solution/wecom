@@ -7,15 +7,109 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-01 07:54+0000\n"
-"PO-Revision-Date: 2021-12-01 15:58+0800\n"
+"PO-Revision-Date: 2022-02-05 15:01+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_web_widget_colorpicker
+msgid "Added Color Picker for From"
+msgstr "增加了颜色选择器"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_web_widget_colorpicker
+msgid "Web Widget Colorpicker"
+msgstr "Web颜色选择小部件"
+
+#. module: base
+#: model:ir.module.module,description:base.module_web_widget_colorpicker
+msgid ""
+"\n"
+"\n"
+"            For Form View - added = widget=\"colorpicker\"\n"
+"            \n"
+"            ...\n"
+"            <field name=\"arch\" type=\"xml\">\n"
+"                <form string=\"View name\">\n"
+"                    ...\n"
+"                    <field name=\"colorpicker\" widget=\"colorpicker\"/>\n"
+"                    ...\n"
+"                </form>\n"
+"            </field>\n"
+"            ...\n"
+"\n"
+"    "
+msgstr ""
+"\n"
+"\n"
+"            对于表单视图-添加 widget=\"colorpicker\"\n"
+"            \n"
+"            ...\n"
+"            <field name=\"arch\" type=\"xml\">\n"
+"                <form string=\"View name\">\n"
+"                    ...\n"
+"                    <field name=\"colorpicker\" widget=\"colorpicker\"/>\n"
+"                    ...\n"
+"                </form>\n"
+"            </field>\n"
+"            ...\n"
+"\n"
+"    "
+
+#. module: base
+#: model:ir.module.module,summary:base.module_website_china_extends
+msgid "Baidu map,Baidu Analytics,social media,ICP filing"
+msgstr "百度地图、百度分析、社交媒体、ICP备案"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_website_china_extends
+msgid "Chinese website Extension"
+msgstr "中文网站扩展"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_digest_message
+msgid "Wecom KPI Digests Message"
+msgstr "企微KPI摘要消息"
+
+#. module: base
+#: model:ir.module.module,description:base.module_wecom_digest_message
+msgid ""
+"\n"
+"Use Enterprise WeChat to periodically send KPI digest messages periodically.\n"
+msgstr ""
+"\n"
+"通过企微定期发送KPI摘要。\n"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wecom_digest_message
+msgid ""
+"\n"
+"Use Enterprise WeChat to periodically send KPI digest messages periodically.  \n"
+msgstr ""
+"\n"
+"通过企微定期发送KPI摘要。  \n"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_contacts
+msgid "WeCom Contacts"
+msgstr "企微联系人"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wecom_contacts
+msgid ""
+"\n"
+"        WeCom Contacts\n"
+"        "
+msgstr ""
+"\n"
+"        企微联系人n\n"
+"        "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_message

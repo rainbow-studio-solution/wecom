@@ -12,7 +12,7 @@
         <menuitem name="Message" id="menu_wecom_message_message" parent="menu_wecom_message_discuss" action="action_view_wecom_message" sequence="1" groups="base.group_erp_manager"/>
 
         <!-- 1.6.通知 -->
-        <menuitem name="Notifications" id="menu_wecom_message_notification" parent="menu_wecom_message_discuss" action="wecom_message_notification_action" sequence="5" groups="base.group_erp_manager"/>
+        <!-- <menuitem name="Notifications" id="menu_wecom_message_notification" parent="menu_wecom_message_discuss" action="wecom_message_notification_action" sequence="5" groups="base.group_erp_manager"/> -->
 
 
         <!-- 2.邮件 应菜单：设置→技术→电子邮件-->
@@ -37,15 +37,13 @@
         <!-- 6.黑名单 -->
         <!-- <menuitem name="Email Blacklist" id="menu_wecom_discuss_blacklist" action="mail.mail_blacklist_action" parent="menu_wecom_discuss" sequence="6"/> -->
 
-        <!-- 对应菜单：设置→技术→电子邮件 -->
+        <!-- 3.对应菜单：设置→技术→电子邮件 -->
         <menuitem id="menu_wecom_message_settings" name="Settings" parent="menu_wecom_message_root" sequence="2"/>
+
+
 
         <!-- 1.邮件 -->
         <!-- <menuitem id="menu_wecom_email_message" name="EMail Message" parent="menu_wecom_message_settings" action="action_view_wecom_mail" groups="base.group_erp_manager" sequence="1"/> -->
-
-
-
-
 
 
         <!-- <menuitem id="menu_wecom_configuration" name="Settings" parent="menu_wecom_message_root" sequence="900" action="wecom_message.wecom_message_config_settings_action" groups="base.group_erp_manager"/> -->

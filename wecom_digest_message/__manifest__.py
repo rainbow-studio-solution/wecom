@@ -16,6 +16,6 @@ Use Enterprise WeChat to periodically send KPI digest messages periodically.
 Use Enterprise WeChat to periodically send KPI digest messages periodically.
 """,
     "depends": ["digest", "wecom_material", "wecom_message",],
-    "data": ["data/digest_data.xml", "views/digest_views.xml",],
+    "data": ["data/digest_data.xml", "views/digest_views.xml","views/menu_views.xml",],
     "qweb": ["static/src/xml/*.xml",],
 }
