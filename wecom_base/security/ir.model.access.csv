@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wecom_apps_access_right,access.wecom.apps,model_wecom_apps,base.group_erp_manager,1,1,1,1
+
+wecom_app_type_access_right,access.wecom.app.type,model_wecom_app_type,base.group_erp_manager,1,1,1,1
+wecom_app_subtype_access_right,access.wecom.app.subtype,model_wecom_app_subtype,base.group_erp_manager,1,1,1,1
+
+wecom_app_callback_service_access_right,access.wecom.app.callback_service_right,model_wecom_app_callback_service,base.group_erp_manager,1,1,1,1
+
+wecom_app_config_access_right,access.wecom.app.config,model_wecom_app_config,base.group_erp_manager,1,1,1,1

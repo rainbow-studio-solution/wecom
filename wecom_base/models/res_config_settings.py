@@ -1,89 +1,28 @@
 # -*- coding: utf-8 -*-
 
+from random import weibullvariate
 from odoo import models, fields, api, _
 
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    company_id = fields.Many2one(
-        "res.company",
-        string="Company",
-        required=True,
-        default=lambda self: self.env.company,
-    )
-
     # 基础
     is_wecom_organization = fields.Boolean(
         related="company_id.is_wecom_organization", readonly=False
     )
-    company_name = fields.Char(related="company_id.display_name", string="Company Name")
-    abbreviated_name = fields.Char(related="company_id.abbreviated_name")
+    company_name = fields.Char(
+        related="company_id.name", string="Company Name", readonly=False
+    )
+    abbreviated_name = fields.Char(
+        related="company_id.abbreviated_name", readonly=False
+    )
     corpid = fields.Char(string="Corp ID", related="company_id.corpid", readonly=False)
 
     debug_enabled = fields.Boolean("Turn on debug mode", default=True)
 
-    img_path = fields.Char(
-        "WeCom Picture storage path",
-        config_parameter="wecom.img_path",
-    )
-
-    # 通讯录
-    contacts_secret = fields.Char(related="company_id.contacts_secret", readonly=False)
-
-    contacts_access_token = fields.Char(related="company_id.contacts_access_token")
-
-    contacts_auto_sync_hr_enabled = fields.Boolean(
-        related="company_id.contacts_auto_sync_hr_enabled", readonly=False
-    )
-
-    contacts_sync_hr_department_id = fields.Integer(
-        related="company_id.contacts_sync_hr_department_id", readonly=False
-    )
-
-    contacts_edit_enabled = fields.Boolean(
-        related="company_id.contacts_edit_enabled", readonly=False
-    )
-
-    contacts_sync_user_enabled = fields.Boolean(
-        related="company_id.contacts_sync_user_enabled", readonly=False
-    )
-
-    contacts_use_system_default_avatar = fields.Boolean(
-        related="company_id.contacts_use_system_default_avatar", readonly=False
-    )
-    contacts_update_avatar_every_time_sync = fields.Boolean(
-        related="company_id.contacts_update_avatar_every_time_sync", readonly=False
-    )
-
-    @api.onchange("contacts_use_system_default_avatar")
-    def _onchange_contacts_use_system_default_avatar(self):
-        if self.contacts_use_system_default_avatar:
-            self.contacts_update_avatar_every_time_sync = False
-
-    # JS API
-    corp_jsapi_ticket = fields.Char(
-        "Enterprise JS API Ticket",
-        related="company_id.corp_jsapi_ticket",
-        readonly=True,
-    )
-
-    agent_jsapi_ticket = fields.Char(
-        "Application JS API Ticket",
-        related="company_id.agent_jsapi_ticket",
-        readonly=True,
-    )
-
-    jsapi_debug = fields.Boolean(
-        "JS API Debug mode",
-        config_parameter="wecom.jsapi_debug",
-        default=False,
-    )
-
-    js_api_list = fields.Char(
-        "JS API Inertface List",
-        related="company_id.js_api_list",
-        readonly=False,
+    resources_path = fields.Char(
+        "WeCom resources storage path", config_parameter="wecom.resources_path",
     )
 
     @api.model
@@ -95,9 +34,7 @@ class ResConfigSettings(models.TransientModel):
             True if ir_config.get_param("wecom.debug_enabled") == "True" else False
         )
 
-        res.update(
-            debug_enabled=debug_enabled,
-        )
+        res.update(debug_enabled=debug_enabled,)
         return res
 
     def set_values(self):
@@ -113,9 +50,7 @@ class ResConfigSettings(models.TransientModel):
             "res_model": "res.company",
             "res_id": self.env.company.id,
             "target": "current",
-            "context": {
-                "form_view_initial_mode": "edit",
-            },
+            "context": {"form_view_initial_mode": "edit",},
         }
 
     @api.depends("company_id")
@@ -134,3 +69,10 @@ class ResConfigSettings(models.TransientModel):
         action["target"] = "new"
 
         return action
+
+    def get_app_info(self):
+        """
+        获取企业应用信息
+        :param agentid:
+        :return:
+        """

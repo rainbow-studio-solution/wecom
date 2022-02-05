@@ -1,6 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-"access_wizard_wecom_contact","access.wizard.wecom.contact","model_wizard_wecom_contacts","hr.group_hr_manager",1,1,1,0
-"access_wizard_wecom_user","access.wizard.wecom.user","model_wizard_wecom_user","base.group_erp_manager",1,1,1,0
-"access_wizard_wecom_tag","access.wizard.wecom.tag","model_wizard_wecom_tag","base.group_erp_manager",1,1,1,0
-"access_change_type_wizard","access.change.type.wizard","model_change_type_wizard","base.group_erp_manager",1,1,1,0
-"access_change_type_user","access.change.type.user","model_change_type_user","base.group_erp_manager",1,1,1,0

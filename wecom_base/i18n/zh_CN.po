@@ -6,39 +6,46 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-02 06:10+0000\n"
-"PO-Revision-Date: 2021-12-02 14:13+0800\n"
+"POT-Creation-Date: 2021-12-24 06:57+0000\n"
+"PO-Revision-Date: 2021-12-24 14:58+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "1: 171px * 171px"
+msgstr ""
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "2: 399px * 399px"
+msgstr ""
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "3: 741px * 741px"
+msgstr ""
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "<i class=\"fa fa-building fa-lg\" aria-label=\"Department\"/>"
-msgstr "<i class=\"fa fa-building fa-lg\" aria-label=\"部门\"/>"
+msgid "<i class=\"fa fa-archive fa-lg\" aria-label=\"WeCom resources\"/>"
+msgstr "<i class=\"fa fa-archive fa-lg\" aria-label=\"企业微信资源\"/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Contacts access token\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"通讯录访问令牌\"/>"
+msgid "<i class=\"fa fa-flag fa-lg\" aria-label=\"Corp Id\"/>"
+msgstr "<i class=\"fa fa-flag fa-lg\" aria-label=\"企业Id\"/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Corp ID\"/>"
 msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "<i class=\"fa fa-lock fa-lg\" aria-label=\"Contacts Secret\"/>"
-msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录密钥/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -48,24 +55,13 @@ msgid ""
 msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees.</span>"
-msgstr "<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_use_system_default_avatar
 msgid ""
-"<span class=\"text-left\">\n"
-"                                            <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/>\n"
-" Contact synchronization Settings\n"
-"                                        </span>\n"
-"                                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
+"<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees.</span>\n"
+"                    <br>Value: True or False"
 msgstr ""
-"<span class=\"text-left\">\n"
-"                                            <i class=\"fa fa-book fa-lg\" aria-label=\"通讯录同步\"/>\n"
-" 通讯录同步设置\n"
-"                                        </span>\n"
-"                                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
+"<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>\n"
+"                    <br>值: True 或 False"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
@@ -76,27 +72,10 @@ msgid ""
 "                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"WeCom Companies\"/>\n"
+"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"企业微信公司\"/>\n"
 "企业微信公司设置</span>\n"
 "                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"滚动到底部"
 "\"/>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-book fa-lg\" aria-label=\"Contact synchronization\"/>\n"
-" Contact synchronization Settings\n"
-"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the "
-"companies identified as WeCom organizations.\"/>\n"
-"                            </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-book fa-lg\" aria-label=\"通讯录同步\"/>\n"
-" 通讯录同步设置\n"
-"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"\"此处设置的值是标识为企业微信组"
-"织的公司。\"/>\n"
-"                            </span>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -120,14 +99,23 @@ msgid ""
 "                            </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"Wecom Global Settings\"/>\n"
+"                                <i class=\"fa fa-globe fa-lg\" aria-label=\"企业微信全局设置\"/>\n"
 "                                企业微信全局设置\n"
 "                            </span>"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>"
-msgstr "<span class=\"text-warning font-weight-bold\">请谨慎使用此功能。</span>"
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid ""
+"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>\n"
+"                    <br>Value: True or False"
+msgstr ""
+"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_aeskey
+msgid "AES Key"
+msgstr "AES密钥"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__abbreviated_name
@@ -136,37 +124,82 @@ msgid "Abbreviated Name"
 msgstr "公司简称"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid ""
-"Address book synchronization secret. Check it in \"Administrative Tools\" → \"Address Book Synchronization\" (need "
-"to turn on \"API interface synchronization\"). To ensure data security, the key must not be leaked."
-msgstr ""
-"通讯簿同步密钥。 在“管理工具”→“地址簿同步”中进行检查（需要打开“ API接口同步”）。 为了确保数据安全，切勿泄露密钥。"
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__access_token
+msgid "Access Token"
+msgstr "访问令牌"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_edit_enabled
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_edit_enabled
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__active
+msgid "Active"
+msgstr "有效"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__agentid
+msgid "Agent ID"
+msgstr "应用ID"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_edit_enabled
 msgid "Allow API to edit WeCom contacts"
 msgstr "允许API编辑企业微信通讯录"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_auto_sync_hr_enabled
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_auto_sync_hr_enabled
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_auto_sync_hr_enabled
 msgid "Allow WeCom Contacts are automatically updated to HR"
-msgstr "允许企业微信通讯录自动更新为HR"
+msgstr "允许企微通讯录自动更新到HR"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_sync_user_enabled
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_sync_user_enabled
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_sync_user_enabled
 msgid "Allow WeCom contacts to automatically update system accounts"
-msgstr "允许企业微信通讯录自动更新系统帐户"
+msgstr "允许企微通讯录自动更新系统帐户"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__agent_jsapi_ticket
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__agent_jsapi_ticket
-msgid "Application JS API Ticket"
-msgstr ""
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__app_id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__app_id
+#: model:ir.ui.menu,name:wecom_base.menu_wecom_agent
+msgid "Application"
+msgstr "应用"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__app_name
+msgid "Application Name"
+msgstr "应用名称"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__subtype_ids
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__subtype_ids
+msgid "Application Subtype"
+msgstr "应用子类型"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type
+msgid "Application Type"
+msgstr "应用类型"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type_id
+msgid "Application Types"
+msgstr "应用类型"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__type_code
+msgid "Application type code"
+msgstr "应用类型代码"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_approval
+msgid "Approval"
+msgstr "审批"
+
+#. module: wecom_base
+#: model:wecom.app.type,name:wecom_base.wecom_app_type_base
+msgid "Base application"
+msgstr "基础应用"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_calendar
+msgid "Calendar"
+msgstr "日程"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -180,9 +213,28 @@ msgstr ""
 "                                            用于调试"
 
 #. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_checkin
+msgid "Checkin"
+msgstr "打卡"
+
+#. module: wecom_base
 #: model_terms:ir.actions.act_window,help:wecom_base.open_module_tree_user
 msgid "Click to add a new user."
 msgstr "单击以添加新用户。"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__code
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__code
+msgid "Code"
+msgstr "代码"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_subtype.py:0 code:addons/wecom_base/models/wecom_app_type.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_subtype.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_type.py:0
+#, python-format
+msgid "Code must be unique !"
+msgstr "代码必须是唯一的！"
 
 #. module: wecom_base
 #: model:ir.model,name:wecom_base.model_res_company
@@ -198,7 +250,7 @@ msgid "Companies settings"
 msgstr "公司设置"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__company_id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -218,16 +270,15 @@ msgid "Contact"
 msgstr "联系人"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_secret
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_secret
-msgid "Contact Secret"
-msgstr "通讯录密钥"
+#: model:wecom.apps,description:wecom_base.wecom_app_contacts
+msgid "Contacts can be synchronized through the API interface or through third-party applications"
+msgstr "可通过API接口或第三方应用同步通讯录"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_access_token
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_access_token
-msgid "Contact token"
-msgstr "通讯录访问令牌"
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_contacts
+#: model:wecom.apps,app_name:wecom_base.wecom_app_contacts
+msgid "Contacts synchronization"
+msgstr "通讯录同步"
 
 #. module: wecom_base
 #. openerp-web
@@ -244,47 +295,124 @@ msgid "Corp ID"
 msgstr "企业Id"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__create_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__create_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__create_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__create_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__create_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_sync_hr_department_id
+msgid "Department ID to be synchronized"
+msgstr "需要同步的部门ID"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_hr_department_id
 msgid ""
 "Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full "
-"organization structure by default"
-msgstr "部门编号。 获取指定的部门及其子部门。 如果您不填写，则默认获取完整的组织结构"
+"organization structure by default\n"
+"                    <br>Value: Department id."
+msgstr ""
+"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构\n"
+"                    <br>值：部门id。"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__description
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__description
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__description
+msgid "Description"
+msgstr "应用详情"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__close
+msgid "Disabled"
+msgstr "停用"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__display_name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_use_system_default_avatar
 msgid "Enable this, Employee photos will use the default avatar. Will save a lot of synchronization time."
 msgstr "启用此选项，员工照片将使用默认头像。将节省大量的同步时间。"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "Enable this, WeCom user avatars will not be used."
-msgstr "启用此选项，将不会使用企业微信用户头像。"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
 msgid "Enable this,Each update will overwrite the employee photos you have set up."
-msgstr "启用此选项，每次更新时将会覆盖您已经设置好的员工照片。"
+msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "Enable to allow batch generation of system accounts from employees;"
-msgstr "启用，允许从员工批量生成系统帐户;"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__corp_jsapi_ticket
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__corp_jsapi_ticket
-msgid "Enterprise JS API Ticket"
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_sync_user_enabled
+msgid ""
+"Enable to allow batch generation of system accounts from employees;\n"
+"                    <br>Value: True or False"
 msgstr ""
+"允许员工批量生成系统账户；\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_enabled_join_qrcode
+msgid "Enable to join the enterprise QR code"
+msgstr "启用加入企业二维码"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_enabled_join_qrcode
+msgid ""
+"Enable,The QR code for joining the enterprise is displayed on the login page.\n"
+"                    <br>Value: True or False"
+msgstr ""
+"启用此项，加入企业的二维码将显示在登录页面上。\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_enterprisepay
+msgid "Enterprise pay"
+msgstr "企业支付"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_edit_enabled
+msgid ""
+"Enterprise wechat Contacts can be read and edited through API interface\n"
+"                    <br>Value: True or False"
+msgstr ""
+"企业微信通讯录可以通过API接口读取和编辑\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__expiration_time
+msgid "Expiration Time"
+msgstr "有效时间"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_externalpay
+msgid "External pay"
+msgstr "对外收款"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__ttype
+msgid "Field Type"
+msgstr "字段类型"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
@@ -308,74 +436,39 @@ msgid "GoTop"
 msgstr "滚动到顶部"
 
 #. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_health
+msgid "Health"
+msgstr "健康上报"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__home_url
+msgid "Home page"
+msgstr "首页"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__id
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__id
 msgid "ID"
 msgstr ""
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_auto_sync_hr_enabled
 msgid ""
 "If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to "
 "ODOO;\n"
-"                                                        <br/>\n"
-"                                        Otherwise, you can only manually bind WeCom users."
+"                    <br>Otherwise, you can only manually bind WeCom users.\n"
+"                    <br>Value: True or False"
 msgstr ""
-"如果启用，它允许通过API接口读取企业微信通讯簿并自动同步到ODOO；\n"
-"                                                        <br/>\n"
-"                                        否则，您只能手动绑定企业微信用户。"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to "
-"ODOO;\n"
-"                                            <br/>\n"
-"                                        Otherwise, you can only manually bind WeCom users."
-msgstr ""
-"如果启用，它允许通过API接口读取企业微信通讯簿并自动同步到ODOO；\n"
-"                                                        <br/>\n"
-"                                        否则，您只能手动绑定企业微信用户。"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid ""
-"Important notes when obtaining application \"address book\" information in the background of the WeCom, this "
-"information needs to be carried during communication to verify the access authority of the interface.\n"
-"                                                        <br/>\n"
-"                                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            The token has been cached and the system will automatically refresh the "
-"token.\n"
-"                                                        </span>"
-msgstr ""
-"在企业微信的后台获取应用“通讯录”信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
-"                                                        <br/>\n"
-"                                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            令牌已被缓存，系统将自动刷新令牌。\n"
-"                                                        </span>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid ""
-"Important notes when obtaining application \"address book\" information in the background of the WeCom, this "
-"information needs to be carried during communication to verify the access authority of the interface.\n"
-"                                            <br/>\n"
-"                                            <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            The token has been cached and the system will automatically refresh the "
-"token.\n"
-"                                            </span>"
-msgstr ""
-"在企业微信的后台获取应用“通讯录”信息时的重要注意事项，该信息需要在通信过程中携带，以验证接口的访问权限。\n"
-"                                                        <br/>\n"
-"                                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                                            <i class=\"fa fa-info-circle\" aria-label=\"info\"/>\n"
-"                                            令牌已被缓存，系统将自动刷新令牌。\n"
-"                                                        </span>"
+"如果启用，它允许通过API接口读取WeCom通讯簿，并自动同步到ODOO；\n"
+"                    <br>否则，您只能手动绑定企微用户。\n"
+"                    <br>值：True 或 False"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
@@ -384,23 +477,66 @@ msgid "Is WeCom user"
 msgstr "是企微用户"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__jsapi_debug
-msgid "JS API Debug mode"
-msgstr ""
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_join_qrcode
+msgid "Join enterprise QR code"
+msgstr "加入企业二维码"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__js_api_list
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__js_api_list
-msgid "JS API Inertface List"
-msgstr ""
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_journal
+msgid "Journal"
+msgstr "汇报"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__key
+msgid "Key"
+msgstr "键"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_ir_module_module____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_company____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type____last_update
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__write_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_uid
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__write_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__write_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__write_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__write_date
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__write_date
+msgid "Last Updated on"
+msgstr "更新时间"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_acontacts_join_qrcode_last_time
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_acontacts_join_qrcode_last_time
+msgid "Last update time (UTC)"
+msgstr "上次更新时间（UTC）"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_living
+msgid "Living"
+msgstr "直播"
+
+#. module: wecom_base
+#: model:wecom.app.type,name:wecom_base.wecom_app_type_manage
+msgid "Manage Tools"
+msgstr "管理工具"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -408,9 +544,27 @@ msgid "Manage all companies"
 msgstr "管理所有公司"
 
 #. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_meeting
+msgid "Meeting"
+msgstr "会议"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_meetingroom
+msgid "Meeting room"
+msgstr "会议室"
+
+#. module: wecom_base
 #: model:ir.model,name:wecom_base.model_ir_module_module
 msgid "Module"
 msgstr "模块"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__name
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__name
+msgid "Name"
+msgstr "名称"
 
 #. module: wecom_base
 #. openerp-web
@@ -419,6 +573,22 @@ msgstr "模块"
 #, python-format
 msgid "Navigation"
 msgstr "导航"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
+#, python-format
+msgid "Only one subtype can be selected for the current app type!"
+msgstr "当前应用类型只能选择一个子类型！"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__report_location_flag
+msgid "Open the geographic location and report"
+msgstr "打开地理位置上报"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__parent_id
+msgid "Parent"
+msgstr "上级"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__qr_code
@@ -433,6 +603,70 @@ msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人二维码，扫描可作为外部联系人添加"
 
 #. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_callback_service.py:0
+#, python-format
+msgid "Please bind contact app!"
+msgstr "请绑定通讯录应用！"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_dial
+msgid "Public telephone"
+msgstr "公费电话"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode
+msgid "QR code link, valid for 7 days"
+msgstr "二维码链接，有效期7天"
+
+#. module: wecom_base
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QR code size type"
+msgstr "二维码尺寸类型"
+
+#. module: wecom_base
+#: model_terms:wecom.app_config,description:wecom_base.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QRcode size type"
+msgstr "二维码尺寸类型"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__isreportenter
+msgid "Report user entry event"
+msgstr "打开进入会话上报"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__secret
+msgid "Secret"
+msgstr "密钥"
+
+#. module: wecom_base
+#: model:wecom.app.type,name:wecom_base.wecom_app_type_self
+msgid "Self built application"
+msgstr "自建应用"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__sequence
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__sequence
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__sequence
+msgid "Sequence"
+msgstr "排序"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__code
+msgid "Service Code"
+msgstr "服务代码"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__name
+msgid "Service Name"
+msgstr "服务名称"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_msgaudit
+msgid "Session content archiving"
+msgstr "会话内容存档"
+
+#. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.wecom_config_settings_action
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_configuration
 msgid "Settings"
@@ -444,17 +678,41 @@ msgid "Share User"
 msgstr "共享用户"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__square_logo_url
+msgid "Square Logo"
+msgstr "方形Logo"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_apps.py:0 code:addons/wxwork/wecom_base/models/wecom_apps.py:0
+#, python-format
+msgid "The application name of each company must be unique !"
+msgstr "每个公司的应用程序名称必须是唯一的！"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: code:addons/wxwork/wecom_base/models/wecom_app_callback_service.py:0
+#, python-format
+msgid "The code of each application must be unique !"
+msgstr "每个应用的代码必须是唯一的！"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_config.py:0 code:addons/wxwork/wecom_base/models/wecom_app_config.py:0
+#, python-format
+msgid "The key of each application must be unique !"
+msgstr "每个应用的密钥必须是唯一的！"
+
+#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 msgid ""
-"The path used to save WeCom pictures,<span class=\"text-danger\">Need to have read and write permissions on the "
+"The path used to save WeCom resources,<span class=\"text-danger\">Need to have read and write permissions on the "
 "path.</span>\n"
 "                                            <br/>\n"
-"                                            reference:Windows: D:\\img\\  <br/>\n"
-"                                            Linux：/home/odoo/img/ Note: odoo is the current system account"
+"                                            reference:Windows: D:\\resources\\  <br/>\n"
+"                                            Linux: /home/odoo/resources/ Note: odoo is the current system account"
 msgstr ""
-"企业微信图片保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
-"                                            参考:Windows: D:\\img\\  <br/>\n"
-"                                            Linux：/home/odoo/img/ 注意：odoo是当前系统帐户"
+"企业微信资源保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
+"                                            参考:Windows: D:\\resources\\  <br/>\n"
+"                                            Linux: /home/odoo/resources/ 注意：odoo是当前系统帐户"
 
 #. module: wecom_base
 #: model:ir.model.fields,help:wecom_base.field_res_partner__wecom_user_order
@@ -463,6 +721,11 @@ msgid ""
 "The sort value in the department, the default is 0. The number must be the same as the department. The larger the "
 "number, the higher the order.The value range is [0, 2^32)"
 msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
+
+#. module: wecom_base
+#: model:wecom.app.type,name:wecom_base.wecom_app_type_third
+msgid "Third party application"
+msgstr "第三方应用"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -475,9 +738,24 @@ msgid "Timed task"
 msgstr "定时任务"
 
 #. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url_token
+msgid "Token"
+msgstr "令牌"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__redirect_domain
+msgid "Trusted domain name"
+msgstr "可信域名"
+
+#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__debug_enabled
 msgid "Turn on debug mode"
 msgstr "开启调试模式"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url
+msgid "URL"
+msgstr ""
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -485,16 +763,39 @@ msgid "Update Info"
 msgstr "更新信息"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_update_avatar_every_time_sync
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_update_avatar_every_time_sync
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_update_avatar_every_time_sync
 msgid "Update avatar every time sync"
 msgstr "每次同步时更新头像"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_use_system_default_avatar
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_use_system_default_avatar
+#: model:wecom.app_config,name:wecom_base.wecom_app_config_contacts_use_system_default_avatar
 msgid "Use system default Avatar"
 msgstr "使用系统默认头像"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__value
+msgid "Value"
+msgstr "值"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__allow_partys
+msgid "Visible range (Department)"
+msgstr "可见范围（部门）"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__allow_tags
+msgid "Visible range (Tag))"
+msgstr "可见范围（标签）"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__allow_userinfos
+msgid "Visible range (personnel)"
+msgstr "可见范围（人员）"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_wedrive
+msgid "We Drive"
+msgstr "微盘"
 
 #. module: wecom_base
 #: model:ir.module.category,name:wecom_base.module_category_wxwork
@@ -508,11 +809,6 @@ msgstr "企业微信"
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
 msgid "WeCom Information"
 msgstr "企业微信信息"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__img_path
-msgid "WeCom Picture storage path"
-msgstr "企业微信图片存储路径"
 
 #. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_root
@@ -532,16 +828,45 @@ msgid "WeCom User sequence"
 msgstr "企微用户排序"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_company__contacts_sync_hr_department_id
-#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__contacts_sync_hr_department_id
-msgid "WeCom department ID to be synchronized"
-msgstr "要同步的企业微信部门ID"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__is_wecom_organization
 #: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__is_wecom_organization
 msgid "WeCom organization"
 msgstr "企业微信组织"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_config_settings__resources_path
+msgid "WeCom resources storage path"
+msgstr "企业微信资源存储路径"
+
+#. module: wecom_base
+#: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_kf
+msgid "Wechat customer service"
+msgstr "微信客服"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_config
+msgid "Wecom Application Configuration"
+msgstr "企微应用配置"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_subtype
+msgid "Wecom Application Subtype"
+msgstr "企微应用子类型"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_type
+msgid "Wecom Application Type"
+msgstr "企微应用类型"
+
+#. module: wecom_base
+#: model:ir.model,name:wecom_base.model_wecom_app_callback_service
+msgid "Wecom Application receive event service"
+msgstr "企微应用接收事件服务"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_open_userid
@@ -550,6 +875,107 @@ msgid "Wecom Open Userid"
 msgstr "企微用户open_userid"
 
 #. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__binary
+msgid "binary"
+msgstr "二进制"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__boolean
+msgid "boolean"
+msgstr "布尔型"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__char
+msgid "char"
+msgstr "字符"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__date
+msgid "date"
+msgstr "日期"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__datetime
+msgid "datetime"
+msgstr "日期时间"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__float
+msgid "float"
+msgstr "浮点型"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__html
+msgid "html"
+msgstr "html"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__integer
+msgid "integer"
+msgstr "整数"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2many
+msgid "many2many"
+msgstr "多对多"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2one
+msgid "many2one"
+msgstr "多对一"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__many2one_reference
+msgid "many2one_reference"
+msgstr "多对一参考"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__monetary
+msgid "monetary"
+msgstr "货币"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__one2many
+msgid "one2many"
+msgstr "一对多"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__reference
+msgid "reference"
+msgstr "参考"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__selection
+msgid "selection"
+msgstr "选择项"
+
+#. module: wecom_base
+#: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__text
+msgid "text"
+msgstr "文本"
+
+#. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.open_module_tree_user
 msgid "users"
 msgstr "用户"
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_subtype_code_uniq
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_type_code_uniq
+msgid "代码必须是唯一的！"
+msgstr ""
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
+msgid "每个公司的应用程序名称必须是唯一的！"
+msgstr ""
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
+msgid "每个应用的代码必须是唯一的！"
+msgstr ""
+
+#. module: wecom_base
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
+msgid "每个应用的密钥必须是唯一的！"
+msgstr ""

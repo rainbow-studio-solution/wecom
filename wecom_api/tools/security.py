@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, tools, _
+from odoo import api, fields, models, tools, _
 import logging
 import hashlib
+from Crypto.Cipher import AES
+import xml.etree.cElementTree as ET
+import hashlib
+
 
 _logger = logging.getLogger(__name__)
 
@@ -37,3 +41,4 @@ class WecomApiToolsSecurity(models.AbstractModel):
         )
         encrypts = hashlib.sha1(str.encode("utf-8")).hexdigest()
         return encrypts
+

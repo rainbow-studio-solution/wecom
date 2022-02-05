@@ -58,15 +58,18 @@ class WecomAbstractApi(models.AbstractModel):
         response = {}
 
         for retryCnt in range(0, 3):
-            if "POST" == method:
-                url = self.__makeUrl(shortUrl)
-                response = self.__httpPost(url, args)
-            elif "GET" == method:
-                url = self.__makeUrl(shortUrl)
-                url = self.__appendArgs(url, args)
-                response = self.__httpGet(url)
-            else:
-                raise ApiException(-1, _("unknown method type"))
+            try:
+                if "POST" == method:
+                    url = self.__makeUrl(shortUrl)
+                    response = self.__httpPost(url, args)
+                elif "GET" == method:
+                    url = self.__makeUrl(shortUrl)
+                    url = self.__appendArgs(url, args)
+                    response = self.__httpGet(url)
+                else:
+                    raise ApiException(-1, _("unknown method type"))
+            except Exception as e:
+                raise ApiException(-2, e)  # 其他错误
 
             # 检查令牌是否过期
             if self.__tokenExpired(response.get("errcode")):

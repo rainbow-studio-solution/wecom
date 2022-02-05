@@ -36,27 +36,25 @@
 
                             <div class="col-xs-12 col-md-6 o_setting_box">
                                 <div class="o_setting_left_pane">
-
+                                    <i class="fa fa-archive fa-lg" aria-label="WeCom resources"></i>
                                 </div>
                                 <div class="o_setting_right_pane">
-                                    <label for="img_path"/>
+                                    <label for="resources_path"/>
                                     <div class="row">
                                         <div class="text-muted col-md-12">
-                                            The path used to save WeCom pictures,<span class="text-danger">Need to have read and write permissions on the path.</span>
+                                            The path used to save WeCom resources,<span class="text-danger">Need to have read and write permissions on the path.</span>
                                             <br/>
-                                            reference:Windows: D:\img\  <br/>
-                                            Linux：/home/odoo/img/ Note: odoo is the current system account
+                                            reference:Windows: D:\resources\  <br/>
+                                            Linux: /home/odoo/resources/ Note: odoo is the current system account
                                         </div>
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16">
-                                            <field name="img_path" required="1"/>
+                                            <field name="resources_path" required="1"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
 
                         <h2 id="wecom_companies" class="d-flex justify-content-between">
@@ -76,21 +74,24 @@
                                     <div class="content-group mt8">
                                         <label for="company_name"/>
                                         <div class="mt4">
-                                            <field name="company_name"/>
+                                            <field name="company_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                     <div class="content-group mt8">
                                         <label for="abbreviated_name"/>
                                         <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as WeCom organization." />
                                         <div class="mt4" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                                            <field name="abbreviated_name"/>
+                                            <field name="abbreviated_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-flag fa-lg" aria-label="Corp Id"></i>
+                                </div>
                                 <div class="o_setting_right_pane">
-                                    <div class="content-group mt8">
+                                    <div class="content-group">
                                         <label for="corpid"/>
                                         <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as WeCom organization." />
                                         <div class="mt4" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
@@ -105,17 +106,30 @@
                             </div>
                         </div>
 
-                        <h2 id="wecom_contact" class="d-flex justify-content-between">
+                        <!-- <h2 id="wecom_contact" class="d-flex justify-content-between">
                             <span class="text-left">
-                                <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/>
- Contact synchronization Settings
+                                <i class="fa fa-th fa-lg" aria-label="Contact synchronization"/>
+                                    Contact synchronization Settings
                                 <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                             </span>
                             <widget name='res_config_wecom_navigation_gotop'/>
-                        </h2>
+                        </h2> -->
 
-                        <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
-                            <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="contacts_app_id" string="Binding application"/>
+                                    <div class="content-group">
+                                        <div class="mt8">
+                                            <field name="contacts_app_id" class="w-100 " widget="selection" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-lock fa-lg" aria-label="Contacts Secret"/>
                                 </div>
@@ -134,14 +148,13 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <div class="col-xs-12 col-md-12 o_setting_box" name="contacts_access_token" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-key fa-lg" aria-label="Contacts access token"/>
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="contacts_access_token"/>
                                     <div class="row">
-                                        <!-- 在企业微信的后台获取应用"通讯录"信息时的重要票据,在通信时都需要携带此信息用于验证接口的访问权限。 -->
                                         <div class="text-muted col-md-12" id="contacts_access_token_text">
                                         Important notes when obtaining application "address book" information in the background of the WeCom, this information needs to be carried during communication to verify the access authority of the interface.
                                             <br/>
@@ -155,22 +168,22 @@
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16">
+
                                             <field name="contacts_access_token" widget="CopyClipboardText" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_auto_sync_hr_enabled"/>
                                 </div>
                                 <div class="o_setting_right_pane">
                                     <label for="contacts_auto_sync_hr_enabled"/>
                                     <div class="row">
-                                        <!-- 勾选,则允许通过API接口读取企业微信通讯录自动同步到ODOO； -->
-                                        <!-- 反之只能手工绑定企业微信用户。 -->
+                                        
                                         <div class="text-muted col-md-12">
                                         If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;
                                             <br/>
@@ -178,9 +191,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-building fa-lg" aria-label="Department"/>
                                 </div>
@@ -197,9 +210,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_use_system_default_avatar"/>
                                 </div>
@@ -212,9 +225,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('contacts_use_system_default_avatar','=',True)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_update_avatar_every_time_sync"/>
                                 </div>
@@ -227,9 +240,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                                 <div class="o_setting_left_pane">
                                     <field name="contacts_sync_user_enabled"/>
                                 </div>
@@ -241,8 +254,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div> 
+                    </div> -->
 
                         <div id="wecom_bottom"/>
                     </div>

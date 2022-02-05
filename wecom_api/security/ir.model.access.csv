@@ -1,8 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wecom_service_api,access.wecom.service_api,model_wecom_service_api,base.group_erp_manager,1,1,1,1
-access_wecom_service_api,access.wecom.service_api,model_wecom_service_api,base.group_user,1,0,0,0
+wecom_service_api_access_right,access.wecom.service_api,model_wecom_service_api,base.group_erp_manager,1,1,1,1
+wecom_service_api_access_right_user,access.wecom.service_api,model_wecom_service_api,base.group_user,1,0,0,0
 
-access_wecom_service_api_list,access.wecom.service_api_list,model_wecom_service_api_list,base.group_erp_manager,1,1,1,1
-access_wecom_service_api_error,access.wecom.service_api_error,model_wecom_service_api_error,base.group_erp_manager,1,1,1,1
-access_wecom_service_api_error,access.wecom.service_api_error,model_wecom_service_api_error,base.group_user,1,0,0,0
+wecom_service_api_list_access_right,access.wecom.service_api_list,model_wecom_service_api_list,base.group_erp_manager,1,1,1,1
+wecom_service_api_list_access_right_user,access.wecom.service_api_list,model_wecom_service_api_list,base.group_user,1,0,0,0
+
+wecom_service_api_error_access_right,access.wecom.service_api_error,model_wecom_service_api_error,base.group_erp_manager,1,1,1,1
+wecom_service_api_error_access_right_user,access.wecom.service_api_error,model_wecom_service_api_error,base.group_user,1,0,0,0
+
+wecom_app_event_type_access_right,access.wecom.app.event_type_right,model_wecom_app_event_type,base.group_erp_manager,1,1,1,1
 

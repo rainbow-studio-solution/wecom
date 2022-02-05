@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, models, tools, _
+
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -56,3 +57,68 @@ class WecomApiToolsAction(models.AbstractModel):
                 },
             }
             return action
+
+    def WecomInfoNotification(self, msg):
+        """
+        API 提示信息
+        """
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "info",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action
+
+    def WecomSuccessNotification(self, msg):
+        """
+        API 成功提示信息
+        """
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "success",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action
+
+    def WecomWarningNotification(self, msg):
+        """
+        API 警告提示信息
+        """
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "warning",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action
+
+    def WecomErrorNotification(self, msg):
+        """
+        API 错误提示信息
+        """
+
+        action = {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": msg["title"],
+                "type": "error",
+                "message": msg["message"],
+                "sticky": msg["sticky"],
+            },
+        }
+        return action

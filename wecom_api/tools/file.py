@@ -45,7 +45,7 @@ class WecomApiToolsFile(models.AbstractModel):
             default_image = get_module_resource(
                 "wecom_hrm_syncing", "static/src/img", image_name
             )
-            print(default_image)
+            # print(default_image)
             with open(default_image, "rb") as f:
                 imgbase64 = base64.b64encode(f.read())
         else:

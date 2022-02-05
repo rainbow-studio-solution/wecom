@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_app_event_type_form" model="ir.ui.view">
+            <field name="name">wecom.app.event_type.form</field>
+            <field name="model">wecom.app.event_type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <!-- <button class="oe_stat_button" name="test" string="测试" type="object" icon="fa-bug" /> -->
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="model_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            <field name="msg_type"/>
+                            <field name="event"/>
+                            <field name="change_type"/>
+                        </group>
+                        <notebook>
+                            <page string="Code and Command" name='code' autofocus="autofocus">
+                                <group>
+                                    <field name="code" />
+                                    <!-- <field name="code" widget="ace" options="{'mode': 'python','height': '200px'}" placeholder="Enter Python code here. Help about Python expression is available in the help tab of this document."/> -->
+                                </group>
+                                <group>
+                                    <field name="command"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_wecom_app_event_type_tree" model="ir.ui.view">
+            <field name="name">wecom.app.event_type.tree</field>
+            <field name="model">wecom.app.event_type</field>
+            <field name="arch" type="xml">
+                <tree expand="1">
+                    <field name="name" />
+                    <field name="model_ids" widget="many2many_tags" />
+                    <field name="msg_type" />
+                    <field name="event"/>
+                    <field name="change_type"/>
+                    <field name="command"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_wecom_app_event_type_list" model="ir.actions.act_window">
+            <field name="name">Event Type</field>
+            <field name="res_model">wecom.app.event_type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>
