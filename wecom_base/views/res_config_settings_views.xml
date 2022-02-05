@@ -8,6 +8,7 @@
             <field name="inherit_id" ref="base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[hasclass('settings')]" position="inside">
+                    <field name="company_id" invisible="1"/>
                     <div class="app_settings_block" data-string="WeCom" string="WeCom" data-key="wecom_base" groups="base.group_system">
                         <widget name="res_config_wecom_navigation_menu"/>
                         <h2 id="wecom_global" class="d-flex justify-content-between">
@@ -50,7 +51,7 @@
                                     </div>
                                     <div class="content-group">
                                         <div class="mt16">
-                                            <field name="resources_path" required="1"/>
+                                            <field name="resources_path" class="w-100" required="1"/>
                                         </div>
                                     </div>
                                 </div>
@@ -74,14 +75,14 @@
                                     <div class="content-group mt8">
                                         <label for="company_name"/>
                                         <div class="mt4">
-                                            <field name="company_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
+                                            <field name="company_name" class="w-100" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                     <div class="content-group mt8">
                                         <label for="abbreviated_name"/>
                                         <span class="fa fa-lg fa-info-circle" title="The value set here is the company identified as WeCom organization." />
                                         <div class="mt4" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                                            <field name="abbreviated_name" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
+                                            <field name="abbreviated_name" class="w-100" attrs="{'readonly': [('is_wecom_organization','=',False)]}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -106,14 +107,33 @@
                             </div>
                         </div>
 
-                        <!-- <h2 id="wecom_contact" class="d-flex justify-content-between">
+                        <!-- 通讯簿 -->
+                        <h2 id="wecom_contact" class="d-flex justify-content-between">
                             <span class="text-left">
-                                <i class="fa fa-th fa-lg" aria-label="Contact synchronization"/>
-                                    Contact synchronization Settings
+                                <i class="fa fa-book fa-lg" aria-label="Wecom Contact Settings"/>
+                                    Wecom Contact Settings
                                 <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
                             </span>
                             <widget name='res_config_wecom_navigation_gotop'/>
-                        </h2> -->
+                        </h2>
+                        <div class="row mt16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                            <div class="col-12 col-lg-6 o_setting_box" id="wecom_contacts_install">
+                                <div class="o_setting_left_pane">
+                                    <field name="module_wecom_contacts"/>
+                                </div>
+                                <div class="o_setting_right_pane" id="wecom_contacts_settings">
+                                    <label for="module_wecom_contacts"/>
+                                    <div class="text-muted">
+                                        Enterprise wechat address book can be read through API interface
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('module_wecom_contacts', '=', False)]}" id="wecom_contacts_warning">
+                                        <div class="mt8 text-warning">
+                                            <strong>Save</strong> this page and come back here to set up other feature.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
                             <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">

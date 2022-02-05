@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record id="view_wecom_apps_filter" model="ir.ui.view">
-            <field name="name">wecom.apps.tsearchree</field>
+            <field name="name">wecom.apps.search</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
                 <search>
@@ -15,21 +15,231 @@
 
             </field>
         </record>
+
+        <record id="view_wecom_apps_kanban" model="ir.ui.view">
+            <field name="name">wecom.apps.kanban</field>
+            <field name="model">wecom.apps</field>
+            <field name="arch" type="xml">
+                <kanban sample="1" group_create="false" group_delete="false" group_edit="false" column_edit="false" create="false" edit="false" delete="false" records_draggable="0" quick_create="false">
+                    <field name="app_name"/>
+                    <field name="company_id"/>
+                    <field name="square_logo_url"/>
+                    <field name="close"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <field name="square_logo_url" widget="image_url" class="o_kanban_image_fill_left" options='{"size": [80, 80]}'/>
+
+                                <div class="oe_kanban_details ml8">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <div class="float-right">
+                                                    <span t-if="!record.close.raw_value" class="fa fa-circle text-success" role="img" aria-label="Enable" title="Enable">
+                                                    </span>
+                                                    <span t-if="record.close.raw_value" class="fa fa-circle text-danger" role="img" aria-label="Disabled" title="Disabled">
+                                                    </span>
+                                                </div>
+
+                                                <field name="app_name" />
+                                            </strong>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <field name="agentid" options="{'format': false}"/>
+                                        <field name="type" widget="badge" decoration-success="type == 'manage'" decoration-info="type == 'base'" decoration-warning="type == 'self'" decoration-secondary="type == 'third'"/>
+                                    </div>
+                                    <div class="oe_kanban_content">
+                                        <field name="description" class="text-muted"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
         <record id="view_wecom_apps_form" model="ir.ui.view">
             <field name="name">wecom.apps.form</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
+                <form>
+                    <header>
 
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="oe_stat_button" name="get_app_info" string="Get application" type="object" icon="fa-cloud-download" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/>
+                            <!-- <button class="oe_stat_button" name="set_app_info" string="Set application" type="object" icon="fa-cloud-upload" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/> -->
+                            <button class="oe_stat_button" name="get_access_token" string="Get Access Token" type="object" icon="fa-key" attrs="{'invisible': ['|',('company_id','=', False),('type','=', 'self')]}"/>
+                        </div>
+
+                        <field name="square_logo_url" widget="image_url" options='{"size": [80, 80]}' class="oe_right"/>
+                        <div class="oe_title">
+                            <label for="app_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="app_name" attrs="{'readonly': [('type','=','manage')]}" />
+                            </h1>
+                            <!-- <group>
+                                <field name="model_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                            </group> -->
+                        </div>
+                        <group>
+                            <group>
+                                <field name="company_id" widget="selection" required="1"/>
+                            </group>
+                            <group>
+                                <field name="close" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="type" required="1"/>
+                                <field name="type_id" readonly="1" invisible="1" force_save="1" />
+                                <field name="subtype_ids" required="1" widget="many2many_checkboxes" domain="[('parent_id', '=', type_id)]"/>
+                            </group>
+                            <!-- many2many_checkboxes many2many_tags-->
+                            <group>
+                                <field name="type_code" force_save="1" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="description" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
+                        </group>
+
+                        <group>
+                            <group>
+                                <field name="agentid" widget="integer" options="{'format': false}" attrs="{'readonly': ['|',('type','=','manage'),('type', '=', 'base')]}"/>
+                            </group>
+                            <group>
+                                <field name="secret" widget="wecom_password"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="allow_userinfos" attrs="{'readonly': [('type','=','manage')]}"/>
+                            <field name="allow_partys" attrs="{'readonly': [('type','=','manage')]}"/>
+                            <field name="allow_tags" attrs="{'readonly': [('type','=','manage')]}"/>
+                        </group>
+                        <notebook>
+                            <page name="option" string="Option" attrs="{'invisible': [('type','!=','self')]}">
+                                <group>
+                                    <group>
+                                        <field name="report_location_flag"/>
+                                        <field name="isreportenter"/>
+                                    </group>
+                                    <group>
+                                        <field name="redirect_domain"/>
+                                        <field name="home_url"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="access_token" string="Access Token">
+                                <p class="text-info">
+                                    Getting access_token is the first step in calling the enterprise WeChat API interface, which is equivalent to creating a login credential, and other business API interfaces all need to rely on access_token to authentice the caller's identity.
+                                </p>
+                                <p class="text-info">
+                                    Therefore, developers should identify the source of the issuance of access_token and use the correct access_token before using the business interface.
+                                </p>
+                                <p class="text-info">
+                                    Each app has a separate access_token can only be used by this app, so the access_token for each app should be obtained separately
+                                </p>
+                                <p class="text-warning">
+                                    Developers need to cache access_token for subsequent interface calls (note: gettoken interfaces cannot be called frequently or are frequently blocked). When access_token expires or expires, it needs to be re-acquired.
+                                </p>
+                                <group>
+                                    <field name="access_token" widget="CopyClipboardText" force_save="1"/>
+                                    <field name="expiration_time" force_save="1"/>
+                                </group>
+                            </page>
+                            <page name="parameter" string="Parameter">
+                                <group>
+                                    <field name="app_config_ids" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
+                                        <!-- context="{'default_company_id': company_id}" -->
+                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
+                                            <!-- <field name="company_id" readonly="1"/> -->
+                                            <field name="name" readonly="1"/>
+                                            <field name="key" readonly="1"/>
+                                            <field name="value" required="1" style="max-width: 500x;"/>
+                                            <field name="description" invisible="1" />
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group>
+                                    <div class="btn-group float-right" role="group" aria-label="Button group">
+                                        <button class="oe_highlight" name="generate_parameters" string="Generate parameters" type="object" icon="fa-cogs"/>
+                                        
+                                    </div>
+                                </group>
+                            </page>
+                            <page name="callback" string="Callback service settings">
+                                <group>
+                                    <field name="app_callback_service_ids" options="{'no_open': True, 'no_create': True}" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
+                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
+                                            <field name="name" readonly="1" />
+                                            <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
+                                            <field name="callback_url_token" required="1"/>
+                                            <field name="callback_aeskey" required="1"/>
+                                            <field name="active" widget="boolean_toggle"/>
+                                            <field name="description" invisible="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group class="text-right">
+                                    <button class="oe_highlight" name="generate_service" string="Generate service" type="object" icon="fa-server" />
+                                </group>
+                                <group>
+                                    <ul class="text-info">
+                                        <li class="text-info">
+                                        Setting method
+                                        </li>
+                                        <li class="text-danger">
+                                            <b>Controller:</b> Make sure the "Callback Service Name" exists in your controller code.
+                                        </li>
+                                        <li>
+                                            <b>Callback URL:</b> Copy the automatically generated callback URL to the URL in the "event receiving server" of the enterprise wechat application.
+                                        </li>
+                                        <li>
+                                            <b>Callback URL Token:</b> Copy the randomly generated "Token" in the "event receiving server" of the enterprise wechat application to the "callback URL token" input box of the current page.
+                                        </li>
+                                        <li>
+                                            <b>Callback AES Key:</b> Copy the randomly generated "EncodingAESKey" in the "event receiving server" of the enterprise wechat application to the "callback AES key" input box on the current page.
+                                        </li>
+                                        <li class="text-danger">
+                                            <b>Change:</b> When the value of "receiving event server" of the current page and enterprise wechat application changes, please ensure that the values at both ends are consistent.
+                                        </li>
+                                    </ul>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
             </field>
         </record>
+
+        <record id="view_wecom_apps_tree" model="ir.ui.view">
+            <field name="name">wecom.apps.tree</field>
+            <field name="model">wecom.apps</field>
+            <field name="arch" type="xml">
+                <tree expand="1">
+                    <!-- <field name="display_name" /> -->
+                    <field name="name" />
+                    <field name="company_id" />
+                    <!-- <field name="type" /> -->
+                    <field name="agentid" widget="integer" options="{'format': false}" />
+                    <field name="close"/>
+                </tree>
+            </field>
+        </record>
+
+
 
         <record id="action_view_wecom_apps_list" model="ir.actions.act_window">
             <field name="name">Application</field>
             <field name="res_model">wecom.apps</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
             <field name="context">{'group_by':['company_id']}</field>
             <field name="search_view_id" ref="view_wecom_apps_filter"/>
         </record>
-
     </data>
 </odoo>

@@ -31,7 +31,6 @@
     "depends": [
         "web"
     ],
-    "external_dependencies": {"python": [], "bin": []},
     "data": [
         'view/web_widget_colorpicker_view.xml'
     ],
@@ -47,4 +46,5 @@
     "installable": True,
     "auto_install": False,
     "application": False,
+    "license": "LGPL-3",
 }

@@ -10,4 +10,5 @@ from . import wecom_app_subtype
 from . import wecom_apps
 from . import wecom_app_callback_service
 from . import wecom_app_config
+from . import wecom_app_event_type
 

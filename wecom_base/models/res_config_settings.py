@@ -25,6 +25,8 @@ class ResConfigSettings(models.TransientModel):
         "WeCom resources storage path", config_parameter="wecom.resources_path",
     )
 
+    module_wecom_contacts = fields.Boolean("WeCom Contacts")
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()

@@ -34,12 +34,10 @@
             'wecom_widget/static/src/xml/*.xml',
         ],
     },
-    # "external_dependencies": {
-    #     "python": ["markdown"],
-    # },
+
     "sequence": 605,
     "installable": True,
-    "auto_install": True,
+    "auto_install": False,
     "application": False,
     "license": "LGPL-3",
 }

@@ -28,7 +28,6 @@ class WecomServerApi(models.TransientModel):
         :returns 模型"wecom.service_api"对象
         """
         api = self.search([("corpid", "=", corpid), ("secret", "=", secret),], limit=1,)
-
         if not api:
             # 创建API令牌记录
             api = self.sudo().create({"corpid": corpid, "secret": secret,})

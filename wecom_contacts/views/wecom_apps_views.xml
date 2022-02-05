@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_apps_form" model="ir.ui.view">
+            <field name="name">wecom.apps.form</field>
+            <field name="model">wecom.apps</field>
+            <field name="inherit_id" ref="wecom_base.view_wecom_apps_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='generate_parameters']" position="after">
+                    <button class="oe_highlight ml-1" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" attrs="{'invisible': [('type_code','not in', ('[\'contacts\']'))]}" />
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>    

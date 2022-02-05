@@ -5,21 +5,50 @@
         <!--  ROOT   -->
         <menuitem id="menu_wecom_root" name="WeCom Settings" groups="" web_icon="wecom_base,static/description/icon.png" sequence="499"/>
 
-        <!-- 设置-->
-        <menuitem id="menu_wecom_configuration" name="Settings" parent="wecom_base.menu_wecom_root" sequence="0" action="wecom_base.wecom_config_settings_action" groups="base.group_erp_manager"/>
+        <!-- 1.设置-->
+        <menuitem id="menu_wecom_configuration" name="Wecom Settings" parent="wecom_base.menu_wecom_root" sequence="1" action="wecom_base.wecom_config_settings_action" groups="base.group_erp_manager"/>
 
-        <!-- 应用  -->
-        <menuitem id="menu_wecom_agent" name="Application" parent="wecom_base.menu_wecom_root" sequence="1" groups="base.group_erp_manager"/>
+        <!-- 2.API-->
+        <menuitem id="menu_wecom_api" name="Wecom API" groups="base.group_system" parent="menu_wecom_root" sequence="2"/>
 
+        <!-- 2.1-->
+        <menuitem id="menu_wecom_service_api_list" name="List" groups="base.group_system" parent="menu_wecom_api" action="wecom_api.action_view_wecom_service_api_list" sequence="1"/>
 
+        <!-- 2.2-->
+        <menuitem id="menu_wecom_service_api_error" name="Error Code" groups="base.group_system" parent="menu_wecom_api" action="wecom_api.action_view_wecom_service_api_error" sequence="2"/>
 
-        <!-- 自动任务-->
-        <menuitem id="menu_wecom_cron" name="Timed task" parent="wecom_base.menu_wecom_root" sequence="800" groups="base.group_erp_manager"/>
+        <!-- 3.应用  -->
+        <menuitem id="menu_wecom_agent" name="Wecom Application" parent="wecom_base.menu_wecom_root" sequence="3" groups="base.group_erp_manager"/>
 
+        <!-- 3.1  -->
+        <menuitem id="menu_wecom_agent_list" name="Application list" parent="menu_wecom_agent" sequence="1" action="action_view_wecom_apps_list" groups="base.group_erp_manager"/>
 
+        <!-- 3.2  -->
+        <menuitem id="menu_wecom_agent_config" name="Application Parameters" parent="menu_wecom_agent" sequence="2" action="wecom_app_config_list_action" groups="base.group_erp_manager"/>
 
+        <!-- 3.3  -->
+        <menuitem id="menu_wecom_agent_event" name="Application event" parent="menu_wecom_agent" sequence="3" groups="base.group_erp_manager"/>
 
+        <!-- 3.3.1  -->
+        <menuitem id="menu_wecom_agent_event_service" name="Receive event service" parent="menu_wecom_agent_event" sequence="1" action="wecom_app_callback_service_list_action" groups="base.group_erp_manager"/>
 
+        <!-- 3.3.2  -->
+        <menuitem id="menu_wecom_agent_event_type" name="Event Type" parent="menu_wecom_agent_event" sequence="2" action="action_view_wecom_app_event_type_list" groups="base.group_erp_manager"/>
+
+        <!-- 3.4 -->
+        <menuitem id="menu_wecom_agent_type" name="Application Type" parent="menu_wecom_agent" sequence="4" groups="base.group_erp_manager"/>
+
+        <!-- 3.4.1 -->
+        <menuitem id="menu_wecom_agent_type_list" name="Type" parent="menu_wecom_agent_type" sequence="1" action="wecom_app_type_list_action" groups="base.group_erp_manager"/>
+
+        <!-- 3.4.2 -->
+        <menuitem id="menu_wecom_agent_subtype_list" name="SubType" parent="menu_wecom_agent_type" sequence="2" action="wecom_app_subtype_list_action" groups="base.group_erp_manager"/>
+
+        <!-- 99.自动任务-->
+        <menuitem id="menu_wecom_cron" name="Wecom tasks" parent="wecom_base.menu_wecom_root" sequence="99" groups="base.group_erp_manager"/>
+
+        <!-- 99.1-->
+        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="menu_wecom_cron" action="wecom_api.ir_cron_act_pull_wecom_service_api_error" sequence="1"/>
 
     </data>
 

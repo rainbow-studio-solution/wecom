@@ -153,12 +153,7 @@ msgstr "允许企微通讯录自动更新到HR"
 msgid "Allow WeCom contacts to automatically update system accounts"
 msgstr "允许企微通讯录自动更新系统帐户"
 
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__app_id
-#: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__app_id
-#: model:ir.ui.menu,name:wecom_base.menu_wecom_agent
-msgid "Application"
-msgstr "应用"
+
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__app_name
@@ -669,8 +664,8 @@ msgstr "会话内容存档"
 #. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.wecom_config_settings_action
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_configuration
-msgid "Settings"
-msgstr "设置"
+msgid "Wecom Settings"
+msgstr "企微设置"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_users_search_inherit
@@ -733,9 +728,14 @@ msgid "This company is an WeCom organization"
 msgstr "此公司为企业微信组织"
 
 #. module: wecom_base
+#: model:ir.ui.menu,name:wecom_base.menu_wecom_api
+msgid "Wecom API"
+msgstr "企微API"
+
+#. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_cron
-msgid "Timed task"
-msgstr "定时任务"
+msgid "Wecom tasks"
+msgstr "企微任务"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url_token
@@ -843,10 +843,7 @@ msgstr "企业微信资源存储路径"
 msgid "Wechat customer service"
 msgstr "微信客服"
 
-#. module: wecom_base
-#: model:ir.model,name:wecom_base.model_wecom_apps
-msgid "Wecom Application"
-msgstr "企微应用"
+
 
 #. module: wecom_base
 #: model:ir.model,name:wecom_base.model_wecom_app_config

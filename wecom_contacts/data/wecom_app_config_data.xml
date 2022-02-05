@@ -3,7 +3,7 @@
     <data noupdate="1">
         <!-- 1 -->
         <record id="wecom_app_config_contacts_auto_sync_hr_enabled" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Allow WeCom Contacts are automatically updated to HR</field>
             <field name="key">contacts_auto_sync_hr_enabled</field>
             <field name="ttype">boolean</field>
@@ -19,7 +19,7 @@
 
         <!-- 2 -->
         <record id="wecom_app_config_contacts_sync_hr_department_id" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Department ID to be synchronized</field>
             <field name="key">contacts_sync_hr_department_id</field>
             <field name="ttype">integer</field>
@@ -34,7 +34,7 @@
 
         <!-- 3 -->
         <record id="wecom_app_config_contacts_edit_enabled" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Allow API to edit WeCom contacts</field>
             <field name="key">contacts_edit_enabled</field>
             <field name="ttype">boolean</field>
@@ -49,7 +49,7 @@
 
         <!-- 4 -->
         <record id="wecom_app_config_contacts_sync_user_enabled" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Allow WeCom contacts to automatically update system accounts</field>
             <field name="key">contacts_sync_user_enabled</field>
             <field name="ttype">boolean</field>
@@ -64,7 +64,7 @@
 
         <!-- 5 -->
         <record id="wecom_app_config_contacts_use_system_default_avatar" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Use system default Avatar</field>
             <field name="key">contacts_use_system_default_avatar</field>
             <field name="ttype">boolean</field>
@@ -80,7 +80,7 @@
 
         <!-- 6 -->
         <record id="wecom_app_config_contacts_update_avatar_every_time_sync" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Update avatar every time sync</field>
             <field name="key">contacts_update_avatar_every_time_sync</field>
             <field name="ttype">boolean</field>
@@ -96,7 +96,7 @@
 
         <!-- 7 -->
         <record id="wecom_app_config_contacts_enabled_join_qrcode" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Enable to join the enterprise QR code</field>
             <field name="key">enabled_join_qrcode</field>
             <field name="ttype">boolean</field>
@@ -111,7 +111,7 @@
 
         <!-- 8 -->
         <record id="wecom_app_config_contacts_join_qrcode" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Join enterprise QR code</field>
             <field name="key">join_qrcode</field>
             <field name="ttype">char</field>
@@ -125,7 +125,7 @@
 
         <!-- 9 -->
         <record id="wecom_app_config_contacts_join_qrcode_size_type" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">QR code size type</field>
             <field name="key">join_qrcode_size_type</field>
             <field name="ttype">integer</field>
@@ -144,7 +144,7 @@
 
         <!-- 10 -->
         <record id="wecom_app_config_acontacts_join_qrcode_last_time" model="wecom.app_config">
-            <field name="app_id" ref="wecom_base.wecom_app_contacts"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Last update time (UTC)</field>
             <field name="key">join_qrcode_last_time</field>
             <field name="ttype">datetime</field>

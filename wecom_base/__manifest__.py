@@ -22,28 +22,31 @@
         "security/ir.model.access.csv",
         "data/ir_module_category_data.xml",
         "data/ir_config_parameter.xml",
-        "data/res_company_data.xml",
+        # "data/res_company_data.xml",
         "data/wecom_app_type_data.xml",
-        "data/wecom_apps_data.xml",
-        "data/wecom_app_config_data.xml",
+        # "data/wecom_apps_data.xml",
+        # "data/wecom_app_config_data.xml",
         # "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
         "views/res_users_views.xml",
-        # "views/wecom_apps_views.xml",
+        "views/wecom_apps_views.xml",
+        "views/wecom_app_config_views.xml",
+        "views/wecom_app_callback_service_views.xml",
+        "views/wecom_app_event_type_views.xml",
+        "views/wecom_app_type_views.xml",
+        "views/wecom_app_subtype_views.xml",
         "views/menu_views.xml",
     ],
-    'assets': {"web.assets_backend":[
-        # SCSSS
-        "wecom_base/static/src/scss/wecom_settings_navigation.scss",
-        # JS
-        "wecom_base/static/src/js/wecom_settings_navigation.js"
+    "assets": {
+        "web.assets_backend": [
+            # SCSSS
+            "wecom_base/static/src/scss/wecom_settings_navigation.scss",
+            # JS
+            "wecom_base/static/src/js/wecom_settings_navigation.js",
         ],
-    "web.assets_qweb": [
-            'wecom_base/static/src/xml/*.xml',
-        ],
+        "web.assets_qweb": ["wecom_base/static/src/xml/*.xml",],
     },
-    "external_dependencies": {"python": [],},
     "license": "LGPL-3",
     # "post_init_hook": "_open_wecom_settings",
 }
