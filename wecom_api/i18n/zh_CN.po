@@ -250,10 +250,6 @@ msgstr "向企业的入群欢迎语素材库中添加素材"
 msgid "Add meeting room"
 msgstr "添加一个会议室"
 
-#. module: wecom_api
-#: model:wecom.app.event_type,name:wecom_api.wecom_app_event_change_contact_create_user
-msgid "Add member events"
-msgstr "新增成员事件"
 
 #. module: wecom_api
 #: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_add_member

@@ -5,7 +5,7 @@
     "author": "RStudio",
     "website": "",
     "category": "Website/Website",
-    "version": "14.0.0.1",
+    "version": "15.0.0.1",
     "summary": "Baidu map,Baidu Analytics,social media,ICP filing",
     "description": """
 

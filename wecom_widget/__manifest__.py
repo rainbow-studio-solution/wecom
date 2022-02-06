@@ -6,18 +6,16 @@
     "category": "WeCom/WeCom",
     "summary": "WeCom Widget",
     "website": "https://gitee.com/rainbowstudio/wxwork",
-    "version": "14.0.0.1",
+    "version": "15.0.0.1",
     "description": """ 
 
 """,
-    "depends": [
-        "web",
-    ],
+    "depends": ["web",],
     "data": [
         # "views/assets_templates.xml",
     ],
     "assets": {
-        "web.assets_backend":[
+        "web.assets_backend": [
             # SCSSS
             "wecom_widget/static/src/scss/jsoneditor.scss",
             "wecom_widget/static/src/scss/dialog.scss",
@@ -30,11 +28,8 @@
             "wecom_widget/static/src/js/jsoneditor.js",
             "wecom_widget/static/src/js/dialog.js",
         ],
-        "web.assets_qweb": [
-            'wecom_widget/static/src/xml/*.xml',
-        ],
+        "web.assets_qweb": ["wecom_widget/static/src/xml/*.xml",],
     },
-
     "sequence": 605,
     "installable": True,
     "auto_install": False,

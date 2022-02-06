@@ -5,7 +5,6 @@
         <record id="wecom_app_event_change_contact_create_user" model="wecom.app.event_type">
             <field name="name">Add member events</field>
             <field name="model_ids" eval="[(6, 0, [ref('base.model_res_users'), ref('hr.model_hr_employee')])]"/>
-            <!-- <field name="parent_id"ref="wecom_api.wecom_app_event_change_contact"/> -->
             <field name="event">change_contact</field>
             <field name="change_type">create_user</field>
             <field name="code">model.wecom_event_change_contact_user</field>
