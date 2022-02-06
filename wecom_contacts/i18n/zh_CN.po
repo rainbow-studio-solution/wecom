@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 07:07+0000\n"
-"PO-Revision-Date: 2022-02-06 15:10+0800\n"
+"POT-Creation-Date: 2022-02-06 09:40+0000\n"
+"PO-Revision-Date: 2022-02-06 17:44+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -26,6 +26,20 @@ msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录Secret\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Contacts Application\"/>"
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"通讯录应用\"/>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"Wecom "
+"HRM settings\"/>\n"
+"                                Wecom HRM settings\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"企微HRM设置\"/>\n"
+"                                企微HRM设置\n"
+"                        </span>"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -54,15 +68,14 @@ msgid "Application Configuration"
 msgstr "应用配置"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/wecom_apps.py:0
-#, python-format
-msgid "Automatic task:Start to get join enterprise QR code."
-msgstr "自动任务：开始获取加入企业二维码。"
-
-#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Binding application"
 msgstr "绑定应用"
+
+#. module: wecom_contacts
+#: model:ir.ui.menu,name:wecom_contacts.menu_wecom_contacts_block_record
+msgid "Block List"
+msgstr "阻止同步列表"
 
 #. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_company
@@ -71,6 +84,7 @@ msgstr "公司"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__company_id
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -87,11 +101,24 @@ msgid ""
 msgstr "可通过API接口或第三方应用同步通讯录"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/wecom_apps.py:0
 #: model:wecom.apps,app_name:wecom_contacts.wecom_app_contacts
-#, python-format
 msgid "Contacts synchronization"
 msgstr "通讯录同步"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__display_name
+msgid "Display Name"
+msgstr "显示名称"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form
@@ -104,16 +131,41 @@ msgid "Enterprise wechat user"
 msgstr "企微用户"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#. openerp-web
+#: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "Please bind contact app!"
-msgstr "请绑定通讯录应用！"
+msgid "HRM settings"
+msgstr "HRM设置"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/wecom_apps.py:0
-#, python-format
-msgid "Please generate application parameters first."
-msgstr "请先生成应用参数。"
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__id
+msgid "ID"
+msgstr "ID"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block____last_update
+msgid "Last Modified on"
+msgstr "最后更改日"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__write_date
+msgid "Last Updated on"
+msgstr "更新时间"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Manage the departments, members and labels of enterprise wechat."
+msgstr "管理企业微信的部门、成员和标签。"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__name
+msgid "Name"
+msgstr "名称"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_callback_service_ids
@@ -121,20 +173,9 @@ msgid "Receive event service"
 msgstr "企微应用接收事件服务"
 
 #. module: wecom_contacts
-#: model_terms:ir.ui.view,arch_db:wecom_contacts.view_wecom_apps_form
-msgid "Refresh the QR code"
-msgstr "刷新二维码"
-
-#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_secret
 msgid "Secret"
 msgstr "Secret"
-
-#. module: wecom_contacts
-#: code:addons/wecom_contacts/models/wecom_apps.py:0
-#, python-format
-msgid "Start getting join enterprise QR code for app [%s]"
-msgstr "开始获取应用 [%s] 的加入企业二维码"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -142,21 +183,31 @@ msgid "Synchronize address book information such as department, member, tag, etc
 msgstr "同步通讯簿信息，如部门、成员、标签等。"
 
 #. module: wecom_contacts
+#: model:ir.model.constraint,message:wecom_contacts.constraint_wecom_contacts_block_userid_company_uniq
+msgid "The user ID of each company must be unique!"
+msgstr "每个公司的用户ID必须是唯一的！"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_contacts_sync
 msgid "WeCom Contacts Synchronized"
 msgstr "企微通讯录同步"
 
 #. module: wecom_contacts
-#: model:ir.model,name:wecom_contacts.model_wecom_apps
-msgid "Wecom Application"
-msgstr "企微应用"
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_hrm
+msgid "WeCom HRM"
+msgstr "企微HRM"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/wecom_apps.py:0
-#, python-format
-msgid ""
-"When members modify their personal information, the modified information will be "
-"pushed to the following URL in the form of events to ensure the synchronization "
-"of the address book."
-msgstr ""
-"当成员修改个人信息时，被修改的信息将以事件的形式推送到以下URL，保证通讯录同步。"
+#: model:ir.actions.act_window,name:wecom_contacts.open_view_wecom_contacts_block_tree
+msgid "WeCom contacts block list"
+msgstr "企微通讯录block列表"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__wecom_userid
+msgid "WeCom user Id"
+msgstr "企微用户ID"
+
+#. module: wecom_contacts
+#: model:ir.model,name:wecom_contacts.model_wecom_contacts_block
+msgid "Wecom contacts synchronization block list"
+msgstr "企微通讯录同步Block列表"
