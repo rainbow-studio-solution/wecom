@@ -37,9 +37,52 @@ WECOM_USER_MAPPING_ODOO_EMPLOYEE = {
 
 class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
+    _order = "wecom_user_order"
+
+    wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
+    wecom_open_userid = fields.Char(string="WeCom open user Id", readonly=True,)
+    alias = fields.Char(string="Alias", readonly=True,)
+    english_name = fields.Char(string="English Name", readonly=True,)
+
+    department_ids = fields.Many2many(
+        "hr.department", string="Multiple departments", readonly=True,
+    )
+    use_system_avatar = fields.Boolean(readonly=True, default=True)
+    avatar = fields.Char(string="Avatar")
+
+    qr_code = fields.Char(
+        string="Personal QR code",
+        help="Personal QR code, Scan can be added as external contact",
+        readonly=True,
+    )
+    wecom_user_order = fields.Char(
+        "WeCom user sort",
+        default="0",
+        help="The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, 2^32)",
+        readonly=True,
+    )
+    is_wecom_user = fields.Boolean(
+        string="WeCom employees", readonly=True, default=False,
+    )
+
+    def unbind_wecom_member(self):
+        """
+        解除绑定企业微信成员
+        """
+        self.write(
+            {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+        )
+        if self.user_id:
+            # 关联了User
+            self.user_id.write(
+                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+            )
+
 
     def wecom_event_change_contact_user(self, cmd):
-
+        """
+        通讯录事件变更员工
+        """
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))

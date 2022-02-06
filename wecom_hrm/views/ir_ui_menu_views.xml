@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_hr_menu_list" model="ir.ui.view">
+            <field name="name">wecom_hrm.menu.list</field>
+            <field name="model">ir.ui.menu</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <tree string="Menu" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" editable="top">
+                    <field name="name" readonly="1"/>
+                    <field name="parent_id" readonly="1"/>
+                    <field name="child_id" readonly="1"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record id="hr_menu_search" model="ir.ui.view">
+            <field name="name">wecom_hrm.menu.search</field>
+            <field name="model">ir.ui.menu</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <search string="Menu">
+                    <field name="name" string="Menu"/>
+                    <separator/>
+                    <!-- <filter string="HR" name="hr" domain="[('name', 'not like', 'HRM')]"/> -->
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_hr_menu" model="ir.actions.act_window">
+            <field name="name">Hr Menu Items</field>
+            <field name="res_model">ir.ui.menu</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">['&amp;','&amp;','&amp;',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRM'),'|',('active','=',True),('active','=',False)]</field>
+            <field name="search_view_id" ref="hr_menu_search"/>
+            <!-- <field name="context">{'ir.ui.menu.full_list':True,'search_default_hr':1}</field> -->
+            <field name="context">{'ir.ui.menu.full_list':True}</field>
+            <field name="view_id" ref="view_hr_menu_list"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

@@ -38,36 +38,6 @@ class ResConfigSettings(models.TransientModel):
         related="contacts_app_id.app_callback_service_ids", readonly=False
     )
 
-    def generate_service(self):
-        """
-        生成服务
-        :return:
-        """
-        code = self.env.context.get("code")
-        if bool(code) and code == "contacts":
-            for record in self:
-                if not record.contacts_app_id:
-                    raise ValidationError(_("Please bind contact app!"))
-                else:
-                    record.contacts_app_id.with_context(code=code).generate_service()
-        # super(ResConfigSettings, self).generate_service()
-
-    def generate_parameters(self):
-        """
-        生成参数
-        :return:
-        """
-        code = self.env.context.get("code")
-        if bool(code) and code == "contacts":
-            for record in self:
-                if not record.contacts_app_id:
-                    raise ValidationError(_("Please bind contact app!"))
-                else:
-                    record.contacts_app_id.with_context(code=code).generate_parameters()
-        # super(ResConfigSettings, self).generate_parameters()
-
-    def get_join_qrcode(self):
-        """
-        获取加入企业二维码
-        """
-        self.contacts_app_id.get_join_qrcode()
+    module_wecom_contacts_sync= fields.Boolean("WeCom Contacts Synchronized")
+    module_wecom_hrm= fields.Boolean("WeCom HRM")
+    

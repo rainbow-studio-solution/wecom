@@ -436,8 +436,8 @@ msgstr "企业支付"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-msgid "Enterprise wechat address book can be read through API interface"
-msgstr "可通过API接口读取企业微信通讯录"
+msgid "Enterprise wechat address book can be read through API interface,Synchronize with the enterprise wechat address book to avoid maintaining multiple sets of address books at the same time."
+msgstr "可通过API接口读取企业微信通讯录，与企业微信通讯录同步，避免同时维护多套通讯录。"
 
 #. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_service_api_error

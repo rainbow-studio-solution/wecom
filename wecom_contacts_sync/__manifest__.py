@@ -16,10 +16,13 @@
 
 
         """,
-    "depends": ["wecom_contacts",],
+    "depends": ["wecom_contacts","wecom_hrm",],
     "external_dependencies": {"python": [],},
     "data": [
-
+        "data/wecom_app_config_data.xml",
+        "data/wecom_app_event_type_data.xml",
+        "views/res_config_settings_views.xml",
+        "views/wecom_apps_views.xml",
     ],
-
+    "license": "LGPL-3",
 }

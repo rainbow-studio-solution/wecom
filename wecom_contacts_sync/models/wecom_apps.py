@@ -2,8 +2,6 @@
 
 import logging
 import datetime
-import werkzeug.utils
-import urllib
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException

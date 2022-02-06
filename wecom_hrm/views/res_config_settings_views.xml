@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">WeCom contacts settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+
+                <div id="wecom_hrm_warning" position="replace"/>
+
+                <div id="wecom_hrm_install" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-th fa-lg" aria-label="Hr related menus"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <span class="o_form_label">Hide HR related menus</span>
+                                <div class="row">
+                                    <div class="text-muted col-md-12">
+                                    The menu is rebuilt. It is recommended to hide the original HR menu.
+                                    </div>
+                                </div>
+                            </div>
+                            <hr/>
+                            <button name="%(wecom_hrm.action_view_hr_menu)d" icon="fa-arrow-right" type="action" string="Hide the menu" class="btn-link"/>
+                            <button class="oe_highlight ml-1" name="hide_hr_menu" string=" One click Hide Menu" type="object" icon="fa-eye-slash" />
+                        </div>
+                    </div>
+                </div>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

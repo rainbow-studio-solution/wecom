@@ -1,0 +1,252 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wecom_contacts_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-06 07:19+0000\n"
+"PO-Revision-Date: 2022-02-06 15:25+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
+msgid "1: 171px * 171px"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
+msgid "2: 399px * 399px"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
+msgid "3: 741px * 741px"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "<i class=\"fa fa-cogs fa-lg\" aria-label=\"Contacts Configuration\"/>"
+msgstr "<i class=\"fa fa-cogs fa-lg\" aria-label=\"通讯录配置\"/>"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
+msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
+msgid ""
+"<span class=\"text-info font-weight-bold\">Valid only when synchronizing "
+"new employees.</span>\n"
+"                    <br>Value: True or False"
+msgstr ""
+"<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid ""
+"<span class=\"text-warning font-weight-bold\">Use this feature with caution."
+"</span>\n"
+"                    <br>Value: True or False"
+msgstr ""
+"<span class=\"text-warning font-weight-bold\">请谨慎使用此功能。</span>\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_user
+msgid "Add member events"
+msgstr "新增成员事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_edit_enabled
+msgid "Allow API to edit WeCom contacts"
+msgstr "允许API编辑企业微信通讯录"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_auto_sync_hr_enabled
+msgid "Allow WeCom Contacts are automatically updated to HR"
+msgstr "允许企微通讯录自动更新到HR"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
+msgid "Allow WeCom contacts to automatically update system accounts"
+msgstr "允许企微通讯录自动更新系统帐户"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "Button group"
+msgstr "按钮组"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_asyn_task_completion_notification
+msgid "Contacts asynchronous task completion notification"
+msgstr "通讯录异步任务完成通知"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_delete_party
+msgid "Delete Department events"
+msgstr "删除部门事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_delete_user
+msgid "Delete member events"
+msgstr "删除成员事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_sync_hr_department_id
+msgid "Department ID to be synchronized"
+msgstr "需要同步的部门ID"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_sync_hr_department_id
+msgid ""
+"Department id. Get the specified department and its sub-departments. If you "
+"don’t fill in, get the full organization structure by default\n"
+"                    <br>Value: Department id."
+msgstr ""
+"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构\n"
+"                    <br>值：部门id。"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
+msgid ""
+"Enable this, Employee photos will use the default avatar. Will save a lot "
+"of synchronization time."
+msgstr "启用此选项，员工照片将使用默认头像。将节省大量的同步时间。"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid ""
+"Enable this,Each update will overwrite the employee photos you have set up."
+msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
+msgid ""
+"Enable to allow batch generation of system accounts from employees;\n"
+"                    <br>Value: True or False"
+msgstr ""
+"允许员工批量生成系统账户；\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_enabled_join_qrcode
+msgid "Enable to join the enterprise QR code"
+msgstr "启用加入企业二维码"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_enabled_join_qrcode
+msgid ""
+"Enable,The QR code for joining the enterprise is displayed on the login "
+"page.\n"
+"                    <br>Value: True or False"
+msgstr ""
+"启用此项，加入企业的二维码将显示在登录页面上。\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_edit_enabled
+msgid ""
+"Enterprise wechat Contacts can be read and edited through API interface\n"
+"                    <br>Value: True or False"
+msgstr ""
+"企业微信通讯录可以通过API接口读取和编辑\n"
+"                    <br>值: True 或 False"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "Generate parameters"
+msgstr "生成参数"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "Generate service"
+msgstr "生成服务"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_auto_sync_hr_enabled
+msgid ""
+"If enabled, it allows to read the WeCom address book through the API "
+"interface and automatically synchronize to ODOO;\n"
+"                    <br>Otherwise, you can only manually bind WeCom users.\n"
+"                    <br>Value: True or False"
+msgstr ""
+"如果启用，它允许通过API接口读取WeCom通讯簿，并自动同步到ODOO；\n"
+"                    <br>否则，您只能手动绑定企微用户。\n"
+"                    <br>值：True 或 False"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
+msgid "Join enterprise QR code"
+msgstr "加入企业二维码"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_acontacts_join_qrcode_last_time
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_acontacts_join_qrcode_last_time
+msgid "Last update time (UTC)"
+msgstr "上次更新时间（UTC）"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_party
+msgid "New departmental events"
+msgstr "新增部门事件"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
+msgid "QR code link, valid for 7 days"
+msgstr "二维码链接，有效期7天"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QR code size type"
+msgstr "二维码尺寸类型"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
+msgid "QRcode size type"
+msgstr "二维码尺寸类型"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "Refresh the QR code"
+msgstr "刷新二维码"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_tag
+msgid "Tag change events"
+msgstr "标签变更事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync
+msgid "Update avatar every time sync"
+msgstr "每次同步时更新头像"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_party
+msgid "Update department events"
+msgstr "更新部门事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_user
+msgid "Update member events"
+msgstr "更新成员事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
+msgid "Use system default Avatar"
+msgstr "使用系统默认头像"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "description"
+msgstr "说明"

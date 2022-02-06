@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    </data>
+    <data noupdate="1">
+
+        <!--开启访问权限，设置新用户访问权限为门户用户-->
+        <function model="ir.config_parameter" name="set_param" eval="('base_setup.default_user_rights', 'True')"/>
+
+        <function model="ir.config_parameter" name="set_param" eval="('base.template_portal_user_id', '5')"/>
+
+    </data>
+</odoo>

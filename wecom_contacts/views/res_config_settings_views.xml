@@ -49,66 +49,52 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('contacts_app_id','=',False)]}">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('contacts_app_id','=',False)]}" id="wecom_contacts_sync_install">
                         <div class="o_setting_left_pane">
-                            <i class="fa fa-cogs fa-lg" aria-label="Contacts Configuration"/>
+                            <field name="module_wecom_contacts_sync"/>
                         </div>
-                        <div class="o_setting_right_pane">
-                            <label for="contacts_app_config_ids"/>
-                            <div class="row">
-                                <div class="content-group">
-                                    <!--   -->
-                                    <div class="mt4">
-                                        <field name="contacts_app_config_ids" widget="wecom_x2many" help="description" class="w-100 pl-3">
-                                            <tree create="0" edit="true" delete="0" editable="bottom" help="description">
-                                                <field name="name" readonly="1"/>
-                                                <field name="key" readonly="1"/>
-                                                <field name="value" required="1"/>
-                                                <field name="description" invisible="1"/>
-                                            </tree>
-                                        </field>
-                                    </div>
-                                    <div class="btn-group float-right" role="group" aria-label="Button group">
-                                        <button class="oe_highlight" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" />
-                                        <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
-                                    </div>
+                        <div class="o_setting_right_pane" id="wecom_contacts_sync_settings">
+                            <label for="module_wecom_contacts_sync"/>
+                            <div class="text-muted">
+                                Synchronize address book information such as department, member, tag, etc.
+                            </div>
+                            <div class="content-group" attrs="{'invisible': [('module_wecom_contacts_sync', '=', False)]}" id="wecom_contacts_sync_warning">
+                                <div class="mt4 text-warning">
+                                    <strong>Save</strong> this page and come back here to set up other feature.
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('contacts_app_id','=',False)]}">
+                </div>
+                <div name="wecom_contact_settings_container" position="after">
+                    <h2 id="wecom_hrm" class="d-flex justify-content-between" attrs="{'invisible': [('module_wecom_contacts','=',False)]}">
+                        <span class="text-left">
+                            <i class="fa fa-users fa-lg" aria-label="Wecom HRM settings" />
+                                Wecom HRM settings
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_hrm_install">
                             <div class="o_setting_left_pane">
-                                <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
+                                <field name="module_wecom_hrm"/>
                             </div>
-                            <div class="o_setting_right_pane">
-                                <label for="contacts_app_callback_service_ids"/>
-                                <div class="row">
-                                    <div class="content-group">
-                                        <div class="mt4">
-                                            <field name="contacts_app_callback_service_ids" widget="wecom_x2many" help="description" class="w-100 pl-3">
-                                                <tree create="0" edit="true" delete="0" editable="bottom" help="description">
-                                                    <field name="name" readonly="1"/>
-                                                    <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
-                                                    <field name="callback_url_token" required="1" max-width="80px"/>
-                                                    <field name="callback_aeskey" required="1" max-width="200px"/>
-                                                    <field name="active" widget="boolean_toggle" max-width="30px"/>
-                                                    <field name="description" invisible="1"/>
-                                                </tree>
-                                            </field>
-                                        </div>
-                                        <div class="text-right">
-                                            <button class="oe_highlight" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
-                                        </div>
+                            <div class="o_setting_right_pane" id="wecom_hrm_settings">
+                                <label for="module_wecom_hrm"/>
+                                <div class="text-muted">
+                                    Manage the departments, members and labels of enterprise wechat.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_hrm', '=', False)]}" id="wecom_hrm_warning">
+                                    <div class="mt4 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-
-
+                    </div>
                 </div>
-
             </field>
         </record>
 

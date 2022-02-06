@@ -16,4 +16,5 @@
     "description": """
 
         """,
+    "license": "LGPL-3",
 }
