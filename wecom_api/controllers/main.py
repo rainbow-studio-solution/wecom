@@ -17,16 +17,16 @@ _logger = logging.getLogger(__name__)
 class StripeController(http.Controller):
     """ """
 
-    @http.route(
-        ["/wecom_callback", "/wecom_callback/"],
-        type="http",
-        auth="public",
-        methods=["GET", "POST"],
-    )
-    def WecomCallbackService(self):
-        """
-        企业微信回调服务
-        """
+    # @http.route(
+    #     ["/wecom_callback", "/wecom_callback/"],
+    #     type="http",
+    #     auth="public",
+    #     methods=["GET", "POST"],
+    # )
+    # def WecomCallbackService(self):
+    #     """
+    #     企业微信回调服务
+    #     """
 
     @http.route(
         ["/wecom_callback/<int:id>/<string:service>", "/wecom_callback/contacts"],
@@ -41,6 +41,8 @@ class StripeController(http.Controller):
         :param id:      公司id
         :param service: 回调服务名称 code
         文档URL: https://work.weixin.qq.com/api/doc/90000/90135/90930#3.2%20%E6%94%AF%E6%8C%81Http%20Post%E8%AF%B7%E6%B1%82%E6%8E%A5%E6%94%B6%E4%B8%9A%E5%8A%A1%E6%95%B0%E6%8D%AE
+
+        暂时只处理 通讯录的 回调
         """
         company_id = request.env["res.company"].sudo().search([("id", "=", id)])
         sCorpID = company_id.corpid
@@ -54,11 +56,13 @@ class StripeController(http.Controller):
                 ("active", "=", False),
             ]
         )
+
         if callback_service.active is False:
             _logger.info(
                 _("App [%s] does not have service [%s] enabled")
                 % (company_id.contacts_app_id.name, callback_service.name)
             )
+
             return Response("success", status=200)
         else:
             wxcpt = WecomMsgCrypt(
