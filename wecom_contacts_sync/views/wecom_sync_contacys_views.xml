@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record id="view_form_wecom_contacts_sync_task" model="ir.ui.view">
+            <field name="name">Data synchronization task</field>
+            <field name="model">wecom.sync.contacts.task</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false">
+                    <group>
+                        <field name="name"/>
+                        <field name="create_date" string="Starting time"/>
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <!-- <button name="reload" string="Close and refresh" class="btn-primary" type="object"/> -->
+                    </footer>
+                </form>
+            </field>
+        </record>
     </data>
 </odoo>

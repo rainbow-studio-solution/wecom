@@ -27,6 +27,8 @@
                                         <strong>Save</strong> this page and come back here to set up other feature.</div>
                                 </div>
                             </div>
+                            <hr/>
+                            <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
                         </div>
                     </div>
 

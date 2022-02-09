@@ -152,15 +152,15 @@
                                     <field name="expiration_time" force_save="1"/>
                                 </group>
                             </page>
-                            <page name="parameter" string="Parameter">
+                            <page name="parameter" string="Parameter" class="overflow-auto">
                                 <group>
-                                    <field name="app_config_ids" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
+                                    <field name="app_config_ids" mode="tree" help="description" nolabel="1" >
                                         <!-- context="{'default_company_id': company_id}" -->
-                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
+                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom" >
                                             <!-- <field name="company_id" readonly="1"/> -->
                                             <field name="name" readonly="1"/>
                                             <field name="key" readonly="1"/>
-                                            <field name="value" required="1" style="max-width: 500x;"/>
+                                            <field name="value" required="1"/>
                                             <field name="description" invisible="1" />
                                         </tree>
                                     </field>

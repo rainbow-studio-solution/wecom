@@ -6,32 +6,43 @@
             <field name="model">wecom.contacts.sync.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="WeCom contact synchronization">
-                    <separator string="Download data (department, tag, employee) from WeCom to local."/>
-                    <div>
-                        Linux production server uses the following command to view real-time logs:
-                    </div>
-                    <div class="mt16 mb16">
-                        <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
-                    </div>
-                    <div>
-                        If an error occurs, please check the help file.
-                    </div>
+                <form>
                     <group string="Synchronize all companies?">
                         <field name="sync_all" />
                         <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
-                    </group>
-
-                    <group string="Select the synchronization parameters of the company">
                         <field name="contacts_app_id" invisible="1"/>
-                        <field name="contacts_app_config_ids">
-                            <tree create="0" edit="0" delete="0" nolabel="1">
+                        <field name="contacts_app_config_ids" class="w-100">
+                            <tree create="0" edit="0" delete="0">
                                 <field name="name"/>
                                 <field name="ttype"/>
                                 <field name="value"/>
                             </tree>
                         </field>
                     </group>
+                    <notebook>
+                        <!-- <page string="Sync Info">
+                            <field name="task_ids">
+                                <tree create="0" edit="0" delete="0">
+                                    <field name="company_id"/>
+                                    <field name="department_sync_state"/>
+                                    <field name="employee_sync_state"/>
+                                    <field name="tag_sync_state"/>
+                                </tree>
+                            </field>
+                        </page> -->
+                        <page string="Help">
+                            <div>
+                                Linux production server uses the following command to view real-time logs:
+                            </div>
+                            <div class="mt16 mb16">
+                                <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                            </div>
+                            <div>
+                                If an error occurs, please check the help file.
+                            </div>
+                        </page>
+                    </notebook>
+
                     <footer>
                         <button name="action_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
                     </footer>
@@ -39,6 +50,31 @@
             </field>
         </record>
 
+        <record id="view_form_wecom_contacts_sync_result" model="ir.ui.view">
+            <field name="name">Contact synchronization Result</field>
+            <field name="model">wecom.contacts.sync.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    
+                    <group>
+                        <field name="task_ids">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="create_date" string="Starting time"/>
+                                <field name="company_id"/>
+                                <field name="department_sync_state"/>
+                                <field name="employee_sync_state"/>
+                                <field name="tag_sync_state"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <!-- <button name="reload" string="Close and refresh" class="btn-primary" type="object"/> -->
+                    </footer>
+                </form>
+            </field>
+        </record>
         <!-- actions -->
         <!-- <record id="actions_wecom_contacts_sync_wizard_list" model="ir.actions.act_window">
             <field name="name">Contact synchronization record list</field>
