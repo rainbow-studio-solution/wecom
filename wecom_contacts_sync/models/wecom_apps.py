@@ -67,41 +67,62 @@ class WeComApps(models.Model):
         根据code生成参数
         :param code:
         :return:
-        注意：14使用get_object_reference方法，15使用_xmlid_to_res_id方法
+        注意：14使用 get_object_reference 方法，15 没有此方法，
+        故在 \wecom_base\models\ir_model.py 添加了 get_object_reference方法
         """
         if code == "contacts":
             # 从xml 获取数据
             ir_model_data = self.env["ir.model.data"]
-            contacts_auto_sync_hr_enabled = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_auto_sync_hr_enabled"
-            ) # 1
-            contacts_sync_hr_department_id = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_sync_hr_department_id"
-            ) # 2
-            contacts_edit_enabled = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_edit_enabled"
-            ) # 3
-            contacts_sync_user_enabled = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_sync_user_enabled"
-            ) # 4
-            contacts_use_system_default_avatar = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_use_system_default_avatar"
-            ) # 5
-            contacts_update_avatar_every_time_sync = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_update_avatar_every_time_sync"
-            ) # 6
-            enabled_join_qrcode = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_enabled_join_qrcode"
-            ) # 7
-            join_qrcode = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_join_qrcode"
-            ) # 8
-            join_qrcode_size_type = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_contacts_join_qrcode_size_type"
-            ) # 9
-            join_qrcode_last_time = ir_model_data._xmlid_to_res_id(
-                "wecom_contacts.wecom_app_config_acontacts_join_qrcode_last_time"
-            ) # 10
+            contacts_auto_sync_hr_enabled = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_auto_sync_hr_enabled"
+            )[
+                1
+            ]  # 1
+            contacts_sync_hr_department_id = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_sync_hr_department_id"
+            )[
+                1
+            ]  # 2
+            contacts_edit_enabled = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_edit_enabled"
+            )[
+                1
+            ]  # 3
+            contacts_sync_user_enabled = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_sync_user_enabled"
+            )[
+                1
+            ]  # 4
+            contacts_use_system_default_avatar = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_use_system_default_avatar"
+            )[
+                1
+            ]  # 5
+            contacts_update_avatar_every_time_sync = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_update_avatar_every_time_sync"
+            )[
+                1
+            ]  # 6
+            enabled_join_qrcode = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_enabled_join_qrcode"
+            )[
+                1
+            ]  # 7
+            join_qrcode = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_join_qrcode"
+            )[
+                1
+            ]  # 8
+            join_qrcode_size_type = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_join_qrcode_size_type"
+            )[
+                1
+            ]  # 9
+            join_qrcode_last_time = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_acontacts_join_qrcode_last_time"
+            )[
+                1
+            ]  # 10
 
             vals_list = [
                 contacts_auto_sync_hr_enabled,  # 1

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 07:19+0000\n"
-"PO-Revision-Date: 2022-02-06 15:25+0800\n"
+"POT-Creation-Date: 2022-02-09 07:36+0000\n"
+"PO-Revision-Date: 2022-02-09 15:40+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -20,17 +20,17 @@ msgstr ""
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
 msgid "1: 171px * 171px"
-msgstr ""
+msgstr "1: 171px * 171px"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
 msgid "2: 399px * 399px"
-msgstr ""
+msgstr "2: 399px * 399px"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
 msgid "3: 741px * 741px"
-msgstr ""
+msgstr "3: 741px * 741px"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
@@ -41,6 +41,11 @@ msgstr "<i class=\"fa fa-cogs fa-lg\" aria-label=\"通讯录配置\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
 msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
+msgstr "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
@@ -83,14 +88,76 @@ msgid "Allow WeCom contacts to automatically update system accounts"
 msgstr "允许企微通讯录自动更新系统帐户"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_id
+msgid "Application"
+msgstr "应用"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_config_ids
+msgid "Application Configuration"
+msgstr "应用配置"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Automatic task:Start to get join enterprise QR code."
+msgstr "自动任务：开始获取加入企业二维码。"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "Button group"
 msgstr "按钮组"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__company_ids
+msgid "Companies"
+msgstr "公司"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__company_name
+msgid "Company Name"
+msgstr "公司名称"
+
+#. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wecom_contacts_sync
+#: model:ir.actions.act_window,name:wecom_contacts_sync.actions_wecom_contacts_sync_wizard
+msgid "Contact synchronization Wizard"
+msgstr "通讯录同步向导"
+
+#. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_asyn_task_completion_notification
 msgid "Contacts asynchronous task completion notification"
 msgstr "通讯录异步任务完成通知"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Contacts synchronization"
+msgstr "通讯录同步"
+
+#. module: wecom_contacts_sync
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_wizard
+msgid "Contacts synchronization Wizard"
+msgstr "通讯录同步向导"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_date
+msgid "Created on"
+msgstr "创建时间"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_delete_party
@@ -116,6 +183,16 @@ msgid ""
 msgstr ""
 "部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构\n"
 "                    <br>值：部门id。"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "Download data (department, tag, employee) from WeCom to local."
+msgstr "从企业微信下载数据（部门，标签，员工）到本地。"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
@@ -174,6 +251,16 @@ msgid "Generate service"
 msgstr "生成服务"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "If an error occurs, please check the help file."
+msgstr "如果发生错误，请查看帮助文件。"
+
+#. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_auto_sync_hr_enabled
 msgid ""
 "If enabled, it allows to read the WeCom address book through the API "
@@ -191,15 +278,53 @@ msgid "Join enterprise QR code"
 msgstr "加入企业二维码"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard____last_update
+msgid "Last Modified on"
+msgstr "最后更改日"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_date
+msgid "Last Updated on"
+msgstr "更新时间"
+
+#. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_acontacts_join_qrcode_last_time
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_acontacts_join_qrcode_last_time
 msgid "Last update time (UTC)"
 msgstr "上次更新时间（UTC）"
 
 #. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid ""
+"Linux production server uses the following command to view real-time logs:"
+msgstr "Linux生产服务器使用以下命令查看实时日志："
+
+#. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_party
 msgid "New departmental events"
 msgstr "新增部门事件"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/res_config_settings.py:0
+#, python-format
+msgid "Please bind contact app!"
+msgstr "请绑定通讯录应用！"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Please generate application parameters first."
+msgstr "请先生成应用参数。"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "Please select the company to be synchronized."
+msgstr "请选择要同步的公司。"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
@@ -218,8 +343,30 @@ msgstr "二维码尺寸类型"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_apps_form
 msgid "Refresh the QR code"
 msgstr "刷新二维码"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_secret
+msgid "Secret"
+msgstr "Secret"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "Select a company to view synchronization parameters."
+msgstr "选择要查看同步参数的公司。"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Start getting join enterprise QR code for app [%s]"
+msgstr "开始获取应用 [%s] 的加入企业二维码"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "Start syncing"
+msgstr "开始同步"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_tag
@@ -245,6 +392,37 @@ msgstr "更新成员事件"
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_use_system_default_avatar
 msgid "Use system default Avatar"
 msgstr "使用系统默认头像"
+
+#. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_res_users
+msgid "Users"
+msgstr "用户"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+msgid "WeCom contact synchronization"
+msgstr "企微通讯录同步"
+
+#. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_sync_wizard
+msgid "WeCom contacts synchronization wizard"
+msgstr "企微通讯录同步向导"
+
+#. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid ""
+"When members modify their personal information, the modified information "
+"will be pushed to the following URL in the form of events to ensure the "
+"synchronization of the address book."
+msgstr ""
+"当成员修改个人信息时，被修改的信息将以事件的形式推送到以下URL，保证通讯录同"
+"步。"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form

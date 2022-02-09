@@ -13,3 +13,7 @@ class ResConfigSettings(models.TransientModel):
         domain = ['&','&','&',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRM'),'|',('active','=',True),('active','=',False)]
 
         self.env["ir.ui.menu"].search(domain).sudo().write({"active": False})
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

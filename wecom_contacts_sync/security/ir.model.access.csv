@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_wecom_contacts_sync_wizard","access.wecom.contacts.sync.wizard","model_wecom_contacts_sync_wizard","hr.group_hr_manager",1,1,1,0
+"access_wecom_sync_contacts_task","access.wecom.sync.contacts.task","model_wecom_sync_contacts_task","hr.group_hr_manager",1,1,1,0

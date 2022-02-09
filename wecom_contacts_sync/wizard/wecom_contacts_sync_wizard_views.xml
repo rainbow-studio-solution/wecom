@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wecom_contacts_sync_wizard" model="ir.ui.view">
+            <field name="name">Contact synchronization Wizard</field>
+            <field name="model">wecom.contacts.sync.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="WeCom contact synchronization">
+                    <separator string="Download data (department, tag, employee) from WeCom to local."/>
+                    <div>
+                        Linux production server uses the following command to view real-time logs:
+                    </div>
+                    <div class="mt16 mb16">
+                        <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                    </div>
+                    <div>
+                        If an error occurs, please check the help file.
+                    </div>
+                    <group string="Synchronize all companies?">
+                        <field name="sync_all" />
+                        <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
+                    </group>
+
+                    <group string="Select the synchronization parameters of the company">
+                        <field name="contacts_app_id" invisible="1"/>
+                        <field name="contacts_app_config_ids">
+                            <tree create="0" edit="0" delete="0" nolabel="1">
+                                <field name="name"/>
+                                <field name="ttype"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="action_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- actions -->
+        <!-- <record id="actions_wecom_contacts_sync_wizard_list" model="ir.actions.act_window">
+            <field name="name">Contact synchronization record list</field>
+            <field name="res_model">wecom.contacts.sync.wizard</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_wecom_contacts_sync_tree"/>
+        </record> -->
+
+        <record id="actions_wecom_contacts_sync_wizard" model="ir.actions.act_window">
+            <field name="name">Contact synchronization Wizard</field>
+            <field name="res_model">wecom.contacts.sync.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wecom_contacts_sync_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
