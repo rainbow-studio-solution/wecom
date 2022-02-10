@@ -112,13 +112,17 @@ class HrEmployeePrivate(models.Model):
         for key, value in dic.items():
             if key == "DirectLeader":
                 parent_employee_wecom_id = value
-                # 处理直属上级
-                if "," in value:
-                    parent_employee_wecom_id = value.split(",")[0]
+                if parent_employee_wecom_id is None:
+                    # 直属上级为空
+                    new_parent_employee = False
+                else:
+                    # 处理直属上级
+                    if "," in value:
+                        parent_employee_wecom_id = value.split(",")[0]
 
-                new_parent_employee = employee.search(
-                    [("wecom_userid", "=", parent_employee_wecom_id)], limit=1
-                )
+                    new_parent_employee = employee.search(
+                        [("wecom_userid", "=", parent_employee_wecom_id)], limit=1
+                    )
             elif (
                 key == "ToUserName"
                 or key == "FromUserName"
@@ -180,9 +184,13 @@ class HrEmployeePrivate(models.Model):
                         )
                         % key
                     )
-
+        
+        # 更新直属上级字典
         if new_parent_employee:
             update_dict.update({"parent_id": new_parent_employee.id})
+        else:
+            update_dict.update({"parent_id": False,"coach_id": False})
+
         if len(department_ids) > 0:
             update_dict.update({"department_ids": [(6, 0, department_ids)]})
 
