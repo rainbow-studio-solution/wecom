@@ -24,7 +24,6 @@
         "data/wecom_app_event_type_data.xml",
         "views/res_config_settings_views.xml",
         "views/wecom_apps_views.xml",
-        # "views/wecom_sync_contacys_views.xml",
         "wizard/wecom_contacts_sync_wizard_views.xml",
         "views/menu_views.xml",
     ],

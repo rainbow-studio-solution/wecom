@@ -15,7 +15,6 @@ class Department(models.Model):
     # -------------------------------------------------------
     # 同步部门
     # -------------------------------------------------------
-
     def sync_department(self, company):
         """
         同步部门
@@ -45,7 +44,7 @@ class Department(models.Model):
                 _("Start synchronizing departments of %s"), company.name,
             )
  
-        times = 0
+  
 
         try:
             app_config = self.env["wecom.app_config"].sudo()
@@ -88,7 +87,7 @@ class Department(models.Model):
             if debug:
                 _logger.info(
                     _("End sync %s Department,Total time spent: %s seconds")
-                    % (company.name, times)
+                    % (company.name, end_time-start_time)
                 )
             res.update({
                 "department_sync_times":end_time-start_time,

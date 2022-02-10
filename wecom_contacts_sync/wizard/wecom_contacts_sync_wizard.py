@@ -174,8 +174,6 @@ class WecomContactsSyncWizard(models.TransientModel):
  
         df = pd.DataFrame(results)
 
-    
-
         self.state,self.department_sync_state,self.employee_sync_state,self.tag_sync_state = self.handle_sync_state(df) # 处理同步状态
 
         # 处理同步结果和结果
@@ -203,10 +201,10 @@ class WecomContactsSyncWizard(models.TransientModel):
         self.department_sync_result = department_sync_result
         self.employee_sync_result = employee_sync_result
         self.tag_sync_result = tag_sync_result
-        
+
         self.department_sync_times = department_sync_times
         self.employee_sync_times = employee_sync_times
-        self.employee_sync_times = employee_sync_times
+        self.tag_sync_times = tag_sync_times
         
         # 显示同步结果
         form_view = self.env.ref(
@@ -238,8 +236,9 @@ class WecomContactsSyncWizard(models.TransientModel):
         """
         处理同步状态
         """ 
-        all_state_rows = len(df) # 获取所有行数
+        all_state_rows = len(df) # 获取所有行数            
         fail_state_rows = len(df[df["state"] == "fail"]) # 获取失败行数
+        
         fail_department_state_rows = len(df[df["department_sync_state"] == "fail"]) # 获取失败行数
         fail_employee_state_rows = len(df[df["employee_sync_state"] == "fail"]) # 获取失败行数
         fail_tag_state_rows = len(df[df["tag_sync_state"] == "fail"]) # 获取失败行数
@@ -295,16 +294,17 @@ class WecomContactsSyncWizard(models.TransientModel):
                 company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
             )  # 允许企业微信通讯簿自动更新为HR的标识
             if sync_hr_enabled:
-                sync_department_result =self.env["hr.department"].sync_department(company)
+                result.update({"state":"completed"})
+
+                sync_department_result =self.env["hr.department"].sync_department(company) # 同步部门
                 result.update(sync_department_result)
-                result.update({
-                    "employee_sync_state":"fail",                    
-                    "employee_sync_times":0,
-                    "employee_sync_result":"",
-                    "tag_sync_state":"fail",                    
-                    "tag_sync_times":0,
-                    "tag_sync_result":"",
-                    })
+
+                sync_employee_result = self.env["hr.employee"].sync_employee(company) # 同步员工
+                result.update(sync_employee_result)
+
+                sync_tag_result = self.env["hr.employee.category"].sync_tag(company) # 同步标签
+                result.update(sync_tag_result)
+
             else:
                 result.update({
                     "state":"fail",

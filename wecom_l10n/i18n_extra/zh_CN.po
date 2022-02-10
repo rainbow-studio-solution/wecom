@@ -112,6 +112,11 @@ msgstr ""
 "        "
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_contacts_sync
+msgid "WeCom Contacts Synchronized"
+msgstr "企微联系人同步"
+
+#. module: base
 #: model:ir.module.module,summary:base.module_wecom_message
 msgid ""
 "\n"
