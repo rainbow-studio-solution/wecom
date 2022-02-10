@@ -1,0 +1,8 @@
+addons\mail\models\mail_mail.py         send
+addons\mail\models\mail_thread.py       message_notify
+addons\mail\models\mail_thread.py       _notify_thread
+addons\mail\models\mail_thread.py       _notify_record_by_inbox
+
+
+addons\mail\models\mail_mail.py         _postprocess_sent_message   #TODO notification_type
+.notification_type 

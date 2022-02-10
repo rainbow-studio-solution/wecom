@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!-- 修改 mail.message 视图-->
+        <record model="ir.ui.view" id="view_message_tree">
+            <field name="name">mail.message.tree</field>
+            <field name="model">mail.message</field>
+            <field name="inherit_id" ref="mail.view_message_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="is_wecom_message" />
+                </xpath>
+            </field>
+        </record>
+
+        <!-- 企业微信消息视图-->
+
+        <record model="ir.ui.view" id="view_wecom_message_form">
+            <field name="name">wecom.message.form</field>
+            <field name="model">mail.message</field>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <form string="WeCom Message">
+                    <header>
+                        <button name="recall_message" string="Recall Message" type="object" states='sent' class="oe_highlight" icon="fa-times-circle"/>
+                        <button name="resend_message" string="Resend Message" type="object" states='exception' icon="fa-repeat" />
+                        <field name="state" widget="statusbar" statusbar_visible="sent,exception,recall"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="subject"/>
+                                <field name="date"/>
+                                <field name="email_from"/>
+                                <field name="author_id"/>
+                                <field name="message_type"/>
+                                <field name="subtype_id"/>
+                                <field name="is_internal"/>
+                            </group>
+                            <group>
+                                <field name="model"/>
+                                <field name="res_id" widget="integer"/>
+                                <field name="record_name"/>
+                                <field name="parent_id"/>
+                                <!-- <field name="moderation_status"/> -->
+                                <!-- <field name="moderator_id"/> -->
+                            </group>
+                        </group>
+                        <group string="Message">
+                            <group string="Recipients">
+                                <field name="message_to_user" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+                                <field name="message_to_party" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+                                <field name="message_to_tag" widget="many2many_tags" options="{'no_create': True,'no_open': True}"/>
+                            </group>
+                            <group string="Options">
+                                <field name="is_wecom_message"/>
+                                <field name="msgtype"/>
+                                <field name="message_id"/>
+                                <field name="failure_reason"/>
+                                <!-- <field name="use_templates"/> -->
+                                <!-- <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/> -->
+                            </group>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
+                                <field name="body_html" widget="html" />
+                            </page>
+                            <page string="Json Content" name="json_content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                                <field name="body_json" widget="wecom_jsoneditor" />
+                            </page>
+                            <page string="Markdown Content" name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                                <field name="body_markdown" widget="wecom_markdown" />
+                            </page>
+
+                            <page string="Recipients" name="recipients">
+                                <group>
+                                    <group>
+                                        <field name="partner_ids" widget="many2many_tags"/>
+                                        <!-- <field name="channel_ids" widget="many2many_tags"/> -->
+                                    </group>
+                                    <group>
+                                        <field name="notified_partner_ids" widget="many2many_tags"/>
+                                        <field name="starred_partner_ids" widget="many2many_tags"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="notification_ids">
+                                        <tree>
+                                            <field name="res_partner_id"/>
+                                            <field name="is_read"/>
+                                            <field name="notification_type"/>
+                                            <field name="notification_status"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Tracking" name="page_tracking">
+                                <field name="tracking_value_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_wecom_message_tree">
+            <field name="name">wecom.message.tree</field>
+            <field name="model">mail.message</field>
+            <!-- <field name="priority">20</field> -->
+            <field name="arch" type="xml">
+                <tree string="Messages" decoration-muted="state=='sent'" decoration-danger="state=='exception'">
+                    <field name="date"/>
+                    <field name="message_type"/>
+                    <field name="is_wecom_message"/>
+                    <field name="subject"/>
+                    <field name="author_id"/>
+                    <field name="model"/>
+                    <field name="res_id" widget="integer"/>
+                    <field name="state" />
+                    <button name="recall_message" string="Recall Message" type="object" icon="fa-times-circle" states='sent'/>
+
+                    <button name="resend_message" string="Resend Message" type="object" icon="fa-repeat" states='exception'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_wecom_message" model="ir.actions.act_window">
+            <field name="name">Messages</field>
+            <field name="res_model">mail.message</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_wecom_message','=', True)]</field>
+            <field name="context">{}</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+                (0, 0, {'view_mode': 'tree', 'view_id': ref('view_wecom_message_tree')}),
+                (0, 0, {'view_mode': 'form', 'view_id': ref('view_wecom_message_form')})]"/>
+        </record>
+
+    </data>
+</odoo>

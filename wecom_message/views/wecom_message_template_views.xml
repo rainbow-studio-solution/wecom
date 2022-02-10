@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="wecom_message_template_view_tree" model="ir.ui.view">
+            <field name="name">wecom.message.template.view.tree</field>
+            <field name="model">wecom.message.template</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    <field name="name" />
+                    <field name="model_id"/>
+                    <field name="code" />
+                    <field name="subject" />
+                    <field name="msgtype" />
+                    <field name="partner_to" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="wecom_message_template_view_form" model="ir.ui.view">
+            <field name="name">wecom.message.template.view.form</field>
+            <field name="model">wecom.message.template</field>
+            <field name="arch" type="xml">
+                <form string="Templates">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                            <group>
+                                <field name="model_id" options="{'no_create': True}"/>
+                                <field name="code"/>
+                                <field name="model" invisible="1"/>
+                                <field name="msgtype" />
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Html Content" name="html_content" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;" class="w-75">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
+                                <p>
+                                    <label for="media_id"/>
+                                    <field name="media_id" widget="many2one" options="{'no_create': True,'no_open': True}" />
+                                </p>
+                                <field name="body_html" widget="html" />
+                            </page>
+                            <page string="Json Content" name="json_content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;" class="w-75">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
+                                <field name="body_json" widget="wecom_jsoneditor" />
+                            </page>
+                            <page string="Markdown Content" name="markdown_content" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                                <label for="subject"/>
+                                <h2 style="display: inline-block;" class="w-75">
+                                    <field name="subject" placeholder="Subject (placeholders may be used here)"/>
+                                </h2>
+
+                                <field name="body_markdown" widget="wecom_markdown" />
+                            </page>
+                            <page string="Message Configuration" name="message_configuration">
+                                <group>
+                                    <field name="sender" placeholder="Override author's WeCom User Id"/>
+                                    <field name="use_default_to"/>
+
+                                    <field name="message_to_user" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Member ID list (multiple recipients are separated by '|', and up to 1000 are supported).Special case: if @ all is specified, it will be sent to all members of the enterprise application."/>
+
+                                    <field name="message_to_party" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Department ID list. Multiple recipients are separated by '|', with a maximum of 100 supported.This parameter is ignored when 'To Users' is '@ all'"/>
+
+                                    <field name="message_to_tag" attrs="{'invisible': [('use_default_to', '=', True)]}" placeholder="Tag ID list. Multiple recipients are separated by '|', with a maximum of 100 supported.This parameter is ignored when 'To Users' is '@ all'"/>
+
+                                    <field name="scheduled_date" string="Scheduled Send Date"/>
+                                </group>
+                            </page>
+                            <page string="Advanced Settings" name="advanced_settings">
+                                <group>
+                                    <field name="safe"/>
+                                    <field name="enable_id_trans"/>
+                                    <field name="enable_duplicate_check"/>
+                                    <field name="duplicate_check_interval"/>
+                                    <field name="auto_delete"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wecom_message_template_tree_all" model="ir.actions.act_window">
+            <field name="name">Template</field>
+            <field name="res_model">wecom.message.template</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p>Please add a template</p>
+            </field>
+        </record>
+    </data>
+
+</odoo>

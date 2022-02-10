@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="wecom_message_template_preview_form">
+            <field name="name">wecom.message.template.preview.form</field>
+            <field name="model">mail.template.preview</field>
+            <field name="arch" type="xml">
+                <form string="WeCom Message Preview">
+                    <h3>Preview of <field name="mail_template_id" readonly="1" nolabel="1" options="{'no_open' : True}"/>
+                    </h3>
+                    <field name="no_record" invisible="1"/>
+                    <div class="container">
+                        <div class="row">
+                            <span class="col-md-5 col-lg-4 col-sm-12 pl-0">Choose an example <field name="model_id" readonly="1"/>
+ record:</span>
+                            <div class="col-md-7 col-lg-6 col-sm-12 pl-0">
+                                <field name="resource_ref" readonly="False" options="{'hide_model': True, 'no_create': True, 'no_edit': True, 'no_open': True}" attrs="{'invisible': [('no_record', '=', True)]}"/>
+                                <b attrs="{'invisible': [('no_record', '=', False)]}" class="text-warning">No record for this model</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <span class="col-md-5 col-lg-4 col-sm-12 pl-0">Force a language: </span>
+                            <div class="col-md-7 col-lg-6 col-sm-12 pl-0">
+                                <field name="lang"/>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <group>
+                        <field name="subject"/>
+                        <field name="msgtype" invisible="1"/>
+                        <field name="email_from" attrs="{'invisible':[('email_from','=', False)]}"/>
+                        <field name="partner_ids" widget="many2many_tags" attrs="{'invisible':[('partner_ids', '=', [])]}"/>
+                        <field name="message_to_user" readonly="1" attrs="{'invisible':[('message_to_user','=', False)]}"/>
+                        <field name="message_to_party" readonly="1" attrs="{'invisible':[('message_to_party','=', False)]}"/>
+                        <field name="message_to_tag" readonly="1" attrs="{'invisible':[('message_to_tag','=', False)]}"/>
+                        <field name="scheduled_date" attrs="{'invisible':[('scheduled_date','=', False)]}"/>
+                    </group>
+
+                    <!-- <label for="body_json" string="Json content" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}"/>
+                    <label for="body_markdown" string="Markdown content" attrs="{'invisible': [('msgtype','!=','markdown')]}" />
+                    <label for="body_html" string="Html content" attrs="{'invisible': [('msgtype','!=','mpnews')]}"/> -->
+                    <notebook>
+                        <page string="Html Content" name="body_html" attrs="{'invisible': [('msgtype','!=','mpnews')]}">
+                            <field name="body_html" widget="html" nolabel="1" options='{"safe": True}' />
+                        </page>
+                        <page string="Markdown Content" name="body_markdown" attrs="{'invisible': [('msgtype','!=','markdown')]}">
+                            <field name="body_markdown" widget="wecom_markdown" readonly="1" nolabel="1" options='{"safe": True}' />
+                        </page>
+                        <page string="Json Content" name="body_json" attrs="{'invisible': ['|',('msgtype','=','mpnews'),('msgtype','=','markdown')]}">
+                            <field name="body_json" widget="wecom_jsoneditor" readonly="1" nolabel="1" options='{"safe": True}'/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button string="Discard" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="wecom_message_template_preview_action" model="ir.actions.act_window">
+            <field name="name">Message Template Preview</field>
+            <field name="res_model">mail.template.preview</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="wecom_message_template_preview_form"/>
+            <field name="target">new</field>
+            <field name="context">{'default_mail_template_id':active_id}</field>
+        </record>
+
+    </data>
+</odoo>

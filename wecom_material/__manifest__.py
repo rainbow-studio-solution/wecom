@@ -49,4 +49,5 @@ Install:
     "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
 
     "pre_init_hook": "pre_init_hook",
+    "license": "LGPL-3",
 }
