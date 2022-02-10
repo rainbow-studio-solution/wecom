@@ -10,6 +10,7 @@
                     <group string="Synchronize all companies?">
                         <field name="sync_all" />
                         <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
+                        <field name="companies" />
                         <field name="contacts_app_id" invisible="1"/>
                         <field name="contacts_app_config_ids" class="w-100">
                             <tree create="0" edit="0" delete="0">
@@ -56,21 +57,47 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-                    
-                    <group>
-                        <field name="task_ids">
-                            <tree create="0" edit="0" delete="0">
-                                <field name="create_date" string="Starting time"/>
-                                <field name="company_id"/>
-                                <field name="department_sync_state"/>
-                                <field name="employee_sync_state"/>
-                                <field name="tag_sync_state"/>
-                            </tree>
-                        </field>
+                    <group string="Synchronization status">
+                        <group>
+                            <field name="create_date" string="Starting time"/>
+                            <field name="companies" />
+                            <field name="state" />
+                            <field name="total_time" />
+                        </group>
+                        <group>
+                            <field name="sync_result" />
+                        </group>
+                    </group>
+                    <group string="Department sync">
+                        <group>
+                            <field name="department_sync_state" />
+                            <field name="department_sync_times" />
+                        </group>
+                        <group>
+                            <field name="department_sync_result" />
+                        </group>
+                    </group>
+                    <group string="Employee sync">
+                        <group>
+                            <field name="employee_sync_state" />
+                            <field name="employee_sync_times" />
+                        </group>
+                        <group>
+                            <field name="employee_sync_result" />
+                        </group>
+                    </group>
+                    <group string="Tag sync">
+                        <group>
+                            <field name="tag_sync_state" />
+                            <field name="tag_sync_times" />
+                        </group>
+                        <group>
+                            <field name="tag_sync_result" />
+                        </group>
                     </group>
                     <footer>
                         <button string="Close" class="btn-primary" special="cancel"/>
-                        <!-- <button name="reload" string="Close and refresh" class="btn-primary" type="object"/> -->
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
                     </footer>
                 </form>
             </field>

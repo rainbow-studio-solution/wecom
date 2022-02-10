@@ -2,5 +2,8 @@
 
 from . import res_users
 from . import res_config_settings
+
+from . import hr_department
+
 from . import wecom_apps
 from . import wecom_contacts_sync_task

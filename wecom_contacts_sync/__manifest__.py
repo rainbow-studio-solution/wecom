@@ -17,7 +17,7 @@
 
         """,
     "depends": ["wecom_contacts", "wecom_hrm",],
-    "external_dependencies": {"python": [],},
+    "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_app_config_data.xml",
