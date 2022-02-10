@@ -208,8 +208,6 @@ class SyncEmployee(models.AbstractModel):
                     _("Error creating company %s employee %s %s, error reason: %s")
                     % (company.name, obj["userid"], obj["name"], repr(e))
                 )
-        # result = False
-        # return result
 
     def update_employee(self, company, records, obj):
         params = self.env["ir.config_parameter"].sudo()
