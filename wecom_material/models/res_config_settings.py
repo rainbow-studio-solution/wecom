@@ -22,14 +22,15 @@ class ResConfigSettings(models.TransientModel):
     material_secret = fields.Char(related="material_app_id.secret", readonly=False)
     material_access_token = fields.Char(related="material_app_id.access_token")
 
-    def get_app_info(self):
+    def get_material_app_info(self):
         """
         获取应用信息
         :return:
         """
         for record in self:
-            if record.material_app_id.agentid == 0 or record.material_app_id.secret == '':
-                raise UserError(_("Application ID and secret cannot be empty!"))
+            print(record.material_agentid,record.material_secret)
+            if record.material_agentid== 0 or record.material_secret == '':
+                raise UserError(_("Material application ID and secret cannot be empty!"))
             else:
                 record.material_app_id.get_app_info()
-        super(ResConfigSettings, self).get_app_info()
+ 

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_employee_category_form" model="ir.ui.view">
+            <field name="name">hr.employee.category.form</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Employee Tags">
+                        <sheet>
+                            <div name="button_box" class="oe_button_box">
+                                <!-- <button name="create_wecom_tag" type="object" string="Create WeCom Tags" class="oe_stat_button" icon="fa-tag" attrs="{'invisible': ['|',('is_wecom_category','=',False),'&amp;',('is_wecom_category','=',True), ('tagid','!=',0)]}"/>
+                                <button name="update_wecom_tag" type="object" string="Update Tags Name" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/> -->
+                                <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button bg-danger text-white" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+                            </div>
+                            <group>
+
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="name"/>
+                                <field name="display_name"/>
+
+                                <field name="is_wecom_category"/>
+                                <field name="tagid"/>
+
+                                <field name="employee_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
+                                <field name="department_ids" widget="many2many_tags" options="{'no_edit': True, 'no_create': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
+
+                            </group>
+                            <footer>
+                                <!-- float-right -->
+                                <div class="btn-group" role="group" aria-label="Button group">
+                                    <button string="Download Tags" class="btn btn-primary" type="object" name="download_wecom_tag" icon="fa-cloud-download" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+
+                                    <button name="upload_wecom_tag" type="object" string="Upload Tags" class="btn btn-success" icon="fa-cloud-upload" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                                    <!-- attrs="{'invisible': ['|',('tagid','=',0),('change','=',False)]}" -->
+                                </div>
+                                <div class="btn-group float-right" role="group" aria-label="Button group">
+
+                                </div>
+                            </footer>
+                        </sheet>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_category_list" model="ir.ui.view">
+            <field name="name">hr.employee.category.list</field>
+            <field name="model">hr.employee.category</field>
+            <field name="inherit_id" ref="hr.view_employee_category_list"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="replace">
+                    <tree string="Tags">
+                        <field name="company_id" groups="base.group_multi_company" options="{ 'no_open': True}"/>
+                        <field name="name"/>
+                        <field name="display_name"/>
+                        <field name="is_wecom_category"/>
+                        <field name="tagid" />
+                        <!-- <button name="update_to_wecom_" type="object" string="Update Tags" class="btn btn-info" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                        <button name="delete_to_wecom_" type="object" string="Delete Tags" class="btn btn-danger" attrs="{'invisible': ['|',('tagid','=',0),'&amp;',('is_wecom_category','=',False), ('tagid','=',0)]}"/> -->
+                    </tree>
+                </xpath>
+            </field>
+        </record>
+
+        <function model="ir.actions.act_window" name="write">
+            <value eval="[ref('hr.open_view_categ_form')]"/>
+            <value eval="{'name': 'Tags'}"/>
+        </function>
+    </data>
+</odoo>

@@ -180,9 +180,9 @@ msgstr ""
 
 #. module: wecom_material
 #: model:ir.actions.act_window,name:wecom_material.action_view_wecom_material
-#: model:ir.ui.menu,name:wecom_material.menu_wecom_message
-msgid "Material"
-msgstr "素材"
+#: model:ir.ui.menu,name:wecom_material.menu_wecom_material
+msgid "Wecom Material"
+msgstr "企微素材"
 
 #. module: wecom_material
 #. openerp-web

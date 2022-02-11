@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_layout" name="Portal Layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_security')]" position="after">
+            <div t-if="user_id.is_wecom_user" class="o_portal_my_wecom mt-3">
+                <h4>WeCom QR Code </h4>
+                <hr class="mt-1 mb-1"/>
+                <img class="img img-fluid w-75" t-att-src="user_id.qr_code" alt="WeCom QR Code"/>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

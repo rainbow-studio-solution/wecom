@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wecom_hr_employee_form_create_user_button" model="ir.ui.view">
+            <field name="name">wecom employee form create user button</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+
+                <!-- <xpath expr="//header//button[last()]" position="before">
+
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" attrs="{'invisible': ['|',('is_wecom_user', '=', False),'&amp;',('is_wecom_user', '!=', False),('user_id', '!=', False)]}" icon="fa-files-o" groups="hr.group_hr_manager"/>
+                </xpath> -->
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

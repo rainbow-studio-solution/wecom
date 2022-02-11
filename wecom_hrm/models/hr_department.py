@@ -47,6 +47,11 @@ class Department(models.Model):
         string="WeCom Department", readonly=True, default=False,
     )
 
+    def remove_obj_from_tag(self):
+        """
+        从标签中移除部门
+        """
+
 
     def wecom_event_change_contact_party(self, cmd):
         xml_tree = self.env.context.get("xml_tree")

@@ -497,8 +497,8 @@ msgstr "媒体文件Id"
 #. module: wecom_message
 #: model:ir.model,name:wecom_message.model_mail_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_message model:ir.ui.menu,name:wecom_message.menu_wecom_message_root
 #: model:wecom.app.subtype,name:wecom_message.wecom_app_subtype_message model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_search model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_message_form
-msgid "Message"
-msgstr "消息"
+msgid "Wecom Message"
+msgstr "企微消息"
 
 #. module: wecom_message
 #: model:ir.model,name:wecom_message.model_mail_notification

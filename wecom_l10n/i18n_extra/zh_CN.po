@@ -142,11 +142,11 @@ msgstr ""
 #: model:ir.module.module,summary:base.module_wecom_portal
 msgid ""
 "\n"
-"        WeCom Employee Portal\n"
+"        WeCom Portal\n"
 "        "
 msgstr ""
 "\n"
-"        企微员工门户\n"
+"        企微门户\n"
 "        "
 
 #. module: base
@@ -276,8 +276,8 @@ msgstr "企微基础"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_portal
-msgid "WeCom Employee Portal"
-msgstr "企微员工门户"
+msgid "WeCom Portal"
+msgstr "企微门户"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_hrm

@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--  ROOT   -->
-        <menuitem id="menu_wecom_message_root" name="Message" groups="base.group_erp_manager" parent="wecom_base.menu_wecom_root" sequence="3"/>
+        <menuitem id="menu_wecom_message_root" name="Wecom Message" groups="base.group_erp_manager" parent="wecom_base.menu_wecom_root" sequence="6"/>
 
 
         <!-- 1.讨论 对应菜单：设置→技术→讨论 -->
