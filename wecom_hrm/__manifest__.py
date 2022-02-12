@@ -16,7 +16,9 @@
     "description": """
 
         """,
-    "depends": ["wecom_contacts",],
+    "depends": [
+        "wecom_contacts",
+    ],
     "data": [
         # "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -29,7 +31,19 @@
         "views/hr_employee_view.xml",
         "views/hr_employee_category_views.xml",
         "views/menu_views.xml",
-    ],    
-    "external_dependencies": {"python": [],},
+    ],
+    "assets": {
+        "web.assets_backend": [
+            # SCSSS
+            # JS
+            "wecom_hrm/static/src/js/list_header_button.js",
+        ],
+        "web.assets_qweb": [
+            "wecom_hrm/static/src/xml/*.xml",
+        ],
+    },
+    "external_dependencies": {
+        "python": [],
+    },
     "license": "LGPL-3",
 }

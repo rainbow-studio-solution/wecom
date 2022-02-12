@@ -16,7 +16,7 @@
 
                                 <button name="upload_wecom_tag" type="object" string="Upload Tags" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
 
-                                <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+                                <!-- <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/> -->
                             </div>
                             <group>
 
@@ -44,7 +44,7 @@
             <field name="inherit_id" ref="hr.view_employee_category_list"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="replace">
-                    <tree string="Tags">
+                    <tree string="Tags" js_class="hr_employee_category_mining_request_tree">
                         <field name="company_id" groups="base.group_multi_company" options="{ 'no_open': True}"/>
                         <field name="name"/>
                         <field name="display_name"/>

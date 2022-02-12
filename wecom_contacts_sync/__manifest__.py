@@ -28,14 +28,6 @@
         # "views/hr_employee_view.xml",
         "views/menu_views.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            # SCSSS
-
-            # JS
-            "wecom_contacts_sync/static/src/js/list_header_button.js",
-        ],
-        "web.assets_qweb": ["wecom_contacts_sync/static/src/xml/*.xml",],
-    },
+    
     "license": "LGPL-3",
 }

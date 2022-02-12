@@ -78,8 +78,11 @@ class EmployeeCategory(models.Model):
             self.change = True
 
     def unlink(self):
+        del_wecom_tag = (
+            self.env["ir.config_parameter"].sudo().get_param("wecom.del_wecom_tag")
+        )
         for tag in self:
-            if tag.is_wecom_category:
+            if tag.is_wecom_category and del_wecom_tag:
                 tag.delete_wecom_tag()
         return super(EmployeeCategory, self).unlink()
 
@@ -318,7 +321,7 @@ class EmployeeCategory(models.Model):
 
     def download_wecom_tag(self):
         """
-        下载企微标签
+        下载单个企微标签
         """
         debug = self.env["ir.config_parameter"].sudo().get_param("wecom.debug_enabled")
         params = {}
@@ -349,57 +352,30 @@ class EmployeeCategory(models.Model):
                 }
             )
         else:
-            taglist = tag_response["taglist"]
+            tags = tag_response["taglist"]
 
-            for tag in taglist:
+            for tag in tags:
                 if tag["tagid"] == self.tagid:
                     self.name = tag["tagname"]
-                    break
-
-            employee_ids = []
-            for user in member_response["userlist"]:
-                employee = (
-                    self.env["hr.employee"]
-                    .sudo()
-                    .search(
-                        [
-                            ("wecom_userid", "=", user["userid"]),
-                            ("company_id", "=", self.company_id.id),
-                            ("is_wecom_user", "=", True),
-                            "|",
-                            ("active", "=", True),
-                            ("active", "=", False),
-                        ],
-                        limit=1,
+                    result = self.download_wecom_tag_member(
+                        self, wxapi, tag["tagid"], self.company_id
                     )
-                )
-                if employee:
-                    employee_ids.append(employee.id)
-
-            if len(employee_ids) > 0:
-                self.write({"employee_ids": [(6, 0, employee_ids)]})
-
-            department_ids = []
-            for party in member_response["partylist"]:
-                department = (
-                    self.env["hr.department"]
-                    .sudo()
-                    .search(
-                        [
-                            ("wecom_department_id", "=", party),
-                            ("is_wecom_department", "=", True),
-                            ("company_id", "=", self.company_id.id),
-                            "|",
-                            ("active", "=", True),
-                            ("active", "=", False),
-                        ],
-                    )
-                )
-                if department:
-                    department_ids.append(department.id)
-
-            if len(department_ids) > 0:
-                self.write({"department_ids": [(6, 0, department_ids)]})
+                    if result is False:
+                        params.update(
+                            {
+                                "title": _("Fail"),
+                                "message": _("Tag downloaded failed."),
+                                "type": "warning",
+                                "sticky": True,
+                                "className": "bg-warning",
+                            }
+                        )
+                        action = {
+                            "type": "ir.actions.client",
+                            "tag": "display_notification",
+                            "params": params,
+                        }
+                        return action
 
             message = _("Tag downloaded successfully.")
             params.update(
@@ -422,6 +398,129 @@ class EmployeeCategory(models.Model):
                 "params": params,
             }
             return action
+
+    @api.model
+    def download_wecom_tags(self):
+        """
+        下载企微标签列表
+        """
+
+        params = {}
+        company = self.company_id
+        if not company:
+            company = self.env.company
+
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.contacts_app_id.secret
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_LIST")
+            )
+
+        except ApiException as ex:
+            self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                ex, raise_exception=False
+            )
+            return False
+        except Exception as e:
+            return False
+        else:
+            tags = response["taglist"]
+            for tag in tags:
+                category = self.search(
+                    [
+                        ("tagid", "=", tag["tagid"]),
+                        ("company_id", "=", company.id),
+                    ],
+                    limit=1,
+                )
+
+                if not category:
+                    category.create(
+                        {
+                            "name": tag["tagname"],
+                            "tagid": tag["tagid"],
+                            "is_wecom_category": True,
+                        }
+                    )
+                else:
+                    category.write(
+                        {
+                            "name": tag["tagname"],
+                            "is_wecom_category": True,
+                        }
+                    )
+                result = self.download_wecom_tag_member(
+                    category, wxapi, tag["tagid"], company
+                )
+                if result is False:
+                    return False
+
+                return True
+
+    def download_wecom_tag_member(self, category, wxapi, tagid, company):
+        """
+        下载企微标签成员
+        """
+        try:
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "TAG_GET_MEMBER"
+                ),
+                {"tagid": str(tagid)},
+            )
+        except ApiException as ex:
+            self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                ex, raise_exception=False
+            )
+            return False
+        except Exception as e:
+            return False
+        else:
+            employee_ids = []
+            for user in response["userlist"]:
+                employee = (
+                    self.env["hr.employee"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wecom_userid", "=", user["userid"]),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_user", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                        limit=1,
+                    )
+                )
+                if employee:
+                    employee_ids.append(employee.id)
+            if len(employee_ids) > 0:
+                category.write({"employee_ids": [(6, 0, employee_ids)]})
+
+            department_ids = []
+            for party in response["partylist"]:
+                department = (
+                    self.env["hr.department"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wecom_department_id", "=", party),
+                            ("is_wecom_department", "=", True),
+                            ("company_id", "=", company.id),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                    )
+                )
+                if department:
+                    department_ids.append(department.id)
+            if len(department_ids) > 0:
+                category.write({"department_ids": [(6, 0, department_ids)]})
+            return True
 
     def delete_wecom_tag(self):
         """

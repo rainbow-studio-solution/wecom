@@ -30,6 +30,21 @@
                             <button class="oe_highlight ml-1" name="hide_hr_menu" string=" One click Hide Menu" type="object" icon="fa-eye-slash" />
                         </div>
                     </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="del_wecom_tag"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="del_wecom_tag"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    If selected, deleting the local tag record will delete the tag of remote enterprise wechat at the same time.Default <b class="text-warning">disable</b>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </field>
