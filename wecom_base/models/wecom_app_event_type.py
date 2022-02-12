@@ -30,14 +30,29 @@ class WeComAppEventType(models.Model):
 #  - UserError: Warning Exception to use with raise
 # To return an action, assign: action = {...}\n\n\n\n"""
 
-    name = fields.Char(string="Name", translate=True, copy=False, required=True,)
-    model_ids = fields.Many2many("ir.model", string="Related Model",)
+    name = fields.Char(
+        string="Name",
+        translate=True,
+        copy=False,
+        required=True,
+    )
+    model_ids = fields.Many2many(
+        "ir.model",
+        string="Related Model",
+    )
     msg_type = fields.Char(
         string="Message Type", copy=False, required=True, default="event"
     )
-    event = fields.Char(string="Event Code", copy=False, required=True,)
+    event = fields.Char(
+        string="Event Code",
+        copy=False,
+        required=True,
+    )
     change_type = fields.Char(string="Change Type", copy=False)
-    code = fields.Char(string="Python Code", default="",)
+    code = fields.Char(
+        string="Python Code",
+        default="",
+    )
     command = fields.Char(string="Command", copy=False)
 
     def handle_event(self):
@@ -46,18 +61,25 @@ class WeComAppEventType(models.Model):
         """
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
+        event_str = etree.fromstring(xml_tree).find("Event").text
+        changetype_str = etree.fromstring(xml_tree).find("ChangeType").text
 
+        _logger.info(
+            _(
+                "Received the callback notification of enterprise wechat, event [%s], change type [%s]."
+            )
+            % (
+                event_str,
+                changetype_str,
+            )
+        )
         event = (
             self.env["wecom.app.event_type"]
             .sudo()
             .search(
                 [
-                    ("event", "=", etree.fromstring(xml_tree).find("Event").text),
-                    (
-                        "change_type",
-                        "=",
-                        etree.fromstring(xml_tree).find("ChangeType").text,
-                    ),
+                    ("event", "=", event_str),
+                    ("change_type", "=", changetype_str),
                 ]
             )
         )
@@ -66,7 +88,10 @@ class WeComAppEventType(models.Model):
                 _(
                     "Cannot find [%s] change type for executing company [%s], ignoring it."
                 )
-                % (event.name, company_id.name,)
+                % (
+                    event.name,
+                    company_id.name,
+                )
             )
             return
 
@@ -103,4 +128,3 @@ class WeComAppEventType(models.Model):
                 model_obj.with_context(xml_tree=xml_tree, company_id=company_id),
                 func_name,
             )(cmd)
-

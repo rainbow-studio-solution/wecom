@@ -22,7 +22,7 @@
 
                                 <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="name"/>
-                                <field name="display_name"/>
+                                <field name="display_name" class="badge badge-primary"/>
 
                                 <field name="is_wecom_category"/>
                                 <field name="tagid"/>

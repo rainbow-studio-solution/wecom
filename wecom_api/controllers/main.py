@@ -8,7 +8,6 @@ import sys
 from odoo.addons.wecom_api.api.wecom_msg_crtpt import WecomMsgCrypt
 from odoo import http, models, fields, _
 from odoo.http import request
-from odoo.tools import ustr, consteq, frozendict, pycompat, unique, date_utils
 from odoo.http import Response
 
 _logger = logging.getLogger(__name__)
@@ -45,14 +44,16 @@ class StripeController(http.Controller):
         company_id = request.env["res.company"].sudo().search([("id", "=", id)])
         sCorpID = company_id.corpid
 
-        callback_service = company_id.contacts_app_id.app_callback_service_ids.sudo().search(
-            [
-                ("app_id", "=", company_id.contacts_app_id.id),
-                ("code", "=", service),
-                "|",
-                ("active", "=", True),
-                ("active", "=", False),
-            ]
+        callback_service = (
+            company_id.contacts_app_id.app_callback_service_ids.sudo().search(
+                [
+                    ("app_id", "=", company_id.contacts_app_id.id),
+                    ("code", "=", service),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ]
+            )
         )
         if callback_service.active is False:
             _logger.info(

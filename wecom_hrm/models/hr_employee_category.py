@@ -60,7 +60,7 @@ class EmployeeCategory(models.Model):
 
     @api.depends("is_wecom_category")
     def _compute_display_name(self):
-        tag = _("WeCom")
+        tag = _("WeCom Tag")
         for rec in self:
             if rec.is_wecom_category:
                 rec.display_name = "%s:%s" % (tag, rec.name)
@@ -509,7 +509,6 @@ class EmployeeCategory(models.Model):
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
-        # print("tag dic", dic)
 
         callback_tag = (
             self.env["hr.employee.category"]
