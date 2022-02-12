@@ -57,7 +57,6 @@ class EmployeeCategory(models.Model):
         string="WeCom Tag",
         default=False,
     )
-    change = fields.Boolean(default=False, store=False)
 
     @api.depends("is_wecom_category")
     def _compute_display_name(self):
@@ -78,23 +77,14 @@ class EmployeeCategory(models.Model):
         if self.is_wecom_category:
             self.change = True
 
-    @api.model
-    def create(self, vals):
-        tag = super(EmployeeCategory, self).create(vals)
-        return tag
-
-    def write(self, vals):
-        res = super(EmployeeCategory, self).write(vals)
-        if "is_wecom_category" in vals and vals["is_wecom_category"]:
-            if "employee_ids" in vals:
-                print(vals["employee_ids"])
-        return res
-
     def unlink(self):
-        super(EmployeeCategory, self).unlink()
+        for tag in self:
+            if tag.is_wecom_category:
+                tag.delete_wecom_tag()
+        return super(EmployeeCategory, self).unlink()
 
     # ------------------------------------------------------------
-    # 企微标签
+    # 企微标签及企微标签成员
     # ------------------------------------------------------------
     def create_wecom_tag(self):
         """
@@ -202,34 +192,37 @@ class EmployeeCategory(models.Model):
                 tagid = response["tagid"]
                 message = _("Tag successfully created.")
 
-            # 比较本地和远程数据，增加和删除标签成员
-            add_tag_members, del_tag_members = self.upload_compare_data(wxapi)
-
-            add_tag_members.update({"tagid": tagid})
-            del_tag_members.update({"tagid": tagid})
-
-            if (
-                len(add_tag_members["userlist"]) > 0
-                or len(add_tag_members["partylist"]) > 0
-            ):
-                # 添加远程标签成员
-                response = wxapi.httpCall(
-                    self.env["wecom.service_api_list"].get_server_api_call(
-                        "TAG_ADD_MEMBER"
-                    ),
-                    add_tag_members,
+            if tagid:
+                # 比较本地和远程数据，增加和删除标签成员
+                add_tag_members, del_tag_members = self.upload_compare_data(
+                    wxapi, tagid
                 )
-            if (
-                len(del_tag_members["userlist"]) > 0
-                or len(del_tag_members["partylist"]) > 0
-            ):
-                # 删除远程标签尘缘
-                response = wxapi.httpCall(
-                    self.env["wecom.service_api_list"].get_server_api_call(
-                        "TAG_DELETE_MEMBER"
-                    ),
-                    del_tag_members,
-                )
+
+                add_tag_members.update({"tagid": tagid})
+                del_tag_members.update({"tagid": tagid})
+
+                if (
+                    len(add_tag_members["userlist"]) > 0
+                    or len(add_tag_members["partylist"]) > 0
+                ):
+                    # 添加远程标签成员
+                    response = wxapi.httpCall(
+                        self.env["wecom.service_api_list"].get_server_api_call(
+                            "TAG_ADD_MEMBER"
+                        ),
+                        add_tag_members,
+                    )
+                if (
+                    len(del_tag_members["userlist"]) > 0
+                    or len(del_tag_members["partylist"]) > 0
+                ):
+                    # 删除远程标签尘缘
+                    response = wxapi.httpCall(
+                        self.env["wecom.service_api_list"].get_server_api_call(
+                            "TAG_DELETE_MEMBER"
+                        ),
+                        del_tag_members,
+                    )
         except ApiException as ex:
             error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
             params.update(
@@ -252,9 +245,9 @@ class EmployeeCategory(models.Model):
                     "className": "bg-success",
                 }
             )
-
+            print(tagid)
             if response["errmsg"] == "created":
-                self.write({"tagid": response["tagid"]})
+                self.write({"tagid": tagid})
                 params.update(
                     {
                         "next": {
@@ -272,14 +265,14 @@ class EmployeeCategory(models.Model):
             }
             return action
 
-    def upload_compare_data(self, wxapi):
+    def upload_compare_data(self, wxapi, tagid):
         """
         上传:比较本地和远程数据
         """
         # 企业微信上的标签成员数据列表
         response = wxapi.httpCall(
             self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_MEMBER"),
-            {"tagid": str(self.tagid)},
+            {"tagid": str(tagid)},
         )
         remote_userlist = []
         remote_partylist = []
@@ -343,10 +336,7 @@ class EmployeeCategory(models.Model):
                 ),
                 {"tagid": str(self.tagid)},
             )
-            print(tag_response)
-            print(member_response)
         except ApiException as ex:
-            print(ex)
             error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
             params.update(
                 {
@@ -360,11 +350,9 @@ class EmployeeCategory(models.Model):
             )
         else:
             taglist = tag_response["taglist"]
-            print(taglist)
+
             for tag in taglist:
-                print(tag["tagid"], type(tag["tagid"]))
                 if tag["tagid"] == self.tagid:
-                    print(tag["tagid"], type(tag["tagid"]))
                     self.name = tag["tagname"]
                     break
 
@@ -375,7 +363,7 @@ class EmployeeCategory(models.Model):
                     .sudo()
                     .search(
                         [
-                            ("wecom_userid", "=", user),
+                            ("wecom_userid", "=", user["userid"]),
                             ("company_id", "=", self.company_id.id),
                             ("is_wecom_user", "=", True),
                             "|",
@@ -408,7 +396,7 @@ class EmployeeCategory(models.Model):
                     )
                 )
                 if department:
-                    department_ids.append(employee_ids)
+                    department_ids.append(department.id)
 
             if len(department_ids) > 0:
                 self.write({"department_ids": [(6, 0, department_ids)]})
@@ -421,15 +409,19 @@ class EmployeeCategory(models.Model):
                     "type": "success",
                     "sticky": True,  # 延时关闭
                     "className": "bg-success",
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },
                 }
             )
-        # finally:
-        #     action = {
-        #         "type": "ir.actions.client",
-        #         "tag": "display_notification",
-        #         "params": params,
-        #     }
-        #     return action
+        finally:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": params,
+            }
+            return action
 
     def delete_wecom_tag(self):
         """
@@ -507,205 +499,8 @@ class EmployeeCategory(models.Model):
             )
 
     # ------------------------------------------------------------
-    # 企微标签成员
+    # 通讯录事件
     # ------------------------------------------------------------
-    def sync_tag_members(self):
-        """
-        标签成员数据比较
-        """
-        # TODO 待添加弹框提醒
-
-        debug = self.env["ir.config_parameter"].sudo().get_param("wecom.debug_enabled")
-        company = self.company_id
-        if not company:
-            company = self.env.company
-        params = {}
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company.corpid, company.contacts_app_id.secret
-            )
-            if self.tagid:
-                if debug:
-                    _logger.info(
-                        _("Delete contacts tag [%s] member to WeCom") % self.name
-                    )
-                # 企业微信上的标签成员数据列表
-                get_response = wxapi.httpCall(
-                    self.env["wecom.service_api_list"].get_server_api_call(
-                        "TAG_GET_MEMBER"
-                    ),
-                    {"tagid": str(self.tagid)},
-                )
-                remote_userlist = []
-                remote_partylist = []
-                if get_response["errcode"] == 0:
-                    for user in get_response["userlist"]:
-                        remote_userlist.append(user["userid"])
-
-                    for party in get_response["partylist"]:
-                        remote_partylist.append(party)
-
-                # 本地数据列表
-                local_userlist = []
-                if self.employee_ids:
-                    for user in self.employee_ids:
-                        local_userlist.append(user.wecom_userid)
-
-                local_partylist = []
-                if self.department_ids:
-                    for department in self.department_ids:
-                        local_partylist.append(department.wecom_department_id)
-
-                # 交集
-                intersection_userlist = list(
-                    set(remote_userlist).intersection(set(local_userlist))
-                )
-                intersection_partylist = list(
-                    set(remote_partylist).intersection(set(local_partylist))
-                )
-
-                # 需要上传到企业微信差集
-                upload_userlist = list(
-                    set(local_userlist).difference(set(remote_userlist))
-                )
-                upload_partylist = list(
-                    set(local_partylist).difference(set(remote_partylist))
-                )
-
-                # 需要下载到本地差集
-                download_userlist = list(
-                    set(remote_userlist).difference(set(local_userlist))
-                )
-                download_partylist = list(
-                    set(remote_partylist).difference(set(local_partylist))
-                )
-                # print(download_userlist, download_partylist)
-                # print(upload_userlist, upload_partylist)
-                # 下载差集
-                self.tag_member_download(download_userlist, download_partylist)
-                # 上传差集
-                self.tag_member_upload(wxapi, upload_userlist, upload_partylist)
-
-        except ApiException as ex:
-            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-                ex, raise_exception=True
-            )
-
-    def tag_member_download(self, userlist, partylist):
-        """
-        下载企微标签数据到本地
-        """
-        company = self.company_id
-        if not company:
-            company = self.env.company
-
-        for user in userlist:
-            employee = (
-                self.env["hr.employee"]
-                .sudo()
-                .search(
-                    [
-                        ("wecom_userid", "=", user),
-                        ("company_id", "=", company.id),
-                        ("is_wecom_user", "=", True),
-                        "|",
-                        ("active", "=", True),
-                        ("active", "=", False),
-                    ],
-                    limit=1,
-                )
-            )
-            if employee not in self.employee_ids:
-                # department_list.append(department.id)
-                self.write({"employee_ids": [(4, employee.id)]})
-        #     employees.append(employee.id)
-        #     if employee not in self.employee_ids:
-        #         print("----------", employee)
-        #         # employee_list.append(employee.id)
-        # print("----------", employees)
-        # self.write({"employee_ids": [(6, 0, employees)]})
-
-        for party in partylist:
-            department = (
-                self.env["hr.department"]
-                .sudo()
-                .search(
-                    [
-                        ("wecom_department_id", "=", party),
-                        ("is_wecom_department", "=", True),
-                        ("company_id", "=", company.id),
-                        "|",
-                        ("active", "=", True),
-                        ("active", "=", False),
-                    ],
-                )
-            )
-            if department not in self.department_ids:
-                # department_list.append(department.id)
-                self.write({"department_ids": [(4, department.id)]})
-
-    def tag_member_upload(self, wxapi, userlist, partylist):
-        """
-        上传本地标签数据到企微
-        """
-        # print("-----上传", userlist, partylist)
-        if len(userlist) > 0 or len(partylist) > 0:
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "TAG_ADD_MEMBER"
-                ),
-                {
-                    "tagid": str(self.tagid),
-                    "userlist": userlist,
-                    "partylist": partylist,
-                },
-            )
-
-    def remove_obj_from_tag(self, tagid=False, model="", res_id=False):
-        tag = self.browse(tagid)
-        tag_member_name = self.env["ir.model"]._get(model).model
-
-        userlist = []
-        partylist = []
-        ids_name = ""
-        tag_member_model_obj = self.env[tag_member_name].browse(res_id)
-        if tag_member_name == "hr.employee":
-            userlist.append(tag_member_model_obj.wecom_userid)
-            ids_name = "employee_ids"
-        elif tag_member_name == "hr.department":
-            partylist.append(tag_member_model_obj.wecom_department_id)
-            ids_name = "department_ids"
-
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                tag.company_id.corpid, tag.company_id.contacts_app_id.secret
-            )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "TAG_DELETE_MEMBER"
-                ),
-                {
-                    "tagid": str(tagid),
-                    "userlist": userlist,
-                    "partylist": partylist,
-                },
-            )
-            if response["errcode"] == 0:
-                # 删除成功
-                # print("API删除成功")
-                tag.write({ids_name: [(3, res_id)]})
-                return True
-            else:
-                return False
-
-        except ApiException as ex:
-            error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
-            _logger.warning(
-                _("Wecom API error: %s, error name: %s, error message: %s")
-                % (str(ex.errCode), error["name"], ex.errMsg)
-            )
-            return False
-
     def wecom_event_change_contact_tag(self, cmd):
         """
         通讯录事件更新标签

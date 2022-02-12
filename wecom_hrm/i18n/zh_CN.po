@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-11 04:40+0000\n"
-"PO-Revision-Date: 2022-02-11 12:46+0800\n"
+"POT-Creation-Date: 2022-02-12 05:49+0000\n"
+"PO-Revision-Date: 2022-02-12 13:51+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -57,6 +57,12 @@ msgstr ""
 "                            <span class=\"o_stat_text\">企微成员</span>"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "API error: %s, error name: %s, error message: %s"
+msgstr "API错误：%s，错误名称：%s，错误消息：%s"
+
+#. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_plan
 msgid "Activity Planning"
 msgstr "活动计划"
@@ -92,15 +98,15 @@ msgid "Binding enterprise wechat members"
 msgstr "绑定企微成员"
 
 #. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Button group"
-msgstr "按钮组"
-
-#. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.employee_bind_wecom_view_form
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.user_bind_wecom_view_form
 msgid "Cancel"
 msgstr "取消"
+
+#. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__change
+msgid "Change"
+msgstr ""
 
 #. module: wecom_hrm
 #: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_employee
@@ -118,11 +124,6 @@ msgstr "公司"
 #: model:ir.model,name:wecom_hrm.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
-
-#. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Create WeCom Tags"
-msgstr "创建企微标签"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -155,12 +156,6 @@ msgstr "删除企微标签"
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
-msgid "Delete contacts tag [%s] member to WeCom"
-msgstr "删除企微的通讯录标签 [%s] 的成员"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#, python-format
 msgid "Delete contacts tags: %s to WeCom"
 msgstr "删除通讯录标签：%s 到企业微信"
 
@@ -181,6 +176,11 @@ msgstr "部门"
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
+msgid "Download Tags"
+msgstr "下载标签"
 
 #. module: wecom_hrm
 #: model:ir.model,name:wecom_hrm.model_hr_employee
@@ -237,6 +237,12 @@ msgstr "英语名称"
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__wecom_userid
 msgid "Enterprise wechat user Id"
 msgstr "企微用户Id"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Fail"
+msgstr "失败"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -367,16 +373,6 @@ msgid "Related User"
 msgstr "相关用户"
 
 #. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Remove"
-msgstr "移除"
-
-#. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Remove from tag"
-msgstr "从企微标签中移除"
-
-#. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_report_root
 msgid "Reporting"
 msgstr "报表"
@@ -391,18 +387,13 @@ msgstr "设置"
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Success"
-msgstr "成功"
+msgstr ""
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Successfully updated tag."
 msgstr "已成功更新标签。"
-
-#. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Sync tag members"
-msgstr "同步标签成员"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_employee_category__tagid
@@ -413,6 +404,12 @@ msgid ""
 msgstr ""
 "标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自"
 "增。"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag downloaded successfully."
+msgstr "标签下载成功。"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -468,26 +465,15 @@ msgid "There is no mapping for field [%s], please contact the developer."
 msgstr "字段 [%s] 没有映射，请与开发人员联系。"
 
 #. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Tips: Merge local and remote datasets"
-msgstr "合并本地和远程数据集"
-
-#. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Update WeCom Tags Name"
-msgstr "更新企微标签名称"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#, python-format
-msgid "Update contacts tags: %s name to WeCom"
-msgstr "更新通讯录标签：%s 名称到企业微信"
-
-#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Update contacts tags: %s to WeCom"
 msgstr "将通讯录标签 \"%s\" 更新到企业微信"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
+msgid "Upload Tags"
+msgstr "上传标签"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__use_system_avatar
@@ -587,9 +573,3 @@ msgstr "企业微信用户ID"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_user_order
 msgid "WeCom user sort"
 msgstr "企业微信用户排序"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#, python-format
-msgid "Wecom API error: %s, error name: %s, error message: %s"
-msgstr "企微API错误：%s，错误名称：%s，错误消息：%s"
