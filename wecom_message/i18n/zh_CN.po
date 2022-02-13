@@ -128,8 +128,8 @@ msgstr "应用Id"
 
 #. module: wecom_message
 #: model:ir.model.fields,field_description:wecom_message.field_res_company__message_app_id model:ir.model.fields,field_description:wecom_message.field_res_config_settings__message_app_id
-msgid "Application"
-msgstr "应用"
+msgid "Message Application"
+msgstr "消息应用"
 
 #. module: wecom_message
 #: code:addons/wecom/wecom_message/models/res_config_settings.py:0 code:addons/wecom_message/models/res_config_settings.py:0

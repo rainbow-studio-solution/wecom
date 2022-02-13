@@ -8,6 +8,7 @@ import time
 
 _logger = logging.getLogger(__name__)
 
+
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
@@ -17,13 +18,24 @@ class HrEmployee(models.Model):
         :return:
         """
         groups_id = (
-            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+            self.sudo()
+            .env["res.groups"]
+            .search(
+                [
+                    ("id", "=", 9),
+                ],
+                limit=1,
+            )
+            .id
         )  # id=1是内部用户, id=9是门户用户
         try:
             res_user_id = (
                 self.sudo()
                 .env["res.users"]
-                .search([("login", "=", self.wecom_userid.lower())], limit=1,)
+                .search(
+                    [("login", "=", self.wecom_userid.lower())],
+                    limit=1,
+                )
             )
 
             if len(res_user_id) == 0:
@@ -96,16 +108,22 @@ class HrEmployee(models.Model):
             )
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("USER_LIST"),
-                {"department_id": contacts_sync_hr_department_id, "fetch_child": "1",},
+                {
+                    "department_id": contacts_sync_hr_department_id,
+                    "fetch_child": "1",
+                },
             )
-            
+
         except ApiException as e:
             state = "fail"
-            result = _("Error synchronizing employees of company: %s, error reason: %s") % (company.name, e.errMsg,)
+            result = _(
+                "Error synchronizing employees of company: %s, error reason: %s"
+            ) % (
+                company.name,
+                e.errMsg,
+            )
             if debug:
-                _logger.warning(
-                   result
-                )
+                _logger.warning(result)
         else:
             user_list = response["userlist"]
 
@@ -113,13 +131,16 @@ class HrEmployee(models.Model):
             blocks = (
                 self.env["wecom.contacts.block"]
                 .sudo()
-                .search([("company_id", "=", company.id),])
+                .search(
+                    [
+                        ("company_id", "=", company.id),
+                    ]
+                )
             )
             block_list = []
 
             # 生成 block_list
             if len(blocks) > 0:
-
                 for obj in blocks:
                     if obj.wecom_userid != None:
                         # block_list.append({"userid": obj.wecom_userid})
@@ -135,7 +156,6 @@ class HrEmployee(models.Model):
             # 同步
             for obj in user_list:
                 self.run_sync(company, obj)
-  
 
             # 设置直属上级
             employees = (
@@ -160,7 +180,6 @@ class HrEmployee(models.Model):
             else:
                 self.sync_leave_employee(company, response)  # 同步离职员工
 
-
             state = "completed"
             result = _("Successfully synchronized '%s''s WeCom users") % company.name
         finally:
@@ -170,14 +189,16 @@ class HrEmployee(models.Model):
                     _(
                         "End synchronizing employees of company %s,Total time spent: %s seconds"
                     )
-                    % (company.name, end_time-start_time)
+                    % (company.name, end_time - start_time)
                 )
 
-            res.update({
-                "employee_sync_times":end_time-start_time,
-                "employee_sync_state":state,
-                "employee_sync_result":result,
-                })
+            res.update(
+                {
+                    "employee_sync_times": end_time - start_time,
+                    "employee_sync_state": state,
+                    "employee_sync_result": result,
+                }
+            )
             return res
 
     def run_sync(self, company, obj):
@@ -314,7 +335,9 @@ class HrEmployee(models.Model):
                 records.write(
                     {
                         "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                            False, obj["gender"], obj["avatar"],
+                            False,
+                            obj["gender"],
+                            obj["avatar"],
                         ),
                     }
                 )
@@ -467,7 +490,10 @@ class HrEmployee(models.Model):
                 .sudo()
                 .search(
                     domain
-                    + [("is_wecom_user", "=", True), ("company_id", "=", company.id),]
+                    + [
+                        ("is_wecom_user", "=", True),
+                        ("company_id", "=", company.id),
+                    ]
                 )
             )
             for employee in employees:
@@ -500,7 +526,9 @@ class HrEmployee(models.Model):
         debug = params.get_param("wecom.debug_enabled")
         try:
             records.write(
-                {"active": False,}
+                {
+                    "active": False,
+                }
             )
             # return True
         except Exception as e:

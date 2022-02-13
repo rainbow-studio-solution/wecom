@@ -2,6 +2,23 @@
 <odoo>
     <data>
         <!-- 继承HR -->
+
+        <record id="view_department_filter" model="ir.ui.view">
+            <field name="name">hr.department.search</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='manager_id']" position="after">
+                    <field name="company_id" string="Company"/>
+                </xpath>
+                <xpath expr="//filter[@name='inactive']" position="after">
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                    </searchpanel>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_department_form" model="ir.ui.view">
             <field name="name">wecom.department.form</field>
             <field name="model">hr.department</field>
@@ -27,6 +44,9 @@
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="js_class">hr_department_tree_download</attribute>
+                </xpath>
                 <xpath expr="//field[@name='company_id']" position="replace"/>
                 <xpath expr="//field[@name='display_name']" position="before">
                     <field name="company_id" groups="base.group_multi_company"/>
@@ -39,10 +59,10 @@
             </field>
         </record>
 
-        <record id="open_module_tree_department" model="ir.actions.act_window">
+        <!-- <record id="open_module_tree_department" model="ir.actions.act_window">
             <field name="name">WeCom Department</field>
             <field name="res_model">hr.department</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,kanban</field>
             <field name="domain">[('is_wecom_department','=',1)]</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
@@ -52,7 +72,7 @@
                     WeCom department management
                 </p>
             </field>
-        </record>
+        </record> -->
 
     </data>
 </odoo>

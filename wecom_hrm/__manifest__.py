@@ -36,7 +36,9 @@
         "web.assets_backend": [
             # SCSSS
             # JS
-            "wecom_hrm/static/src/js/list_header_button.js",
+            "wecom_hrm/static/src/js/download_deps.js",
+            "wecom_hrm/static/src/js/download_staffs.js",
+            "wecom_hrm/static/src/js/download_tags.js",
         ],
         "web.assets_qweb": [
             "wecom_hrm/static/src/xml/*.xml",

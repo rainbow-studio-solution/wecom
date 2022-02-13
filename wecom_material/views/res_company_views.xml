@@ -3,57 +3,13 @@
     <data>
 
         <record id="view_company_form" model="ir.ui.view">
-            <field name="name">res.company.form</field>
+            <field name="name">res.company.form.inherit.wecom_material</field>
             <field name="model">res.company</field>
-            <field name="inherit_id" ref="wecom_base.view_company_form"/>
+            <field name="inherit_id" ref="base.view_company_form"/>
             <field name="arch" type="xml">
 
-                <xpath expr="//page[@name='wecom_info']//div[hasclass('o_settings_container')][last()]" position="after">
-                    <h2 id="wecom_contact" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                        <span class="text-left">
-                            <i class="fa fa-suitcase fa-lg" aria-label="WeCom Material"/>
- WeCom Material
-                        </span>
-                        <span class="text-right fa fa-angle-double-up" aria-label="GoTop"/>
-                    </h2>
-                    <div class="row  16 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-list-ol fa-lg" aria-label="Material Agentid"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="material_agentid"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="material_agentid" widget="integer" options="{'format': false}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6 o_setting_box">
-                            <div class="o_setting_left_pane">
-                                <i class="fa fa-key fa-lg" aria-label="Material Secret"/>
-                            </div>
-                            <div class="o_setting_right_pane">
-                                <label for="material_secret"/>
-                                <div class="row">
-                                    <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
-                                    </div>
-                                </div>
-                                <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="material_secret" widget="wecom_password"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <xpath expr="//page[@name='wecom_info']//field[last()]" position="after">
+                    <field name="material_app_id" options="{'no_open': True, 'no_create': True}"/>
                 </xpath>
 
             </field>

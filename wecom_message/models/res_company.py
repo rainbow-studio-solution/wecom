@@ -13,7 +13,7 @@ class Company(models.Model):
     # 消息
     message_app_id = fields.Many2one(
         "wecom.apps",
-        string="Application",
+        string="Message Application",
         # required=True,
         # default=lambda self: self.env.company,
         domain="[('company_id', '=', current_company_id)]",

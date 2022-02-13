@@ -404,60 +404,96 @@ class EmployeeCategory(models.Model):
         """
         下载企微标签列表
         """
-
-        params = {}
         company = self.company_id
         if not company:
             company = self.env.company
+        if company.is_wecom_organization:
+            results = []
+            try:
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.contacts_app_id.secret
+                )
+                response = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "TAG_GET_LIST"
+                    )
+                )
 
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company.corpid, company.contacts_app_id.secret
-            )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_LIST")
-            )
+            except ApiException as ex:
+                self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=False
+                )
+                results = [
+                    {
+                        "state": False,
+                        "msg": str(ex),
+                    }
+                ]
+            except Exception as e:
+                results = [
+                    {
+                        "state": False,
+                        "msg": str(e),
+                    }
+                ]
+            else:
+                tags = response["taglist"]
+                for tag in tags:
+                    category = self.search(
+                        [
+                            ("tagid", "=", tag["tagid"]),
+                            ("company_id", "=", company.id),
+                        ],
+                        limit=1,
+                    )
 
-        except ApiException as ex:
-            self.env["wecomapi.tools.action"].ApiExceptionDialog(
-                ex, raise_exception=False
-            )
-            return False
-        except Exception as e:
-            return False
+                    if not category:
+                        category.create(
+                            {
+                                "name": tag["tagname"],
+                                "tagid": tag["tagid"],
+                                "is_wecom_category": True,
+                            }
+                        )
+                    else:
+                        category.write(
+                            {
+                                "name": tag["tagname"],
+                                "is_wecom_category": True,
+                            }
+                        )
+                    result = self.download_wecom_tag_member(
+                        category, wxapi, tag["tagid"], company
+                    )
+                    if result:
+                        results.append(
+                            {
+                                "state": True,
+                                "msg": _(
+                                    "Tag [%s] of company [%s] downloaded successfully!"
+                                )
+                                % (tag["tagname"], company.name),
+                            }
+                        )
+                    else:
+                        results.append(
+                            {
+                                "state": False,
+                                "msg": _("Tag [%s] of company [%s] failed to download!")
+                                % (tag["tagname"], company.name),
+                            }
+                        )
+            finally:
+                return results
         else:
-            tags = response["taglist"]
-            for tag in tags:
-                category = self.search(
-                    [
-                        ("tagid", "=", tag["tagid"]),
-                        ("company_id", "=", company.id),
-                    ],
-                    limit=1,
-                )
-
-                if not category:
-                    category.create(
-                        {
-                            "name": tag["tagname"],
-                            "tagid": tag["tagid"],
-                            "is_wecom_category": True,
-                        }
-                    )
-                else:
-                    category.write(
-                        {
-                            "name": tag["tagname"],
-                            "is_wecom_category": True,
-                        }
-                    )
-                result = self.download_wecom_tag_member(
-                    category, wxapi, tag["tagid"], company
-                )
-                if result is False:
-                    return False
-
-                return True
+            return [
+                {
+                    "state": False,
+                    "msg": _(
+                        "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
+                    ),
+                }
+            ]
 
     def download_wecom_tag_member(self, category, wxapi, tagid, company):
         """
@@ -598,7 +634,7 @@ class EmployeeCategory(models.Model):
             )
 
     # ------------------------------------------------------------
-    # 通讯录事件
+    # 企微通讯录事件
     # ------------------------------------------------------------
     def wecom_event_change_contact_tag(self, cmd):
         """

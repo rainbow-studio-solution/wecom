@@ -16,19 +16,26 @@
 
 
         """,
-    "depends": ["contacts", "hr",],
+    "depends": [
+        "contacts",
+        "hr",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
-        
         "views/res_partner_views.xml",
         "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         "views/wecom_contacts_block_views.xml",
         "views/menu_views.xml",
-        
     ],
-    "assets": {"web.assets_qweb": ["wecom_contacts/static/src/xml/*.xml",],},
-    "external_dependencies": {"python": [],},
+    "assets": {
+        "web.assets_qweb": [
+            "wecom_contacts/static/src/xml/*.xml",
+        ],
+    },
+    "external_dependencies": {
+        "python": [],
+    },
     "license": "LGPL-3",
 }
-

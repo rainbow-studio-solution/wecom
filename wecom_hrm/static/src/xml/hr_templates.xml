@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_buttons" t-operation="append">
+
+            <t t-if="widget and widget.modelName == 'hr.employee.category'"> -->
+    <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
+    <!-- <button class="btn btn-info o_list_wecom_download_tags fa fa-cloud-download" type="button" title="Local coverage from enterprise wechat">Download tag list</button> -->
+    <!-- </t>
+        </t>
+    </t> -->
+
+    <!-- 部门 Department-->
+    <t t-name="HrDepartmentDownloadRequest.download_deps_button">
+        <button type="button" class="btn btn-info o_button_download_deps fa fa-cloud-download">
+            Download wecom department data
+        </button>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="HrDepartmentDownloadRequestListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-call="HrDepartmentDownloadRequest.download_deps_button"/>
+        </t>
+    </t>
+
+    <!-- 员工 Employee-->
+    <t t-name="HrEmployeeDownloadRequest.download_staffs_button">
+        <button type="button" class="btn btn-info o_button_download_staffs fa fa-cloud-download">
+            Download wecom employee data
+        </button>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="HrEmployeeDownloadRequestListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-call="HrEmployeeDownloadRequest.download_staffs_button"/>
+        </t>
+    </t>
+
+    <t t-extend="KanbanView.buttons" t-name="HrEmployeeDownloadRequestKanbanView.buttons">
+        <t t-jquery="button" t-operation="after">
+            <t t-call="HrEmployeeDownloadRequest.download_staffs_button"/>
+        </t>
+    </t>
+
+
+    <!-- 类别 标签 -->
+    <t t-name="HrCategoryDownloadRequest.download_tags_button">
+        <button type="button" class="btn btn-info o_button_download_tags fa fa-cloud-download">
+            Download wecom tag data
+        </button>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="HrCategoryDownloadRequestListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-call="HrCategoryDownloadRequest.download_tags_button"/>
+        </t>
+    </t>
+</templates>

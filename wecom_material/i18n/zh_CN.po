@@ -66,8 +66,8 @@ msgstr "已上传，请不要再次上传！ 您可以创建新记录后上传�
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_res_company__material_app_id
 #: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_app_id
-msgid "Application"
-msgstr "应用"
+msgid "Material Application"
+msgstr "素材应用"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form

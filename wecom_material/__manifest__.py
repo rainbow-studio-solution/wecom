@@ -44,10 +44,12 @@ Install:
         "data/material_data.xml",
         "views/material_views.xml",
         "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         "views/menu_views.xml",
-    ],    
-    "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
-
+    ],
+    "external_dependencies": {
+        "python": ["ffmpy", "pydub", "requests_toolbelt"],
+    },
     "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
 }

@@ -5,6 +5,7 @@ import base64
 from lxml import etree
 from odoo import api, fields, models, _
 from lxml_to_dict import lxml_to_dict
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
@@ -39,13 +40,27 @@ class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
     _order = "wecom_user_order"
 
-    wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
-    wecom_open_userid = fields.Char(string="WeCom open user Id", readonly=True,)
-    alias = fields.Char(string="Alias", readonly=True,)
-    english_name = fields.Char(string="English Name", readonly=True,)
+    wecom_userid = fields.Char(
+        string="WeCom user Id",
+        readonly=True,
+    )
+    wecom_open_userid = fields.Char(
+        string="WeCom open user Id",
+        readonly=True,
+    )
+    alias = fields.Char(
+        string="Alias",
+        readonly=True,
+    )
+    english_name = fields.Char(
+        string="English Name",
+        readonly=True,
+    )
 
     department_ids = fields.Many2many(
-        "hr.department", string="Multiple departments", readonly=True,
+        "hr.department",
+        string="Multiple departments",
+        readonly=True,
     )
     use_system_avatar = fields.Boolean(readonly=True, default=True)
     avatar = fields.Char(string="Avatar")
@@ -62,28 +77,504 @@ class HrEmployeePrivate(models.Model):
         readonly=True,
     )
     is_wecom_user = fields.Boolean(
-        string="WeCom employees", readonly=True, default=False,
+        string="WeCom employees",
+        readonly=True,
+        default=False,
     )
-
-    def remove_obj_from_tag(self):
-        """
-        从标签中移除员工
-        """
 
     def unbind_wecom_member(self):
         """
         解除绑定企业微信成员
         """
         self.write(
-            {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+            {
+                "is_wecom_user": False,
+                "wecom_userid": None,
+                "qr_code": None,
+            }
         )
         if self.user_id:
             # 关联了User
             self.user_id.write(
-                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+                {
+                    "is_wecom_user": False,
+                    "wecom_userid": None,
+                    "qr_code": None,
+                }
             )
 
+    # ------------------------------------------------------------
+    # 企微员工下载
+    # ------------------------------------------------------------
+    @api.model
+    def download_wecom_staffs(self):
+        """
+        下载员工列表
+        """
+        company = self.company_id
+        if not company:
+            company = self.env.company
+        if company.is_wecom_organization:
+            results = []
+            try:
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.contacts_app_id.secret
+                )
+                app_config = self.env["wecom.app_config"].sudo()
+                contacts_sync_hr_department_id = app_config.get_param(
+                    company.contacts_app_id.id, "contacts_sync_hr_department_id"
+                )  # 需要同步的企业微信部门ID
+                response = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call("USER_LIST"),
+                    {
+                        "department_id": contacts_sync_hr_department_id,
+                        "fetch_child": "1",
+                    },
+                )
+            except ApiException as ex:
+                self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=False
+                )
+                results = [
+                    {
+                        "state": False,
+                        "msg": str(ex),
+                    }
+                ]
+            except Exception as e:
+                results = [
+                    {
+                        "state": False,
+                        "msg": str(e),
+                    }
+                ]
+            else:
+                result = {
+                    "state": True,
+                    "msg": _("Employee list downloaded successfully."),
+                }
+                results.append(result)
 
+                wecom_employees = response["userlist"]
+
+                # 获取block
+                blocks = (
+                    self.env["wecom.contacts.block"]
+                    .sudo()
+                    .search(
+                        [
+                            ("company_id", "=", company.id),
+                        ]
+                    )
+                )
+                block_list = []
+
+                # 生成 block_list
+                if len(blocks) > 0:
+                    for obj in blocks:
+                        if obj.wecom_userid != None:
+                            # block_list.append({"userid": obj.wecom_userid})
+                            block_list.append(obj.wecom_userid)
+
+                # 从 wecom_employees 移除 block_list
+                for b in block_list:
+                    for item in wecom_employees:
+                        # userid不区分大小写
+                        if item["userid"].lower() == b.lower():
+                            wecom_employees.remove(item)
+
+                # 下载员工
+                for wecom_employee in wecom_employees:
+                    download_employee_result = self.download_employee(
+                        company, wecom_employee
+                    )
+                    if len(download_employee_result):
+                        results.append(download_employee_result)  # 加入设置下载员工失败结果
+
+                # 设置直属上级
+                set_direct_leader_results = self.set_direct_leader(
+                    company, wecom_employees
+                )
+                if len(set_direct_leader_results) > 0:
+                    results.append(set_direct_leader_results)  # 加入设置直属上级失败结果
+
+                # 处理离职员工
+                employees = self.search(
+                    [
+                        ("is_wecom_user", "=", True),
+                        ("company_id", "=", company.id),
+                        "|",
+                        ("active", "=", True),
+                        ("active", "=", False),
+                    ],
+                )
+                if not employees:
+                    pass
+                else:
+                    set_leave_employee_results = self.set_leave_employee(
+                        company, response
+                    )  # 设置离职员工
+                    if len(set_leave_employee_results) > 0:
+                        results.append(set_leave_employee_results)  # 加入设置离职员工失败结果
+
+            finally:
+                return results  # 返回失败结果
+        else:
+            return [
+                {
+                    "state": False,
+                    "msg": _(
+                        "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
+                    ),
+                }
+            ]
+
+    def download_employee(self, company, wecom_employee):
+        """
+        下载员工
+        """
+        employee = self.sudo().search(
+            [
+                ("wecom_userid", "=", wecom_employee["userid"]),
+                ("company_id", "=", company.id),
+                ("is_wecom_user", "=", True),
+                "|",
+                ("active", "=", True),
+                ("active", "=", False),
+            ],
+            limit=1,
+        )
+        result = {}
+        if not employee:
+            result = self.create_employee(company, employee, wecom_employee)
+        else:
+            result = self.update_employee(company, employee, wecom_employee)
+        return result
+
+    def create_employee(self, company, employee, wecom_employee):
+        """
+        创建员工
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        department_ids = []  # 多部门
+        if len(wecom_employee["department"]) > 0:
+            department_ids = self.get_employee_parent_wecom_department(
+                company, wecom_employee["department"]
+            )
+        try:
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_use_system_default_avatar = app_config.get_param(
+                company.contacts_app_id.id, "contacts_use_system_default_avatar"
+            )  # 使用系统微信默认头像的标识
+            if contacts_use_system_default_avatar == "True":
+                contacts_use_system_default_avatar = True
+            else:
+                contacts_use_system_default_avatar = False
+            employee.create(
+                {
+                    "wecom_userid": wecom_employee["userid"],
+                    "name": wecom_employee["name"],
+                    "english_name": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_employee, "english_name"
+                    ),
+                    "gender": self.env["wecom.tools"].sex2gender(
+                        wecom_employee["gender"]
+                    ),
+                    "marital": None,  # 不生成婚姻状况
+                    "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                        contacts_use_system_default_avatar,
+                        wecom_employee["gender"],
+                        wecom_employee["avatar"],
+                    ),
+                    "mobile_phone": wecom_employee["mobile"],
+                    "work_phone": wecom_employee["telephone"],
+                    "work_email": wecom_employee["email"],
+                    "active": True if wecom_employee["status"] == 1 else False,
+                    "alias": wecom_employee["alias"],
+                    "department_id": self.get_main_department(
+                        company,
+                        wecom_employee["name"],
+                        wecom_employee["main_department"],
+                        department_ids,
+                    ),
+                    "company_id": company.id,
+                    "department_ids": [(6, 0, department_ids)],
+                    "wecom_user_order": wecom_employee["order"],
+                    "qr_code": wecom_employee["qr_code"],
+                    "is_wecom_user": True,
+                }
+            )
+        except Exception as e:
+            result = _("Error creating company %s employee %s %s, error reason: %s") % (
+                company.name,
+                wecom_employee["userid"],
+                wecom_employee["name"],
+                repr(e),
+            )
+            if debug:
+                _logger.warning(result)
+            return {
+                "state": False,
+                "msg": result,
+            }  # 返回失败结果
+
+    def update_employee(self, company, employee, wecom_employee):
+        """
+        更新员工
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        department_ids = []  # 多部门
+
+        if len(wecom_employee["department"]) > 0:
+            department_ids = self.get_employee_parent_wecom_department(
+                company, wecom_employee["department"]
+            )
+        try:
+            employee.write(
+                {
+                    "name": wecom_employee["name"],
+                    "english_name": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_employee, "english_name"
+                    ),
+                    "mobile_phone": wecom_employee["mobile"],
+                    "work_phone": wecom_employee["telephone"],
+                    "work_email": wecom_employee["email"],
+                    "active": True if wecom_employee["status"] == 1 else False,
+                    "alias": wecom_employee["alias"],
+                    "department_id": self.get_main_department(
+                        company,
+                        wecom_employee["name"],
+                        wecom_employee["main_department"],
+                        department_ids,
+                    ),
+                    "company_id": company.id,
+                    "department_ids": [(6, 0, department_ids)],
+                    "wecom_user_order": wecom_employee["order"],
+                    "qr_code": wecom_employee["qr_code"],
+                    "is_wecom_user": True,
+                }
+            )
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_update_avatar_every_time_sync = app_config.get_param(
+                company.contacts_app_id.id, "contacts_update_avatar_every_time_sync"
+            )  # 每次同步都更新头像的标识
+            if contacts_update_avatar_every_time_sync == "True":
+                contacts_update_avatar_every_time_sync = True
+            else:
+                contacts_update_avatar_every_time_sync = False
+            if contacts_update_avatar_every_time_sync:
+                employee.write(
+                    {
+                        "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                            False,
+                            wecom_employee["gender"],
+                            wecom_employee["avatar"],
+                        ),
+                    }
+                )
+        except Exception as e:
+            result = _("Error update company %s employee %s %s, error reason: %s") % (
+                company.name,
+                wecom_employee["userid"],
+                wecom_employee["name"],
+                repr(e),
+            )
+            if debug:
+                _logger.warning(result)
+            return {
+                "state": False,
+                "msg": result,
+            }  # 返回失败结果
+
+    def get_employee_parent_wecom_department(self, company, departments):
+        """
+        获取员工的企微上级部门ids
+        """
+        department_ids = []
+        for department in departments:
+            if department == 1:
+                pass
+            else:
+                odoo_department = (
+                    self.env["hr.department"]
+                    .sudo()
+                    .search(
+                        [
+                            ("wecom_department_id", "=", department),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_department", "=", True),
+                        ],
+                        limit=1,
+                    )
+                )
+                if len(odoo_department) > 0:
+                    department_ids.append(odoo_department.id)
+
+        return department_ids
+
+    def get_main_department(self, company, employee_name, main_department, departments):
+        """
+        获取员工的主部门
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        if main_department == 1 and len(departments) > 1:
+            for index, department in enumerate(departments):
+                if department == 1:
+                    del departments[index]
+            main_department = departments[0]
+        elif main_department == 1:
+            return None
+        try:
+            departments = (
+                self.env["hr.department"]
+                .sudo()
+                .search(
+                    [
+                        ("wecom_department_id", "=", main_department),
+                        ("company_id", "=", company.id),
+                        ("is_wecom_department", "=", True),
+                    ],
+                    limit=1,
+                )
+            )
+            if len(departments) > 0:
+                return departments.id
+            else:
+                return None
+        except BaseException as e:
+            if debug:
+                _logger.warning(
+                    _(
+                        "Get the main department error of the company %s employee %s. The wrong reason is: %s."
+                    )
+                    % (company.name, employee_name, repr(e))
+                )
+            return None
+
+    def set_direct_leader(self, company, wecom_employees):
+        """
+        设置 直属上级
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        results = []
+        if debug:
+            _logger.info(
+                _(
+                    "Start setting the direct leader of the employee with the company name '%s'."
+                ),
+                company.name,
+            )
+        for wecom_employee in wecom_employees:
+            try:
+                if len(wecom_employee["direct_leader"]) > 0:
+                    direct_leader = self.search(
+                        [
+                            ("wecom_userid", "=", wecom_employee["direct_leader"][0]),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_user", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                    )
+                    employee = self.search(
+                        [
+                            ("wecom_userid", "=", wecom_employee["userid"]),
+                            ("company_id", "=", company.id),
+                            ("is_wecom_user", "=", True),
+                            "|",
+                            ("active", "=", True),
+                            ("active", "=", False),
+                        ],
+                        limit=1,
+                    )
+                    employee.write({"parent_id": direct_leader.id})
+                else:
+                    pass
+            except Exception as e:
+                result = _(
+                    "Error setting the direct leader of the company %s employee %s. The wrong reason is: %s."
+                ) % (company.name, wecom_employee["name"], repr(e))
+                if debug:
+                    _logger.warning(result)
+                results.append(
+                    {
+                        "state": False,
+                        "msg": result,
+                    }
+                )
+
+        if debug:
+            _logger.info(
+                _(
+                    "End setting the direct leader of the employee with the company name '%s'."
+                ),
+                company.name,
+            )
+        return results  # 返回失败结果
+
+    def set_leave_employee(self, company, response):
+        """
+        比较企业微信和odoo的员工数据,且设置离职odoo员工active状态
+        激活状态: 1=已激活, 2=已禁用, 4=未激活, 5=退出企业。
+        已激活代表已激活企业微信或已关注微工作台(原企业号)。未激活代表既未激活企业微信又未关注微工作台(原企业号)。
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+        results = []
+
+        wecom_employees = []
+        odoo_employees = []
+        for wecom_employee in response["userlist"]:
+            wecom_employees.append(wecom_employee["userid"])
+
+        domain = ["|", ("active", "=", False), ("active", "=", True)]
+        employees = self.search(
+            domain
+            + [
+                ("is_wecom_user", "=", True),
+                ("company_id", "=", company.id),
+            ]
+        )
+
+        for employee in employees:
+            odoo_employees.append(employee.wecom_userid)
+
+        leave_employees = list(
+            set(odoo_employees).difference(set(wecom_employees))
+        )  # 生成odoo与企微不同的员工数据列表,即离职员工
+
+        for leave_employee in leave_employees:
+            employee = self.search(
+                [
+                    ("wecom_userid", "=", leave_employee),
+                    ("company_id", "=", company.id),
+                ]
+            )
+            try:
+                employee.write({"active": False})
+            except Exception as e:
+                result = _("Failed to set employee [%s] resignation, reason:%s") % (
+                    employee.name,
+                    repr(e),
+                )
+                if debug:
+                    _logger.warning(result)
+                results.append(
+                    {
+                        "state": False,
+                        "msg": result,
+                    }
+                )
+        return results  # 返回失败结果
+
+    # ------------------------------------------------------------
+    # 企微通讯录事件
+    # ------------------------------------------------------------
     def wecom_event_change_contact_user(self, cmd):
         """
         通讯录事件变更员工
@@ -105,7 +596,8 @@ class HrEmployeePrivate(models.Model):
         )
 
         callback_employee = employee.search(
-            [("wecom_userid", "=", dic["UserID"])] + domain, limit=1,
+            [("wecom_userid", "=", dic["UserID"])] + domain,
+            limit=1,
         )
         if callback_employee:
             # 如果存在，则更新
@@ -189,12 +681,12 @@ class HrEmployeePrivate(models.Model):
                         )
                         % key
                     )
-        
+
         # 更新直属上级字典
         if new_parent_employee:
             update_dict.update({"parent_id": new_parent_employee.id})
         else:
-            update_dict.update({"parent_id": False,"coach_id": False})
+            update_dict.update({"parent_id": False, "coach_id": False})
 
         if len(department_ids) > 0:
             update_dict.update({"department_ids": [(6, 0, department_ids)]})
@@ -204,7 +696,10 @@ class HrEmployeePrivate(models.Model):
         if cmd == "create":
             # print("执行创建员工")
             update_dict.update(
-                {"company_id": company_id.id, "is_wecom_user": True,}
+                {
+                    "company_id": company_id.id,
+                    "is_wecom_user": True,
+                }
             )
             try:
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(
@@ -228,5 +723,7 @@ class HrEmployeePrivate(models.Model):
         elif cmd == "delete":
             # print("执行删除员工")
             callback_employee.write(
-                {"active": False,}
+                {
+                    "active": False,
+                }
             )

@@ -108,7 +108,7 @@
                         </div>
 
                         <!-- 通讯簿 -->
-                        <h2 id="wecom_contact" class="d-flex justify-content-between">
+                        <h2 id="wecom_contact" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                             <span class="text-left">
                                 <i class="fa fa-book fa-lg" aria-label="Wecom Contact Settings"/>
                                     Wecom Contact Settings

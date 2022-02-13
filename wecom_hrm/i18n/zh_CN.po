@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-12 05:49+0000\n"
-"PO-Revision-Date: 2022-02-12 13:51+0800\n"
+"POT-Creation-Date: 2022-02-13 05:30+0000\n"
+"PO-Revision-Date: 2022-02-13 13:35+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -25,11 +25,11 @@ msgstr "<i class=\"fa fa-th fa-lg\" aria-label=\"Hr相关菜单\"/>"
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_kanban_view_employees
 msgid ""
-"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"Enterprise wechat "
+"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"Enterprise wechat "
 "Employee\" title=\"Enterprise wechat Employee\">\n"
 "                        </span>"
 msgstr ""
-"<span class=\"fa fa-weixin text-info\" role=\"img\" aria-label=\"企微员工\" title=\"企微"
+"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"企微员工\" title=\"企微"
 "员工\">\n"
 "                        </span>"
 
@@ -104,11 +104,6 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: wecom_hrm
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__change
-msgid "Change"
-msgstr ""
-
-#. module: wecom_hrm
 #: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_employee
 msgid "Click to add a new employee."
 msgstr "单击以添加新员工。"
@@ -117,6 +112,8 @@ msgstr "单击以添加新员工。"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__company_id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__company_id
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__company_id
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_department_filter
 msgid "Company"
 msgstr "公司"
 
@@ -132,11 +129,6 @@ msgid "Create contacts tags: %s to WeCom"
 msgstr "创建通讯录标签：%s 到企业微信"
 
 #. module: wecom_hrm
-#: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_department
-msgid "Create department."
-msgstr "创建部门。"
-
-#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__create_uid
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__create_uid
 msgid "Created by"
@@ -149,21 +141,27 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
-msgid "Delete WeCom Tags"
-msgstr "删除企微标签"
-
-#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Delete contacts tags: %s to WeCom"
 msgstr "删除通讯录标签：%s 到企业微信"
 
 #. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_res_config_settings__del_wecom_tag
+msgid "Delete wecom tag"
+msgstr "删除企业标签"
+
+#. module: wecom_hrm
 #: model:ir.model,name:wecom_hrm.model_hr_department
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_organization_department_kanban
 msgid "Department"
 msgstr "部门"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_department.py:0
+#, python-format
+msgid "Department list downloaded successfully."
+msgstr "部门列表下载成功。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__department_ids
@@ -181,6 +179,34 @@ msgstr "显示名称"
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_form
 msgid "Download Tags"
 msgstr "下载标签"
+
+#. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Download failed!"
+msgstr "下载失败！"
+
+#. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Download succeeded!"
+msgstr "下载成功！"
+
+#. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/xml/list_header_button.xml:0
+#, python-format
+msgid "Download wecom department list"
+msgstr "下载企微部门列表"
+
+#. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/xml/list_header_button.xml:0
+#, python-format
+msgid "Download wecom tag list"
+msgstr "下载企微标签列表"
 
 #. module: wecom_hrm
 #: model:ir.model,name:wecom_hrm.model_hr_employee
@@ -239,6 +265,24 @@ msgid "Enterprise wechat user Id"
 msgstr "企微用户Id"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_department.py:0
+#, python-format
+msgid "Error creating Department [%s], error details:%s"
+msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_department.py:0
+#, python-format
+msgid "Error setting parent department for company %s, Error details:%s"
+msgstr "设置公司 [%s] 的父部门时出错，错误详细信息：%s"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_department.py:0
+#, python-format
+msgid "Error updating Department [%s], error details:%s"
+msgstr "更新部门 [%s] 时出错，错误详细信息：%s"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Fail"
@@ -249,6 +293,11 @@ msgstr "失败"
 #, python-format
 msgid "Failed"
 msgstr "失败"
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
+msgid "Group By"
+msgstr "分组"
 
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_config_hide_hr_menu
@@ -275,6 +324,15 @@ msgstr "人力资源配置"
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__id
 msgid "ID"
 msgstr ""
+
+#. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.res_config_settings_view_form
+msgid ""
+"If selected, deleting the local tag record will delete the tag of remote enterprise "
+"wechat at the same time.Default <b class=\"text-warning\">disable</b>."
+msgstr ""
+"如果选中，删除本地标签记录将同时删除远程企业微信的标签。默认值<b class=\"text-warning\">"
+"禁用</b>。"
 
 #. module: wecom_hrm
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_view_hr_job
@@ -363,6 +421,13 @@ msgid "Plans"
 msgstr "计划"
 
 #. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Refresh"
+msgstr "刷新"
+
+#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__employee_id
 msgid "Related Employee"
 msgstr "相关的员工"
@@ -387,7 +452,7 @@ msgstr "设置"
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Success"
-msgstr ""
+msgstr "成功"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -404,6 +469,24 @@ msgid ""
 msgstr ""
 "标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自"
 "增。"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag [%s] of company [%s] downloaded successfully!"
+msgstr "公司[%s]的标签[%s]下载成功！"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag [%s] of company [%s] failed to download!"
+msgstr "公司[%s]的标签[%s]下载失败！"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag downloaded failed."
+msgstr "标签下载失败。"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -432,10 +515,20 @@ msgstr "标签：%s 删除失败。"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__category_ids
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_organization_employee_tag
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_department_form
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_employee_category_list
 msgid "Tags"
 msgstr "标签"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_department.py:0
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid ""
+"The current company does not identify the enterprise wechat organization. Please "
+"configure or switch the company."
+msgstr "当前公司未标识为企业微信组织。请配置或切换公司。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_wecom_wizard_user_bind_wecom__company_id
@@ -497,14 +590,11 @@ msgid "Users bind enterprise wechat members"
 msgstr "系统用户绑定企微成员"
 
 #. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.view_department_form
-#, python-format
 msgid "WeCom"
 msgstr "企业微信"
 
 #. module: wecom_hrm
-#: model:ir.actions.act_window,name:wecom_hrm.open_module_tree_department
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__is_wecom_department
 msgid "WeCom Department"
 msgstr "企业微信部门"
@@ -515,24 +605,21 @@ msgid "WeCom HRM"
 msgstr "企微HRM"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__is_wecom_category
+#, python-format
 msgid "WeCom Tag"
-msgstr "企业微信标签"
+msgstr "企微标签"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__tagid
 msgid "WeCom Tag ID"
-msgstr "企业微信标签ID"
+msgstr "企微标签ID"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__wecom_department_id
 msgid "WeCom department ID"
 msgstr "企业微信部门ID"
-
-#. module: wecom_hrm
-#: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_department
-msgid "WeCom department management"
-msgstr "企微部门管理"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__wecom_department_order

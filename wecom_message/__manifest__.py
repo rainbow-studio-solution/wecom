@@ -24,7 +24,9 @@
         "wecom_material",
         "wecom_contacts",
     ],
-    "external_dependencies": {"python": ["html2text", "lxml"],},
+    "external_dependencies": {
+        "python": ["html2text", "lxml"],
+    },
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
@@ -35,6 +37,7 @@
         # "views/assets_templates.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
+        "views/res_company_views.xml",
         "views/mail_message_views.xml",
         "views/mail_template_views.xml",
         "views/mail_mail_views.xml",
@@ -42,10 +45,7 @@
         "views/menu_views.xml",
     ],
     "assets": {
-        "web.assets_backend": [
-            
-        ],
-        
+        "web.assets_backend": [],
     },
     # "post_init_hook": "_auto_install_lang",
     # 'external_dependencies': {'python': ['skimage']},

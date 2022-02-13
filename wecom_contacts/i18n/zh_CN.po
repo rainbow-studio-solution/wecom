@@ -75,8 +75,8 @@ msgstr ""
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_company__contacts_app_id
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_id
-msgid "Application"
-msgstr "应用"
+msgid "Contacts Application"
+msgstr "通讯录应用"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_config_ids

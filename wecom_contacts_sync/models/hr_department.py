@@ -9,6 +9,7 @@ from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
+
 class Department(models.Model):
     _inherit = "hr.department"
 
@@ -41,10 +42,9 @@ class Department(models.Model):
         debug = params.get_param("wecom.debug_enabled")
         if debug:
             _logger.info(
-                _("Start synchronizing departments of %s"), company.name,
+                _("Start synchronizing departments of %s"),
+                company.name,
             )
- 
-  
 
         try:
             app_config = self.env["wecom.app_config"].sudo()
@@ -59,16 +59,20 @@ class Department(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "DEPARTMENT_LIST"
                 ),
-                {"id": contacts_sync_hr_department_id,},
+                {
+                    "id": contacts_sync_hr_department_id,
+                },
             )
-            
+
         except ApiException as e:
             state = "fail"
 
-            result = _("Department error synchronizing %s, error: %s",company.name,e.errMsg)
-            
+            result = _(
+                "Department error synchronizing %s, error: %s", company.name, e.errMsg
+            )
+
             if debug:
-                _logger.warning( result)
+                _logger.warning(result)
         else:
             # response 为 dict,response["department"] 为 list
             # 清洗数据
@@ -79,23 +83,23 @@ class Department(models.Model):
 
             self.run_set_department(company)
             state = "completed"
-            result = (
-                _("Successfully synchronized [%s]'s Department") % company.name
-            )
+            result = _("Successfully synchronized [%s]'s Department") % company.name
         finally:
             end_time = time.time()
             if debug:
                 _logger.info(
                     _("End sync %s Department,Total time spent: %s seconds")
-                    % (company.name, end_time-start_time)
+                    % (company.name, end_time - start_time)
                 )
-            res.update({
-                "department_sync_times":end_time-start_time,
-                "department_sync_state":state,
-                "department_sync_result":result,
-                })
+            res.update(
+                {
+                    "department_sync_times": end_time - start_time,
+                    "department_sync_state": state,
+                    "department_sync_result": result,
+                }
+            )
             return res
-    
+
     def department_data_cleaning(self, departments):
         """[summary]
         部门数据清洗
@@ -215,7 +219,9 @@ class Department(models.Model):
                 else:
                     try:
                         department.write(
-                            {"parent_id": parent_department.id,}
+                            {
+                                "parent_id": parent_department.id,
+                            }
                         )
                     except Exception as e:
                         if debug:
