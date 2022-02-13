@@ -26,4 +26,5 @@
         "views/menu_views.xml",
     ],
     "qweb": ["static/src/xml/*.xml",],
+    "bootstrap": True,  # 加载登录屏幕的翻译，
 }
