@@ -36,6 +36,9 @@
                         </div>
                     </button>
                 </xpath>
+                <xpath expr="//header//button[last()]" position="before">
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" attrs="{'invisible': ['|',('is_wecom_user', '=', False),'&amp;',('is_wecom_user', '!=', False),('user_id', '!=', False)]}" icon="fa-files-o" groups="hr.group_hr_manager"/>
+                </xpath>
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <h2 attrs="{'invisible': [('is_wecom_user','=',False)]}">
                         <lable for="alias" />

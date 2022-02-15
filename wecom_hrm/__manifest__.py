@@ -16,9 +16,7 @@
     "description": """
 
         """,
-    "depends": [
-        "wecom_contacts",
-    ],
+    "depends": ["wecom_contacts",],
     "data": [
         # "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -40,12 +38,8 @@
             "wecom_hrm/static/src/js/download_staffs.js",
             "wecom_hrm/static/src/js/download_tags.js",
         ],
-        "web.assets_qweb": [
-            "wecom_hrm/static/src/xml/*.xml",
-        ],
+        "web.assets_qweb": ["wecom_hrm/static/src/xml/*.xml",],
     },
-    "external_dependencies": {
-        "python": [],
-    },
+    "external_dependencies": {"python": [],},
     "license": "LGPL-3",
 }

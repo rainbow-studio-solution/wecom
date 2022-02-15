@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 05:30+0000\n"
-"PO-Revision-Date: 2022-02-13 13:35+0800\n"
+"POT-Creation-Date: 2022-02-13 11:21+0000\n"
+"PO-Revision-Date: 2022-02-13 19:43+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -29,8 +29,8 @@ msgid ""
 "Employee\" title=\"Enterprise wechat Employee\">\n"
 "                        </span>"
 msgstr ""
-"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"企微员工\" title=\"企微"
-"员工\">\n"
+"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"企微员工\" title="
+"\"企微员工\">\n"
 "                        </span>"
 
 #. module: wecom_hrm
@@ -93,8 +93,8 @@ msgid "Binding"
 msgstr "绑定"
 
 #. module: wecom_hrm
-#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_tree2
-msgid "Binding enterprise wechat members"
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_tree
+msgid "Binding wecom members"
 msgstr "绑定企微成员"
 
 #. module: wecom_hrm
@@ -102,11 +102,6 @@ msgstr "绑定企微成员"
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.user_bind_wecom_view_form
 msgid "Cancel"
 msgstr "取消"
-
-#. module: wecom_hrm
-#: model_terms:ir.actions.act_window,help:wecom_hrm.open_module_tree_employee
-msgid "Click to add a new employee."
-msgstr "单击以添加新员工。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__company_id
@@ -182,31 +177,44 @@ msgstr "下载标签"
 
 #. module: wecom_hrm
 #. openerp-web
-#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#: code:addons/wecom_hrm/static/src/js/download_deps.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
+#: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
 msgid "Download failed!"
 msgstr "下载失败！"
 
 #. module: wecom_hrm
 #. openerp-web
-#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#: code:addons/wecom_hrm/static/src/js/download_deps.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
+#: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
 msgid "Download succeeded!"
 msgstr "下载成功！"
 
 #. module: wecom_hrm
 #. openerp-web
-#: code:addons/wecom_hrm/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom_hrm/static/src/xml/hr_templates.xml:0
 #, python-format
-msgid "Download wecom department list"
-msgstr "下载企微部门列表"
+msgid "Download wecom department data"
+msgstr "下载企微部门数据"
 
 #. module: wecom_hrm
 #. openerp-web
-#: code:addons/wecom_hrm/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom_hrm/static/src/xml/hr_templates.xml:0
 #, python-format
-msgid "Download wecom tag list"
-msgstr "下载企微标签列表"
+msgid "Download wecom employee data"
+msgstr "下载企微员工数据"
+
+#. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/xml/hr_templates.xml:0
+#, python-format
+msgid "Download wecom tag data"
+msgstr "下载企微标签数据"
 
 #. module: wecom_hrm
 #: model:ir.model,name:wecom_hrm.model_hr_employee
@@ -236,6 +244,19 @@ msgid "Employee Tags"
 msgstr "员工标签"
 
 #. module: wecom_hrm
+#. openerp-web
+#: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
+#, python-format
+msgid "Employee Termination"
+msgstr "员工解雇"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Employee list downloaded successfully."
+msgstr "员工列表下载成功。"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/wizard/employee_bind_wecom.py:0
 #, python-format
 msgid "Employee with ID [%s] already exists"
@@ -251,6 +272,12 @@ msgstr "员工"
 #: model:ir.model,name:wecom_hrm.model_wecom_wizard_employee_bind_wecom
 msgid "Employees bind enterprise wechat members"
 msgstr "员工绑定企微成员"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "End setting the direct leader of the employee with the company name '%s'."
+msgstr "结束设置公司名为“%s”的员工的直属领导。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__english_name
@@ -271,10 +298,29 @@ msgid "Error creating Department [%s], error details:%s"
 msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Error creating company %s employee %s %s, error reason: %s"
+msgstr "创建公司 [%s] 的 员工 %s %s 时出错，错误原因：%s"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
 #, python-format
 msgid "Error setting parent department for company %s, Error details:%s"
 msgstr "设置公司 [%s] 的父部门时出错，错误详细信息：%s"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid ""
+"Error setting the direct leader of the company %s employee %s. The wrong reason is: %s."
+msgstr "设置公司 [%s] 的员工 [%s] 的直属领导时出错。错误原因是：%s。"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Error update company %s employee %s %s, error reason: %s"
+msgstr "更新公司[%s] 的员工 [%s %s] 时出错，错误原因：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
@@ -293,6 +339,19 @@ msgstr "失败"
 #, python-format
 msgid "Failed"
 msgstr "失败"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Failed to set employee [%s] resignation, reason:%s"
+msgstr "无法设置离职员工 [%s]，原因：%s"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid ""
+"Get the main department error of the company %s employee %s. The wrong reason is: %s."
+msgstr "获取公司 [%s] 的员工 [%s] 的主部门错误。错误原因是：%s。"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
@@ -422,7 +481,10 @@ msgstr "计划"
 
 #. module: wecom_hrm
 #. openerp-web
-#: code:addons/wecom_hrm/static/src/js/list_header_button.js:0
+#: code:addons/wecom_hrm/static/src/js/download_deps.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
+#: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
+#: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
 msgid "Refresh"
 msgstr "刷新"
@@ -447,6 +509,12 @@ msgstr "报表"
 #: model:ir.ui.menu,name:wecom_hrm.menu_wecom_hrm_manager_configuration
 msgid "Settings"
 msgstr "设置"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Start setting the direct leader of the employee with the company name '%s'."
+msgstr "开始设置公司 [%s] 的员工的直属领导。"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -523,6 +591,7 @@ msgstr "标签"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
+#: code:addons/wecom_hrm/models/hr_employee.py:0
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid ""
@@ -625,11 +694,6 @@ msgstr "企业微信部门ID"
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__wecom_department_order
 msgid "WeCom department sort"
 msgstr "企业微信部门排序"
-
-#. module: wecom_hrm
-#: model:ir.actions.act_window,name:wecom_hrm.open_module_tree_employee
-msgid "WeCom employee"
-msgstr "企微员工"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__is_wecom_user
