@@ -123,7 +123,7 @@ class HrEmployeePrivate(models.Model):
             res_user_id = (
                 self.sudo()
                 .env["res.users"]
-                .search([("login", "=", self.wecom_userid.lower())], limit=1,)
+                .search([("wecom_userid", "=", self.wecom_userid.lower())], limit=1,)
             )
 
             if len(res_user_id) == 0:
@@ -181,6 +181,9 @@ class HrEmployeePrivate(models.Model):
                 # },  # 刷新窗体
             }
         else:
+            res_user_id.partner_id.write({
+                "parent_id": self.company_id.partner_id.id,
+            })
             self._sync_user(
                 self.env["res.users"].browse(res_user_id), bool(self.image_1920)
             )

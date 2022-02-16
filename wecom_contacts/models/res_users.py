@@ -40,6 +40,29 @@ WECOM_USER_MAPPING_ODOO_PARTNER = {
 class Users(models.Model):
     _inherit = "res.users"
 
+    def get_wecom_openid(self):
+        """
+        获取企微OpenID
+        """
+        for user in self:
+            try:
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    user.company_id.corpid,
+                    user.company_id.contacts_app_id.secret,
+                )
+                response = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "USERID_TO_OPENID"
+                    ),
+                    {"userid": user.wecom_userid,},
+                )
+            except ApiException as ex:
+                self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
+            else:
+                user.wecom_openid = response["openid"]
+
     # ------------------------------------------------------------
     # 企微部门下载
     # ------------------------------------------------------------
@@ -185,6 +208,7 @@ class Users(models.Model):
             )  # id=1是内部用户, id=9是门户用户
             user.create(
                 {
+                    "notification_type": "inbox",
                     "company_ids": [(6, 0, [self.company_id.id])],
                     "company_id": self.company_id.id,
                     "name": wecom_user["name"],
@@ -245,6 +269,7 @@ class Users(models.Model):
         try:
             user.write(
                 {
+                    "notification_type": "inbox",
                     "company_ids": [(6, 0, [self.company_id.id])],
                     "company_id": self.company_id.id,
                     "name": wecom_user["name"],

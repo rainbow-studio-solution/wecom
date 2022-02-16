@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+
+        <record id="wecom_view_users_form" model="ir.ui.view">
+            <field name="name">wecom users form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='wecom']//field[@name='wecom_userid']" position="after">
+                    <label for="wecom_openid"/>
+                    <div class="o_row">
+                        <field name="wecom_openid" />
+                        <button string=" Get OpenID" class="btn btn-link" type="object" icon="fa-openid" name="get_wecom_openid" attrs="{'invisible': [('wecom_openid', '=', True)]}" />
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
