@@ -1112,4 +1112,8 @@ msgid "users"
 msgstr "用户"
 
 
-
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_openid
+#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_openid
+msgid "WeCom OpenID"
+msgstr "企微用户OpenID"

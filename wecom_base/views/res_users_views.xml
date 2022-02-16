@@ -24,6 +24,7 @@
                         <group>
                             <group>
                                 <field name="wecom_userid"/>
+                                <field name="wecom_openid"/>
                                 <field name="is_wecom_user"/>
                             </group>
                             <group>

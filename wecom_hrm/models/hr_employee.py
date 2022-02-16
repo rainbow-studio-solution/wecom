@@ -42,7 +42,7 @@ class HrEmployeePrivate(models.Model):
     _order = "wecom_user_order"
 
     wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
-    wecom_open_userid = fields.Char(string="WeCom open user Id", readonly=True,)
+    wecom_openid = fields.Char(string="WeCom OpenID", readonly=True,)
     alias = fields.Char(string="Alias", readonly=True,)
     english_name = fields.Char(string="English Name", readonly=True,)
 
@@ -80,6 +80,30 @@ class HrEmployeePrivate(models.Model):
                 {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
             )
 
+    def get_wecom_openid(self):
+        """
+        获取企微OpenID
+        """
+        for employee in self:
+            try:
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    employee.company_id.corpid,
+                    employee.company_id.contacts_app_id.secret,
+                )
+                response = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "USERID_TO_OPENID"
+                    ),
+                    {"userid": employee.wecom_userid,},
+                )
+            except ApiException as ex:
+                self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
+            else:
+                employee.wecom_openid = response["openid"]
+
+
     # ------------------------------------------------------------
     # 从员工生成用户
     # ------------------------------------------------------------
@@ -93,6 +117,8 @@ class HrEmployeePrivate(models.Model):
             self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=1是内部用户, id=9是门户用户
         params = {}
+        if self.wecom_openid is False:
+            self.get_wecom_openid()
         try:
             res_user_id = (
                 self.sudo()
@@ -125,6 +151,7 @@ class HrEmployeePrivate(models.Model):
                         "wecom_userid": self.wecom_userid,
                         "image_1920": self.image_1920,
                         "qr_code": self.qr_code,
+                        "wecom_openid": self.wecom_openid,
                         "active": self.active,
                         "wecom_user_order": self.wecom_user_order,
                         "is_wecom_user": True,
@@ -166,10 +193,7 @@ class HrEmployeePrivate(models.Model):
                 "sticky": False,  # 延时关闭
                 "className": "bg-success",
                 "type": "success",
-                "next": {
-                    "type": "ir.actions.client",
-                    "tag": "reload",
-                },  # 刷新窗体
+                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
             }
         finally:
             action = {
@@ -214,23 +238,25 @@ class HrEmployeePrivate(models.Model):
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
                     ex, raise_exception=False
                 )
-                tasks = [{
-                    "name":"download_employee_data",
-                    "state": False, 
-                    "time": end_time - start_time,
-                    "msg": str(ex),
-                    }]
+                tasks = [
+                    {
+                        "name": "download_employee_data",
+                        "state": False,
+                        "time": end_time - start_time,
+                        "msg": str(ex),
+                    }
+                ]
             except Exception as e:
                 end_time = time.time()
-                tasks = [{
-                    "name":"download_employee_data",
-                    "state": False, 
-                    "time": end_time - start_time,
-                    "msg": str(e),
-                    }]
+                tasks = [
+                    {
+                        "name": "download_employee_data",
+                        "state": False,
+                        "time": end_time - start_time,
+                        "msg": str(e),
+                    }
+                ]
             else:
-                
-
                 wecom_employees = response["userlist"]
 
                 # 获取block
@@ -292,7 +318,7 @@ class HrEmployeePrivate(models.Model):
                 # 4.完成同步员工
                 end_time = time.time()
                 task = {
-                    "name":"download_employee_data",
+                    "name": "download_employee_data",
                     "state": True,
                     "time": end_time - start_time,
                     "msg": _("Employee list downloaded successfully."),
@@ -305,7 +331,7 @@ class HrEmployeePrivate(models.Model):
             end_time = time.time()
             tasks = [
                 {
-                    "name":"download_employee_data",
+                    "name": "download_employee_data",
                     "state": False,
                     "time": end_time - start_time,
                     "msg": _(
@@ -404,7 +430,7 @@ class HrEmployeePrivate(models.Model):
             return {
                 "name": "add_employee",
                 "state": False,
-                "time":0,
+                "time": 0,
                 "msg": result,
             }  # 返回失败结果
 
@@ -473,7 +499,7 @@ class HrEmployeePrivate(models.Model):
             return {
                 "name": "update_employee",
                 "state": False,
-                "time":0,
+                "time": 0,
                 "msg": result,
             }  # 返回失败结果
 
@@ -590,12 +616,14 @@ class HrEmployeePrivate(models.Model):
                 ) % (company.name, wecom_employee["name"], repr(e))
                 if debug:
                     _logger.warning(result)
-                results.append({
-                    "name":"set_employee_superior",
-                    "state": False, 
-                    "time":0,
-                    "msg": result,
-                    })
+                results.append(
+                    {
+                        "name": "set_employee_superior",
+                        "state": False,
+                        "time": 0,
+                        "msg": result,
+                    }
+                )
 
         if debug:
             _logger.info(
@@ -649,12 +677,14 @@ class HrEmployeePrivate(models.Model):
                 )
                 if debug:
                     _logger.warning(result)
-                results.append({
-                    "name": "employee_termination",
-                    "state": False, 
-                    "time":0,
-                    "msg": result,
-                })
+                results.append(
+                    {
+                        "name": "employee_termination",
+                        "state": False,
+                        "time": 0,
+                        "msg": result,
+                    }
+                )
         return results  # 返回失败结果
 
     # ------------------------------------------------------------

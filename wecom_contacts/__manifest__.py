@@ -30,6 +30,11 @@
         "views/menu_views.xml",
     ],
     "assets": {
+        "web.assets_backend": [
+            # SCSSS
+            # JS
+            "wecom_contacts/static/src/js/download_contacts.js",
+        ],
         "web.assets_qweb": [
             "wecom_contacts/static/src/xml/*.xml",
         ],

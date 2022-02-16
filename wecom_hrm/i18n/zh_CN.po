@@ -734,7 +734,12 @@ msgstr "企微设置"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_userid
 msgid "WeCom user Id"
-msgstr "企业微信用户ID"
+msgstr "企微用户ID"
+
+#. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_openid
+msgid "WeCom OpenID"
+msgstr "企微用户OpenID"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_user_order

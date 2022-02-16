@@ -98,7 +98,7 @@ msgstr ""
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_contacts
 msgid "WeCom Contacts"
-msgstr "企微联系人"
+msgstr "企微通讯录"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_contacts
@@ -108,13 +108,13 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        企微联系人n\n"
+"        企微通讯录n\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_contacts_sync
 msgid "WeCom Contacts Synchronized"
-msgstr "企微联系人同步"
+msgstr "企微通讯录同步"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_message

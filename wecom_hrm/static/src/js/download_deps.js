@@ -4,8 +4,6 @@ odoo.define('wecom_hrm.download_deps', function (require) {
     var _t = core._t;
     var ListController = require('web.ListController');
     var ListView = require('web.ListView');
-    var KanbanController = require('web.KanbanController');
-    var KanbanView = require('web.KanbanView');
     var viewRegistry = require('web.view_registry');
 
     // 企微部门
@@ -50,9 +48,9 @@ odoo.define('wecom_hrm.download_deps', function (require) {
     var HrDepartmentRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
-            var ready = this.getSession().user_has_group('hr.group_hr_manager')
-                .then(function (is_sale_manager) {
-                    if (is_sale_manager) {
+            var ready = this.getSession().user_has_group('hr.group_hr_user')
+                .then(function (is_hr_user) {
+                    if (is_hr_user) {
                         self.buttons_template = 'HrDepartmentDownloadRequestListView.buttons';
                     }
                 });

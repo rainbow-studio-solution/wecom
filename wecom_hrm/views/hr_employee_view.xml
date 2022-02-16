@@ -53,10 +53,15 @@
                     <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>
                 </xpath>
                 <xpath expr="//page[last()]" position="after">
-                    <page name="wecom_settings" string="WeCom settings">
+                    <page name="wecom_settings" string="WeCom settings" attrs="{'invisible': [('is_wecom_user', '=', False)]}">
                         <group>
                             <group>
                                 <field name="wecom_userid" />
+                                <label for="wecom_openid"/>
+                                <div class="o_row">
+                                    <field name="wecom_openid" />
+                                    <button string=" Get OpenID" class="btn btn-link" type="object" icon="fa-openid" name="get_wecom_openid" attrs="{'invisible': [('wecom_openid', '!=', False)]}"/>
+                                </div>
                                 <field name="is_wecom_user"/>
                                 <field name="department_ids" widget="many2many_tags" />
                             </group>

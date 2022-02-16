@@ -88,18 +88,21 @@ class WeComApps(models.Model):
             )[
                 1
             ]  # 3
-            contacts_sync_user_enabled = ir_model_data.get_object_reference(
-                "wecom_contacts_sync", "wecom_app_config_contacts_sync_user_enabled"
+            contacts_task_sync_user_enabled = ir_model_data.get_object_reference(
+                "wecom_contacts_sync",
+                "wecom_app_config_contacts_task_sync_user_enabled",
             )[
                 1
             ]  # 4
             contacts_use_system_default_avatar = ir_model_data.get_object_reference(
-                "wecom_contacts_sync", "wecom_app_config_contacts_use_system_default_avatar"
+                "wecom_contacts_sync",
+                "wecom_app_config_contacts_use_system_default_avatar",
             )[
                 1
             ]  # 5
             contacts_update_avatar_every_time_sync = ir_model_data.get_object_reference(
-                "wecom_contacts_sync", "wecom_app_config_contacts_update_avatar_every_time_sync"
+                "wecom_contacts_sync",
+                "wecom_app_config_contacts_update_avatar_every_time_sync",
             )[
                 1
             ]  # 6
@@ -119,7 +122,8 @@ class WeComApps(models.Model):
                 1
             ]  # 9
             join_qrcode_last_time = ir_model_data.get_object_reference(
-                "wecom_contacts_sync", "wecom_app_config_acontacts_join_qrcode_last_time"
+                "wecom_contacts_sync",
+                "wecom_app_config_acontacts_join_qrcode_last_time",
             )[
                 1
             ]  # 10
@@ -128,7 +132,7 @@ class WeComApps(models.Model):
                 contacts_auto_sync_hr_enabled,  # 1
                 contacts_sync_hr_department_id,  # 2
                 contacts_edit_enabled,  # 3
-                contacts_sync_user_enabled,  # 4
+                contacts_task_sync_user_enabled,  # 4
                 contacts_use_system_default_avatar,  # 5
                 contacts_update_avatar_every_time_sync,  # 6
                 enabled_join_qrcode,  # 7

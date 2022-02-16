@@ -1,4 +1,4 @@
-odoo.define('wecom_hrm.staffs', function (require) {
+odoo.define('wecom_contacts.download_contacts', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;
@@ -6,38 +6,16 @@ odoo.define('wecom_hrm.staffs', function (require) {
     var ListView = require('web.ListView');
     var KanbanController = require('web.KanbanController');
     var KanbanView = require('web.KanbanView');
-    var KanbanRenderer = require('web.KanbanRenderer');
-    var KanbanRecord = require('web.KanbanRecord');
     var viewRegistry = require('web.view_registry');
-    const ChatMixin = require('hr.chat_mixin');
 
-    const EmployeeArchiveMixin = {
-        _getArchiveAction: function (id) {
-            return {
-                type: 'ir.actions.act_window',
-                name: _t('Employee Termination'),
-                res_model: 'hr.departure.wizard',
-                views: [
-                    [false, 'form']
-                ],
-                view_mode: 'form',
-                target: 'new',
-                context: {
-                    'active_id': id,
-                    'toggle_active': true,
-                }
-            }
-        }
-    };
-
-    // 企微员工
-    function renderDownloadEmployeeButton() {
+    // 企微部门
+    function renderDownloadContactButton() {
         if (this.$buttons) {
             var self = this;
-            this.$buttons.on('click', '.o_button_download_staffs', function () {
+            this.$buttons.on('click', '.o_button_download_contacts', function () {
                 return self._rpc({
-                    model: 'hr.employee',
-                    method: 'download_wecom_staffs',
+                    model: 'res.partner',
+                    method: 'download_wecom_contacts',
                     args: [],
                 }).then(function (results) {
                     $.each(results, function (index, result) {
@@ -68,20 +46,21 @@ odoo.define('wecom_hrm.staffs', function (require) {
             });
         }
     }
-    var HrEmployeeRequestListController = ListController.extend({
+
+    var ResPartnerRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
-            var ready = this.getSession().user_has_group('hr.group_hr_user')
-                .then(function (is_hr_user) {
-                    if (is_hr_user) {
-                        self.buttons_template = 'HrEmployeeDownloadRequestListView.buttons';
+            var ready = this.getSession().user_has_group('base.group_partner_manager')
+                .then(function (is_partner_manager) {
+                    if (is_partner_manager) {
+                        self.buttons_template = 'ResPartnerDownloadRequestListView.buttons';
                     }
                 });
             return Promise.all([this._super.apply(this, arguments), ready]);
         },
         _onSelectionChanged: function (ev) {
             this._super(ev);
-            var $buttonDownload = this.$el.find('.o_button_download_staffs');
+            var $buttonDownload = this.$el.find('.o_button_download_contacts');
             if (this.getSelectedIds().length === 0) {
                 $buttonDownload.removeClass('d-none');
             } else {
@@ -90,49 +69,41 @@ odoo.define('wecom_hrm.staffs', function (require) {
         },
         renderButtons: function () {
             this._super.apply(this, arguments);
-            renderDownloadEmployeeButton.apply(this, arguments);
+            renderDownloadContactButton.apply(this, arguments);
         }
     })
 
-    var HrEmployeeDownloadRequestListView = ListView.extend({
+    var ResPartnerDownloadRequestListView = ListView.extend({
         config: _.extend({}, ListView.prototype.config, {
-            Controller: HrEmployeeRequestListController,
+            Controller: ResPartnerRequestListController,
         }),
     });
 
-    var HrEmployeeRequestKanbanController = KanbanController.extend({
+
+    var ResPartnerRequestKanbanController = KanbanController.extend({
         willStart: function () {
             var self = this;
-            var ready = this.getSession().user_has_group('hr.group_hr_user')
-                .then(function (is_hr_user) {
-                    if (is_hr_user) {
-                        self.buttons_template = 'HrEmployeeDownloadRequestKanbanView.buttons';
+            var ready = this.getSession().user_has_group('base.group_partner_manager')
+                .then(function (is_partner_manager) {
+                    if (is_partner_manager) {
+                        self.buttons_template = 'ResPartnerDownloadRequestKanbanView.buttons';
                     }
                 });
             return Promise.all([this._super.apply(this, arguments), ready]);
         },
         renderButtons: function () {
             this._super.apply(this, arguments);
-            renderDownloadEmployeeButton.apply(this, arguments);
+            renderDownloadContactButton.apply(this, arguments);
         }
     });
 
-    var EmployeeKanbanRecord = KanbanRecord.extend(ChatMixin);
-
-    var EmployeeKanbanRenderer = KanbanRenderer.extend({
-        config: Object.assign({}, KanbanRenderer.prototype.config, {
-            KanbanRecord: EmployeeKanbanRecord,
-        }),
-    });
-
-    var HrEmployeeDownloadRequestKanbanView = KanbanView.extend({
+    var ResPartnerDownloadRequestKanbanView = KanbanView.extend({
         config: _.extend({}, KanbanView.prototype.config, {
-            Controller: HrEmployeeRequestKanbanController,
-            Renderer: EmployeeKanbanRenderer
+            Controller: ResPartnerRequestKanbanController,
         }),
     });
 
 
-    viewRegistry.add('hr_employee_tree_download', HrEmployeeDownloadRequestListView);
-    viewRegistry.add('hr_employee_kanban_download', HrEmployeeDownloadRequestKanbanView);
+    viewRegistry.add('res_partner_tree_download', ResPartnerDownloadRequestListView);
+    viewRegistry.add('res_partner_kanban_download', ResPartnerDownloadRequestKanbanView);
 });

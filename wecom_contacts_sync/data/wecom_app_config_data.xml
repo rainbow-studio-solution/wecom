@@ -48,15 +48,15 @@
         </record>
 
         <!-- 4 -->
-        <record id="wecom_app_config_contacts_sync_user_enabled" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_task_sync_user_enabled" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
-            <field name="name">Allow WeCom contacts to automatically update system accounts</field>
-            <field name="key">contacts_sync_user_enabled</field>
+            <field name="name">Allow wecom address book tasks to automatically sync system accounts</field>
+            <field name="key">contacts_task_sync_user_enabled</field>
             <field name="ttype">boolean</field>
             <field name="value">False</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Enable to allow batch generation of system accounts from employees;
+                    Allow wecom address book tasks to automatically sync system accounts;
                     <br></br>Value: True or False
                 </p>
             </field>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!--  更新时间 2021-11-16-->
+    <!--  更新时间 2022-2-16-->
     <data noupdate="0">
         <!-- 0. 基础 -->
         <record id="wecom_service_api_base_get_access_token" model="wecom.service_api_list">
@@ -78,13 +78,21 @@
             <field name="short_url">/cgi-bin/user/convert_to_openid?access_token=ACCESS_TOKEN</field>
             <field name="sequence">107</field>
         </record>
+        <record id="wecom_service_api_contacts_openid_to_userid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">Userid and openid are interchangeable</field>
+            <field name="function_name">OPENID_TO_USERID</field>
+            <field name="request_type">POST</field>
+            <field name="short_url">/cgi-bin/user/convert_to_userid?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">108</field>
+        </record>
         <record id="wecom_service_api_contacts_user_auth_success" model="wecom.service_api_list">
             <field name="type">2</field>
             <field name="name">Member secondary verification</field>
             <field name="function_name">USER_AUTH_SUCCESS</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/authsucc?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">108</field>
+            <field name="sequence">109</field>
         </record>
         <record id="wecom_service_api_contacts_batch_invite" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -92,7 +100,7 @@
             <field name="function_name">BATCH_INVITE</field>
             <field name="short_url">/cgi-bin/batch/invite?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">109</field>
+            <field name="sequence">110</field>
         </record>
         <record id="wecom_service_api_contacts_get_join_qrcode" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -100,7 +108,7 @@
             <field name="function_name">GET_JOIN_QRCODE</field>
             <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">110</field>
+            <field name="sequence">111</field>
         </record>
         <record id="wecom_service_api_contacts_get_active_members" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -108,7 +116,7 @@
             <field name="function_name">GET_ACTIVE_MEMBERS</field>
             <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">111</field>
+            <field name="sequence">112</field>
         </record>
 
         <!-- 1.2 通讯录-部门管理 -->

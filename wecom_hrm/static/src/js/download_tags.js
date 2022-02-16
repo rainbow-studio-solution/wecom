@@ -52,9 +52,9 @@ odoo.define('wecom_hrm.download_tags', function (require) {
     var HrCategoryRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
-            var ready = this.getSession().user_has_group('hr.group_hr_manager')
-                .then(function (is_sale_manager) {
-                    if (is_sale_manager) {
+            var ready = this.getSession().user_has_group('hr.group_hr_user')
+                .then(function (is_hr_user) {
+                    if (is_hr_user) {
                         self.buttons_template = 'HrCategoryDownloadRequestListView.buttons';
                     }
                 });

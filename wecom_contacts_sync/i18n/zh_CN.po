@@ -99,9 +99,9 @@ msgid "Allow WeCom Contacts are automatically updated to HR"
 msgstr "允许企微通讯录自动更新到HR"
 
 #. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
-msgid "Allow WeCom contacts to automatically update system accounts"
-msgstr "允许企微通讯录自动更新系统帐户"
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_task_sync_user_enabled
+msgid "Allow wecom address book tasks to automatically sync system accounts"
+msgstr "允许企微通讯录任务自动同步系统帐户"
 
 #. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_id
@@ -292,12 +292,12 @@ msgid ""
 msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
 
 #. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_task_sync_user_enabled
 msgid ""
-"Enable to allow batch generation of system accounts from employees;\n"
+"Allow wecom address book tasks to automatically sync system accounts;\n"
 "                    <br>Value: True or False"
 msgstr ""
-"允许员工批量生成系统账户；\n"
+"允许企微通讯录任务自动更新系统帐户；\n"
 "                    <br>值: True 或 False"
 
 #. module: wecom_contacts_sync

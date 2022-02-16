@@ -10,7 +10,8 @@ class Partner(models.Model):
         string="WeCom User ID",
         readonly=True,
     )
-    wecom_open_userid = fields.Char()
+    wecom_openid = fields.Char(string="WeCom OpenID",
+        readonly=True,)
 
     is_wecom_user = fields.Boolean(
         "Is WeCom user",
