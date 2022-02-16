@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-13 11:21+0000\n"
-"PO-Revision-Date: 2022-02-13 19:43+0800\n"
+"POT-Creation-Date: 2022-02-16 05:25+0000\n"
+"PO-Revision-Date: 2022-02-16 13:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -118,6 +118,11 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid "Copy as system user"
+msgstr "复制为系统用户"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Create contacts tags: %s to WeCom"
@@ -164,6 +169,12 @@ msgid "Departments"
 msgstr "部门"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Dismissal of employee [%s] failed, reason%s"
+msgstr "解雇员工 [%s] 失败，原因 %s"
+
+#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__display_name
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__display_name
@@ -178,7 +189,6 @@ msgstr "下载标签"
 #. module: wecom_hrm
 #. openerp-web
 #: code:addons/wecom_hrm/static/src/js/download_deps.js:0
-#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
 #: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
 #: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
@@ -188,7 +198,6 @@ msgstr "下载失败！"
 #. module: wecom_hrm
 #. openerp-web
 #: code:addons/wecom_hrm/static/src/js/download_deps.js:0
-#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
 #: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
 #: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
@@ -253,6 +262,12 @@ msgstr "员工解雇"
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
+msgid "Employee [%s] copied as system user successfully."
+msgstr "已成功将员工 [%s] 复制为系统用户。"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
 msgid "Employee list downloaded successfully."
 msgstr "员工列表下载成功。"
 
@@ -301,13 +316,13 @@ msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "Error creating company %s employee %s %s, error reason: %s"
-msgstr "创建公司 [%s] 的 员工 %s %s 时出错，错误原因：%s"
+msgstr "创建公司 [%s] 员工 [%s %s] 时出错，错误原因： %s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
 #, python-format
 msgid "Error setting parent department for company %s, Error details:%s"
-msgstr "设置公司 [%s] 的父部门时出错，错误详细信息：%s"
+msgstr "设置公司 [%s] 的上级部门时出错，错误详细信息：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
@@ -320,7 +335,7 @@ msgstr "设置公司 [%s] 的员工 [%s] 的直属领导时出错。错误原因
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "Error update company %s employee %s %s, error reason: %s"
-msgstr "更新公司[%s] 的员工 [%s %s] 时出错，错误原因：%s"
+msgstr "更新公司 [%s] 员工 [%s %s]时出错，错误原因：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
@@ -329,6 +344,7 @@ msgid "Error updating Department [%s], error details:%s"
 msgstr "更新部门 [%s] 时出错，错误详细信息：%s"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Fail"
@@ -343,15 +359,21 @@ msgstr "失败"
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
-msgid "Failed to set employee [%s] resignation, reason:%s"
-msgstr "无法设置离职员工 [%s]，原因：%s"
+msgid "Failed to copy employee [%s] as system user, reason:"
+msgstr "无法将员工 [%s] 复制为系统用户，原因："
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Failed to download tag [%s] member of company [%s]!"
+msgstr "未能下载公司[%s]标签成员[%s]！"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid ""
 "Get the main department error of the company %s employee %s. The wrong reason is: %s."
-msgstr "获取公司 [%s] 的员工 [%s] 的主部门错误。错误原因是：%s。"
+msgstr "获取公司 [%s] 员工 [%s] 的主部门错误。错误原因是：%s。"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
@@ -482,7 +504,6 @@ msgstr "计划"
 #. module: wecom_hrm
 #. openerp-web
 #: code:addons/wecom_hrm/static/src/js/download_deps.js:0
-#: code:addons/wecom_hrm/static/src/js/download_staffs copy.js:0
 #: code:addons/wecom_hrm/static/src/js/download_staffs.js:0
 #: code:addons/wecom_hrm/static/src/js/download_tags.js:0
 #, python-format
@@ -517,6 +538,7 @@ msgid "Start setting the direct leader of the employee with the company name '%s
 msgstr "开始设置公司 [%s] 的员工的直属领导。"
 
 #. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
 msgid "Success"
@@ -541,18 +563,6 @@ msgstr ""
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #, python-format
-msgid "Tag [%s] of company [%s] downloaded successfully!"
-msgstr "公司[%s]的标签[%s]下载成功！"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag [%s] of company [%s] failed to download!"
-msgstr "公司[%s]的标签[%s]下载失败！"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#, python-format
 msgid "Tag downloaded failed."
 msgstr "标签下载失败。"
 
@@ -561,6 +571,12 @@ msgstr "标签下载失败。"
 #, python-format
 msgid "Tag downloaded successfully."
 msgstr "标签下载成功。"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee_category.py:0
+#, python-format
+msgid "Tag list downloaded successfully."
+msgstr "标签列表下载成功。"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0

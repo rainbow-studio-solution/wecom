@@ -2,6 +2,7 @@
 
 import logging
 import base64
+import time
 from lxml import etree
 from odoo import api, fields, models, _
 from lxml_to_dict import lxml_to_dict
@@ -30,9 +31,7 @@ class Department(models.Model):
     )
 
     wecom_department_id = fields.Integer(
-        string="WeCom department ID",
-        readonly=True,
-        default="0",
+        string="WeCom department ID", readonly=True, default="0",
     )
 
     wecom_department_parent_id = fields.Integer(
@@ -47,9 +46,7 @@ class Department(models.Model):
         readonly=True,
     )
     is_wecom_department = fields.Boolean(
-        string="WeCom Department",
-        readonly=True,
-        default=False,
+        string="WeCom Department", readonly=True, default=False,
     )
 
     # ------------------------------------------------------------
@@ -60,11 +57,13 @@ class Department(models.Model):
         """
         下载部门列表
         """
-        company = self.company_id
+        start_time = time.time()
+        company = self.env.context.get("company_id")
+
+        tasks = []
         if not company:
             company = self.env.company
         if company.is_wecom_organization:
-            results = []
             try:
                 wxapi = self.env["wecom.service_api"].InitServiceApi(
                     company.corpid, company.contacts_app_id.secret
@@ -77,65 +76,77 @@ class Department(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "DEPARTMENT_LIST"
                     ),
-                    {
-                        "id": contacts_sync_hr_department_id,
-                    },
+                    {"id": contacts_sync_hr_department_id,},
                 )
             except ApiException as ex:
+                end_time = time.time()
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
                     ex, raise_exception=False
                 )
-                results = [
+                tasks = [
                     {
+                        "name": "download_department_data",
                         "state": False,
+                        "time": end_time - start_time,
                         "msg": str(ex),
                     }
                 ]
             except Exception as e:
-                results = [
+                end_time = time.time()
+                tasks = [
                     {
+                        "name": "download_department_data",
                         "state": False,
+                        "time": end_time - start_time,
                         "msg": str(e),
                     }
                 ]
-
             else:
-                result = {
-                    "state": True,
-                    "msg": _("Department list downloaded successfully."),
-                }
-                results.append(result)
                 # response 为 dict，response["department"] 为 list
                 # 清洗数据
                 wecom_departments = self.department_data_cleaning(
                     response["department"]
                 )
 
-                # 下载部门
+                # 1.下载部门
                 for wecom_department in wecom_departments:
                     download_department_result = self.download_department(
                         company, wecom_department
                     )
-                    if (
-                        download_department_result.get("state")
-                        and download_department_result["state"] is False
-                    ):
-                        results.append(download_department_result)
+                    if download_department_result:
+                        tasks.append(download_department_result)
 
-                # 设置上级部门
+                # 2.设置上级部门
                 set_parent_department_result = self.set_parent_department(company)
-                results.append(set_parent_department_result)
-            finally:
-                return results  # 返回失败结果
+                if set_parent_department_result:
+                    tasks.append(set_parent_department_result)
+
+                # 3.完成下载
+                end_time = time.time()
+                task = {
+                    "name": "download_department_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("Department list downloaded successfully."),
+                }
+                tasks.append(task)
+            # finally:
+            #     return tasks  # 返回失败结果
         else:
-            return [
+            end_time = time.time()
+            tasks = [
                 {
+                    "name": "download_department_data",
                     "state": False,
+                    "time": end_time - start_time,
                     "msg": _(
                         "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
                     ),
                 }
-            ]
+            ]  # 返回失败结果
+
+        
+        return tasks
 
     def department_data_cleaning(self, departments):
         """[summary]
@@ -200,7 +211,9 @@ class Department(models.Model):
             )
             _logger.warning(result)
             return {
+                "name": "add_department",
                 "state": False,
+                "time":0,
                 "msg": result,
             }
 
@@ -225,7 +238,9 @@ class Department(models.Model):
             )
             _logger.warning(result)
             return {
+                "name": "update_department",
                 "state": False,
+                "time":0,
                 "msg": result,
             }
 
@@ -252,9 +267,7 @@ class Department(models.Model):
                 else:
                     try:
                         department.write(
-                            {
-                                "parent_id": parent_department.id,
-                            }
+                            {"parent_id": parent_department.id,}
                         )
                     except Exception as e:
                         result = _(
@@ -264,7 +277,9 @@ class Department(models.Model):
                             _logger.warning(result)
                         results.append(
                             {
+                                "name": "set_parent_department",
                                 "state": False,
+                                "time":0,
                                 "msg": result,
                             }
                         )
@@ -306,8 +321,7 @@ class Department(models.Model):
             .search([("company_id", "=", company_id.id)] + domain)
         )
         callback_department = department.search(
-            [("wecom_department_id", "=", dic["Id"])] + domain,
-            limit=1,
+            [("wecom_department_id", "=", dic["Id"])] + domain, limit=1,
         )
         update_dict = {}
         parent_department = False
@@ -316,8 +330,7 @@ class Department(models.Model):
                 pass
             else:
                 parent_department = department.search(
-                    [("wecom_department_id", "=", int(dic["ParentId"]))],
-                    limit=1,
+                    [("wecom_department_id", "=", int(dic["ParentId"]))], limit=1,
                 )
         for key, value in dic.items():
             if (

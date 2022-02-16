@@ -6,6 +6,10 @@ from odoo import api, models, fields, _
 from odoo.exceptions import UserError, Warning
 
 import pandas as pd
+
+pd.set_option("max_colwidth", 4096)  # 设置最大列宽
+pd.set_option("display.max_columns", 30)  # 设置最大列数
+pd.set_option("expand_frame_repr", False)  # 当列太多时不换行
 import time
 
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -59,7 +63,7 @@ class WecomContactsSyncWizard(models.TransientModel):
             self.companies = ",".join(companies_names)
         else:
             self.companies = self.company_id.name
-    
+
     @api.onchange("company_id")
     def onchange_company_id(self):
         if self.sync_all is False:
@@ -92,9 +96,7 @@ class WecomContactsSyncWizard(models.TransientModel):
     )
     sync_result = fields.Text("Sync result", readonly=1)
     total_time = fields.Float(
-        string="Total time(seconds)",
-        digits=(16, 3),
-        readonly=True,
+        string="Total time(seconds)", digits=(16, 3), readonly=True,
     )
 
     department_sync_state = fields.Selection(
@@ -113,7 +115,9 @@ class WecomContactsSyncWizard(models.TransientModel):
         digits=(16, 3),
         readonly=True,
     )
-    department_sync_result = fields.Text("Department synchronization results", readonly=1)
+    department_sync_result = fields.Text(
+        "Department synchronization results", readonly=1
+    )
 
     employee_sync_state = fields.Selection(
         [
@@ -148,7 +152,7 @@ class WecomContactsSyncWizard(models.TransientModel):
     tag_sync_result = fields.Text("Tag synchronization results", readonly=1)
 
     def action_sync_contacts(self):
-        results =[]
+        results = []
         sync_start_time = time.time()
         if self.sync_all:
             # 同步所有公司
@@ -159,40 +163,50 @@ class WecomContactsSyncWizard(models.TransientModel):
             )
 
             for company in companies:
+                # 遍历公司
                 result = self.start_sync_contacts(company)
                 results.append(result)
         else:
             # 同步当前选中公司
             result = self.start_sync_contacts(self.company_id)
             results.append(result)
-        
+
         sync_end_time = time.time()
         self.total_time = sync_end_time - sync_start_time
         # 处理数据
-        pd.set_option("max_colwidth", 4096) # 设置最大列宽
-        pd.set_option('display.max_columns',30) # 设置最大列数
- 
+
         df = pd.DataFrame(results)
 
-        self.state,self.department_sync_state,self.employee_sync_state,self.tag_sync_state = self.handle_sync_state(df) # 处理同步状态
+        (
+            self.state,
+            self.department_sync_state,
+            self.employee_sync_state,
+            self.tag_sync_state,
+        ) = self.handle_sync_all_state(
+            df
+        )  # 处理同步状态
 
-        # 处理同步结果和结果
+        # 处理同步结果和时间
         sync_result = ""
-        department_sync_result =""
+        department_sync_result = ""
         employee_sync_result = ""
         tag_sync_result = ""
+
         department_sync_times = 0
         employee_sync_times = 0
         tag_sync_times = 0
 
-        
         for index, row in df.iterrows():
-            if row["state"] == "fail":
-                sync_result += str(index+1)+":"+row["sync_result"] + "\n"
-            department_sync_result += str(index+1)+":"+row["department_sync_result"] + "\n"
-            employee_sync_result += str(index+1)+":"+row["employee_sync_result"] + "\n"
-            tag_sync_result += str(index+1)+":"+row["tag_sync_result"] + "\n"
-            
+            if row["sync_state"] == "fail":
+                sync_result += str(index + 1) + ":" + row["sync_result"] + "\n"
+            department_sync_result += (
+                str(index + 1) + ":" + row["department_sync_result"] + "\n"
+            )
+            employee_sync_result += (
+                str(index + 1) + ":" + row["employee_sync_result"] + "\n"
+            )
+            tag_sync_result += str(index + 1) + ":" + row["tag_sync_result"] + "\n"
+
             department_sync_times += row["department_sync_times"]
             employee_sync_times += row["employee_sync_times"]
             tag_sync_times += row["tag_sync_times"]
@@ -205,7 +219,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         self.department_sync_times = department_sync_times
         self.employee_sync_times = employee_sync_times
         self.tag_sync_times = tag_sync_times
-        
+
         # 显示同步结果
         form_view = self.env.ref(
             "wecom_contacts_sync.view_form_wecom_contacts_sync_result"
@@ -217,9 +231,7 @@ class WecomContactsSyncWizard(models.TransientModel):
             "res_model": "wecom.contacts.sync.wizard",
             "res_id": self.id,
             "view_id": False,
-            "views": [
-                [form_view.id, "form"],
-            ],
+            "views": [[form_view.id, "form"],],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,
@@ -232,94 +244,185 @@ class WecomContactsSyncWizard(models.TransientModel):
             # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
         }
 
-    def handle_sync_state(self,df):
+    def start_sync_contacts(self, company):
+        """
+        启动同步
+        """
+        if company.contacts_app_id:
+            result = {}
+            app_config = self.env["wecom.app_config"].sudo()
+            sync_hr_enabled = app_config.get_param(
+                company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
+            )  # 允许企业微信通讯簿自动更新为HR的标识
+            if sync_hr_enabled:
+                result = {"company_name": company.name, "sync_state": "completed"}
+
+                # 同步部门
+                sync_department_result = (
+                    self.env["hr.department"]
+                    .with_context(company_id=company)
+                    .download_wecom_deps()
+                )
+
+                (
+                    department_sync_state,
+                    department_sync_times,
+                    department_sync_result,
+                ) = self.handle_sync_task_state(sync_department_result, company)
+                
+                result.update(
+                    {
+                        "department_sync_state": department_sync_state,
+                        "department_sync_times": department_sync_times,
+                        "department_sync_result": department_sync_result,
+                    }
+                )
+
+                # 同步员工
+                sync_employee_result = (
+                    self.env["hr.employee"]
+                    .with_context(company_id=company)
+                    .download_wecom_staffs()
+                )
+                (
+                    employee_sync_state,
+                    employee_sync_times,
+                    employee_sync_result,
+                ) = self.handle_sync_task_state(sync_employee_result, company)
+                result.update(
+                    {
+                        "employee_sync_state": employee_sync_state,
+                        "employee_sync_times": employee_sync_times,
+                        "employee_sync_result": employee_sync_result,
+                    }
+                )
+
+                # 同步标签
+                sync_tag_result = (
+                    self.env["hr.employee.category"]
+                    .with_context(company_id=company)
+                    .download_wecom_tags()
+                )
+                (
+                    tag_sync_state,
+                    tag_sync_times,
+                    tag_sync_result,
+                ) = self.handle_sync_task_state(sync_tag_result, company)
+                result.update(
+                    {
+                        "tag_sync_state": tag_sync_state,
+                        "tag_sync_times": tag_sync_times,
+                        "tag_sync_result": tag_sync_result,
+                    }
+                )
+
+            else:
+                result.update(
+                    {
+                        "company_name": company.name,
+                        "sync_state": "fail",
+                        "sync_result": _(
+                            "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                        )
+                        % company.name,
+                        "department_sync_state": "fail",
+                        "department_sync_times": 0,
+                        "department_sync_result": _(
+                            "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                        )
+                        % company.name,
+                        "employee_sync_state": "fail",
+                        "employee_sync_times": 0,
+                        "employee_sync_result": _(
+                            "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                        )
+                        % company.name,
+                        "tag_sync_state": "fail",
+                        "tag_sync_times": 0,
+                        "tag_sync_result": _(
+                            "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                        )
+                        % company.name,
+                    }
+                )
+            return result
+
+    def handle_sync_all_state(self, df):
         """
         处理同步状态
-        """ 
-        all_state_rows = len(df) # 获取所有行数            
-        fail_state_rows = len(df[df["state"] == "fail"]) # 获取失败行数
-        
-        fail_department_state_rows = len(df[df["department_sync_state"] == "fail"]) # 获取失败行数
-        fail_employee_state_rows = len(df[df["employee_sync_state"] == "fail"]) # 获取失败行数
-        fail_tag_state_rows = len(df[df["tag_sync_state"] == "fail"]) # 获取失败行数
+        """
+        all_state_rows = len(df)  # 获取所有行数
+        fail_state_rows = len(df[df["sync_state"] == "fail"])  # 获取失败行数
 
-        state = None
+        fail_department_state_rows = len(
+            df[df["department_sync_state"] == "fail"]
+        )  # 获取失败行数
+        fail_employee_state_rows = len(
+            df[df["employee_sync_state"] == "fail"]
+        )  # 获取失败行数
+        fail_tag_state_rows = len(df[df["tag_sync_state"] == "fail"])  # 获取失败行数
+
+        sync_state = None
         department_sync_state = None
         employee_sync_state = None
         tag_sync_state = None
 
-        if fail_state_rows == all_state_rows:            
-            state = "fail"
+        if fail_state_rows == all_state_rows:
+            sync_state = "fail"
         elif fail_state_rows > 0 and fail_state_rows < all_state_rows:
-            state = "partially"
+            sync_state = "partially"
         elif fail_state_rows == 0:
-            state = "completed"
+            sync_state = "completed"
 
-        if fail_department_state_rows == all_state_rows:            
+        if fail_department_state_rows == all_state_rows:
             department_sync_state = "fail"
-        elif fail_department_state_rows > 0 and fail_department_state_rows < all_state_rows:
+        elif (
+            fail_department_state_rows > 0
+            and fail_department_state_rows < all_state_rows
+        ):
             department_sync_state = "partially"
         elif fail_department_state_rows == 0:
             department_sync_state = "completed"
 
-        if fail_employee_state_rows == all_state_rows:            
+        if fail_employee_state_rows == all_state_rows:
             employee_sync_state = "fail"
         elif fail_employee_state_rows > 0 and fail_employee_state_rows < all_state_rows:
             employee_sync_state = "partially"
         elif fail_employee_state_rows == 0:
             employee_sync_state = "completed"
 
-        if fail_tag_state_rows == all_state_rows:            
+        if fail_tag_state_rows == all_state_rows:
             tag_sync_state = "fail"
         elif fail_tag_state_rows > 0 and fail_tag_state_rows < all_state_rows:
             tag_sync_state = "partially"
         elif fail_tag_state_rows == 0:
             tag_sync_state = "completed"
 
-        return state,department_sync_state,employee_sync_state,tag_sync_state
+        return sync_state, department_sync_state, employee_sync_state, tag_sync_state
 
-    
-
-
-    def start_sync_contacts(self,company):
+    def handle_sync_task_state(self, result, company):
         """
-        启动同步
-        """        
-        if company.contacts_app_id:
-            result ={
-                "company_name":company.name,
-            }
-            app_config = self.env["wecom.app_config"].sudo()
-            sync_hr_enabled = app_config.get_param(
-                company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
-            )  # 允许企业微信通讯簿自动更新为HR的标识
-            if sync_hr_enabled:
-                result.update({"state":"completed"})
+        处理部门、员工、标签同步状态
+        """
+        df = pd.DataFrame(result)
+        all_rows = len(df)  # 获取所有行数
+        fail_rows = len(df[df["state"] == False])  # 获取失败行数
 
-                sync_department_result =self.env["hr.department"].sync_department(company) # 同步部门
-                result.update(sync_department_result)
+        sync_state = None
+        if fail_rows == all_rows:
+            sync_state = "fail"
+        elif fail_rows > 0 and fail_rows < all_rows:
+            sync_state = "partially"
+        elif fail_rows == 0:
+            sync_state = "completed"
 
-                sync_employee_result = self.env["hr.employee"].sync_employee(company) # 同步员工
-                result.update(sync_employee_result)
+        sync_result = ""
+        sync_times = 0
+        for index, row in df.iterrows():
+            sync_times += row["time"]
+            sync_result += "[%s] %s" % (company.name,row["msg"])
 
-                sync_tag_result = self.env["hr.employee.category"].sync_tag(company) # 同步标签
-                result.update(sync_tag_result)
-
-            else:
-                result.update({
-                    "state":"fail",
-                    "sync_result":_("Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR.") % company.name,
-                    "department_sync_state":"fail",                    
-                    "department_sync_times":0,
-                    "department_sync_result":_("Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR.") % company.name,
-                    "employee_sync_state":"fail",                    
-                    "employee_sync_times":0,
-                    "employee_sync_result":_("Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR.") % company.name,
-                    "tag_sync_state":"fail",                    
-                    "tag_sync_times":0,
-                    "tag_sync_result":_("Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR.") % company.name,
-                })
-            return result
+        return sync_state, sync_times, sync_result
 
     def reload(self):
         return {

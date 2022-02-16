@@ -2,6 +2,7 @@
 
 import logging
 import base64
+import time
 from lxml import etree
 from odoo import api, fields, models, _
 from lxml_to_dict import lxml_to_dict
@@ -53,10 +54,7 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_category = fields.Boolean(
-        string="WeCom Tag",
-        default=False,
-    )
+    is_wecom_category = fields.Boolean(string="WeCom Tag", default=False,)
 
     @api.depends("is_wecom_category")
     def _compute_display_name(self):
@@ -133,10 +131,7 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -252,12 +247,7 @@ class EmployeeCategory(models.Model):
             if response["errmsg"] == "created":
                 self.write({"tagid": tagid})
                 params.update(
-                    {
-                        "next": {
-                            "type": "ir.actions.client",
-                            "tag": "reload",
-                        },  # 刷新窗体
-                    }
+                    {"next": {"type": "ir.actions.client", "tag": "reload",},}  # 刷新窗体
                 )
 
         finally:
@@ -332,13 +322,6 @@ class EmployeeCategory(models.Model):
             tag_response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_LIST")
             )
-
-            member_response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "TAG_GET_MEMBER"
-                ),
-                {"tagid": str(self.tagid)},
-            )
         except ApiException as ex:
             error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
             params.update(
@@ -385,10 +368,7 @@ class EmployeeCategory(models.Model):
                     "type": "success",
                     "sticky": True,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },
+                    "next": {"type": "ir.actions.client", "tag": "reload",},
                 }
             )
         finally:
@@ -404,11 +384,13 @@ class EmployeeCategory(models.Model):
         """
         下载企微标签列表
         """
-        company = self.company_id
+        start_time = time.time()
+        company = self.env.context.get("company_id")
+
+        tasks = []
         if not company:
             company = self.env.company
         if company.is_wecom_organization:
-            results = []
             try:
                 wxapi = self.env["wecom.service_api"].InitServiceApi(
                     company.corpid, company.contacts_app_id.secret
@@ -420,19 +402,25 @@ class EmployeeCategory(models.Model):
                 )
 
             except ApiException as ex:
+                end_time = time.time()
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
                     ex, raise_exception=False
                 )
-                results = [
+                tasks = [
                     {
+                        "name": "download_tag_data",
                         "state": False,
+                        "time": end_time - start_time,
                         "msg": str(ex),
                     }
                 ]
             except Exception as e:
-                results = [
+                end_time = time.time()
+                tasks = [
                     {
+                        "name": "download_tag_data",
                         "state": False,
+                        "time": end_time - start_time,
                         "msg": str(e),
                     }
                 ]
@@ -457,48 +445,51 @@ class EmployeeCategory(models.Model):
                         )
                     else:
                         category.write(
-                            {
-                                "name": tag["tagname"],
-                                "is_wecom_category": True,
-                            }
+                            {"name": tag["tagname"], "is_wecom_category": True,}
                         )
                     result = self.download_wecom_tag_member(
                         category, wxapi, tag["tagid"], company
                     )
                     if result:
-                        results.append(
+                        tasks.append(
                             {
-                                "state": True,
+                                "name": "download_tag_members",
+                                "state": False,
+                                "time": 0,
                                 "msg": _(
-                                    "Tag [%s] of company [%s] downloaded successfully!"
+                                    "Failed to download tag [%s] member of company [%s]!"
                                 )
                                 % (tag["tagname"], company.name),
                             }
                         )
-                    else:
-                        results.append(
-                            {
-                                "state": False,
-                                "msg": _("Tag [%s] of company [%s] failed to download!")
-                                % (tag["tagname"], company.name),
-                            }
-                        )
             finally:
-                return results
+                end_time = time.time()
+                task = {
+                    "name": "download_tag_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("Tag list downloaded successfully."),
+                }
+                tasks.append(task)
         else:
-            return [
+            end_time = time.time()
+            tasks = [
                 {
+                    "name": "download_tag_data",
                     "state": False,
+                    "time": end_time - start_time,
                     "msg": _(
                         "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
                     ),
                 }
             ]
+        return tasks
 
     def download_wecom_tag_member(self, category, wxapi, tagid, company):
         """
         下载企微标签成员
         """
+        res = {}
         try:
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
@@ -510,9 +501,19 @@ class EmployeeCategory(models.Model):
             self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 ex, raise_exception=False
             )
-            return False
+            res = {
+                "name": "download_tag_members",
+                "state": False,
+                "time": 0,
+                "msg": repr(e),
+            }
         except Exception as e:
-            return False
+            res = {
+                "name": "download_tag_members",
+                "state": False,
+                "time": 0,
+                "msg": repr(e),
+            }
         else:
             employee_ids = []
             for user in response["userlist"]:
@@ -556,7 +557,8 @@ class EmployeeCategory(models.Model):
                     department_ids.append(department.id)
             if len(department_ids) > 0:
                 category.write({"department_ids": [(6, 0, department_ids)]})
-            return True
+        finally:
+            return res  # 返回失败的结果
 
     def delete_wecom_tag(self):
         """
@@ -587,20 +589,11 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deleted successfully.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
-                tag = self.search(
-                    [("tagid", "=", self.tagid)],
-                    limit=1,
-                )
+                tag = self.search([("tagid", "=", self.tagid)], limit=1,)
                 tag.write(
-                    {
-                        "is_wecom_category": False,
-                        "tagid": 0,
-                    }
+                    {"is_wecom_category": False, "tagid": 0,}
                 )
                 # tag.unlink()
             else:
@@ -610,10 +603,7 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {
-                        "type": "ir.actions.client",
-                        "tag": "reload",
-                    },  # 刷新窗体
+                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
                 }
             action = {
                 "type": "ir.actions.client",
@@ -715,16 +705,14 @@ class EmployeeCategory(models.Model):
             for wecom_department_id in update_dict["add_department_ids"].split(","):
                 add_department_list.append(
                     department.search(
-                        [("wecom_department_id", "=", wecom_department_id)],
-                        limit=1,
+                        [("wecom_department_id", "=", wecom_department_id)], limit=1,
                     ).id
                 )
         elif "del_department_ids" in update_dict.keys():
             for wecom_department_id in update_dict["del_department_ids"].split(","):
                 del_department_list.append(
                     department.search(
-                        [("wecom_department_id", "=", wecom_department_id)],
-                        limit=1,
+                        [("wecom_department_id", "=", wecom_department_id)], limit=1,
                     ).id
                 )
 

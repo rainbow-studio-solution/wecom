@@ -2,6 +2,7 @@
 
 import logging
 import base64
+import time
 from lxml import etree
 from odoo import api, fields, models, _
 from lxml_to_dict import lxml_to_dict
@@ -186,11 +187,13 @@ class HrEmployeePrivate(models.Model):
         """
         下载员工列表
         """
-        company = self.company_id
+        start_time = time.time()
+        company = self.env.context.get("company_id")
+
+        tasks = []
         if not company:
             company = self.env.company
         if company.is_wecom_organization:
-            results = []
             try:
                 wxapi = self.env["wecom.service_api"].InitServiceApi(
                     company.corpid, company.contacts_app_id.secret
@@ -207,18 +210,26 @@ class HrEmployeePrivate(models.Model):
                     },
                 )
             except ApiException as ex:
+                end_time = time.time()
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
                     ex, raise_exception=False
                 )
-                results = [{"state": False, "msg": str(ex),}]
+                tasks = [{
+                    "name":"download_employee_data",
+                    "state": False, 
+                    "time": end_time - start_time,
+                    "msg": str(ex),
+                    }]
             except Exception as e:
-                results = [{"state": False, "msg": str(e),}]
+                end_time = time.time()
+                tasks = [{
+                    "name":"download_employee_data",
+                    "state": False, 
+                    "time": end_time - start_time,
+                    "msg": str(e),
+                    }]
             else:
-                result = {
-                    "state": True,
-                    "msg": _("Employee list downloaded successfully."),
-                }
-                results.append(result)
+                
 
                 wecom_employees = response["userlist"]
 
@@ -244,22 +255,22 @@ class HrEmployeePrivate(models.Model):
                         if item["userid"].lower() == b.lower():
                             wecom_employees.remove(item)
 
-                # 下载员工
+                # 1.下载员工
                 for wecom_employee in wecom_employees:
                     download_employee_result = self.download_employee(
                         company, wecom_employee
                     )
-                    if len(download_employee_result):
-                        results.append(download_employee_result)  # 加入设置下载员工失败结果
+                    if download_employee_result:
+                        tasks.append(download_employee_result)  # 加入设置下载员工失败结果
 
-                # 设置直属上级
+                # 2.设置直属上级
                 set_direct_leader_results = self.set_direct_leader(
                     company, wecom_employees
                 )
-                if len(set_direct_leader_results) > 0:
-                    results.append(set_direct_leader_results)  # 加入设置直属上级失败结果
+                if set_direct_leader_results:
+                    tasks.append(set_direct_leader_results)  # 加入设置直属上级失败结果
 
-                # 处理离职员工
+                # 3.处理离职员工
                 employees = self.search(
                     [
                         ("is_wecom_user", "=", True),
@@ -275,20 +286,35 @@ class HrEmployeePrivate(models.Model):
                     set_leave_employee_results = self.set_leave_employee(
                         company, response
                     )  # 设置离职员工
-                    if len(set_leave_employee_results) > 0:
-                        results.append(set_leave_employee_results)  # 加入设置离职员工失败结果
+                    if set_leave_employee_results:
+                        tasks.append(set_leave_employee_results)  # 加入设置离职员工失败结果
 
-            finally:
-                return results  # 返回失败结果
+                # 4.完成同步员工
+                end_time = time.time()
+                task = {
+                    "name":"download_employee_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("Employee list downloaded successfully."),
+                }
+                tasks.append(task)
+            # finally:
+            #     results.update({"time": end_time - start_time})
+            #     return results  # 返回失败结果
         else:
-            return [
+            end_time = time.time()
+            tasks = [
                 {
+                    "name":"download_employee_data",
                     "state": False,
+                    "time": end_time - start_time,
                     "msg": _(
                         "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
                     ),
                 }
             ]
+
+        return tasks
 
     def download_employee(self, company, wecom_employee):
         """
@@ -376,7 +402,9 @@ class HrEmployeePrivate(models.Model):
             if debug:
                 _logger.warning(result)
             return {
+                "name": "add_employee",
                 "state": False,
+                "time":0,
                 "msg": result,
             }  # 返回失败结果
 
@@ -443,7 +471,9 @@ class HrEmployeePrivate(models.Model):
             if debug:
                 _logger.warning(result)
             return {
+                "name": "update_employee",
                 "state": False,
+                "time":0,
                 "msg": result,
             }  # 返回失败结果
 
@@ -560,9 +590,12 @@ class HrEmployeePrivate(models.Model):
                 ) % (company.name, wecom_employee["name"], repr(e))
                 if debug:
                     _logger.warning(result)
-                results.append(
-                    {"state": False, "msg": result,}
-                )
+                results.append({
+                    "name":"set_employee_superior",
+                    "state": False, 
+                    "time":0,
+                    "msg": result,
+                    })
 
         if debug:
             _logger.info(
@@ -610,15 +643,18 @@ class HrEmployeePrivate(models.Model):
             try:
                 employee.write({"active": False})
             except Exception as e:
-                result = _("Failed to set employee [%s] resignation, reason:%s") % (
+                result = _("Dismissal of employee [%s] failed, reason%s") % (
                     employee.name,
                     repr(e),
                 )
                 if debug:
                     _logger.warning(result)
-                results.append(
-                    {"state": False, "msg": result,}
-                )
+                results.append({
+                    "name": "employee_termination",
+                    "state": False, 
+                    "time":0,
+                    "msg": result,
+                })
         return results  # 返回失败结果
 
     # ------------------------------------------------------------

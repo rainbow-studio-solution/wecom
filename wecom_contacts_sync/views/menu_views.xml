@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- 企微设置 -->
         <menuitem id="menu_wecom_contacts_wizard" name="Contacts synchronization Wizard" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_contacts_sync_wizard" groups="base.group_erp_manager" sequence="2"/>
+
+        <!-- HRM -->
     </data>
 
 </odoo>
