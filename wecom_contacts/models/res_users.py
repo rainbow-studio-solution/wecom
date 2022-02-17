@@ -144,7 +144,8 @@ class Users(models.Model):
                 for wecom_user in wecom_users:
                     download_user_result = self.download_user(company, wecom_user)
                     if download_user_result:
-                        tasks.append(download_user_result)  # 加入设置下载联系人失败结果
+                        for r in download_user_result:
+                            tasks.append(r)  # 加入设置下载联系人失败结果
 
                 # 2.完成下载
                 end_time = time.time()
@@ -155,8 +156,6 @@ class Users(models.Model):
                     "msg": _("Contacts list downloaded successfully."),
                 }
                 tasks.append(task)
-
-
         else:
             end_time = time.time()
             tasks = [
@@ -169,7 +168,6 @@ class Users(models.Model):
                     ),
                 }
             ]  # 返回失败结果
-        print(tasks)
         return tasks
 
     def download_user(self, company, wecom_user):
@@ -192,6 +190,7 @@ class Users(models.Model):
         contacts_task_sync_user_enabled = app_config.get_param(
             company.contacts_app_id.id, "contacts_task_sync_user_enabled"
         )  # 允许创建用户
+        
         if not user and contacts_task_sync_user_enabled:
             result = self.create_user(company, user, wecom_user)
         else:

@@ -24,6 +24,7 @@
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
         "views/res_partner_views.xml",
+        "views/res_partner_category_views.xml",
         "views/res_users.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
@@ -35,6 +36,7 @@
             # SCSSS
             # JS
             "wecom_contacts/static/src/js/download_contacts.js",
+            "wecom_contacts/static/src/js/download_tags.js",
         ],
         "web.assets_qweb": [
             "wecom_contacts/static/src/xml/*.xml",

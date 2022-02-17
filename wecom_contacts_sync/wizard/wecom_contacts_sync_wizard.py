@@ -151,6 +151,22 @@ class WecomContactsSyncWizard(models.TransientModel):
     )
     hr_tag_sync_result = fields.Text("Hr tag synchronization results", readonly=1)
 
+    res_user_sync_state = fields.Selection(
+        [
+            ("completed", "All completed"),
+            ("partially", "Partially complete"),
+            ("fail", "All failed"),
+        ],
+        "User synchronization Status",
+        readonly=True,
+        copy=False,
+        default="completed",
+    )
+    res_user_sync_times = fields.Float(
+        string="User synchronization time (seconds)", digits=(16, 3), readonly=True,
+    )
+    res_user_sync_result = fields.Text("User synchronization results", readonly=1)
+
     def action_sync_contacts(self):
         results = []
         sync_start_time = time.time()
@@ -182,6 +198,7 @@ class WecomContactsSyncWizard(models.TransientModel):
             self.hr_department_sync_state,
             self.hr_employee_sync_state,
             self.hr_tag_sync_state,
+            self.res_user_sync_state
         ) = self.handle_sync_all_state(
             df
         )  # 处理同步状态
@@ -191,10 +208,12 @@ class WecomContactsSyncWizard(models.TransientModel):
         hr_department_sync_result = ""
         hr_employee_sync_result = ""
         hr_tag_sync_result = ""
+        res_user_sync_result = ""
 
         hr_department_sync_times = 0
         hr_employee_sync_times = 0
         hr_tag_sync_times = 0
+        res_user_sync_times = 0
 
         for index, row in df.iterrows():
             if row["sync_state"] == "fail":
@@ -206,19 +225,25 @@ class WecomContactsSyncWizard(models.TransientModel):
                 str(index + 1) + ":" + row["hr_employee_sync_result"] + "\n"
             )
             hr_tag_sync_result += str(index + 1) + ":" + row["hr_tag_sync_result"] + "\n"
+            res_user_sync_result += str(index + 1) + ":" + row["res_user_sync_result"] + "\n"
 
             hr_department_sync_times += row["hr_department_sync_times"]
             hr_employee_sync_times += row["hr_employee_sync_times"]
             hr_tag_sync_times += row["hr_tag_sync_times"]
+            res_user_sync_times += row["res_user_sync_times"]
 
         self.sync_result = sync_result
         self.hr_department_sync_result = hr_department_sync_result
         self.hr_employee_sync_result = hr_employee_sync_result
         self.hr_tag_sync_result = hr_tag_sync_result
+        self.res_user_sync_result = res_user_sync_result
 
         self.hr_department_sync_times = hr_department_sync_times
         self.hr_employee_sync_times = hr_employee_sync_times
         self.hr_tag_sync_times = hr_tag_sync_times
+        self.res_user_sync_times = res_user_sync_times
+
+ 
 
         # 显示同步结果
         form_view = self.env.ref(
@@ -297,7 +322,7 @@ class WecomContactsSyncWizard(models.TransientModel):
                 )
 
                 # 同步标签
-                sync_tag_result = (
+                sync_hr_tag_result = (
                     self.env["hr.employee.category"]
                     .with_context(company_id=company)
                     .download_wecom_tags()
@@ -306,7 +331,7 @@ class WecomContactsSyncWizard(models.TransientModel):
                     hr_tag_sync_state,
                     hr_tag_sync_times,
                     hr_tag_sync_result,
-                ) = self.handle_sync_task_state(sync_tag_result, company)
+                ) = self.handle_sync_task_state(sync_hr_tag_result, company)
                 result.update(
                     {
                         "hr_tag_sync_state": hr_tag_sync_state,
@@ -315,6 +340,21 @@ class WecomContactsSyncWizard(models.TransientModel):
                     }
                 )
 
+                # 同步用户
+                sync_user_result = self.env["res.users"].sudo().with_context(company_id=company).download_wecom_contacts()
+                
+                (
+                    res_user_sync_state,
+                    res_user_sync_times,
+                    res_user_sync_result,
+                ) = self.handle_sync_task_state(sync_user_result, company)
+                result.update(
+                    {
+                        "res_user_sync_state": res_user_sync_state,
+                        "res_user_sync_times": res_user_sync_times,
+                        "res_user_sync_result": res_user_sync_result,
+                    }
+                )
             else:
                 result.update(
                     {
@@ -342,6 +382,12 @@ class WecomContactsSyncWizard(models.TransientModel):
                             "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
                         )
                         % company.name,
+                        "res_user_sync_state": "fail",
+                        "res_user_sync_times": 0,
+                        "res_user_sync_result": _(
+                            "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                        )
+                        % company.name,
                     }
                 )
             return result
@@ -359,12 +405,15 @@ class WecomContactsSyncWizard(models.TransientModel):
         fail_employee_state_rows = len(
             df[df["hr_employee_sync_state"] == "fail"]
         )  # 获取失败行数
-        fail_tag_state_rows = len(df[df["hr_tag_sync_state"] == "fail"])  # 获取失败行数
+        fail_hr_tag_state_rows = len(df[df["hr_tag_sync_state"] == "fail"])  # 获取失败行数
+        fail_user_state_rows = len(df[df["res_user_sync_state"] == "fail"])  # 获取失败行数
+
 
         sync_state = None
         hr_department_sync_state = None
         hr_employee_sync_state = None
         hr_tag_sync_state = None
+        res_user_sync_state = None
 
         if fail_state_rows == all_state_rows:
             sync_state = "fail"
@@ -390,14 +439,21 @@ class WecomContactsSyncWizard(models.TransientModel):
         elif fail_employee_state_rows == 0:
             hr_employee_sync_state = "completed"
 
-        if fail_tag_state_rows == all_state_rows:
+        if fail_hr_tag_state_rows == all_state_rows:
             hr_tag_sync_state = "fail"
-        elif fail_tag_state_rows > 0 and fail_tag_state_rows < all_state_rows:
+        elif fail_hr_tag_state_rows > 0 and fail_hr_tag_state_rows < all_state_rows:
             hr_tag_sync_state = "partially"
-        elif fail_tag_state_rows == 0:
+        elif fail_hr_tag_state_rows == 0:
             hr_tag_sync_state = "completed"
+            
+        if fail_user_state_rows == all_state_rows:
+            res_user_sync_state = "fail"
+        elif fail_user_state_rows > 0 and fail_user_state_rows < all_state_rows:
+            res_user_sync_state = "partially"
+        elif fail_user_state_rows == 0:
+            res_user_sync_state = "completed"
 
-        return sync_state, hr_department_sync_state, hr_employee_sync_state, hr_tag_sync_state
+        return sync_state, hr_department_sync_state, hr_employee_sync_state, hr_tag_sync_state, res_user_sync_state
 
     def handle_sync_task_state(self, result, company):
         """
@@ -406,8 +462,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         df = pd.DataFrame(result)
         all_rows = len(df)  # 获取所有行数
         fail_rows = len(df[df["state"] == False])  # 获取失败行数
-        print(all_rows,fail_rows)
-
+ 
         sync_state = None
         if fail_rows == all_rows:
             sync_state = "fail"

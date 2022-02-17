@@ -11,6 +11,8 @@ _logger = logging.getLogger(__name__)
 class Partner(models.Model):
     _inherit = "res.partner"
 
+    
+
     def get_wecom_openid(self):
         """
         获取企微OpenID

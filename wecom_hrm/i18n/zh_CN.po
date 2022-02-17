@@ -691,7 +691,7 @@ msgstr "企微HRM"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__is_wecom_category
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__is_wecom_tag
 #, python-format
 msgid "WeCom Tag"
 msgstr "企微标签"

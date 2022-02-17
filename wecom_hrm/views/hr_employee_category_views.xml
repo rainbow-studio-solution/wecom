@@ -28,11 +28,11 @@
                         <sheet>
                             <div name="button_box" class="oe_button_box">
 
-                                <button string="Download Tags" class="oe_stat_button" type="object" name="download_wecom_tag" icon="fa-cloud-download" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/>
+                                <button string="Download Tags" class="oe_stat_button" type="object" name="download_wecom_tag" icon="fa-cloud-download" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_tag','=',False)]}"/>
 
-                                <button name="upload_wecom_tag" type="object" string="Upload Tags" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': [('is_wecom_category','=',False)]}"/>
+                                <button name="upload_wecom_tag" type="object" string="Upload Tags" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': [('is_wecom_tag','=',False)]}"/>
 
-                                <!-- <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_category','=',False)]}"/> -->
+                                <!-- <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_tag','=',False)]}"/> -->
                             </div>
                             <group>
 
@@ -40,7 +40,7 @@
                                 <field name="name"/>
                                 <field name="display_name" class="badge badge-primary"/>
 
-                                <field name="is_wecom_category"/>
+                                <field name="is_wecom_tag"/>
                                 <field name="tagid"/>
 
                                 <field name="employee_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
@@ -65,7 +65,7 @@
                         <!-- <field name="company_id" readonly="1" groups="base.group_multi_company" options="{ 'no_open': True}"/> -->
                         <field name="name"/>
                         <field name="display_name"/>
-                        <field name="is_wecom_category"/>
+                        <field name="is_wecom_tag"/>
                         <field name="tagid" />
                     </tree>
                 </xpath>

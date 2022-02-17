@@ -1,4 +1,4 @@
-odoo.define('wecom_contacts.download_contacts', function (require) {
+odoo.define('wecom_contacts.download_tags', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;
@@ -8,14 +8,14 @@ odoo.define('wecom_contacts.download_contacts', function (require) {
     var KanbanView = require('web.KanbanView');
     var viewRegistry = require('web.view_registry');
 
-    // 企微部门
+    // 企微标签
     function renderDownloadContactButton() {
         if (this.$buttons) {
             var self = this;
-            this.$buttons.on('click', '.o_button_download_contacts', function () {
+            this.$buttons.on('click', '.o_button_download_contact_tags', function () {
                 return self._rpc({
-                    model: 'res.users',
-                    method: 'download_wecom_contacts',
+                    model: 'res.partner.category',
+                    method: 'download_wecom_contact_tags',
                     args: [],
                 }).then(function (results) {
                     $.each(results, function (index, result) {
@@ -47,7 +47,7 @@ odoo.define('wecom_contacts.download_contacts', function (require) {
         }
     }
 
-    var ResPartnerRequestListController = ListController.extend({
+    var ResPartnerCategoryRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
             var ready = this.getSession().user_has_group('base.group_partner_manager')
@@ -60,7 +60,7 @@ odoo.define('wecom_contacts.download_contacts', function (require) {
         },
         _onSelectionChanged: function (ev) {
             this._super(ev);
-            var $buttonDownload = this.$el.find('.o_button_download_contacts');
+            var $buttonDownload = this.$el.find('.o_button_download_contact_tags');
             if (this.getSelectedIds().length === 0) {
                 $buttonDownload.removeClass('d-none');
             } else {
@@ -73,37 +73,14 @@ odoo.define('wecom_contacts.download_contacts', function (require) {
         }
     })
 
-    var ResPartnerDownloadRequestListView = ListView.extend({
+    var ResPartnerCategoryDownloadRequestListView = ListView.extend({
         config: _.extend({}, ListView.prototype.config, {
-            Controller: ResPartnerRequestListController,
+            Controller: ResPartnerCategoryRequestListController,
         }),
     });
 
 
-    var ResPartnerRequestKanbanController = KanbanController.extend({
-        willStart: function () {
-            var self = this;
-            var ready = this.getSession().user_has_group('base.group_partner_manager')
-                .then(function (is_partner_manager) {
-                    if (is_partner_manager) {
-                        self.buttons_template = 'ResPartnerDownloadRequestKanbanView.buttons';
-                    }
-                });
-            return Promise.all([this._super.apply(this, arguments), ready]);
-        },
-        renderButtons: function () {
-            this._super.apply(this, arguments);
-            renderDownloadContactButton.apply(this, arguments);
-        }
-    });
 
-    var ResPartnerDownloadRequestKanbanView = KanbanView.extend({
-        config: _.extend({}, KanbanView.prototype.config, {
-            Controller: ResPartnerRequestKanbanController,
-        }),
-    });
+    viewRegistry.add('res_partner_category_tree_download', ResPartnerCategoryDownloadRequestListView);
 
-
-    viewRegistry.add('res_partner_tree_download', ResPartnerDownloadRequestListView);
-    viewRegistry.add('res_partner_kanban_download', ResPartnerDownloadRequestKanbanView);
 });

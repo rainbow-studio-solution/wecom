@@ -54,25 +54,25 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_category = fields.Boolean(string="WeCom Tag", default=False,)
+    is_wecom_tag = fields.Boolean(string="WeCom Tag", default=False,)
 
-    @api.depends("is_wecom_category")
+    @api.depends("is_wecom_tag")
     def _compute_display_name(self):
         tag = _("WeCom Tag")
         for rec in self:
-            if rec.is_wecom_category:
+            if rec.is_wecom_tag:
                 rec.display_name = "%s:%s" % (tag, rec.name)
             else:
                 rec.display_name = rec.name
 
     @api.onchange("employee_ids")
     def _onchange_employee_ids(self):
-        if self.is_wecom_category:
+        if self.is_wecom_tag:
             self.change = True
 
     @api.onchange("department_ids")
     def _onchange_department_ids(self):
-        if self.is_wecom_category:
+        if self.is_wecom_tag:
             self.change = True
 
     def unlink(self):
@@ -80,7 +80,7 @@ class EmployeeCategory(models.Model):
             self.env["ir.config_parameter"].sudo().get_param("wecom.del_wecom_tag")
         )
         for tag in self:
-            if tag.is_wecom_category and del_wecom_tag:
+            if tag.is_wecom_tag and del_wecom_tag:
                 tag.delete_wecom_tag()
         return super(EmployeeCategory, self).unlink()
 
@@ -382,7 +382,7 @@ class EmployeeCategory(models.Model):
     @api.model
     def download_wecom_tags(self):
         """
-        下载企微标签列表
+        下载企微标签列表 hr.employee.category
         """
         start_time = time.time()
         company = self.env.context.get("company_id")
@@ -440,12 +440,12 @@ class EmployeeCategory(models.Model):
                             {
                                 "name": tag["tagname"],
                                 "tagid": tag["tagid"],
-                                "is_wecom_category": True,
+                                "is_wecom_tag": True,
                             }
                         )
                     else:
                         category.write(
-                            {"name": tag["tagname"], "is_wecom_category": True,}
+                            {"name": tag["tagname"], "is_wecom_tag": True,}
                         )
                     result = self.download_wecom_tag_member(
                         category, wxapi, tag["tagid"], company
@@ -593,7 +593,7 @@ class EmployeeCategory(models.Model):
                 }
                 tag = self.search([("tagid", "=", self.tagid)], limit=1,)
                 tag.write(
-                    {"is_wecom_category": False, "tagid": 0,}
+                    {"is_wecom_tag": False, "tagid": 0,}
                 )
                 # tag.unlink()
             else:
