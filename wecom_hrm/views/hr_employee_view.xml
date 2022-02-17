@@ -20,6 +20,12 @@
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//header//button[last()]" position="before">
+                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" icon="fa-files-o" groups="hr.group_hr_manager" attrs="{'invisible': ['|',('is_wecom_user', '=', False),'&amp;',('is_wecom_user', '!=', False),('user_id', '!=', False)]}"/>
+                </xpath>
+
+                <!-- attrs="{'invisible': ['|',('is_wecom_user', '=', False),'&amp;',('is_wecom_user', '!=', False),('user_id', '!=', False)]}" -->
+
                 <xpath expr="//sheet/div[@name='button_box']/button[last()]" position="after">
                     <button class="btn oe_stat_button btn-succes" name="%(employee_bind_wecom_action)d" type="action" attrs="{'invisible': [('is_wecom_user', '=', True)]}">
                         <div role="img" class="fa fa-user-plus o_button_icon" aria-label="Binding" title="Binding"/>
@@ -36,9 +42,7 @@
                         </div>
                     </button>
                 </xpath>
-                <xpath expr="//header//button[last()]" position="before">
-                    <button name="create_user_from_employee" string="Copy as system user" type="object" class="oe_highlight btn-info" attrs="{'invisible': ['|',('is_wecom_user', '=', False),'&amp;',('is_wecom_user', '!=', False),('user_id', '!=', False)]}" icon="fa-files-o" groups="hr.group_hr_manager"/>
-                </xpath>
+                
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <h2 attrs="{'invisible': [('is_wecom_user','=',False)]}">
                         <lable for="alias" />

@@ -39,7 +39,7 @@
                                 <label for="wecom_openid" />
                                 <div class="o_row">
                                     <field name="wecom_openid" />
-                                    <button string=" Get OpenID" class="btn btn-link" type="object" icon="fa-openid" name="get_wecom_openid" attrs="{'invisible': [('wecom_openid', '=', True)]}" />
+                                    <button string=" Get OpenID" class="btn btn-link" type="object" icon="fa-openid" name="get_wecom_openid" attrs="{'invisible': [('wecom_openid', '!=', False)]}"/>
                                 </div>
                                 <field name="is_wecom_user" />
                             </group>

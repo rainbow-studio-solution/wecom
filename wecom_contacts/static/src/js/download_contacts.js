@@ -14,7 +14,7 @@ odoo.define('wecom_contacts.download_contacts', function (require) {
             var self = this;
             this.$buttons.on('click', '.o_button_download_contacts', function () {
                 return self._rpc({
-                    model: 'res.partner',
+                    model: 'res.users',
                     method: 'download_wecom_contacts',
                     args: [],
                 }).then(function (results) {

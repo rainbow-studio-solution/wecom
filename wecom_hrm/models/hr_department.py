@@ -2,6 +2,7 @@
 
 import logging
 import base64
+from pdb import _rstr
 import time
 from lxml import etree
 from odoo import api, fields, models, _
@@ -114,12 +115,14 @@ class Department(models.Model):
                         company, wecom_department
                     )
                     if download_department_result:
-                        tasks.append(download_department_result)
+                        for r in download_department_result:
+                            tasks.append(r)
 
                 # 2.设置上级部门
                 set_parent_department_result = self.set_parent_department(company)
                 if set_parent_department_result:
-                    tasks.append(set_parent_department_result)
+                    for r in set_parent_department_result:
+                        tasks.append(r)
 
                 # 3.完成下载
                 end_time = time.time()
@@ -254,13 +257,12 @@ class Department(models.Model):
         departments = self.search(
             [("is_wecom_department", "=", True), ("company_id", "=", company.id)]
         )
+
         results = []
         for department in departments:
-            if not department.wecom_department_id:
-                pass
-            else:
+            if department.wecom_department_parent_id:
                 parent_department = self.get_parent_department_by_wecom_department_id(
-                    department, departments
+                    department, company
                 )
                 if not parent_department:
                     pass
@@ -285,17 +287,16 @@ class Department(models.Model):
                         )
         return results  # 返回失败的结果
 
-    def get_parent_department_by_wecom_department_id(self, department, departments):
+    def get_parent_department_by_wecom_department_id(self, department, company):
         """[summary]
         通过企微部门id 获取上级部门
         Args:
             department ([type]): [description]
             departments ([type]): [descriptions]
         """
-        parent_department = departments.search(
+        parent_department = self.search(
             [
-                ("wecom_department_id", "=", department.wecom_department_parent_id),
-                ("is_wecom_department", "=", True),
+                ("wecom_department_id", "=", department.wecom_department_parent_id), ("company_id", "=", company.id)
             ]
         )
         return parent_department

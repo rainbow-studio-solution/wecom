@@ -4,7 +4,7 @@ import logging
 import base64
 import time
 from lxml import etree
-from odoo import api, fields, models, _
+from odoo import api, fields, models, _,Command
 from lxml_to_dict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
@@ -119,21 +119,22 @@ class HrEmployeePrivate(models.Model):
         params = {}
         if self.wecom_openid is False:
             self.get_wecom_openid()
+
+        domain= [("wecom_userid", "=", self.wecom_userid.lower())]
         try:
             res_user_id = (
                 self.sudo()
                 .env["res.users"]
-                .search([("wecom_userid", "=", self.wecom_userid.lower())], limit=1,)
+                .search(domain, limit=1,)
             )
-
             if len(res_user_id) == 0:
                 res_user_id.create(
                     {
                         "notification_type": "inbox",
                         #
-                        "employee_ids": [(6, 0, [self.id])],
+                        "employee_ids": [Command.link(self.id)],
                         "employee_id": self.id,
-                        "company_ids": [(6, 0, [self.company_id.id])],
+                        "company_ids": [Command.link(self.company_id.id)],
                         "company_id": self.company_id.id,
                         "name": self.name,
                         "login": self.wecom_userid.lower(),  # 登陆账号 使用 企业微信用户id的小写
@@ -162,7 +163,7 @@ class HrEmployeePrivate(models.Model):
                         "tz": "Asia/Shanghai",
                         "lang": "zh_CN",
                     }
-                )
+                )    
         except Exception as e:
             message = _("Failed to copy employee [%s] as system user, reason:") % (
                 self.name,
@@ -181,9 +182,6 @@ class HrEmployeePrivate(models.Model):
                 # },  # 刷新窗体
             }
         else:
-            res_user_id.partner_id.write({
-                "parent_id": self.company_id.partner_id.id,
-            })
             self._sync_user(
                 self.env["res.users"].browse(res_user_id), bool(self.image_1920)
             )
@@ -199,6 +197,17 @@ class HrEmployeePrivate(models.Model):
                 "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
             }
         finally:
+            res_partner_id = (
+                self.sudo()
+                .env["res.partner"]
+                .search(domain, limit=1,)
+            )
+
+            if res_partner_id:
+                res_partner_id.write({
+                    "company_id": self.company_id.id,
+                })
+            
             action = {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
@@ -290,14 +299,16 @@ class HrEmployeePrivate(models.Model):
                         company, wecom_employee
                     )
                     if download_employee_result:
-                        tasks.append(download_employee_result)  # 加入设置下载员工失败结果
+                        for r in download_employee_result:
+                            tasks.append(r)  # 加入设置下载员工失败结果
 
                 # 2.设置直属上级
                 set_direct_leader_results = self.set_direct_leader(
                     company, wecom_employees
                 )
                 if set_direct_leader_results:
-                    tasks.append(set_direct_leader_results)  # 加入设置直属上级失败结果
+                    for r in set_direct_leader_results:
+                        tasks.append(r)  # 加入设置直属上级失败结果
 
                 # 3.处理离职员工
                 employees = self.search(
@@ -316,7 +327,8 @@ class HrEmployeePrivate(models.Model):
                         company, response
                     )  # 设置离职员工
                     if set_leave_employee_results:
-                        tasks.append(set_leave_employee_results)  # 加入设置离职员工失败结果
+                        for r in set_leave_employee_results:
+                            tasks.append(r)  # 加入设置离职员工失败结果
 
                 # 4.完成同步员工
                 end_time = time.time()

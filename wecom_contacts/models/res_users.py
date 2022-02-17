@@ -2,7 +2,7 @@
 
 import logging
 import time
-from odoo import fields, models, api, _
+from odoo import fields, models, api,Command, _
 from lxml import etree
 from lxml_to_dict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -146,6 +146,17 @@ class Users(models.Model):
                     if download_user_result:
                         tasks.append(download_user_result)  # 加入设置下载联系人失败结果
 
+                # 2.完成下载
+                end_time = time.time()
+                task = {
+                    "name": "download_contact_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("Contacts list downloaded successfully."),
+                }
+                tasks.append(task)
+
+
         else:
             end_time = time.time()
             tasks = [
@@ -158,7 +169,7 @@ class Users(models.Model):
                     ),
                 }
             ]  # 返回失败结果
-
+        print(tasks)
         return tasks
 
     def download_user(self, company, wecom_user):
@@ -209,8 +220,8 @@ class Users(models.Model):
             user.create(
                 {
                     "notification_type": "inbox",
-                    "company_ids": [(6, 0, [self.company_id.id])],
-                    "company_id": self.company_id.id,
+                    "company_ids":  [Command.link(user.company_id.id)],
+                    "company_id": user.company_id.id,
                     "name": wecom_user["name"],
                     "login": wecom_user["userid"].lower(),  # 登陆账号 使用 企业微信用户id的小写
                     "password": self.env["wecom.tools"].random_passwd(8),
@@ -252,7 +263,7 @@ class Users(models.Model):
                 "msg": result,
             }  # 返回失败结果
 
-    def update_partner(self, company, user, wecom_user):
+    def update_user(self, company, user, wecom_user):
         """
         更新联系人
         """
@@ -270,8 +281,6 @@ class Users(models.Model):
             user.write(
                 {
                     "notification_type": "inbox",
-                    "company_ids": [(6, 0, [self.company_id.id])],
-                    "company_id": self.company_id.id,
                     "name": wecom_user["name"],
                     "login": wecom_user["userid"].lower(),  # 登陆账号 使用 企业微信用户id的小写
                     "email": wecom_user["email"],

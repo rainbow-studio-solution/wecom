@@ -25,9 +25,9 @@
                             <field name="task_ids">
                                 <tree create="0" edit="0" delete="0">
                                     <field name="company_id"/>
-                                    <field name="department_sync_state"/>
-                                    <field name="employee_sync_state"/>
-                                    <field name="tag_sync_state"/>
+                                    <field name="hr_department_sync_state"/>
+                                    <field name="hr_employee_sync_state"/>
+                                    <field name="hr_tag_sync_state"/>
                                 </tree>
                             </field>
                         </page> -->
@@ -70,29 +70,29 @@
                     </group>
                     <group string="Department sync">
                         <group>
-                            <field name="department_sync_state" />
-                            <field name="department_sync_times" />
+                            <field name="hr_department_sync_state" />
+                            <field name="hr_department_sync_times" />
                         </group>
                         <group>
-                            <field name="department_sync_result" />
+                            <field name="hr_department_sync_result" />
                         </group>
                     </group>
                     <group string="Employee sync">
                         <group>
-                            <field name="employee_sync_state" />
-                            <field name="employee_sync_times" />
+                            <field name="hr_employee_sync_state" />
+                            <field name="hr_employee_sync_times" />
                         </group>
                         <group>
-                            <field name="employee_sync_result" />
+                            <field name="hr_employee_sync_result" />
                         </group>
                     </group>
                     <group string="Tag sync">
                         <group>
-                            <field name="tag_sync_state" />
-                            <field name="tag_sync_times" />
+                            <field name="hr_tag_sync_state" />
+                            <field name="hr_tag_sync_times" />
                         </group>
                         <group>
-                            <field name="tag_sync_result" />
+                            <field name="hr_tag_sync_result" />
                         </group>
                     </group>
                     <footer>
