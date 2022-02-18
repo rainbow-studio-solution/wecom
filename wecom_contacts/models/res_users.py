@@ -105,7 +105,7 @@ class Users(models.Model):
                 "employee_ids": [(6, 0, [object.id])],
                 "employee_id": object.id,
                 # 以下为企业微信字段
-                "wecom_userid": object.wecom_userid,
+                "wecom_userid": login,
                 "wecom_openid": object.wecom_openid,
                 "is_wecom_user": object.is_wecom_user,
                 "qr_code": object.qr_code,
