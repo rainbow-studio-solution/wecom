@@ -144,7 +144,7 @@ class HrEmployeePrivate(models.Model):
             res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
                 employee
             )
-            print(self.env["res.users"].browse(res_user_id))
+
             partner = self.env["res.users"].browse(res_user_id).partner_id
             try:
                 partner.write(

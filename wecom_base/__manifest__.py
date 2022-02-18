@@ -29,7 +29,7 @@
         # "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
-        "views/res_users_views.xml",
+        # "views/res_users_views.xml",
         "views/wecom_apps_views.xml",
         "views/wecom_app_config_views.xml",
         "views/wecom_app_callback_service_views.xml",
@@ -45,7 +45,9 @@
             # JS
             "wecom_base/static/src/js/wecom_settings_navigation.js",
         ],
-        "web.assets_qweb": ["wecom_base/static/src/xml/*.xml",],
+        "web.assets_qweb": [
+            "wecom_base/static/src/xml/*.xml",
+        ],
     },
     "license": "LGPL-3",
     # "post_init_hook": "_open_wecom_settings",

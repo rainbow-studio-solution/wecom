@@ -49,13 +49,14 @@
                     <form>
                         <sheet>
                             <group col="4" string="Contact Tag">
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="name" placeholder='e.g. "Consulting Services"'/>
                                 <field name="color" widget="color_picker"/>
                                 <field name="parent_id" attrs="{'readonly': [('is_wecom_tag','=',True)]}"/>
+                                <field name="partner_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
                                 <field name="active" widget="boolean_toggle" attrs="{'readonly': [('is_wecom_tag','=',True)]}"/>
                             </group>
-                            <!-- attrs="{'invisible': [('is_wecom_tag','=',False)]}" -->
-                            <group col="4" string="Wecom Info">
+                            <group col="4" string="Wecom Info" attrs="{'invisible': [('is_wecom_tag','=',False)]}">
                                 <field name="is_wecom_tag"/>
                                 <field name="tagid" />
                             </group>

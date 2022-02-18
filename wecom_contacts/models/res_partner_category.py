@@ -29,7 +29,10 @@ class PartnerCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_tag = fields.Boolean(string="WeCom Tag", default=False,)
+    is_wecom_tag = fields.Boolean(
+        string="WeCom Tag",
+        default=False,
+    )
 
     @api.depends("is_wecom_tag")
     def _compute_display_name(self):
@@ -106,7 +109,10 @@ class PartnerCategory(models.Model):
                         )
                     else:
                         category.write(
-                            {"name": tag["tagname"], "is_wecom_tag": True,}
+                            {
+                                "name": tag["tagname"],
+                                "is_wecom_tag": True,
+                            }
                         )
                     result = self.download_wecom_tag_member(
                         category, wxapi, tag["tagid"], company
@@ -183,7 +189,7 @@ class PartnerCategory(models.Model):
                     .sudo()
                     .search(
                         [
-                            ("wecom_userid", "=", user["userid"]),
+                            ("wecom_userid", "=", user["userid"].lower()),
                             ("company_id", "=", company.id),
                             ("is_wecom_user", "=", True),
                             "|",
@@ -198,6 +204,5 @@ class PartnerCategory(models.Model):
             if len(partner_ids) > 0:
                 category.write({"partner_ids": [(6, 0, partner_ids)]})
 
-            
         finally:
             return res  # 返回失败的结果
