@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-06 09:48+0000\n"
-"PO-Revision-Date: 2022-02-06 17:49+0800\n"
+"POT-Creation-Date: 2022-02-18 06:08+0000\n"
+"PO-Revision-Date: 2022-02-18 14:09+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -23,28 +23,29 @@ msgid ""
 "<b>Callback AES Key:</b> Copy the randomly generated \"EncodingAESKey\" in the \"event receiving server\" of the "
 "enterprise wechat application to the \"callback AES key\" input box on the current page."
 msgstr ""
-"<b>回调AES密钥：</b> 将企业微信应用程序“事件接收服务器”中随机生成的“EncodingAESKey”复制到当前页面的“回调AES密钥”输入"
-"框中。"
+"<b>回调AES密钥：</b> 将企业微信应用程序“事件接收服务器”中随机生成的“EncodingAESKey”复制到当前页面的“回调AES密"
+"钥”输入框中。"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid ""
 "<b>Callback URL Token:</b> Copy the randomly generated \"Token\" in the \"event receiving server\" of the "
 "enterprise wechat application to the \"callback URL token\" input box of the current page."
-msgstr "<b>回调URL令牌：</b> 将企业微信应用“事件接收服务器”中随机生成的“令牌”复制到当前页面的“回调URL令牌”输入框中。"
+msgstr ""
+"<b>回调URL令牌：</b> 将企业微信应用“事件接收服务器”中随机生成的“令牌”复制到当前页面的“回调URL令牌”输入框中。"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid ""
-"<b>Callback URL:</b> Copy the automatically generated callback URL to the URL in the \"event receiving server\" of "
-"the enterprise wechat application."
+"<b>Callback URL:</b> Copy the automatically generated callback URL to the URL in the \"event receiving server\" "
+"of the enterprise wechat application."
 msgstr "<b>回调URL：</b> 将自动生成的回调URL复制到企业微信应用程序“事件接收服务器”中的URL。"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid ""
-"<b>Change:</b> When the value of \"receiving event server\" of the current page and enterprise wechat application "
-"changes, please ensure that the values at both ends are consistent."
+"<b>Change:</b> When the value of \"receiving event server\" of the current page and enterprise wechat "
+"application changes, please ensure that the values at both ends are consistent."
 msgstr "<b>更改：</b>当前页面的“回调服务设置”和企业微信应用的“接收事件服务器”值发生变化时，请确保两端的值一致。"
 
 #. module: wecom_base
@@ -63,30 +64,11 @@ msgid "<i class=\"fa fa-flag fa-lg\" aria-label=\"Corp Id\"/>"
 msgstr "<i class=\"fa fa-flag fa-lg\" aria-label=\"企业Id\"/>"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Corp ID\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"企业ID\"/>"
-
-#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 msgid ""
-"<span class=\"fa fa-lg fa-info-circle\" title=\"The value set here is the company identified as WeCom organization."
-"\"/>"
+"<span class=\"fa fa-lg fa-info-circle\" title=\"The value set here is the company identified as WeCom "
+"organization.\"/>"
 msgstr "<span class=\"fa fa-lg fa-info-circle\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>"
-
-#. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"WeCom Companies\"/>\n"
-" WeCom Companies Settings</span>\n"
-"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"GoBottom\"/>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                                            <i class=\"fa fa-building fa-lg\" aria-label=\"企业微信公司\"/>\n"
-"企业微信公司设置</span>\n"
-"                                        <span class=\"text-right fa fa-angle-double-down\" aria-label=\"滚动到底部"
-"\"/>"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -101,8 +83,8 @@ msgstr ""
 "<span class=\"text-left\">\n"
 "                                <i class=\"fa fa-book fa-lg\" aria-label=\"企微通讯录设置\"/>\n"
 "                                    企微通讯录设置\n"
-"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织"
-"的公司。\"/>\n"
+"                                <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组"
+"织的公司。\"/>\n"
 "                            </span>"
 
 #. module: wecom_base
@@ -288,11 +270,6 @@ msgid "Checkin"
 msgstr "打卡"
 
 #. module: wecom_base
-#: model_terms:ir.actions.act_window,help:wecom_base.open_module_tree_user
-msgid "Click to add a new user."
-msgstr "单击以添加新用户。"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__code
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__code
 msgid "Code"
@@ -305,6 +282,8 @@ msgstr "代码和指令"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_subtype.py:0 code:addons/wecom_base/models/wecom_app_type.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_subtype_code_uniq
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_type_code_uniq
 #, python-format
 msgid "Code must be unique !"
 msgstr "代码必须是唯一的！"
@@ -398,8 +377,8 @@ msgid ""
 "Developers need to cache access_token for subsequent interface calls (note: gettoken interfaces cannot be called "
 "frequently or are frequently blocked). When access_token expires or expires, it needs to be re-acquired."
 msgstr ""
-"开发者需要缓存access_token，用于后续接口的调用（注意：不能频繁调用gettoken接口，否则会受到频率拦截）。当access_token"
-"失效或过期时，需要重新获取。"
+"开发者需要缓存access_token，用于后续接口的调用（注意：不能频繁调用gettoken接口，否则会受到频率拦截）。当"
+"access_token失效或过期时，需要重新获取。"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__close
@@ -473,11 +452,6 @@ msgid "Field Type"
 msgstr "字段类型"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-msgid "Fill in: WeCom management background → \"Corp Information\" → \"Corp ID\""
-msgstr "填写：企业微信管理后台→ \"“企业信息”→ \"企业ID“"
-
-#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid "Generate parameters"
 msgstr "生成参数"
@@ -502,11 +476,11 @@ msgstr "获取应用"
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid ""
 "Getting access_token is the first step in calling the enterprise WeChat API interface, which is equivalent to "
-"creating a login credential, and other business API interfaces all need to rely on access_token to authentice the "
-"caller's identity."
+"creating a login credential, and other business API interfaces all need to rely on access_token to authentice "
+"the caller's identity."
 msgstr ""
-"获取access_token是调用企业微信API接口的第一步，相当于创建了一个登录凭证，其它的业务API接口，都需要依赖于access_token"
-"来鉴权调用者身份。access_token。"
+"获取access_token是调用企业微信API接口的第一步，相当于创建了一个登录凭证，其它的业务API接口，都需要依赖于"
+"access_token来鉴权调用者身份。access_token。"
 
 #. module: wecom_base
 #. openerp-web
@@ -546,12 +520,6 @@ msgstr "首页"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__id
 msgid "ID"
 msgstr ""
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__is_wecom_user
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__is_wecom_user
-msgid "Is WeCom user"
-msgstr "是企微用户"
 
 #. module: wecom_base
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_journal
@@ -629,6 +597,11 @@ msgid "Message Type"
 msgstr "消息的类型"
 
 #. module: wecom_base
+#: model:ir.model,name:wecom_base.model_ir_model_data
+msgid "Model Data"
+msgstr "模型数据"
+
+#. module: wecom_base
 #: model:ir.model,name:wecom_base.model_ir_module_module
 msgid "Module"
 msgstr "模块"
@@ -676,18 +649,6 @@ msgid "Parent"
 msgstr "上级"
 
 #. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__qr_code
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__qr_code
-msgid "Personal QR code"
-msgstr "个人二维码"
-
-#. module: wecom_base
-#: model:ir.model.fields,help:wecom_base.field_res_partner__qr_code
-#: model:ir.model.fields,help:wecom_base.field_res_users__qr_code
-msgid "Personal QR code, Scan can be added as external contact"
-msgstr "个人二维码，扫描可作为外部联系人添加"
-
-#. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
 #, python-format
 msgid "Please bind contact app!"
@@ -713,6 +674,12 @@ msgstr "Python代码"
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_agent_event_service
 msgid "Receive event service"
 msgstr "接收事件服务"
+
+#. module: wecom_base
+#: code:addons/wecom_base/models/wecom_app_event_type.py:0
+#, python-format
+msgid "Received the callback notification of enterprise wechat, event [%s], change type [%s]."
+msgstr "已收到企业微信的回调通知，事件[%s]，更改类型[%s]。"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_event_type__model_ids
@@ -767,11 +734,6 @@ msgid "Settings"
 msgstr "设置"
 
 #. module: wecom_base
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_users_search_inherit
-msgid "Share User"
-msgstr "共享用户"
-
-#. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__square_logo_url
 msgid "Square Logo"
 msgstr "方形Logo"
@@ -789,18 +751,21 @@ msgstr "子类型"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
 #, python-format
 msgid "The code of each application must be unique !"
 msgstr "每个应用的代码必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_config.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
 #, python-format
 msgid "The key of each application must be unique !"
 msgstr "每个应用的密钥必须是唯一的！"
@@ -819,18 +784,10 @@ msgstr ""
 "                                            Linux: /home/odoo/resources/ 注意：odoo是当前系统帐户"
 
 #. module: wecom_base
-#: model:ir.model.fields,help:wecom_base.field_res_partner__wecom_user_order
-#: model:ir.model.fields,help:wecom_base.field_res_users__wecom_user_order
-msgid ""
-"The sort value in the department, the default is 0. The number must be the same as the department. The larger the "
-"number, the higher the order.The value range is [0, 2^32)"
-msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
-
-#. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
 msgid ""
-"Therefore, developers should identify the source of the issuance of access_token and use the correct access_token "
-"before using the business interface."
+"Therefore, developers should identify the source of the issuance of access_token and use the correct "
+"access_token before using the business interface."
 msgstr "因此开发者，在使用业务接口前，要明确access_token的颁发来源，使用正确的access_token。"
 
 #. module: wecom_base
@@ -907,8 +864,6 @@ msgstr "微盘"
 #. module: wecom_base
 #: model:ir.module.category,name:wecom_base.module_category_wxwork
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.view_company_form
-#: model_terms:ir.ui.view,arch_db:wecom_base.wecom_view_users_form
 msgid "WeCom"
 msgstr "企业微信"
 
@@ -926,18 +881,6 @@ msgstr "企业微信信息"
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_root
 msgid "WeCom Settings"
 msgstr "企微设置"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_userid
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_userid
-msgid "WeCom User ID"
-msgstr "企微用户ID"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_user_order
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_user_order
-msgid "WeCom User sequence"
-msgstr "企微用户排序"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__is_wecom_organization
@@ -1004,12 +947,6 @@ msgstr "企微应用接收事件服务"
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_contacts
 msgid "Wecom Contacts"
 msgstr "企微通讯录"
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_open_userid
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_open_userid
-msgid "Wecom Open Userid"
-msgstr "企微用户open_userid"
 
 #. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_configuration
@@ -1105,15 +1042,3 @@ msgstr "选择项"
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__text
 msgid "text"
 msgstr "文本"
-
-#. module: wecom_base
-#: model:ir.actions.act_window,name:wecom_base.open_module_tree_user
-msgid "users"
-msgstr "用户"
-
-
-#. module: wecom_base
-#: model:ir.model.fields,field_description:wecom_base.field_res_partner__wecom_openid
-#: model:ir.model.fields,field_description:wecom_base.field_res_users__wecom_openid
-msgid "WeCom OpenID"
-msgstr "企微用户OpenID"

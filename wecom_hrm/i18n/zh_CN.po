@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-16 05:25+0000\n"
-"PO-Revision-Date: 2022-02-16 13:31+0800\n"
+"POT-Creation-Date: 2022-02-18 06:00+0000\n"
+"PO-Revision-Date: 2022-02-18 14:03+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -262,12 +262,6 @@ msgstr "员工解雇"
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
-msgid "Employee [%s] copied as system user successfully."
-msgstr "已成功将员工 [%s] 复制为系统用户。"
-
-#. module: wecom_hrm
-#: code:addons/wecom_hrm/models/hr_employee.py:0
-#, python-format
 msgid "Employee list downloaded successfully."
 msgstr "员工列表下载成功。"
 
@@ -292,7 +286,7 @@ msgstr "员工绑定企微成员"
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "End setting the direct leader of the employee with the company name '%s'."
-msgstr "结束设置公司名为“%s”的员工的直属领导。"
+msgstr "结束设置公司名称为 [%s] 的员工的直属上级。"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__english_name
@@ -316,7 +310,7 @@ msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "Error creating company %s employee %s %s, error reason: %s"
-msgstr "创建公司 [%s] 员工 [%s %s] 时出错，错误原因： %s"
+msgstr "创建公司[%s] ,员工[%s %s] 时出错，错误原因：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
@@ -335,7 +329,7 @@ msgstr "设置公司 [%s] 的员工 [%s] 的直属领导时出错。错误原因
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "Error update company %s employee %s %s, error reason: %s"
-msgstr "更新公司 [%s] 员工 [%s %s]时出错，错误原因：%s"
+msgstr "更新公司 [%s] 的员工 [%s %s]时出错，错误原因：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_department.py:0
@@ -359,8 +353,8 @@ msgstr "失败"
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
-msgid "Failed to copy employee [%s] as system user, reason:"
-msgstr "无法将员工 [%s] 复制为系统用户，原因："
+msgid "Failed to copy employee [%s] as system user, reason:%s"
+msgstr "无法将员工[%s]复制为系统用户，原因：%s"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -369,11 +363,16 @@ msgid "Failed to download tag [%s] member of company [%s]!"
 msgstr "未能下载公司[%s]标签成员[%s]！"
 
 #. module: wecom_hrm
+#: model_terms:ir.ui.view,arch_db:wecom_hrm.wecom_hrm_employee_form
+msgid "Get OpenID"
+msgstr "获取OpenID"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid ""
 "Get the main department error of the company %s employee %s. The wrong reason is: %s."
-msgstr "获取公司 [%s] 员工 [%s] 的主部门错误。错误原因是：%s。"
+msgstr "获取公司 [%s] 的员工 [%s] 的主部门错误。错误的原因是：%s。"
 
 #. module: wecom_hrm
 #: model_terms:ir.ui.view,arch_db:wecom_hrm.hr_employee_category_view_search
@@ -535,7 +534,7 @@ msgstr "设置"
 #: code:addons/wecom_hrm/models/hr_employee.py:0
 #, python-format
 msgid "Start setting the direct leader of the employee with the company name '%s'."
-msgstr "开始设置公司 [%s] 的员工的直属领导。"
+msgstr "开始设置公司名称为 [%s] 的员工的直属上级。"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee.py:0
@@ -543,6 +542,12 @@ msgstr "开始设置公司 [%s] 的员工的直属领导。"
 #, python-format
 msgid "Success"
 msgstr "成功"
+
+#. module: wecom_hrm
+#: code:addons/wecom_hrm/models/hr_employee.py:0
+#, python-format
+msgid "Successfully copied employee [%s] as system user"
+msgstr "已成功将员工[%s]复制为系统用户"
 
 #. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
@@ -690,6 +695,11 @@ msgid "WeCom HRM"
 msgstr "企微HRM"
 
 #. module: wecom_hrm
+#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_openid
+msgid "WeCom OpenID"
+msgstr "企微用户OpenID"
+
+#. module: wecom_hrm
 #: code:addons/wecom_hrm/models/hr_employee_category.py:0
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee_category__is_wecom_tag
 #, python-format
@@ -717,11 +727,6 @@ msgid "WeCom employees"
 msgstr "企微员工"
 
 #. module: wecom_hrm
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_open_userid
-msgid "WeCom open user Id"
-msgstr "企微open_userid"
-
-#. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_department__wecom_department_parent_id
 msgid "WeCom parent department ID"
 msgstr "企业微信上级部门ID"
@@ -734,12 +739,7 @@ msgstr "企微设置"
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_userid
 msgid "WeCom user Id"
-msgstr "企微用户ID"
-
-#. module: wecom_hrm
-#: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_openid
-msgid "WeCom OpenID"
-msgstr "企微用户OpenID"
+msgstr "企业微信用户ID"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,field_description:wecom_hrm.field_hr_employee__wecom_user_order
