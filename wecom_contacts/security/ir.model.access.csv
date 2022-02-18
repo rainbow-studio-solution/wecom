@@ -1,2 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 "access_wecom_contacts_block","access.wecom.contacts.block","model_wecom_contacts_block","hr.group_hr_manager",1,1,1,1
+"access_change_type_wizard","access.change.type.wizard","model_change_type_wizard","base.group_erp_manager",1,1,1,0
+"access_change_type_user","access.change.type.user","model_change_type_user","base.group_erp_manager",1,1,1,0
