@@ -2,6 +2,25 @@
 <odoo>
     <data>
 
+        <record id="res_partner_category_view_search" model="ir.ui.view">
+            <field name="name">res.partner.category.view.search</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.res_partner_category_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[last()]" position="after">
+                    <field name="company_id" string="Company"/>
+                </xpath>
+                <xpath expr="//filter[last()]" position="after">
+                    <group expand="0" string="Group By">
+                        <filter name="group_company" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                    </searchpanel>
+                </xpath>
+            </field>
+        </record>
+
         <record id="view_partner_category_list" model="ir.ui.view">
             <field name="name">Contact Tags</field>
             <field name="model">res.partner.category</field>

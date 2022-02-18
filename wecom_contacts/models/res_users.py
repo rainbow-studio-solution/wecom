@@ -2,7 +2,7 @@
 
 import logging
 import time
-from odoo import fields, models, api,Command, _
+from odoo import fields, models, api, Command, tools, _
 from lxml import etree
 from lxml_to_dict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -54,7 +54,9 @@ class Users(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "USERID_TO_OPENID"
                     ),
-                    {"userid": user.wecom_userid,},
+                    {
+                        "userid": user.wecom_userid,
+                    },
                 )
             except ApiException as ex:
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -62,6 +64,40 @@ class Users(models.Model):
                 )
             else:
                 user.wecom_openid = response["openid"]
+
+    def _get_or_create_user_by_wecom_userid(self, object):
+        """
+        通过企微用户id获取odoo用户
+        """
+        login = tools.ustr(object.wecom_userid.lower())
+        self.env.cr.execute(
+            "SELECT id, active FROM res_users WHERE lower(login)=%s", (login,)
+        )
+        res = self.env.cr.fetchone()
+        if res:
+            if res[1]:
+                return res[0]
+        else:
+            group_portal = self.env["ir.model.data"]._xmlid_to_res_id(
+                "base.group_portal"
+            )  # 门户用户组
+            SudoUser = self.env["res.users"].sudo().with_context(no_reset_password=True)
+            values = {
+                "name": object.name,
+                "login": login,
+                "notification_type": "inbox",
+                "groups_id": [(6, 0, [group_portal])],
+                "share": False,
+                "active": object.active,
+                "image_1920": object.image_1920,
+                "password": self.env["wecom.tools"].random_passwd(8),
+                "company_ids": [(6, 0, [object.company_id.id])],
+                "company_id": object.company_id.id,
+                "employee_ids": [(6, 0, [object.id])],
+                "employee_id": object.id,
+            }
+
+            return SudoUser.create(values).id
 
     # ------------------------------------------------------------
     # 企微部门下载
@@ -123,7 +159,11 @@ class Users(models.Model):
                 blocks = (
                     self.env["wecom.contacts.block"]
                     .sudo()
-                    .search([("company_id", "=", company.id),])
+                    .search(
+                        [
+                            ("company_id", "=", company.id),
+                        ]
+                    )
                 )
                 block_list = []
 
@@ -190,7 +230,7 @@ class Users(models.Model):
         contacts_task_sync_user_enabled = app_config.get_param(
             company.contacts_app_id.id, "contacts_task_sync_user_enabled"
         )  # 允许创建用户
-        
+
         if not user and contacts_task_sync_user_enabled:
             result = self.create_user(company, user, wecom_user)
         else:
@@ -214,12 +254,20 @@ class Users(models.Model):
             contacts_use_system_default_avatar = False
         try:
             groups_id = (
-                self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
+                self.sudo()
+                .env["res.groups"]
+                .search(
+                    [
+                        ("id", "=", 9),
+                    ],
+                    limit=1,
+                )
+                .id
             )  # id=1是内部用户, id=9是门户用户
             user.create(
                 {
                     "notification_type": "inbox",
-                    "company_ids":  [Command.link(user.company_id.id)],
+                    "company_ids": [Command.link(user.company_id.id)],
                     "company_id": user.company_id.id,
                     "name": wecom_user["name"],
                     "login": wecom_user["userid"].lower(),  # 登陆账号 使用 企业微信用户id的小写

@@ -4,7 +4,7 @@ import logging
 import base64
 import time
 from lxml import etree
-from odoo import api, fields, models, _,Command
+from odoo import api, fields, models, _, Command, tools
 from lxml_to_dict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
@@ -41,13 +41,27 @@ class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
     _order = "wecom_user_order"
 
-    wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
-    wecom_openid = fields.Char(string="WeCom OpenID", readonly=True,)
-    alias = fields.Char(string="Alias", readonly=True,)
-    english_name = fields.Char(string="English Name", readonly=True,)
+    wecom_userid = fields.Char(
+        string="WeCom user Id",
+        readonly=True,
+    )
+    wecom_openid = fields.Char(
+        string="WeCom OpenID",
+        readonly=True,
+    )
+    alias = fields.Char(
+        string="Alias",
+        readonly=True,
+    )
+    english_name = fields.Char(
+        string="English Name",
+        readonly=True,
+    )
 
     department_ids = fields.Many2many(
-        "hr.department", string="Multiple departments", readonly=True,
+        "hr.department",
+        string="Multiple departments",
+        readonly=True,
     )
     use_system_avatar = fields.Boolean(readonly=True, default=True)
     avatar = fields.Char(string="Avatar")
@@ -64,7 +78,9 @@ class HrEmployeePrivate(models.Model):
         readonly=True,
     )
     is_wecom_user = fields.Boolean(
-        string="WeCom employees", readonly=True, default=False,
+        string="WeCom employees",
+        readonly=True,
+        default=False,
     )
 
     def unbind_wecom_member(self):
@@ -72,12 +88,20 @@ class HrEmployeePrivate(models.Model):
         解除绑定企业微信成员
         """
         self.write(
-            {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+            {
+                "is_wecom_user": False,
+                "wecom_userid": None,
+                "qr_code": None,
+            }
         )
         if self.user_id:
             # 关联了User
             self.user_id.write(
-                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+                {
+                    "is_wecom_user": False,
+                    "wecom_userid": None,
+                    "qr_code": None,
+                }
             )
 
     def get_wecom_openid(self):
@@ -94,7 +118,9 @@ class HrEmployeePrivate(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "USERID_TO_OPENID"
                     ),
-                    {"userid": employee.wecom_userid,},
+                    {
+                        "userid": employee.wecom_userid,
+                    },
                 )
             except ApiException as ex:
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -102,7 +128,6 @@ class HrEmployeePrivate(models.Model):
                 )
             else:
                 employee.wecom_openid = response["openid"]
-
 
     # ------------------------------------------------------------
     # 从员工生成用户
@@ -112,108 +137,58 @@ class HrEmployeePrivate(models.Model):
         从员工生成用户
         :return:
         """
-        self.ensure_one()
-        groups_id = (
-            self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
-        )  # id=1是内部用户, id=9是门户用户
-        params = {}
-        if self.wecom_openid is False:
-            self.get_wecom_openid()
-
-        domain= [("wecom_userid", "=", self.wecom_userid.lower())]
-        try:
-            res_user_id = (
-                self.sudo()
-                .env["res.users"]
-                .search(domain, limit=1,)
+        for employee in self:
+            params = {}
+            if employee.wecom_openid is False:
+                employee.get_wecom_openid()
+            res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
+                employee
             )
-            if len(res_user_id) == 0:
-                res_user_id.create(
+            print(self.env["res.users"].browse(res_user_id))
+            partner = self.env["res.users"].browse(res_user_id).partner_id
+            try:
+                partner.write(
                     {
-                        "notification_type": "inbox",
-                        #
-                        "employee_ids": [Command.link(self.id)],
-                        "employee_id": self.id,
-                        "company_ids": [Command.link(self.company_id.id)],
                         "company_id": self.company_id.id,
-                        "name": self.name,
-                        "login": self.wecom_userid.lower(),  # 登陆账号 使用 企业微信用户id的小写
-                        "password": self.env["wecom.tools"].random_passwd(8),
-                        "email": self.work_email,
-                        "private_email": self.address_home_id.email,
-                        "job_title": self.job_title,
-                        "work_phone": self.work_phone,
-                        "mobile_phone": self.mobile_phone,
-                        "employee_phone": self.work_email,
-                        "work_email": self.phone,
-                        "category_ids": self.category_ids,
-                        "department_id": self.department_id,
-                        "gender": self.gender,
-                        "wecom_userid": self.wecom_userid,
-                        "image_1920": self.image_1920,
-                        "qr_code": self.qr_code,
-                        "wecom_openid": self.wecom_openid,
-                        "active": self.active,
-                        "wecom_user_order": self.wecom_user_order,
-                        "is_wecom_user": True,
-                        "is_company": False,
-                        "employee": True,
-                        "share": False,
-                        "groups_id": [(6, 0, [groups_id])],  # 设置用户为门户用户
-                        "tz": "Asia/Shanghai",
-                        "lang": "zh_CN",
                     }
-                )    
-        except Exception as e:
-            message = _("Failed to copy employee [%s] as system user, reason:") % (
-                self.name,
-                repr(e),
-            )
-            _logger.warning(message)
-            params = {
-                "title": _("Fail"),
-                "message": message,
-                "sticky": False,  # 延时关闭
-                "className": "bg-danger",
-                "type": "danger",
-                # "next": {
-                #     "type": "ir.actions.client",
-                #     "tag": "reload",
-                # },  # 刷新窗体
-            }
-        else:
-            self._sync_user(
-                self.env["res.users"].browse(res_user_id), bool(self.image_1920)
-            )
-            message = _("Employee [%s] copied as system user successfully.") % (
-                self.name
-            )
-            params = {
-                "title": _("Success"),
-                "message": message,
-                "sticky": False,  # 延时关闭
-                "className": "bg-success",
-                "type": "success",
-                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-            }
-        finally:
-            res_partner_id = (
-                self.sudo()
-                .env["res.partner"]
-                .search(domain, limit=1,)
-            )
-
-            if res_partner_id:
-                res_partner_id.write({
-                    "company_id": self.company_id.id,
-                })
-            
-            action = {
-                "type": "ir.actions.client",
-                "tag": "display_notification",
-                "params": params,
-            }
-            return action
+                )
+            except Exception as e:
+                message = _(
+                    "Failed to copy employee [%s] as system user, reason:%s"
+                ) % (
+                    employee.name,
+                    repr(e),
+                )
+                _logger.warning(message)
+                params = {
+                    "title": _("Fail"),
+                    "message": message,
+                    "sticky": True,  # 延时关闭
+                    "className": "bg-danger",
+                    "type": "danger",
+                }
+            else:
+                message = _("Successfully copied employee [%s] as system user") % (
+                    employee.name
+                )
+                params = {
+                    "title": _("Success"),
+                    "message": message,
+                    "sticky": False,  # 延时关闭
+                    "className": "bg-success",
+                    "type": "success",
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
+                }
+            finally:
+                action = {
+                    "type": "ir.actions.client",
+                    "tag": "display_notification",
+                    "params": params,
+                }
+                return action
 
     # ------------------------------------------------------------
     # 企微员工下载
@@ -275,7 +250,11 @@ class HrEmployeePrivate(models.Model):
                 blocks = (
                     self.env["wecom.contacts.block"]
                     .sudo()
-                    .search([("company_id", "=", company.id),])
+                    .search(
+                        [
+                            ("company_id", "=", company.id),
+                        ]
+                    )
                 )
                 block_list = []
 
@@ -498,7 +477,9 @@ class HrEmployeePrivate(models.Model):
                 employee.write(
                     {
                         "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                            False, wecom_employee["gender"], wecom_employee["avatar"],
+                            False,
+                            wecom_employee["gender"],
+                            wecom_employee["avatar"],
                         ),
                     }
                 )
@@ -666,7 +647,11 @@ class HrEmployeePrivate(models.Model):
 
         domain = ["|", ("active", "=", False), ("active", "=", True)]
         employees = self.search(
-            domain + [("is_wecom_user", "=", True), ("company_id", "=", company.id),]
+            domain
+            + [
+                ("is_wecom_user", "=", True),
+                ("company_id", "=", company.id),
+            ]
         )
 
         for employee in employees:
@@ -726,7 +711,8 @@ class HrEmployeePrivate(models.Model):
         )
 
         callback_employee = employee.search(
-            [("wecom_userid", "=", dic["UserID"])] + domain, limit=1,
+            [("wecom_userid", "=", dic["UserID"])] + domain,
+            limit=1,
         )
         if callback_employee:
             # 如果存在，则更新
@@ -825,7 +811,10 @@ class HrEmployeePrivate(models.Model):
         if cmd == "create":
             # print("执行创建员工")
             update_dict.update(
-                {"company_id": company_id.id, "is_wecom_user": True,}
+                {
+                    "company_id": company_id.id,
+                    "is_wecom_user": True,
+                }
             )
             try:
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(
@@ -849,6 +838,7 @@ class HrEmployeePrivate(models.Model):
         elif cmd == "delete":
             # print("执行删除员工")
             callback_employee.write(
-                {"active": False,}
+                {
+                    "active": False,
+                }
             )
-
