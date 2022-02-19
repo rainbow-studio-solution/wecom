@@ -781,7 +781,7 @@ msgstr "会话存档"
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__private_keys
 msgid "Session content archive key"
-msgstr "会话内容存档"
+msgstr "会话内容存档密钥"
 
 #. module: wecom_msgaudit
 #: model:ir.actions.act_window,name:wecom_msgaudit.action_view_wecom_chatdata_list
@@ -792,7 +792,7 @@ msgstr "会话内容存档"
 #. module: wecom_msgaudit
 #: model:ir.actions.act_window,name:wecom_msgaudit.action_wecom_msgaudit_key_list
 msgid "Session content archiving key"
-msgstr "会话内容存档"
+msgstr "会话内容存档密钥"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form

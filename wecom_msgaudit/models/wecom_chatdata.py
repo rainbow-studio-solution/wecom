@@ -393,9 +393,20 @@ class WeComChatData(models.Model):
 
             try:
                 ir_config = self.env["ir.config_parameter"].sudo()
-                chatdata_api_url = ir_config.get_param(
-                    "wecom.msgaudit.msgaudit_chatdata_api_url"
-                )  # FastAPI 获取聊天记录的URL
+                msgaudit_sdk_url = ir_config.get_param(
+                    "wecom.msgaudit.msgaudit_sdk_url"
+                )
+                msgaudit_chatdata_url = ir_config.get_param(
+                    "wecom.msgaudit.msgaudit_chatdata_url"
+                )
+
+                chatdata_url = msgaudit_sdk_url + msgaudit_chatdata_url
+
+                proxy = (
+                    True
+                    if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
+                    else False
+                )
                 headers = {"content-type": "application/json"}
                 body = {
                     "seq": max_seq_id,
@@ -403,9 +414,12 @@ class WeComChatData(models.Model):
                     "secret": secret,
                     "private_keys": key_list,
                 }
-                r = requests.get(
-                    chatdata_api_url, data=json.dumps(body), headers=headers
-                )
+                if proxy:
+                    body.update(
+                        {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
+                    )
+
+                r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
                 chat_datas = r.json()
 
                 if len(chat_datas) > 0:
