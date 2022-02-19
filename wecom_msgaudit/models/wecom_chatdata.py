@@ -486,7 +486,6 @@ class WeComChatData(models.Model):
         格式化内容
         """
         if self.commented:
-            # 已备注的消息不再处理
             return
 
         company = self.company_id

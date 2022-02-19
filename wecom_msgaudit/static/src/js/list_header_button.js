@@ -13,7 +13,7 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
         },
         _onSelectionChanged: function (ev) {
             this._super.apply(this, arguments);
-            this.$('.o_list_wecom_sync_tags').toggle(!this.selectedRecords.length);
+            this.$('.o_list_wecom_download_chatdata').toggle(!this.selectedRecords.length);
         },
         _download_wecom_chatdata: function () {
             var self = this;
