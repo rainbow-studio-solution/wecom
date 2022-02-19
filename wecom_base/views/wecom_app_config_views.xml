@@ -15,7 +15,7 @@
             <field name="model">wecom.app_config</field>
             <field name="arch" type="xml">
                 <tree string="Wecom Application Parameters" expand="1">
-                    <!-- <field name="company_id" /> -->
+                    <field name="company_id" invisible="1" />
                     <field name="app_id" />
                     <field name="name"/>
                     <field name="key"/>
@@ -32,6 +32,7 @@
                     <sheet>
                         <group>
                             <!-- <field name="company_id" required="1" force_save="1" widget="selection" /> -->
+                            <field name="company_id" options="{'no_open': True, 'no_create': True}"/>
                             <field name="app_id" required="1" force_save="1" widget="selection" />
                             <field name="name" required="1"/>
                             <field name="key" required="1"/>
@@ -47,7 +48,7 @@
         <record id="wecom_app_config_list_action" model="ir.actions.act_window">
             <field name="name">Application Parameters</field>
             <field name="res_model">wecom.app_config</field>
-            <field name="context">{'group_by':['app_id']}</field>
+            <field name="context">{'group_by':['company_id']}</field>
         </record>
     </data>
 </odoo>

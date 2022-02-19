@@ -22,8 +22,11 @@ class WeComAppConfig(models.Model):
         # domain="[('company_id', '=', company_id)]",
         required=True,
     )
+    company_id = fields.Many2one(related="app_id.company_id", store=True)
     name = fields.Char(string="Name", translate=True, required=True, copy=True)
-    key = fields.Char(required=True,)
+    key = fields.Char(
+        required=True,
+    )
     ttype = fields.Selection(
         selection=FIELD_TYPES, string="Field Type", required=True, copy=True
     )
@@ -55,9 +58,30 @@ class WeComAppConfig(models.Model):
             fields=["ttype", "value"],
             limit=1,
         )
+        value = None
+        ttype = None
+        if not params:
+            # 如果没有找到，搜索其他公司相同应用配置参数 进行复制
+            copy_app_config = self.search([("key", "=", key)], limit=1)
+            if copy_app_config:
+                new_app_config = self.create(
+                    {
+                        "app_id": app_id,
+                        "name": copy_app_config.name,
+                        "key": copy_app_config.key,
+                        "ttype": copy_app_config.ttype,
+                        "value": copy_app_config.value,
+                        "description": copy_app_config.description,
+                    }
+                )
+                value = new_app_config.value
+                ttype = new_app_config.ttype
+            else:
+                pass
+        else:
+            value = params[0]["value"]
+            ttype = params[0]["ttype"]
 
-        value = params[0]["value"]
-        ttype = params[0]["ttype"]
         if ttype == "boolean":
             boolean_value = str(value).lower()
             if boolean_value in ["true", "yes", "t", "1"]:

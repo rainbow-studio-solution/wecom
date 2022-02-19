@@ -246,6 +246,13 @@ class Users(models.Model):
             company.contacts_app_id.id, "contacts_task_sync_user_enabled"
         )  # 允许创建用户
 
+        if contacts_task_sync_user_enabled == "True":
+            contacts_task_sync_user_enabled = True
+        elif contacts_task_sync_user_enabled is None:
+            contacts_task_sync_user_enabled = False
+        else:
+            contacts_task_sync_user_enabled = False
+
         if not user and contacts_task_sync_user_enabled:
             result = self.create_user(company, user, wecom_user)
         else:
@@ -335,8 +342,11 @@ class Users(models.Model):
         contacts_use_system_default_avatar = app_config.get_param(
             company.contacts_app_id.id, "contacts_use_system_default_avatar"
         )  # 使用系统微信默认头像的标识
+
         if contacts_use_system_default_avatar == "True":
             contacts_use_system_default_avatar = True
+        elif contacts_use_system_default_avatar is None:
+            contacts_use_system_default_avatar = False
         else:
             contacts_use_system_default_avatar = False
         try:

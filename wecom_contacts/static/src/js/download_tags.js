@@ -4,8 +4,7 @@ odoo.define('wecom_contacts.download_tags', function (require) {
     var _t = core._t;
     var ListController = require('web.ListController');
     var ListView = require('web.ListView');
-    var KanbanController = require('web.KanbanController');
-    var KanbanView = require('web.KanbanView');
+
     var viewRegistry = require('web.view_registry');
 
     // 企微标签
