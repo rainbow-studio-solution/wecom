@@ -183,7 +183,6 @@ class PartnerCategory(models.Model):
             }
         else:
             partner_ids = []
-            print(response["userlist"])
             for user in response["userlist"]:
                 partner = (
                     self.env["res.partner"]

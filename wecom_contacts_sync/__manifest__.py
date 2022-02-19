@@ -16,8 +16,13 @@
 
 
         """,
-    "depends": ["wecom_contacts", "wecom_hrm",],
-    "external_dependencies": {"python": ["pandas"],},
+    "depends": [
+        "wecom_contacts",
+        "wecom_hrm",
+    ],
+    "external_dependencies": {
+        "python": ["pandas"],
+    },
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_app_config_data.xml",
@@ -27,6 +32,10 @@
         "wizard/wecom_contacts_sync_wizard_views.xml",
         "views/menu_views.xml",
     ],
-    
+    "assets": {
+        "web._assets_common_styles": [
+            "wecom_contacts_sync/static/src/scss/sync_result_dialog.scss",
+        ]
+    },
     "license": "LGPL-3",
 }

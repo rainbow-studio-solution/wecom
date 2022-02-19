@@ -56,7 +56,7 @@
             <field name="model">wecom.contacts.sync.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form>
+                <form class="wecom_sync_result_dialog">
                     <group string="Synchronization status">
                         <group>
                             <field name="create_date" string="Starting time"/>
@@ -102,6 +102,15 @@
                         </group>
                         <group>
                             <field name="res_user_sync_result" />
+                        </group>
+                    </group>
+                    <group string="Contact tag sync">
+                        <group>
+                            <field name="partner_tag_sync_state" />
+                            <field name="partner_tag_sync_times" />
+                        </group>
+                        <group>
+                            <field name="partner_tag_sync_result" />
                         </group>
                     </group>
                     <footer>
