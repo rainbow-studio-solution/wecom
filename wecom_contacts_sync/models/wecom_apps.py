@@ -185,7 +185,8 @@ class WeComApps(models.Model):
         debug = ir_config.get_param("wecom.debug_enabled")
         if debug:
             _logger.info(
-                _("Start getting join enterprise QR code for app [%s]") % (self.name)
+                _("Start getting join enterprise QR code for app [%s] of company [%s]")
+                % (self.name, self.company_id.name)
             )
 
         if self.subtype_ids.code == "contacts":
@@ -229,8 +230,12 @@ class WeComApps(models.Model):
         """
         自动任务获取加入企业二维码
         """
-        _logger.info(_("Automatic task:Start to get join enterprise QR code."))
+
         for app in self.search(
             [("company_id", "!=", False), ("type_code", "=", "['contacts']")]
         ):
+            _logger.info(
+                _("Automatic task:Start to get join enterprise QR code of company [%s]")
+                % (app.company_id.name)
+            )
             app.get_join_qrcode()

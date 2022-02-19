@@ -15,10 +15,16 @@ class WeComApps(models.Model):
     _order = "sequence"
 
     name = fields.Char(
-        string="Name", copy=False, compute="_compute_name", store=True, index=True,
+        string="Name",
+        copy=False,
+        compute="_compute_name",
+        store=True,
+        index=True,
     )  # 企业应用名称
     app_name = fields.Char(
-        string="Application Name", translate=True, copy=True,
+        string="Application Name",
+        translate=True,
+        copy=True,
     )  # 应用名称
 
     company_id = fields.Many2one(
@@ -39,7 +45,10 @@ class WeComApps(models.Model):
     )
     type_id = fields.Many2one("wecom.app.type", string="Application Types", store=True)
 
-    subtype_ids = fields.Many2many("wecom.app.subtype", string="Application Subtype",)
+    subtype_ids = fields.Many2many(
+        "wecom.app.subtype",
+        string="Application Subtype",
+    )
     type_code = fields.Char(
         string="Application type code",
         store=True,
@@ -231,7 +240,7 @@ class WeComApps(models.Model):
         """
         for record in self.subtype_ids:
             self.generate_parameters_by_code(record.code)
-    
+
     def generate_parameters_by_code(self, code):
         """
         根据code生成参数
@@ -309,12 +318,14 @@ class WeComApps(models.Model):
         ir_config = self.env["ir.config_parameter"].sudo()
         debug = ir_config.get_param("wecom.debug_enabled")
         if debug:
-            _logger.info(_("Start getting token for app [%s]") % (self.name))
+            _logger.info(
+                _("Start getting app [%s] token for company [%s]")
+                % (self.name, self.company_id.name)
+            )
         try:
             wecom_api = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id.corpid, self.secret
             )
-            print(wecom_api)
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 ex, raise_exception=True
@@ -335,7 +346,9 @@ class WeComApps(models.Model):
         """
         for app in self.search([("company_id", "!=", False)]):
             _logger.info(
-                _("Automatic task:Start getting token for app [%s].") % (app.name)
+                _(
+                    "Automatic task: start to get the application [%s] token of company [%s]"
+                )
+                % (app.name, app.company_id.name)
             )
             app.get_access_token()
-

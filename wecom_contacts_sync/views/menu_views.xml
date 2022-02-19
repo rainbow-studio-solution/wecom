@@ -4,7 +4,8 @@
         <!-- 企微设置 -->
         <menuitem id="menu_wecom_contacts_wizard" name="Contacts synchronization Wizard" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_contacts_sync_wizard" groups="base.group_erp_manager" sequence="2"/>
 
-        <!-- HRM -->
+        <!-- 自动任务 -->
+        <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="3"/>
     </data>
 
 </odoo>
