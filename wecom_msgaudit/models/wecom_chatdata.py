@@ -486,6 +486,7 @@ class WeComChatData(models.Model):
         格式化内容
         """
         if self.commented:
+            # 已备注的消息不再处理
             return
 
         company = self.company_id
@@ -618,13 +619,14 @@ class WeComChatData(models.Model):
             else:
                 pass
 
-            media_content = """<div class="media">
+            media_content = """<div class="media wecom_chat_record">
                 <div class="media-body">
-                    <h5 class="mt-0">%s <small>%s %s</small> <small>%s %s</small></h5>
+                    <h5 class="mt-0"><span class='contacts' title='%s'>%s</span> <small>%s %s</small> <small>%s %s</small></h5>
                     %s
                 </div>
             </div>
             """ % (
+                msg_sender_name,
                 msg_sender_name,
                 _("Sending time:"),
                 msg_send_time,

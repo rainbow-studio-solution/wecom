@@ -1,0 +1,10 @@
+.wecom_chat_record {
+    h5 .contacts {
+        width: 200px !important;
+        // max-width: 200px !important;
+        white-space: nowrap !important;
+        text-overflow: ellipsis !important;
+        overflow: hidden !important;
+        display: inline-flex;
+    }
+}

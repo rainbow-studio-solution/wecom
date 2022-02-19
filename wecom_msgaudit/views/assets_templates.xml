@@ -3,9 +3,15 @@
 
 
     <template id="assets_backend" name="account assets" inherit_id="web._assets_bootstrap">
-
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/wecom_msgaudit/static/src/js/list_header_button.js"></script>
+
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="assets backend" inherit_id="web.assets_backend">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/wecom_msgaudit/static/src/scss/wecom_chat_record.scss"/>
         </xpath>
     </template>
 
