@@ -239,3 +239,13 @@ class WeComApps(models.Model):
                 % (app.company_id.name)
             )
             app.get_join_qrcode()
+
+    def cron_sync_contacts(self):
+        """
+        自动任务同步组织架构
+        同步内容:    1. hr.department
+                    2. hr.employee
+                    3. hr.employee.category
+                    4. res.users
+                    5. res.partner.category
+        """

@@ -28,16 +28,12 @@ class WecomContactsSyncWizard(models.TransientModel):
         默认公司
         """
         company_ids = self.env["res.company"].search(
-            [
-                ("is_wecom_organization", "=", True),
-            ]
+            [("is_wecom_organization", "=", True),]
         )
         return company_ids
 
     sync_all = fields.Boolean(
-        string="Synchronize all companies",
-        default=True,
-        required=True,
+        string="Synchronize all companies", default=True, required=True,
     )
     companies = fields.Char(string="Sync Companies", compute="_compute_sync_companies")
     company_id = fields.Many2one(
@@ -49,8 +45,7 @@ class WecomContactsSyncWizard(models.TransientModel):
     )
 
     contacts_app_id = fields.Many2one(
-        related="company_id.contacts_app_id",
-        store=False,
+        related="company_id.contacts_app_id", store=False,
     )
 
     @api.depends("sync_all")
@@ -101,9 +96,7 @@ class WecomContactsSyncWizard(models.TransientModel):
     )
     sync_result = fields.Text("Sync result", readonly=1)
     total_time = fields.Float(
-        string="Total time(seconds)",
-        digits=(16, 3),
-        readonly=True,
+        string="Total time(seconds)", digits=(16, 3), readonly=True,
     )
 
     # HR部门
@@ -161,9 +154,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         default="completed",
     )
     hr_tag_sync_times = fields.Float(
-        string="Hr tag synchronization time (seconds)",
-        digits=(16, 3),
-        readonly=True,
+        string="Hr tag synchronization time (seconds)", digits=(16, 3), readonly=True,
     )
     hr_tag_sync_result = fields.Text("Hr tag synchronization results", readonly=1)
 
@@ -180,9 +171,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         default="completed",
     )
     res_user_sync_times = fields.Float(
-        string="User synchronization time (seconds)",
-        digits=(16, 3),
-        readonly=True,
+        string="User synchronization time (seconds)", digits=(16, 3), readonly=True,
     )
     res_user_sync_result = fields.Text("User synchronization results", readonly=1)
 
@@ -207,7 +196,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         "Contact tag synchronization results", readonly=1
     )
 
-    def action_sync_contacts(self):
+    def sync_contacts(self):
         results = []
         sync_start_time = time.time()
         if self.sync_all:
@@ -306,9 +295,7 @@ class WecomContactsSyncWizard(models.TransientModel):
             "res_model": "wecom.contacts.sync.wizard",
             "res_id": self.id,
             "view_id": False,
-            "views": [
-                [form_view.id, "form"],
-            ],
+            "views": [[form_view.id, "form"],],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,
