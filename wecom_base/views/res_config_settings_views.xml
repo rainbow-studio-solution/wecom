@@ -45,7 +45,7 @@
                                             The path used to save WeCom resources,<span class="text-danger">Need to have read and write permissions on the path.</span>
                                             <br/>
                                             reference:Windows: D:\resources\  <br/>
-                                            Linux: /home/odoo/resources/ Note: odoo is the current system account
+                                            Linux or Docker: /var/lib/odoo/resources/
                                         </div>
                                     </div>
                                     <div class="content-group">
