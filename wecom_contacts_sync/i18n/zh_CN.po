@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 03:54+0000\n"
-"PO-Revision-Date: 2022-02-20 12:03+0800\n"
+"POT-Creation-Date: 2022-02-20 08:22+0000\n"
+"PO-Revision-Date: 2022-02-20 16:27+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -162,14 +162,15 @@ msgstr "全部失败"
 msgid "Allow API to edit WeCom contacts"
 msgstr "允许API编辑企业微信通讯录"
 
-
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
+msgid "Allow wecom contacts to add system users"
+msgstr "允许企微通讯录添加系统用户"
 
 #. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
-msgid "Allow WeCom contacts to automatically update system accounts"
-msgstr "允许企微通讯录自动更新系统帐户"
-
-
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
+msgid "Allow wecom contacts to synchronize HR"
+msgstr "允许企微通讯录同步人力资源"
 
 #. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_config_ids
@@ -323,15 +324,6 @@ msgid ""
 msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
 
 #. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_sync_user_enabled
-msgid ""
-"Enable to allow batch generation of system accounts from employees;\n"
-"                    <br>Value: True or False"
-msgstr ""
-"允许员工批量生成系统账户；\n"
-"                    <br>值: True 或 False"
-
-#. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_enabled_join_qrcode
 msgid "Enable to join the enterprise QR code"
 msgstr "启用加入企业二维码"
@@ -444,6 +436,33 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
 msgid "If an error occurs, please check the help file."
 msgstr "如果发生错误，请查看帮助文件。"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
+msgid ""
+"If the value is true, system users can be added through wizards, tasks and "
+"events;<br>\n"
+"                    If the value is false, you can only update;<br>\n"
+"                    The default is false;<br>"
+msgstr ""
+"如果该值为true，则可以通过向导、任务和事件添加系统用户；<br>\n"
+"                    如果该值为false，则只能更新；<br>\n"
+"                    默认值 false;<br>"
+
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
+msgid ""
+"If the value is true, the wizard and task are allowed to synchronize the "
+"organization structure of wecom contacts to HR;<br>\n"
+"                    If the value is false, you need to manually bind HR "
+"employees to wecom users. At the same time, only employees with wecom user "
+"ID can be updated by events;<br>\n"
+"                    The default is true;"
+msgstr ""
+"如果该值为true，则允许向导和任务将企微通讯录的组织架构同步到HR；<br>\n"
+"                    如果该值为false，则需要手动将HR员工绑定到企微用户。同"
+"时，只有拥有企微用户ID的员工才能通过事件进行更新；<br>\n"
+"                    默认值 true；"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
@@ -654,6 +673,12 @@ msgid "Users"
 msgstr "用户"
 
 #. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
+msgid "Value: True or False"
+msgstr "值： True 或 False"
+
+#. module: wecom_contacts_sync
 #: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_sync_wizard
 msgid "WeCom contacts synchronization wizard"
 msgstr "企微通讯录同步向导"
@@ -708,4 +733,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "description"
 msgstr "说明"
-

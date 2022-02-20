@@ -16,7 +16,7 @@ odoo.define('wecom.x2many', function (require) {
 
 
     var WeComX2Many = RelationalFields.FieldX2Many.extend({
-        description: _lt("WecomOne2many"),
+        description: _lt("WecomX2many"),
         className: 'o_field_wecom_one2many',
         supportedFieldTypes: ['wecom_x2many'],
         // attrs:
