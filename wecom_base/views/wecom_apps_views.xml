@@ -64,10 +64,9 @@
             <field name="name">wecom.apps.form</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-                <form>
-                    <header>
-
-                    </header>
+                <!-- js_class="wecom_apps_form" -->
+                <form >
+                    <header></header>
                     <sheet>
                         <div name="button_box" class="oe_button_box">
                             <button class="oe_stat_button" name="get_app_info" string="Get application" type="object" icon="fa-cloud-download" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/>
@@ -154,13 +153,11 @@
                             </page>
                             <page name="parameter" string="Parameter">
                                 <group>
-                                    <field name="app_config_ids" class="overflow-auto" mode="tree" help="description" nolabel="1" >
-                                        <!-- context="{'default_company_id': company_id}" -->
-                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom" >
-                                            <!-- <field name="company_id" readonly="1"/> -->
+                                    <field name="app_config_ids" widget="wecom_x2many" mode="tree" help="description" nolabel="1">
+                                        <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <field name="name" readonly="1"/>
                                             <field name="key" readonly="1"/>
-                                            <field name="value" required="1" class="w-50"/>
+                                            <field name="value" required="1"/>
                                             <field name="description" invisible="1" />
                                         </tree>
                                     </field>
@@ -168,7 +165,7 @@
                                 <group>
                                     <div class="btn-group float-right" role="group" aria-label="Button group">
                                         <button class="oe_highlight" name="generate_parameters" string="Generate parameters" type="object" icon="fa-cogs"/>
-                                        
+
                                     </div>
                                 </group>
                             </page>

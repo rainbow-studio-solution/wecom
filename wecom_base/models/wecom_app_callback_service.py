@@ -26,7 +26,11 @@ class WeComAppCallbackService(models.Model):
     )
 
     name = fields.Char(string="Service Name", required=True, translate=True)
-    code = fields.Char(string="Service Code", copy=False, required=True,)
+    code = fields.Char(
+        string="Service Code",
+        copy=False,
+        required=True,
+    )
 
     callback_url = fields.Char(
         string="URL",

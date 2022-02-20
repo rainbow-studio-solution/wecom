@@ -371,13 +371,13 @@ class HrEmployeePrivate(models.Model):
             )
         try:
             app_config = self.env["wecom.app_config"].sudo()
-            contacts_use_system_default_avatar = app_config.get_param(
-                company.contacts_app_id.id, "contacts_use_system_default_avatar"
+            contacts_use_default_avatar = app_config.get_param(
+                company.contacts_app_id.id, "contacts_use_default_avatar"
             )  # 使用系统微信默认头像的标识
-            if contacts_use_system_default_avatar == "True":
-                contacts_use_system_default_avatar = True
+            if contacts_use_default_avatar == "True":
+                contacts_use_default_avatar = True
             else:
-                contacts_use_system_default_avatar = False
+                contacts_use_default_avatar = False
             employee.create(
                 {
                     "wecom_userid": wecom_employee["userid"],
@@ -390,7 +390,7 @@ class HrEmployeePrivate(models.Model):
                     ),
                     "marital": None,  # 不生成婚姻状况
                     "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                        contacts_use_system_default_avatar,
+                        contacts_use_default_avatar,
                         wecom_employee["gender"],
                         wecom_employee["avatar"],
                     ),
@@ -704,11 +704,7 @@ class HrEmployeePrivate(models.Model):
             ("active", "=", True),
             ("active", "=", False),
         ]
-        employee = (
-            self.env["hr.employee"]
-            .sudo()
-            .search([("company_id", "=", company_id.id)] + domain)
-        )
+        employee = self.sudo().search([("company_id", "=", company_id.id)] + domain)
 
         callback_employee = employee.search(
             [("wecom_userid", "=", dic["UserID"])] + domain,

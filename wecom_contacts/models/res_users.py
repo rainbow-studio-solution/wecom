@@ -11,7 +11,7 @@ from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 _logger = logging.getLogger(__name__)
 
 
-WECOM_USER_MAPPING_ODOO_PARTNER = {
+WECOM_USER_MAPPING_ODOO_USER = {
     "UserID": "wecom_userid",  # 成员UserID
     "Name": "name",  # 成员名称;
     "Department": "department_ids",  # 成员部门列表，仅返回该应用有查看权限的部门id
@@ -242,18 +242,18 @@ class Users(models.Model):
         )
         result = {}
         app_config = self.env["wecom.app_config"].sudo()
-        contacts_task_sync_user_enabled = app_config.get_param(
-            company.contacts_app_id.id, "contacts_task_sync_user_enabled"
+        contacts_allow_add_system_users = app_config.get_param(
+            company.contacts_app_id.id, "contacts_allow_add_system_users"
         )  # 允许创建用户
 
-        if contacts_task_sync_user_enabled == "True":
-            contacts_task_sync_user_enabled = True
-        elif contacts_task_sync_user_enabled is None:
-            contacts_task_sync_user_enabled = False
+        if contacts_allow_add_system_users == "True":
+            contacts_allow_add_system_users = True
+        elif contacts_allow_add_system_users is None:
+            contacts_allow_add_system_users = False
         else:
-            contacts_task_sync_user_enabled = False
+            contacts_allow_add_system_users = False
 
-        if not user and contacts_task_sync_user_enabled:
+        if not user and contacts_allow_add_system_users:
             result = self.create_user(company, user, wecom_user)
         else:
             result = self.update_user(company, user, wecom_user)
@@ -267,13 +267,14 @@ class Users(models.Model):
         debug = params.get_param("wecom.debug_enabled")
 
         app_config = self.env["wecom.app_config"].sudo()
-        contacts_use_system_default_avatar = app_config.get_param(
-            company.contacts_app_id.id, "contacts_use_system_default_avatar"
+        contacts_use_default_avatar = app_config.get_param(
+            company.contacts_app_id.id, "contacts_use_default_avatar"
         )  # 使用系统微信默认头像的标识
-        if contacts_use_system_default_avatar == "True":
-            contacts_use_system_default_avatar = True
+        if contacts_use_default_avatar == "True":
+            contacts_use_default_avatar = True
         else:
-            contacts_use_system_default_avatar = False
+            contacts_use_default_avatar = False
+
         try:
             groups_id = (
                 self.sudo()
@@ -302,7 +303,7 @@ class Users(models.Model):
                     "gender": self.env["wecom.tools"].sex2gender(wecom_user["gender"]),
                     "wecom_userid": wecom_user["userid"].lower(),
                     "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                        contacts_use_system_default_avatar,
+                        contacts_use_default_avatar,
                         wecom_user["gender"],
                         wecom_user["avatar"],
                     ),
@@ -339,16 +340,16 @@ class Users(models.Model):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         app_config = self.env["wecom.app_config"].sudo()
-        contacts_use_system_default_avatar = app_config.get_param(
-            company.contacts_app_id.id, "contacts_use_system_default_avatar"
+        contacts_use_default_avatar = app_config.get_param(
+            company.contacts_app_id.id, "contacts_use_default_avatar"
         )  # 使用系统微信默认头像的标识
 
-        if contacts_use_system_default_avatar == "True":
-            contacts_use_system_default_avatar = True
-        elif contacts_use_system_default_avatar is None:
-            contacts_use_system_default_avatar = False
+        if contacts_use_default_avatar == "True":
+            contacts_use_default_avatar = True
+        elif contacts_use_default_avatar is None:
+            contacts_use_default_avatar = False
         else:
-            contacts_use_system_default_avatar = False
+            contacts_use_default_avatar = False
         try:
             user.write(
                 {
@@ -363,7 +364,7 @@ class Users(models.Model):
                     "gender": self.env["wecom.tools"].sex2gender(wecom_user["gender"]),
                     "wecom_userid": wecom_user["userid"].lower(),
                     "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                        contacts_use_system_default_avatar,
+                        contacts_use_default_avatar,
                         wecom_user["gender"],
                         wecom_user["avatar"],
                     ),
@@ -391,17 +392,29 @@ class Users(models.Model):
     # 企微通讯录事件
     # ------------------------------------------------------------
     def wecom_event_change_contact_partner(self, cmd):
+        """
+        通讯录事件变更系统用户
+        """
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
 
+        domain = [
+            "|",
+            ("active", "=", True),
+            ("active", "=", False),
+        ]
+        user = self.sudo().search([("company_id", "=", company_id.id)] + domain)
+        callback_employee = user.search(
+            [("wecom_userid", "=", dic["UserID"])] + domain,
+            limit=1,
+        )
+
 
 # ------------------------------------------------------------
 # 变更用户类型向导
 # ------------------------------------------------------------
-
-
 class ChangeTypeWizard(models.TransientModel):
     _name = "change.type.wizard"
     _description = "Wizard to change user type(WeCom)"

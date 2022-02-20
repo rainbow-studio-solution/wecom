@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data noupdate="0">
         <!-- 1 -->
-        <record id="wecom_app_config_contacts_auto_sync_hr_enabled" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_allow_sync_hr" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
-            <field name="name">Allow WeCom Contacts are automatically updated to HR</field>
-            <field name="key">contacts_auto_sync_hr_enabled</field>
+            <field name="name">Allow wecom contacts to synchronize HR</field>
+            <field name="key">contacts_allow_sync_hr</field>
             <field name="ttype">boolean</field>
             <field name="value">True</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    If enabled, it allows to read the WeCom address book through the API interface and automatically synchronize to ODOO;
-                    <br></br>Otherwise, you can only manually bind WeCom users.
-                    <br></br>Value: True or False
+                    If the value is true, the wizard and task are allowed to synchronize the organization structure of wecom contacts to HR;<br></br>
+                    If the value is false, you need to manually bind HR employees to wecom users. At the same time, only employees with wecom user ID can be updated by events;<br></br>
+                    The default is true;
+                    <hr></hr>
+                    Value: True or False
                 </p>
             </field>
         </record>
@@ -48,25 +50,28 @@
         </record>
 
         <!-- 4 -->
-        <record id="wecom_app_config_contacts_task_sync_user_enabled" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_allow_add_system_users" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
-            <field name="name">Allow wecom address book tasks to automatically sync system accounts</field>
-            <field name="key">contacts_task_sync_user_enabled</field>
+            <field name="name">Allow wecom contacts to add system users</field>
+            <field name="key">contacts_allow_add_system_users</field>
             <field name="ttype">boolean</field>
             <field name="value">False</field>
             <field name="description" type="html">
                 <p class="o_view_nocontent_smiling_face">
-                    Allow wecom address book tasks to automatically sync system accounts;
-                    <br></br>Value: True or False
+                    If the value is true, system users can be added through wizards, tasks and events;<br></br>
+                    If the value is false, you can only update;<br></br>
+                    The default is false;<br></br>
+                    <hr></hr>
+                    Value: True or False
                 </p>
             </field>
         </record>
 
         <!-- 5 -->
-        <record id="wecom_app_config_contacts_use_system_default_avatar" model="wecom.app_config">
+        <record id="wecom_app_config_contacts_use_default_avatar" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Use system default Avatar</field>
-            <field name="key">contacts_use_system_default_avatar</field>
+            <field name="key">contacts_use_default_avatar</field>
             <field name="ttype">boolean</field>
             <field name="value">True</field>
             <field name="description" type="html">

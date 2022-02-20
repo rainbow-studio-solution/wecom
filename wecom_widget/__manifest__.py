@@ -10,7 +10,9 @@
     "description": """ 
 
 """,
-    "depends": ["web",],
+    "depends": [
+        "web",
+    ],
     "data": [
         # "views/assets_templates.xml",
     ],
@@ -20,6 +22,7 @@
             "wecom_widget/static/src/scss/jsoneditor.scss",
             "wecom_widget/static/src/scss/dialog.scss",
             "wecom_widget/static/src/scss/showpassword.scss",
+            "wecom_widget/static/src/scss/wecom_x2many.scss",
             # js
             "wecom_widget/static/src/js/wecom_markdown.js",
             "wecom_widget/static/src/js/show_password.js",
@@ -27,8 +30,11 @@
             "wecom_widget/static/src/js/wecom_widget_image_url.js",
             "wecom_widget/static/src/js/jsoneditor.js",
             "wecom_widget/static/src/js/dialog.js",
+            "wecom_widget/static/src/js/wecom_x2many.js",
         ],
-        "web.assets_qweb": ["wecom_widget/static/src/xml/*.xml",],
+        "web.assets_qweb": [
+            "wecom_widget/static/src/xml/*.xml",
+        ],
     },
     "sequence": 605,
     "installable": True,

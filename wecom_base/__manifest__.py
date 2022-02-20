@@ -45,6 +45,7 @@
             "wecom_base/static/src/scss/wecom_settings_navigation.scss",
             # JS
             "wecom_base/static/src/js/wecom_settings_navigation.js",
+            # "wecom_base/static/src/js/wecom_apps_views.js",
         ],
         "web.assets_qweb": [
             "wecom_base/static/src/xml/*.xml",

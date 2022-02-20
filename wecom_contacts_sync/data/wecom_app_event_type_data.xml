@@ -58,7 +58,7 @@
 
         <record id="wecom_app_event_change_contact_update_tag" model="wecom.app.event_type">
             <field name="name">Tag change events</field>
-            <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_employee_category')])]"/>
+            <field name="model_ids" eval="[(6, 0, [ref('hr.model_hr_employee_category'), ref('base.model_res_partner_category')])]"/>
             <field name="event">change_contact</field>
             <field name="change_type">update_tag</field>
             <field name="code">model.wecom_event_change_contact_tag</field>

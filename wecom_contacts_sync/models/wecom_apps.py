@@ -3,7 +3,7 @@
 import logging
 import datetime
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 from io import StringIO
 import pandas as pd
@@ -24,13 +24,27 @@ class WeComApps(models.Model):
     # ————————————————————————————————————
     # 应用回调服务
     # ————————————————————————————————————
+    # def generate_service(self):
+    #     """
+    #     生成服务
+    #     :return:
+    #     """
+    #     params = self.env["ir.config_parameter"].sudo()
+    #     base_url = params.get_param("web.base.url")
+    #     if not self.app_id:
+    #         raise ValidationError(_("Please bind contact app!"))
+    #     else:
+    #         self.callback_url = base_url + "/wecom_callback/%s/%s" % (
+    #             self.app_id.company_id.id,
+    #             self.code,
+    #         )
+
     def generate_service_by_code(self, code):
         """
         根据code生成回调服务
         :param code:
         :return:
         """
-        # ("app_id", "in", self.id),
         if code == "contacts":
             service = self.app_callback_service_ids.sudo().search(
                 [
@@ -82,8 +96,8 @@ class WeComApps(models.Model):
         if code == "contacts":
             # 从xml 获取数据
             ir_model_data = self.env["ir.model.data"]
-            contacts_auto_sync_hr_enabled = ir_model_data.get_object_reference(
-                "wecom_contacts_sync", "wecom_app_config_contacts_auto_sync_hr_enabled"
+            contacts_allow_sync_hr = ir_model_data.get_object_reference(
+                "wecom_contacts_sync", "wecom_app_config_contacts_allow_sync_hr"
             )[
                 1
             ]  # 1
@@ -97,15 +111,15 @@ class WeComApps(models.Model):
             )[
                 1
             ]  # 3
-            contacts_task_sync_user_enabled = ir_model_data.get_object_reference(
+            contacts_allow_add_system_users = ir_model_data.get_object_reference(
                 "wecom_contacts_sync",
-                "wecom_app_config_contacts_task_sync_user_enabled",
+                "wecom_app_config_contacts_allow_add_system_users",
             )[
                 1
             ]  # 4
-            contacts_use_system_default_avatar = ir_model_data.get_object_reference(
+            contacts_use_default_avatar = ir_model_data.get_object_reference(
                 "wecom_contacts_sync",
-                "wecom_app_config_contacts_use_system_default_avatar",
+                "wecom_app_config_contacts_use_default_avatar",
             )[
                 1
             ]  # 5
@@ -138,11 +152,11 @@ class WeComApps(models.Model):
             ]  # 10
 
             vals_list = [
-                contacts_auto_sync_hr_enabled,  # 1
+                contacts_allow_sync_hr,  # 1
                 contacts_sync_hr_department_id,  # 2
                 contacts_edit_enabled,  # 3
-                contacts_task_sync_user_enabled,  # 4
-                contacts_use_system_default_avatar,  # 5
+                contacts_allow_add_system_users,  # 4
+                contacts_use_default_avatar,  # 5
                 contacts_update_avatar_every_time_sync,  # 6
                 enabled_join_qrcode,  # 7
                 join_qrcode,  # 8
@@ -404,7 +418,7 @@ Synchronize contact tag results:
         """
         result = {}
         sync_hr_enabled = self.app_config_ids.get_param(
-            self.id, "contacts_auto_sync_hr_enabled"
+            self.id, "contacts_allow_sync_hr"
         )  # 允许企业微信通讯簿自动更新为HR的标识
         if sync_hr_enabled:
             result = {"company_name": self.company_id.name, "sync_state": "completed"}
