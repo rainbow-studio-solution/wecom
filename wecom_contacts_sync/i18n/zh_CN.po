@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-19 09:29+0000\n"
-"PO-Revision-Date: 2022-02-19 17:30+0800\n"
+"POT-Creation-Date: 2022-02-20 03:54+0000\n"
+"PO-Revision-Date: 2022-02-20 12:03+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,67 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.0.1\n"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid ""
+"\n"
+"Automatic task: end the synchronization of the enterprise wechat "
+"organizational structure of all companies.\n"
+"=======================================================================================================================\n"
+"Task Synchronization status:%s, Synchronization task time:%s seconds,\n"
+"Synchronization results：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"Hr department sync status:%s, Synchronize HR department time: %s seconds,\n"
+"Synchronize HR department results:\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"Hr employee sync status:%s, Synchronize HR employee time: %s seconds,\n"
+"Synchronize HR employee results:\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"Hr tag sync status:%s, Synchronize HR tag time: %s seconds,\n"
+"Synchronize HR tag results:\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"System user status:%s, Synchronize system user time: %s seconds,\n"
+"Synchronize system user results:\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"Contact tag status:%s, Synchronize contact tag time: %s seconds,\n"
+"Synchronize contact tag results:\n"
+"%s\n"
+"======================================================================================================================="
+msgstr ""
+"\n"
+"自动任务：结束所有公司的企业微信组织架构同步。\n"
+"=======================================================================================================================\n"
+"任务同步状态：%s，同步任务时间：%s 秒\n"
+"同步结果：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"HR部门同步状态：%s，同步HR部门时间：%s秒，\n"
+"同步HR部门结果：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"HR员工同步状态：%s，同步HR员工时间：%s秒，\n"
+"同步HR员工结果：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"HR标签同步状态：%s，同步HR标签时间：%s秒，\n"
+"同步HR标签结果：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"系统用户同步状态：%s，同步系统用户时间：%s秒，\n"
+"同步系统用户结果：\n"
+"%s\n"
+"-----------------------------------------------------------------------------------------------------------------------\n"
+"联系人标签同步状态：%s, 同步联系人标签时间：%s seconds,\n"
+"同步联系人标签结果：\n"
+"%s\n"
+"======================================================================================================================="
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode_size_type
@@ -73,22 +134,26 @@ msgid "Add member events"
 msgstr "新增成员事件"
 
 #. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__completed
+#, python-format
 msgid "All completed"
 msgstr "全部完成"
 
 #. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__fail
+#, python-format
 msgid "All failed"
 msgstr "全部失败"
 
@@ -129,8 +194,24 @@ msgstr "应用配置"
 #. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
-msgid "Automatic task:Start to get join enterprise QR code."
-msgstr "自动任务：开始获取加入企业二维码。"
+msgid ""
+"Automatic task: end synchronizing the enterprise wechat organizational "
+"structure of the company [%s]"
+msgstr "自动任务：结束同步公司[%s]的企业微信组织架构"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid ""
+"Automatic task: start to synchronize the enterprise wechat organizational "
+"structure of the company [%s]"
+msgstr "自动任务：开始同步公司[%s]的企业微信组织架构"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Automatic task:Start to get join enterprise QR code of company [%s]"
+msgstr "自动任务：开始获取公司[%s]的加入企业二维码"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
@@ -235,7 +316,7 @@ msgid ""
 "don’t fill in, get the full organization structure by default\n"
 "                    <br>Value: Department id."
 msgstr ""
-"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织结构\n"
+"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织架构\n"
 "                    <br>值：部门id。"
 
 #. module: wecom_contacts_sync
@@ -298,6 +379,11 @@ msgstr "生成参数"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "Generate service"
 msgstr "生成服务"
+
+#. module: wecom_contacts_sync
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_app_join_qrcode
+msgid "Get join enterprise QR code"
+msgstr "获取加入企业二维码"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
@@ -412,12 +498,14 @@ msgid "New departmental events"
 msgstr "新增部门事件"
 
 #. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__partially
+#, python-format
 msgid "Partially complete"
 msgstr "部分完成"
 
@@ -457,8 +545,8 @@ msgstr "刷新二维码"
 #. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
-msgid "Start getting join enterprise QR code for app [%s]"
-msgstr "开始获取应用 [%s] 的加入企业二维码"
+msgid "Start getting join enterprise QR code for app [%s] of company [%s]"
+msgstr "开始获取公司 [%s] 应用 [%s] 的加入企业二维码"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
@@ -481,19 +569,22 @@ msgid "Sync Companies"
 msgstr "同步公司"
 
 #. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wecom_contacts_sync_wizard.py:0
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__sync_result
-#, python-format
 msgid "Sync result"
 msgstr "同步结果"
 
 #. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wecom_contacts_sync_wizard.py:0
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_sync_contacts
+msgid "Sync wecom contacts"
+msgstr "同步企微通讯录"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
 msgid ""
 "Synchronization of company [%s] failed. Reason:configuration does not allow "
 "synchronization to HR."
-msgstr "同步公司 [%s] 的失败。原因：配置不允许与HR同步。"
+msgstr "公司[%s]的同步失败。原因：配置不允许同步到HR。"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
@@ -511,6 +602,12 @@ msgid "Synchronize all companies?"
 msgstr "同步所有公司？"
 
 #. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/wizard/wecom_contacts_sync_wizard.py:0
+#, python-format
+msgid "Synchronize results using the wizard"
+msgstr "使用向导同步结果"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
 msgid "System User sync"
 msgstr "系统用户同步"
@@ -524,6 +621,12 @@ msgstr "标签变更事件"
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__total_time
 msgid "Total time(seconds)"
 msgstr "总时间（秒）"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#, python-format
+msgid "Unknown"
+msgstr "未知"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync
@@ -577,6 +680,30 @@ msgid "WeCom tags synchronization results"
 msgstr "企微标签同步结果"
 
 #. module: wecom_contacts_sync
+#: model:ir.actions.server,name:wecom_contacts_sync.ir_cron_get_join_qrcode_ir_actions_server
+#: model:ir.cron,cron_name:wecom_contacts_sync.ir_cron_get_join_qrcode
+#: model:ir.cron,name:wecom_contacts_sync.ir_cron_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code"
+msgstr "企微：获取加入企业二维码"
+
+#. module: wecom_contacts_sync
+#: model:ir.actions.act_window,name:wecom_contacts_sync.ir_cron_act_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code."
+msgstr "企微：获取加入企业二维码。"
+
+#. module: wecom_contacts_sync
+#: model:ir.actions.server,name:wecom_contacts_sync.ir_cron_sync_wecom_contacts_ir_actions_server
+#: model:ir.cron,cron_name:wecom_contacts_sync.ir_cron_sync_wecom_contacts
+#: model:ir.cron,name:wecom_contacts_sync.ir_cron_sync_wecom_contacts
+msgid "WeCom: Synchronize contacts"
+msgstr "企微：同步通讯录"
+
+#. module: wecom_contacts_sync
+#: model:ir.actions.act_window,name:wecom_contacts_sync.ir_cron_act_sync_wecom_contacts
+msgid "WeCom: Synchronize contacts regularly"
+msgstr "企微：定时同步通讯录"
+
+#. module: wecom_contacts_sync
 #: model:ir.model,name:wecom_contacts_sync.model_wecom_apps
 msgid "Wecom Application"
 msgstr "企微应用"
@@ -597,4 +724,10 @@ msgstr ""
 msgid "description"
 msgstr "说明"
 
-
+#. module: wecom_contacts_sync
+#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_auto_sync_hr_enabled
+msgid ""
+"如果启用，它允许通过API接口读取WeCom通讯簿，并自动同步到ODOO；\n"
+"                    <br>否则，您只能手动绑定企微用户。\n"
+"                    <br>值：True 或 False"
+msgstr ""

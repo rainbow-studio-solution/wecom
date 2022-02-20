@@ -45,7 +45,7 @@
                     </notebook>
 
                     <footer>
-                        <button name="sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
+                        <button name="wizard_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
                     </footer>
                 </form>
             </field>
