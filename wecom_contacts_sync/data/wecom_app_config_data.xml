@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
         <!-- 1 -->
         <record id="wecom_app_config_contacts_allow_sync_hr" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>

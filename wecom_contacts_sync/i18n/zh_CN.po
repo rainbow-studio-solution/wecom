@@ -732,4 +732,14 @@ msgstr ""
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "description"
-msgstr "说明"
+msgstr "description"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "value"
+msgstr "value"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
+msgid "ttype"
+msgstr "ttype"

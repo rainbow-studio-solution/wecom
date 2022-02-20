@@ -42,6 +42,17 @@ class WeComAppConfig(models.Model):
     ]
 
     @api.model
+    def get_format_field_value_and_type(self):
+        """
+        JS 获取需要格式化的字段的类型和值
+        :return:
+        """
+        return {
+            "type": FIELD_TYPES,
+            "value": self.get_field_value(),
+        }
+
+    @api.model
     def get_param(self, app_id, key, default=False):
         """检索给定key的value
 

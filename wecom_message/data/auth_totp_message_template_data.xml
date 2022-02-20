@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="0">
+    <data noupdate="1">
 
         <!-- 面向用户的 TOTP：通过电子邮件邀请 -->
         <record id="auth_totp_mail.mail_template_totp_invite" model="mail.template">
