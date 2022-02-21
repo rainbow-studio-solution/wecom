@@ -24,7 +24,6 @@
                                                 <field name="name" readonly="1"/>
                                                 <field name="key" readonly="1"/>
                                                 <field name="value" required="1"/>
-                                                <field name="ttype" />
                                                 <field name="description" invisible="1"/>
                                             </tree>
                                         </field>

@@ -39,22 +39,10 @@ odoo.define('wecom.x2many', function (require) {
             this.options = options;
             this.widget = this.attrs.widget;
         },
-        // start: async function () {
-        //     if (this.attrs.widget === "wecom_x2many") {
-        //         this.help_field = this.attrs.help;
-        //         this.format_field = this.attrs.format;
-        //         this.type_field = this.attrs.type;
-        //         // console.log("start", this.attrs)
-        //     }
-        //     return this._super.apply(this, arguments);
-        // },
         _getRenderer: function () {
             if (this.attrs.widget === "wecom_x2many") {
                 this.help_field = this.attrs.help;
                 this.format_field = this.attrs.format;
-                this.type_field = this.attrs.type;
-                // console.log("_getRenderer", this.help_field)
-                // console.log("_getRenderer", this.format_field)
                 return ListRenderer;
             }
             return this._super.apply(this, arguments);
@@ -71,16 +59,11 @@ odoo.define('wecom.x2many', function (require) {
             this._super.apply(this, arguments);
             if (parent.hasOwnProperty("attrs")) {
                 if (parent.attrs.widget === "wecom_x2many") {
+
                     this.model = state.model // 当前model
                     this.res_ids = state.res_ids // 当前model的ids
                     this.help_field = parent.help_field;
                     this.format_field = parent.format_field;
-                    this.type_field = parent.type_field;
-                    // console.log(state)
-                    // console.log(parent.help_field, parent.format_field, parent.type_field)
-                    // console.log("ListRenderer init", state)
-                    // console.log("ListRenderer init parent", parent)
-                    // console.log("ListRenderer init params", params)
                     this.parent_res_id = parent.res_id; //当前Form的res_id
                     this.help_records = parent.value.data;
                     this.is_wecom_one2many = true;
@@ -97,6 +80,7 @@ odoo.define('wecom.x2many', function (require) {
                     if (parent.value.fields.hasOwnProperty(this.format_field)) {
                         if (parent.value.fields.hasOwnProperty(this.format_field) != "undefined") {
                             this.need_format = true
+
                         } else {
                             this.need_format = false
                         }
@@ -105,6 +89,29 @@ odoo.define('wecom.x2many', function (require) {
                     this.is_wecom_one2many = false;
                 }
             }
+        },
+        willStart: function () {
+            var self = this;
+            if (this.need_format) {
+                var results = new Array();
+                $.each(this.res_ids, function (index, res_id) {
+                    self._rpc({
+                        model: 'wecom.app_config',
+                        method: 'get_format_field_value_and_type',
+                        args: ["", res_id, this.format_field],
+                    }).then(function (result) {
+                        results.push(result);
+                    })
+                })
+                var timer = setInterval(function () {
+                    if (results.length = self.res_ids.length) {
+                        clearInterval(timer);
+                    }
+                    self.need_format_datas = results; //需要格式化的数据
+                }, 1000)
+            }
+            this._processColumns(this.columnInvisibleFields);
+            return this._super.apply(this, arguments);
         },
         // _renderView: function () {
         //     var self = this;
@@ -143,10 +150,10 @@ odoo.define('wecom.x2many', function (require) {
             }
             return $thead;
         },
+
         _renderRow: function (record, index) {
             var self = this;
             var $row = this._super.apply(this, arguments);
-
             if (this.is_wecom_one2many) {
                 $row.find("td:first").before($("<td/>").html(index + 1));
                 var data_id = $row.data("id");
@@ -172,69 +179,139 @@ odoo.define('wecom.x2many', function (require) {
                 if (self.is_wecom_tag) {
                     $row.find("td.o_list_record_remove").remove();
                 }
-                if (this.need_format) {
-                    // console.log("need_format", data_id)
+                if (self.need_format) {
+                    var timer = setInterval(function () {
+                        if (self.need_format_datas.length = self.res_ids.length) {
+                            clearInterval(timer);
+                            var $cells = self.columns.map(function (node, index) {
+                                var name = node.attrs.name;
+                                if (name == self.format_field) {
+                                    return self._renderWecomConfigBodyCell(record, node, index, {
+                                        mode: 'readonly'
+                                    });
+                                }
+                            });
+                            var $tr = $('<tr/>', {
+                                    class: 'o_data_row'
+                                })
+                                .attr('data-id', record.id)
+                                .append($cells);
+                            if (self.hasSelectors) {
+                                $tr.prepend(self._renderSelector('td', !record.res_id));
+                            }
+                            if (self.no_open && self.mode === "readonly") {
+                                $tr.addClass('o_list_no_open');
+                            }
+                            self._setDecorationClasses($tr, self.rowDecorations, record);
+                            return $tr;
+                        }
+
+                    }, 1000)
                 }
             }
             return $row;
         },
-        _renderBodyCell: function (record, node, colIndex, options) {
+        _renderWecomConfigBodyCell: function (record, node, colIndex, options) {
             var self = this;
             var tdClassName = 'o_data_cell';
-            // if (node.tag === 'button_group') {
-            //     tdClassName += ' o_list_button';
-            // } else if (node.tag === 'field') {
-            //     tdClassName += ' o_field_cell';
-            //     var typeClass = FIELD_CLASSES[this.state.fields[node.attrs.name].type];
-            //     if (typeClass) {
-            //         tdClassName += (' ' + typeClass);
-            //     }
-            //     if (node.attrs.widget) {
-            //         tdClassName += (' o_' + node.attrs.widget + '_cell');
-            //     }
-            // }
-            // if (node.attrs.editOnly) {
-            //     tdClassName += ' oe_edit_only';
-            // }
-            // if (node.attrs.readOnly) {
-            //     tdClassName += ' oe_read_only';
-            // }
-            // 获取 格式化字段的类型
-            if (this.need_format) {
-                var $td = $('<td>', {
-                    class: tdClassName,
-                    tabindex: -1
-                });
-                var name = node.attrs.name;
-                var field = this.state.fields[name];
-                var value = record.data[name];
-                var formatter = field_utils.format[field.type];
-                var formatOptions = {
-                    escape: true,
-                    data: record.data,
-                    isPassword: 'password' in node.attrs,
-                    digits: node.attrs.digits && JSON.parse(node.attrs.digits),
-                };
-                var formattedValue = formatter(value, field, formatOptions);
-                var title = '';
-                if (field.type !== 'boolean') {
-                    title = formatter(value, field, _.extend(formatOptions, {
-                        escape: false
-                    }));
+            if (node.tag === 'button_group') {
+                tdClassName += ' o_list_button';
+            } else if (node.tag === 'field') {
+                tdClassName += ' o_field_cell';
+                var typeClass = FIELD_CLASSES[this.state.fields[node.attrs.name].type];
+                if (typeClass) {
+                    tdClassName += (' ' + typeClass);
                 }
-                $td = $td.html(formattedValue).attr('title', title).attr('name', name);
-                console.log($td)
+                if (node.attrs.widget) {
+                    tdClassName += (' o_' + node.attrs.widget + '_cell');
+                }
+            }
+            if (node.attrs.editOnly) {
+                tdClassName += ' oe_edit_only';
+            }
+            if (node.attrs.readOnly) {
+                tdClassName += ' oe_read_only';
+            }
+            var $td = $('<td>', {
+                class: tdClassName,
+                tabindex: -1
+            });
+
+            var res_id = record["res_id"]
+            var attributes = {}
+            $.each(self.need_format_datas, function (key, data) {
+                if (data["id"] == res_id) {
+                    attributes = data;
+                }
+            });
+
+            // We register modifiers on the <td> element so that it gets the correct
+            // modifiers classes (for styling)
+            var modifiers = this._registerModifiers(node, record, $td, _.pick(options, 'mode'));
+            // If the invisible modifiers is true, the <td> element is left empty.
+            // Indeed, if the modifiers was to change the whole cell would be
+            // rerendered anyway.
+            if (modifiers.invisible && !(options && options.renderInvisible)) {
                 return $td;
             }
 
+
+            if (attributes["type"] == "datetime" || attributes["type"] == "char") {
+                modifiers["readonly"] = true;
+            }
+
+
+            if (node.tag === 'button_group') {
+                for (const buttonNode of node.children) {
+                    if (!this.columnInvisibleFields[buttonNode.attrs.name]) {
+                        $td.append(this._renderButton(record, buttonNode));
+                    }
+                }
+                return $td;
+            } else if (node.tag === 'widget') {
+                return $td.append(this._renderWidget(record, node));
+            }
+            if (node.attrs.widget || (options && options.renderWidgets)) {
+                var $el = this._renderFieldWidget(node, record, _.pick(options, 'mode'));
+                return $td.append($el);
+            }
+            this._handleAttributes($td, node);
+            this._setDecorationClasses($td, this.fieldDecorations[node.attrs.name], record);
+
+            var name = node.attrs.name;
+            var field = this.state.fields[name];
+
+            console.log("attributes", attributes["type"], field.type)
+            // var value = record.data[name];
+            var value = attributes["value"];
+            if (attributes["type"] == "boolean" && (value == "False" || value == "True")) {
+                // console.log("attributes", attributes["type"], field.type)
+                // field.type = "boolean";
+            }
+            if (attributes["type"] == "integer") {
+                // console.log("attributes", attributes["type"], field.type)
+                // field.type = "integer";
+            }
+            var formatter = field_utils.format[field.type];
+
+            // var formatter = field_utils.format[attributes["type"]];
+            var formatOptions = {
+                escape: true,
+                data: record.data,
+                isPassword: 'password' in node.attrs,
+                digits: node.attrs.digits && JSON.parse(node.attrs.digits),
+            };
+            var formattedValue = formatter(value, field, formatOptions);
+            var title = '';
+            if (field.type !== 'boolean') {
+                // if (attributes["type"] !== 'boolean') {
+                title = formatter(value, field, _.extend(formatOptions, {
+                    escape: false
+                }));
+            }
+            return $td.html(formattedValue).attr('title', title).attr('name', name);
         },
-        get_format_field_value_and_type: function (field_name) {
-            return self._rpc({
-                model: 'wecom.app_config',
-                method: 'get_format_field_value_and_type',
-                args: [],
-            })
-        },
+
         _renderButton: function (record, node) {
             var self = this;
             var nodeWithoutWidth = Object.assign({}, node);
@@ -289,7 +366,6 @@ odoo.define('wecom.x2many', function (require) {
             }
             return $button;
         },
-
         _renderFooter: function () {
             const $footer = this._super.apply(this, arguments);
             if (this.is_wecom_one2many) {
@@ -307,7 +383,6 @@ odoo.define('wecom.x2many', function (require) {
                 method: 'remove_obj_from_tag',
                 args: ["", self.parent_res_id, record.model, record.res_id],
             }).then(function (result) {
-                // console.log("请求", result);
                 // return result
                 if (result) {
                     self.trigger_up('reload');
