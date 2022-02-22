@@ -271,7 +271,7 @@ class EmployeeCategory(models.Model):
         remote_partylist = []
         if response["errcode"] == 0:
             for user in response["userlist"]:
-                remote_userlist.append(user["userid"])
+                remote_userlist.append(user["userid"].lower())
 
             for party in response["partylist"]:
                 remote_partylist.append(party)
@@ -522,7 +522,7 @@ class EmployeeCategory(models.Model):
                     .sudo()
                     .search(
                         [
-                            ("wecom_userid", "=", user["userid"]),
+                            ("wecom_userid", "=", user["userid"].lower()),
                             ("company_id", "=", company.id),
                             ("is_wecom_user", "=", True),
                             "|",

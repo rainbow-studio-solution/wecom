@@ -259,11 +259,7 @@ msgstr "日程"
 msgid "Callback service settings"
 msgstr "回调服务设置"
 
-#. module: wecom_base
-#: code:addons/wecom_base/models/wecom_app_event_type.py:0
-#, python-format
-msgid "Cannot find [%s] change type for executing company [%s], ignoring it."
-msgstr "找不到执行公司 [%s] 的 [%s] 更改类型，将忽略它。"
+
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_event_type__change_type
@@ -699,13 +695,7 @@ msgstr "Python代码"
 msgid "Receive event service"
 msgstr "接收事件服务"
 
-#. module: wecom_base
-#: code:addons/wecom_base/models/wecom_app_event_type.py:0
-#, python-format
-msgid ""
-"Received the callback notification of enterprise wechat, event [%s], change type "
-"[%s]."
-msgstr "已收到企业微信的回调通知，事件[%s]，更改类型[%s]。"
+
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_event_type__model_ids
@@ -854,11 +844,7 @@ msgstr "类型"
 msgid "URL"
 msgstr ""
 
-#. module: wecom_base
-#: code:addons/wecom_base/models/wecom_app_event_type.py:0
-#, python-format
-msgid "Unable to execute [%s] change type for company [%s], ignoring it. reason: %s"
-msgstr "无法为公司 [%s] 执行 [%s] 更改类型，将忽略它。原因：%s"
+
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form

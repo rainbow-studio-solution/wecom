@@ -96,6 +96,9 @@ class WeComAppEventType(models.Model):
             return
 
         if event.code:
+            # ^ 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
+            # ^ ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+            # ^ ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
             try:
                 event.with_context(
                     xml_tree=xml_tree, company_id=company_id
@@ -107,10 +110,8 @@ class WeComAppEventType(models.Model):
                     )
                     % (event.name, company_id.name, str(e))
                 )
-            finally:
-                # ^ 正确响应企业微信本次的POST请求，企业微信将不会再次发送请求
-                # ^ ·企业微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
-                # ^ ·当接收成功后，http头部返回200表示接收ok，其他错误码企业微信后台会一律当做失败并发起重试
+                return Response("success", status=200)
+            else:
                 return Response("success", status=200)
 
     def run(self):
@@ -124,6 +125,13 @@ class WeComAppEventType(models.Model):
 
         for model in self.model_ids:
             model_obj = self.env.get(model.model)
+            _logger.info(
+                _("Method [%s] to execute model [%s]")
+                % (
+                    func_name,
+                    model_obj,
+                )
+            )
             getattr(
                 model_obj.with_context(xml_tree=xml_tree, company_id=company_id),
                 func_name,

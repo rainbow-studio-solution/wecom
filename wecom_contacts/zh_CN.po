@@ -53,7 +53,7 @@ msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
 msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
 
 #. module: wecom_contacts
-#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_use_default_avatar
+#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_use_default_avatar_when_adding_employees
 msgid ""
 "<span class=\"text-info font-weight-bold\">Valid only when synchronizing new "
 "employees.</span>\n"
@@ -62,15 +62,6 @@ msgstr ""
 "<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>\n"
 "                    <br>值: True 或 False"
 
-#. module: wecom_contacts
-#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_update_avatar_every_time_sync
-msgid ""
-"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</"
-"span>\n"
-"                    <br>Value: True or False"
-msgstr ""
-"<span class=\"text-warning font-weight-bold\">请谨慎使用此功能。</span>\n"
-"                    <br>值: True 或 False"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -186,16 +177,13 @@ msgstr ""
 "                    <br>值：部门id。"
 
 #. module: wecom_contacts
-#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_use_default_avatar
+#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_use_default_avatar_when_adding_employees
 msgid ""
 "Enable this, Employee photos will use the default avatar. Will save a lot of "
 "synchronization time."
 msgstr "启用此选项，员工照片将使用默认头像。将节省大量的同步时间。"
 
-#. module: wecom_contacts
-#: model_terms:wecom.app_config,description:wecom_contacts.wecom_app_config_contacts_update_avatar_every_time_sync
-msgid "Enable this,Each update will overwrite the employee photos you have set up."
-msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
+
 
 
 
@@ -314,10 +302,7 @@ msgstr "开始获取应用 [%s] 的加入企业二维码"
 msgid "Tag change events"
 msgstr "标签变更事件"
 
-#. module: wecom_contacts
-#: model:wecom.app_config,name:wecom_contacts.wecom_app_config_contacts_update_avatar_every_time_sync
-msgid "Update avatar every time sync"
-msgstr "每次同步时更新头像"
+
 
 #. module: wecom_contacts
 #: model:wecom.app.event_type,name:wecom_contacts.wecom_app_event_change_contact_update_party
@@ -329,9 +314,7 @@ msgstr "更新部门事件"
 msgid "Update member events"
 msgstr "更新成员事件"
 
-#. module: wecom_contacts
-#: model:wecom.app_config,name:wecom_contacts.wecom_app_config_contacts_use_default_avatar
-msgid "Use system default Avatar"
+
 msgstr "使用系统默认头像"
 
 #. module: wecom_contacts

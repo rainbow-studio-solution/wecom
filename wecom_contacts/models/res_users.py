@@ -14,19 +14,19 @@ _logger = logging.getLogger(__name__)
 WECOM_USER_MAPPING_ODOO_USER = {
     "UserID": "wecom_userid",  # 成员UserID
     "Name": "name",  # 成员名称;
-    "Department": "department_ids",  # 成员部门列表，仅返回该应用有查看权限的部门id
-    "MainDepartment": "department_id",  # 主部门
+    "Department": "",  # 成员部门列表，仅返回该应用有查看权限的部门id
+    "MainDepartment": "",  # 主部门
     "IsLeaderInDept": "",  # 表示所在部门是否为上级，0-否，1-是，顺序与Department字段的部门逐一对应
     "DirectLeader": "",  # 直属上级
     "Mobile": "mobile_phone",  # 手机号码
-    "Position": "job_title",  # 职位信息
-    "Gender": "",  # 性别，1表示男性，2表示女性
+    "Position": "",  # 职位信息
+    "Gender": "",  # 企微性别：0表示未定义，1表示男性，2表示女性；odoo性别：male为男性，female为女性，other为其他
     "Email": "work_email",  # 邮箱;
     "Status": "active",  # 激活状态：1=已激活 2=已禁用 4=未激活 已激活代表已激活企业微信或已关注微工作台（原企业号）5=成员退出
-    "Avatar": "avatar",  # 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
-    "Alias": "alias",  # 成员别名
+    "Avatar": "",  # 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
+    "Alias": "",  # 成员别名
     "Telephone": "work_phone",  # 座机;
-    "Address": "work_location",  # 地址;
+    "Address": "",  # 地址;
     "ExtAttr": {
         "Type": "",  # 扩展属性类型: 0-本文 1-网页
         "Text": "",  # 文本属性类型，扩展属性类型为0时填写
@@ -78,7 +78,7 @@ class Users(models.Model):
         """
         通过企微用户id获取odoo用户
         """
-        login = tools.ustr(object.wecom_userid.lower())
+        login = tools.ustr(object.wecom_userid)
         self.env.cr.execute(
             "SELECT id, active FROM res_users WHERE lower(login)=%s", (login,)
         )
@@ -105,7 +105,7 @@ class Users(models.Model):
                 "employee_ids": [(6, 0, [object.id])],
                 "employee_id": object.id,
                 # 以下为企业微信字段
-                "wecom_userid": login,
+                "wecom_userid": object.wecom_userid.lower(),
                 "wecom_openid": object.wecom_openid,
                 "is_wecom_user": object.is_wecom_user,
                 "qr_code": object.qr_code,
@@ -231,7 +231,7 @@ class Users(models.Model):
         """
         user = self.sudo().search(
             [
-                ("wecom_userid", "=", wecom_user["userid"]),
+                ("wecom_userid", "=", wecom_user["userid"].lower()),
                 ("company_id", "=", company.id),
                 ("is_wecom_user", "=", True),
                 "|",
@@ -268,12 +268,9 @@ class Users(models.Model):
 
         app_config = self.env["wecom.app_config"].sudo()
         contacts_use_default_avatar = app_config.get_param(
-            company.contacts_app_id.id, "contacts_use_default_avatar"
+            company.contacts_app_id.id,
+            "contacts_use_default_avatar_when_adding_employees",
         )  # 使用系统微信默认头像的标识
-        if contacts_use_default_avatar == "True":
-            contacts_use_default_avatar = True
-        else:
-            contacts_use_default_avatar = False
 
         try:
             groups_id = (
@@ -320,7 +317,7 @@ class Users(models.Model):
         except Exception as e:
             result = _("Error creating company %s partner %s %s, error reason: %s") % (
                 company.name,
-                wecom_user["userid"],
+                wecom_user["userid"].lower(),
                 wecom_user["name"],
                 repr(e),
             )
@@ -341,15 +338,10 @@ class Users(models.Model):
         debug = params.get_param("wecom.debug_enabled")
         app_config = self.env["wecom.app_config"].sudo()
         contacts_use_default_avatar = app_config.get_param(
-            company.contacts_app_id.id, "contacts_use_default_avatar"
+            company.contacts_app_id.id,
+            "contacts_use_default_avatar_when_adding_employees",
         )  # 使用系统微信默认头像的标识
 
-        if contacts_use_default_avatar == "True":
-            contacts_use_default_avatar = True
-        elif contacts_use_default_avatar is None:
-            contacts_use_default_avatar = False
-        else:
-            contacts_use_default_avatar = False
         try:
             user.write(
                 {
@@ -363,11 +355,11 @@ class Users(models.Model):
                     "work_email": wecom_user["email"],
                     "gender": self.env["wecom.tools"].sex2gender(wecom_user["gender"]),
                     "wecom_userid": wecom_user["userid"].lower(),
-                    "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                        contacts_use_default_avatar,
-                        wecom_user["gender"],
-                        wecom_user["avatar"],
-                    ),
+                    # "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                    #     contacts_use_default_avatar,
+                    #     wecom_user["gender"],
+                    #     wecom_user["avatar"],
+                    # ),
                     "qr_code": wecom_user["qr_code"],
                     "active": True if wecom_user["status"] == 1 else False,
                 }
@@ -375,7 +367,7 @@ class Users(models.Model):
         except Exception as e:
             result = _("Error creating company %s partner %s %s, error reason: %s") % (
                 company.name,
-                wecom_user["userid"],
+                wecom_user["userid"].lower(),
                 wecom_user["name"],
                 repr(e),
             )
@@ -391,7 +383,7 @@ class Users(models.Model):
     # ------------------------------------------------------------
     # 企微通讯录事件
     # ------------------------------------------------------------
-    def wecom_event_change_contact_partner(self, cmd):
+    def wecom_event_change_contact_user(self, cmd):
         """
         通讯录事件变更系统用户
         """
@@ -406,10 +398,87 @@ class Users(models.Model):
             ("active", "=", False),
         ]
         user = self.sudo().search([("company_id", "=", company_id.id)] + domain)
-        callback_employee = user.search(
-            [("wecom_userid", "=", dic["UserID"])] + domain,
+        callback_user = user.search(
+            [("wecom_userid", "=", dic["UserID"].lower())] + domain,
             limit=1,
         )
+        if callback_user:
+            # 如果存在，则更新
+            cmd = "update"
+        else:
+            # 如果不存在，停止
+            # TODO 创建用户
+            return
+
+        update_dict = {}
+
+        for key, value in dic.items():
+            if (
+                key == "ToUserName"
+                or key == "FromUserName"
+                or key == "CreateTime"
+                or key == "Event"
+                or key == "MsgType"
+                or key == "ChangeType"
+            ):
+                # 忽略掉 不需要的key
+                pass
+            else:
+                if key in WECOM_USER_MAPPING_ODOO_USER.keys():
+                    if WECOM_USER_MAPPING_ODOO_USER[key] != "":
+                        if WECOM_USER_MAPPING_ODOO_USER[key] == "wecom_userid":
+                            update_dict.update({"wecom_userid": value.lower()})
+                        elif WECOM_USER_MAPPING_ODOO_USER[key] == "active":
+                            # 状态
+                            # 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。
+                            # 已激活代表已激活企业微信或已关注微工作台（原企业号）。未激活代表既未激活企业微信又未关注微工作台（原企业号）。
+                            if value == "1":
+                                update_dict.update({"active": True})
+                            else:
+                                update_dict.update({"active": False})
+                        elif WECOM_USER_MAPPING_ODOO_USER[key] == "gender":
+                            gender = self.env["wecom.tools"].sex2gender(value)
+                            update_dict.update({"gender": gender})
+                        else:
+                            update_dict[WECOM_USER_MAPPING_ODOO_USER[key]] = value
+                else:
+                    _logger.info(
+                        _(
+                            "There is no mapping for field [%s], please contact the developer."
+                        )
+                        % key
+                    )
+
+        if cmd == "create":
+            update_dict.update(
+                {
+                    "is_wecom_user": True,
+                }
+            )
+            try:
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company_id.corpid, company_id.contacts_app_id.secret
+                )
+                response = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call("USER_GET"),
+                    {"userid": update_dict["wecom_userid"]},
+                )
+                if response.get("errcode") == 0:
+                    update_dict.update({"qr_code": response.get("qr_code")})
+            except:
+                pass
+
+            callback_user.create(update_dict)
+        elif cmd == "update":
+            if "wecom_userid" in update_dict:
+                del update_dict["wecom_userid"]
+            callback_user.write(update_dict)
+        elif cmd == "delete":
+            callback_user.write(
+                {
+                    "active": False,
+                }
+            )
 
 
 # ------------------------------------------------------------

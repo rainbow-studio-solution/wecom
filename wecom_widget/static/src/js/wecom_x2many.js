@@ -281,7 +281,7 @@ odoo.define('wecom.x2many', function (require) {
             var name = node.attrs.name;
             var field = this.state.fields[name];
 
-            console.log("attributes", attributes["type"], field.type)
+            // console.log("attributes", attributes["type"], field.type)
             // var value = record.data[name];
             var value = attributes["value"];
             if (attributes["type"] == "boolean" && (value == "False" || value == "True")) {

@@ -43,7 +43,7 @@ class WecomApiToolsFile(models.AbstractModel):
                 image_name = "default_female_image.png"
 
             default_image = get_module_resource(
-                "wecom_hrm_syncing", "static/src/img", image_name
+                "wecom_hrm", "static/src/img", image_name
             )
             # print(default_image)
             with open(default_image, "rb") as f:

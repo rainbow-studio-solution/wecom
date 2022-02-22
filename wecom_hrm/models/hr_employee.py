@@ -19,7 +19,7 @@ WECOM_USER_MAPPING_ODOO_EMPLOYEE = {
     "DirectLeader": "",  # 直属上级
     "Mobile": "mobile_phone",  # 手机号码
     "Position": "job_title",  # 职位信息
-    "Gender": "",  # 性别，1表示男性，2表示女性
+    "Gender": "gender",  # 企微性别：0表示未定义，1表示男性，2表示女性；odoo性别：male为男性，female为女性，other为其他
     "Email": "work_email",  # 邮箱;
     "Status": "active",  # 激活状态：1=已激活 2=已禁用 4=未激活 已激活代表已激活企业微信或已关注微工作台（原企业号）5=成员退出
     "Avatar": "avatar",  # 头像url。注：如果要获取小图将url最后的”/0”改成”/100”即可。
@@ -342,7 +342,7 @@ class HrEmployeePrivate(models.Model):
         """
         employee = self.sudo().search(
             [
-                ("wecom_userid", "=", wecom_employee["userid"]),
+                ("wecom_userid", "=", wecom_employee["userid"].lower()),
                 ("company_id", "=", company.id),
                 ("is_wecom_user", "=", True),
                 "|",
@@ -372,15 +372,13 @@ class HrEmployeePrivate(models.Model):
         try:
             app_config = self.env["wecom.app_config"].sudo()
             contacts_use_default_avatar = app_config.get_param(
-                company.contacts_app_id.id, "contacts_use_default_avatar"
+                company.contacts_app_id.id,
+                "contacts_use_default_avatar_when_adding_employees",
             )  # 使用系统微信默认头像的标识
-            if contacts_use_default_avatar == "True":
-                contacts_use_default_avatar = True
-            else:
-                contacts_use_default_avatar = False
+
             employee.create(
                 {
-                    "wecom_userid": wecom_employee["userid"],
+                    "wecom_userid": wecom_employee["userid"].lower(),
                     "name": wecom_employee["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
                         wecom_employee, "english_name"
@@ -415,7 +413,7 @@ class HrEmployeePrivate(models.Model):
         except Exception as e:
             result = _("Error creating company %s employee %s %s, error reason: %s") % (
                 company.name,
-                wecom_employee["userid"],
+                wecom_employee["userid"].lower(),
                 wecom_employee["name"],
                 repr(e),
             )
@@ -466,18 +464,16 @@ class HrEmployeePrivate(models.Model):
                 }
             )
             app_config = self.env["wecom.app_config"].sudo()
-            contacts_update_avatar_every_time_sync = app_config.get_param(
-                company.contacts_app_id.id, "contacts_update_avatar_every_time_sync"
+            contacts_update_avatar = app_config.get_param(
+                company.contacts_app_id.id,
+                "contacts_update_avatar_every_time_sync_employees",
             )  # 每次同步都更新头像的标识
-            if contacts_update_avatar_every_time_sync == "True":
-                contacts_update_avatar_every_time_sync = True
-            else:
-                contacts_update_avatar_every_time_sync = False
-            if contacts_update_avatar_every_time_sync:
+
+            if contacts_update_avatar:
                 employee.write(
                     {
                         "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
-                            False,
+                            True,
                             wecom_employee["gender"],
                             wecom_employee["avatar"],
                         ),
@@ -486,7 +482,7 @@ class HrEmployeePrivate(models.Model):
         except Exception as e:
             result = _("Error update company %s employee %s %s, error reason: %s") % (
                 company.name,
-                wecom_employee["userid"],
+                wecom_employee["userid"].lower(),
                 wecom_employee["name"],
                 repr(e),
             )
@@ -594,7 +590,7 @@ class HrEmployeePrivate(models.Model):
                     )
                     employee = self.search(
                         [
-                            ("wecom_userid", "=", wecom_employee["userid"]),
+                            ("wecom_userid", "=", wecom_employee["userid"].lower()),
                             ("company_id", "=", company.id),
                             ("is_wecom_user", "=", True),
                             "|",
@@ -643,7 +639,7 @@ class HrEmployeePrivate(models.Model):
         wecom_employees = []
         odoo_employees = []
         for wecom_employee in response["userlist"]:
-            wecom_employees.append(wecom_employee["userid"])
+            wecom_employees.append(wecom_employee["userid"].lower())
 
         domain = ["|", ("active", "=", False), ("active", "=", True)]
         employees = self.search(
@@ -707,16 +703,21 @@ class HrEmployeePrivate(models.Model):
         employee = self.sudo().search([("company_id", "=", company_id.id)] + domain)
 
         callback_employee = employee.search(
-            [("wecom_userid", "=", dic["UserID"])] + domain,
+            [("wecom_userid", "=", dic["UserID"].lower())] + domain,
             limit=1,
         )
         if callback_employee:
             # 如果存在，则更新
             # 用于退出企业微信又重新加入企业微信的员工
             cmd = "update"
+        else:
+            # 如果不存在，停止
+            return
+
         update_dict = {}
         department_ids = []  # 多部门
         new_parent_employee = False
+
         for key, value in dic.items():
             if key == "DirectLeader":
                 parent_employee_wecom_id = value
@@ -744,7 +745,9 @@ class HrEmployeePrivate(models.Model):
             else:
                 if key in WECOM_USER_MAPPING_ODOO_EMPLOYEE.keys():
                     if WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] != "":
-                        if WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_ids":
+                        if WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "wecom_userid":
+                            update_dict.update({"wecom_userid": value.lower()})
+                        elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "department_ids":
                             # 部门列表
                             departments = value.split(",")
                             for department in departments:
@@ -783,6 +786,18 @@ class HrEmployeePrivate(models.Model):
                                 update_dict.update({"active": True})
                             else:
                                 update_dict.update({"active": False})
+                        elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "gender":
+                            gender = self.env["wecom.tools"].sex2gender(value)
+                            update_dict.update({"gender": gender})
+                        # elif WECOM_USER_MAPPING_ODOO_EMPLOYEE[key] == "image_1920":
+                        #     image_1920 = (
+                        #         self.env["wecomapi.tools.file"].get_avatar_base64(
+                        #             contacts_use_default_avatar,
+                        #             dic["Gender"],
+                        #             value,
+                        #         ),
+                        #     )
+                        #     update_dict.update({"image_1920": image_1920})
                         else:
                             update_dict[WECOM_USER_MAPPING_ODOO_EMPLOYEE[key]] = value
                 else:
@@ -802,7 +817,15 @@ class HrEmployeePrivate(models.Model):
         if len(department_ids) > 0:
             update_dict.update({"department_ids": [(6, 0, department_ids)]})
 
-        # print("update_dict", callback_employee, update_dict)
+        app_config = self.env["wecom.app_config"].sudo()
+        contacts_use_default_avatar = app_config.get_param(
+            company_id.contacts_app_id.id,
+            "contacts_use_default_avatar_when_adding_employees",
+        )  # 使用系统微信默认头像的标识
+        contacts_update_avatar = app_config.get_param(
+            company_id.contacts_app_id.id,
+            "contacts_update_avatar_every_time_sync_employees",
+        )  # 允许企微通讯录添加系统用户
 
         if cmd == "create":
             # print("执行创建员工")
@@ -812,6 +835,14 @@ class HrEmployeePrivate(models.Model):
                     "is_wecom_user": True,
                 }
             )
+            if contacts_use_default_avatar:
+                update_dict.update(
+                    {
+                        "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                            True, dic["Gender"], dic["Gender"]
+                        )
+                    }
+                )
             try:
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(
                     company_id.corpid, company_id.contacts_app_id.secret
@@ -829,7 +860,15 @@ class HrEmployeePrivate(models.Model):
         elif cmd == "update":
             if "wecom_userid" in update_dict:
                 del update_dict["wecom_userid"]
-            # print("执行更新员工", update_dict)
+            if contacts_update_avatar:
+                update_dict.update(
+                    {
+                        "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                            True, dic["Gender"], dic["Gender"]
+                        )
+                    }
+                )
+
             callback_employee.write(update_dict)
         elif cmd == "delete":
             # print("执行删除员工")

@@ -117,18 +117,18 @@ class WeComApps(models.Model):
             )[
                 1
             ]  # 4
-            contacts_use_default_avatar = ir_model_data.get_object_reference(
+            contacts_use_default_avatar_when_adding_employees = ir_model_data.get_object_reference(
                 "wecom_contacts_sync",
-                "wecom_app_config_contacts_use_default_avatar",
+                "wecom_app_config_contacts_use_default_avatar_when_adding_employees",
             )[
                 1
             ]  # 5
-            contacts_update_avatar_every_time_sync = ir_model_data.get_object_reference(
-                "wecom_contacts_sync",
-                "wecom_app_config_contacts_update_avatar_every_time_sync",
-            )[
-                1
-            ]  # 6
+            contacts_update_avatar_every_time_sync_employees = (
+                ir_model_data.get_object_reference(
+                    "wecom_contacts_sync",
+                    "wecom_app_config_contacts_update_avatar_every_time_sync_employees",
+                )[1]
+            )  # 6
             enabled_join_qrcode = ir_model_data.get_object_reference(
                 "wecom_contacts_sync", "wecom_app_config_contacts_enabled_join_qrcode"
             )[
@@ -156,8 +156,8 @@ class WeComApps(models.Model):
                 contacts_sync_hr_department_id,  # 2
                 contacts_edit_enabled,  # 3
                 contacts_allow_add_system_users,  # 4
-                contacts_use_default_avatar,  # 5
-                contacts_update_avatar_every_time_sync,  # 6
+                contacts_use_default_avatar_when_adding_employees,  # 5
+                contacts_update_avatar_every_time_sync_employees,  # 6
                 enabled_join_qrcode,  # 7
                 join_qrcode,  # 8
                 join_qrcode_size_type,  # 9
