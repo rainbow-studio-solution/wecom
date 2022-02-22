@@ -706,6 +706,7 @@ class HrEmployeePrivate(models.Model):
             [("wecom_userid", "=", dic["UserID"].lower())] + domain,
             limit=1,
         )
+        print("员工CMD", cmd)
         if callback_employee:
             # 如果存在，则更新
             # 用于退出企业微信又重新加入企业微信的员工

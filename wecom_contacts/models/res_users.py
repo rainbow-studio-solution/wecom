@@ -402,13 +402,20 @@ class Users(models.Model):
             [("wecom_userid", "=", dic["UserID"].lower())] + domain,
             limit=1,
         )
+        print("用户CMD", cmd)
         if callback_user:
             # 如果存在，则更新
+            # 用于退出企业微信又重新加入企业微信的员工
             cmd = "update"
         else:
-            # 如果不存在，停止
-            # TODO 创建用户
-            return
+            # 如果不存在且不允许添加系统用户，停止
+            app_config = self.env["wecom.app_config"].sudo()
+            allow_add_system_users = app_config.get_param(
+                company_id.contacts_app_id.id,
+                "contacts_allow_add_system_users",
+            )  # 使用系统微信默认头像的标识
+            if allow_add_system_users is False:
+                return
 
         update_dict = {}
 

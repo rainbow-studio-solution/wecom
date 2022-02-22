@@ -32,7 +32,9 @@ class Department(models.Model):
     )
 
     wecom_department_id = fields.Integer(
-        string="WeCom department ID", readonly=True, default="0",
+        string="WeCom department ID",
+        readonly=True,
+        default="0",
     )
 
     wecom_department_parent_id = fields.Integer(
@@ -47,7 +49,9 @@ class Department(models.Model):
         readonly=True,
     )
     is_wecom_department = fields.Boolean(
-        string="WeCom Department", readonly=True, default=False,
+        string="WeCom Department",
+        readonly=True,
+        default=False,
     )
 
     # ------------------------------------------------------------
@@ -77,7 +81,9 @@ class Department(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "DEPARTMENT_LIST"
                     ),
-                    {"id": contacts_sync_hr_department_id,},
+                    {
+                        "id": contacts_sync_hr_department_id,
+                    },
                 )
             except ApiException as ex:
                 end_time = time.time()
@@ -148,7 +154,6 @@ class Department(models.Model):
                 }
             ]  # 返回失败结果
 
-        
         return tasks
 
     def department_data_cleaning(self, departments):
@@ -216,7 +221,7 @@ class Department(models.Model):
             return {
                 "name": "add_department",
                 "state": False,
-                "time":0,
+                "time": 0,
                 "msg": result,
             }
 
@@ -243,7 +248,7 @@ class Department(models.Model):
             return {
                 "name": "update_department",
                 "state": False,
-                "time":0,
+                "time": 0,
                 "msg": result,
             }
 
@@ -269,7 +274,9 @@ class Department(models.Model):
                 else:
                     try:
                         department.write(
-                            {"parent_id": parent_department.id,}
+                            {
+                                "parent_id": parent_department.id,
+                            }
                         )
                     except Exception as e:
                         result = _(
@@ -281,7 +288,7 @@ class Department(models.Model):
                             {
                                 "name": "set_parent_department",
                                 "state": False,
-                                "time":0,
+                                "time": 0,
                                 "msg": result,
                             }
                         )
@@ -296,7 +303,8 @@ class Department(models.Model):
         """
         parent_department = self.search(
             [
-                ("wecom_department_id", "=", department.wecom_department_parent_id), ("company_id", "=", company.id)
+                ("wecom_department_id", "=", department.wecom_department_parent_id),
+                ("company_id", "=", company.id),
             ]
         )
         return parent_department
@@ -322,8 +330,10 @@ class Department(models.Model):
             .search([("company_id", "=", company_id.id)] + domain)
         )
         callback_department = department.search(
-            [("wecom_department_id", "=", dic["Id"])] + domain, limit=1,
+            [("wecom_department_id", "=", dic["Id"])] + domain,
+            limit=1,
         )
+
         update_dict = {}
         parent_department = False
         if "ParentId" in dic:
@@ -331,7 +341,8 @@ class Department(models.Model):
                 pass
             else:
                 parent_department = department.search(
-                    [("wecom_department_id", "=", int(dic["ParentId"]))], limit=1,
+                    [("wecom_department_id", "=", int(dic["ParentId"]))],
+                    limit=1,
                 )
         for key, value in dic.items():
             if (
@@ -357,15 +368,13 @@ class Department(models.Model):
                         )
                         % key
                     )
-        # print("上级部门", parent_department)
+
         if parent_department:
             update_dict.update({"parent_id": parent_department.id})
         else:
             update_dict.update({"parent_id": False})
 
         update_dict.update({"company_id": company_id.id, "is_wecom_department": True})
-
-        # print("update_dict", callback_department, update_dict)
 
         if cmd == "create":
             callback_department.create(update_dict)
