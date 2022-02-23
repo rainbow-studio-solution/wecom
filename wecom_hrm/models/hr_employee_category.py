@@ -54,7 +54,10 @@ class EmployeeCategory(models.Model):
         default=0,
         help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
-    is_wecom_tag = fields.Boolean(string="WeCom Tag", default=False,)
+    is_wecom_tag = fields.Boolean(
+        string="WeCom Tag",
+        default=False,
+    )
 
     @api.depends("is_wecom_tag")
     def _compute_display_name(self):
@@ -131,7 +134,10 @@ class EmployeeCategory(models.Model):
                     "message": message,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
                 action = {
                     "type": "ir.actions.client",
@@ -247,7 +253,12 @@ class EmployeeCategory(models.Model):
             if response["errmsg"] == "created":
                 self.write({"tagid": tagid})
                 params.update(
-                    {"next": {"type": "ir.actions.client", "tag": "reload",},}  # 刷新窗体
+                    {
+                        "next": {
+                            "type": "ir.actions.client",
+                            "tag": "reload",
+                        },
+                    }  # 刷新窗体
                 )
 
         finally:
@@ -368,7 +379,10 @@ class EmployeeCategory(models.Model):
                     "type": "success",
                     "sticky": True,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },
                 }
             )
         finally:
@@ -445,7 +459,10 @@ class EmployeeCategory(models.Model):
                         )
                     else:
                         category.write(
-                            {"name": tag["tagname"], "is_wecom_tag": True,}
+                            {
+                                "name": tag["tagname"],
+                                "is_wecom_tag": True,
+                            }
                         )
                     result = self.download_wecom_tag_member(
                         category, wxapi, tag["tagid"], company
@@ -589,11 +606,20 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deleted successfully.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
-                tag = self.search([("tagid", "=", self.tagid)], limit=1,)
+                tag = self.search(
+                    [("tagid", "=", self.tagid)],
+                    limit=1,
+                )
                 tag.write(
-                    {"is_wecom_tag": False, "tagid": 0,}
+                    {
+                        "is_wecom_tag": False,
+                        "tagid": 0,
+                    }
                 )
                 # tag.unlink()
             else:
@@ -603,7 +629,10 @@ class EmployeeCategory(models.Model):
                     "message": _("Tag: %s deletion failed.") % self.name,
                     "sticky": False,  # 延时关闭
                     "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+                    "next": {
+                        "type": "ir.actions.client",
+                        "tag": "reload",
+                    },  # 刷新窗体
                 }
             action = {
                 "type": "ir.actions.client",
@@ -635,13 +664,9 @@ class EmployeeCategory(models.Model):
         xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
         dic = lxml_to_dict(xml_tree_str)["xml"]
 
-        callback_tag = (
-            self.env["hr.employee.category"]
-            .sudo()
-            .search(
-                [("company_id", "=", company_id.id), ("tagid", "=", dic["TagId"])],
-                limit=1,
-            )
+        callback_tag = self.sudo().search(
+            [("company_id", "=", company_id.id), ("tagid", "=", dic["TagId"])],
+            limit=1,
         )
         domain = [
             "|",
@@ -694,25 +719,31 @@ class EmployeeCategory(models.Model):
         if "add_employee_ids" in update_dict.keys():
             for wecom_userid in update_dict["add_employee_ids"].split(","):
                 add_employee_list.append(
-                    employee.search([("wecom_userid", "=", wecom_userid)], limit=1).id
+                    employee.search(
+                        [("wecom_userid", "=", wecom_userid.lower())], limit=1
+                    ).id
                 )
         elif "del_employee_ids" in update_dict.keys():
             for wecom_userid in update_dict["del_employee_ids"].split(","):
                 del_employee_list.append(
-                    employee.search([("wecom_userid", "=", wecom_userid)], limit=1).id
+                    employee.search(
+                        [("wecom_userid", "=", wecom_userid.lower())], limit=1
+                    ).id
                 )
         elif "add_department_ids" in update_dict.keys():
             for wecom_department_id in update_dict["add_department_ids"].split(","):
                 add_department_list.append(
                     department.search(
-                        [("wecom_department_id", "=", wecom_department_id)], limit=1,
+                        [("wecom_department_id", "=", wecom_department_id)],
+                        limit=1,
                     ).id
                 )
         elif "del_department_ids" in update_dict.keys():
             for wecom_department_id in update_dict["del_department_ids"].split(","):
                 del_department_list.append(
                     department.search(
-                        [("wecom_department_id", "=", wecom_department_id)], limit=1,
+                        [("wecom_department_id", "=", wecom_department_id)],
+                        limit=1,
                     ).id
                 )
 

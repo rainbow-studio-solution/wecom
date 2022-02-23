@@ -10,6 +10,14 @@ from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
+WECOM_USER_MAPPING_ODOO_PARTNER_CATEGORY = {
+    "TagId": "tagid",  # 标签Id
+    "AddUserItems": "add_partner_ids",  # 标签中新增的成员userid列表，用逗号分隔
+    "DelUserItems": "del_partner_ids",  # 标签中删除的成员userid列表，用逗号分隔
+    "AddPartyItems": "",  # 标签中新增的部门id列表，用逗号分隔
+    "DelPartyItems": "",  # 标签中删除的部门id列表，用逗号分隔
+}
+
 
 class PartnerCategory(models.Model):
     _inherit = "res.partner.category"
@@ -206,3 +214,83 @@ class PartnerCategory(models.Model):
 
         finally:
             return res  # 返回失败的结果
+
+    # ------------------------------------------------------------
+    # 企微通讯录事件
+    # ------------------------------------------------------------
+    def wecom_event_change_contact_tag(self, cmd):
+        """
+        通讯录事件更新标签
+        """
+        xml_tree = self.env.context.get("xml_tree")
+        company_id = self.env.context.get("company_id")
+        xml_tree_str = etree.fromstring(bytes.decode(xml_tree))
+        dic = lxml_to_dict(xml_tree_str)["xml"]
+
+        callback_tag = self.sudo().search(
+            [("company_id", "=", company_id.id), ("tagid", "=", dic["TagId"])],
+            limit=1,
+        )
+
+        domain = [
+            "|",
+            ("active", "=", True),
+            ("active", "=", False),
+        ]
+        partner = (
+            self.env["res.partner"]
+            .sudo()
+            .search([("company_id", "=", company_id.id)] + domain)
+        )
+        update_dict = {}
+
+        for key, value in dic.items():
+            if (
+                key == "ToUserName"
+                or key == "FromUserName"
+                or key == "CreateTime"
+                or key == "Event"
+                or key == "MsgType"
+                or key == "ChangeType"
+            ):
+                # 忽略掉 不需要的key
+                pass
+            else:
+                if key in WECOM_USER_MAPPING_ODOO_PARTNER_CATEGORY.keys():
+                    if WECOM_USER_MAPPING_ODOO_PARTNER_CATEGORY[key] != "":
+                        update_dict[
+                            WECOM_USER_MAPPING_ODOO_PARTNER_CATEGORY[key]
+                        ] = value
+                    else:
+                        _logger.info(
+                            _(
+                                "There is no mapping for field [%s], please contact the developer."
+                            )
+                            % key
+                        )
+
+        add_partner_list = []
+        del_partner_list = []
+
+        if "add_partner_ids" in update_dict.keys():
+            for wecom_userid in update_dict["add_partner_ids"].split(","):
+                add_partner_list.append(
+                    partner.search(
+                        [("wecom_userid", "=", wecom_userid.lower())], limit=1
+                    ).id
+                )
+        elif "del_partner_ids" in update_dict.keys():
+            for wecom_userid in update_dict["del_partner_ids"].split(","):
+                del_partner_list.append(
+                    partner.search(
+                        [("wecom_userid", "=", wecom_userid.lower())], limit=1
+                    ).id
+                )
+        if len(add_partner_list) > 0:
+            callback_tag.write(
+                {"partner_ids": [(4, res, False) for res in add_partner_list]}
+            )
+        if len(del_partner_list) > 0:
+            callback_tag.write(
+                {"partner_ids": [(3, res, False) for res in del_partner_list]}
+            )
