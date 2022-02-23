@@ -11,14 +11,15 @@
 ## 功能模块介绍
 
 > 在14.0的基础上， 将通讯簿应用从wecom_base剥离, 并将通讯簿模块放到wecom_contacts中，取消了 wecom_hrm_syncing 模块，同步功能模块放到wecom_contacts_sync中。
+> 尚未开发完成，暂时不要使用
 
 1. wecom_api 企微API，封装 企业微信服务端API和客户端API，完成。
 2. wecom_l10n 企微本地化，用于模块本地化，完成。
-3. wecom_widget 企微小部件，部分需要适配15.0，暂时不影响使用，回头处理。
+3. wecom_widget 企微小部件，完成。
 4. wecom_base  企微基础，功能：企微应用，应用参数，应用事件，应用类型，Odoo相关模型添加企业微信字段，完成。
 5. wecom_contacts 企微联系人，企业微信通讯录应用，完成。
-6. wecom_contacts_sync 企微联系人同步，完成：企微通讯簿向导同步，事件同步，待完成功能：自动任务同步。
-7. wecom_hrm 企微HRM 管理企业微信的部门、成员和标签，整合和重建odoo Hr的菜单。待完成生成系统用户功能。
+6. wecom_contacts_sync 企微联系人同步，完成：企微通讯簿向导同步，事件同步。完成。
+7. wecom_hrm 企微HRM 管理企业微信的部门、成员和标签，整合和重建odoo Hr的菜单。完成。
 8. wecom_hrm_extension 企微HRM扩展，安装Odoo中所有Hr相关的模块，整合和重建odoo Hr的菜单。未完成。
 9. wecom_material 企微媒体素材，用于资源文件，一次上传可以多次使用，完成。
 10. wecom_message 企业微信，拦截标识为企业微信用户目标对象的电子邮件，通过企业微信向目标对象推送文本、图片、视频、文件、图形等类型的消息。待处理

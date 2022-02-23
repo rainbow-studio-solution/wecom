@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-01 07:54+0000\n"
-"PO-Revision-Date: 2022-02-05 15:01+0800\n"
+"PO-Revision-Date: 2022-02-23 09:34+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -329,3 +329,30 @@ msgstr "企微会话存档"
 #: model:ir.module.module,shortdesc:base.module_wecom_chatdata2contacts
 msgid "WeCom Chat data attached to contacts"
 msgstr "企微聊天数据附加到联系人"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_rainbow_community_theme
+msgid "Rainbow Community Theme"
+msgstr "彩虹社区版主题"
+
+#. module: base
+#: model:ir.module.module,description:base.module_rainbow_community_theme
+msgid ""
+"\n"
+"Rainbow Community Theme\n"
+"===========================\n"
+"\n"
+"Backend/Launcher/Multi-level menu/Theme Settings/Custom login page/\n"
+"        "
+msgstr ""
+"\n"
+"彩虹社区版主题\n"
+"===========================\n"
+"\n"
+"后端/启动器/多级菜单/主题设置/自定义登录页面\n"
+"        "
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_themes
+msgid "Themes"
+msgstr "主题"
