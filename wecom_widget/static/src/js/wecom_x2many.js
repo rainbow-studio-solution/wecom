@@ -240,9 +240,12 @@ odoo.define('wecom.x2many', function (require) {
             var res_id = record["res_id"]
             var attributes = {}
             $.each(self.need_format_datas, function (key, data) {
-                if (data["id"] == res_id) {
-                    attributes = data;
+                if (data) {
+                    if (data["id"] == res_id) {
+                        attributes = data;
+                    }
                 }
+
             });
 
             // We register modifiers on the <td> element so that it gets the correct
