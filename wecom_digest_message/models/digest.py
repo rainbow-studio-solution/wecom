@@ -43,7 +43,10 @@ class Digest(models.Model):
         full_mail = self.env["mail.render.mixin"]._render_encapsulate(
             "digest.digest_mail_layout",
             rendered_body,
-            add_context={"company": user.company_id, "user": user,},
+            add_context={
+                "company": user.company_id,
+                "user": user,
+            },
         )
         # 获取素材
 
@@ -99,8 +102,8 @@ class Digest(models.Model):
             "duplicate_check_interval": 1800,
         }
         mail = self.env["mail.mail"].sudo().create(mail_values)
-        mail.send_wecom_message(
-            raise_exception=False, company=user.company_id,
+        mail.send_wecom_mail_message(
+            raise_exception=False,
+            company=user.company_id,
         )
         return True
-
