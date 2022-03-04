@@ -708,11 +708,11 @@ msgid ""
 "path.</span>\n"
 "                                            <br/>\n"
 "                                            reference:Windows: D:\\resources\\  <br/>\n"
-"                                            Linux: /home/odoo/resources/ Note: odoo is the current system account"
+"                                            Linux or Docker: /var/lib/odoo/resources/"
 msgstr ""
 "企业微信资源保存路径,<span class=\"text-danger\">需要对路径具有读写权限.</span><br/>\n"
 "                                            参考:Windows: D:\\resources\\  <br/>\n"
-"                                            Linux: /home/odoo/resources/ 注意：odoo是当前系统帐户"
+"                                            Linux 或 Docker: /var/lib/odoo/resources/"
 
 #. module: wecom_base
 #: model:ir.model.fields,help:wecom_base.field_res_partner__wecom_user_order
