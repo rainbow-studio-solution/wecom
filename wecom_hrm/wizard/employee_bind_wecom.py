@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from turtle import update
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -24,6 +25,7 @@ class EmployeeBindWecom(models.TransientModel):
     )
     employee_name = fields.Char(related="employee_id.name", readonly=True)
     company_id = fields.Many2one(related="employee_id.company_id", readonly=True)
+    sync = fields.Boolean(string="Synchronize updates", default=False)
 
     @api.depends("company_id", "wecom_userid")
     def _compute_user(self):
@@ -77,25 +79,24 @@ class EmployeeBindWecom(models.TransientModel):
                 _("Employee with ID [%s] already exists") % (self.wecom_userid)
             )
         else:
-            self.employee_id.write(
-                {
+            update_dic = {}
+            if self.sync:
+                update_dic = {
                     "is_wecom_user": True,
                     "wecom_userid": RESPONSE["userid"],
                     "name": RESPONSE["name"],
                     "qr_code": RESPONSE["qr_code"],
                 }
-            )
+            else:
+                update_dic = {
+                    "is_wecom_user": True,
+                    "wecom_userid": RESPONSE["userid"],
+                    "qr_code": RESPONSE["qr_code"],
+                }
+            self.employee_id.write(update_dic)
             if self.employee_id.user_id:
                 # 关联了User
-                self.employee_id.user_id.write(
-                    {
-                        "is_wecom_user": True,
-                        "wecom_userid": RESPONSE["userid"],
-                        "name": RESPONSE["name"],
-                        "notification_type": "inbox",
-                        "qr_code": RESPONSE["qr_code"],
-                    }
-                )
+                self.employee_id.user_id.write(update_dic)
                 # self.employee_id._sync_user(
                 #     self.env["res.users"].sudo().browse(self.employee_id.user_id),
                 #     bool(self.employee_id.image_1920),

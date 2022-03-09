@@ -24,6 +24,7 @@ class UserBindWecom(models.TransientModel):
     )
     user_name = fields.Char(related="user_id.name", readonly=True)
     company_id = fields.Many2one(related="user_id.company_id", readonly=True)
+    sync = fields.Boolean(string="Synchronize updates", default=False)
 
     @api.depends("company_id", "wecom_userid")
     def _compute_user(self):
@@ -70,23 +71,19 @@ class UserBindWecom(models.TransientModel):
         if len(user) > 0:
             raise UserError(_("User with ID [%s] already exists") % (self.wecom_userid))
         else:
-            self.user_id.write(
-                {
-                    "is_wecom_user": True,
-                    "wecom_userid": RESPONSE["userid"],
-                    "name": RESPONSE["name"],
-                    "qr_code": RESPONSE["qr_code"],
-                    "notification_type": "inbox",
-                }
-            )
-            # print(self.user_id.employee_id)
-            # for employee in self.user_id.employee_ids:
-            self.user_id.employee_id.write(
-                {
+            update_dic = {}
+            if self.sync:
+                update_dic = {
                     "is_wecom_user": True,
                     "wecom_userid": RESPONSE["userid"],
                     "name": RESPONSE["name"],
                     "qr_code": RESPONSE["qr_code"],
                 }
-            )
-
+            else:
+                update_dic = {
+                    "is_wecom_user": True,
+                    "wecom_userid": RESPONSE["userid"],
+                    "qr_code": RESPONSE["qr_code"],
+                }
+            self.user_id.write(update_dic)
+            self.user_id.employee_id.write(update_dic)

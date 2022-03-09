@@ -19,6 +19,7 @@
                             <field name="employee_id" invisible="1"/>
                             <field name="employee_name"/>
                             <field name="wecom_userid" required="True"/>
+                            <field name="sync" />
                         </group>
                     </sheet>
                     <footer>
