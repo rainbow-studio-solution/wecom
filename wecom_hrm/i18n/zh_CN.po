@@ -423,7 +423,7 @@ msgstr "同步标签成员"
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_employee_bind_wecom__sync
 #: model:ir.model.fields,field_description:wecom_hrm.field_wecom_wizard_user_bind_wecom__sync
 msgid "Synchronize updates"
-msgstr "Synchronize updates"
+msgstr "是否同步更新"
 
 #. module: wecom_hrm
 #: model:ir.model.fields,help:wecom_hrm.field_hr_employee_category__tagid
