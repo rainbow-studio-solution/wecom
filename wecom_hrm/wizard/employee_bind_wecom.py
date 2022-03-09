@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from turtle import update
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
