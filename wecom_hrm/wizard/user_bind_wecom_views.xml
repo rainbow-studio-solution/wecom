@@ -17,7 +17,7 @@
                         <group>
                             <field name="company_id" readonly="1" options="{'no_open': True}"/>
                             <field name="user_id" invisible="1"/>
-                            <field name="user_name"/>
+                            <field name="user_name" widget="CopyClipboardChar"/>
                             <field name="wecom_userid" required="True"/>
                             <field name="sync" />
                         </group>

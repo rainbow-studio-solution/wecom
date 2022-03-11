@@ -18,13 +18,27 @@ class HrEmployeePrivate(models.Model):
         # domain="[('is_wecom_category', '=',False)]",
     )
 
-    wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
-    wecom_open_userid = fields.Char(string="WeCom open user Id", readonly=True,)
-    alias = fields.Char(string="Alias", readonly=True,)
-    english_name = fields.Char(string="English Name", readonly=True,)
+    wecom_userid = fields.Char(
+        string="WeCom user Id",
+        readonly=True,
+    )
+    wecom_open_userid = fields.Char(
+        string="WeCom open user Id",
+        readonly=True,
+    )
+    alias = fields.Char(
+        string="Alias",
+        readonly=True,
+    )
+    english_name = fields.Char(
+        string="English Name",
+        readonly=True,
+    )
 
     department_ids = fields.Many2many(
-        "hr.department", string="Multiple departments", readonly=True,
+        "hr.department",
+        string="Multiple departments",
+        readonly=True,
     )
     use_system_avatar = fields.Boolean(readonly=True, default=True)
     avatar = fields.Char(string="Avatar")
@@ -41,7 +55,9 @@ class HrEmployeePrivate(models.Model):
         readonly=True,
     )
     is_wecom_user = fields.Boolean(
-        string="WeCom employees", readonly=True, default=False,
+        string="WeCom employees",
+        readonly=True,
+        default=False,
     )
 
     # TODO 待处理 增加标签成员 和 删除标签成员
@@ -79,10 +95,19 @@ class HrEmployeePrivate(models.Model):
         解除绑定企业微信成员
         """
         self.write(
-            {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+            {
+                "is_wecom_user": False,
+                "wecom_userid": None,
+                "qr_code": None,
+                "department_ids": False,
+            }
         )
         if self.user_id:
             # 关联了User
             self.user_id.write(
-                {"is_wecom_user": False, "wecom_userid": None, "qr_code": None,}
+                {
+                    "is_wecom_user": False,
+                    "wecom_userid": None,
+                    "qr_code": None,
+                }
             )
