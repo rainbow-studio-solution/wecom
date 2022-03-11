@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery=".o_list_buttons" t-operation="append">
+
+            <t t-if="widget and widget.modelName == 'wecom.users'">
+                <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
+                <button class="btn btn-info o_list_wecom_organizational_download fa fa-cloud-download" type="button">Download organizational structure</button>
+            </t>
+        </t>
+    </t>
+</templates>

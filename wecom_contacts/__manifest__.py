@@ -16,10 +16,20 @@
 
 
         """,
-    "depends": ["contacts",],
-    "data": ["views/res_partner_views.xml",
+    "depends": [
+        "contacts",
     ],
-    "external_dependencies": {"python": [],},
-    "qweb": ["static/src/xml/*.xml",],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/res_partner_views.xml",
+        "views/wecom_user_view.xml",
+        "views/menu_view.xml",
+        "views/assets_templates.xml",
+    ],
+    "external_dependencies": {
+        "python": [],
+    },
+    "qweb": [
+        "static/src/xml/*.xml",
+    ],
 }
-

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wecom_users_access_right,access.wecom.users,model_wecom_users,base.group_erp_manager,1,0,0,0
+wecom_department_access_right,access.wecom.department,model_wecom_department,base.group_erp_manager,1,0,0,0
