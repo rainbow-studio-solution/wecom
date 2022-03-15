@@ -4,6 +4,7 @@ import base64
 from email.policy import default
 import os
 import io
+from trace import Trace
 from PIL import Image
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
@@ -24,10 +25,14 @@ class ResConfigSettings(models.TransientModel):
     msgaudit_secret = fields.Char(related="msgaudit_app_id.secret", readonly=False)
     msgaudit_access_token = fields.Char(related="msgaudit_app_id.access_token")
 
-    chatdata2contact_img_max_size = fields.Integer(
-        "WeCom Chat data picture attached to contact's picture size",
+    msgaudit_auto_get_internal_groupchat_name = fields.Boolean(
+        "Automatically get internal group chat name", default=True
+    )
+
+    chatdata_add_to_log_note_img_max_size = fields.Integer(
+        "WeCom Chat data picture attached to log note picture size",
         default=512,
-        config_parameter="wecom.msgaudit.chatdata2contacts.img_max_size",
+        config_parameter="wecom.msgaudit.chatdata.add_to_log_note.img_max_size",
     )
 
     # msgaudit_sdk_proxy = fields.Boolean(string="Proxy Request", default=False,)
@@ -48,24 +53,31 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wecom.msgaudit.msgaudit_mediadata_url",
     )
 
-    module_wecom_chatdata2contacts = fields.Boolean(
-        "Wecom chat records are attached to contact records and notes"
+    module_wecom_chatdata_add_log_note = fields.Boolean(
+        "Wecom chat records attached to log note"
     )
-    # @api.model
-    # def get_values(self):
-    #     res = super(ResConfigSettings, self).get_values()
-    #     ir_config = self.env["ir.config_parameter"].sudo()
 
-    #     msgaudit_sdk_proxy = (
-    #         True if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True" else False
-    #     )
+    @api.model
+    def get_values(self):
+        res = super(ResConfigSettings, self).get_values()
+        ir_config = self.env["ir.config_parameter"].sudo()
 
-    #     res.update(msgaudit_sdk_proxy=msgaudit_sdk_proxy,)
-    #     return res
+        msgaudit_auto_get_internal_groupchat_name = (
+            True
+            if ir_config.get_param("wecom.msgaudit.auto_get_internal_groupchat_name")
+            == "True"
+            else False
+        )
 
-    # def set_values(self):
-    #     super(ResConfigSettings, self).set_values()
-    #     ir_config = self.env["ir.config_parameter"].sudo()
-    #     ir_config.set_param(
-    #         "wecom.msgaudit_sdk_proxy", self.msgaudit_sdk_proxy or "False"
-    #     )
+        res.update(
+            msgaudit_auto_get_internal_groupchat_name=msgaudit_auto_get_internal_groupchat_name,
+        )
+        return res
+
+    def set_values(self):
+        super(ResConfigSettings, self).set_values()
+        ir_config = self.env["ir.config_parameter"].sudo()
+        ir_config.set_param(
+            "wecom.msgaudit.auto_get_internal_groupchat_name",
+            self.msgaudit_auto_get_internal_groupchat_name or "False",
+        )

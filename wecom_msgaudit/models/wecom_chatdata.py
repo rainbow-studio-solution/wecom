@@ -15,6 +15,12 @@ from odoo.modules.module import get_module_resource
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 
+import pandas as pd
+
+pd.set_option("max_colwidth", 4096)  # 设置最大列宽
+pd.set_option("display.max_columns", 30)  # 设置最大列数
+pd.set_option("expand_frame_repr", False)  # 当列太多时不换行
+
 _logger = logging.getLogger(__name__)
 
 
@@ -104,7 +110,9 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
-    time = fields.Datetime(string="Message sending time",)
+    time = fields.Datetime(
+        string="Message sending time",
+    )
     user = fields.Char(string="User")
 
     text = fields.Text(string="Text message content")  # msgtype=text
@@ -156,6 +164,7 @@ class WeComChatData(models.Model):
     def _compute_is_external_msg(self):
         for record in self:
             if "external" in record.msgid:
+                # 消息ID 包含 external 字符串，则为外部消息
                 record.is_external_msg = True
             else:
                 record.is_external_msg = False
@@ -164,7 +173,9 @@ class WeComChatData(models.Model):
         """
         获取聊天记录
         注:获取会话记录内容不能超过3天，如果企业需要全量数据，则企业需要定期拉取聊天消息。返回的ChatDatas内容为json格式。
+
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
         company = self.company_id
         if not company:
             company = self.env.company
@@ -213,7 +224,6 @@ class WeComChatData(models.Model):
             max_seq_id = results[0]["max"]
 
         try:
-            ir_config = self.env["ir.config_parameter"].sudo()
             msgaudit_sdk_url = ir_config.get_param("wecom.msgaudit.msgaudit_sdk_url")
             msgaudit_chatdata_url = ir_config.get_param(
                 "wecom.msgaudit.msgaudit_chatdata_url"
@@ -236,15 +246,22 @@ class WeComChatData(models.Model):
 
             if proxy:
                 body.update(
-                    {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
+                    {
+                        "proxy": msgaudit_chatdata_url,
+                        "paswd": "odoo:odoo",
+                    }
                 )
 
             r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
             chat_datas = r.json()
 
             if len(chat_datas) > 0:
+                # df = pd.DataFrame(chat_datas)
+                # print(df)
                 for data in chat_datas:
                     dic_data = {}
+
+                    is_external_msg = True if "external" in data["msgid"] else False
                     dic_data = {
                         "seq": data["seq"],
                         "msgid": data["msgid"],
@@ -252,20 +269,29 @@ class WeComChatData(models.Model):
                         "encrypt_random_key": data["encrypt_random_key"],
                         "encrypt_chat_msg": data["encrypt_chat_msg"],
                         "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
+                        "is_external_msg": is_external_msg,
                     }
-
+                    # auto_get_internal_groupchat_name = ir_config.get_param(
+                    #     "wecom.msgaudit.auto_get_internal_groupchat_name"
+                    # )
                     # 以下为解密聊天信息内容
+                    # print(data["decrypted_chat_msg"])
                     for key, value in data["decrypted_chat_msg"].items():
-                        if key == "msgid" or key == "voiceid":
+                        if key == "msgid":
+                            pass
+                        elif key == "voiceid":
                             pass
                         elif key == "from":
                             dic_data["from_user"] = value
+                        elif key == "roomid" and value and is_external_msg is False:
+                            dic_data.update(self.get_group_chat_info_by_roomid(value))
                         elif key == "msgtime" or key == "time":
                             time_stamp = value
-                            dic_data[key] = self.timestamp2datetime(time_stamp)
+                            # dic_data[key] = self.timestamp2datetime(time_stamp)
+                            dic_data.update({key: self.timestamp2datetime(time_stamp)})
                         else:
-                            dic_data[key] = value
-
+                            dic_data.update({key: value})
+                    # print(dic_data)
                     self.sudo().create(dic_data)
                 return True
             else:
@@ -278,12 +304,69 @@ class WeComChatData(models.Model):
             _logger.exception("Exception: %s" % e)
             return str(e)
 
+    def bind_internal_group_chat(self):
+        """
+        绑定内部群聊 到模型
+        """
+        if self.is_external_msg:
+            # 外部消息，pass
+            pass
+        else:
+            if self.room_name:
+                pass
+            else:
+                # 无群名称，获取群名称
+                pass
+
     @api.model
     def _default_image(self):
         image_path = get_module_resource(
             "wecom_api", "static/src/img", "default_image.png"
         )
         return base64.b64encode(open(image_path, "rb").read())
+
+    def get_group_chat_info_by_roomid(self, roomid):
+        """
+        获取群聊信息
+        """
+
+        company = self.company_id
+        if not company:
+            company = self.env.company
+        room_dic = {}
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.msgaudit_app_id.secret
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("GROUPCHAT_GET"),
+                {"roomid": roomid},
+            )
+            if response["errcode"] == 0:
+                time_stamp = response["room_create_time"]
+                room_create_time = self.timestamp2datetime(time_stamp)
+                room_dic = {
+                    "room_name": response["roomname"],
+                    "room_creator": response["creator"],
+                    "room_notice": response["notice"],
+                    "room_create_time": room_create_time,
+                    "room_members": json.dumps(response["members"]),
+                }
+
+                # same_group_chats = self.search([("roomid", "=", self.roomid)])
+                # for chat in same_group_chats:
+                #     chat.write(
+                #         {
+                #             "room_name": response["roomname"],
+                #         }
+                #     )
+        except ApiException as ex:
+            pass
+            # return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+            #     ex, raise_exception=True
+            # )
+        finally:
+            return room_dic
 
     def update_group_chat(self):
         """
@@ -316,7 +399,9 @@ class WeComChatData(models.Model):
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
                 for chat in same_group_chats:
                     chat.write(
-                        {"room_name": response["roomname"],}
+                        {
+                            "room_name": response["roomname"],
+                        }
                     )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -416,7 +501,10 @@ class WeComChatData(models.Model):
                 }
                 if proxy:
                     body.update(
-                        {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
+                        {
+                            "proxy": msgaudit_chatdata_url,
+                            "paswd": "odoo:odoo",
+                        }
                     )
 
                 r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
@@ -425,6 +513,7 @@ class WeComChatData(models.Model):
                 if len(chat_datas) > 0:
                     for data in chat_datas:
                         dic_data = {}
+                        is_external_msg = True if "external" in data["msgid"] else False
                         dic_data = {
                             "company_id": app.company_id.id,
                             "seq": data["seq"],
@@ -435,19 +524,25 @@ class WeComChatData(models.Model):
                             "decrypted_chat_msg": json.dumps(
                                 data["decrypted_chat_msg"]
                             ),
+                            "is_external_msg": is_external_msg,
                         }
 
                         # 以下为解密聊天信息内容
                         for key, value in data["decrypted_chat_msg"].items():
                             if key == "msgid":
                                 pass
+                            elif key == "voiceid":
+                                pass
                             elif key == "from":
                                 dic_data["from_user"] = value
+                            elif key == "roomid" and value and is_external_msg is False:
+                                dic_data.update(self.get_group_chat_info_by_roomid(value))
                             elif key == "msgtime" or key == "time":
                                 time_stamp = value
-                                dic_data[key] = self.timestamp2datetime(time_stamp)
+                                # dic_data[key] = self.timestamp2datetime(time_stamp)
+                                dic_data.update({key: self.timestamp2datetime(time_stamp)})
                             else:
-                                dic_data[key] = value
+                                dic_data.update({key: value})
 
                         self.sudo().create(dic_data)
                     _logger.info(
@@ -582,7 +677,10 @@ class WeComChatData(models.Model):
                     }
                     if proxy:
                         body.update(
-                            {"proxy": mediadata_url, "paswd": "odoo:odoo",}
+                            {
+                                "proxy": mediadata_url,
+                                "paswd": "odoo:odoo",
+                            }
                         )
                     r = requests.get(
                         mediadata_url, data=json.dumps(body), headers=headers
@@ -592,7 +690,7 @@ class WeComChatData(models.Model):
                     img_max_size = (
                         int(
                             ir_config.get_param(
-                                "wecom.msgaudit.chatdata2contacts.img_max_size"
+                                "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
                             )
                         )
                         * 1024

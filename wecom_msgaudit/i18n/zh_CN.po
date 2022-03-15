@@ -919,7 +919,7 @@ msgid "Vote message content"
 msgstr "投票消息内容"
 
 #. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__chatdata2contact_img_max_size
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__chatdata_add_to_log_note_img_max_size
 msgid "WeCom Chat data picture attached to contact's picture size"
 msgstr "企微聊天数据图片附加到联系人的图片大小"
 

@@ -17,7 +17,7 @@
 
         """,
     "depends": ["wecom_hrm_syncing", "contacts"],
-    "external_dependencies": {"python": ["pycryptodome"],},
+    "external_dependencies": {"python": ["pycryptodome","pandas"],},
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
