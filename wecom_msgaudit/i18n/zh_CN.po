@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-02 09:45+0000\n"
-"PO-Revision-Date: 2022-02-02 17:46+0800\n"
+"POT-Creation-Date: 2022-03-16 04:25+0000\n"
+"PO-Revision-Date: 2022-03-16 15:35+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -81,8 +81,6 @@ msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
@@ -137,36 +135,37 @@ msgid "Audio shared document messages content"
 msgstr "音频共享文档消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Automatic task: End download session content record for [%s]"
-msgstr "自动任务：结束下载 [%s] 的会话内容记录"
+msgstr "自动任务：结束[%s]的下载会话内容记录"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid ""
 "Automatic task: End download session content record for [%s],There are no "
 "records to download."
-msgstr "自动任务：结束下载 [%s] 的会话内容记录，没有可下载的记录。"
+msgstr "自动任务：结束[%s]的下载会话内容记录，没有可下载的记录。"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid ""
 "Automatic task: Exception in downloading session content record for [%s],"
 "Exception:%s"
-msgstr "自动任务：下载 [%s] 的会话内容记录时出现异常，异常：%s"
+msgstr "自动任务：下载[%s]的会话内容记录时出现异常，异常：%s"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Automatic task: Start download session content record for [%s]"
-msgstr "自动任务：开始下载 [%s] 的会话内容记录"
+msgstr "自动任务：启动[%s]的下载会话内容记录"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_auto_get_internal_groupchat_name
+msgid "Automatically get internal group chat name"
+msgstr "自动获取内部群组聊天名称"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chatdata_form
@@ -241,7 +240,6 @@ msgstr "公司"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Complete the download of chat records."
@@ -253,16 +251,10 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wecom_msgaudit
-#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chatdata_form
-msgid "Contact notes"
-msgstr "联系人备注"
-
-#. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Corp ID cannot be empty!"
-msgstr "企业ID不能为空的！"
+msgstr "公司ID不能为空！"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chatdata__create_uid
@@ -307,7 +299,6 @@ msgstr "显示名称"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/xml/list_header_button.xml:0
 #: code:addons/wecom_msgaudit/static/src/xml/list_header_button.xml:0
 #, python-format
 msgid "Download chat data"
@@ -320,7 +311,6 @@ msgstr "下载会话内容记录"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Download succeeded!"
@@ -357,11 +347,10 @@ msgstr ""
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Error!"
-msgstr "错误！"
+msgstr "错误!"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chatdata__is_external_msg
@@ -370,7 +359,6 @@ msgid "External message"
 msgstr "外部消息"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "External personnel:"
@@ -467,7 +455,6 @@ msgid "Internal group chat information"
 msgstr "内部群聊信息"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Internal staff:"
@@ -484,14 +471,12 @@ msgid "Interworking red packet messages content"
 msgstr "互通红包消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_msgaudit_key.py:0
 #: code:addons/wecom_msgaudit/models/wecom_msgaudit_key.py:0
 #, python-format
 msgid "Key"
 msgstr "密钥"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_msgaudit_key.py:0
 #: code:addons/wecom_msgaudit/models/wecom_msgaudit_key.py:0
 #, python-format
 msgid "Key version must be unique !"
@@ -537,6 +522,11 @@ msgstr "位置消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chatdata__location
 msgid "Location message content"
 msgstr "位置消息内容"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chatdata_form
+msgid "Log notes"
+msgstr "记录备注"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chatdata__msgtype__markdown
@@ -609,7 +599,6 @@ msgid "Message sequence number"
 msgstr "消息序号"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Message sequence number:"
@@ -654,18 +643,16 @@ msgstr "图文消息内容"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "No data to download!"
-msgstr "没有数据下载！"
+msgstr "没有数据可下载！"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "No message encryption key exists!"
-msgstr "消息加密密钥不存在！"
+msgstr "没有消息加密密钥存在！"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chatdata__msgtype__docmsg
@@ -678,14 +665,12 @@ msgid "Online document messages content"
 msgstr "在线文档消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Open link"
 msgstr "打开链接"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid ""
@@ -725,11 +710,10 @@ msgstr "红包消息内容"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chatdata__msgtype__revoke
@@ -762,7 +746,6 @@ msgid "Send message"
 msgstr "发送消息"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "Sending time:"
@@ -804,11 +787,15 @@ msgstr ""
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/xml/wecom_settings_navigation.xml:0
 #: code:addons/wecom_msgaudit/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Session content archiving settings"
 msgstr "会话内容存档设置"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_cron_session_archiving
+msgid "Session content archiving task"
+msgstr "会话内容存档任务"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chatdata__action__switch
@@ -826,11 +813,10 @@ msgid "Text message content"
 msgstr "文本消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom/wecom_msgaudit/models/wecom_chatdata.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chatdata.py:0
 #, python-format
 msgid "The application secret key of session content archive cannot be empty!"
-msgstr "会话内容存档的应用密钥不能为空！"
+msgstr "会话内容存档的应用程序密钥不能为空！"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
@@ -851,7 +837,6 @@ msgstr "加密此条消息使用的公钥版本号。"
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Tips!"
@@ -920,8 +905,8 @@ msgstr "投票消息内容"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__chatdata_add_to_log_note_img_max_size
-msgid "WeCom Chat data picture attached to contact's picture size"
-msgstr "企微聊天数据图片附加到联系人的图片大小"
+msgid "WeCom Chat data picture attached to log note picture size"
+msgstr "企微聊天数据图片附加到备注的图片大小"
 
 #. module: wecom_msgaudit
 #: model:ir.actions.act_window,name:wecom_msgaudit.ir_cron_act_download_wecom_chatdatas
@@ -957,9 +942,16 @@ msgid "Wecom Session content archive key"
 msgstr "企微会话内容存档密钥"
 
 #. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__module_wecom_chatdata2contacts
-msgid "Wecom chat records are attached to contact records and notes"
-msgstr "企微聊天记录附加到联系人记录备注"
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__module_wecom_chatdata_add_log_note
+msgid "Wecom chat records attached to log note"
+msgstr "企微聊天记录附加到记录备注"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"When downloading the session content archive record, the internal group chat "
+"name is automatically obtained."
+msgstr "下载会话内容存档记录时，会自动获取内部群聊的名称。"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chatdata__seq

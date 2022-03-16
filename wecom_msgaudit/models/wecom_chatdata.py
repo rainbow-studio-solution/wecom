@@ -346,6 +346,7 @@ class WeComChatData(models.Model):
                 time_stamp = response["room_create_time"]
                 room_create_time = self.timestamp2datetime(time_stamp)
                 room_dic = {
+                    "roomid": roomid,
                     "room_name": response["roomname"],
                     "room_creator": response["creator"],
                     "room_notice": response["notice"],

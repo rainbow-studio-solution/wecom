@@ -70,7 +70,7 @@
                                 <field name="msgtype" />
                                 <field name="msgtime" />
                             </group>
-                            <group name="contact_notes" string="Contact notes">
+                            <group name="log_notes" string="Log notes">
                                 <field name="commented" />
                             </group>
                         </group>
@@ -111,6 +111,7 @@
                                 </group>
                                 <group>
                                     <group>
+                                        <field name="roomid"/>
                                         <field name="room_creator"/>
                                         <field name="room_create_time"/>
                                         <field name="room_notice"/>
