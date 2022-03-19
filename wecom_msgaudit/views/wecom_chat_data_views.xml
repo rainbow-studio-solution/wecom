@@ -11,8 +11,12 @@
                     <field name="msgid"/>
                     <field name="roomid"/>
                     <field name="room_name" filter_domain="[('room_name', 'ilike', self)]"/>
-                    <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('roomid', '!=', '')]"/>
+                    <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('room', '!=', False)]"/>
                     <!-- <filter string="External message" help="Group Chat" name="ExternalMessage" domain="[('is_external_msg', '!=', False)]"/> -->
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="room" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
                 </search>
             </field>
         </record>
@@ -28,12 +32,13 @@
                     <field name="action" />
                     <field name="from_user" />
                     <field name="msgtime" />
+                    <field name="room" invisible="1"/>
                     <field name="roomid" />
                     <field name="is_external_msg" />
                     <field name="room_name" />
                     <field name="msgtype" />
                     <field name="commented" />
-                    <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
+                    <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/>
                     <button class="btn btn-primary" name="format_content" string=" Format message" type="object" icon="fa-check-square-o" />
                 </tree>
             </field>
@@ -44,10 +49,11 @@
             <field name="model">wecom.chat.data</field>
             <field name="arch" type="xml">
                 <form edit="0" create="0" delete="0" copy="0">
-                    <field name="is_external_msg" invisible="1"/>
+                    <field name="room" invisible="1"/>
                     <sheet>
                         <div name="button_box" class="oe_button_box">
-                            <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('roomid','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}"/>
+                            <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/>
+                            <!-- attrs="{'invisible': ['|','|',('room','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}" -->
 
                             <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o"/>
                         </div>
@@ -64,6 +70,7 @@
                                 <field name="publickey_ver" />
                             </group>
                             <group name="msg_info" string="Message info">
+                                <field name="is_external_msg" />
                                 <field name="action" />
                                 <field name="from_user" />
                                 <field name="roomid" />
@@ -108,7 +115,7 @@
                             <page string="Recipient list">
                                 <field name="tolist" widget="wecom_jsoneditor"/>
                             </page>
-                            <page name="group_chat" string="Group chat information" attrs="{'invisible': [('roomid','=','')]}">
+                            <page name="group_chat" string="Group chat information" attrs="{'invisible': [('room','=',False)]}">
                                 <group col="4">
                                     <field name="room_name"/>
                                 </group>

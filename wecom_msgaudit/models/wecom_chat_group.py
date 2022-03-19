@@ -9,7 +9,7 @@ class WeComChatGroup(models.Model):
     _name = "wecom.chat.group"
     _description = "Wecom Chat Group"
 
-    name = fields.Char(string="Name", compute="_compute_name", store=True,readonly=True)
+    name = fields.Char(string="Name", compute="_compute_name", store=True)
     company_id = fields.Many2one(
         "res.company",
         string="Company",
@@ -23,9 +23,10 @@ class WeComChatGroup(models.Model):
     room_notice = fields.Text(string="Group chat notice")
     room_members = fields.Text(string="Group chat members")
 
+    @api.depends('room_name', 'roomid',)
     def _compute_name(self):
         for record in self:
             if record.room_name:
-                record.name = record.room_name
+                record.name = record.room_name                
             else:
                 record.name = record.roomid
