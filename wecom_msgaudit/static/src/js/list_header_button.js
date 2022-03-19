@@ -8,17 +8,17 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
         renderButtons: function ($node) {
             this._super.apply(this, arguments);
             if (this.$buttons) {
-                this.$buttons.on('click', '.o_list_wecom_download_chatdata', this._download_wecom_chatdata.bind(this));
+                this.$buttons.on('click', '.o_list_wecom_download_chatdata', this._download_wecom_chat_data.bind(this));
             }
         },
         _onSelectionChanged: function (ev) {
             this._super.apply(this, arguments);
             this.$('.o_list_wecom_download_chatdata').toggle(!this.selectedRecords.length);
         },
-        _download_wecom_chatdata: function () {
+        _download_wecom_chat_data: function () {
             var self = this;
             self._rpc({
-                model: 'wecom.chatdata',
+                model: 'wecom.chat.data',
                 method: 'download_chatdatas',
                 args: [""],
                 // route: '/wecom/get_chatdata',

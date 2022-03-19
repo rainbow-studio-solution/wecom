@@ -3,7 +3,7 @@
     <t t-extend="ListView.buttons">
         <t t-jquery=".o_list_buttons" t-operation="append">
 
-            <t t-if="widget and widget.modelName == 'wecom.chatdata'">
+            <t t-if="widget and widget.modelName == 'wecom.chat.data'">
                 <!--btn表示按钮，btn-sm小按钮，btn-default默认按钮，btn-primary主要按钮？-->
                 <button class="btn btn-info o_list_wecom_download_chatdata  fa fa-cloud-download" type="button" title=""> Download chat data</button>
                 <!-- <button class="btn btn-info o_list_wecom_batch_update_group_chat fa fa-users" type="button" title=""> Batch Update group chat info</button> -->

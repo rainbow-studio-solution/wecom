@@ -25,7 +25,7 @@ _logger = logging.getLogger(__name__)
 
 
 class WeComChatData(models.Model):
-    _name = "wecom.chatdata"
+    _name = "wecom.chat.data"
     _description = "Wecom Chat Data"
     _order = "seq desc"
 
@@ -69,12 +69,17 @@ class WeComChatData(models.Model):
     )
     tolist = fields.Char(string="Message recipient list")
 
-    roomid = fields.Char(string="Group chat ID")
-    room_name = fields.Char(string="Group chat name")
-    room_creator = fields.Char(string="Group chat creator")
-    room_create_time = fields.Datetime(string="Group chat create time")
-    room_notice = fields.Text(string="Group chat notice")
-    room_members = fields.Text(string="Group chat members")
+    # roomid = fields.Char(string="Group chat ID")
+    room = fields.Many2one(
+        "wecom.chat.group",
+        string="Group chat",
+    )
+    roomid = fields.Char(related="room.roomid",store=True)
+    room_name = fields.Char(related="room.room_name",store=True)
+    room_creator = fields.Char(related="room.room_creator",store=True)
+    room_create_time = fields.Datetime(related="room.room_create_time",store=True)
+    room_notice = fields.Text(related="room.room_notice",store=True)
+    room_members = fields.Text(related="room.room_members",store=True)
 
     msgtime = fields.Datetime(string="Message time")
     msgtype = fields.Selection(
@@ -214,7 +219,7 @@ class WeComChatData(models.Model):
         self.env.cr.execute(
             """
             SELECT MAX(seq)
-            FROM wecom_chatdata
+            FROM wecom_chat_data
             WHERE company_id=%s
             """
             % (company.id)
@@ -275,7 +280,6 @@ class WeComChatData(models.Model):
                     #     "wecom.msgaudit.auto_get_internal_groupchat_name"
                     # )
                     # 以下为解密聊天信息内容
-                    # print(data["decrypted_chat_msg"])
                     for key, value in data["decrypted_chat_msg"].items():
                         if key == "msgid":
                             pass
@@ -283,8 +287,19 @@ class WeComChatData(models.Model):
                             pass
                         elif key == "from":
                             dic_data["from_user"] = value
-                        elif key == "roomid" and value and is_external_msg is False:
-                            dic_data.update(self.get_group_chat_info_by_roomid(value))
+                        elif key == "tolist":
+                            dic_data["tolist"] = json.dumps(value)
+                        elif key == "roomid" and value:
+                            room = {}
+                            if is_external_msg:
+                                room = {
+                                    "roomid": value,
+                                }                                
+                            else:
+                                # 内部群可以通过API获取群信息
+                                room =self.get_group_chat_info_by_roomid(value)
+                            group_chat = self.create_group_chat(room)
+                            dic_data.update({"room": group_chat.id})
                         elif key == "msgtime" or key == "time":
                             time_stamp = value
                             # dic_data[key] = self.timestamp2datetime(time_stamp)
@@ -303,6 +318,8 @@ class WeComChatData(models.Model):
         except Exception as e:
             _logger.exception("Exception: %s" % e)
             return str(e)
+
+    
 
     def bind_internal_group_chat(self):
         """
@@ -329,7 +346,6 @@ class WeComChatData(models.Model):
         """
         获取群聊信息
         """
-
         company = self.company_id
         if not company:
             company = self.env.company
@@ -352,15 +368,8 @@ class WeComChatData(models.Model):
                     "room_notice": response["notice"],
                     "room_create_time": room_create_time,
                     "room_members": json.dumps(response["members"]),
+                    
                 }
-
-                # same_group_chats = self.search([("roomid", "=", self.roomid)])
-                # for chat in same_group_chats:
-                #     chat.write(
-                #         {
-                #             "room_name": response["roomname"],
-                #         }
-                #     )
         except ApiException as ex:
             pass
             # return self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -368,6 +377,22 @@ class WeComChatData(models.Model):
             # )
         finally:
             return room_dic
+
+    def create_group_chat(self,room):
+        """
+        创建群聊
+        """
+        groupchat = self.env["wecom.chat.group"].sudo().search([("roomid", "=", room["roomid"])], limit=1)
+        if groupchat:
+            pass
+        else:
+            company = self.company_id
+            if not company:
+                company = self.env.company
+            room.update({"company_id": company.id})
+            print(room)
+            groupchat.create(room)
+        return groupchat
 
     def update_group_chat(self):
         """
@@ -468,7 +493,7 @@ class WeComChatData(models.Model):
             self.env.cr.execute(
                 """
                 SELECT MAX(seq)
-                FROM wecom_chatdata
+                FROM wecom_chat_data
                 WHERE company_id=%s
                 """
                 % (app.company_id.id)
