@@ -37,7 +37,7 @@
                     <field name="is_external_msg" />
                     <field name="room_name" />
                     <field name="msgtype" />
-                    <field name="commented" />
+                    <!-- <field name="commented" /> -->
                     <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/>
                     <button class="btn btn-primary" name="format_content" string=" Format message" type="object" icon="fa-check-square-o" />
                 </tree>
@@ -73,13 +73,19 @@
                                 <field name="is_external_msg" />
                                 <field name="action" />
                                 <field name="from_user" />
-                                <field name="roomid" />
                                 <field name="msgtype" />
                                 <field name="msgtime" />
+                                <field name="roomid" />
+                                <label for="room_name"/>
+                                <div class="o_row">
+                                    <field name="room_name"/>
+                                    <hr attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
+                                    <button name="%(modify_external_groupchat_name_action)d" string="Modify external group chat name" class="btn btn-primary" type="action" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
+                                </div>
                             </group>
-                            <group name="log_notes" string="Log notes">
+                            <!-- <group name="log_notes" string="Log notes">
                                 <field name="commented" />
-                            </group>
+                            </group> -->
                         </group>
                         <notebook>
                             <page string="Message Content">
@@ -121,6 +127,7 @@
                                 </group>
                                 <group>
                                     <group>
+                                        <field name="room" options="{'no_open': True, 'no_create': True}"/>
                                         <field name="roomid"/>
                                         <field name="room_creator"/>
                                         <field name="room_create_time"/>

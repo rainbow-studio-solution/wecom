@@ -2,4 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 wecom_chat_data_access_right,access.wecom.chat.data_right,model_wecom_chat_data,base.group_erp_manager,1,1,1,1
 wecom_chat_group_access_right,access.wecom.chat.group_right,model_wecom_chat_group,base.group_erp_manager,1,1,1,1
 wecom_msgaudit_key_access_right,access.wecom.msgaudit.key_right,model_wecom_msgaudit_key,base.group_erp_manager,1,1,1,1
+wecom_modify_external_groupchat_name_access_right,access.wecom.modify.external_groupchat_name_right,model_wecom_modify_external_groupchat_name,base.group_erp_manager,1,1,1,1
 

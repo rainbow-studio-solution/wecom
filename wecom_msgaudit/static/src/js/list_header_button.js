@@ -54,6 +54,13 @@ odoo.define('wecom_msgaudit.list_sync', function (require) {
                             message: _t("API interface not started!"),
                             sticky: true,
                         });
+                    } else {
+                        self.displayNotification({
+                            type: 'warning',
+                            title: _t("Error!"),
+                            message: result,
+                            sticky: true,
+                        });
                     }
                 }
             })

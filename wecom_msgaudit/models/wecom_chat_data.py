@@ -36,7 +36,7 @@ class WeComChatData(models.Model):
         required=True,
         default=lambda self: self.env.company,
     )
-    commented = fields.Boolean(string="Commented")
+    # commented = fields.Boolean(string="Commented")
     seq = fields.Integer(
         string="Message sequence number",
         help="When pulling again, you need to bring the largest SEQ in the last packet.",
@@ -72,7 +72,7 @@ class WeComChatData(models.Model):
     # roomid = fields.Char(string="Group chat ID")
     room = fields.Many2one(
         "wecom.chat.group",
-        string="Group chat",
+        string="Related Group chat",
     )
     roomid = fields.Char(related="room.roomid",store=True)
     room_name = fields.Char(related="room.room_name",store=True)
@@ -178,7 +178,6 @@ class WeComChatData(models.Model):
         """
         获取聊天记录
         注:获取会话记录内容不能超过3天，如果企业需要全量数据，则企业需要定期拉取聊天消息。返回的ChatDatas内容为json格式。
-
         """
         ir_config = self.env["ir.config_parameter"].sudo()
         company = self.company_id
@@ -257,60 +256,61 @@ class WeComChatData(models.Model):
                     }
                 )
 
-            r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
-            chat_datas = r.json()
+            response  = requests.get(chatdata_url, data=json.dumps(body), headers=headers).json()
 
-            if len(chat_datas) > 0:
-                # df = pd.DataFrame(chat_datas)
-                # print(df)
-                for data in chat_datas:
-                    dic_data = {}
+            if response["code"] == 0:
+                chat_datas = response["data"]
+                if len(chat_datas) > 0:
+                    for data in chat_datas:
+                        dic_data = {}
 
-                    is_external_msg = True if "external" in data["msgid"] else False
-                    dic_data = {
-                        "seq": data["seq"],
-                        "msgid": data["msgid"],
-                        "publickey_ver": data["publickey_ver"],
-                        "encrypt_random_key": data["encrypt_random_key"],
-                        "encrypt_chat_msg": data["encrypt_chat_msg"],
-                        "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
-                        "is_external_msg": is_external_msg,
-                    }
-                    # auto_get_internal_groupchat_name = ir_config.get_param(
-                    #     "wecom.msgaudit.auto_get_internal_groupchat_name"
-                    # )
-                    # 以下为解密聊天信息内容
-                    for key, value in data["decrypted_chat_msg"].items():
-                        if key == "msgid":
-                            pass
-                        elif key == "voiceid":
-                            pass
-                        elif key == "from":
-                            dic_data["from_user"] = value
-                        elif key == "tolist":
-                            dic_data["tolist"] = json.dumps(value)
-                        elif key == "roomid" and value:
-                            room = {}
-                            if is_external_msg:
-                                room = {
-                                    "roomid": value,
-                                }                                
+                        is_external_msg = True if "external" in data["msgid"] else False
+                        dic_data = {
+                            "seq": data["seq"],
+                            "msgid": data["msgid"],
+                            "publickey_ver": data["publickey_ver"],
+                            "encrypt_random_key": data["encrypt_random_key"],
+                            "encrypt_chat_msg": data["encrypt_chat_msg"],
+                            "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
+                            "is_external_msg": is_external_msg,
+                        }
+                        # auto_get_internal_groupchat_name = ir_config.get_param(
+                        #     "wecom.msgaudit.auto_get_internal_groupchat_name"
+                        # )
+                        # 以下为解密聊天信息内容
+                        for key, value in data["decrypted_chat_msg"].items():
+                            if key == "msgid":
+                                pass
+                            elif key == "voiceid":
+                                pass
+                            elif key == "from":
+                                dic_data["from_user"] = value
+                            elif key == "tolist":
+                                dic_data["tolist"] = json.dumps(value)
+                            elif key == "roomid" and value:
+                                room = {}
+                                if is_external_msg:
+                                    room = {
+                                        "roomid": value,
+                                    }                                
+                                else:
+                                    # 内部群可以通过API获取群信息
+                                    room =self.get_group_chat_info_by_roomid(value)
+                                group_chat = self.create_group_chat(room)
+                                dic_data.update({"room": group_chat.id})
+                            elif key == "msgtime" or key == "time":
+                                time_stamp = value
+                                # dic_data[key] = self.timestamp2datetime(time_stamp)
+                                dic_data.update({key: self.timestamp2datetime(time_stamp)})
                             else:
-                                # 内部群可以通过API获取群信息
-                                room =self.get_group_chat_info_by_roomid(value)
-                            group_chat = self.create_group_chat(room)
-                            dic_data.update({"room": group_chat.id})
-                        elif key == "msgtime" or key == "time":
-                            time_stamp = value
-                            # dic_data[key] = self.timestamp2datetime(time_stamp)
-                            dic_data.update({key: self.timestamp2datetime(time_stamp)})
-                        else:
-                            dic_data.update({key: value})
-                    # print(dic_data)
-                    self.sudo().create(dic_data)
-                return True
+                                dic_data.update({key: value})
+                        # print(dic_data)
+                        self.sudo().create(dic_data)
+                    return True
+                else:
+                    return False
             else:
-                return False
+                return _("Request error, error code:%s, error description:%ss, suggestion:%s") % (response["code"], response["description"], response["suggestion"])
         except ApiException as e:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 e, raise_exception=True
@@ -390,7 +390,7 @@ class WeComChatData(models.Model):
             if not company:
                 company = self.env.company
             room.update({"company_id": company.id})
-            print(room)
+            # print(room)
             groupchat.create(room)
         return groupchat
 
@@ -606,8 +606,8 @@ class WeComChatData(models.Model):
         """
         格式化内容
         """
-        if self.commented:
-            return
+        # if self.commented:
+        #     return
 
         company = self.company_id
         if not company:
@@ -708,32 +708,34 @@ class WeComChatData(models.Model):
                                 "paswd": "odoo:odoo",
                             }
                         )
-                    r = requests.get(
+                    result = requests.get(
                         mediadata_url, data=json.dumps(body), headers=headers
-                    )
-                    mediadata = r.json()
-
-                    img_max_size = (
-                        int(
-                            ir_config.get_param(
-                                "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
+                    ).json()
+                    if result["code"] == 0:
+                        mediadata = result["data"]
+                        img_max_size = (
+                            int(
+                                ir_config.get_param(
+                                    "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
+                                )
                             )
+                            * 1024
+                        )  # 图片最大大小，超过此大小，进行压缩
+                        filesize = eval(msg_content)["filesize"]  # 图片原始大小
+                        # base64_source_str = base64.b64encode(mediadata).decode()
+                        base64_source_str = self.compress_image_base64(
+                            # base64.b64encode(mediadata), img_max_size, filesize
+                            bytes(mediadata, "utf-8"),
+                            img_max_size,
+                            filesize,
                         )
-                        * 1024
-                    )  # 图片最大大小，超过此大小，进行压缩
-                    filesize = eval(msg_content)["filesize"]  # 图片原始大小
-                    # base64_source_str = base64.b64encode(mediadata).decode()
-                    base64_source_str = self.compress_image_base64(
-                        # base64.b64encode(mediadata), img_max_size, filesize
-                        bytes(mediadata, "utf-8"),
-                        img_max_size,
-                        filesize,
-                    )
-                    # print("data:image/png;base64,%s" % base64_source_str.decode())
-                    content = (
-                        "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
-                        % base64_source_str.decode()
-                    )
+                        # print("data:image/png;base64,%s" % base64_source_str.decode())
+                        content = (
+                            "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
+                            % base64_source_str.decode()
+                        )
+                    else:
+                        _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(result["code"], result["description"], result["suggestion"]))
                 except Exception as e:
                     _logger.exception("Exception: %s" % e)
                     if "HTTPConnectionPool" in str(e):

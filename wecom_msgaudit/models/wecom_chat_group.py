@@ -27,6 +27,6 @@ class WeComChatGroup(models.Model):
     def _compute_name(self):
         for record in self:
             if record.room_name:
-                record.name = record.room_name                
+                record.name = record.room_name
             else:
                 record.name = record.roomid

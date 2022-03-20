@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="modify_external_groupchat_name_view" model="ir.ui.view">
+            <field name="name">wecom.modify.external_groupchat_name.view.form</field>
+            <field name="model">wecom.modify.external_groupchat_name</field>
+            <field name="arch" type="xml">
+                <form string="Modify external groupchat name" create="1">
+                    <sheet>
+                        <div class="oe_title">
+                            <field name="room_name" default_focus="1" force_save="1" placeholder="Name"/>
+                        </div>
+                        <group>
+                            <field name="room" options="{'no_open': True, 'no_create': True}" />
+                            <field name="chatdata_id" invisible="1" />
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button class="btn-primary" name="save" icon="fa-floppy-o" string="Save" type="object" />
+                    </footer>
+                </form>
+            </field>
+
+        </record>
+
+        <record id="modify_external_groupchat_name_action" model="ir.actions.act_window">
+            <field name="name">Modify external groupchat name</field>
+            <field name="res_model">wecom.modify.external_groupchat_name</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="modify_external_groupchat_name_view"/>
+            <field name="target">new</field>
+            <field name="context">{'default_chatdata_id':active_id}</field>
+        </record>
+
+    </data>
+</odoo>

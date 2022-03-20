@@ -25,6 +25,7 @@
         "data/ir_cron_data.xml",
         # "data/wecom_app_config_data.xml",
         # "views/res_company_views.xml",
+        "wizard/wecom_modify_external_groupchat_name.xml",
         "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/wecom_msgaudit_key_views.xml",
