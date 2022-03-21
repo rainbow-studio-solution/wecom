@@ -19,7 +19,6 @@ class WecomModifyExternalGroupchatName(models.TransientModel):
         """
         保存修改后的外部群名称
         """
-        print(self.chatdata_id.room)
         self.room.sudo().write({
             # "name":self.room_name,
             "room_name":self.room_name
