@@ -80,7 +80,7 @@
                                 <div class="o_row">
                                     <field name="room_name"/>
                                     <hr attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
-                                    <button name="%(modify_external_groupchat_name_action)d" string="Modify external group chat name" class="btn btn-primary" type="action" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
+                                    <button name="%(modify_external_groupchat_name_action)d" string="Modify external group chat name" class="btn btn-primary" type="action" icon="fa-pencil-square-o" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
                                 </div>
                             </group>
                             <!-- <group name="log_notes" string="Log notes">

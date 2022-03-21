@@ -533,57 +533,61 @@ class WeComChatData(models.Model):
                         }
                     )
 
-                r = requests.get(chatdata_url, data=json.dumps(body), headers=headers)
-                chat_datas = r.json()
+                response = requests.get(chatdata_url, data=json.dumps(body), headers=headers).json()
 
-                if len(chat_datas) > 0:
-                    for data in chat_datas:
-                        dic_data = {}
-                        is_external_msg = True if "external" in data["msgid"] else False
-                        dic_data = {
-                            "company_id": app.company_id.id,
-                            "seq": data["seq"],
-                            "msgid": data["msgid"],
-                            "publickey_ver": data["publickey_ver"],
-                            "encrypt_random_key": data["encrypt_random_key"],
-                            "encrypt_chat_msg": data["encrypt_chat_msg"],
-                            "decrypted_chat_msg": json.dumps(
-                                data["decrypted_chat_msg"]
-                            ),
-                            "is_external_msg": is_external_msg,
-                        }
+                if response["code"] == 0:
+                    chat_datas = response["data"]
 
-                        # 以下为解密聊天信息内容
-                        for key, value in data["decrypted_chat_msg"].items():
-                            if key == "msgid":
-                                pass
-                            elif key == "voiceid":
-                                pass
-                            elif key == "from":
-                                dic_data["from_user"] = value
-                            elif key == "roomid" and value and is_external_msg is False:
-                                dic_data.update(self.get_group_chat_info_by_roomid(value))
-                            elif key == "msgtime" or key == "time":
-                                time_stamp = value
-                                # dic_data[key] = self.timestamp2datetime(time_stamp)
-                                dic_data.update({key: self.timestamp2datetime(time_stamp)})
-                            else:
-                                dic_data.update({key: value})
+                    if len(chat_datas) > 0:
+                        for data in chat_datas:
+                            dic_data = {}
+                            is_external_msg = True if "external" in data["msgid"] else False
+                            dic_data = {
+                                "company_id": app.company_id.id,
+                                "seq": data["seq"],
+                                "msgid": data["msgid"],
+                                "publickey_ver": data["publickey_ver"],
+                                "encrypt_random_key": data["encrypt_random_key"],
+                                "encrypt_chat_msg": data["encrypt_chat_msg"],
+                                "decrypted_chat_msg": json.dumps(
+                                    data["decrypted_chat_msg"]
+                                ),
+                                "is_external_msg": is_external_msg,
+                            }
 
-                        self.sudo().create(dic_data)
-                    _logger.info(
-                        _(
-                            "Automatic task: End download session content record for [%s]"
+                            # 以下为解密聊天信息内容
+                            for key, value in data["decrypted_chat_msg"].items():
+                                if key == "msgid":
+                                    pass
+                                elif key == "voiceid":
+                                    pass
+                                elif key == "from":
+                                    dic_data["from_user"] = value
+                                elif key == "roomid" and value and is_external_msg is False:
+                                    dic_data.update(self.get_group_chat_info_by_roomid(value))
+                                elif key == "msgtime" or key == "time":
+                                    time_stamp = value
+                                    # dic_data[key] = self.timestamp2datetime(time_stamp)
+                                    dic_data.update({key: self.timestamp2datetime(time_stamp)})
+                                else:
+                                    dic_data.update({key: value})
+
+                            self.sudo().create(dic_data)
+                        _logger.info(
+                            _(
+                                "Automatic task: End download session content record for [%s]"
+                            )
+                            % app.company_id.name
                         )
-                        % app.company_id.name
-                    )
+                    else:
+                        _logger.info(
+                            _(
+                                "Automatic task: End download session content record for [%s],There are no records to download."
+                            )
+                            % app.company_id.name
+                        )
                 else:
-                    _logger.info(
-                        _(
-                            "Automatic task: End download session content record for [%s],There are no records to download."
-                        )
-                        % app.company_id.name
-                    )
+                    _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") % (response["code"], response["description"], response["suggestion"]))
             except ApiException as e:
                 _logger.exception(
                     _(

@@ -826,7 +826,7 @@ msgstr "会话内容存档密钥"
 #. module: wecom_msgaudit
 #: model:ir.actions.act_window,name:wecom_msgaudit.action_view_wecom_chat_data_list
 msgid "Session content archiving record"
-msgstr "会话内容存档"
+msgstr "会话内容存档记录"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
@@ -851,7 +851,7 @@ msgstr "会话内容存档任务"
 #. module: wecom_msgaudit
 #: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_session_list
 msgid "Session content record"
-msgstr "会话列表"
+msgstr "会话内容记录"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__action__switch
