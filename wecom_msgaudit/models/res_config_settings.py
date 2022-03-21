@@ -25,9 +25,9 @@ class ResConfigSettings(models.TransientModel):
     msgaudit_secret = fields.Char(related="msgaudit_app_id.secret", readonly=False)
     msgaudit_access_token = fields.Char(related="msgaudit_app_id.access_token")
 
-    msgaudit_auto_get_internal_groupchat_name = fields.Boolean(
-        "Automatically get internal group chat name", default=True
-    )
+    # msgaudit_auto_get_internal_groupchat_name = fields.Boolean(
+    #     "Automatically get internal group chat name", default=True
+    # )
 
     chatdata_add_to_log_note_img_max_size = fields.Integer(
         "WeCom Chat data picture attached to log note picture size",
@@ -57,27 +57,27 @@ class ResConfigSettings(models.TransientModel):
         "Wecom chat records attached to log note"
     )
 
-    @api.model
-    def get_values(self):
-        res = super(ResConfigSettings, self).get_values()
-        ir_config = self.env["ir.config_parameter"].sudo()
+    # @api.model
+    # def get_values(self):
+    #     res = super(ResConfigSettings, self).get_values()
+    #     ir_config = self.env["ir.config_parameter"].sudo()
 
-        msgaudit_auto_get_internal_groupchat_name = (
-            True
-            if ir_config.get_param("wecom.msgaudit.auto_get_internal_groupchat_name")
-            == "True"
-            else False
-        )
+    #     msgaudit_auto_get_internal_groupchat_name = (
+    #         True
+    #         if ir_config.get_param("wecom.msgaudit.auto_get_internal_groupchat_name")
+    #         == "True"
+    #         else False
+    #     )
 
-        res.update(
-            msgaudit_auto_get_internal_groupchat_name=msgaudit_auto_get_internal_groupchat_name,
-        )
-        return res
+    #     res.update(
+    #         msgaudit_auto_get_internal_groupchat_name=msgaudit_auto_get_internal_groupchat_name,
+    #     )
+    #     return res
 
-    def set_values(self):
-        super(ResConfigSettings, self).set_values()
-        ir_config = self.env["ir.config_parameter"].sudo()
-        ir_config.set_param(
-            "wecom.msgaudit.auto_get_internal_groupchat_name",
-            self.msgaudit_auto_get_internal_groupchat_name or "False",
-        )
+    # def set_values(self):
+    #     super(ResConfigSettings, self).set_values()
+    #     ir_config = self.env["ir.config_parameter"].sudo()
+    #     ir_config.set_param(
+    #         "wecom.msgaudit.auto_get_internal_groupchat_name",
+    #         self.msgaudit_auto_get_internal_groupchat_name or "False",
+    #     )
