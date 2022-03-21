@@ -310,7 +310,7 @@ class WeComChatData(models.Model):
                 else:
                     return False
             else:
-                return _("Request error, error code:%s, error description:%ss, suggestion:%s") % (response["code"], response["description"], response["suggestion"])
+                return _("Request error, error code:%s, error description:%s, suggestion:%s") % (response["code"], response["description"], response["suggestion"])
         except ApiException as e:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 e, raise_exception=True
@@ -587,7 +587,7 @@ class WeComChatData(models.Model):
                             % app.company_id.name
                         )
                 else:
-                    _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") % (response["code"], response["description"], response["suggestion"]))
+                    _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") % (response["code"], response["description"], response["suggestion"]))
             except ApiException as e:
                 _logger.exception(
                     _(
@@ -742,12 +742,12 @@ class WeComChatData(models.Model):
                             % base64_source_str.decode()
                         )
                     else:
-                        _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                        _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
                         raise UserError(res)
                 except Exception as e:
                     _logger.exception("Exception: %s" % e)
                     if "code" in str(e):
-                        raise UserError(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                        raise UserError(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
                     elif "HTTPConnectionPool" in str(e):
                         raise UserError(_("API interface not started!"))
                     else:

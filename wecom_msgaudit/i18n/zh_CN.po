@@ -759,7 +759,7 @@ msgstr "关联的群聊"
 #. module: wecom_msgaudit
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
 #, python-format
-msgid "Request error, error code:%s, error description:%ss, suggestion:%s"
+msgid "Request error, error code:%s, error description:%s, suggestion:%s"
 msgstr "请求错误，错误代码：%s，错误描述：%s，建议：%s"
 
 #. module: wecom_msgaudit
