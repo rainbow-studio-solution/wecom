@@ -712,11 +712,14 @@ class WeComChatData(models.Model):
                                 "paswd": "odoo:odoo",
                             }
                         )
-                    result = requests.get(
+                    response = requests.get(
                         mediadata_url, data=json.dumps(body), headers=headers
-                    ).json()
-                    if result["code"] == 0:
-                        mediadata = result["data"]
+                    )
+                    res = response.json()
+                    if res is None:
+                        raise UserError(_("Unable to get media file information"))
+                    if res["code"] == 0:
+                        mediadata = res["data"]
                         img_max_size = (
                             int(
                                 ir_config.get_param(
@@ -739,11 +742,16 @@ class WeComChatData(models.Model):
                             % base64_source_str.decode()
                         )
                     else:
-                        _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(result["code"], result["description"], result["suggestion"]))
+                        _logger.warning(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                        raise UserError(res)
                 except Exception as e:
                     _logger.exception("Exception: %s" % e)
-                    if "HTTPConnectionPool" in str(e):
+                    if "code" in str(e):
+                        raise UserError(_("Request error, error code:%s, error description:%ss, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                    elif "HTTPConnectionPool" in str(e):
                         raise UserError(_("API interface not started!"))
+                    else:
+                        raise UserError(_("Unknown error:%s") % e)
 
             else:
                 pass
