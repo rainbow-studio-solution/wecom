@@ -222,7 +222,7 @@ class WeComChatData(models.Model):
             WHERE company_id=%s
             """
             % (company.id)
-        )
+        ) # 查询最大seq的记录
         results = self.env.cr.dictfetchall()
         if results[0]["max"] is not None:
             max_seq_id = results[0]["max"]
@@ -497,7 +497,7 @@ class WeComChatData(models.Model):
                 WHERE company_id=%s
                 """
                 % (app.company_id.id)
-            )
+            ) # 查询最大seq的记录
             results = self.env.cr.dictfetchall()
             if results[0]["max"] is not None:
                 max_seq_id = results[0]["max"]
@@ -563,8 +563,19 @@ class WeComChatData(models.Model):
                                     pass
                                 elif key == "from":
                                     dic_data["from_user"] = value
-                                elif key == "roomid" and value and is_external_msg is False:
-                                    dic_data.update(self.get_group_chat_info_by_roomid(value))
+                                elif key == "tolist":
+                                    dic_data["tolist"] = json.dumps(value)
+                                elif key == "roomid" and value:
+                                    room = {}
+                                    if is_external_msg:
+                                        room = {
+                                            "roomid": value,
+                                        }                                
+                                    else:
+                                        # 内部群可以通过API获取群信息
+                                        room =self.get_group_chat_info_by_roomid(value)
+                                    group_chat = self.create_group_chat(room)
+                                    dic_data.update({"room": group_chat.id})
                                 elif key == "msgtime" or key == "time":
                                     time_stamp = value
                                     # dic_data[key] = self.timestamp2datetime(time_stamp)
