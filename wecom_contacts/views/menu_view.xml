@@ -5,7 +5,7 @@
 
 
         <!-- 企微组织架构-->
-        <menuitem id="menu_wecom_organizational" name="Organizational" parent="wecom_base.menu_wecom_root" sequence="25" groups="base.group_erp_manager" action="wecom_contacts.open_view_wecom_organization_tree"/>
+        <!-- <menuitem id="menu_wecom_organizational" name="Organizational" parent="wecom_base.menu_wecom_root" sequence="25" groups="base.group_erp_manager" action="wecom_contacts.open_view_wecom_organization_tree"/> -->
 
         <!-- <menuitem id="menu_wecom_organizational_departments_and_user" name="Departments and users" parent="menu_wecom_organizational" sequence="1" groups="base.group_erp_manager"/> -->
 
