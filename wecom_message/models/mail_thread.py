@@ -111,7 +111,7 @@ class MailThread(models.AbstractModel):
                     message, message_format_values
                 )
 
-        if msg_vals["is_wecom_message"]:
+        if "is_wecom_message" in  msg_vals and msg_vals["is_wecom_message"]:
             self._notify_record_by_wecom(
                 message, recipients_data, msg_vals=msg_vals, **kwargs
             )
