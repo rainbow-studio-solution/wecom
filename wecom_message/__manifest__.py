@@ -25,7 +25,7 @@
         "wecom_contacts",
         "wecom_auth_oauth",
     ],
-    "external_dependencies": {"python": ["html2text", "lxml"],},
+    "external_dependencies": {"python": ["html2text", "lxml", "pandas"],},
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",

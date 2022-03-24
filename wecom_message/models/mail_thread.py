@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import pandas as pd
 
+pd.set_option("max_colwidth", 4096)  # 设置最大列宽
+pd.set_option("display.max_columns", 30)  # 设置最大列数
+pd.set_option("expand_frame_repr", False)  # 当列太多时不换行
 import logging
 from odoo import _, api, exceptions, fields, models, tools, registry, SUPERUSER_ID
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -65,6 +69,8 @@ class MailThread(models.AbstractModel):
           * 创建通道/消息链接（channel_ids mail.message 字段）;
           * 发送总线通知;
 
+          message:  mail.message 对象;
+
         TDE/XDO TODO: 直接标记 rdata，例如 r['notif'] = 'ocn_client' 和 r['needaction']=False 并正确覆盖notify_recipients
         """
         channel_ids = [r["id"] for r in recipients_data["channels"]]
@@ -90,6 +96,7 @@ class MailThread(models.AbstractModel):
         for pid in inbox_pids:
             if self.env["res.partner"].browse(pid).is_wecom_user:
                 msg_vals["is_wecom_message"] = True
+                # msg_vals["receiver_company_id"] = self.env["res.partner"].browse(pid).company_id.id #接收者的公司id
             else:
                 msg_vals["is_wecom_message"] = False
 
@@ -127,6 +134,7 @@ class MailThread(models.AbstractModel):
         :param list recipients_data: 收件人
         :param dic msg_vals: 消息字典值
         """
+
         Model = self.env[msg_vals["model"]]
         model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
 
@@ -138,6 +146,8 @@ class MailThread(models.AbstractModel):
             for p in self.env["res.partner"].browse(partners)
             if p.wecom_userid
         ]
+
+        
 
         sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
 
@@ -171,48 +181,80 @@ class MailThread(models.AbstractModel):
             }
         )
 
-        company = Model.company_id
-        if not company:
-            company = self.env.company
-        try:
-            wecomapi = self.env["wecom.service_api"].InitServiceApi(
-                company.corpid, company.message_app_id.secret
-            )
-            msg = self.env["wecom.message.api"].build_message(
-                msgtype="markdown",
-                touser="|".join(wecom_userids),
-                toparty="",
-                totag="",
-                subject=msg_vals["subject"],
-                media_id=None,
-                description=None,
-                author_id=msg_vals["author_id"],
-                body_markdown=body_markdown,
-                safe=True,
-                enable_id_trans=True,
-                enable_duplicate_check=True,
-                duplicate_check_interval=1800,
-                company=company,
-            )
-   
-            del msg["company"]
-            res = wecomapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("MESSAGE_SEND"),
-                msg,
-            )
-        except ApiException as exc:
-            error = self.env["wecom.service_api_error"].get_error_by_code(exc.errCode)
-            message.write(
-                {
-                    "state": "exception",
-                    "failure_reason": "%s %s" % (str(error["code"]), error["name"]),
+        # receiver_company_ids = [] #企微消息接收者的公司id
+        # for wecom_userid in wecom_userids:
+        #     user = self.env["res.users"].search([("wecom_userid", "=", wecom_userid)],limit=1)
+        #     receiver_company_ids.append(user.company_id.id)
+        # # TODO 多公司 发送消息的问题
+        # new_receiver_company_ids = list(set(receiver_company_ids)) #公司去重
+
+        send_results = []
+
+        for user in message.message_to_user.split("|"):
+            try:
+                user = self.env["res.users"].search([("wecom_userid", "=", user)],limit=1)
+                company = user.company_id
+                wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                    company.corpid, company.message_app_id.secret
+                )
+                msg = self.env["wecom.message.api"].build_message(
+                    msgtype="markdown",
+                    # touser="|".join(wecom_userids),
+                    touser=user.wecom_userid,
+                    toparty="",
+                    totag="",
+                    subject=msg_vals["subject"],
+                    media_id=None,
+                    description=None,
+                    author_id=msg_vals["author_id"],
+                    body_markdown=body_markdown,
+                    safe=True,
+                    enable_id_trans=True,
+                    enable_duplicate_check=True,
+                    duplicate_check_interval=1800,
+                    company=company,
+                )
+                del msg["company"]
+                res = wecomapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call("MESSAGE_SEND"),
+                    msg,
+                )
+            except ApiException as exc:
+                error = self.env["wecom.service_api_error"].get_error_by_code(exc.errCode)
+                result = {
+                    "user": user.name,
+                    "wecom_userid": user.name,
+                    "failure": True,
+                    "failure_reason": _("Failed to send wecom message to user [%s]. Failure reason:%s %s") % (user.name,str(error["code"]), error["name"]),
                 }
-            )
-        else:
+                send_results.append(result)
+                # message.write(
+                #     {
+                #         "state": "exception",
+                #         "failure_reason": "%s %s" % (str(error["code"]), error["name"]),
+                #     }
+                # )
+            else:
+                result = {
+                    "user": user.name,
+                    "failure": False,
+                    "failure_reason": _("Sending wecom message to user [%s] succeeded") % user.name,
+                }
+                send_results.append(result)
+
+            df = pd.DataFrame(send_results)
+            failure_reason =""
+            for index, row in df.iterrows():
+                failure_reason += row["failure_reason"] + "\n"
+            fail_rows = len(df[df["failure"] == True])  # 获取失败行数
+            state = "sent"
+            if fail_rows > 0:
+                state = "exception"
+
             message.write(
                 {
-                    "state": "sent",
-                    "message_id": res["msgid"],
+                    "state": state,
+                    "message_id": failure_reason,
                 }
             )
 
