@@ -97,6 +97,7 @@ class Invite(models.TransientModel):
                     {"partners": partners_data, "channels": []},
                     send_after_commit=False,
                 )
+                
                 # 如果发生故障，Web 客户端必须知道消息已被删除才能丢弃相关的失败通知
                 self.env["bus.bus"].sendone(
                     (self._cr.dbname, "res.partner", self.env.user.partner_id.id),
