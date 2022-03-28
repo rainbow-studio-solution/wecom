@@ -11,6 +11,7 @@
                     <field name="msgid"/>
                     <field name="roomid"/>
                     <field name="room_name" filter_domain="[('room_name', 'ilike', self)]"/>
+                    <field name="text" string="Text message content contains" filter_domain="[('text', 'like', '%'+self+'%')]"/>
                     <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('room', '!=', False)]"/>
                     <!-- <filter string="External message" help="Group Chat" name="ExternalMessage" domain="[('is_external_msg', '!=', False)]"/> -->
                     <searchpanel>
@@ -26,7 +27,7 @@
             <field name="model">wecom.chat.data</field>
             <field name="arch" type="xml">
                 <tree edit="0" create="0" delete="0" multi_edit="0" import="0" export_xlsx="0" decoration-danger="is_external_msg==True">
-                    <field name="seq" />
+                    <field name="seq" options="{'format': false}"/>
                     <field name="company_id" />
                     <field name="msgid" />
                     <field name="action" />
@@ -37,9 +38,9 @@
                     <field name="is_external_msg" />
                     <field name="room_name" />
                     <field name="msgtype" />
-                    <!-- <field name="commented" /> -->
+                    <field name="formatted" />
                     <button class="btn btn-info" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-download" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/>
-                    <button class="btn btn-primary" name="format_content" string=" Format message" type="object" icon="fa-check-square-o" />
+                    <button class="btn btn-primary" name="format_content" string=" Format message" type="object" icon="fa-check-square-o" attrs="{'invisible': ['|','|',('formatted','=', True),('action','=', 'switch'),('action','=', 'recall')]}"/>
                 </tree>
             </field>
         </record>
@@ -55,7 +56,7 @@
                             <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/>
                             <!-- attrs="{'invisible': ['|','|',('room','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}" -->
 
-                            <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o"/>
+                            <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o" attrs="{'invisible': ['|','|',('formatted','=', True),('action','=', 'switch'),('action','=', 'recall')]}"/>
                         </div>
                         <widget name="web_ribbon" title="External message" bg_color="bg-danger" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
                         <div class="oe_title">
@@ -65,9 +66,10 @@
                         </div>
                         <group>
                             <group string="Basic info">
-                                <field name="seq" />
+                                <field name="seq" options="{'format': false}"/>
                                 <field name="msgid" />
                                 <field name="publickey_ver" />
+                                <field name="formatted" />
                             </group>
                             <group name="msg_info" string="Message info">
                                 <field name="is_external_msg" />

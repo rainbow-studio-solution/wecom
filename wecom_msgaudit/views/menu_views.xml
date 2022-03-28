@@ -12,6 +12,8 @@
 
         <menuitem id="menu_wecom_cron_session_archiving" name="Session content archiving task" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_download_wecom_chat_datas" sequence="10"/>
 
-        <menuitem id="menu_wecom_cron_download_wecom_chat_datas" name="Download session content record" parent="wecom_msgaudit.menu_wecom_cron_session_archiving" action="ir_cron_act_download_wecom_chat_datas" sequence="10"/>
+        <menuitem id="menu_wecom_cron_download_wecom_chat_datas" name="Download session content record" parent="wecom_msgaudit.menu_wecom_cron_session_archiving" action="ir_cron_act_download_wecom_chat_datas" sequence="1"/>
+
+        <menuitem id="menu_wecom_cron_format_session_content_archive_record" name="Format the session content archive record" parent="wecom_msgaudit.menu_wecom_cron_session_archiving" action="ir_cron_act_format_session_content_archive_record" sequence="2"/>
     </data>
 </odoo>

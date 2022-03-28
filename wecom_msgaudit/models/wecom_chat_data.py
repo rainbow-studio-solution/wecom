@@ -115,6 +115,8 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
+    formatted = fields.Boolean(string="Formatted",default=False, compute="_compute_formatted")
+
     time = fields.Datetime(
         string="Message sending time",
     )
@@ -165,6 +167,18 @@ class WeComChatData(models.Model):
             else:
                 record.name = record.msgid
 
+    @api.depends("msgtype", "action")
+    def _compute_formatted(self):
+        for record in self:
+            if record.action == "switch" or record.action == "recall":
+                record.formatted = False
+            else:
+                content = record[record.msgtype]
+                if content[0] == "{":
+                    record.formatted = False
+                else:
+                    record.formatted = True
+
     @api.depends("msgid", "action")
     def _compute_is_external_msg(self):
         for record in self:
@@ -190,15 +204,15 @@ class WeComChatData(models.Model):
         if company.msgaudit_app_id is False:
             raise UserError(
                 _(
-                    "Please bind the session content archiving application on the settings page."
-                )
+                    'Please bind the session content archiving application on the "Settings" page after switching company [%s].'
+                ) % company.name
             )
         secret = company.msgaudit_app_id.secret
         if secret == False:
             raise UserError(
                 _(
-                    "The application secret key of session content archive cannot be empty!"
-                )
+                    "Application secret key of company [%s] session content archive cannot be empty!"
+                ) % company.name
             )
 
         private_keys = company.msgaudit_app_id.private_keys
@@ -318,8 +332,6 @@ class WeComChatData(models.Model):
         except Exception as e:
             _logger.exception("Exception: %s" % e)
             return str(e)
-
-    
 
     def bind_internal_group_chat(self):
         """
@@ -466,6 +478,9 @@ class WeComChatData(models.Model):
         loc_time = time.localtime(time_stamp)
         return time.strftime("%Y-%m-%d %H:%M:%S", loc_time)
 
+    # ------------------------------------------------------------
+    # 任务
+    # ------------------------------------------------------------
     def cron_download_chatdatas(self):
         """
         自动任务定时下载聊天记录
@@ -614,15 +629,34 @@ class WeComChatData(models.Model):
                     % (app.company_id.name, str(e))
                 )
 
+    def cron_format_content(self):
+        """
+        任务自动格式化消息
+        暂时支持消息类型: text / link / image 
+        超过3天未格式化的数据，pass掉
+        切换企业日志类型的消息，pass掉
+        """
+        _logger.info(
+            _("Automatic task: Start formatting session content archive record.")
+        )
+        chats = self.search([("formatted", "=", False),("action", "!=", "switch")])
+        for chat in chats:
+            chat.format_content()
+        _logger.info(
+            _("Automatic task: End formatting session content archive record.")
+        )
+
+
     # ------------------------------------------------------------
     # 工具
     # ------------------------------------------------------------
     def format_content(self):
         """
-        格式化内容
+        格式化消息内容
+        暂时支持消息类型: text / link / image 
         """
-        # if self.commented:
-        #     return
+        if self.formatted:
+            return
 
         company = self.company_id
         if not company:
@@ -646,10 +680,11 @@ class WeComChatData(models.Model):
                 "private_key": key.private_key,
             }
             key_list.append(key_dic)
-
+        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(self.msgtime, 3) #超期3天
+  
         content = self[self._fields[self.msgtype].name]
 
-        if content[0] == "{":
+        if content[0] == "{" and (self.msgtype == "text" or self.msgtype == "link" or self.msgtype == "image"):
             # 如果是json格式的内容
             msg_send_time = self.msgtime
             msg_send_seq = self.seq
@@ -697,72 +732,76 @@ class WeComChatData(models.Model):
                 )
             elif self.msgtype == "image":
                 # 图片消息
-                try:
-                    ir_config = self.env["ir.config_parameter"].sudo()
-                    mediadata_url = ir_config.get_param(
-                        "wecom.msgaudit.msgaudit_sdk_url"
-                    ) + ir_config.get_param("wecom.msgaudit.msgaudit_mediadata_url")
-                    proxy = (
-                        True
-                        if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
-                        else False
-                    )
+                if overdue:
+                    # 超期无法通过SDK获取图片
+                    content =_("The current message record has exceeded 3 days and cannot be formatted.")
+                else:
+                    try:
+                        ir_config = self.env["ir.config_parameter"].sudo()
+                        mediadata_url = ir_config.get_param(
+                            "wecom.msgaudit.msgaudit_sdk_url"
+                        ) + ir_config.get_param("wecom.msgaudit.msgaudit_mediadata_url")
+                        proxy = (
+                            True
+                            if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
+                            else False
+                        )
 
-                    headers = {"content-type": "application/json"}
-                    body = {
-                        "seq": 0,
-                        "sdkfileid": eval(msg_content)["sdkfileid"],
-                        "corpid": corpid,
-                        "secret": secret,
-                        "private_keys": key_list,
-                    }
-                    if proxy:
-                        body.update(
-                            {
-                                "proxy": mediadata_url,
-                                "paswd": "odoo:odoo",
-                            }
-                        )
-                    response = requests.get(
-                        mediadata_url, data=json.dumps(body), headers=headers
-                    )
-                    res = response.json()
-                    if res is None:
-                        raise UserError(_("Unable to get media file information"))
-                    if res["code"] == 0:
-                        mediadata = res["data"]
-                        img_max_size = (
-                            int(
-                                ir_config.get_param(
-                                    "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
-                                )
+                        headers = {"content-type": "application/json"}
+                        body = {
+                            "seq": 0,
+                            "sdkfileid": eval(msg_content)["sdkfileid"],
+                            "corpid": corpid,
+                            "secret": secret,
+                            "private_keys": key_list,
+                        }
+                        if proxy:
+                            body.update(
+                                {
+                                    "proxy": mediadata_url,
+                                    "paswd": "odoo:odoo",
+                                }
                             )
-                            * 1024
-                        )  # 图片最大大小，超过此大小，进行压缩
-                        filesize = eval(msg_content)["filesize"]  # 图片原始大小
-                        # base64_source_str = base64.b64encode(mediadata).decode()
-                        base64_source_str = self.compress_image_base64(
-                            # base64.b64encode(mediadata), img_max_size, filesize
-                            bytes(mediadata, "utf-8"),
-                            img_max_size,
-                            filesize,
+                        response = requests.get(
+                            mediadata_url, data=json.dumps(body), headers=headers
                         )
-                        # print("data:image/png;base64,%s" % base64_source_str.decode())
-                        content = (
-                            "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
-                            % base64_source_str.decode()
-                        )
-                    else:
-                        _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
-                        raise UserError(res)
-                except Exception as e:
-                    _logger.exception("Exception: %s" % e)
-                    if "code" in str(e):
-                        raise UserError(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
-                    elif "HTTPConnectionPool" in str(e):
-                        raise UserError(_("API interface not started!"))
-                    else:
-                        raise UserError(_("Unknown error:%s") % e)
+                        res = response.json()
+                        if res is None:
+                            raise UserError(_("Unable to get media file information"))
+                        if res["code"] == 0:
+                            mediadata = res["data"]
+                            img_max_size = (
+                                int(
+                                    ir_config.get_param(
+                                        "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
+                                    )
+                                )
+                                * 1024
+                            )  # 图片最大大小，超过此大小，进行压缩
+                            filesize = eval(msg_content)["filesize"]  # 图片原始大小
+                            # base64_source_str = base64.b64encode(mediadata).decode()
+                            base64_source_str = self.compress_image_base64(
+                                # base64.b64encode(mediadata), img_max_size, filesize
+                                bytes(mediadata, "utf-8"),
+                                img_max_size,
+                                filesize,
+                            )
+                            # print("data:image/png;base64,%s" % base64_source_str.decode())
+                            content = (
+                                "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
+                                % base64_source_str
+                            )
+                        else:
+                            _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                            raise UserError(res)
+                    except Exception as e:
+                        _logger.exception("Exception: %s" % e)
+                        if "code" in str(e):
+                            raise UserError(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                        elif "HTTPConnectionPool" in str(e):
+                            raise UserError(_("API interface not started!"))
+                        else:
+                            raise UserError(_("Unknown error:%s") % e)
 
             else:
                 pass
@@ -787,6 +826,7 @@ class WeComChatData(models.Model):
 
     def compress_image_base64(self, base64_source, t_size, o_size):
         """
+        压缩图片最大宽度为1024px(避免4K图片循环过多)，最大大小为 t_size
         不改变图片尺寸压缩到指定大小
         :param base64_source: 图像base64编码
         :param t_size: 目标大小
@@ -798,10 +838,17 @@ class WeComChatData(models.Model):
         else:
             with io.BytesIO(base64.b64decode(base64_source)) as im:
                 o_size = len(im.getvalue())  # 原始图片大小
+                
                 stream = im
                 while o_size > t_size:
                     imgage = Image.open(stream)
                     x, y = imgage.size
+                    if x > 1024:
+                        # 图片宽度大于1024px，进行等比例缩放
+                        y = int(y * (1024 / x))
+                        x=1024
+                        imgage = imgage.resize((x, y), Image.ANTIALIAS)
+   
                     output = imgage.resize(
                         (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
                     )
@@ -809,6 +856,8 @@ class WeComChatData(models.Model):
                     stream = io.BytesIO()
                     output.save(stream, "png")
                     o_size = len(stream.getvalue())  # 压缩后图片大小
+                # print(type(stream.getvalue()))
                 base64_source = base64.b64encode(stream.getvalue()).decode()
                 stream.close()
+                # print(type(base64_source))
                 return base64_source

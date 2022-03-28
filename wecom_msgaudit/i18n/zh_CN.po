@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-20 10:16+0000\n"
-"PO-Revision-Date: 2022-03-20 18:19+0800\n"
+"POT-Creation-Date: 2022-03-28 05:27+0000\n"
+"PO-Revision-Date: 2022-03-28 13:33+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -110,6 +110,14 @@ msgid "Application"
 msgstr "应用"
 
 #. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Application secret key of company [%s] session content archive cannot be "
+"empty!"
+msgstr "公司 [%s] 会话内容存档应用密钥不能为空！"
+
+#. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
 msgid "Are you sure to generate message encryption public key and private key ?"
 msgstr "确定生成消息加密公钥和私钥吗？"
@@ -151,6 +159,12 @@ msgstr "自动任务：结束[%s]的下载会话内容记录，没有可下载�
 #. module: wecom_msgaudit
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
 #, python-format
+msgid "Automatic task: End formatting session content archive record."
+msgstr "自动任务：结束格式化会话内容存档记录。"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
 msgid ""
 "Automatic task: Exception in downloading session content record for [%s],"
 "Exception:%s"
@@ -163,9 +177,10 @@ msgid "Automatic task: Start download session content record for [%s]"
 msgstr "自动任务：启动[%s]的下载会话内容记录"
 
 #. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_auto_get_internal_groupchat_name
-msgid "Automatically get internal group chat name"
-msgstr "自动获取内部群组聊天名称"
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Automatic task: Start formatting session content archive record."
+msgstr "自动任务：启动格式化会话内容存档记录。"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
@@ -383,6 +398,16 @@ msgid "Format message"
 msgstr "格式化消息"
 
 #. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_cron_format_session_content_archive_record
+msgid "Format the session content archive record"
+msgstr "格式化会话内容存档记录"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__formatted
+msgid "Formatted"
+msgstr "已格式化"
+
+#. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
 msgid "Generate key"
 msgstr "生成密钥"
@@ -502,7 +527,7 @@ msgstr "密钥版本必须是唯一的！"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name____last_update
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改日"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__write_uid
@@ -699,6 +724,14 @@ msgstr "打开链接"
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
 #, python-format
 msgid ""
+"Please bind the session content archiving application on the \"Settings\" "
+"page after switching company [%s]."
+msgstr "切换公司 [%s] 后，请在“设置”页面上绑定会话内容存档应用。"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
 "Please bind the session content archiving application on the settings page."
 msgstr "请在“设置”页面上绑定会话内容存档应用。"
 
@@ -869,10 +902,15 @@ msgid "Text message content"
 msgstr "文本消息内容"
 
 #. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
+msgid "Text message content contains"
+msgstr "文本消息内容包含"
+
+#. module: wecom_msgaudit
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
 #, python-format
-msgid "The application secret key of session content archive cannot be empty!"
-msgstr "会话内容存档的应用程序密钥不能为空！"
+msgid "The current message record has exceeded 3 days and cannot be formatted."
+msgstr "当前消息记录已超过3天，无法格式化。"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
@@ -907,6 +945,18 @@ msgstr "待办消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__todo
 msgid "Todo message content"
 msgstr "待办消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Unable to get media file information"
+msgstr "无法获取媒体文件信息"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Unknown error:%s"
+msgstr "未知错误：%s"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
@@ -973,6 +1023,14 @@ msgid "WeCom: Download session content record."
 msgstr "企微：下载会话内容记录。"
 
 #. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.ir_cron_act_format_session_content_archive_record
+#: model:ir.actions.server,name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record_ir_actions_server
+#: model:ir.cron,cron_name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record
+#: model:ir.cron,name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record
+msgid "WeCom: Format the session content archive record."
+msgstr "企微：格式化会话内容存档记录。"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__weapp
 msgid "Weapp message"
 msgstr "小程序消息"
@@ -1011,13 +1069,6 @@ msgstr "企微聊天记录附加记录备注"
 #: model:ir.model,name:wecom_msgaudit.model_wecom_modify_external_groupchat_name
 msgid "Wecom modify external groupcha name"
 msgstr "企微修改外部群聊名称"
-
-#. module: wecom_msgaudit
-#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
-msgid ""
-"When downloading the session content archive record, the internal group chat "
-"name is automatically obtained."
-msgstr "下载会话内容存档记录时，会自动获取内部群聊的名称。"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__seq
