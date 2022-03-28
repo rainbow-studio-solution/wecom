@@ -55,18 +55,20 @@ class WeComAppConfig(models.Model):
             fields=["ttype", "value"],
             limit=1,
         )
-
-        value = params[0]["value"]
-        ttype = params[0]["ttype"]
-        if ttype == "boolean":
-            boolean_value = str(value).lower()
-            if boolean_value in ["true", "yes", "t", "1"]:
-                return True
-            elif boolean_value in ["false", "no", "f", "0"]:
-                return False
-            else:
-                return False
-        return value if params else None
+        if not params:
+            return None
+        else:
+            value = params[0]["value"]
+            ttype = params[0]["ttype"]
+            if ttype == "boolean":
+                boolean_value = str(value).lower()
+                if boolean_value in ["true", "yes", "t", "1"]:
+                    return True
+                elif boolean_value in ["false", "no", "f", "0"]:
+                    return False
+                else:
+                    return False
+            return value if params else None
 
     @api.model
     def set_param(self, app_id, key, value):

@@ -88,6 +88,8 @@ class WizardSyncContacts(models.TransientModel):
                     company.contacts_app_id.id, "contacts_auto_sync_hr_enabled"
                 )  # 允许企业微信通讯簿自动更新为HR的标识
 
+                if sync_hr_enabled is False:
+                    raise UserError(_("Please configure the parameters of wecom contact application of company [%s].") % company.name)
                 if sync_hr_enabled:
                     time, result = self.env["wecom.sync_task"].run(company)
                     times.append(time)
