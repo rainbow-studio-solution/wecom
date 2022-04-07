@@ -57,6 +57,7 @@
                             <!-- attrs="{'invisible': ['|','|',('room','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}" -->
 
                             <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o" attrs="{'invisible': ['|','|',('formatted','=', True),('action','=', 'switch'),('action','=', 'recall')]}"/>
+
                         </div>
                         <widget name="web_ribbon" title="External message" bg_color="bg-danger" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
                         <div class="oe_title">

@@ -53,7 +53,7 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="wecom.msgaudit.msgaudit_mediadata_url",
     )
 
-    module_wecom_chatdata_add_log_note = fields.Boolean(
+    module_wecom_chatdata_log_note = fields.Boolean(
         "Wecom chat records attached to log note"
     )
 

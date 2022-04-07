@@ -69,22 +69,38 @@ odoo.define('wecom.x2many', function (require) {
                 }
             }
         },
-        _renderView: function () {
-            var self = this;
-            return this._super.apply(this, arguments).then(function () {
-                if (self.is_wecom_one2many) {
-                    if (self.state.data.length > 0) {
-                        if (self.show_help) {
-                            self.$('.o_list_table').addClass('w-auto');
-                        } else {
-                            self.$('.o_list_table').addClass('w-100');
-                        }
-                    } else {
-                        self.$('.o_list_table').addClass('w-100');
+        _onRowClicked: function (ev) {
+            if (this.is_wecom_one2many) {
+                ev.stopPropagation();
+                ev.preventDefault();
+            } else {
+                if (!ev.target.closest('.o_list_record_selector') && !$(ev.target).prop('special_click')) {
+                    var id = $(ev.currentTarget).data('id');
+                    if (id) {
+                        this.trigger_up('open_record', {
+                            id: id,
+                            target: ev.target
+                        });
                     }
                 }
-            });
+            }
         },
+        // _renderView: function () {
+        //     var self = this;
+        //     return this._super.apply(this, arguments).then(function () {
+        //         if (self.is_wecom_one2many) {
+        //             if (self.state.data.length > 0) {
+        //                 if (self.show_help) {
+        //                     self.$('.o_list_table').addClass('w-auto');
+        //                 } else {
+        //                     self.$('.o_list_table').addClass('w-100');
+        //                 }
+        //             } else {
+        //                 self.$('.o_list_table').addClass('w-100');
+        //             }
+        //         }
+        //     });
+        // },
         _getNumberOfCols: function () {
             var n = this.columns.length;
             if (this.is_wecom_one2many) {

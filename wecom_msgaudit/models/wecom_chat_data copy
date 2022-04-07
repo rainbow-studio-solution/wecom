@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import logging
-from math import fabs
 import time
 import io
 import requests
@@ -13,7 +12,6 @@ from PIL import Image
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
-from lxml import etree
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 
@@ -68,9 +66,6 @@ class WeComChatData(models.Model):
     )
     from_user = fields.Char(
         string="Message sender ID", help="The user who sent the message."
-    )
-    from_user_name = fields.Char(
-        string="Message Sender Name", compute="_compute_from_user_name",store=True
     )
     tolist = fields.Char(string="Message recipient list")
 
@@ -183,21 +178,6 @@ class WeComChatData(models.Model):
                     record.formatted = False
                 else:
                     record.formatted = True
-    @api.depends("from_user")
-    def _compute_from_user_name(self):
-        for record in self:
-            employee = self.env["hr.employee"].search(
-                [
-                    ("wecom_userid", "=", record.from_user),
-                    ("company_id", "=", record.company_id.id),
-                ],
-                limit=1,
-            )
-
-            if employee:
-                record.from_user_name = employee.name
-            else:
-                record.from_user_name = record.from_user
 
     @api.depends("msgid", "action")
     def _compute_is_external_msg(self):
@@ -675,9 +655,9 @@ class WeComChatData(models.Model):
         格式化消息内容
         暂时支持消息类型: text / link / image 
         """
-        # if self.formatted:
-        #     return
-        formatted = False
+        if self.formatted:
+            return
+
         company = self.company_id
         if not company:
             company = self.env.company
@@ -704,28 +684,24 @@ class WeComChatData(models.Model):
   
         content = self[self._fields[self.msgtype].name]
 
-        allow_formatting = False
-
         if content[0] == "{" and (self.msgtype == "text" or self.msgtype == "link" or self.msgtype == "image"):
-            # 是json格式的内容
-            allow_formatting = True
-        elif self.msgtype == "image":
-            # 检查图片是否可以打开
-            tree = etree.HTML(self.image)
-            image_str = tree.xpath("//img/@src")
-            if self.check_image_base(image_str):
-                allow_formatting = False  
-            else:
-                allow_formatting = True
+            # 如果是json格式的内容
+            msg_send_time = self.msgtime
+            msg_send_seq = self.seq
+            msg_sender_name = _("External personnel:") + self.from_user
 
-        if allow_formatting:
+            msg_sender = self.env["hr.employee"].search(
+                [("wecom_userid", "=", self.from_user)], limit=1
+            )
+            if msg_sender:
+                msg_sender_name = _("Internal staff:") + msg_sender.name
+
             msg_content = self[self._fields[self.msgtype].name]
 
             if self.msgtype == "text":
                 # 文本消息
                 if "content" in msg_content:
                     content = eval(msg_content)["content"]
-                    formatted = True
             elif self.msgtype == "link":
                 # 链接消息
                 link = eval(msg_content)
@@ -754,7 +730,6 @@ class WeComChatData(models.Model):
                     link["link_url"],
                     _("Open link"),
                 )
-                formatted = True
             elif self.msgtype == "image":
                 # 图片消息
                 if overdue:
@@ -775,7 +750,7 @@ class WeComChatData(models.Model):
                         headers = {"content-type": "application/json"}
                         body = {
                             "seq": 0,
-                            "sdkfileid": eval(msg_content)["sdkfileid"] if content[0] == "{" else eval(self.decrypted_chat_msg)["image"]["sdkfileid"],
+                            "sdkfileid": eval(msg_content)["sdkfileid"],
                             "corpid": corpid,
                             "secret": secret,
                             "private_keys": key_list,
@@ -803,24 +778,18 @@ class WeComChatData(models.Model):
                                 )
                                 * 1024
                             )  # 图片最大大小，超过此大小，进行压缩
-                            filesize = eval(msg_content)["filesize"] if content[0] == "{" else eval(self.decrypted_chat_msg)["image"]["filesize"] # 图片原始大小
-
-                            base64_source = self.compress_image_base64(
+                            filesize = eval(msg_content)["filesize"]  # 图片原始大小
+                            # base64_source_str = base64.b64encode(mediadata).decode()
+                            base64_source_str = self.compress_image_base64(
+                                # base64.b64encode(mediadata), img_max_size, filesize
                                 bytes(mediadata, "utf-8"),
                                 img_max_size,
                                 filesize,
                             )
-
-                            if type(base64_source) == bytes:
-                                base64_source = base64_source.decode()
-                            if self.check_image_base(base64_source):
-                                formatted = True
-                            else:
-                                formatted = False
-
+                            # print("data:image/png;base64,%s" % base64_source_str.decode())
                             content = (
-                                "<img class='mw-100' src='data:image/png;base64,%s' />"
-                                % base64_source
+                                "<p><img class='mw-100' src='data:image/png;base64,%s' /></p>"
+                                % base64_source_str
                             )
                         else:
                             _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
@@ -833,28 +802,27 @@ class WeComChatData(models.Model):
                             raise UserError(_("API interface not started!"))
                         else:
                             raise UserError(_("Unknown error:%s") % e)
+
             else:
                 pass
-            
-            self.write({
-                self._fields[self.msgtype].name: content,
-                "formatted": formatted,
-                })
 
-    def check_image_base(self,image_str):
-        """
-        校验图片的字节流
-        """
-        try:
-            image_file = io.BytesIO(image_str) # 使用BytesIO把字节流转换为文件对象
-            image = Image.open(image_file) # 检查文件是否能正常打开
-            image.verify()  # 检查文件完整性
-            image_file.close()
-            image.close()
-        except:
-            return False
-        else:
-            return True
+            media_content = """<div class="media wecom_chat_record">
+                <div class="media-body">
+                    <h5 class="mt-0"><span class='contacts' title='%s'>%s</span> <small>%s %s</small> <small>%s %s</small></h5>
+                    %s
+                </div>
+            </div>
+            """ % (
+                msg_sender_name,
+                msg_sender_name,
+                _("Sending time:"),
+                msg_send_time,
+                _("Message sequence number:"),
+                msg_send_seq,
+                content,
+            )
+            # print(media_content)
+            self.write({self._fields[self.msgtype].name: media_content})
 
     def compress_image_base64(self, base64_source, t_size, o_size):
         """

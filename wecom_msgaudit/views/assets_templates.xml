@@ -8,10 +8,10 @@
         </xpath>
     </template>
 
-    <template id="assets_backend" name="Backend Assets" inherit_id="web.assets_backend">
+    <!-- <template id="assets_backend" name="Backend Assets" inherit_id="web.assets_backend">
         <xpath expr="//link[last()]" position="after">
             <link rel="stylesheet" type="text/scss" href="/wecom_msgaudit/static/src/scss/wecom_chat_record.scss"/>
         </xpath>
-    </template>
+    </template> -->
 
 </odoo>

@@ -146,15 +146,15 @@
                     <!-- 聊天记录附加到联系人记录备注 -->
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('module_wecom_msgaudit','=',False)]}" id="wecom_chat_data_add_log_note_install">
                         <div class="o_setting_left_pane">
-                            <field name="module_wecom_chatdata_add_log_note" />
+                            <field name="module_wecom_chatdata_log_note" />
                         </div>
                         <div class="o_setting_right_pane" id="wecom_chat_data2contacts_settings">
-                            <label for="module_wecom_chatdata_add_log_note"/>
+                            <label for="module_wecom_chatdata_log_note"/>
                             <span class="badge badge-primary oe_inline o_wecom_pro_label">Wecom Professional Edition</span>
                             <div class="text-muted">
 
                             </div>
-                            <div class="content-group" attrs="{'invisible': [('module_wecom_chatdata_add_log_note', '=', False)]}" id="wecom_chat_data2contacts_warning">
+                            <div class="content-group" attrs="{'invisible': [('module_wecom_chatdata_log_note', '=', False)]}" id="wecom_chat_data2contacts_warning">
                                 <div class="mt8 text-warning">
                                     <strong>Save</strong> this page and come back here to set up other feature.
                                 </div>
