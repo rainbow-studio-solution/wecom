@@ -14,6 +14,9 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
 from lxml import etree
+import multiprocessing
+from multiprocessing import Pool
+from multiprocessing import Manager
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 
@@ -660,8 +663,27 @@ class WeComChatData(models.Model):
             _("Automatic task: Start formatting session content archive record.")
         )
         chats = self.search([("formatted", "=", False),("action", "!=", "switch")])
-        for chat in chats:
-            chat.format_content()
+
+ 
+        if len(chats) > multiprocessing.cpu_count():
+            # pool = Pool(multiprocessing.cpu_count()) #创建等同CPU数量进程的进程池
+            # # pool.map(self.format_content, chats)
+            # with pool as p:
+            #     p.map(self.format_content, chats)
+            manager=Manager()
+            queue=manager.Queue()
+            processedNum=manager.Value('i',0)
+            for i in chats:
+                queue.put(i)
+            processesNum = int(self.maxProcessesInput.get())
+            pool = Pool(processesNum)
+            for i in range(processesNum):
+                pool.apply_async(self.format_content,())
+            pool.close()
+            pool.join()
+        else:
+            for chat in chats:            
+                chat.format_content()
         _logger.info(
             _("Automatic task: End formatting session content archive record.")
         )
