@@ -14,9 +14,9 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
 from lxml import etree
-import multiprocessing
-from multiprocessing import Pool
-from multiprocessing import Manager
+# import multiprocessing
+# from multiprocessing import Pool
+# from multiprocessing import Manager
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 
@@ -332,7 +332,7 @@ class WeComChatData(models.Model):
                                     }                                
                                 else:
                                     # 内部群可以通过API获取群信息
-                                    room =self.get_group_chat_info_by_roomid(value)
+                                    room =self.get_group_chat_info_by_roomid(company,value)
                                 group_chat = self.create_group_chat(room)
                                 dic_data.update({"room": group_chat.id})
                             elif key == "msgtime" or key == "time":
@@ -341,7 +341,6 @@ class WeComChatData(models.Model):
                                 dic_data.update({key: self.timestamp2datetime(time_stamp)})
                             else:
                                 dic_data.update({key: value})
-                        # print(dic_data)
                         self.sudo().create(dic_data)
                     return True
                 else:
@@ -377,11 +376,11 @@ class WeComChatData(models.Model):
         )
         return base64.b64encode(open(image_path, "rb").read())
 
-    def get_group_chat_info_by_roomid(self, roomid):
+    def get_group_chat_info_by_roomid(self, company_id,roomid):
         """
-        获取群聊信息
+        获取内部群聊信息
         """
-        company = self.company_id
+        company = company_id
         if not company:
             company = self.env.company
         room_dic = {}
@@ -402,8 +401,7 @@ class WeComChatData(models.Model):
                     "room_creator": response["creator"],
                     "room_notice": response["notice"],
                     "room_create_time": room_create_time,
-                    "room_members": json.dumps(response["members"]),
-                    
+                    "room_members": json.dumps(response["members"]),                    
                 }
         except ApiException as ex:
             pass
@@ -411,6 +409,7 @@ class WeComChatData(models.Model):
             #     ex, raise_exception=True
             # )
         finally:
+            # print("room_dic",room_dic)
             return room_dic
 
     def create_group_chat(self,room):
@@ -425,7 +424,6 @@ class WeComChatData(models.Model):
             if not company:
                 company = self.env.company
             room.update({"company_id": company.id})
-            # print(room)
             groupchat.create(room)
         return groupchat
 
@@ -611,7 +609,7 @@ class WeComChatData(models.Model):
                                         }                                
                                     else:
                                         # 内部群可以通过API获取群信息
-                                        room =self.get_group_chat_info_by_roomid(value)
+                                        room =self.get_group_chat_info_by_roomid(app.company_id,value)
                                     group_chat = self.create_group_chat(room)
                                     dic_data.update({"room": group_chat.id})
                                 elif key == "msgtime" or key == "time":
@@ -664,26 +662,27 @@ class WeComChatData(models.Model):
         )
         chats = self.search([("formatted", "=", False),("action", "!=", "switch")])
 
- 
-        if len(chats) > multiprocessing.cpu_count():
-            # pool = Pool(multiprocessing.cpu_count()) #创建等同CPU数量进程的进程池
-            # # pool.map(self.format_content, chats)
-            # with pool as p:
-            #     p.map(self.format_content, chats)
-            manager=Manager()
-            queue=manager.Queue()
-            processedNum=manager.Value('i',0)
-            for i in chats:
-                queue.put(i)
-            processesNum = int(self.maxProcessesInput.get())
-            pool = Pool(processesNum)
-            for i in range(processesNum):
-                pool.apply_async(self.format_content,())
-            pool.close()
-            pool.join()
-        else:
-            for chat in chats:            
-                chat.format_content()
+        for chat in chats:            
+            chat.format_content()
+        # if len(chats) > multiprocessing.cpu_count():
+        #     # pool = Pool(multiprocessing.cpu_count()) #创建等同CPU数量进程的进程池
+        #     # # pool.map(self.format_content, chats)
+        #     # with pool as p:
+        #     #     p.map(self.format_content, chats)
+        #     manager=Manager()
+        #     queue=manager.Queue()
+        #     processedNum=manager.Value('i',0)
+        #     for i in chats:
+        #         queue.put(i)
+        #     processesNum = int(self.maxProcessesInput.get())
+        #     pool = Pool(processesNum)
+        #     for i in range(processesNum):
+        #         pool.apply_async(self.format_content,())
+        #     pool.close()
+        #     pool.join()
+        # else:
+        #     for chat in chats:            
+        #         chat.format_content()
         _logger.info(
             _("Automatic task: End formatting session content archive record.")
         )
@@ -910,8 +909,6 @@ class WeComChatData(models.Model):
                     stream = io.BytesIO()
                     output.save(stream, "png")
                     o_size = len(stream.getvalue())  # 压缩后图片大小
-                # print(type(stream.getvalue()))
                 base64_source = base64.b64encode(stream.getvalue()).decode()
                 stream.close()
-                # print(type(base64_source))
                 return base64_source
