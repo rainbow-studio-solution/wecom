@@ -92,10 +92,9 @@ class WecomServerApiError(models.Model):
             df = pd.read_html(table, encoding="utf-8", header=0)[0]  # pandas读取table
 
             error_results = list(df.T.to_dict().values())  # 转换成列表嵌套字典的格式
-
             errors = []
             for index, error in enumerate(error_results):
-                del error["Unnamed: 3"]
+                # del error["Unnamed: 3"]
                 error["sequence"] = index
                 if error["method"] == "查看帮助":
                     error["method"] = self.replaceMethod(str(error["code"]), methods)
