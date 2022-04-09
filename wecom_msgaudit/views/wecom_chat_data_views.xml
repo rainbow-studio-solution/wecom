@@ -6,12 +6,12 @@
             <field name="model">wecom.chat.data</field>
             <field name="arch" type="xml">
                 <search string="Name">
+                    <field name="text" string="Text message content contains" filter_domain="[('text', 'like', '%'+self+'%')]"/>
                     <field name="name"/>
                     <field name="seq"/>
                     <field name="msgid"/>
                     <field name="roomid"/>
                     <field name="room_name" filter_domain="[('room_name', 'ilike', self)]"/>
-                    <field name="text" string="Text message content contains" filter_domain="[('text', 'like', '%'+self+'%')]"/>
                     <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('room', '!=', False)]"/>
                     <!-- <filter string="External message" help="Group Chat" name="ExternalMessage" domain="[('is_external_msg', '!=', False)]"/> -->
                     <searchpanel>
@@ -31,7 +31,8 @@
                     <field name="company_id" />
                     <field name="msgid" />
                     <field name="action" />
-                    <field name="from_user" />
+                    <field name="sender" invisible="1"/>
+                    <field name="sender_id" />
                     <field name="msgtime" />
                     <field name="room" invisible="1"/>
                     <field name="roomid" />
@@ -86,9 +87,24 @@
                                     <button name="%(modify_external_groupchat_name_action)d" string="Modify external group chat name" class="btn btn-primary" type="action" icon="fa-pencil-square-o" attrs="{'invisible': [('is_external_msg', '=', False)]}"/>
                                 </div>
                             </group>
-                            <!-- <group name="log_notes" string="Log notes">
-                                <field name="commented" />
-                            </group> -->
+                            <group name="sender_info" string="Sender information">
+                                <field name="sender" invisible="1" />
+                                <!-- <field name="sender" /> -->
+                                <field name="sender_id" />
+                                <field name="sender_type" />
+                                <field name="partner_id_of_sender" />
+                                <field name="employee_id_of_sender" />
+
+                                <label for="sender_name"/>
+                                <div class="o_row">
+                                    <field name="sender_name" />
+                                    <hr attrs="{'invisible': [('sender', '!=', False)]}"/>
+                                    <div class="btn-group" role="group">
+                                        <button name="create_chat_sender" string="Create sender" class="btn btn-primary" type="object" icon="fa-plus-square" attrs="{'invisible': [('sender', '!=', False)]}"/>
+                                        <button name="%(modify_external_sender_name_action)d" string="Modify external sender Name" class="btn btn-info" type="action" icon="fa-pencil-square-o" attrs="{'invisible': [('sender', '!=', False)]}"/>
+                                    </div>
+                                </div>
+                            </group>
                         </group>
                         <notebook>
                             <page string="Message Content">

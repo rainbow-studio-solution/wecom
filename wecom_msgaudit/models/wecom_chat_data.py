@@ -69,18 +69,34 @@ class WeComChatData(models.Model):
             ("switch", "Switch enterprise log"),
         ],
     )
-    from_user = fields.Char(
-        string="Message sender ID", help="The user who sent the message."
+    from_user = fields.Char(string="From user")
+
+    # 消息发送者
+    sender = fields.Many2one(
+        "wecom.chat.sender",
+        string="Related Sender",
     )
-    from_user_name = fields.Char(
-        string="Message Sender Name", compute="_compute_from_user_name",store=True
+
+    sender_id = fields.Char(related="sender.sender_id",store=True)
+    sender_type = fields.Selection(
+        string="Sender type",
+        related="sender.sender_type",
+        store=True
     )
-    employee_id_of_user = fields.Integer(
-        string="Employee ID of message sender", compute="_compute_employee_id_of_user",store=True
+    sender_name = fields.Char(
+        string="Sender Name", related="sender.name",store=True
     )
+    employee_id_of_sender = fields.Integer(
+        string="Employee ID", compute="_compute_employee_id_of_sender",store=True
+    )
+    partner_id_of_sender = fields.Integer(
+        string="Contact ID", compute="_compute_partner_id_of_sender",store=True
+    )
+
+
     tolist = fields.Char(string="Message recipient list")
 
-    # roomid = fields.Char(string="Group chat ID")
+    # 聊天群
     room = fields.Many2one(
         "wecom.chat.group",
         string="Related Group chat",
@@ -190,37 +206,27 @@ class WeComChatData(models.Model):
                 else:
                     record.formatted = True
 
-    @api.depends("from_user")
-    def _compute_from_user_name(self):
+    @api.onchange("sender")
+    def _onchange_sender(self):
+        if self.sender:
+            self.employee_id_of_sender = self.sender.employee_id.id
+            self.partner_id_of_sender = self.sender.partner_id.id
+
+    @api.depends("sender")
+    def _compute_employee_id_of_sender(self):
         for record in self:
-            employee = self.env["hr.employee"].search(
-                [
-                    ("wecom_userid", "=", record.from_user),
-                    ("company_id", "=", record.company_id.id),
-                ],
-                limit=1,
-            )
-
-            if employee:
-                record.from_user_name = employee.name
+            if record.sender:
+                record.employee_id_of_sender = record.sender.employee_id.id
             else:
-                record.from_user_name = record.from_user     
+                record.employee_id_of_sender = 0
 
-    @api.depends("from_user")
-    def _compute_employee_id_of_user(self):
+    @api.depends("sender")
+    def _compute_partner_id_of_sender(self):
         for record in self:
-            employee = self.env["hr.employee"].search(
-                [
-                    ("wecom_userid", "=", record.from_user),
-                    ("company_id", "=", record.company_id.id),
-                ],
-                limit=1,
-            )
-
-            if employee:
-                record.employee_id_of_user = employee.id
+            if record.sender:
+                record.partner_id_of_sender = record.sender.partner_id.id
             else:
-                record.employee_id_of_user = 0
+                record.partner_id_of_sender = 0
 
     @api.depends("msgid", "action")
     def _compute_is_external_msg(self):
@@ -230,7 +236,8 @@ class WeComChatData(models.Model):
                 record.is_external_msg = True
             else:
                 record.is_external_msg = False
-
+    
+    
     def download_chatdatas(self):
         """
         获取聊天记录
@@ -486,6 +493,45 @@ class WeComChatData(models.Model):
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 ex, raise_exception=True
             )
+
+    def create_chat_sender(self):
+        """
+        创建消息发送者
+        """
+        for record in self:
+            sender_id = record.from_user if record.from_user else eval(record.decrypted_chat_msg)["from"]
+            if record.sender:
+                pass
+            else:
+                sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+                if "wo-" in record.sender_id or "wm-" in record.sender_id:
+                    pass
+                else:
+                    partner = self.env["res.partner"].search(
+                        [
+                            ("wecom_userid", "=", sender_id),
+                        ],
+                        limit=1,
+                    )
+                    employee = self.env["hr.employee"].search(
+                        [
+                            ("wecom_userid", "=", sender_id),
+                            ("company_id", "=", record.company_id.id),
+                        ],
+                        limit=1,
+                    )
+                
+                if len(sender) == 0:
+                    dic ={
+                        "sender_id": sender_id
+                    }
+                    if partner:
+                        dic.update({"partner_id": partner.id})
+                    if employee:
+                        dic.update({"employee_id": employee.id})
+                    sender = self.env["wecom.chat.sender"].sudo().create(dic)
+                record.write({"sender": sender.id})
+    
 
     def get_decrypted_chat_msg_fields(self):
         fields = [f for f in self._fields.keys()]

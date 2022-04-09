@@ -123,10 +123,9 @@ odoo.define('wecom.x2many', function (require) {
             return $thead;
         },
         _renderRow: function (record, index) {
-            var self = this;
             var $row = this._super.apply(this, arguments);
-
             if (this.is_wecom_one2many) {
+                var self = this;
                 $row.find("td:first").before($("<td/>").html(index + 1));
                 if (this.show_help) {
                     if (this.state.data.length > 0) {
