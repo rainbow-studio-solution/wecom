@@ -75,6 +75,9 @@ class WeComChatData(models.Model):
     from_user_name = fields.Char(
         string="Message Sender Name", compute="_compute_from_user_name",store=True
     )
+    employee_id_of_user = fields.Integer(
+        string="Employee ID of message sender", compute="_compute_employee_id_of_user",store=True
+    )
     tolist = fields.Char(string="Message recipient list")
 
     # roomid = fields.Char(string="Group chat ID")
@@ -186,6 +189,7 @@ class WeComChatData(models.Model):
                     record.formatted = False
                 else:
                     record.formatted = True
+
     @api.depends("from_user")
     def _compute_from_user_name(self):
         for record in self:
@@ -200,7 +204,23 @@ class WeComChatData(models.Model):
             if employee:
                 record.from_user_name = employee.name
             else:
-                record.from_user_name = record.from_user
+                record.from_user_name = record.from_user     
+
+    @api.depends("from_user")
+    def _compute_employee_id_of_user(self):
+        for record in self:
+            employee = self.env["hr.employee"].search(
+                [
+                    ("wecom_userid", "=", record.from_user),
+                    ("company_id", "=", record.company_id.id),
+                ],
+                limit=1,
+            )
+
+            if employee:
+                record.employee_id_of_user = employee.id
+            else:
+                record.employee_id_of_user = 0
 
     @api.depends("msgid", "action")
     def _compute_is_external_msg(self):
@@ -879,7 +899,7 @@ class WeComChatData(models.Model):
 
     def compress_image_base64(self, base64_source, t_size, o_size):
         """
-        压缩图片最大宽度为1024px(避免4K图片循环过多)，最大大小为 t_size
+        压缩图片最大宽度为1000px(避免4K图片循环过多)，最大大小为 t_size
         不改变图片尺寸压缩到指定大小
         :param base64_source: 图像base64编码
         :param t_size: 目标大小
@@ -896,10 +916,10 @@ class WeComChatData(models.Model):
                 while o_size > t_size:
                     imgage = Image.open(stream)
                     x, y = imgage.size
-                    if x > 1024:
-                        # 图片宽度大于1024px，进行等比例缩放
-                        y = int(y * (1024 / x))
-                        x=1024
+                    if x > 1000:
+                        # 图片宽度大于1000px，进行等比例缩放
+                        y = int(y * (1000 / x))
+                        x=1000
                         imgage = imgage.resize((x, y), Image.ANTIALIAS)
    
                     output = imgage.resize(

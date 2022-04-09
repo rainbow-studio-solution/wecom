@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-07 07:31+0000\n"
-"PO-Revision-Date: 2022-04-07 15:38+0800\n"
+"POT-Creation-Date: 2022-04-09 03:48+0000\n"
+"PO-Revision-Date: 2022-04-09 11:49+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -355,6 +355,11 @@ msgstr "表情消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__emotion
 msgid "Emotion message content"
 msgstr "表情消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__employee_id_of_user
+msgid "Employee ID of message sender"
+msgstr "发送者的员工ID"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__encrypt_chat_msg
