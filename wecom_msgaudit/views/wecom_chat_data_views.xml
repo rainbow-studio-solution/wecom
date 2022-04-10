@@ -8,6 +8,7 @@
                 <search string="Name">
                     <field name="text" string="Text message content contains" filter_domain="[('text', 'like', '%'+self+'%')]"/>
                     <field name="from_user"/>
+                    <field name="sender_name"/>
                     <field name="name"/>
                     <field name="seq"/>
                     <field name="msgid"/>

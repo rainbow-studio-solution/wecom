@@ -553,7 +553,9 @@ class WeComChatData(models.Model):
         sender_id = self.from_user if self.from_user else eval(self.decrypted_chat_msg)["from"]                
         dic={}
         dic.update({"sender_id": sender_id})
-        for chat in self:
+        chats = self.search([("from_user", "=", sender_id)])
+        # print("chats",len(chats),chats)
+        for chat in chats:
             if chat.sender:
                 pass
             else:
