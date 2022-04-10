@@ -548,50 +548,50 @@ class WeComChatData(models.Model):
     def create_chat_sender(self):
         """
         创建消息发送者
+        同时修改相同发送者的消息记录
         """        
-        for record in self:
-            sender_id = record.from_user if record.from_user else eval(record.decrypted_chat_msg)["from"]                
-            dic={}
-            dic.update({"sender_id": sender_id})
-            if record.sender:
+        sender_id = self.from_user if self.from_user else eval(self.decrypted_chat_msg)["from"]                
+        dic={}
+        dic.update({"sender_id": sender_id})
+        for chat in self:
+            if chat.sender:
                 pass
-            else:                
-                if "wo-" in sender_id or "wm-" in sender_id:
-                    if "wo-" in sender_id:
-                        dic.update({"sender_type": "wecom"})
-                    if "wm-" in sender_id:
-                        dic.update({"sender_type": "wechat"})
-                else:
-                    dic.update({"sender_type": "staff"})                    
-                    partner = self.env["res.partner"].search(
-                        [
-                            ("wecom_userid", "=", sender_id),
-                        ],
-                        limit=1,
-                    )
-                    employee = self.env["hr.employee"].search(
-                        [
-                            ("wecom_userid", "=", sender_id),
-                            ("company_id", "=", record.company_id.id),
-                        ],
-                        limit=1,
-                    ) 
-                    if employee:
-                        dic.update({"employee_id": employee.id})
-                    # 优先使用 联系人的名称
-                    if partner:
-                        dic.update({"partner_id": partner.id,"name": partner.name,})
-                    else:            
+            else:
+                if chat.from_user == sender_id or eval(self.decrypted_chat_msg)["from"] == sender_id:
+                    if "wo-" in sender_id or "wm-" in sender_id:
+                        if "wo-" in sender_id:
+                            dic.update({"sender_type": "wecom"})
+                        if "wm-" in sender_id:
+                            dic.update({"sender_type": "wechat"})
+                    else:
+                        dic.update({"sender_type": "staff"}) 
+                        partner = self.env["res.partner"].search(
+                            [
+                                ("wecom_userid", "=", sender_id),
+                            ],
+                            limit=1,
+                        )
+                        employee = self.env["hr.employee"].search(
+                            [
+                                ("wecom_userid", "=", sender_id),
+                                ("company_id", "=", self.company_id.id),
+                            ],
+                            limit=1,
+                        )
                         if employee:
-                            dic.update({"name": employee.name})
-                        else:
-                            dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
-                sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
-                if len(sender) == 0:                    
-                    sender = self.env["wecom.chat.sender"].sudo().create(dic)
-                
-                record.write({"sender": sender.id})
-    
+                            dic.update({"employee_id": employee.id})
+                        # 优先使用 联系人的名称
+                        if partner:
+                            dic.update({"partner_id": partner.id,"name": partner.name,})
+                        else:            
+                            if employee:
+                                dic.update({"name": employee.name})
+                            else:
+                                dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
+                    sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+                    if len(sender) == 0:
+                        sender = self.env["wecom.chat.sender"].sudo().create(dic)
+                    chat.write({"sender": sender.id})
 
     def get_decrypted_chat_msg_fields(self):
         fields = [f for f in self._fields.keys()]
