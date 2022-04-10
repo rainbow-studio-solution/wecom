@@ -9,7 +9,7 @@ class WeComChatSender(models.Model):
     _name = "wecom.chat.sender"
     _description = "Wecom Chat Sender"
 
-    name = fields.Char(string="Sender Name", compute="_compute_name", store=True)
+    name = fields.Char(string="Sender Name",  store=True) # compute="_compute_name"
     sender_id= fields.Char(string="Sender ID", )
     sender_type = fields.Selection(
         string="Sender type",
@@ -17,9 +17,8 @@ class WeComChatSender(models.Model):
             ("staff", "Internal staff"),
             ("wechat", "Wechat user"),
             ("wecom", "Wecom user"),
-        ],
-        compute="_compute_sender_type",
-    )
+        ],        
+    )# compute="_compute_sender_type",
     partner_id = fields.Many2one("res.partner", string="Contacts",domain="[ ('is_company', '!=', 'company')]")
     employee_id = fields.Many2one("hr.employee", string="Employee")
     
@@ -36,6 +35,7 @@ class WeComChatSender(models.Model):
         for record in self:
             if record.partner_id:
                 record.name = record.partner_id.name
+                return
             elif record.employee_id:
                 record.name = record.employee_id.name
             else:

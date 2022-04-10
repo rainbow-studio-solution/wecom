@@ -9,19 +9,23 @@
                 <form string="Modify sender name" create="1">
                     <sheet>
                         <div class="oe_title">
-                            <field name="sender_name" default_focus="1" force_save="1" placeholder="Name"/>
+                            <field name="sender_name" default_focus="1" force_save="1" placeholder="Name" readonly="1"/>
                         </div>
                         <group>
+                            <field name="chatdata_id" invisible="1" />
                             <field name="sender" options="{'no_open': True, 'no_create': True}" />
-                            <label for="sender_partner_id" attrs="{'invisible': [('sender_employee_id', '=', True)]}"/>
+                            <field name="sender_type" />
+
+                            <!-- <label for="sender_partner_id" attrs="{'invisible': [('sender_employee_id', '=', True)]}"/>
                             <div class="o_row">
                                 <field name="sender_partner_id" options="{'no_open': True}" attrs="{'invisible': [('sender_employee_id', '=', True)]}"/>
                                 <hr/>
                                 <div class="text-muted">Priority use of contact ID</div>
-                            </div>
+                            </div> -->
 
-                            <field name="sender_employee_id" options="{'no_open': True}" attrs="{'invisible': [('sender_partner_id', '=', True)]}"/>
-                            <field name="chatdata_id" invisible="1" />
+                            <field name="sender_partner_id" attrs="{'invisible': [('sender_type', '=', 'staff')]}"/>
+                            <field name="sender_employee_id" options="{'no_open': True}" attrs="{'invisible': [('sender_type', '!=', 'staff')]}"/>
+
                         </group>
                     </sheet>
                     <footer>

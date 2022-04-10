@@ -13,22 +13,37 @@ class WecomModifyExternalSenderName(models.TransientModel):
     )
     sender = fields.Many2one(string="Related Sender",related="chatdata_id.sender", readonly=True,required=True)
 
-    sender_partner_id = fields.Many2one(string="Contacts,Priority",related="sender.partner_id", readonly=False)
+    sender_partner_id = fields.Many2one(string="Contacts",related="sender.partner_id", readonly=False)
 
     sender_employee_id = fields.Many2one(string="Employee",related="sender.employee_id", readonly=False)
 
-    sender_name = fields.Char(string="Sender name",related="sender.name", readonly=False,required=True)
+    sender_name = fields.Char(string="Sender name",related="sender.name", readonly=False,required=True,compute="_compute_name")
+    sender_type = fields.Selection(string="Sender type",related="sender.sender_type", readonly=True)
 
 
-    # @api.onchange("sender_employee_id")
-    # def _onchange_sender_employee_id(self):
-    #     if self.sender_partner_id:
-    #         raise ValidationError(_("You have selected a contact, you can't select another employee."))
+    @api.onchange("sender_employee_id")
+    def _onchange_sender_employee_id(self):
+        self.sender_name = self.sender_employee_id.name
+        # if self.sender_partner_id:
+        #     raise ValidationError(_("You have selected a contact, you can't select another employee."))
 
-    # @api.onchange("sender_partner_id")
-    # def _onchange_sender_partner_id(self):
-    #     if self.sender_employee_id:
-    #         raise ValidationError(_("You have selected an employee, you can't select a contact."))
+    @api.onchange("sender_partner_id")
+    def _onchange_sender_partner_id(self):
+        self.sender_name = self.sender_partner_id.name
+        # if self.sender_employee_id:
+        #     raise ValidationError(_("You have selected an employee, you can't select a contact."))
+
+    @api.depends('sender', 'sender_partner_id','sender_employee_id',)
+    def _compute_name(self):
+        for record in self:
+            if record.sender_partner_id:
+                record.name = record.sender_partner_id.name
+            elif record.sender_employee_id:
+                record.name = record.sender_employee_id.name
+            else:
+                record.name = record.sender.name
+
+            
 
     def save(self):
         """

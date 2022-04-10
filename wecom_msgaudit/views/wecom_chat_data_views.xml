@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <search string="Name">
                     <field name="text" string="Text message content contains" filter_domain="[('text', 'like', '%'+self+'%')]"/>
+                    <field name="from_user"/>
                     <field name="name"/>
                     <field name="seq"/>
                     <field name="msgid"/>
@@ -32,7 +33,7 @@
                     <field name="msgid" />
                     <field name="action" />
                     <field name="sender" invisible="1"/>
-                    <field name="sender_id" />
+                    <field name="sender_name" />
                     <field name="msgtime" />
                     <field name="room" invisible="1"/>
                     <field name="roomid" />
@@ -98,10 +99,11 @@
                                 <label for="sender_name"/>
                                 <div class="o_row">
                                     <field name="sender_name" />
-                                    <hr attrs="{'invisible': [('sender', '!=', False)]}"/>
+                                    <hr attrs="{'invisible': [('sender_type', '=', 'staff')]}"/>
                                     <div class="btn-group" role="group">
-                                        <button name="create_chat_sender" string="Create sender" class="btn btn-primary" type="object" icon="fa-plus-square" attrs="{'invisible': [('sender', '!=', False)]}"/>
-                                        <button name="%(modify_external_sender_name_action)d" string="Modify external sender Name" class="btn btn-info" type="action" icon="fa-pencil-square-o" attrs="{'invisible': [('sender', '!=', False)]}"/>
+                                        <button name="create_chat_sender" string="Create sender" class="btn btn-primary" type="object" icon="fa-plus-square" attrs="{'invisible': [('sender', '!=', False)]}" />
+
+                                        <button name="%(modify_external_sender_name_action)d" string="Modify external sender Name" class="btn btn-info" type="action" icon="fa-pencil-square-o" attrs="{'invisible': [('sender_type', '=', 'staff')]}"/>
                                     </div>
                                 </div>
                             </group>

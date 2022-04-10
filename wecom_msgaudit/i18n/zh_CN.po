@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-09 03:48+0000\n"
-"PO-Revision-Date: 2022-04-09 11:49+0800\n"
+"POT-Creation-Date: 2022-04-10 04:35+0000\n"
+"PO-Revision-Date: 2022-04-10 12:37+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -272,6 +272,17 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__partner_id_of_sender
+msgid "Contact ID"
+msgstr "联系人ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__partner_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_partner_id
+msgid "Contacts"
+msgstr "联系人"
+
+#. module: wecom_msgaudit
 #: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
 #, python-format
@@ -279,9 +290,16 @@ msgid "Corp ID cannot be empty!"
 msgstr "公司ID不能为空！"
 
 #. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Create sender"
+msgstr "创建发送者"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__create_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__create_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__create_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__create_uid
 msgid "Created by"
 msgstr "创建者"
@@ -289,7 +307,9 @@ msgstr "创建者"
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__create_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__create_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__create_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__create_date
 msgid "Created on"
 msgstr "创建时间"
@@ -320,7 +340,9 @@ msgstr "不同意消息内容"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__display_name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__display_name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__display_name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__display_name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__display_name
 msgid "Display Name"
 msgstr "显示名称"
@@ -357,9 +379,15 @@ msgid "Emotion message content"
 msgstr "表情消息内容"
 
 #. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__employee_id_of_user
-msgid "Employee ID of message sender"
-msgstr "发送者的员工ID"
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__employee_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_employee_id
+msgid "Employee"
+msgstr "员工"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__employee_id_of_sender
+msgid "Employee ID"
+msgstr "员工ID"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__encrypt_chat_msg
@@ -419,6 +447,11 @@ msgstr "格式化会话内容存档记录"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__formatted
 msgid "Formatted"
 msgstr "已格式化"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__from_user
+msgid "From user"
+msgstr "来自用户"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
@@ -488,7 +521,9 @@ msgstr "群公告"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__id
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__id
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__id
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__id
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__id
 msgid "ID"
 msgstr ""
@@ -502,6 +537,11 @@ msgstr "图片消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__image
 msgid "Image message content"
 msgstr "图片消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__staff
+msgid "Internal staff"
+msgstr "内部员工"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__external_redpacket
@@ -533,7 +573,9 @@ msgstr "密钥版本必须是唯一的！"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps____last_update
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data____last_update
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender____last_update
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name____last_update
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key____last_update
 msgid "Last Modified on"
 msgstr "最后修改日"
@@ -541,7 +583,9 @@ msgstr "最后修改日"
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__write_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__write_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__write_uid
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
@@ -549,7 +593,9 @@ msgstr "最后更新者"
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__write_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__write_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__write_date
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__write_date
 msgid "Last Updated on"
 msgstr "更新时间"
@@ -615,11 +661,6 @@ msgid "Message ID"
 msgstr "消息ID"
 
 #. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__from_user_name
-msgid "Message Sender Name"
-msgstr "消息发送者名称"
-
-#. module: wecom_msgaudit
 #: model:ir.ui.menu,name:wecom_msgaudit.action_wecom_session_key_list
 msgid "Message encryption key"
 msgstr "消息加密密钥"
@@ -633,11 +674,6 @@ msgstr "消息信息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__tolist
 msgid "Message recipient list"
 msgstr "消息接收方列表"
-
-#. module: wecom_msgaudit
-#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__from_user
-msgid "Message sender ID"
-msgstr "消息发送方id"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__time
@@ -681,10 +717,22 @@ msgid "Modify external groupchat name"
 msgstr "修改外部群聊名称"
 
 #. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Modify external sender Name"
+msgstr "修改外部发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.modify_external_sender_name_action
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
+msgid "Modify sender name"
+msgstr "修改发送者名称"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__name
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__name
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_groupchat_name_view
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
 msgid "Name"
 msgstr "名称"
@@ -794,6 +842,7 @@ msgstr "刷新"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__chatdata_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__chatdata_id
 msgid "Related Chat Data"
 msgstr "关联的聊天数据"
 
@@ -802,6 +851,12 @@ msgstr "关联的聊天数据"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__room
 msgid "Related Group chat"
 msgstr "关联的群聊"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender
+msgid "Related Sender"
+msgstr "关联发送者"
 
 #. module: wecom_msgaudit
 #: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
@@ -822,6 +877,7 @@ msgstr "撤回消息内容"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_groupchat_name_view
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
 msgid "Save"
 msgstr "保存"
 
@@ -844,6 +900,35 @@ msgstr "密钥"
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__action__send
 msgid "Send message"
 msgstr "发送消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__sender_id
+msgid "Sender ID"
+msgstr "发送者ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__name
+msgid "Sender Name"
+msgstr "发送者名称"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Sender information"
+msgstr "发送者信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_name
+msgid "Sender name"
+msgstr "发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_type
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__sender_type
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_type
+msgid "Sender type"
+msgstr "发送者类型"
 
 #. module: wecom_msgaudit
 #: model:wecom.apps,app_name:wecom_msgaudit.wecom_app_msgaudit
@@ -929,11 +1014,6 @@ msgid ""
 "The picture size of the chat data picture attached to the contact. The unit "
 "is 'KB', over which compression is performed."
 msgstr "聊天数据图片附加到联系人的图片大小。单位为'KB'，超过进行压缩。"
-
-#. module: wecom_msgaudit
-#: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__from_user
-msgid "The user who sent the message."
-msgstr "发送消息的用户。"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__publickey_ver
@@ -1055,6 +1135,11 @@ msgid "Weapp message content"
 msgstr "小程序消息内容"
 
 #. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__wechat
+msgid "Wechat user"
+msgstr "微信用户"
+
+#. module: wecom_msgaudit
 #: model:ir.model,name:wecom_msgaudit.model_wecom_apps
 msgid "Wecom Application"
 msgstr "企微应用"
@@ -1070,6 +1155,11 @@ msgid "Wecom Chat Group"
 msgstr "企微群聊"
 
 #. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_chat_sender
+msgid "Wecom Chat Sender"
+msgstr "企微消息发送者"
+
+#. module: wecom_msgaudit
 #: model:ir.model,name:wecom_msgaudit.model_wecom_msgaudit_key
 msgid "Wecom Session content archive key"
 msgstr "企微会话内容存档密钥"
@@ -1083,6 +1173,16 @@ msgstr "企微聊天记录备注"
 #: model:ir.model,name:wecom_msgaudit.model_wecom_modify_external_groupchat_name
 msgid "Wecom modify external groupcha name"
 msgstr "企微修改外部群聊名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_modify_external_sender_name
+msgid "Wecom modify external sender name"
+msgstr "企微修改外部发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__wecom
+msgid "Wecom user"
+msgstr "企微用户"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__seq

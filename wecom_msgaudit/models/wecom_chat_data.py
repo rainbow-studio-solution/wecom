@@ -349,6 +349,9 @@ class WeComChatData(models.Model):
                                 pass
                             elif key == "from":
                                 dic_data["from_user"] = value
+                                # 创建发送者
+                                sender = self.get_and_create_chat_sender(value)
+                                dic_data.update({"sender": sender.id})
                             elif key == "tolist":
                                 dic_data["tolist"] = json.dumps(value)
                             elif key == "roomid" and value:
@@ -494,19 +497,72 @@ class WeComChatData(models.Model):
                 ex, raise_exception=True
             )
 
+    def get_and_create_chat_sender(self,sender_id):
+        """
+        获取和创建发送者
+        """
+        sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+        if sender:
+            return sender
+        else:
+            dic={}
+            dic.update({"sender_id": sender_id})
+            if "wo-" in sender_id or "wm-" in sender_id:
+                dic.update({"name": sender_id[-6:]})
+                if "wo-" in sender_id:
+                    dic.update({"sender_type": "wecom"})
+                if "wm-" in sender_id:
+                    dic.update({"sender_type": "wechat"})
+            else:
+                dic.update({"sender_type": "staff"})
+                partner = self.env["res.partner"].search(
+                    [
+                        ("wecom_userid", "=", sender_id),
+                    ],
+                    limit=1,
+                )
+                company = self.company_id
+                if not company:
+                    company = self.env.company
+                employee = self.env["hr.employee"].search(
+                    [
+                        ("wecom_userid", "=", sender_id),
+                        ("company_id", "=", company.id),
+                    ],
+                    limit=1,
+                )
+
+                if employee:
+                    dic.update({"employee_id": employee.id})
+                # 优先使用 联系人的名称
+                if partner:
+                    dic.update({"partner_id": partner.id,"name": partner.name,})
+                else:            
+                    if employee:
+                        dic.update({"name": employee.name})
+                    else:
+                        dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
+            sender = self.env["wecom.chat.sender"].sudo().create(dic)
+            return sender
+
     def create_chat_sender(self):
         """
         创建消息发送者
-        """
+        """        
         for record in self:
-            sender_id = record.from_user if record.from_user else eval(record.decrypted_chat_msg)["from"]
+            sender_id = record.from_user if record.from_user else eval(record.decrypted_chat_msg)["from"]                
+            dic={}
+            dic.update({"sender_id": sender_id})
             if record.sender:
                 pass
-            else:
-                sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
-                if "wo-" in record.sender_id or "wm-" in record.sender_id:
-                    pass
+            else:                
+                if "wo-" in sender_id or "wm-" in sender_id:
+                    if "wo-" in sender_id:
+                        dic.update({"sender_type": "wecom"})
+                    if "wm-" in sender_id:
+                        dic.update({"sender_type": "wechat"})
                 else:
+                    dic.update({"sender_type": "staff"})                    
                     partner = self.env["res.partner"].search(
                         [
                             ("wecom_userid", "=", sender_id),
@@ -519,17 +575,21 @@ class WeComChatData(models.Model):
                             ("company_id", "=", record.company_id.id),
                         ],
                         limit=1,
-                    )
-                
-                if len(sender) == 0:
-                    dic ={
-                        "sender_id": sender_id
-                    }
-                    if partner:
-                        dic.update({"partner_id": partner.id})
+                    ) 
                     if employee:
                         dic.update({"employee_id": employee.id})
+                    # 优先使用 联系人的名称
+                    if partner:
+                        dic.update({"partner_id": partner.id,"name": partner.name,})
+                    else:            
+                        if employee:
+                            dic.update({"name": employee.name})
+                        else:
+                            dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
+                sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+                if len(sender) == 0:                    
                     sender = self.env["wecom.chat.sender"].sudo().create(dic)
+                
                 record.write({"sender": sender.id})
     
 
@@ -665,6 +725,9 @@ class WeComChatData(models.Model):
                                     pass
                                 elif key == "from":
                                     dic_data["from_user"] = value
+                                    # 创建发送者
+                                    sender = self.get_and_create_chat_sender(value)
+                                    dic_data.update({"sender": sender.id})
                                 elif key == "tolist":
                                     dic_data["tolist"] = json.dumps(value)
                                 elif key == "roomid" and value:
