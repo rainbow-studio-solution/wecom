@@ -876,7 +876,8 @@ class WeComChatData(models.Model):
             if self.msgtype == "text":
                 # 文本消息
                 if "content" in msg_content:
-                    content = eval(msg_content)["content"]
+                    # content = eval(msg_content)["content"]
+                    content = "<p class='text-wrap'>%s</p>" % eval(msg_content)["content"]
                     formatted = True
             elif self.msgtype == "link":
                 # 链接消息
