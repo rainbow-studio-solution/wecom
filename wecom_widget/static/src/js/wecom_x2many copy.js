@@ -13,13 +13,13 @@ odoo.define('wecom.x2many', function (require) {
     var viewUtils = require('web.viewUtils');
 
 
-    var WeComX2Many = RelationalFields.FieldX2Many.extend({
+    var WeComConfig = RelationalFields.FieldX2Many.extend({
         description: _lt("WecomOne2many"),
         className: 'o_field_wecom_one2many',
-        supportedFieldTypes: ['wecom_x2many'],
+        supportedFieldTypes: ['wecom_config'],
         // attrs:
         // - help: 帮助字段
-        // - widget: "wecom_x2many"
+        // - widget: "wecom_config"
         // value：
         // - data:数据
         init: function (parent, name, record, options) {
@@ -28,7 +28,7 @@ odoo.define('wecom.x2many', function (require) {
             this.widget = this.attrs.widget;
         },
         _getRenderer: function () {
-            if (this.attrs.widget === "wecom_x2many") {
+            if (this.attrs.widget === "wecom_config") {
                 this.help_field = this.attrs.help;
                 return ListRenderer;
             }
@@ -46,7 +46,7 @@ odoo.define('wecom.x2many', function (require) {
             this._super.apply(this, arguments);
 
             if (parent.hasOwnProperty("attrs")) {
-                if (parent.attrs.widget === "wecom_x2many") {
+                if (parent.attrs.widget === "wecom_config") {
                     this.parent_res_id = parent.res_id; //当前Form的res_id
                     this.help_records = parent.value.data;
                     this.is_wecom_one2many = true;
@@ -247,9 +247,9 @@ odoo.define('wecom.x2many', function (require) {
         },
     });
 
-    fieldRegistry.add('wecom_x2many', WeComX2Many);
+    fieldRegistry.add('wecom_config', WeComConfig);
     return {
-        WeComX2Many: WeComX2Many,
+        WeComConfig: WeComConfig,
     };
 
 });

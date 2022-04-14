@@ -91,8 +91,8 @@ msgstr "//work.weixin.qq.com/api/doc)"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
+#: code:addons/wxwork/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid ""
 "<button class='btn btn-default btn-sm o_field_wecom_one2many_show' data-"
@@ -231,16 +231,16 @@ msgstr "小程序通知消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
+#: code:addons/wxwork/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "No help description"
 msgstr "无帮助说明"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
+#: code:addons/wxwork/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "One2manyHelp"
 msgstr "One2manyHelp"
@@ -279,8 +279,8 @@ msgstr "短信定价"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
+#: code:addons/wxwork/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "Show"
 msgstr "显示"
