@@ -1026,20 +1026,24 @@ class WeComChatData(models.Model):
                 
                 stream = im
                 while o_size > t_size:
-                    imgage = Image.open(stream)
-                    x, y = imgage.size
+                    image = Image.open(stream)
+                    # image = image.convert('RGB') 
+                    x, y = image.size
                     if x > 1000:
                         # 图片宽度大于1000px，进行等比例缩放
                         y = int(y * (1000 / x))
                         x=1000
-                        imgage = imgage.resize((x, y), Image.ANTIALIAS)
+                        image = image.resize((x, y), Image.ANTIALIAS)
    
-                    output = imgage.resize(
+                    # output = image.resize(
+                    #     (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
+                    # )
+                    image = image.resize(
                         (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
                     )
                     stream.close()
                     stream = io.BytesIO()
-                    output.save(stream, "png")
+                    image.save(stream, "png")
                     o_size = len(stream.getvalue())  # 压缩后图片大小
                 base64_source = base64.b64encode(stream.getvalue()).decode()
                 stream.close()
