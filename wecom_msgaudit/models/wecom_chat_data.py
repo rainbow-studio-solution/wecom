@@ -473,6 +473,7 @@ class WeComChatData(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call("GROUPCHAT_GET"),
                 {"roomid": self.roomid},
             )
+            # print("response",response)
             if response["errcode"] == 0:
                 time_stamp = response["room_create_time"]
                 room_create_time = self.timestamp2datetime(time_stamp)
@@ -486,6 +487,10 @@ class WeComChatData(models.Model):
                     }
                 )
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
+                group = self.env["wecom.chat.group"].search([("roomid", "=", self.roomid)],limit=1,)
+                group.write({
+                    "room_name":response["roomname"]
+                })
                 for chat in same_group_chats:
                     chat.write(
                         {
@@ -912,7 +917,7 @@ class WeComChatData(models.Model):
                 # 图片消息
                 if overdue:
                     # 超期无法通过SDK获取图片
-                    content =_("The current message record has exceeded 3 days and cannot be formatted.")
+                    content = "<span class='card bg-warning text-white'>%s</span>"  % _("The current message record has exceeded 3 days and cannot be formatted.")
                 else:
                     try:
                         ir_config = self.env["ir.config_parameter"].sudo()
