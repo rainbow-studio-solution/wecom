@@ -111,8 +111,16 @@ class Users(models.Model):
                 "qr_code": object.qr_code,
                 "wecom_user_order": object.wecom_user_order,
             }
+            """
+            MailThread功能可以通过上下文键进行一定程度的控制:
 
-            return SudoUser.create(values).id
+            -'mail_create_nosubscribe':在create或message_post上,不要订阅记录线程的uid
+            -'mail_create_nolog'：在创建时，不要记录自动的“<Document>“创建”消息
+            -'mail_notrack'：在创建和写入时，不要执行值跟踪创建消息
+            -'tracking_disable'：在创建和写入时，不执行邮件线程功能（自动订阅、跟踪、发布等）
+            -'mail_notify_force_send': 如果要发送的电子邮件通知少于50封,直接发送,而不是使用队列;默认情况下为True
+            """
+            return SudoUser.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True).create(values).id
 
     # ------------------------------------------------------------
     # 企微部门下载

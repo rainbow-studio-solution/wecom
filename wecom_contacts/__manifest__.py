@@ -45,5 +45,6 @@
     "external_dependencies": {
         "python": [],
     },
+    "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
 }
