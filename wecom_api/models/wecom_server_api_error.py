@@ -95,7 +95,7 @@ class WecomServerApiError(models.Model):
 
             errors = []
             for index, error in enumerate(error_results):
-                del error["Unnamed: 3"]
+                # del error["Unnamed: 3"]
                 error["sequence"] = index
                 if error["method"] == "查看帮助":
                     error["method"] = self.replaceMethod(str(error["code"]), methods)
