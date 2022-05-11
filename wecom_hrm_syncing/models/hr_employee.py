@@ -93,6 +93,8 @@ class HrEmployee(models.Model):
         """[summary]
         运行同步
         """
+        send_mail = self.env.context.get("send_mail")
+
         start = time.time()
         results = ""
         result = ""
@@ -127,13 +129,16 @@ class HrEmployee(models.Model):
                     _("Company %s began to generate system users from employees")
                     % (company.name)
                 )
-            sync_user = (
-                company.contacts_app_id.app_config_ids.sudo()
-                .search([("key", "=", "contacts_sync_user_enabled")], limit=1)
-                .value
-            )
-
-            if sync_user == "True":
+            # sync_user = (
+            #     company.contacts_app_id.app_config_ids.sudo()
+            #     .search([("key", "=", "contacts_sync_user_enabled")], limit=1)
+            #     .value
+            # )
+            sync_user = company.contacts_app_id.app_config_ids.get_param(
+                company.contacts_app_id.id, "contacts_sync_user_enabled"
+            )  # 允许企微通讯录自动更新系统帐户的标识
+  
+            if sync_user:
                 if debug:
                     _logger.info(
                         _("Start generating system users from employees of company %s")
@@ -177,7 +182,7 @@ class HrEmployee(models.Model):
                             self.update_user(user, employee, company)
                         else:
                             # 创建
-                            self.create_user(user, employee, company)
+                            self.create_user(user, employee, company,send_mail)
                         result = _(
                             "Company %s successfully generated system user from employee."
                         ) % (company.name)
@@ -198,6 +203,7 @@ class HrEmployee(models.Model):
                         % (company.name)
                     )
             else:
+                
                 _logger.warning(
                     _("Company %s does not allow batch generation of system users")
                     % (company.name)
@@ -214,7 +220,7 @@ class HrEmployee(models.Model):
 
         return times, results
 
-    def create_user(self, user, employee, company):
+    def create_user(self, user, employee, company,send_mail):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
@@ -230,7 +236,7 @@ class HrEmployee(models.Model):
                 -'tracking_disable'：在创建和写入时，不执行邮件线程功能（自动订阅、跟踪、发布等）
                 -'mail_notify_force_send': 如果要发送的电子邮件通知少于50封,直接发送,而不是使用队列;默认情况下为True
                 """
-            user = user.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True).create(
+            user = user.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True,send_mail=send_mail).create(
                 {
                     "notification_type": "inbox",
                     #

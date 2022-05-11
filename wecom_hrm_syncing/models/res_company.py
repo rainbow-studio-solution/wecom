@@ -132,7 +132,7 @@ class Company(models.Model):
                 company.contacts_app_id.id, "contacts_sync_user_enabled"
             )  # 允许企微通讯录自动更新系统帐户的标识
 
-            if sync_user == "True":
+            if sync_user:
                 if debug:
                     _logger.info(
                         _("Start generating system users from employees of company %s")
@@ -176,7 +176,8 @@ class Company(models.Model):
                             self.update_user(user, employee, company)
                         else:
                             # 创建
-                            self.create_user(user, employee, company)
+                            send_mail = False
+                            self.create_user(user, employee, company,send_mail)
                         result = _(
                             "Company %s successfully generated system user from employee."
                         ) % (company.name)
@@ -196,7 +197,7 @@ class Company(models.Model):
                         _("End generating system users from employees of company %s")
                         % (company.name)
                     )
-            else:
+            else:                
                 _logger.warning(
                     _("Company %s does not allow batch generation of system users")
                     % (company.name)
@@ -213,14 +214,14 @@ class Company(models.Model):
 
         return times, results
 
-    def create_user(self, user, employee, company):
+    def create_user(self, user, employee, company,send_mail):
         params = self.env["ir.config_parameter"].sudo()
         debug = params.get_param("wecom.debug_enabled")
         groups_id = (
             self.sudo().env["res.groups"].search([("id", "=", 9),], limit=1,).id
         )  # id=9是门户用户
         try:
-            user = user.create(
+            user = user.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True,send_mail=send_mail).create(
                 {
                     "address_id": employee.address_id,
                     "work_location": employee.work_location,

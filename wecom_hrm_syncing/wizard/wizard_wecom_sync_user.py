@@ -16,6 +16,7 @@ class WizardSyncUsers(models.TransientModel):
     sync_user_result = fields.Boolean(
         string="User synchronization result", default=False, readonly=True
     )
+    send_mail = fields.Boolean(string="Send mail or message", default=True)
     times = fields.Float(string="Elapsed time (seconds)", digits=(16, 3), readonly=True)
     result = fields.Text(string="Result", readonly=True)
 
@@ -26,7 +27,7 @@ class WizardSyncUsers(models.TransientModel):
         times = []
         results = ""
 
-        time, result = self.env["hr.employee"].sync_as_user()
+        time, result = self.env["hr.employee"].with_context(send_mail=self.send_mail).sync_as_user()
         times.append(time)
 
         if len(result) != 0:

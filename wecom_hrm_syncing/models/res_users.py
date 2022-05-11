@@ -2,9 +2,9 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 
-
-class Users(models.Model):
+class ResUsers(models.Model):
     _inherit = "res.users"
 
     employee_id = fields.Many2one(
@@ -14,6 +14,27 @@ class Users(models.Model):
         search="_search_company_employee",
         store=True,
     )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
+
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        重写以自动邀请用户注册
+        send_mail: true 表示发送邀请邮件, false 表示不发送邀请邮件
+        批量创建用户时，建议 send_mail=False
+        """
+        users = super(ResUsers, self).create(vals_list)
+        send_mail = self.env.context.get('send_mail')
+        # print(send_mail)
+        if not self.env.context.get('no_reset_password') and send_mail:
+            users_with_email = users.filtered('email')
+            if users_with_email:
+                try:
+                    users_with_email.with_context(create_user=True).action_reset_password()
+                except MailDeliveryException:
+                    users_with_email.partner_id.with_context(create_user=True).signup_cancel()
+        
+        return users
 
     def set_wecom_user(self):
         """

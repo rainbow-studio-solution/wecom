@@ -32,6 +32,15 @@
                     <group>
                         <span class="text-danger font-weight-bold">Synchronously generate system users from employees. It is recommended to use it only when you first go online. It takes a long time to generate users.</span>
                     </group>
+                    <group>
+                        <span class="text-danger font-weight-bold">If the number is large, it is recommended to start and close sending mail or messages. This will effectively speed up synchronization time.</span>
+                    </group>
+                    <group>
+                        <label for="send_mail"/>
+                        <div class="o_row" name="send_mail">
+                            <field name="send_mail"/>
+                        </div>
+                    </group>
                     <footer>
                         <button name="action_sync_user" string="Synchronously generate system users" type="object" class="oe_highlight"/>
                     </footer>
