@@ -19,12 +19,13 @@ odoo.define('wecom_api.pull_error_code', function (require) {
                 method: 'pull',
                 args: [],
             }).then(function (res) {
-                // console.log(res)
-                if (res) {
+                console.log(res["state"], typeof (res["state"]))
+                if (res["state"]) {
                     self.displayNotification({
                         type: 'success',
                         title: _t("Pull successfully!"),
-                        message: _t("Global error code pulled successfully!"),
+                        // message: _t("Global error code pulled successfully!"),
+                        message: res["msg"],
                         sticky: true,
                         buttons: [{
                             text: _t("Refresh"),
@@ -34,6 +35,13 @@ odoo.define('wecom_api.pull_error_code', function (require) {
                             primary: true
                         }],
 
+                    });
+                } else {
+                    self.displayNotification({
+                        type: 'danger',
+                        title: _t("Pull failed!"),
+                        message: res["msg"],
+                        sticky: true,
                     });
                 }
             })

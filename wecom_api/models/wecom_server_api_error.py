@@ -46,28 +46,30 @@ class WecomServerApiError(models.Model):
         """
         try:
             _logger.info(_("Start pulling the global error code of WeCom."))
-            url = "https://developer.work.weixin.qq.com/document/path/95390"  # 2022-01-12升级后，好像换了链接了
-            # url = "https://open.work.weixin.qq.com/api/doc/90000/90139/90313"
+            url = "https://developer.work.weixin.qq.com/document/path/90313"  # 2022-05-29
             page_text = requests.get(url=url).text
             tree = etree.HTML(page_text)
 
-            # 生成 排查方法
-            methods_elements = tree.xpath("//div[@data-code-block-theme='coy']/h5")
+            # 生成 排查方法, 企业全局错误码 页面最下面的 “排查方法” 内容
+            methods_elements = tree.xpath("//ul[@data-sign='ce66300d7cc4da471ee44e824d1e9d48list183']/li")
 
             methods = []
+ 
             for element in methods_elements:
-                element_h5 = unquote(element.attrib["id"], "utf-8")
-                code = element_h5.split("：")[1]
+                code_str = element.text
+                code = code_str.split("：",1)[1:][0]
 
-                method_element = etree.tostring(
-                    element.getnext(), encoding="utf-8", pretty_print=True
+                element_str = etree.tostring(
+                    element, encoding="utf-8", pretty_print=True
                 ).decode()
-                method_element_str = unquote(str(method_element), "utf-8")
-
-                method = self.getMiddleStr(method_element_str, '">', "</p>")  # 取出排查方法
-
-                if "-" in code:
-                    multiple_codes = code.split("-", 1)
+                
+    
+                code_str = "%s<br/>" % code_str
+                method_str = element_str.replace(code_str, "")
+                method = self.getMiddleStr(method_str,"<li>","</li>")
+                if " " in code:
+                    # 一个元素存在多个错误码
+                    multiple_codes = code.split(" ", 1)
                     for multiple_code in multiple_codes:
                         multiple_dic = {}
                         multiple_dic["code"] = multiple_code
@@ -80,7 +82,7 @@ class WecomServerApiError(models.Model):
                     dic["method"] = method
 
                     methods.append(dic)
-
+   
             table = tree.xpath("//div[@class='cherry-table-container']/table")  # 取出表格
             table = etree.tostring(
                 table[0], encoding="utf-8"
@@ -121,13 +123,14 @@ class WecomServerApiError(models.Model):
                             "sequence": error["sequence"],
                         }
                     )
-            _logger.info(_("Successfully pulled the WeCom global error code!"))
-            return True
+            msg = _("Successfully pulled the WeCom global error code!")
+            _logger.info(msg)
+            return {"state":True, "msg":msg}
         except Exception as e:
-            _logger.warning(
-                _("Failed to pull WeCom global error code, reason:%s") % str(e)
-            )
-            return False
+            print(str(e))
+            msg = _("Failed to pull WeCom global error code, reason:%s") % str(e)
+            _logger.warning(msg)
+            return {"state":False, "msg":msg}
 
     def replaceMethod(self, code, methods):
         """ 
