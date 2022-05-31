@@ -28,7 +28,7 @@
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
-        "views/wecom_contacts_block_views.xml",
+        
         "views/menu_views.xml",
     ],
     "assets": {
@@ -45,6 +45,6 @@
     "external_dependencies": {
         "python": [],
     },
-    "pre_init_hook": "pre_init_hook",
+    # "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
 }
