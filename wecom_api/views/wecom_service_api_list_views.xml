@@ -29,6 +29,9 @@
                         <group>
                             <field name="sequence"/>
                         </group>
+                        <group>
+                            <field name="description" widget="html" />
+                        </group>
                     </sheet>
                 </form>
             </field>

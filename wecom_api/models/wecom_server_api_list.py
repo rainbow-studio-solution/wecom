@@ -38,7 +38,7 @@ class WecomServerApiList(models.Model):
         default="GET",
     )  # base:基础， contacts:通讯录， external_contact:客户联系，Servicer:微信客服，auth:身份认证， agent:应用管理,  message:消息推送,  media:媒体素材, checkin:打卡, checkin:打卡, approval:审批, worknote:汇报, meetingroom:会议室管理, schedule:日程, meeting:会议, living:直播, wedrive:微盘, telephone:公费电话, pay:企业支付, corpgroup:企业互联, msgaudit:会话内容存档, invoice:电子发票,
 
-    name = fields.Char("Request Name", required=True, translate=True)
+    name = fields.Char("Request Name", required=True,)
     function_name = fields.Char(
         "Request Function Name",
         required=True,
@@ -59,7 +59,7 @@ class WecomServerApiList(models.Model):
         required=True,
         default="GET",
     )
-
+    description = fields.Html(string="Description") 
     sequence = fields.Integer(default=0)
 
     _sql_constraints = [

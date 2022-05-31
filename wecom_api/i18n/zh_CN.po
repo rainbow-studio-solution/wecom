@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 06:10+0000\n"
-"PO-Revision-Date: 2022-02-18 14:14+0800\n"
+"POT-Creation-Date: 2022-05-31 08:49+0000\n"
+"PO-Revision-Date: 2022-05-31 17:02+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -63,41 +63,6 @@ msgid "Access Token"
 msgstr "访问令牌"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_servicer_add
-msgid "Add Customer Service Receptionist"
-msgstr "添加接待人员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_corp_tag
-msgid "Add a new tag group and label to the customer tag library"
-msgstr "向客户标签库中添加新的标签组和标签"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_strategy_tag
-msgid "Add a new tag group and tag to the rule group"
-msgstr "向规则组中添加新的标签组和标签"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_account_add
-msgid "Add customer service account"
-msgstr "添加客服帐号"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_group_welcome_template_add
-msgid "Add material to the welcome language material library of the enterprise"
-msgstr "向企业的入群欢迎语素材库中添加素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_add
-msgid "Add meeting room"
-msgstr "添加一个会议室"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_add_member
-msgid "Add tag member"
-msgstr "增加标签成员"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__request_type
 msgid "Api Request Type"
 msgstr "Api请求类型"
@@ -119,73 +84,14 @@ msgid "Application management"
 msgstr "应用管理"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_appchat_send
-msgid "Application push message"
-msgstr "应用消息推送"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_linkedcorp_message_send
-msgid ""
-"Applications of interconnected enterprises support pushing text, pictures, "
-"videos, files, graphics and other types."
-msgstr "互联企业的应用支持推送文本、图片、视频、文件、图文等类型。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_resigned_transfer_customer
-msgid "Assign customers of resigned members to other members"
-msgstr "分配离职成员的客户给其他成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_groupchat_transfer
-msgid ""
-"Assign the group chat with the resigned member as the group leader to another "
-"customer service member."
-msgstr "将已离职成员为群主的群，分配给另一个客服成员。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_transfer_customer
-msgid "Assigning customers to incumbent membersg"
-msgstr "转接在职成员的客户给其他成员"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__1
 msgid "Base"
 msgstr "基础"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_approval_template_info
-msgid "Batch approval number"
-msgstr "批量获取审批单号"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_batch_delete
-msgid "Batch delete members"
-msgstr "批量删除成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_customer_cancel_upgrade_service
-msgid "Cancel the recommendation for the customer"
-msgstr "为客户取消推荐"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_cancel_book
-msgid "Cancel the reservation of the meeting room"
-msgstr "取消预定会议室"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_close_temp_chat
-msgid "Close temporary chat"
-msgstr "结束临时会话"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_contact_way
-msgid "Configure customer contact \"contact me\" method"
-msgstr "配置客户联系「联系我」方式"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__2
 msgid "Contacts"
-msgstr "通讯录"
+msgstr "通讯录管理"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__12
@@ -195,69 +101,14 @@ msgstr "企业互联"
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__corpid
 msgid "Corp Id"
-msgstr "企业Id"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_create
-msgid "Create Department"
-msgstr "创建部门"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_appchat_create
-msgid "Create a group chat session"
-msgstr "创建群聊会话"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_create
-msgid "Create a new customer circle rule group"
-msgstr "创建一个新的客户朋友圈规则组"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_create
-msgid "Create a new customer rule group"
-msgstr "创建一个新的客户规则组"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_product_album
-msgid "Create a product album"
-msgstr "创建商品图册"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_moment_task
-msgid "Create a publishing task for customer circle of friends"
-msgstr "创建客户朋友圈的发表任务"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_menu_create
-msgid "Create application menu"
-msgstr "创建应用菜单"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_msg_template
-msgid "Create enterprise mass distribution"
-msgstr "创建企业群发"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_create
-msgid "Create member"
-msgstr "创建成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_add_intercept_rule
-msgid "Create sensitive word rule"
-msgstr "新建敏感词规则"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_create
-msgid "Create tag"
-msgstr "创建标签"
+msgstr "企业ID"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__create_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__create_uid
 msgid "Created by"
-msgstr "创建人"
+msgstr "创建者"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__create_date
@@ -272,74 +123,9 @@ msgid "Customer contact"
 msgstr "客户联系"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_servicer_del
-msgid "Delete Customer Service Receptionist"
-msgstr "删除接待人员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_delete
-msgid "Delete Department"
-msgstr "删除部门"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_delete_product_album
-msgid "Delete a product album"
-msgstr "删除商品图册"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_del
-msgid "Delete a rule group"
-msgstr "删除规则组"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_del_corp_tag
-msgid "Delete a tag in the customer tag library, or delete the entire tag group."
-msgstr "删除客户标签库中的标签，或删除整个标签组。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_menu_delete
-msgid "Delete application menu"
-msgstr "删除菜单"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_account_del
-msgid "Delete customer service account"
-msgstr "删除客服帐号"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_group_welcome_template_del
-msgid "Delete group chat welcome material"
-msgstr "删除入群欢迎语素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_delete
-msgid "Delete member"
-msgstr "删除成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_del_intercept_rule
-msgid "Delete sensitive word rule"
-msgstr "删除敏感词规则"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_delete
-msgid "Delete tag"
-msgstr "删除标签"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_delete_member
-msgid "Delete tag member"
-msgstr "删除标签成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_del_contact_way
-msgid "Delete the configured \"contact me\" mode"
-msgstr "删除企业已配置的「联系我」方式"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_del_strategy_tag
-msgid "Deletes the enterprise customer tag under the specified rule group"
-msgstr "删除指定规则组下的企业客户标签"
+#: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__description
+msgid "Description"
+msgstr "说明"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__display_name
@@ -349,53 +135,9 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_update_product_album
-msgid "Edit a product album"
-msgstr "编辑商品图册"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_mark_tag
-msgid "Edit customer enterprise tag"
-msgstr "编辑客户企业标签"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_edit
-msgid ""
-"Edit the basic information of the rule group and modify the management scope "
-"of the customer circle of friends rule group"
-msgstr "编辑规则组的基本信息和修改客户朋友圈规则组管理范围"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_edit
-msgid ""
-"Edit the basic information of the rule group and modify the management scope "
-"of the customer rule group"
-msgstr "编辑规则组的基本信息和修改客户规则组管理范围"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_edit_strategy_tag
-msgid "Edit the enterprise customer tag under the specified rule group"
-msgstr "编辑指定规则组下的企业客户标签"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_group_welcome_template_edit
-msgid "Edit the material in the group chat welcome material library"
-msgstr "编辑入群欢迎语素材库中的素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_edit_corp_tag
-msgid "Edit the name or order value of the customer tag / tag group"
-msgstr "编辑客户标签/标签组的名称或次序值"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__10
 msgid "Efficiency tools"
 msgstr "效率工具"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_add_checkin_user_face
-msgid "Enter employee face information"
-msgstr "录入打卡人员人脸信息"
 
 #. module: wecom_api
 #: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
@@ -431,27 +173,7 @@ msgstr "错误"
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
 msgid "Expiration Time"
-msgstr "有效时间"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_department
-msgid "Export Department"
-msgstr "导出部门"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_simple_user
-msgid "Export member"
-msgstr "导出成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_user
-msgid "Export member details"
-msgstr "导出成员详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_taguser
-msgid "Export tag members"
-msgstr "导出标签成员"
+msgstr "过期时间"
 
 #. module: wecom_api
 #: code:addons/wecom_api/tools/action.py:0
@@ -467,412 +189,9 @@ msgid "Failed to pull WeCom global error code, reason:%s"
 msgstr "无法拉取企微全局错误代码，原因：%s"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_replaceparty
-msgid "Full coverage Department"
-msgstr "全量覆盖部门"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_replaceuser
-msgid "Full coverage member"
-msgstr "全量覆盖成员"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
 msgid "GET"
 msgstr ""
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_base_get_access_token
-msgid "Get Access Token"
-msgstr "获取访问令牌"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_list
-msgid "Get Department list"
-msgstr "获取部门列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_media_get_jssdk
-msgid "Get HD voice material"
-msgstr "获取高清语音素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_list
-msgid "Get a list of all customer rule groups"
-msgstr "获取企业配置的所有客户规则组"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_product_album
-msgid "Get a product album"
-msgstr "获取商品图册"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_auth_user_getuserinfo
-msgid "Get access user identity"
-msgstr "获取访问用户身份"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_get_active_members
-msgid "Get active members"
-msgstr "获取活跃成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_corp_checkin_option
-msgid "Get all check-in rules of the enterprise"
-msgstr "获取企业内所有打卡规则数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_menu_get
-msgid "Get application menu"
-msgstr "获取应用菜单"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_approval_detail
-msgid "Get approval application details"
-msgstr "获取审批申请详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_approval_template_detail
-msgid "Get approval template details"
-msgstr "获取审批模板详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_task_get_result
-msgid "Get asynchronous task results"
-msgstr "获取异步任务结果"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_customer_batchget
-msgid "Get basic customer information"
-msgstr "获取客户基础信息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_checkin_data
-msgid "Get check-in data record"
-msgstr "获取打卡记录数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_checkin_schedu_list
-msgid "Get check-in staff scheduling information"
-msgstr "获取打卡人员排班信息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_customer_get_upgrade_service_config
-msgid "Get configured specialists and customer groups"
-msgstr "获取配置的专员与客户群"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get
-msgid "Get customer details"
-msgstr "获取客户详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_batch_get_by_user
-msgid "Get customer details in batch"
-msgstr "批量获取客户详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_list
-msgid "Get customer list"
-msgstr "获取客户列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_add_contact_way
-msgid "Get customer service account link"
-msgstr "获取客服帐号链接"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_account_list
-msgid "Get customer service account list"
-msgstr "获取客服帐号列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_service_state_get
-msgid "Get customer service session status"
-msgstr "获取会话状态"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_checkin_day_data
-msgid "Get daily check-in data"
-msgstr "获取打卡日报数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_details_list
-msgid "Get department member details"
-msgstr "获取部门成员详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_simple_list
-msgid "Get department members"
-msgstr "获取部门成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_user_get
-msgid "Get details of Internet enterprise members"
-msgstr "获取互联企业成员详细信息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_hardware_checkin_data
-msgid "Get device check-in data"
-msgstr "获取设备打卡数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_checkin_option
-msgid "Get employee check-in rules"
-msgstr "获取员工打卡规则"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_corp_tag_list
-msgid "Get enterprise customer tag details"
-msgstr "获取企业客户标签详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_vacationl_getcorpconf
-msgid "Get enterprise vacationl management configuration"
-msgstr "获取企业假期管理配置"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_export_get_result
-msgid "Get export results"
-msgstr "获取导出结果"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_appchat_get
-msgid "Get group chat session"
-msgstr "获取群聊会话"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_group_welcome_template_get
-msgid "Get group chat welcome material"
-msgstr "获取入群欢迎语素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_comments
-msgid "Get interactive data of customer circle of friends"
-msgstr "获取客户朋友圈的互动数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_get_join_qrcode
-msgid "Get join QR code"
-msgstr "获取加入企业二维码"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_groupmsg_list_v2
-msgid "Get mass sending records of enterprises and members"
-msgstr "获取企业与成员的群发记录"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_get
-msgid "Get member"
-msgstr "读取成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_user_vacation_quota
-msgid "Get member vacationl balance"
-msgstr "获取成员假期余额"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_user_simplelist
-msgid "Get members of Internet enterprise department"
-msgstr "获取互联企业部门成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_checkin_month_data
-msgid "Get monthly check-in data"
-msgstr "获取打卡月报数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_journal_get_record_list
-msgid "Get report record details"
-msgstr "获取汇报记录详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_intercept_rule
-msgid "Get sensitive word rule details"
-msgstr "获取敏感词规则详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_intercept_rule_list
-msgid "Get sensitive word rule list"
-msgstr "获取敏感词规则列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_get_permit_user_list
-msgid "Get session content archive open member list"
-msgstr "获取会话内容存档开启成员列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_get_list
-msgid "Get tag list"
-msgstr "获取标签列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_get_member
-msgid "Get tag member"
-msgstr "获取标签成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_media_get
-msgid "Get temporary material"
-msgstr "获取临时素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_list
-msgid "Get the application list corresponding to access token"
-msgstr "获取access_token对应的应用列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_list_contact_way
-msgid "Get the configured \"contact me\" list"
-msgstr "获取企业已配置的「联系我」列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_contact_way
-msgid "Get the configured \"contact me\" method"
-msgstr "获取企业已配置的「联系我」方式"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_user_behavior_data
-msgid "Get the data of \"contact customer statistics\""
-msgstr "获取「联系客户统计」数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_groupchat_statistic
-msgid "Get the data of \"group chat data statistics\" by group owner aggregation"
-msgstr "按群主聚合的方式获取「群聊数据统计」数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_groupchat_statistic_group_by_day
-msgid "Get the data of \"group chat data statistics\" by natural day aggregation"
-msgstr "按自然日聚合的方式获取「群聊数据统计」数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_get
-msgid "Get the details of a customer circle of friends rule group."
-msgstr "获取某个客户朋友圈规则组的详细信息."
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_get
-msgid "Get the details of a customer rule group"
-msgstr "获取某个客户规则组的详细信息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_user_list
-msgid "Get the details of members of the Internet enterprise department"
-msgstr "获取互联企业部门成员详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_strategy_tag_list
-msgid "Get the enterprise customer tag details within a rule group."
-msgstr "获取指定规则组下的企业客户标签。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_groupmsg_send_result
-msgid "Get the execution results of enterprise mass distribution members"
-msgstr "获取企业群发成员执行结果"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_task
-msgid ""
-"Get the implementation of circle of friends members published by the enterprise"
-msgstr "获取企业发表的朋友圈成员执行情况"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_list
-msgid ""
-"Get the list of all customer circle of friends rule groups configured by the "
-"enterprise."
-msgstr "获取企业配置的所有客户朋友圈规则组id列表。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_servicer_list
-msgid "Get the list of customer service receptionists"
-msgstr "获取某个客服帐号的接待人员列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_department_list
-msgid "Get the list of interconnected enterprise departments"
-msgstr "获取互联企业部门列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_moment_strategy_get_range
-msgid ""
-"Get the list of members and departments managed by a circle of friends rule "
-"group"
-msgstr "获取某个朋友圈规则组管理的成员和部门列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_customer_strategy_get_range
-msgid "Get the list of members and departments managed by a customer rule group"
-msgstr "获取某个客户规则组管理的成员和部门列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_product_album_list
-msgid "Get the list of product albums"
-msgstr "获取商品图册列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_unassigned_list
-msgid "Get the list of resigned members to be assigned"
-msgstr "获取待分配的离职成员列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_send_result
-msgid ""
-"Get the list of visible customers after the customer circle of friends is "
-"published"
-msgstr "获取客户朋友圈发表后的可见客户列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_list
-msgid ""
-"Get the published list of all customer circles of friends of the enterprise"
-msgstr "获取企业全部客户朋友圈的发表列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_task_result
-msgid ""
-"Get the publishing task creation results of the customer circle of friends"
-msgstr "获取客户朋友圈的发布任务创建结果"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_groupmsg_task
-msgid "Get the sending task list of group sending members"
-msgstr "获取群发成员发送任务列表"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_get
-msgid "Get the specified application details"
-msgstr "获取指定的应用详情"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_get_workbench_template
-msgid "Get the template applied to the workbench display"
-msgstr "获取应用在工作台展示的模版"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_linkedcorp_get_perm_list
-msgid "Get the visible range of connected enterprise applications"
-msgstr "获取互联企业应用的可见范围"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_moment_customer_list
-msgid ""
-"Get the visible range selected when publishing in the customer circle of "
-"friends"
-msgstr "获取客户朋友圈发表时选择的可见范围"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_get_follow_user_list
-msgid "Gets a list of members that configure the customer contact function"
-msgstr "获取配置了客户联系功能的成员列表"
-
-#. module: wecom_api
-#. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
-#, python-format
-msgid "Global error code pulled successfully!"
-msgstr "全局错误代码成功拉取！"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
@@ -887,52 +206,30 @@ msgid "Identity authentication"
 msgstr "身份验证"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_syncuser
-msgid "Incremental update member"
-msgstr "增量更新成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_pstncc_call
-msgid ""
-"Initiate voice calls to alert employees to see important messages from your "
-"app push."
-msgstr "通过此接口发起语音电话，提醒员工查看应用推送的重要消息。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_batch_invite
-msgid "Invite members"
-msgstr "邀请成员"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error____last_update
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_uid
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_uid
 msgid "Last Updated by"
-msgstr "最后更新人"
+msgstr "最后更新者"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__write_date
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__write_date
 msgid "Last Updated on"
-msgstr "最近更新日期"
+msgstr "最后更新于"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__8
 msgid "Media material"
-msgstr "媒体素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_auth_success
-msgid "Member secondary verification"
-msgstr "成员二次验证"
+msgstr "素材管理"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__7
@@ -940,49 +237,9 @@ msgid "Message push"
 msgstr "消息推送"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_account_update
-msgid "Modify customer service account"
-msgstr "修改客服帐号"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_appchat_update
-msgid "Modify group chat session"
-msgstr "修改群聊会话"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_update_intercept_rule
-msgid "Modify sensitive word rules"
-msgstr "修改敏感词规则"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_remark
-msgid "Modifying customer remark information"
-msgstr "修改客户备注信息"
-
-#. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
 msgid "OA"
-msgstr ""
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_journal_get_stat_list
-msgid "Obtain reporting statistics"
-msgstr "获取汇报统计数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_check_single_agree
-msgid "Obtain the consent of external members in the session"
-msgstr "获取会话同意情况"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_groupchat_get
-msgid ""
-"Obtain the session content and archive the internal group information of the "
-"enterprise, including group name, group owner ID, announcement, group creation "
-"time, and the ID and joining time of all group members."
-msgstr ""
-"获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所"
-"有群成员的id与加入时间。"
+msgstr "OA"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
@@ -1000,40 +257,15 @@ msgstr "拉取错误代码"
 #. openerp-web
 #: code:addons/wecom_api/static/src/js/list_header_button.js:0
 #, python-format
+msgid "Pull failed!"
+msgstr "拉取失败！"
+
+#. module: wecom_api
+#. openerp-web
+#: code:addons/wecom_api/static/src/js/list_header_button.js:0
+#, python-format
 msgid "Pull successfully!"
 msgstr "拉取成功！"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_get_booking_info
-msgid "Query meeting room reservation information"
-msgstr "查询会议室的预定信息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_msgaudit_check_room_agree
-msgid ""
-"Query the consent of all external contacts of the outside company within the "
-"roomid"
-msgstr "查询对应roomid里面所有外企业的外部联系人的同意情况"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_resigned_transfer_result
-msgid "Query the customer allocation status of resigned members"
-msgstr "查询离职成员的客户分配情况"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_transfer_result
-msgid "Query the customer transfer status of active members"
-msgstr "查询在职成员的客户转接情况"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_sync_msg
-msgid "Read customer service message"
-msgstr "读取客服消息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_recall
-msgid "Recall application message"
-msgstr "撤回应用消息"
 
 #. module: wecom_api
 #. openerp-web
@@ -1045,7 +277,7 @@ msgstr "刷新"
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name
 msgid "Request Function Name"
-msgstr "请求函数名"
+msgstr "请求函数名称"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__name
@@ -1058,52 +290,15 @@ msgid "Request Short Url"
 msgstr "请求短Url"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_meetingroom_book
-msgid "Reserve meeting rooms"
-msgstr "预定会议室"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_set_checkin_schedu_list
-msgid "Scheduling for check-in staff"
-msgstr "为打卡人员排班"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_externalcontact_message_send
-msgid ""
-"Schools can send different types of school notices to parents through this "
-"interface"
-msgstr "学校可以通过此接口来给家长发送不同类型的学校通知"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__secret
 msgid "Secret"
 msgstr "密钥"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_send
-msgid "Send app message"
-msgstr "发送应用消息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_send_msg_on_event
-msgid "Send customer service event response message"
-msgstr "发送客服事件响应消息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_send_msg
-msgid "Send customer service message"
-msgstr "发送客服消息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_send_welcome_msg
-msgid "Send new customer welcome message"
-msgstr "发送新客户欢迎语"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__sequence
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__sequence
 msgid "Sequence"
-msgstr "排序"
+msgstr "序列"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
@@ -1111,36 +306,11 @@ msgid "Session content archiving"
 msgstr "会话内容存档"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_set
-msgid "Set application"
-msgstr "设置应用"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_set_user_vacation_quota
-msgid "Set member vacationl balance"
-msgstr "修改成员假期余额"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_set_workbench_data
-msgid "Set the data displayed on the user workbench"
-msgstr "设置应用在用户工作台展示的数据"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_agent_set_workbench_template
-msgid "Set the template applied to the workbench display"
-msgstr "设置应用在工作台展示的模版"
-
-#. module: wecom_api
 #: code:addons/wecom_api/api/wecom_server_api_error.py:0
 #: code:addons/wecom_api/models/wecom_server_api_error.py:0
 #, python-format
 msgid "Start pulling the global error code of WeCom."
-msgstr "开始拉取企微的全局错误代码。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_approval_submit
-msgid "Submit application for approval"
-msgstr "提交审批申请"
+msgstr "开始拉取企微全局错误代码。"
 
 #. module: wecom_api
 #: code:addons/wecom_api/api/wecom_server_api_error.py:0
@@ -1155,67 +325,9 @@ msgid "The function is unique !"
 msgstr "功能是唯一的！"
 
 #. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_oa_get_pstncc_states
-msgid ""
-"Through this interface, you can know whether employees have answered voice "
-"calls."
-msgstr "通过此接口，了解员工是否已接听语音电话。"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_service_state_trans
-msgid "Transition customer service session state"
-msgstr "变更会话状态"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__method
 msgid "Treatment method"
-msgstr "处理方法"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_department_update
-msgid "Update department"
-msgstr "更新部门"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_user_update
-msgid "Update members"
-msgstr "更新成员"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_tag_update
-msgid "Update tag name"
-msgstr "更新标签名字"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_message_update_template_card
-msgid "Update template card message"
-msgstr "更新模版卡片消息"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_customer_externalcontact_update_contact_way
-msgid "Update the configured \"contact me\" mode"
-msgstr "更新企业已配置的「联系我」方式"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_kf_customer_upgrade_service
-msgid "Upgrade customer to specialist or customer group service"
-msgstr "为客户升级为专员或客户群服务"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_media_uploadimg
-msgid "Upload pictures"
-msgstr "上传图片"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_media_upload
-msgid "Upload temporary material"
-msgstr "上传临时素材"
-
-#. module: wecom_api
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_openid_to_userid
-#: model:wecom.service_api_list,name:wecom_api.wecom_service_api_contacts_userid_to_openid
-msgid "Userid and openid are interchangeable"
-msgstr "userid与openid相互转换"
+msgstr "排查方法"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_message_api
@@ -1228,7 +340,7 @@ msgstr "企微消息API"
 #: model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error
 #: model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
 msgid "WeCom: Pull the global error code of WeCom."
-msgstr "企业微信：拉取企业微信的全局错误码。"
+msgstr "企微： 拉取企微全局错误代码。"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__4
@@ -1238,53 +350,53 @@ msgstr "微信客服"
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecomapi_tools_action
 msgid "Wecom API Tools - Action"
-msgstr "企微工具 - 动作"
+msgstr "企微API工具-动作"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecomapi_tools_datetime
 msgid "Wecom API Tools - Datetime"
-msgstr "企微工具 - 日期时间"
+msgstr "企微API工具-日期时间"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecomapi_tools_file
 msgid "Wecom API Tools - File"
-msgstr "企微工具 -  文件"
+msgstr "企微API工具-文件"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecomapi_tools_message
 msgid "Wecom API Tools - Message"
-msgstr "企微工具 - 消息"
+msgstr "企微API工具-消息"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecomapi_tools_security
 msgid "Wecom API Tools - Security"
-msgstr "企微工具 - 安全"
+msgstr "企微API工具-安全"
 
 #. module: wecom_api
 #: code:addons/wecom_api/tools/action.py:0
 #, python-format
 msgid "Wecom API error: %s, error name: %s, error message: %s"
-msgstr "企微 API 错误：%s，错误名称：%s，错误消息：%s"
+msgstr "企微API错误: %s, 错误名称e: %s, 错误消息: %s"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_abstract_api
 msgid "Wecom Abstract API"
-msgstr "企业微信抽象API"
+msgstr "企微抽象API"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api
 msgid "Wecom Server API"
-msgstr "企业微信服务端API"
+msgstr "企微服务API"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api_error
 msgid "Wecom Server API Error"
-msgstr "企业微信API错误"
+msgstr "企微服务API错误"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_service_api_list
 msgid "Wecom Server API List"
-msgstr "企业微信服务端API列表"
+msgstr "企微服务API列表"
 
 #. module: wecom_api
 #: model:ir.model,name:wecom_api.model_wecom_tools
