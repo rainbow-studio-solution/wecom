@@ -18,7 +18,7 @@
         """,
     "depends": ["base_setup", "wecom_l10n", "wecom_widget", "wecom_api"],
     "data": [
-        "security/wecom_base_security.xml",
+        "security/wecom_security.xml",
         "security/ir.model.access.csv",
         "data/ir_module_category_data.xml",
         "data/ir_config_parameter.xml",
