@@ -19,22 +19,8 @@ WeCom Service-side API and Client-side API
     "depends": [],
     "data": [
         "security/ir.model.access.csv",
-        "data/ir_cron_data.xml",
-        "data/service_api_list_data.xml",
-        # "data/wecom_server_api_error_data.xml",
-        # "data/wecom_app_event_type_data.xml",
-        # "views/assets_templates.xml",
+
         "views/ir_cron_views.xml",
-        "views/wecom_service_api_list_views.xml",
-        "views/wecom_service_api_error_views.xml",
-        # "views/wecom_apps_views.xml",
-        # "views/wecom_app_callback_service_views.xml",
-        # "views/wecom_app_config_views.xml",
-        # "views/wecom_app_type_views.xml",
-        # "views/wecom_app_subtype_views.xml",
-        # "views/wecom_app_event_type_views.xml",
-        # "views/res_config_settings_views.xml",
-        # "views/menu.xml",
     ],
     "assets": {
         "web.assets_common": [
@@ -44,7 +30,7 @@ WeCom Service-side API and Client-side API
         ],
         "web.assets_backend": [
             # JS
-            "wecom_api/static/src/js/list_header_button.js",
+            
         ],
         "web.assets_qweb": ["wecom_api/static/src/xml/*.xml",],
     },

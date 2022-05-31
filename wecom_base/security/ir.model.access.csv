@@ -1,4 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+wecom_service_api_access_right,access.wecom.service_api,model_wecom_service_api,group_wecom_manager,1,1,1,1
+wecom_service_api_access_right_user,access.wecom.service_api,model_wecom_service_api,group_wecom_user,1,0,0,0
+
+wecom_service_api_list_access_right,access.wecom.service_api_list,model_wecom_service_api_list,group_wecom_manager,1,1,1,1
+wecom_service_api_list_access_right_user,access.wecom.service_api_list,model_wecom_service_api_list,group_wecom_user,1,0,0,0
+wecom_service_api_error_access_right,access.wecom.service_api_error,model_wecom_service_api_error,group_wecom_manager,1,1,1,1
+wecom_service_api_error_access_right_user,access.wecom.service_api_error,model_wecom_service_api_error,group_wecom_user,1,0,0,0
+
 wecom_app_type_access_right,access.wecom.app.type,model_wecom_app_type,group_wecom_manager,1,1,1,1
 wecom_app_subtype_access_right,access.wecom.app.subtype,model_wecom_app_subtype,group_wecom_manager,1,1,1,1
 wecom_apps_access_right,access.wecom.apps,model_wecom_apps,group_wecom_manager,1,1,1,1

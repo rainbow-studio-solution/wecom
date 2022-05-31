@@ -12,10 +12,10 @@
         <menuitem id="menu_wecom_api" name="Wecom API" groups="group_wecom_manager" parent="menu_wecom_root" sequence="2"/>
 
         <!-- 2.1-->
-        <menuitem id="menu_wecom_service_api_list" name="List" groups="group_wecom_manager" parent="menu_wecom_api" action="wecom_api.action_view_wecom_service_api_list" sequence="1"/>
+        <menuitem id="menu_wecom_service_api_list" name="List" groups="group_wecom_manager" parent="menu_wecom_api" action="action_view_wecom_service_api_list" sequence="1"/>
 
         <!-- 2.2-->
-        <menuitem id="menu_wecom_service_api_error" name="Error Code" groups="group_wecom_manager" parent="menu_wecom_api" action="wecom_api.action_view_wecom_service_api_error" sequence="2"/>
+        <menuitem id="menu_wecom_service_api_error" name="Error Code" groups="group_wecom_manager" parent="menu_wecom_api" action="action_view_wecom_service_api_error" sequence="2"/>
 
         <!-- 3.应用  -->
         <menuitem id="menu_wecom_agent" name="Wecom Application" parent="wecom_base.menu_wecom_root" sequence="3" groups="group_wecom_manager"/>
@@ -51,7 +51,7 @@
         <menuitem id="menu_wecom_cron" name="Wecom tasks" parent="wecom_base.menu_wecom_root" sequence="99" groups="group_wecom_manager"/>
 
         <!-- 99.1-->
-        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="menu_wecom_cron" action="wecom_api.ir_cron_act_pull_wecom_service_api_error" sequence="1"/>
+        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="menu_wecom_cron" action="ir_cron_act_pull_wecom_service_api_error" sequence="1"/>
 
         <!-- 99.2-->
         <menuitem id="menu_wecom_app_get_token" name="Get app token" parent="menu_wecom_cron" action="ir_cron_act_get_app_token" sequence="2"/>

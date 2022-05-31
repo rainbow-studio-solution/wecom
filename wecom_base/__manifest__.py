@@ -20,6 +20,8 @@
     "data": [
         "security/wecom_security.xml",
         "security/ir.model.access.csv",
+        "data/wecom_server_api_error_data.xml",
+        "data/service_api_list_data.xml",
         "data/ir_module_category_data.xml",
         "data/ir_config_parameter.xml",
         "data/ir_cron_data.xml",
@@ -31,6 +33,8 @@
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
         # "views/res_users_views.xml",
+        "views/wecom_service_api_list_views.xml",
+        "views/wecom_service_api_error_views.xml",
         "views/wecom_apps_views.xml",
         "views/wecom_app_config_views.xml",
         "views/wecom_app_callback_service_views.xml",
@@ -44,8 +48,8 @@
             # SCSSS
             "wecom_base/static/src/scss/wecom_settings_navigation.scss",
             # JS
-            "wecom_base/static/src/js/wecom_settings_navigation.js",
-            # "wecom_base/static/src/js/wecom_apps_views.js",
+            "wecom_base/static/src/js/wecom_settings_navigation.js",            
+            "wecom_base/static/src/js/list_header_button.js",
         ],
         "web.assets_qweb": [
             "wecom_base/static/src/xml/*.xml",
