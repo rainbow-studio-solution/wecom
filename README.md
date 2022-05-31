@@ -44,4 +44,4 @@
 <a href="https://apps.odoo.com/apps/themes/browse?search=RStudio" target="_blank">主题</a>
 
 
-如果我的作品能对您有所帮助，能力范围内，请不要介意去<a href="https://gitee.com/rainbowstudio/wxwork">Gitee</a>点击“捐赠”按钮，或者点个⭐，一切随意，开源不易，请多支持。
+如果我的作品能对您有所帮助，能力范围内，请不要介意去<a href="https://gitee.com/rainbowstudio/wecom">Gitee</a>点击“捐赠”按钮，或者点个⭐，一切随意，开源不易，请多支持。

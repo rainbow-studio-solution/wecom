@@ -326,6 +326,11 @@ msgid "WeCom Session Content Archive"
 msgstr "企微会话存档"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_wedrive
+msgid "WeCom wedrive"
+msgstr "企微微盘"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_chatdata2contacts
 msgid "WeCom Chat data attached to contacts"
 msgstr "企微聊天数据附加到联系人"
