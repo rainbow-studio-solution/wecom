@@ -82,7 +82,7 @@ msgstr ""
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid ""
 "<button class='btn btn-default btn-sm o_field_wecom_one2many_show' data-"
@@ -109,7 +109,7 @@ msgstr "无法显示指定的图像url。"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "Description"
 msgstr "描述"
@@ -210,7 +210,7 @@ msgstr "小程序通知消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "No help description"
 msgstr "无帮助说明"
@@ -231,7 +231,7 @@ msgstr "请检查JSON文本！"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "Please click on the \"save\" button first"
 msgstr "请先点击“保存”按钮"
@@ -252,7 +252,7 @@ msgstr "短信定价"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "Show"
 msgstr "显示"
@@ -391,7 +391,7 @@ msgstr "语音消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_x2many.js:0
+#: code:addons/wecom_widget/static/src/js/wecom_config.js:0
 #, python-format
 msgid "WecomX2many"
 msgstr "企微X2many"

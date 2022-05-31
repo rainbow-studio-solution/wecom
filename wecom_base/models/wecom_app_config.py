@@ -47,12 +47,27 @@ class WeComAppConfig(models.Model):
         :return:
         """
         res = self.browse(res_id)
+        return res.ttype
+        # return {
+        #     "id": res_id,
+        #     "value_type": res.ttype,
+        #     "value": res.value,
+        # }
 
-        return {
-            "id": res_id,
-            "type": res.ttype,
-            "value": res.value,
-        }
+    def update_config(self, res_id=False, value=""):
+        """
+        更新参数
+        """
+        # res = self.browse(res_id)
+        app_config = (
+            self.env["wecom.app_config"]
+            .sudo()
+            .search([("id", "=", res_id),])
+        )
+
+        app_config.sudo().write({"value": value})
+        print(app_config.value)
+        return app_config.value
 
     @api.model
     def get_param(self, app_id, key, default=False):
