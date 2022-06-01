@@ -32,6 +32,7 @@
         "views/wecom_apps_views.xml",
         "views/ir_cron_views.xml",
         "wizard/wecom_contacts_sync_wizard_views.xml",
+        "wizard/wecom_users_sync_wizard.xml",
         "views/wecom_contacts_block_views.xml",
         "views/menu_views.xml",
     ],

@@ -11,8 +11,11 @@
                         <field name="sync_all" />
                         <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
                         <field name="companies" />
+
+                    </group>
+                    <group string="Application Configuration">
                         <field name="contacts_app_id" invisible="1"/>
-                        <field name="contacts_app_config_ids" class="w-100">
+                        <field name="contacts_app_config_ids" class="w-100" nolabel="1">
                             <tree create="0" edit="0" delete="0">
                                 <field name="name"/>
                                 <field name="ttype"/>
@@ -21,16 +24,6 @@
                         </field>
                     </group>
                     <notebook>
-                        <!-- <page string="Sync Info">
-                            <field name="task_ids">
-                                <tree create="0" edit="0" delete="0">
-                                    <field name="company_id"/>
-                                    <field name="hr_department_sync_state"/>
-                                    <field name="hr_employee_sync_state"/>
-                                    <field name="hr_tag_sync_state"/>
-                                </tree>
-                            </field>
-                        </page> -->
                         <page string="Help">
                             <div>
                                 Linux production server uses the following command to view real-time logs:
@@ -120,13 +113,6 @@
                 </form>
             </field>
         </record>
-        <!-- actions -->
-        <!-- <record id="actions_wecom_contacts_sync_wizard_list" model="ir.actions.act_window">
-            <field name="name">Contact synchronization record list</field>
-            <field name="res_model">wecom.contacts.sync.wizard</field>
-            <field name="view_mode">tree,form</field>
-            <field name="view_id" ref="view_wecom_contacts_sync_tree"/>
-        </record> -->
 
         <record id="actions_wecom_contacts_sync_wizard" model="ir.actions.act_window">
             <field name="name">Contact synchronization Wizard</field>

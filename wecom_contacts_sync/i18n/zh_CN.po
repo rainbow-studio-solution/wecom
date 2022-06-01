@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-20 08:22+0000\n"
-"PO-Revision-Date: 2022-02-20 16:27+0800\n"
+"POT-Creation-Date: 2022-06-01 04:50+0000\n"
+"PO-Revision-Date: 2022-06-01 12:54+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -134,6 +134,15 @@ msgid "Add member events"
 msgstr "新增成员事件"
 
 #. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid ""
+"After the first batch generation of users from employees, it is recommended "
+"to start the event service of \"address book synchronization\" to create "
+"and update employees and users."
+msgstr ""
+"第一次从员工生成用户后，建议启动“通讯簿同步”事件服务，创建和更新员工和用户。"
+
+#. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__completed
@@ -141,6 +150,7 @@ msgstr "新增成员事件"
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__completed
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__completed
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__completed
 #, python-format
 msgid "All completed"
 msgstr "全部完成"
@@ -153,6 +163,7 @@ msgstr "全部完成"
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__fail
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__fail
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__fail
 #, python-format
 msgid "All failed"
 msgstr "全部失败"
@@ -174,6 +185,7 @@ msgstr "允许企微通讯录同步人力资源"
 
 #. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_config_ids
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
 msgid "Application Configuration"
 msgstr "应用配置"
 
@@ -200,6 +212,21 @@ msgid "Automatic task:Start to get join enterprise QR code of company [%s]"
 msgstr "自动任务：开始获取公司[%s]的加入企业二维码"
 
 #. module: wecom_contacts_sync
+#: model:ir.actions.act_window,name:wecom_contacts_sync.actions_wecom_users_sync_wizard
+msgid "Batch generate users from employees"
+msgstr "从员工批量生成用户"
+
+#. module: wecom_contacts_sync
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_block_record
+msgid "Block List"
+msgstr "阻止列表"
+
+#. module: wecom_contacts_sync
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_users_wizard
+msgid "Bulk build User Wizard"
+msgstr "批量生成用户向导"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "Button group"
 msgstr "按钮组"
@@ -215,7 +242,9 @@ msgid "Close and refresh"
 msgstr "关闭并刷新"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__company_id
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__company_id
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__company_id
 msgid "Company"
 msgstr "公司"
 
@@ -271,12 +300,21 @@ msgid "Contacts synchronization Wizard"
 msgstr "通讯录同步向导"
 
 #. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_wecom_users_sync_wizard
+msgid "Create users from employees Wizard"
+msgstr "从员工创建用户向导"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__create_uid
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_uid
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__create_uid
 msgid "Created by"
 msgstr "创建者"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__create_date
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_date
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -306,7 +344,9 @@ msgstr ""
 "                    <br>值：部门id。"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__display_name
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__display_name
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -353,6 +393,11 @@ msgid "Generate parameters"
 msgstr "生成参数"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__generate_result
+msgid "Generate result"
+msgstr "生成结果"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "Generate service"
 msgstr "生成服务"
@@ -364,6 +409,7 @@ msgstr "获取加入企业二维码"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
 msgid "Help"
 msgstr "帮助"
 
@@ -428,7 +474,9 @@ msgid "Hr tag synchronization time (seconds)"
 msgstr "HR标签同步时间(秒)"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__id
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__id
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__id
 msgid "ID"
 msgstr ""
 
@@ -462,7 +510,19 @@ msgstr ""
 "如果该值为true，则允许向导和任务将企微通讯录的组织架构同步到HR；<br>\n"
 "                    如果该值为false，则需要手动将HR员工绑定到企微用户。同"
 "时，只有拥有企微用户ID的员工才能通过事件进行更新；<br>\n"
-"                    默认值 true；"
+"                    默认值 true;"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Internal users occupy system resources."
+msgstr "内部用户占用系统资源。"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid ""
+"It is recommended to generate system users from employees in batch only "
+"during system initialization."
+msgstr "建议仅在系统初始化时从员工批量生成系统用户。"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
@@ -470,17 +530,23 @@ msgid "Join enterprise QR code"
 msgstr "加入企业二维码"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block____last_update
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard____last_update
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__write_uid
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_uid
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__write_date
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_date
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__write_date
 msgid "Last Updated on"
 msgstr "更新时间"
 
@@ -497,6 +563,16 @@ msgid ""
 msgstr "Linux生产服务器使用以下命令查看实时日志："
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__name
+msgid "Name"
+msgstr "名称"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Need to be converted into internal users in the user list."
+msgstr "需要在用户列表中转换为内部用户。"
+
+#. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_party
 msgid "New departmental events"
 msgstr "新增部门事件"
@@ -509,6 +585,7 @@ msgstr "新增部门事件"
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__partially
 #: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__partially
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__partially
 #, python-format
 msgid "Partially complete"
 msgstr "部分完成"
@@ -524,6 +601,11 @@ msgstr "请绑定通讯录应用！"
 #, python-format
 msgid "Please generate application parameters first."
 msgstr "请先生成应用参数。"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Portal users are free users and do not occupy system resources."
+msgstr "门户用户是免费用户，不占用系统资源。"
 
 #. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_join_qrcode
@@ -547,6 +629,41 @@ msgid "Refresh the QR code"
 msgstr "刷新二维码"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__sync_all
+msgid "Select all companies"
+msgstr "选择所有公司"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Select all companies?"
+msgstr "选择所有公司？"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__companies
+msgid "Selected company"
+msgstr "所选公司"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__send_mail
+msgid "Send mail or message"
+msgstr "发送邮件或消息"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Send mail or messages to new users by default."
+msgstr "默认向新用户发送邮件或消息。"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Send notification to new users?"
+msgstr "是否向新用户发送通知？"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Start"
+msgstr "启动"
+
+#. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
 msgid "Start getting join enterprise QR code for app [%s] of company [%s]"
@@ -564,6 +681,7 @@ msgstr "启动时间"
 
 #. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__state
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__state
 msgid "Status"
 msgstr "状态"
 
@@ -622,7 +740,18 @@ msgid "Tag change events"
 msgstr "标签变更事件"
 
 #. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "The generated user type belongs to the portal user by default."
+msgstr "默认情况下，生成的用户类型属于门户用户。"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.constraint,message:wecom_contacts_sync.constraint_wecom_contacts_block_userid_company_uniq
+msgid "The user ID of each company must be unique!"
+msgstr "每个公司的用户ID必须唯一！"
+
+#. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__total_time
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__total_time
 msgid "Total time(seconds)"
 msgstr "总时间（秒）"
 
@@ -633,14 +762,14 @@ msgid "Unknown"
 msgstr "未知"
 
 #. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync_employees
-msgid "Update employees avatar every time sync"
-msgstr "每次同步时更新员工头像"
-
-#. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_party
 msgid "Update department events"
 msgstr "更新部门事件"
+
+#. module: wecom_contacts_sync
+#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync_employees
+msgid "Update employees avatar every time sync"
+msgstr "每次同步时更新员工头像"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_user
@@ -668,15 +797,15 @@ msgid "User synchronization time (seconds)"
 msgstr "用户同步时间(秒)"
 
 #. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_res_users
-msgid "Users"
-msgstr "用户"
-
-#. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
 msgid "Value: True or False"
 msgstr "值： True 或 False"
+
+#. module: wecom_contacts_sync
+#: model:ir.actions.act_window,name:wecom_contacts_sync.open_view_wecom_contacts_block_tree
+msgid "WeCom contacts block list"
+msgstr "企微通讯录阻止列表"
 
 #. module: wecom_contacts_sync
 #: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_sync_wizard
@@ -688,6 +817,11 @@ msgstr "企微通讯录同步向导"
 #, python-format
 msgid "WeCom tags synchronization results"
 msgstr "企微标签同步结果"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__wecom_userid
+msgid "WeCom user Id"
+msgstr "企微用户Id"
 
 #. module: wecom_contacts_sync
 #: model:ir.actions.server,name:wecom_contacts_sync.ir_cron_get_join_qrcode_ir_actions_server
@@ -719,6 +853,11 @@ msgid "Wecom Application"
 msgstr "企微应用"
 
 #. module: wecom_contacts_sync
+#: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_block
+msgid "Wecom contacts synchronization block list"
+msgstr "企微通讯录同步阻止列表"
+
+#. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
 msgid ""
@@ -730,16 +869,14 @@ msgstr ""
 "步。"
 
 #. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid ""
+"When you have a large number of employees, it is recommended to <b class="
+"\"text-danger\">turn off</b> \"send mail or message\"."
+msgstr ""
+"当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送邮件或消息”。"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "description"
-msgstr "description"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "value"
-msgstr "value"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "ttype"
-msgstr "ttype"
+msgstr "说明"

@@ -33,11 +33,11 @@ class WecomUsersSyncWizard(models.TransientModel):
         return company_ids
 
     sync_all = fields.Boolean(
-        string="Synchronize all companies",
+        string="Select all companies",
         default=True,
         required=True,
     )
-    companies = fields.Char(string="Sync Companies", compute="_compute_sync_companies")
+    companies = fields.Char(string="Selected company", compute="_compute_sync_companies")
     company_id = fields.Many2one(
         "res.company",
         string="Company",
@@ -46,3 +46,45 @@ class WecomUsersSyncWizard(models.TransientModel):
         store=True,
     )
     send_mail = fields.Boolean(string="Send mail or message", default=True)
+
+    @api.depends("sync_all")
+    def _compute_sync_companies(self):
+        """
+        获取需要同步的公司名称
+        """
+        if self.sync_all:
+            companies = (
+                self.sudo()
+                .env["res.company"]
+                .search([(("is_wecom_organization", "=", True))])
+            )
+            companies_names = [company.name for company in companies]
+            self.companies = ",".join(companies_names)
+        else:
+            self.companies = self.company_id.name
+
+    @api.onchange("company_id")
+    def onchange_company_id(self):
+        if self.sync_all is False:
+            self.companies = self.company_id.name
+
+    state = fields.Selection(
+        [
+            ("completed", "All completed"),
+            ("partially", "Partially complete"),
+            ("fail", "All failed"),
+        ],
+        "Status",
+        readonly=True,
+        copy=False,
+        default="completed",
+    )
+    generate_result = fields.Text("Generate result", readonly=1)
+    total_time = fields.Float(
+        string="Total time(seconds)",
+        digits=(16, 3),
+        readonly=True,
+    )
+
+    def wizard_generate_users(self):
+        results = []
