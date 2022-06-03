@@ -99,11 +99,11 @@ class WecomUsersSyncWizard(models.TransientModel):
 
             for company in companies:
                 # 遍历公司
-                result = self.create_user_from_employee(company)
+                result = self.batch_create_user_from_employee(company,self.send_mail)
                 results.append(result)
         else:
             # 同步当前选中公司
-            result = self.create_user_from_employee(self.company_id)
+            result = self.batch_create_user_from_employee(self.company_id,self.send_mail)
             results.append(result)
         end_time = time.time()
         self.total_time = end_time - start_time
@@ -137,7 +137,31 @@ class WecomUsersSyncWizard(models.TransientModel):
             # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
         }
 
-    def create_user_from_employee(self,company):
+    def batch_create_user_from_employee(self,company,send_mail):
         """
-        从员工生成用户
+        根据员工创建用户
+        :param company: 公司
+        :param send_mail: 是否发送邮件
+        :return:
         """
+        # 查询员工
+        employees = self.env["hr.employee"].search(
+            [
+                ("company_id", "=", company.id),
+                ("is_wecom_user", "=", False),
+            ]
+        )
+        # 创建用户
+        for employee in employees:
+            # 遍历员工
+            employee.with_context(send_mail=send_mail).batch_create_user_from_employee()
+        
+ 
+    def create_user_from_employee(self,send_mail):
+        """
+        根据员工创建用户
+        :param send_mail: 是否发送邮件
+        :return:
+        """
+        # employee = self.env["hr.employee"].browse(self.env.context.get("active_id"))
+        # employee.with_context(send_mail=send_mail).batch_create_user_from_employee()
