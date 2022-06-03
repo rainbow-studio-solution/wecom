@@ -4,6 +4,7 @@ wecom_service_api_access_right_user,access.wecom.service_api,model_wecom_service
 
 wecom_service_api_list_access_right,access.wecom.service_api_list,model_wecom_service_api_list,group_wecom_manager,1,1,1,1
 wecom_service_api_list_access_right_user,access.wecom.service_api_list,model_wecom_service_api_list,group_wecom_user,1,0,0,0
+
 wecom_service_api_error_access_right,access.wecom.service_api_error,model_wecom_service_api_error,group_wecom_manager,1,1,1,1
 wecom_service_api_error_access_right_user,access.wecom.service_api_error,model_wecom_service_api_error,group_wecom_user,1,0,0,0
 

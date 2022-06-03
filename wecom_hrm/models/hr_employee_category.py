@@ -330,6 +330,7 @@ class EmployeeCategory(models.Model):
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id.corpid, self.company_id.contacts_app_id.secret
             )
+
             tag_response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_LIST")
             )

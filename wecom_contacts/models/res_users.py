@@ -7,6 +7,7 @@ from odoo.exceptions import UserError
 from lxml import etree
 from lxml_to_dict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 
 _logger = logging.getLogger(__name__)
 
@@ -38,7 +39,7 @@ WECOM_USER_MAPPING_ODOO_USER = {
 }
 
 
-class Users(models.Model):
+class ResUsers(models.Model):
     _inherit = "res.users"
 
     employee_id = fields.Many2one(
@@ -74,7 +75,27 @@ class Users(models.Model):
             else:
                 user.wecom_openid = response["openid"]
 
-    def _get_or_create_user_by_wecom_userid(self, object):
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        重写以自动邀请用户注册
+        send_mail: true 表示发送邀请邮件, false 表示不发送邀请邮件
+        批量创建用户时，建议 send_mail=False
+        """
+        users = super(ResUsers, self).create(vals_list)
+        send_mail = self.env.context.get('send_mail')
+        # print(send_mail)
+        if not self.env.context.get('no_reset_password') and send_mail:
+            users_with_email = users.filtered('email')
+            if users_with_email:
+                try:
+                    users_with_email.with_context(create_user=True).action_reset_password()
+                except MailDeliveryException:
+                    users_with_email.partner_id.with_context(create_user=True).signup_cancel()
+        
+        return users
+
+    def _get_or_create_user_by_wecom_userid(self, object,send_mail):
         """
         通过企微用户id获取odoo用户
         """
@@ -120,7 +141,7 @@ class Users(models.Model):
             -'tracking_disable'：在创建和写入时，不执行邮件线程功能（自动订阅、跟踪、发布等）
             -'mail_notify_force_send': 如果要发送的电子邮件通知少于50封,直接发送,而不是使用队列;默认情况下为True
             """
-            return SudoUser.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True).create(values).id
+            return SudoUser.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True,send_mail=send_mail).create(values).id
 
     # ------------------------------------------------------------
     # 企微部门下载

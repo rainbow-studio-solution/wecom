@@ -43,6 +43,17 @@
             </field>
         </record>
 
+        <record id="view_form_wecom_users_sync_result" model="ir.ui.view">
+            <field name="name">Batch generate user results from employees</field>
+            <field name="model">wecom.users.sync.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+
+                </form>
+            </field>
+        </record>
+
         <record id="actions_wecom_users_sync_wizard" model="ir.actions.act_window">
             <field name="name">Batch generate users from employees</field>
             <field name="res_model">wecom.users.sync.wizard</field>

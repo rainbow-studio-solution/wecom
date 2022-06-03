@@ -111,12 +111,16 @@ class HrEmployeePrivate(models.Model):
         从员工生成用户
         :return:
         """
+        send_mail = self.env.context.get("send_mail")
+        if send_mail is None:
+            send_mail = True
+
         for employee in self:
             params = {}
             if employee.wecom_openid is False:
                 employee.get_wecom_openid()
             res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
-                employee
+                employee,send_mail
             )
 
             partner = self.env["res.users"].browse(res_user_id).partner_id

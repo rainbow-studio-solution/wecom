@@ -88,3 +88,56 @@ class WecomUsersSyncWizard(models.TransientModel):
 
     def wizard_generate_users(self):
         results = []
+        start_time = time.time()
+        if self.sync_all:
+            # 同步所有公司
+            companies = (
+                self.sudo()
+                .env["res.company"]
+                .search([(("is_wecom_organization", "=", True))])
+            )
+
+            for company in companies:
+                # 遍历公司
+                result = self.create_user_from_employee(company)
+                results.append(result)
+        else:
+            # 同步当前选中公司
+            result = self.create_user_from_employee(self.company_id)
+            results.append(result)
+        end_time = time.time()
+        self.total_time = end_time - start_time
+
+        # 处理数据
+        df = pd.DataFrame(results)
+
+        # 显示同步结果
+        form_view = self.env.ref(
+            "wecom_contacts_sync.view_form_wecom_users_sync_result"
+        )
+        return {
+            "name": _("Generate results using the wizard"),
+            "view_type": "form",
+            "view_mode": "form",
+            "res_model": "wecom.users.sync.wizard",
+            "res_id": self.id,
+            "view_id": False,
+            "views": [
+                [form_view.id, "form"],
+            ],
+            "type": "ir.actions.act_window",
+            # 'context': '{}',
+            # 'context': self.env.context,
+            "context": {
+                # "form_view_ref": "wecom_hrm_syncing.dialog_wecom_contacts_sync_result"
+            },
+            "target": "new",  # target: 打开新视图的方式，current是在本视图打开， new 是弹出一个窗口打开
+            # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能
+            # 'auto_search': False, #加载默认视图后，自动搜索
+            # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
+        }
+
+    def create_user_from_employee(self,company):
+        """
+        从员工生成用户
+        """
