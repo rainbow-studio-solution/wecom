@@ -84,7 +84,6 @@ class ResUsers(models.Model):
         """
         users = super(ResUsers, self).create(vals_list)
         send_mail = self.env.context.get('send_mail')
-        # print(send_mail)
         if not self.env.context.get('no_reset_password') and send_mail:
             users_with_email = users.filtered('email')
             if users_with_email:

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-01 04:50+0000\n"
-"PO-Revision-Date: 2022-06-01 12:54+0800\n"
+"POT-Creation-Date: 2022-06-06 05:12+0000\n"
+"PO-Revision-Date: 2022-06-06 13:14+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -233,11 +233,13 @@ msgstr "按钮组"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
 msgid "Close"
 msgstr "关闭"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
 msgid "Close and refresh"
 msgstr "关闭并刷新"
 
@@ -247,6 +249,12 @@ msgstr "关闭并刷新"
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__company_id
 msgid "Company"
 msgstr "公司"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
+#, python-format
+msgid "Complete batch generation of system users from employees."
+msgstr "完成从员工批量生成系统用户。"
 
 #. module: wecom_contacts_sync
 #: model:ir.model,name:wecom_contacts_sync.model_res_config_settings
@@ -388,14 +396,26 @@ msgstr ""
 "                    <br>值: True 或 False"
 
 #. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__error_info
+msgid "Error info"
+msgstr "错误信息"
+
+#. module: wecom_contacts_sync
+#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
+#, python-format
+msgid "Failed to copy employee [%s] as system user, reason:%s"
+msgstr "无法将员工[%s]复制为系统用户，原因：%s"
+
+#. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "Generate parameters"
 msgstr "生成参数"
 
 #. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__generate_result
-msgid "Generate result"
-msgstr "生成结果"
+#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
+#, python-format
+msgid "Generate results using the wizard"
+msgstr "使用向导生成结果"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
@@ -511,6 +531,11 @@ msgstr ""
 "                    如果该值为false，则需要手动将HR员工绑定到企微用户。同"
 "时，只有拥有企微用户ID的员工才能通过事件进行更新；<br>\n"
 "                    默认值 true;"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
+msgid "Info"
+msgstr "信息"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
@@ -676,6 +701,7 @@ msgstr "开始同步"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
 msgid "Starting time"
 msgstr "启动时间"
 
@@ -880,3 +906,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
 msgid "description"
 msgstr "说明"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
+msgid "status"
+msgstr "状态"

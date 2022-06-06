@@ -49,7 +49,19 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
-
+                    <group string="status">
+                        <field name="create_date" string="Starting time"/>
+                        <field name="companies" />
+                        <field name="state" />
+                        <field name="total_time" />
+                    </group>
+                    <group string="Info">
+                        <field name="error_info" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
+                    </footer>
                 </form>
             </field>
         </record>

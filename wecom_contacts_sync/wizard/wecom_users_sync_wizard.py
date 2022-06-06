@@ -79,7 +79,7 @@ class WecomUsersSyncWizard(models.TransientModel):
         copy=False,
         default="completed",
     )
-    generate_result = fields.Text("Generate result", readonly=1)
+    error_info = fields.Text("Error info", readonly=1)
     total_time = fields.Float(
         string="Total time(seconds)",
         digits=(16, 3),
@@ -98,18 +98,38 @@ class WecomUsersSyncWizard(models.TransientModel):
             )
 
             for company in companies:
-                # 遍历公司
+                # 遍历公司                
                 result = self.batch_create_user_from_employee(company,self.send_mail)
-                results.append(result)
+                for res in result:
+                    results.append(res)
         else:
             # 同步当前选中公司
-            result = self.batch_create_user_from_employee(self.company_id,self.send_mail)
-            results.append(result)
+            results = self.batch_create_user_from_employee(self.company_id,self.send_mail)
+
         end_time = time.time()
         self.total_time = end_time - start_time
 
         # 处理数据
         df = pd.DataFrame(results)
+        
+
+        all_rows = len(df)  # 获取所有行数
+        fail_rows = len(df[df["state"] == False])   # 获取失败行数       
+
+        error_info = ""
+
+        if fail_rows == all_rows:
+            self.state = "fail"
+        elif fail_rows > 0 and fail_rows < all_rows:
+            self.state = "partially"
+        elif fail_rows == 0:
+            self.state = "completed"
+            error_info =_("Complete batch generation of system users from employees.")
+
+        for index, row in df.iterrows():
+            if row["state"] == "fail":
+                error_info += self.handle_result(index, all_rows, row["result"])
+        self.error_info = error_info
 
         # 显示同步结果
         form_view = self.env.ref(
@@ -137,6 +157,19 @@ class WecomUsersSyncWizard(models.TransientModel):
             # 'multi': False, #视图中有个更多按钮，若multi设为True, 更多按钮显示在tree视图，否则显示在form视图
         }
 
+    def handle_result(self, index, rows, result):
+        """
+        处理同步结果
+        """
+        if result is None:
+            return ""
+        if index < rows - 1:
+            result = "%s:%s \n" % (str(index + 1), result)
+        else:
+            result = "%s:%s" % (str(index + 1), result)
+        return result
+
+
     def batch_create_user_from_employee(self,company,send_mail):
         """
         根据员工创建用户
@@ -148,20 +181,50 @@ class WecomUsersSyncWizard(models.TransientModel):
         employees = self.env["hr.employee"].search(
             [
                 ("company_id", "=", company.id),
-                ("is_wecom_user", "=", False),
+                ("is_wecom_user", "=", True),
             ]
         )
         # 创建用户
+        results = []
         for employee in employees:
             # 遍历员工
-            employee.with_context(send_mail=send_mail).batch_create_user_from_employee()
-        
+            result = self.create_user_from_employee(employee,send_mail)
+            results.append(result)
+        return results
  
-    def create_user_from_employee(self,send_mail):
+    def create_user_from_employee(self,employee,send_mail):
         """
         根据员工创建用户
         :param send_mail: 是否发送邮件
         :return:
         """
-        # employee = self.env["hr.employee"].browse(self.env.context.get("active_id"))
-        # employee.with_context(send_mail=send_mail).batch_create_user_from_employee()
+        result = {}
+        try:
+            res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
+                employee,send_mail
+            )
+            partner = self.env["res.users"].browse(res_user_id).partner_id
+            partner.write(
+                    {"company_id": self.company_id.id,}
+                )
+            result.update({
+                "state":True,
+                "result":""
+            })
+            return result
+        except Exception as e:
+            msg = _(
+                    "Failed to copy employee [%s] as system user, reason:%s"
+                ) % (employee.name, repr(e),)
+            
+            result.update({
+                "state":False,
+                "result":msg
+            })
+            return result
+            
+    def reload(self):
+        return {
+            "type": "ir.actions.client",
+            "tag": "reload",
+        }
