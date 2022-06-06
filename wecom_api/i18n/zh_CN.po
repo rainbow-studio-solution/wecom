@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-31 08:49+0000\n"
-"PO-Revision-Date: 2022-05-31 17:02+0800\n"
+"POT-Creation-Date: 2022-06-06 08:03+0000\n"
+"PO-Revision-Date: 2022-06-06 16:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -34,16 +34,6 @@ msgstr ""
 "                            错误排除方法：%s</br>\n"
 "                            错误详细信息：</br>%s\n"
 "                        </div>"
-
-#. module: wecom_api
-#: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_list_filter
-msgid "API"
-msgstr ""
-
-#. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api_list
-msgid "API List"
-msgstr "API列表"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_abstract_api__code
@@ -140,16 +130,6 @@ msgid "Efficiency tools"
 msgstr "效率工具"
 
 #. module: wecom_api
-#: model_terms:ir.ui.view,arch_db:wecom_api.wecom_service_api_error_tree
-msgid "Error"
-msgstr "错误"
-
-#. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.action_view_wecom_service_api_error
-msgid "Error Code"
-msgstr "错误代码"
-
-#. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__code
 msgid "Error code"
 msgstr "错误代码"
@@ -164,11 +144,6 @@ msgstr "错误说明"
 #, python-format
 msgid "Error sending message: %s"
 msgstr "发送消息时出错：%s"
-
-#. module: wecom_api
-#: model_terms:ir.ui.view,arch_db:wecom_api.view_service_api_error_filter
-msgid "Errors"
-msgstr "错误"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__expiration_time
@@ -191,14 +166,14 @@ msgstr "无法拉取企微全局错误代码，原因：%s"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
 msgid "GET"
-msgstr ""
+msgstr "GET"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__5
@@ -244,35 +219,7 @@ msgstr "OA"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
 msgid "POST"
-msgstr ""
-
-#. module: wecom_api
-#. openerp-web
-#: code:addons/wecom_api/static/src/xml/list_header_button.xml:0
-#, python-format
-msgid "Pull error code"
-msgstr "拉取错误代码"
-
-#. module: wecom_api
-#. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
-#, python-format
-msgid "Pull failed!"
-msgstr "拉取失败！"
-
-#. module: wecom_api
-#. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
-#, python-format
-msgid "Pull successfully!"
-msgstr "拉取成功！"
-
-#. module: wecom_api
-#. openerp-web
-#: code:addons/wecom_api/static/src/js/list_header_button.js:0
-#, python-format
-msgid "Refresh"
-msgstr "刷新"
+msgstr "POST"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name

@@ -51,7 +51,7 @@
         <menuitem id="menu_wecom_cron" name="Wecom tasks" parent="wecom_base.menu_wecom_root" sequence="99" groups="group_wecom_manager"/>
 
         <!-- 99.1-->
-        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="menu_wecom_cron" action="ir_cron_act_pull_wecom_service_api_error" sequence="1"/>
+        <menuitem id="menu_wecom_service_api_error_pull" name="Pull the global error code" parent="menu_wecom_cron" action="wecom_api.ir_cron_act_pull_wecom_service_api_error" sequence="1"/>
 
         <!-- 99.2-->
         <menuitem id="menu_wecom_app_get_token" name="Get app token" parent="menu_wecom_cron" action="ir_cron_act_get_app_token" sequence="2"/>

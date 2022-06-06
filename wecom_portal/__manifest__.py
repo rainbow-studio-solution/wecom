@@ -5,7 +5,7 @@
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 607,
     "installable": True,
-    "application": False,
+    "application": True,
     "auto_install": False,
     "category": "WeCom/WeCom",
     "version": "15.0.0.1",
@@ -18,6 +18,9 @@
         """,
     "depends": ["portal",],
     "external_dependencies": {"python": [],},
-    "data": ["data/portal_message_template_data.xml", "views/portal_templates.xml",],
+    "data": [
+        # "data/portal_message_template_data.xml", 
+        "views/portal_templates.xml",
+        ],
     "license": "LGPL-3",
 }

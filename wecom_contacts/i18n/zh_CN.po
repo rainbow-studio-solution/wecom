@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 05:53+0000\n"
-"PO-Revision-Date: 2022-02-18 13:59+0800\n"
+"POT-Creation-Date: 2022-06-06 07:51+0000\n"
+"PO-Revision-Date: 2022-06-06 15:57+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -26,6 +26,11 @@ msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录Secret\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Contacts Application\"/>"
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"通讯录应用\"/>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.view_res_users_kanban
+msgid "<i class=\"fa fa-weixin\" role=\"img\" aria-label=\"Enterprise wechat user\" title=\" Enterprise wechat user\"/>"
+msgstr "<i class=\"fa fa-weixin\" role=\"img\" aria-label=\"企微用户\" title=\"企微用户\"/>"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -82,14 +87,35 @@ msgid "Application Configuration"
 msgstr "应用配置"
 
 #. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_users.py:0
+#, python-format
+msgid "Before clicking the 'Change User Type' button, you must modify the new user type"
+msgstr "单击“更改用户类型”按钮之前，必须修改新的用户类型"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Binding application"
 msgstr "绑定应用"
 
 #. module: wecom_contacts
-#: model:ir.ui.menu,name:wecom_contacts.menu_wecom_contacts_block_record
-msgid "Block List"
-msgstr "阻止同步列表"
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.change_type_wizard_view
+msgid "Cancel"
+msgstr "取消"
+
+#. module: wecom_contacts
+#: model:ir.actions.act_window,name:wecom_contacts.change_type_wizard_action
+msgid "Change Type"
+msgstr "更改类型"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.change_type_wizard_view
+msgid "Change type"
+msgstr "更改类型"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.change_type_wizard_view
+msgid "Change user type"
+msgstr "更改用户类型"
 
 #. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_company
@@ -98,9 +124,14 @@ msgstr "公司"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__company_id model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__company_id
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__company_id model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_category_view_search
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_category_view_search model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search
 msgid "Company"
 msgstr "公司"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_users__employee_id
+msgid "Company employee"
+msgstr "员工"
 
 #. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_config_settings
@@ -139,17 +170,18 @@ msgid "Contacts synchronization"
 msgstr "通讯录同步"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__create_uid
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__create_uid model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__create_uid
 msgid "Created by"
-msgstr "创建者"
+msgstr "创建人"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__create_date
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__create_date model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__create_date
 msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__display_name model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__display_name
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__display_name model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__display_name
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -182,6 +214,11 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Enterprise wechat has opened message sending interfaces. Enterprises can use these interfaces to enable two-way communication between custom applications and enterprise wechat background or users."
+msgstr "企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form
 msgid "Enterprise wechat information"
 msgstr "企微信息"
@@ -201,7 +238,7 @@ msgstr "创建公司 [%s] 的合作伙伴[%s %s]时出错，错误原因：%s"
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载公司 [%s] 的[%s]标签成员！"
+msgstr "未能下载公司[%s]标签成员[%s]！"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
@@ -221,9 +258,15 @@ msgid "HRM settings"
 msgstr "HRM设置"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__id
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__id model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__id
 msgid "ID"
 msgstr ""
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__1
+#, python-format
+msgid "Internal User"
+msgstr "内部用户"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_partner__is_wecom_user model:ir.model.fields,field_description:wecom_contacts.field_res_users__is_wecom_user
@@ -231,19 +274,29 @@ msgid "Is WeCom user"
 msgstr "是企微用户"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block____last_update
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user____last_update model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改时间"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__write_uid
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__write_uid model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__write_uid
 msgid "Last Updated by"
-msgstr "最后更新者"
+msgstr "最后更新人"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__write_date
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__write_date model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__write_date
 msgid "Last Updated on"
-msgstr "更新时间"
+msgstr "最后更新时间"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__user_login
+msgid "Login account"
+msgstr "登录帐户"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__user_name
+msgid "Login name"
+msgstr "登录名称"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -270,11 +323,6 @@ msgid "Message settings"
 msgstr "消息设置"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__name
-msgid "Name"
-msgstr "名称"
-
-#. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_partner_category
 msgid "Partner Tags"
 msgstr "业务伙伴标签"
@@ -288,6 +336,18 @@ msgstr "个人二维码"
 #: model:ir.model.fields,help:wecom_contacts.field_res_partner__qr_code model:ir.model.fields,help:wecom_contacts.field_res_users__qr_code
 msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人二维码，扫描可作为外部联系人添加"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__9
+#, python-format
+msgid "Portal User"
+msgstr "门户用户"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__10
+#, python-format
+msgid "Public User"
+msgstr "公众用户"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_callback_service_ids
@@ -304,7 +364,7 @@ msgstr "刷新"
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_secret
 msgid "Secret"
-msgstr "Secret"
+msgstr "密钥"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search_inherit
@@ -328,6 +388,12 @@ msgid "Tag list downloaded successfully."
 msgstr "标签列表下载成功。"
 
 #. module: wecom_contacts
+#: code:addons/wecom_contacts/__init__.py:0
+#, python-format
+msgid "The current company does not have an Corp ID configured for enterprise wechat"
+msgstr "当前公司没有为企业微信配置公司ID"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_partner_category.py:0 code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
@@ -339,12 +405,28 @@ msgid "The sort value in the department, the default is 0. The number must be th
 msgstr "部门中的排序值，默认值为0。该数字必须与部门相同。 数字越大，阶数越高。值的范围是[0，2 ^ 32）"
 
 #. module: wecom_contacts
-#: model:ir.model.constraint,message:wecom_contacts.constraint_wecom_contacts_block_userid_company_uniq
-msgid "The user ID of each company must be unique!"
-msgstr "每个公司的用户ID必须是唯一的！"
+#: code:addons/wecom_contacts/models/res_partner_category.py:0 code:addons/wecom_contacts/models/res_users.py:0
+#, python-format
+msgid "There is no mapping for field [%s], please contact the developer."
+msgstr "字段 [%s] 没有映射，请与开发人员联系。"
 
 #. module: wecom_contacts
-#: model:ir.model,name:wecom_contacts.model_res_users
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__user_id
+msgid "User"
+msgstr "用户"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__new_type
+msgid "User Type"
+msgstr "用户类型"
+
+#. module: wecom_contacts
+#: model:ir.model,name:wecom_contacts.model_change_type_user
+msgid "User, Change Type Wizard"
+msgstr "用户，更改类型向导"
+
+#. module: wecom_contacts
+#: model:ir.model,name:wecom_contacts.model_res_users model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__user_ids model_terms:ir.ui.view,arch_db:wecom_contacts.change_type_wizard_user_tree_view
 msgid "Users"
 msgstr "用户"
 
@@ -400,24 +482,9 @@ msgid "WeCom User sequence"
 msgstr "企微用户排序"
 
 #. module: wecom_contacts
-#: model:ir.actions.act_window,name:wecom_contacts.open_view_wecom_contacts_block_tree
-msgid "WeCom contacts block list"
-msgstr "企微通讯录block列表"
-
-#. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_wecom_contacts_block__wecom_userid
-msgid "WeCom user Id"
-msgstr "企微用户ID"
-
-#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
 msgid "Wecom Info"
 msgstr "企微信息"
-
-#. module: wecom_contacts
-#: model:ir.model,name:wecom_contacts.model_wecom_contacts_block
-msgid "Wecom contacts synchronization block list"
-msgstr "企微通讯录同步Block列表"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -427,6 +494,16 @@ msgid ""
 msgstr ""
 "在使用企业微信API接口中，往往开发者需要使用自定义的资源，比如发送本地图片消息，设置通讯录自定义头像等。<br/>\n"
 "                                    为了实现同一资源文件，一次上传可以多次使用，这里提供了素材管理接口：以media_id来标识资源文件，实现文件的上传与下载。"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__wizard_id
+msgid "Wizard"
+msgstr "向导"
+
+#. module: wecom_contacts
+#: model:ir.model,name:wecom_contacts.model_change_type_wizard
+msgid "Wizard to change user type(WeCom)"
+msgstr "更改用户类型的向导（企微）"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form

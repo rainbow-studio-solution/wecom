@@ -140,8 +140,7 @@
                             <div class="o_setting_right_pane" id="wecom_message_settings">
                                 <label for="module_wecom_message"/>
                                 <div class="text-muted">
-                                    When using the enterprise wechat API interface, developers often need to use custom resources, such as sending local picture messages, setting address book custom avatars, etc.<br/>
-                                    In order to realize the same resource file, one upload can be used multiple times. Here is a material management interface: media_ ID to identify resource files and realize file upload and download.
+                                    Enterprise wechat has opened message sending interfaces. Enterprises can use these interfaces to enable two-way communication between custom applications and enterprise wechat background or users.
                                 </div>
                                 <div class="content-group" attrs="{'invisible': [('module_wecom_message', '=', False)]}" id="wecom_message_warning">
                                     <div class="mt4 text-warning">

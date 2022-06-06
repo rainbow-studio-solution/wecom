@@ -56,22 +56,24 @@ class ResUsers(models.Model):
         if not template:
             template = self.env.ref("auth_signup.reset_password_email")
         assert template._name == "mail.template"
-        template_values = {
-            "email_to": "${object.email|safe}",
+        email_values = {
             "email_cc": False,
-            "message_to_user": "${object.wecom_userid|safe}",
+            # "message_to_user": "${object.wecom_userid|safe}",
+            'recipient_ids': [],
             "auto_delete": True,
             "partner_to": False,
             "scheduled_date": False,
         }
-        template.write(template_values)
+        # template.write(template_values)
         for user in self:
             if user.wecom_userid:
+                email_values['message_to_user'] = user.wecom_userid
                 return self.action_reset_password_by_wecom(user, template)
             elif not user.email:
                 raise UserError(
                     _("Cannot send email: user %s has no email address.", user.name)
                 )
+            email_values['email_to'] = user.email
             # TDE FIXME: make this template technical (qweb)
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
@@ -89,6 +91,7 @@ class ResUsers(models.Model):
         """
 
         with self.env.cr.savepoint():
+            print(user.wecom_userid)
             force_send = not (self.env.context.get("import_file", False))
             template.send_message(
                 user.id, force_send=force_send, raise_exception=True,

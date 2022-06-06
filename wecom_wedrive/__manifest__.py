@@ -27,7 +27,7 @@
             "wecom_widget/static/src/xml/*.xml",
         ],
     },
-    "sequence": 607,
+    "sequence": 608,
     "installable": True,
     "auto_install": False,
     "application": True,

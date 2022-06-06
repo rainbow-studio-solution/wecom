@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="1">
+  <data noupdate="0">
 
     <!-- 1. 重置密码的消息模板-->
     <record id="auth_signup.reset_password_email" model="mail.template">
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
-      <field name="message_to_user">${object.wecom_userid | safe}</field>
+      <field name="message_to_user">{{object.wecom_userid}}</field>
       <field name="body_json">{
       "card_type": "news_notice",
       "source": {
@@ -63,10 +63,10 @@
     <!-- 2. 新用户的消息模板-->
     <record id="auth_signup.set_password_email" model="mail.template">
       <field name="msgtype">markdown</field>
-      <field name="message_to_user">${object.wecom_userid | safe}</field>
-      <field name="body_markdown">## Dear ${object.name},
-    Hello! First of all, please allow me to welcome you on behalf of our company. This is an invitation message from ${object.create_uid.name} of ${object.company_id.name}  to open your system account. Please click:
-    &gt; [Accept invitation](${object.signup_url})
+      <field name="message_to_user">{{object.wecom_userid}}</field>
+      <field name="body_markdown">## Dear{{object.name}},
+    Hello! First of all, please allow me to welcome you on behalf of our company. This is an invitation message from {{object.create_uid.name}} of {{object.company_id.name}}  to open your system account. Please click:
+    &gt; [Accept invitation]({{object.signup_url}})
     % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url') 
     &gt; The system login address is: [${website_url}](${website_url})
     &gt; Your login account is: [${object.login}](${website_url}/web/login?login=${object.login})
@@ -90,7 +90,7 @@
     <record id="auth_signup.mail_template_user_signup_account_created" model="mail.template">
       <field name="msgtype">template_card</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-      <field name="message_to_user">${object.wecom_userid | safe}</field>
+      <field name="message_to_user">{{object.wecom_userid}}</field>
       <field name="body_json">{
       "card_type": "news_notice",
       "source": {
@@ -147,7 +147,7 @@
     <record id="auth_signup.mail_template_data_unregistered_users" model="mail.template">
       <field name="msgtype">mpnews</field>
       <field name="media_id" ref="wecom_material.wecom_material_image_account_created"/>
-      <field name="message_to_user">${object.wecom_userid | safe}</field>
+      <field name="message_to_user">{{object.wecom_userid}}</field>
       <field name="safe">1</field>
       <field name="enable_id_trans" eval="False"/>
       <field name="enable_duplicate_check" eval="False"/>
