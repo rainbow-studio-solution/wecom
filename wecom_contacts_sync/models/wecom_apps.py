@@ -221,28 +221,33 @@ class WeComApps(models.Model):
                     self.company_id.corpid, self.secret
                 )
                 app_config = self.env["wecom.app_config"].sudo()
+                last_time = app_config.get_param(self.id, "join_qrcode_last_time")
+
                 size_type = app_config.get_param(self.id, "join_qrcode_size_type")
 
-                # print(self.company_id.name, qrcode, size_type, last_time)
-                response = wecomapi.httpCall(
-                    self.env["wecom.service_api_list"].get_server_api_call(
-                        "GET_JOIN_QRCODE"
-                    ),
-                    {"size_type": size_type},
-                )
-                if response["errcode"] == 0:
-                    app_config.set_param(
-                        self.id, "join_qrcode", response["join_qrcode"]
+                overdue = False
+                if last_time:
+                    last_time = datetime.datetime.strptime(last_time, "%Y-%m-%d %H:%M:%S")
+                    overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
+                        last_time, 7
                     )
-                    app_config.set_param(
-                        self.id,
-                        "join_qrcode_last_time",
-                        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+
+                if not last_time or overdue:
+                    response = wecomapi.httpCall(
+                        self.env["wecom.service_api_list"].get_server_api_call(
+                            "GET_JOIN_QRCODE"
+                        ),
+                        {"size_type": size_type},
                     )
-                    # qrcode.write({"value": response["join_qrcode"]})
-                    # last_time.write(
-                    #     {"value": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
-                    # )
+                    if response["errcode"] == 0:
+                        app_config.set_param(
+                            self.id, "join_qrcode", response["join_qrcode"]
+                        )
+                        app_config.set_param(
+                            self.id,
+                            "join_qrcode_last_time",
+                            datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                        )
 
             except ApiException as ex:
                 return self.env["wecomapi.tools.action"].ApiExceptionDialog(

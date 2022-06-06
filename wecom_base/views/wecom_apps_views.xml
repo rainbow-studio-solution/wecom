@@ -157,7 +157,7 @@
                                         <tree create="0" edit="1" delete="0" nolabel="1" editable="bottom">
                                             <field name="name" readonly="1"/>
                                             <field name="key" readonly="1"/>
-                                            <field name="value" need_format="true" required="1"/>
+                                            <field name="value" force_save="1" need_format="true" required="1"/>
                                             <field name="description" invisible="1" />
                                         </tree>
                                     </field>
