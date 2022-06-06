@@ -124,6 +124,8 @@ class ResUsers(models.Model):
                 "company_id": object.company_id.id,
                 "employee_ids": [(6, 0, [object.id])],
                 "employee_id": object.id,
+                "lang": self.env.lang,
+                "company_id": object.company_id.id,
                 # 以下为企业微信字段
                 "wecom_userid": object.wecom_userid.lower(),
                 "wecom_openid": object.wecom_openid,
@@ -131,6 +133,23 @@ class ResUsers(models.Model):
                 "qr_code": object.qr_code,
                 "wecom_user_order": object.wecom_user_order,
             }
+
+            # 判断是否已存在 partner
+            partner = self.env["res.partner"].sudo().search(
+                [
+                    ("wecom_userid", "=", object.wecom_userid),
+                    ("company_id", "=", object.company_id.id),
+                    ("is_wecom_user", "=", True),
+                    "|",
+                    ("active", "=", True),
+                    ("active", "=", False),
+                ],limit=1,
+                )
+
+            if not partner:
+                pass
+            else:
+                values.update({"partner_id": partner.id})
             """
             MailThread功能可以通过上下文键进行一定程度的控制:
 

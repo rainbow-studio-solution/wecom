@@ -111,7 +111,6 @@ class WecomUsersSyncWizard(models.TransientModel):
 
         # 处理数据
         df = pd.DataFrame(results)
-        
 
         all_rows = len(df)  # 获取所有行数
         fail_rows = len(df[df["state"] == False])   # 获取失败行数       
@@ -127,8 +126,9 @@ class WecomUsersSyncWizard(models.TransientModel):
             error_info =_("Complete batch generation of system users from employees.")
 
         for index, row in df.iterrows():
-            if row["state"] == "fail":
+            if row["state"] is False:
                 error_info += self.handle_result(index, all_rows, row["result"])
+
         self.error_info = error_info
 
         # 显示同步结果
@@ -164,9 +164,9 @@ class WecomUsersSyncWizard(models.TransientModel):
         if result is None:
             return ""
         if index < rows - 1:
-            result = "%s:%s \n" % (str(index + 1), result)
+            result = " %s:%s \n" % (str(index + 1), result)
         else:
-            result = "%s:%s" % (str(index + 1), result)
+            result = " %s:%s" % (str(index + 1), result)
         return result
 
 
@@ -177,6 +177,7 @@ class WecomUsersSyncWizard(models.TransientModel):
         :param send_mail: 是否发送邮件
         :return:
         """
+
         # 查询员工
         employees = self.env["hr.employee"].search(
             [
@@ -203,10 +204,6 @@ class WecomUsersSyncWizard(models.TransientModel):
             res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
                 employee,send_mail
             )
-            partner = self.env["res.users"].browse(res_user_id).partner_id
-            partner.write(
-                    {"company_id": self.company_id.id,}
-                )
             result.update({
                 "state":True,
                 "result":""
@@ -216,7 +213,6 @@ class WecomUsersSyncWizard(models.TransientModel):
             msg = _(
                     "Failed to copy employee [%s] as system user, reason:%s"
                 ) % (employee.name, repr(e),)
-            
             result.update({
                 "state":False,
                 "result":msg

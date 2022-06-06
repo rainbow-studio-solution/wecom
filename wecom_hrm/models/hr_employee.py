@@ -119,15 +119,16 @@ class HrEmployeePrivate(models.Model):
             params = {}
             if employee.wecom_openid is False:
                 employee.get_wecom_openid()
-            res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
-                employee,send_mail
-            )
-
-            partner = self.env["res.users"].browse(res_user_id).partner_id
+            
+            # partner = self.env["res.users"].browse(res_user_id).partner_id
             try:
-                partner.write(
-                    {"company_id": self.company_id.id,}
-                )
+                # partner.write(
+                #     {
+                #         "company_id": self.company_id.id,
+                #         "lang": self.env.lang,
+                #     }
+                # )
+                res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(employee,send_mail)
             except Exception as e:
                 message = _(
                     "Failed to copy employee [%s] as system user, reason:%s"
