@@ -59,6 +59,9 @@
                             </page>
                             <page string="Message Options" name="advanced_settings">
                                 <group>
+                                    <field name="message_to_user"/>
+                                    <field name="message_to_party"/>
+                                    <field name="message_to_tag"/>
                                     <field name="safe"/>
                                     <field name="enable_id_trans"/>
                                     <field name="enable_duplicate_check"/>

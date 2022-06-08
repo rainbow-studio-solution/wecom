@@ -3,7 +3,55 @@
   <data noupdate="0">
 
     <!-- 1. 重置密码的消息模板-->
-
+    <record id="auth_signup.reset_password_email" model="mail.template">
+      <field name="msgtype">template_card</field>
+      <field name="media_id" ref="wecom_material.wecom_material_image_reset_password"/>
+      <field name="message_to_user">{{ object.wecom_userid }}</field>
+      <field name="body_json">{
+        "card_type": "news_notice",
+        "source": {
+          "icon_url": "{{ object.get_base_url() }}/wecom_message_logo.png?company={{ object.company_id.id }}",
+          "desc": "{{ object.company_id.name }}"
+        },
+        "main_title": {
+          "title": "Password reset",
+          "desc": "You requested a password reset"
+        },
+        "card_image": {
+          "url": "{{ object.get_base_url() }}/wecom_material/static/src/img/reset_password.png",
+          "aspect_ratio": 2.25
+        },
+        "vertical_content_list": [
+          {
+            "title": "Dear {{object.name}},You requested a password reset.",
+            "desc": "A password reset was requested for the system account linked to this message.You can change your password. This link will remain valid for 24 hours."
+          }
+        ],
+        "horizontal_content_list": [
+          {
+            "keyname": "Sender",
+            "value": "{{ object.create_uid.name }}"
+          },
+          {
+            "type": 1,
+            "keyname": "Change Password",
+            "value": "Click Modify",
+            "url": "{{ object.signup_url }}"
+          }
+        ],
+        "card_action": {
+          "type": 1,
+          "url": "{{ object.signup_url }}",
+          "appid": "",
+          "pagepath": ""
+        }
+      }
+      </field>
+      <field name="safe">1</field>
+      <field name="enable_id_trans" eval="False"/>
+      <field name="enable_duplicate_check" eval="False"/>
+      <field name="duplicate_check_interval">1800</field>
+    </record>
 
     <!-- 2. 新用户的消息模板-->
     <record id="auth_signup.set_password_email" model="mail.template">
@@ -17,8 +65,8 @@
         "desc": "{{ object.company_id.name }}"
       },
       "main_title": {
-        "title": "Invitation",
-        "desc": "{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to connect to Odoo"
+        "title": "You have been invited to use our system",
+        "desc": "{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to use our system"
       },
       "card_image": {
         "url": "{{ object.get_base_url() }}/wecom_material/static/src/img/account_created.png",
@@ -27,7 +75,7 @@
       "vertical_content_list": [
         {
           "title": "Dear {{ object.name }}",
-          "desc": "You have been invited by {{ object.create_uid.name }} of {{ object.company_id.name }} to connect on Odoo."
+          "desc": "You have been invited by {{ object.create_uid.name }} of {{ object.company_id.name }} to use our system.You can accept the invitation, log in to our system and change your password."
         }
       ],
       "horizontal_content_list": [
@@ -56,7 +104,7 @@
       ],
       "card_action": {
         "type": 1,
-        "url": "{{ object.get_base_url() }}",
+        "url": "{{object.signup_url}}",
         "appid": "",
         "pagepath": ""
       }
