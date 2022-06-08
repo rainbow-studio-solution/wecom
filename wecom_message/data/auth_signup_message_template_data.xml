@@ -21,7 +21,7 @@
         "desc": "{{ object.create_uid.name }} from {{ object.company_id.name }} invites you to connect to Odoo"
       },
       "card_image": {
-        "url": "{{ object.get_base_url() }}/wecom_material/static/src/img/reset_password.png",
+        "url": "{{ object.get_base_url() }}/wecom_material/static/src/img/account_created.png",
         "aspect_ratio": 2.25
       },
       "vertical_content_list": [
@@ -43,13 +43,13 @@
         },
         {
           "type": 1,
-          "keyname": "Your domain is",
+          "keyname": "Your domain",
           "value": "Click Open",
           "url": "{{object.get_base_url()}}"
         },
         {
           "type": 1,
-          "keyname": "Your account is",
+          "keyname": "Your account",
           "value": "Click Open",
           "url": "{{ object.get_base_url() }}/web/login?login={{ object.login }}"
         }
