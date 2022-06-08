@@ -32,7 +32,6 @@ WeCom Service-side API and Client-side API
         ],
         "web.assets_backend": [
             # JS
-            
         ],
         "web.assets_qweb": ["wecom_api/static/src/xml/*.xml",],
     },
@@ -40,6 +39,7 @@ WeCom Service-side API and Client-side API
         "python": [
             "requests_toolbelt",
             "pandas",
+            "pypandoc==1.7.0",
             "lxml_to_dict",
             "pycryptodome",
             "html2text",
