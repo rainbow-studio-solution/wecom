@@ -39,7 +39,7 @@
           "type": 1,
           "keyname": "Accept invitation",
           "value": "Click Accept",
-          "url": "{{object.get_base_url()}}"
+          "url": "{{object.signup_url}}"
         },
         {
           "type": 1,
