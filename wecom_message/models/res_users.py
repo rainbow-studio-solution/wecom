@@ -89,9 +89,7 @@ class ResUsers(models.Model):
         """
         通过企业微信的方式发送模板消息
         """
-
         with self.env.cr.savepoint():
-            print(user.wecom_userid)
             force_send = not (self.env.context.get("import_file", False))
             template.send_message(
                 user.id, force_send=force_send, raise_exception=True,
@@ -148,3 +146,39 @@ class ResUsers(models.Model):
         message_template.send_message(
             user, notif_layout="mail.mail_notification_light", force_send=False
         )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        重写以 发送创建账户的企微消息
+        send_message: true 表示发送创建账户的企微消息, false 表示不发送创建账户的企微消息
+        批量创建用户时，建议 send_message=False
+        """
+        users = super(ResUsers, self).create(vals_list)
+        if self.env.context.get('send_message'):
+            users.send_message_for_new_users()
+
+        return users
+
+    def send_message_for_new_users(self):
+        """
+        发送创建新用户的企微消息
+        """
+        template = self.env.ref(
+            "auth_signup.mail_template_user_signup_account_created", raise_if_not_found=False
+        )
+        email_values = {
+            "email_cc": False,
+            # "message_to_user": "${object.wecom_userid|safe}",
+            'recipient_ids': [],
+            "auto_delete": True,
+            "partner_to": False,
+            "scheduled_date": False,
+        }
+        for user in self:
+            email_values['message_to_user'] = user.wecom_userid
+            with self.env.cr.savepoint():
+                force_send = not (self.env.context.get("import_file", False))
+                template.send_message(
+                    user.id, force_send=force_send, raise_exception=True,
+                )

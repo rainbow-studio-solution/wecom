@@ -45,7 +45,8 @@ class WecomUsersSyncWizard(models.TransientModel):
         domain="[('is_wecom_organization', '=', True)]",
         store=True,
     )
-    send_mail = fields.Boolean(string="Send mail or message", default=True)
+    send_mail = fields.Boolean(string="Send mail", default=False)
+    send_message = fields.Boolean(string="Send message", default=True)
 
     @api.depends("sync_all")
     def _compute_sync_companies(self):
@@ -99,12 +100,12 @@ class WecomUsersSyncWizard(models.TransientModel):
 
             for company in companies:
                 # 遍历公司                
-                result = self.batch_create_user_from_employee(company,self.send_mail)
+                result = self.batch_create_user_from_employee(company,self.send_mail,self.send_message)
                 for res in result:
                     results.append(res)
         else:
             # 同步当前选中公司
-            results = self.batch_create_user_from_employee(self.company_id,self.send_mail)
+            results = self.batch_create_user_from_employee(self.company_id,self.send_mail,self.send_message)
 
         end_time = time.time()
         self.total_time = end_time - start_time
@@ -170,7 +171,7 @@ class WecomUsersSyncWizard(models.TransientModel):
         return result
 
 
-    def batch_create_user_from_employee(self,company,send_mail):
+    def batch_create_user_from_employee(self,company,send_mail,send_message):
         """
         根据员工创建用户
         :param company: 公司
@@ -189,11 +190,11 @@ class WecomUsersSyncWizard(models.TransientModel):
         results = []
         for employee in employees:
             # 遍历员工
-            result = self.create_user_from_employee(employee,send_mail)
+            result = self.create_user_from_employee(employee,send_mail,send_message)
             results.append(result)
         return results
  
-    def create_user_from_employee(self,employee,send_mail):
+    def create_user_from_employee(self,employee,send_mail,send_message):
         """
         根据员工创建用户
         :param send_mail: 是否发送邮件
@@ -202,7 +203,7 @@ class WecomUsersSyncWizard(models.TransientModel):
         result = {}
         try:
             res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
-                employee,send_mail
+                employee,send_mail,send_message
             )
             result.update({
                 "state":True,

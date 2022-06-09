@@ -3,7 +3,7 @@
 {
     "name": "WeCom HRM",
     "author": "RStudio",
-    "sequence": 604,
+    "sequence": 605,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["wecom_contacts",],
+    "depends": ["wecom_contacts_sync",],
     "data": [
         # "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",

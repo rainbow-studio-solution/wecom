@@ -3,7 +3,7 @@
     "name": "WeCom Contacts Synchronized",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 603,
+    "sequence": 605,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -18,6 +18,7 @@
         """,
     "depends": [
         "wecom_contacts",
+        "wecom_message",
         "wecom_hrm",
     ],
     "external_dependencies": {

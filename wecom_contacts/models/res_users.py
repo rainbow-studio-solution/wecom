@@ -75,26 +75,9 @@ class ResUsers(models.Model):
             else:
                 user.wecom_openid = response["openid"]
 
-    @api.model_create_multi
-    def create(self, vals_list):
-        """
-        重写以自动邀请用户注册
-        send_mail: true 表示发送邀请邮件, false 表示不发送邀请邮件
-        批量创建用户时，建议 send_mail=False
-        """
-        users = super(ResUsers, self).create(vals_list)
-        send_mail = self.env.context.get('send_mail')
-        if not self.env.context.get('no_reset_password') and send_mail:
-            users_with_email = users.filtered('email')
-            if users_with_email:
-                try:
-                    users_with_email.with_context(create_user=True).action_reset_password()
-                except MailDeliveryException:
-                    users_with_email.partner_id.with_context(create_user=True).signup_cancel()
-        
-        return users
+    
 
-    def _get_or_create_user_by_wecom_userid(self, object,send_mail):
+    def _get_or_create_user_by_wecom_userid(self, object,send_mail,send_message):
         """
         通过企微用户id获取odoo用户
         """
@@ -106,16 +89,14 @@ class ResUsers(models.Model):
         if res:
             if res[1]:
                 return res[0]
-        else:
-            group_portal = self.env["ir.model.data"]._xmlid_to_res_id(
-                "base.group_portal"
-            )  # 门户用户组
-            SudoUser = self.env["res.users"].sudo().with_context(no_reset_password=True)
+        else:        
+            group_portal_id = self.env['ir.model.data']._xmlid_to_res_id('base.group_portal')  # 门户用户组
+            SudoUser = self.sudo()
             values = {
                 "name": object.name,
                 "login": login,
                 "notification_type": "inbox",
-                "groups_id": [(6, 0, [group_portal])],
+                "groups_id": [(6, 0, [group_portal_id])],
                 "share": False,
                 "active": object.active,
                 "image_1920": object.image_1920,
@@ -159,7 +140,27 @@ class ResUsers(models.Model):
             -'tracking_disable'：在创建和写入时，不执行邮件线程功能（自动订阅、跟踪、发布等）
             -'mail_notify_force_send': 如果要发送的电子邮件通知少于50封,直接发送,而不是使用队列;默认情况下为True
             """
-            return SudoUser.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True,send_mail=send_mail).create(values).id
+            return SudoUser.with_context(mail_create_nosubscribe=True,mail_create_nolog=True,mail_notrack=True,tracking_disable=True,send_mail=send_mail,send_message=send_message).create(values).id
+            # return SudoUser.with_context(send_mail=send_mail).create(values).id
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """
+        重写以自动邀请用户注册
+        send_mail: true 表示发送邀请邮件, false 表示不发送邀请邮件
+        批量创建用户时，建议 send_mail=False
+        """
+        users = super(ResUsers, self).create(vals_list)
+
+        if not self.env.context.get('no_reset_password') and self.env.context.get('send_mail'):
+            users_with_email = users.filtered('email')
+            if users_with_email:
+                try:
+                    users_with_email.with_context(create_user=True).action_reset_password()
+                except MailDeliveryException:
+                    users_with_email.partner_id.with_context(create_user=True).signup_cancel()
+        
+        return users
 
     # ------------------------------------------------------------
     # 企微部门下载
@@ -449,7 +450,7 @@ class ResUsers(models.Model):
             [("wecom_userid", "=", dic["UserID"].lower())] + domain,
             limit=1,
         )
-        print("用户CMD", cmd)
+        # print("用户CMD", cmd)
         if callback_user:
             # 如果存在，则更新
             # 用于退出企业微信又重新加入企业微信的员工

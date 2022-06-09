@@ -112,8 +112,11 @@ class HrEmployeePrivate(models.Model):
         :return:
         """
         send_mail = self.env.context.get("send_mail")
+        send_message = self.env.context.get("send_message")
         if send_mail is None:
             send_mail = True
+        if send_message is None:
+            send_message = True
 
         for employee in self:
             params = {}
@@ -128,7 +131,7 @@ class HrEmployeePrivate(models.Model):
                 #         "lang": self.env.lang,
                 #     }
                 # )
-                res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(employee,send_mail)
+                res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(employee,send_mail,send_message)
             except Exception as e:
                 message = _(
                     "Failed to copy employee [%s] as system user, reason:%s"

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 05:12+0000\n"
-"PO-Revision-Date: 2022-06-06 13:14+0800\n"
+"POT-Creation-Date: 2022-06-09 02:35+0000\n"
+"PO-Revision-Date: 2022-06-09 10:37+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -359,6 +359,11 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid "Do not send mail to new users by default."
+msgstr "默认不向新用户发送邮件。"
+
+#. module: wecom_contacts_sync
 #: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_default_avatar_when_adding_employees
 msgid ""
 "Enable this, Employee photos will use the default avatar. Will save a lot "
@@ -498,7 +503,7 @@ msgstr "HR标签同步时间(秒)"
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__id
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
@@ -670,12 +675,17 @@ msgstr "所选公司"
 
 #. module: wecom_contacts_sync
 #: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__send_mail
-msgid "Send mail or message"
-msgstr "发送邮件或消息"
+msgid "Send mail"
+msgstr "发送邮件"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__send_message
+msgid "Send message"
+msgstr "发送消息"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Send mail or messages to new users by default."
+msgid "Send messages to new users by default."
 msgstr "默认向新用户发送邮件或消息。"
 
 #. module: wecom_contacts_sync
@@ -898,9 +908,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
 msgid ""
 "When you have a large number of employees, it is recommended to <b class="
-"\"text-danger\">turn off</b> \"send mail or message\"."
-msgstr ""
-"当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送邮件或消息”。"
+"\"text-danger\">turn off</b> \"send mail\"."
+msgstr "当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送邮件”。"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+msgid ""
+"When you have a large number of employees, it is recommended to <b class="
+"\"text-danger\">turn off</b> \"send message\"."
+msgstr "当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送消息”。"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form

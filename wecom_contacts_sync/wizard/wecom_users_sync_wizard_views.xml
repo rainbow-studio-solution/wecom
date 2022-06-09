@@ -15,6 +15,7 @@
                     </group>
                     <group string="Send notification to new users?">
                         <field name="send_mail" />
+                        <field name="send_message" />
                     </group>
                     <notebook>
                         <page string="Help">
@@ -31,8 +32,10 @@
                                 <li>Internal users occupy system resources.</li>
                                 <li>Need to be converted into internal users in the user list.</li>
                                 <li class="dropdown-divider"></li>
-                                <li>Send mail or messages to new users by default.</li>
-                                <li>When you have a large number of employees, it is recommended to <b class="text-danger">turn off</b> "send mail or message".</li>
+                                <li>Do not send mail to new users by default.</li>
+                                <li>Send messages to new users by default.</li>
+                                <li>When you have a large number of employees, it is recommended to <b class="text-danger">turn off</b> "send mail".</li>
+                                <li>When you have a large number of employees, it is recommended to <b class="text-danger">turn off</b> "send message".</li>
                             </ol>
                         </page>
                     </notebook>

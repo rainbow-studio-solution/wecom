@@ -141,9 +141,9 @@ class MailThread(models.AbstractModel):
         )
 
         if subtype_xmlid:
-            subtype_id = self.env["ir.model.data"].xmlid_to_res_id(subtype_xmlid)
+            subtype_id = self.env["ir.model.data"]._xmlid_to_res_id(subtype_xmlid)
         if not subtype_id:
-            subtype_id = self.env["ir.model.data"].xmlid_to_res_id("mail.mt_note")
+            subtype_id = self.env["ir.model.data"]._xmlid_to_res_id("mail.mt_note")
 
         # 如果要求，自动订阅收件人
         if self._context.get("mail_post_autofollow") and partner_ids:

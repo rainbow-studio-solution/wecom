@@ -3,7 +3,7 @@
     "name": "WeCom Material",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 605,
+    "sequence": 603,
     "installable": True,
     "application": True,
     "auto_install": False,

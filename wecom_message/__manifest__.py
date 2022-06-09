@@ -3,7 +3,7 @@
     "name": "WeCom Message",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 606,
+    "sequence": 604,
     "installable": True,
     "application": True,
     "auto_install": False,

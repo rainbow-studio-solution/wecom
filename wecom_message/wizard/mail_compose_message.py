@@ -187,7 +187,7 @@ class MailComposer(models.TransientModel):
             elif wizard.subtype_id:
                 subtype_id = wizard.subtype_id.id
             else:
-                subtype_id = self.env["ir.model.data"].xmlid_to_res_id(
+                subtype_id = self.env["ir.model.data"]._xmlid_to_res_id(
                     "mail.mt_comment"
                 )
 
