@@ -11,7 +11,7 @@
 
 """,
     "depends": [
-        "wecom_hrm",
+ 
     ],
     "data": [
         # "views/assets_templates.xml",

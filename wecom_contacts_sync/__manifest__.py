@@ -19,7 +19,6 @@
     "depends": [
         "wecom_contacts",
         "wecom_message",
-        "wecom_hrm",
     ],
     "external_dependencies": {
         "python": ["pandas"],
