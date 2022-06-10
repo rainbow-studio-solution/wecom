@@ -3,14 +3,15 @@
 
     <t t-extend="res_config_wecom_navigation_menu">
         <t t-jquery="a:last" t-operation="after">
-            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#wecom_hrm">
-                <h5 style="display:inline;"> HRM settings</h5>
-            </a>
+
             <a type="button" role="button" class="btn btn-secondary fa fa-suitcase wecom__jump_anchor" href="#wecom_material">
                 <h5 style="display:inline;"> Material settings</h5>
             </a>
             <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom__jump_anchor" href="#wecom_message">
                 <h5 style="display:inline;"> Message settings</h5>
+            </a>
+            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#wecom_hrm">
+                <h5 style="display:inline;"> HRM settings</h5>
             </a>
         </t>
     </t>

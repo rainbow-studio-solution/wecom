@@ -59,7 +59,7 @@ class ResUsers(models.Model):
         email_values = {
             "email_cc": False,
             # "message_to_user": "${object.wecom_userid|safe}",
-            'recipient_ids': [],
+            "recipient_ids": [],
             "auto_delete": True,
             "partner_to": False,
             "scheduled_date": False,
@@ -67,13 +67,13 @@ class ResUsers(models.Model):
         # template.write(template_values)
         for user in self:
             if user.wecom_userid:
-                email_values['message_to_user'] = user.wecom_userid
+                email_values["message_to_user"] = user.wecom_userid
                 return self.action_reset_password_by_wecom(user, template)
             elif not user.email:
                 raise UserError(
                     _("Cannot send email: user %s has no email address.", user.name)
                 )
-            email_values['email_to'] = user.email
+            email_values["email_to"] = user.email
             # TDE FIXME: make this template technical (qweb)
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
@@ -92,7 +92,9 @@ class ResUsers(models.Model):
         with self.env.cr.savepoint():
             force_send = not (self.env.context.get("import_file", False))
             template.send_message(
-                user.id, force_send=force_send, raise_exception=True,
+                user.id,
+                force_send=force_send,
+                raise_exception=True,
             )
         _logger.info(
             _("Password reset message sent to user: <%s>,<%s>, <%s>"),
@@ -155,7 +157,7 @@ class ResUsers(models.Model):
         批量创建用户时，建议 send_message=False
         """
         users = super(ResUsers, self).create(vals_list)
-        if self.env.context.get('send_message'):
+        if self.env.context.get("send_message"):
             users.send_message_for_new_users()
 
         return users
@@ -165,20 +167,47 @@ class ResUsers(models.Model):
         发送创建新用户的企微消息
         """
         template = self.env.ref(
-            "auth_signup.mail_template_user_signup_account_created", raise_if_not_found=False
+            "auth_signup.mail_template_user_signup_account_created",
+            raise_if_not_found=False,
         )
         email_values = {
             "email_cc": False,
             # "message_to_user": "${object.wecom_userid|safe}",
-            'recipient_ids': [],
+            "recipient_ids": [],
             "auto_delete": True,
             "partner_to": False,
             "scheduled_date": False,
         }
         for user in self:
-            email_values['message_to_user'] = user.wecom_userid
+            email_values["message_to_user"] = user.wecom_userid
             with self.env.cr.savepoint():
                 force_send = not (self.env.context.get("import_file", False))
                 template.send_message(
-                    user.id, force_send=force_send, raise_exception=True,
+                    user.id,
+                    force_send=force_send,
+                    raise_exception=True,
                 )
+
+    def action_totp_invite(self):
+        """
+        面向用户的 TOTP：通过企微消息邀请
+        """
+        invite_template = self.env.ref("auth_totp_mail.mail_template_totp_invite")
+        users_to_invite = self.sudo().filtered(lambda user: not user.totp_secret)
+
+        for user in users_to_invite:
+            email_values = {
+                "email_from": self.env.user.email_formatted,
+                "author_id": self.env.user.partner_id.id,
+            }
+            if user.wecom_userid:
+                email_values.update({"message_to_user": user.wecom_userid})
+
+            invite_template.send_message(
+                user.id,
+                force_send=True,
+                email_values=email_values,
+                notif_layout="mail.mail_notification_light",
+            )
+
+        return super(ResUsers, self).action_totp_invite()

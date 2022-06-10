@@ -6,9 +6,9 @@
         <record id="auth_totp_mail.mail_template_totp_invite" model="mail.template">
             <field name="msgtype">markdown</field>
             <field name="message_to_user">{{ object.partner_id.id }}</field>
-            <field name="body_markdown">## Dear ${object.name}
+            <field name="body_markdown">## Dear {{object.name}}
 
-${object.create_uid.name} requested you activate two-factor authentication to protect your account.
+{{object.create_uid.name}} requested you activate two-factor authentication to protect your account.
 
 Two-factor Authentication ("2FA") is a system of double authentication.
 
@@ -16,7 +16,7 @@ The first one is done with your password and the second one with a code you get 
 
 Popular ones include Authy, Google Authenticator or the Microsoft Authenticator.
 
-[Activate my two-factor Authentication](object.get_totp_invite_url())</field>
+[Activate my two-factor Authentication]({{object.get_totp_invite_url()}})</field>
             <field name="safe">1</field>
             <field name="enable_id_trans" eval="False"/>
             <field name="enable_duplicate_check" eval="False"/>
