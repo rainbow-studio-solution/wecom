@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="wecom_auth_oauth.Join">
+        <a role="button" class="btn btn-info btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#join_qrcode_collapse" aria-controls="login_join_qrcode">
+            <t t-esc="button_name"/>
+        </a>
+
+        <div class="collapse" id="join_qrcode_collapse">
+
+            <div id="join_qrcode_carousel" class="carousel slide carousel-fade" data-ride="carousel">
+                <t t-set="companies" t-value="companies"/>
+                <div class="carousel-inner pb32">
+                    <div t-foreach="companies" t-as="company" t-attf-class="{{company_index==0 ? 'carousel-item active':'carousel-item'}} d-flex justify-content-center">
+
+                        <img t-att-src="company.url" class="d-block w-75" t-att-alt="company.fullname" loading="eager"/>
+
+                        <div class="carousel-caption d-none d-md-block " style="padding-bottom:0;padding-top:0;color:#000;bottom: -32px;display: block!important;">
+                            <h5 >
+                                <t t-esc="company['name']"/>
+                            </h5>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#join_qrcode_carousel" data-slide="prev" style="border: 0;background-color:transparent;">
+                    <i class="fa fa-angle-left fa-3x" style="color:#000;"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#join_qrcode_carousel" data-slide="next" style="border: 0;background-color:transparent;">
+                    <i class="fa fa-angle-right fa-3x" style="color:#000;"></i>
+                </button>
+            </div>
+
+        </div>
+    </t>
+</templates>

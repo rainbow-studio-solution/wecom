@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wecom_auth_oauth_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="wecom_auth_oauth_warning" position="replace">
+
+                </div>
+                <div id="wecom_auth_oauth_install" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Authentication Application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="auth_app_id" string="Binding application"/>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="auth_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'like', '%auth%'),('company_id', '=', company_id)]"/>
+                                </div>
+                                <button class="btn btn-primary" name="get_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('auth_app_id','=',False)]}" context="{'app': 'auth'}"/>
+                                <div class="mt4" attrs="{'invisible': [('material_app_id','=',False)]}">
+                                    <div class="text-warning mt16">
+                                        <strong>Save</strong> this page and come back here to set up other feature.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="auth_agentid"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="auth_agentid" widget="integer" options="{'format': false}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-key fa-lg" aria-label="Auth Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="auth_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="auth_secret" widget="wecom_password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('auth_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-cogs fa-lg" aria-label="Authentication Configuration"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="auth_app_config_ids"/>
+                            <div class="row">
+                                <div class="content-group">
+                                    <div class="mt4">
+                                        <field name="auth_app_config_ids" widget="wecom_config" format="value" type="ttype" help="description" class="w-100 pl-3">
+                                            <tree create="0" edit="true" delete="0" editable="bottom" help="description">
+                                                <field name="name" readonly="1"/>
+                                                <field name="key" readonly="1"/>
+                                                <field name="value" required="1"/>
+                                                <field name="description" invisible="1"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div class="btn-group float-right" role="group" aria-label="Button group">
+                                        <button class="oe_highlight" name="generate_parameters" context="{'code': 'auth'}" string="Generate parameters" type="object" icon="fa-cogs" />
+                                        <button name="set_oauth_provider_wecom" type="object" string="One-click to set up WeCom OAuth" icon="fa-sign-in" class="oe_highlight ml-1"/>
+                                        <button type="action" name="%(auth_oauth.action_oauth_provider)d" string="View OAuth providers" icon="fa-arrow-right" class="oe_highlight ml-1"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

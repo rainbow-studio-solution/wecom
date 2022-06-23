@@ -108,7 +108,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"        企微通讯录n\n"
+"        企微通讯录\n"
 "        "
 
 #. module: base
@@ -298,6 +298,11 @@ msgstr "企微HRM同步"
 #: model:ir.module.module,shortdesc:base.module_wecom_material
 msgid "WeCom Material"
 msgstr "企微媒体素材"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_auth_oauth
+msgid "WeCom Authentication "
+msgstr "企微身份验证"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_message

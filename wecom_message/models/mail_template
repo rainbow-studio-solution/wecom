@@ -3,7 +3,6 @@
 import base64
 import logging
 import html2text
-import re
 
 from odoo import api, fields, models, tools, _
 from odoo.exceptions import UserError
@@ -91,10 +90,10 @@ class MailTemplate(models.Model):
     # MESSAGE/EMAIL VALUES GENERATION
     # ------------------------------------------------------------
     def generate_wecom_message_recipients(self, results, res_ids):
-        """Generates the recipients of the template. Default values can ben generated
-        instead of the template values if requested by template or context.
-        Emails (email_to, email_cc) can be transformed into partners if requested
-        in the context."""
+        """
+        生成模板的收件人.如果模板或上下文请求，则可以生成默认值而不是模板值.
+        如果上下文中请求,电子邮件(email_to,email_cc)可以转换为合作伙伴。
+        """
         self.ensure_one()
 
         if self.use_default_to or self._context.get("tpl_force_default_to"):
@@ -116,7 +115,8 @@ class MailTemplate(models.Model):
                 rec["id"]: (rec["company_id"][0] if rec["company_id"] else None)
                 for rec in records
             }
-
+        print(self.env[self.model], res_ids)
+        print(results.items())
         for res_id, values in results.items():
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
@@ -125,7 +125,8 @@ class MailTemplate(models.Model):
                     + tools.email_split(values.pop("message_to_party", ""))
                     + tools.email_split(values.pop("message_to_tag", ""))
                 )
-                print("------------", mails)
+
+                print(mails)
                 Partner = self.env["res.partner"]
                 if records_company:
                     Partner = Partner.with_context(
@@ -191,7 +192,6 @@ class MailTemplate(models.Model):
                 results = template.generate_wecom_message_recipients(
                     results, template_res_ids
                 )
-
             # 更新所有res_id的值
             for res_id in template_res_ids:
                 values = results[res_id]
@@ -344,7 +344,7 @@ class MailTemplate(models.Model):
                         .sudo()
                         .new(
                             dict(
-                                body_html=values["body_html"],
+                                body=values["body_html"],
                                 record_name=record.display_name,
                             )
                         ),
@@ -405,7 +405,6 @@ class MailTemplate(models.Model):
             # 封装 body_json
             del values["body_html"]
             del values["body_markdown"]
-
             if notif_layout and values["body_json"]:
                 try:
                     template = self.env.ref(notif_layout, raise_if_not_found=True)
@@ -435,17 +434,14 @@ class MailTemplate(models.Model):
                         or self.env.company,
                         "record": record,
                     }
-                    body_json = template._render(
+                    body = template._render(
                         template_ctx, engine="ir.qweb", minimal_qcontext=True
                     )
-
-                    values["body_json"] = self.env[
-                        "mail.render.mixin"
-                    ]._replace_local_links(body_json)
-
-                    print(values["body_json"])
-
-                    # .compile("(?<=\>).*?(?=\<)")
+                    values["body_json"] = (
+                        self.env["mail.render.mixin"]
+                        ._replace_local_links(body)
+                        .compile("(?<=\>).*?(?=\<)")
+                    )
 
         if values.get("media_id"):
             values["media_id"] = self.media_id.id  # 指定对应的素材id
@@ -470,6 +466,7 @@ class MailTemplate(models.Model):
 
         # 标识是企微消息
         is_wecom_message = False
+        print(values["message_to_user"])
         if "message_to_user" in values and values["message_to_user"]:
             is_wecom_message = True
         if "message_to_party" in values and values["message_to_party"]:

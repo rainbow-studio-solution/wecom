@@ -10,24 +10,18 @@
     "description": """ 
 
 """,
-    "depends": [
- 
-    ],
+    "depends": [],
     "data": [
         # "views/assets_templates.xml",
     ],
     "assets": {
         "web.assets_backend": [
             # SCSSS
-    
             # js
-  
         ],
-        "web.assets_qweb": [
-            "wecom_widget/static/src/xml/*.xml",
-        ],
+        "web.assets_qweb": ["wecom_widget/static/src/xml/*.xml",],
     },
-    "sequence": 608,
+    "sequence": 609,
     "installable": True,
     "auto_install": False,
     "application": True,

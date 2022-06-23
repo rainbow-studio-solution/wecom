@@ -3,7 +3,7 @@
     "name": "WeCom Contacts Synchronized",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 605,
+    "sequence": 606,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,13 +16,8 @@
 
 
         """,
-    "depends": [
-        "wecom_contacts",
-        "wecom_message",
-    ],
-    "external_dependencies": {
-        "python": ["pandas"],
-    },
+    "depends": [ "wecom_message",],
+    "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_app_config_data.xml",

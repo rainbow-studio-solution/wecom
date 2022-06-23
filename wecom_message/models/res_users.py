@@ -25,10 +25,34 @@ class ResUsers(models.Model):
     # ---------------------
     # 发送消息
     # ---------------------
+
+    def action_totp_invite(self):
+        """
+        邀请用户使用 双因素身份验证
+        """
+        users_to_invite = self.sudo().filtered(lambda user: not user.totp_secret)
+        for user in users_to_invite:
+            email_values = {
+                "email_from": self.env.user.email_formatted,
+                "author_id": self.env.user.partner_id.id,
+            }
+            if user.wecom_userid:
+                email_values.update({"message_to_user": user.wecom_userid})
+                self.send_template_email_by_wecom(
+                    user,
+                    template_name="auth_totp_mail.mail_template_totp_invite",
+                    subject=_(
+                        "Invitation to activate two-factor authentication on your Odoo account"
+                    ),
+                    email_values=email_values,
+                )
+
+        return super(ResUsers, self).action_totp_invite()
+
     def action_reset_password(self):
         """
-        为每个用户创建注册令牌，并通过电子邮件发送他们的注册url
-        增加判断模板对象为企业微信用户，使用企业微信发送模板消息的方法
+        为每个用户创建注册令牌,并通过电子邮件发送他们的注册url
+        增加判断模板对象为企业微信用户,使用企业微信发送模板消息的方法
         """
         if self.env.context.get("install_mode", False):
             return
@@ -46,62 +70,61 @@ class ResUsers(models.Model):
 
         # send email to users with their signup url
         template = False
+        template_name = ""
+        subject = ""
         if create_mode:
             try:
                 template = self.env.ref(
                     "auth_signup.set_password_email", raise_if_not_found=False
                 )
+                subject = _("Invitation")
+                template_name = "auth_signup.set_password_email"
             except ValueError:
                 pass
         if not template:
             template = self.env.ref("auth_signup.reset_password_email")
+            subject = _("Password reset")
+            template_name = "auth_signup.reset_password_email"
         assert template._name == "mail.template"
         email_values = {
             "email_cc": False,
-            # "message_to_user": "${object.wecom_userid|safe}",
             "recipient_ids": [],
             "auto_delete": True,
             "partner_to": False,
             "scheduled_date": False,
         }
-        # template.write(template_values)
+
         for user in self:
             if user.wecom_userid:
                 email_values["message_to_user"] = user.wecom_userid
-                return self.action_reset_password_by_wecom(user, template)
+                email_values.pop("partner_to")
+                return self.send_template_email_by_wecom(
+                    user, template_name, subject, email_values,
+                )
             elif not user.email:
                 raise UserError(
                     _("Cannot send email: user %s has no email address.", user.name)
                 )
-            email_values["email_to"] = user.email
-            # TDE FIXME: make this template technical (qweb)
-            with self.env.cr.savepoint():
-                force_send = not (self.env.context.get("import_file", False))
-                template.send_mail(user.id, force_send=force_send, raise_exception=True)
-            _logger.info(
-                "Password reset email sent for user <%s> to <%s>",
-                user.login,
-                user.email,
-            )
-        return super(ResUsers, self).action_reset_password()
+            else:
+                email_values["email_to"] = user.email
+                # TDE FIXME: make this template technical (qweb)
+                with self.env.cr.savepoint():
+                    force_send = not (self.env.context.get("import_file", False))
+                    template.send_mail(
+                        user.id,
+                        force_send=force_send,
+                        raise_exception=True,
+                        email_values=email_values,
+                    )
+                _logger.info(
+                    _(
+                        "Password reset email sent for user <%s> to <%s>",
+                        user.login,
+                        user.email,
+                    )
+                )
 
-    def action_reset_password_by_wecom(self, user, template):
-        """
-        通过企业微信的方式发送模板消息
-        """
-        with self.env.cr.savepoint():
-            force_send = not (self.env.context.get("import_file", False))
-            template.send_message(
-                user.id,
-                force_send=force_send,
-                raise_exception=True,
-            )
-        _logger.info(
-            _("Password reset message sent to user: <%s>,<%s>, <%s>"),
-            user.name,
-            user.login,
-            user.wecom_userid,
-        )
+        return super(ResUsers, self).action_reset_password()
 
     def send_unregistered_user_reminder(self, after_days=5):
         """
@@ -149,6 +172,24 @@ class ResUsers(models.Model):
             user, notif_layout="mail.mail_notification_light", force_send=False
         )
 
+    def send_template_email_by_wecom(
+        self, user, template_name=False, subject=False, email_values=None,
+    ):
+        """
+        通过企业微信发送模板邮件
+        """
+        template = self.env.ref(template_name, raise_if_not_found=False)
+        notif_layout = False
+        with self.env.cr.savepoint():
+            template.send_message(
+                user.id,
+                force_send=True,
+                raise_exception=True,
+                email_values=email_values,
+                notif_layout=False,
+            )
+        _logger.info("Send [%s] to user [%s]", subject, user.name)
+
     @api.model_create_multi
     def create(self, vals_list):
         """
@@ -157,57 +198,22 @@ class ResUsers(models.Model):
         批量创建用户时，建议 send_message=False
         """
         users = super(ResUsers, self).create(vals_list)
+
         if self.env.context.get("send_message"):
-            users.send_message_for_new_users()
+            email_values = {
+                "email_cc": False,
+                "recipient_ids": [],
+                "auto_delete": True,
+                "scheduled_date": False,
+            }
+            for user in users:
+                email_values["message_to_user"] = user.wecom_userid
+                self.send_template_email_by_wecom(
+                    user,
+                    template_name="auth_signup.mail_template_user_signup_account_created",
+                    subject=_("Account Created"),
+                    email_values=email_values,
+                )
 
         return users
 
-    def send_message_for_new_users(self):
-        """
-        发送创建新用户的企微消息
-        """
-        template = self.env.ref(
-            "auth_signup.mail_template_user_signup_account_created",
-            raise_if_not_found=False,
-        )
-        email_values = {
-            "email_cc": False,
-            # "message_to_user": "${object.wecom_userid|safe}",
-            "recipient_ids": [],
-            "auto_delete": True,
-            "partner_to": False,
-            "scheduled_date": False,
-        }
-        for user in self:
-            email_values["message_to_user"] = user.wecom_userid
-            with self.env.cr.savepoint():
-                force_send = not (self.env.context.get("import_file", False))
-                template.send_message(
-                    user.id,
-                    force_send=force_send,
-                    raise_exception=True,
-                )
-
-    def action_totp_invite(self):
-        """
-        面向用户的 TOTP：通过企微消息邀请
-        """
-        invite_template = self.env.ref("auth_totp_mail.mail_template_totp_invite")
-        users_to_invite = self.sudo().filtered(lambda user: not user.totp_secret)
-
-        for user in users_to_invite:
-            email_values = {
-                "email_from": self.env.user.email_formatted,
-                "author_id": self.env.user.partner_id.id,
-            }
-            if user.wecom_userid:
-                email_values.update({"message_to_user": user.wecom_userid})
-
-            invite_template.send_message(
-                user.id,
-                force_send=True,
-                email_values=email_values,
-                notif_layout="mail.mail_notification_light",
-            )
-
-        return super(ResUsers, self).action_totp_invite()

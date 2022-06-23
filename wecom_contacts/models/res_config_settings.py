@@ -28,16 +28,15 @@ class ResConfigSettings(models.TransientModel):
     # contacts_access_token = fields.Char(related="contacts_app_id.access_token")
 
     contacts_app_config_ids = fields.One2many(
-        related="contacts_app_id.app_config_ids",
-        readonly=False,
+        related="contacts_app_id.app_config_ids", readonly=False,
     )
 
     contacts_app_callback_service_ids = fields.One2many(
         related="contacts_app_id.app_callback_service_ids", readonly=False
     )
 
-    module_wecom_contacts_sync= fields.Boolean("WeCom Contacts Synchronized")
-    module_wecom_hrm= fields.Boolean("WeCom HRM")
-    module_wecom_material= fields.Boolean("WeCom Material")
-    module_wecom_message= fields.Boolean("WeCom Message")
-    
+    module_wecom_contacts_sync = fields.Boolean("WeCom Contacts Synchronized")
+    module_wecom_hrm = fields.Boolean("WeCom HRM")
+    module_wecom_material = fields.Boolean("WeCom Material")
+    module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
+    module_wecom_message = fields.Boolean("WeCom Message")

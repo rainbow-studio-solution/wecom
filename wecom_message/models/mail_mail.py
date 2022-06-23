@@ -211,7 +211,7 @@ class MailMail(models.Model):
         """
         self.ensure_one()
         body = self._send_prepare_body()
-        json_body = self._send_prepare_json_body()
+        body_json = self._send_prepare_json_body()
         markdown_body = self._send_prepare_markdown_body()
         body_alternative = tools.html2plaintext(body)
         if partner:
@@ -222,7 +222,7 @@ class MailMail(models.Model):
             email_to = tools.email_split_and_format(self.email_to)
         res = {
             "body": body,
-            "json_body": json_body,
+            "body_json": body_json,
             "markdown_body": markdown_body,
             "body_alternative": body_alternative,
             "email_to": email_to,
