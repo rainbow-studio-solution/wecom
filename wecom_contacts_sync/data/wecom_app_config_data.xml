@@ -100,7 +100,7 @@
         </record>
 
         <!-- 7 -->
-        <record id="wecom_app_config_contacts_enabled_join_qrcode" model="wecom.app_config">
+        <!-- <record id="wecom_app_config_contacts_enabled_join_qrcode" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Enable to join the enterprise QR code</field>
             <field name="key">enabled_join_qrcode</field>
@@ -112,10 +112,10 @@
                     <br></br>Value: True or False
                 </p>
             </field>
-        </record>
+        </record> -->
 
         <!-- 8 -->
-        <record id="wecom_app_config_contacts_join_qrcode" model="wecom.app_config">
+        <!-- <record id="wecom_app_config_contacts_join_qrcode" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Join enterprise QR code</field>
             <field name="key">join_qrcode</field>
@@ -126,10 +126,10 @@
                     QR code link, valid for 7 days
                 </p>
             </field>
-        </record>
+        </record> -->
 
         <!-- 9 -->
-        <record id="wecom_app_config_contacts_join_qrcode_size_type" model="wecom.app_config">
+        <!-- <record id="wecom_app_config_contacts_join_qrcode_size_type" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">QR code size type</field>
             <field name="key">join_qrcode_size_type</field>
@@ -145,10 +145,10 @@
                     </ul>
                 </p>
             </field>
-        </record>
+        </record> -->
 
         <!-- 10 -->
-        <record id="wecom_app_config_acontacts_join_qrcode_last_time" model="wecom.app_config">
+        <!-- <record id="wecom_app_config_acontacts_join_qrcode_last_time" model="wecom.app_config">
             <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
             <field name="name">Last update time (UTC)</field>
             <field name="key">join_qrcode_last_time</field>
@@ -159,7 +159,7 @@
                     Last update time (UTC)
                 </p>
             </field>
-        </record>
+        </record> -->
 
     </data>
 </odoo>

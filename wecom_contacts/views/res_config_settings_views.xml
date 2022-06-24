@@ -8,6 +8,42 @@
             <field name="priority" eval="20"/>
             <field name="inherit_id" ref="wecom_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
+                <div id="wecom_corpid_settings_container" position="after">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="contacts_join_qrcode_enabled"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="contacts_join_qrcode_enabled" />
+                            <div class="content-group">
+
+                                <div class="mt8">
+                                    <label for="contacts_join_qrcode_size_type" string="QR code size" class="col-4 col-lg-4 o_light_label"/>
+                                    <field name="contacts_join_qrcode_size_type" class=""/>
+                                </div>
+                                <!-- class="oe_inline"  -->
+                                <div class="mt8">
+                                    <label for="contacts_join_qrcode_last_time" string="Last Updated on" class="col-4 col-lg-4 o_light_label"/>
+                                    <field name="contacts_join_qrcode_last_time" readonly="1" force_save="1" />
+                                </div>
+                                <div class="mt8">
+                                    <label for="contacts_join_qrcode" string="QR code" class="col-4 col-lg-4 o_light_label"/>
+                                    <field name="contacts_join_qrcode" widget="image_url" options='{"size": [180, 180]}' readonly="1"/>
+                                </div>
+                                <!-- widget="image_url" class="oe_avatar" nolabel="1"-->
+                            </div>
+                            <!-- <div class="content-group mt8">
+                                <label for="contacts_join_qrcode" string="QR code"/>
+                                <div class="mt4">
+                                    <field name="contacts_join_qrcode" widget="image_url" options='{"size": [180, 180]}' readonly="1"/>
+                                </div>
+                            </div> -->
+                            <div class="content-group mt8">
+                                <button class="oe_highlight" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div id="wecom_contacts_warning" position="replace"/>
 

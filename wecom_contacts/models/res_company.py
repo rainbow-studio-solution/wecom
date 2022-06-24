@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+from aiohttp import request
 from odoo import api, fields, models, tools, _
 from odoo.tools.translate import translate
 
@@ -16,5 +17,10 @@ class Company(models.Model):
         # default=lambda self: self.env.company,
         domain="[('company_id', '=', current_company_id)]",
     )
+
+    wecom_contacts_join_qrcode_enabled = fields.Boolean(string="Enable to join the enterprise QR code",default=True,copy=False,)
+    wecom_contacts_join_qrcode = fields.Char(string="Join enterprise wechat QR code",copy=False,readonly=True,)
+    wecom_contacts_join_qrcode_size_type = fields.Selection([('1', '171px * 171px'), ('2', '399px * 399px'), ('3', '741px * 741px')],string="Join enterprise wechat QR code  size type", default='2',required=True)
+    wecom_contacts_join_qrcode_last_time = fields.Datetime(string="Get the last time of QR code (UTC)",copy=False,)
 
     

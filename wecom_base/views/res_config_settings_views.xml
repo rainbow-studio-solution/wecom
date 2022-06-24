@@ -58,6 +58,7 @@
                             </div>
                         </div>
 
+                        <!-- 公司设置 -->
                         <h2 id="wecom_companies" class="d-flex justify-content-between">
                             <span class="text-left">
                                 <i class="fa fa-building fa-lg" aria-label="Wecom Companies settings" />
@@ -87,7 +88,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="col-12 col-lg-6 o_setting_box" id="wecom_corpid_settings_container">
                                 <div class="o_setting_left_pane">
                                     <i class="fa fa-flag fa-lg" aria-label="Corp Id"></i>
                                 </div>
