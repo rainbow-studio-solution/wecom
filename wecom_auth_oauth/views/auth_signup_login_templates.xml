@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="wecom_auth_oauth.login" inherit_id="web.login">
+        <xpath expr="//div[@class='o_login_auth']" position="attributes">
+            <attribute name="class">o_login_auth d-none</attribute>
+        </xpath>
+    </template>
+
+    <template id="wecom_auth_oauth.signup" inherit_id="auth_signup.signup">
+        <xpath expr="//div[@class='o_login_auth']" position="attributes">
+            <attribute name="class">o_login_auth d-none</attribute>
+        </xpath>
+    </template>
+
+    <template id="wecom_auth_oauth.reset_password" inherit_id="auth_signup.reset_password">
+        <xpath expr="//div[@class='o_login_auth']" position="attributes">
+            <attribute name="class">o_login_auth d-none</attribute>
+        </xpath>
+    </template>
+    
+</odoo>

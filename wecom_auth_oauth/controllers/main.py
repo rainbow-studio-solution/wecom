@@ -8,26 +8,15 @@ import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
 
-from odoo import api, http, models, fields, SUPERUSER_ID, _
+from odoo import api, http, SUPERUSER_ID, _
+from odoo.exceptions import AccessDenied
 from odoo.http import request
-from odoo.exceptions import AccessDenied, UserError
-
 from odoo import registry as registry_get
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
-from odoo.addons.auth_oauth.controllers.main import (
-    OAuthLogin as Home,
-    OAuthController as Controller,
-    fragment_to_query_string,
-)
-from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.addons.web.controllers.main import (
-    db_monodb,
-    ensure_db,
-    set_cookie_and_redirect,
-    login_and_redirect,
-)
-from odoo.addons.auth_signup.controllers.main import AuthSignupHome as SignupHome
+
+from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home
+from odoo.addons.web.controllers.main import db_monodb, ensure_db, set_cookie_and_redirect, login_and_redirect
 
 import urllib
 import requests
@@ -116,7 +105,7 @@ class OAuthLogin(Home):
         return providers
 
 
-class OAuthController(Controller):
+class OAuthController(http.Controller):
     @http.route(
         "/wxowrk_auth_oauth/authorize", type="http", auth="none",
     )

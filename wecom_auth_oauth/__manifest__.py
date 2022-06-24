@@ -24,15 +24,15 @@
         # "views/assets_templates.xml",
         "views/res_config_settings_views.xml",
         "views/wecom_apps_views.xml",
+        "views/auth_signup_login_templates.xml",
         # "views/menu_views.xml",
     ],
     # "qweb": ["static/src/xml/*.xml",],
     "assets": {
-        "assets_frontend": [
+        "web.assets_frontend": [
             # css
-            "wecom_auth_oauth/static/src/scss/wecom.scss"
+            "wecom_auth_oauth/static/src/scss/wecom.scss",
             # js
-            "http://wwcdn.weixin.qq.com/node/wework/wwopen/js/wwLogin-1.2.7.js",
             "wecom_auth_oauth/static/src/js/wecom_providers.js",
             "wecom_auth_oauth/static/src/js/wecom_join.js",
         ],

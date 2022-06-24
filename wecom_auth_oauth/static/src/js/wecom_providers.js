@@ -8,21 +8,20 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
 
 
     publicWidget.registry.WecomAuthProviders = publicWidget.Widget.extend({
-        selector: 'div.o_auth_oauth_providers',
+        selector: 'div.o_login_auth',
         xmlDependencies: ['/wecom_auth_oauth/static/src/xml/providers.xml'],
         events: {
-            'click a': '_popupQrDdialog',
+            'click a': '_onClick',
         },
 
         start: function () {
             var self = this;
-            console.log(this.el)
-            // this.companies = self._rpc({
-            //     route: "/wxowrk_login_info",
-            //     params: {
-            //         is_wecom_browser: self.is_wecom_browser()
-            //     },
-            // });
+            this.companies = self._rpc({
+                route: "/wxowrk_login_info",
+                params: {
+                    is_wecom_browser: self.is_wecom_browser()
+                },
+            });
 
             const timestamp = new Date().getTime();
             const nonceStr = self.generateNonceStr(16);
@@ -42,6 +41,11 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
                 // self.setWxConfig();
             }
 
+
+            if (document.readyState == "complete") {
+                // 页面载入完成，显示 "o_login_auth" 元素
+                this.$el.removeClass("d-none");
+            }
             return this._super.apply(this, arguments);
         },
         is_wecom_browser: function () {
@@ -66,69 +70,68 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
                 return false;
             }
         },
-        _popupQrDdialog: function (ev) {
+        _onClick: async function (ev) {
             ev.preventDefault(); //阻止默认行为
-            console.log("点击", $(ev.target))
-            // var self = this;
-            // var url = $(ev.target).attr('href');
-            // var icon = $(ev.target).find("i")
 
-            // const data = await Promise.resolve(self.companies);
+            var self = this;
+            var url = $(ev.target).attr('href');
+            var icon = $(ev.target).find("i")
 
-            // if ($(ev.target).prop("tagName") == "I") {
-            //     url = $(ev.target).parent().attr('href');
-            //     icon = $(ev.target);
-            // }
+            const data = await Promise.resolve(self.companies);
+            if ($(ev.target).prop("tagName") == "I") {
+                url = $(ev.target).parent().attr('href');
+                icon = $(ev.target);
+            }
 
-            // var companies = [];
-            // if (data["companies"].length > 0) {
-            //     $.each(data["companies"], function (index, element) {
-            //         var state = self.getUrlParam(url, "state").replace(/[+]/g, "").replace("#wechat_redirect", "");
-            //         var state_decode_str = decodeURIComponent(state);
-            //         var new_state = state_decode_str.slice(0, 1) + '"a":' + '"' + element["appid"] + '",' + state_decode_str.slice(1);
-            //         var state_encode_str = encodeURIComponent(new_state)
+            var companies = [];
+            if (data["companies"].length > 0) {
+                $.each(data["companies"], function (index, element) {
+                    var state = self.getUrlParam(url, "state").replace(/[+]/g, "").replace("#wechat_redirect", "");
+                    var state_decode_str = decodeURIComponent(state);
+                    var new_state = state_decode_str.slice(0, 1) + '"a":' + '"' + element["appid"] + '",' + state_decode_str.slice(1);
+                    var state_encode_str = encodeURIComponent(new_state)
 
-            //         var new_url = self.updateUrlParam(url, 'state', state_encode_str);
-            //         new_url = self.updateUrlParam(new_url, 'appid', element["appid"]);
-            //         new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
+                    var new_url = self.updateUrlParam(url, 'state', state_encode_str);
+                    new_url = self.updateUrlParam(new_url, 'appid', element["appid"]);
+                    new_url = self.updateUrlParam(new_url, 'agentid', element["agentid"]);
 
-            //         new_url = new_url + "#wechat_redirect";
+                    new_url = new_url + "#wechat_redirect";
 
-            //         companies.push({
-            //             "id": element["id"],
-            //             "name": element["name"],
-            //             "url": new_url,
-            //         });
-            //     });
+                    companies.push({
+                        "id": element["id"],
+                        "name": element["name"],
+                        "url": new_url,
+                    });
+                });
 
-            //     if (icon.hasClass("wecom_auth_scancode")) {
-            //         var dialog = $(qweb.render('wecom_auth_oauth.OauthQrDialog', {
-            //             companies: companies,
-            //         }));
-            //         if (self.$el.parents("body").find("#wecom_qr_dialog").length == 0) {
-            //             dialog.appendTo($(document.body));
-            //         }
-            //         dialog.modal('show');
+                if (icon.hasClass("wecom_auth_scancode")) {
+                    var dialog = $(qweb.render('wecom_auth_oauth.OauthQrDialog', {
+                        companies: companies,
+                    }));
+                    if (self.$el.parents("body").find("#wecom_qr_dialog").length == 0) {
+                        dialog.appendTo($(document.body));
+                    }
+                    dialog.modal('show');
 
-            //     } else if (icon.hasClass("wecom_auth_onekey")) {
-            //         var new_data = {
-            //             isWxworkBrowser: data["is_wecom_browser"],
-            //             msg: data["msg"],
-            //             companies: companies,
-            //         };
-            //         var dialog = $(qweb.render('wecom_auth_oauth.OauthLoginDialog', {
-            //             data: new_data
-            //         }));
-            //         if (self.$el.parents("body").find("#wecom_login_dialog").length == 0) {
-            //             dialog.appendTo($(document.body));
-            //         }
-            //         dialog.modal('show');
-            //     } else {
-            //         window.open(url);
-            //     }
-            // } else {
-            //     window.open(url);
-            // }
+                } else if (icon.hasClass("wecom_auth_onekey")) {
+                    var new_data = {
+                        isWxworkBrowser: data["is_wecom_browser"],
+                        msg: data["msg"],
+                        companies: companies,
+                    };
+                    var dialog = $(qweb.render('wecom_auth_oauth.OauthLoginDialog', {
+                        data: new_data
+                    }));
+                    if (self.$el.parents("body").find("#wecom_login_dialog").length == 0) {
+                        dialog.appendTo($(document.body));
+                    }
+                    dialog.modal('show');
+                } else {
+                    window.open(url);
+                }
+            } else {
+                window.open(url);
+            }
         },
         updateUrlParam: function (url, name, new_value) {
             var self = this;
