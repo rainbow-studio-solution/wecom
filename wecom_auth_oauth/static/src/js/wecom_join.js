@@ -28,7 +28,7 @@ odoo.define('wecom_auth_oauth.join', function (require) {
             var self = this;
             const data = await Promise.resolve(self.companies);
             var companies = [];
-            if (data["companies"].length > 1) {
+            if (data["companies"].length > 0) {
                 $.each(data["companies"], function (index, element) {
                     companies.push({
                         "id": element["id"],

@@ -22,12 +22,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-target="#join_qrcode_carousel" data-slide="prev" style="border: 0;background-color:transparent;">
-                    <i class="fa fa-angle-left fa-3x" style="color:#000;"></i>
-                </button>
-                <button class="carousel-control-next" type="button" data-target="#join_qrcode_carousel" data-slide="next" style="border: 0;background-color:transparent;">
-                    <i class="fa fa-angle-right fa-3x" style="color:#000;"></i>
-                </button>
+                <t t-if="companies.length &gt; 1">
+                    <button class="carousel-control-prev" type="button" data-target="#join_qrcode_carousel" data-slide="prev" style="border: 0;background-color:transparent;">
+                        <i class="fa fa-angle-left fa-3x" style="color:#000;"></i>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-target="#join_qrcode_carousel" data-slide="next" style="border: 0;background-color:transparent;">
+                        <i class="fa fa-angle-right fa-3x" style="color:#000;"></i>
+                    </button>
+                </t>
             </div>
 
         </div>

@@ -33,8 +33,8 @@
             # css
             "wecom_auth_oauth/static/src/scss/wecom.scss",
             # js
-            "wecom_auth_oauth/static/src/js/wecom_providers.js",
             "wecom_auth_oauth/static/src/js/wecom_join.js",
+            "wecom_auth_oauth/static/src/js/wecom_providers.js",            
         ],
         # "web.assets_qweb": [
         #     "wecom_auth_oauth/static/src/xml/*.xml",

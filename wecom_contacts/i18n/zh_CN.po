@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 07:51+0000\n"
-"PO-Revision-Date: 2022-06-06 15:57+0800\n"
+"POT-Creation-Date: 2022-06-24 03:55+0000\n"
+"PO-Revision-Date: 2022-06-24 12:00+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -43,6 +43,19 @@ msgstr ""
 "<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-envelope-o fa-lg\" aria-label=\"企微消息设置\"/>\n"
 "                                企微消息设置\n"
+"                        </span>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Wecom Authentication settings\"/>\n"
+"                                Wecom Authentication settings\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"企微身份验证设置\"/>\n"
+"                                企微身份验证设置\n"
 "                        </span>"
 
 #. module: wecom_contacts
@@ -87,6 +100,13 @@ msgid "Application Configuration"
 msgstr "应用配置"
 
 #. module: wecom_contacts
+#. openerp-web
+#: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Authentication settings"
+msgstr "企微身份验证设置"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Before clicking the 'Change User Type' button, you must modify the new user type"
@@ -123,8 +143,8 @@ msgid "Companies"
 msgstr "公司"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__company_id model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__company_id
-#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_category_view_search model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__company_id model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__company_id model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_category_view_search
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search
 msgid "Company"
 msgstr "公司"
 
@@ -180,8 +200,7 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__display_name model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__display_name
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__display_name
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__display_name model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__display_name model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -224,6 +243,17 @@ msgid "Enterprise wechat information"
 msgstr "企微信息"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"Enterprise wechat provides OAuth's authorized login mode, which allows you to obtain the identity information of members from the web page opened by the enterprise wechat terminal, thus eliminating the login link.\n"
+"                                    <br/>\n"
+"                                    Enterprise wechat provides OAuth code scanning login authorization method, which can guide members to use enterprise wechat code scanning login authorization when the enterprise website is opened in the browser, so as to obtain the identity information of members and avoid the login link."
+msgstr ""
+"企业微信提供了OAuth的授权登录方式，可以让从企业微信终端打开的网页获取成员的身份信息，从而免去登录的环节。\n"
+"                                    <br/>\n"
+"                                    企业微信提供了OAuth的扫码登录授权方式，可以让企业的网站在浏览器内打开时，引导成员使用企业微信扫码登录授权，从而获取成员的身份信息，免去登录的环节。"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_kanban_view
 msgid "Enterprise wechat user"
 msgstr "企微用户"
@@ -263,7 +293,7 @@ msgid "ID"
 msgstr ""
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__1
+#: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Internal User"
 msgstr "内部用户"
@@ -325,7 +355,7 @@ msgstr "消息设置"
 #. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_partner_category
 msgid "Partner Tags"
-msgstr "业务伙伴标签"
+msgstr "合作伙伴标签"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_partner__qr_code model:ir.model.fields,field_description:wecom_contacts.field_res_users__qr_code
@@ -338,13 +368,13 @@ msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人二维码，扫描可作为外部联系人添加"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__9
+#: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Portal User"
 msgstr "门户用户"
 
 #. module: wecom_contacts
-#: code:addons/wecom_contacts/models/res_users.py:0 model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__10
+#: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Public User"
 msgstr "公众用户"
@@ -436,6 +466,11 @@ msgid "WeCom"
 msgstr "企微"
 
 #. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_auth_oauth
+msgid "WeCom Authentication"
+msgstr "企微身份验证"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_contacts_sync
 msgid "WeCom Contacts Synchronized"
 msgstr "企微通讯录同步"
@@ -509,3 +544,5 @@ msgstr "更改用户类型的向导（企微）"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
 msgid "e.g. \"Consulting Services\""
 msgstr "例如：咨询服务"
+
+

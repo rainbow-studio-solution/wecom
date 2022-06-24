@@ -27,20 +27,6 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
             const nonceStr = self.generateNonceStr(16);
             // const url = window.location.pathname; //当前网页的URL， 不包含#及其后面部分
             const url = window.location.href.split("#")[0]; //当前网页的URL， 不包含#及其后面部分
-            // this.wx_configs_data = self._rpc({
-            //     route: "/wecom_login_jsapi",
-            //     params: {
-            //         nonceStr: nonceStr,
-            //         timestamp: timestamp,
-            //         url: url,
-            //     },
-            // })
-            // 判断是 iphone 或者 ipad后，注入JS-SDK配置信息
-            // 解决在ios端企业微信内置浏览器的WeixinJSBridge错误
-            if (self.is_ios()) {
-                // self.setWxConfig();
-            }
-
 
             if (document.readyState == "complete") {
                 // 页面载入完成，显示 "o_login_auth" 元素
