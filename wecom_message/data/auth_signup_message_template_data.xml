@@ -90,16 +90,12 @@
           "url": "{{object.signup_url}}"
         },
         {
-          "type": 1,
           "keyname": "Your domain",
-          "value": "Click Open",
-          "url": "{{object.get_base_url()}}"
+          "value": "{{object.get_base_url()}}"
         },
         {
-          "type": 1,
           "keyname": "Your account",
-          "value": "Click Open",
-          "url": "{{ object.get_base_url() }}/web/login?login={{ object.login }}"
+          "value": "{{ object.login }}"
         }
       ],
       "card_action": {

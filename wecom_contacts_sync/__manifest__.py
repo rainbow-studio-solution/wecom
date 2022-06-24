@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": [ "wecom_message",],
+    "depends": [ "wecom_contacts",],
     "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
