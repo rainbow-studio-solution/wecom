@@ -55,6 +55,65 @@ class ResConfigSettings(models.TransientModel):
     module_wecom_message = fields.Boolean("WeCom Message")
 
 
+    def cron_get_join_qrcode(self):
+        """
+        自动任务获取加入企业二维码
+        """
+        companies =  self.env["res.company"].search(
+            [("is_wecom_organization", "=", True), ("wecom_contacts_join_qrcode_enabled", "=", True)]
+        )
+        for company in companies:
+            _logger.info(
+                _("Automatic task:Start to get join enterprise QR code of company [%s]")
+                % (company.name)
+            )
+            if not company.contacts_app_id:
+                _logger.info(
+                    _("Automatic task:Please bind the contact app of company [%s]!")
+                    % (company.name)
+                )
+            elif not company.wecom_contacts_join_qrcode_enabled:
+                _logger.info(
+                    _("Automatic task:Please enable the company [%s] to join the enterprise wechat QR code function!")
+                    % (company.name)
+                )
+            else:
+                try:
+                    wecomapi = self.env["wecom.service_api"].InitServiceApi(
+                        company.corpid, company.contacts_app_id.secret
+                    )
+
+                    last_time = company.wecom_contacts_join_qrcode_last_time
+                    size_type = company.wecom_contacts_join_qrcode_size_type
+                    # 超期
+                    overdue = False
+                    if last_time:
+                        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
+                                last_time, 7
+                            )
+                    if not last_time or overdue:
+                        response = wecomapi.httpCall(
+                            self.env["wecom.service_api_list"].get_server_api_call(
+                                "GET_JOIN_QRCODE"
+                            ),
+                            {"size_type": size_type},
+                        )
+                        if response["errcode"] == 0:
+                            company.write({
+                                'wecom_contacts_join_qrcode':response["join_qrcode"], 
+                                'wecom_contacts_join_qrcode_last_time':datetime.datetime.now(), 
+                                })
+                except ApiException as ex:
+                    error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
+                    _logger.warning(
+                        _("Automatic task:Error in obtaining the QR code of joining company [%s],error code: %s, error name: %s, error message: %s")
+                        % (company.name,str(ex.errCode), error["name"], ex.errMsg)
+                    )
+            _logger.info(
+                _("Automatic task:End obtaining joining enterprise QR code of company [%s]")
+                % (company.name)
+            )
+
     def get_join_qrcode(self):
         """
         获取加入企业二维码
@@ -72,8 +131,8 @@ class ResConfigSettings(models.TransientModel):
 
         if debug:
             _logger.info(
-                _("Start getting join enterprise QR code for app [%s] of company [%s]")
-                % (self.contacts_app_id.name, self.company_id.name)
+                _("Start getting join enterprise QR code of company [%s]")
+                % (self.company_id.name)
             )
         try:
             wecomapi = self.env["wecom.service_api"].InitServiceApi(
@@ -103,10 +162,14 @@ class ResConfigSettings(models.TransientModel):
                     # self.contacts_join_qrcode=response["join_qrcode"]
                     # self.contacts_join_qrcode_last_time =  datetime.datetime.now()
 
-
-            
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 ex, raise_exception=True
             )
 
+        finally:
+            if debug:
+                _logger.info(
+                    _("End getting join enterprise QR code of company [%s]")
+                    % ( self.company_id.name)
+                )

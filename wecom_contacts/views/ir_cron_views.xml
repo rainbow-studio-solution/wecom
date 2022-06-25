@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="ir_cron_act_get_join_qrcode" model="ir.actions.act_window">
+            <field name="name">WeCom: Get join enterprise QR code.</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="ir_cron_get_join_qrcode"/>
+        </record>
+
+        
+
+    </data>
+</odoo>

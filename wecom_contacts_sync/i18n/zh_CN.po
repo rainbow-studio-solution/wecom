@@ -702,7 +702,7 @@ msgstr "启动"
 #: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
 #, python-format
 msgid "Start getting join enterprise QR code for app [%s] of company [%s]"
-msgstr "开始获取公司 [%s] 应用 [%s] 的加入企业二维码"
+msgstr "开始获取 应用 [%s],公司 [%s] 的加入企业二维码"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard

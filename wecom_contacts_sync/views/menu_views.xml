@@ -9,7 +9,7 @@
         <menuitem id="menu_wecom_users_wizard" name="Bulk build User Wizard" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_users_sync_wizard" groups="base.group_erp_manager" sequence="3"/>
 
         <!-- 自动任务 -->
-        <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="3"/>
+        <!-- <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="3"/> -->
 
         <menuitem id="menu_wecom_sync_contacts" name="Sync wecom contacts" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_sync_wecom_contacts" sequence="4"/>
     </data>

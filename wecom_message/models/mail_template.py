@@ -125,7 +125,6 @@ class MailTemplate(models.Model):
                     + tools.email_split(values.pop("message_to_party", ""))
                     + tools.email_split(values.pop("message_to_tag", ""))
                 )
-                print("------------", mails)
                 Partner = self.env["res.partner"]
                 if records_company:
                     Partner = Partner.with_context(

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-24 03:55+0000\n"
-"PO-Revision-Date: 2022-06-24 12:00+0800\n"
+"POT-Creation-Date: 2022-06-25 14:06+0000\n"
+"PO-Revision-Date: 2022-06-25 22:13+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1\n"
+
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__res_company__wecom_contacts_join_qrcode_size_type__1
+msgid "171px x 171px"
+msgstr ""
+
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__res_company__wecom_contacts_join_qrcode_size_type__4
+msgid "2052px x 2052px"
+msgstr ""
+
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__res_company__wecom_contacts_join_qrcode_size_type__2
+msgid "399px x 399px"
+msgstr ""
+
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__res_company__wecom_contacts_join_qrcode_size_type__3
+msgid "741px x 741px"
+msgstr ""
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -105,6 +125,36 @@ msgstr "应用配置"
 #, python-format
 msgid "Authentication settings"
 msgstr "企微身份验证设置"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Automatic task:End obtaining joining enterprise QR code of company [%s]"
+msgstr "自动任务：结束获取公司[%s]的加入企业微信二维码"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Automatic task:Error in obtaining the QR code of joining company [%s],error code: %s, error name: %s, error message: %s"
+msgstr "自动任务：获取加入公司[%s]的企微二维码出错，错误代码：%s，错误名称：%s，错误消息：%s"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Automatic task:Please bind the contact app of company [%s]!"
+msgstr "自动任务：请绑定公司[%s]的通讯录应用！"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Automatic task:Please enable the company [%s] to join the enterprise wechat QR code function!"
+msgstr "自动任务：请启用公司[%s]加入企业微信二维码功能！"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Automatic task:Start to get join enterprise QR code of company [%s]"
+msgstr "自动任务：开始获取公司[%s]的加入企业微信二维码"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
@@ -233,6 +283,17 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_company__wecom_contacts_join_qrcode_enabled model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_join_qrcode_enabled
+msgid "Enable to join the enterprise QR code"
+msgstr "启用加入企业微信二维码"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "End getting join enterprise QR code of company [%s]"
+msgstr "结束获取公司[%s]的加入企业微信二维码"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Enterprise wechat has opened message sending interfaces. Enterprises can use these interfaces to enable two-way communication between custom applications and enterprise wechat background or users."
 msgstr "企业微信开放了消息发送接口，企业可以使用这些接口让自定义应用与企业微信后台或用户间进行双向通信。"
@@ -276,6 +337,16 @@ msgid "Get OpenID"
 msgstr "获取OpenID"
 
 #. module: wecom_contacts
+#: model:ir.ui.menu,name:wecom_contacts.menu_wecom_app_join_qrcode
+msgid "Get join enterprise QR code"
+msgstr "获取加入企业微信二维码"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_company__wecom_contacts_join_qrcode_last_time model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_join_qrcode_last_time
+msgid "Get the last time of QR code (UTC)"
+msgstr "获取二维码的最后时间(UTC)"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_partner_category_view_search
 msgid "Group By"
 msgstr "分组"
@@ -304,6 +375,16 @@ msgid "Is WeCom user"
 msgstr "是企微用户"
 
 #. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_company__wecom_contacts_join_qrcode model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_join_qrcode
+msgid "Join enterprise wechat QR code"
+msgstr "加入企业微信二维码"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_company__wecom_contacts_join_qrcode_size_type model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_join_qrcode_size_type
+msgid "Join enterprise wechat QR code  size type"
+msgstr "加入企业微信二维码尺寸类型"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user____last_update model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard____last_update
 msgid "Last Modified on"
 msgstr "最后修改时间"
@@ -314,7 +395,7 @@ msgid "Last Updated by"
 msgstr "最后更新人"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__write_date model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__write_date
+#: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__write_date model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__write_date model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Last Updated on"
 msgstr "最后更新时间"
 
@@ -368,6 +449,18 @@ msgid "Personal QR code, Scan can be added as external contact"
 msgstr "个人二维码，扫描可作为外部联系人添加"
 
 #. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Please bind contact app!"
+msgstr "请绑定通讯录应用！"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Please enable the function of join enterprise QR code!"
+msgstr "请启用加入企业微信二维码功能！"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Portal User"
@@ -378,6 +471,16 @@ msgstr "门户用户"
 #, python-format
 msgid "Public User"
 msgstr "公众用户"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "QR code"
+msgstr "二维码"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "QR code size"
+msgstr "二维码尺寸"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_callback_service_ids
@@ -392,6 +495,11 @@ msgid "Refresh"
 msgstr "刷新"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Refresh the QR code"
+msgstr "刷新二维码"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_secret
 msgid "Secret"
 msgstr "密钥"
@@ -400,6 +508,12 @@ msgstr "密钥"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search_inherit
 msgid "Share User"
 msgstr "共享用户"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Start getting join enterprise QR code of company [%s]"
+msgstr "开始获取公司[%s]的加入企业微信二维码"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -517,6 +631,16 @@ msgid "WeCom User sequence"
 msgstr "企微用户排序"
 
 #. module: wecom_contacts
+#: model:ir.actions.server,name:wecom_contacts.ir_cron_get_join_qrcode_ir_actions_server model:ir.cron,cron_name:wecom_contacts.ir_cron_get_join_qrcode model:ir.cron,name:wecom_contacts.ir_cron_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code"
+msgstr "企微：获取加入企业二维码"
+
+#. module: wecom_contacts
+#: model:ir.actions.act_window,name:wecom_contacts.ir_cron_act_get_join_qrcode
+msgid "WeCom: Get join enterprise QR code."
+msgstr "企微：获取加入企业二维码。"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
 msgid "Wecom Info"
 msgstr "企微信息"
@@ -545,4 +669,17 @@ msgstr "更改用户类型的向导（企微）"
 msgid "e.g. \"Consulting Services\""
 msgstr "例如：咨询服务"
 
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__10
+msgid "公众用户"
+msgstr ""
 
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__1
+msgid "内部用户"
+msgstr ""
+
+#. module: wecom_contacts
+#: model:ir.model.fields.selection,name:wecom_contacts.selection__change_type_user__new_type__9
+msgid "门户用户"
+msgstr ""

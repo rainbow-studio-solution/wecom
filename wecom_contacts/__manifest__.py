@@ -22,13 +22,14 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "data/ir_cron_data.xml",
         "data/wecom_apps_data.xml",
         "views/res_partner_views.xml",
         "views/res_partner_category_views.xml",
         "views/res_users_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_company_views.xml",
-        
+        "views/ir_cron_views.xml",
         "views/menu_views.xml",
     ],
     "assets": {
