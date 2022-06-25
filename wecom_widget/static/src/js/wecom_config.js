@@ -170,7 +170,7 @@ odoo.define('wecom.wecom_config', function (require) {
             var def = this._super.apply(this, arguments);
             var self = this;
             return def.then(function () {
-                self.$('table.o_list_table').addClass('o_section_list_view w-auto');
+                self.$('table.o_list_table').addClass('o_section_list_view w-100');
             });
         },
         showHelpToolTip: function (ev) {

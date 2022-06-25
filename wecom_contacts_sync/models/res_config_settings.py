@@ -39,8 +39,3 @@ class ResConfigSettings(models.TransientModel):
                     record.contacts_app_id.with_context(code=code).generate_parameters()
         # super(ResConfigSettings, self).generate_parameters()
 
-    def get_join_qrcode(self):
-        """
-        获取加入企业二维码
-        """
-        self.contacts_app_id.get_join_qrcode()

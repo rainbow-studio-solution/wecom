@@ -29,8 +29,7 @@
                                         </field>
                                     </div>
                                     <div class="btn-group float-right" role="group" aria-label="Button group">
-                                        <!-- <button class="oe_highlight" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" /> -->
-                                        <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
+                                          <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
                                     </div>
                                 </div>
                             </div>
