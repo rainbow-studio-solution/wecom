@@ -9,7 +9,7 @@
                         <t t-set="companies" t-value="companies"/>
                         <ul class="nav nav-tabs justify-content-center" role="tablist">
                             <li t-foreach="companies" t-as="company" class="nav-item" role="presentation">
-                                <a t-attf-class="{{company_index==0 ? 'nav-link active':'nav-link'}}" t-att-id="'nav_' + company_index + '_tab'" t-att-href="'#tab_' + company_index" t-attf-aria-selected="{{company_index==0 ? 'true':'false'}}" data-toggle="tab" role="tab">
+                                <a t-attf-class="{{company_index==0 ? 'nav-link active':'nav-link'}} font-weight-bold" t-att-id="'nav_' + company_index + '_tab'" t-att-href="'#tab_' + company_index" t-attf-aria-selected="{{company_index==0 ? 'true':'false'}}" data-toggle="tab" role="tab">
                                     <t t-esc="company.name"/>
                                 </a>
                             </li>

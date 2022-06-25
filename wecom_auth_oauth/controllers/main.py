@@ -315,8 +315,8 @@ class OAuthController(http.Controller):
 
         if len(companies) > 0:
             for company in companies:
-                app_config = request.env["wecom.app_config"].sudo()
-                contacts_app = company.contacts_app_id.sudo()  # 通讯录应用
+                # app_config = request.env["wecom.app_config"].sudo()
+                # contacts_app = company.contacts_app_id.sudo()  # 通讯录应用
                 auth_app = company.auth_app_id.sudo()  # 验证登录应用
 
                 data["companies"].append(
@@ -326,11 +326,7 @@ class OAuthController(http.Controller):
                         "fullname": company["name"],
                         "appid": company["corpid"],
                         "agentid": auth_app.agentid if auth_app else 0,
-                        "join_qrcode": app_config.get_param(
-                            contacts_app.id, "join_qrcode"
-                        )
-                        if company.contacts_app_id
-                        else "",
+                        "join_qrcode": company["wecom_contacts_join_qrcode"],
                     }
                 )
         return data
