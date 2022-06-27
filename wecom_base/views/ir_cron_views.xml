@@ -2,6 +2,7 @@
 <odoo>
     <data>
 
+       
 
 
         <record id="ir_cron_act_get_app_token" model="ir.actions.act_window">

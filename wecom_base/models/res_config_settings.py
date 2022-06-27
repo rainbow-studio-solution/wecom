@@ -25,6 +25,14 @@ class ResConfigSettings(models.TransientModel):
         "WeCom resources storage path", config_parameter="wecom.resources_path",
     )
 
+    global_error_code_url = fields.Char(
+        "Global error code page URL", config_parameter="wecom.global_error_code_url",
+    )
+
+    global_error_code_troubleshooting_method_node = fields.Char(
+        "Global error code troubleshooting method page element node", config_parameter="wecom.global_error_code_troubleshooting_method_node",
+    )
+
     module_wecom_contacts = fields.Boolean("WeCom Contacts")
 
     @api.model

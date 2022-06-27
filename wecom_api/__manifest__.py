@@ -19,6 +19,7 @@ WeCom Service-side API and Client-side API
     "depends": [],
     "data": [
         "security/ir.model.access.csv",
+        "data/ir_config_parameter.xml",
         "data/wecom_server_api_error_data.xml",
         "data/service_api_list_data.xml",
         "data/ir_cron_data.xml",

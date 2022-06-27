@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-06 08:03+0000\n"
-"PO-Revision-Date: 2022-06-06 16:04+0800\n"
+"POT-Creation-Date: 2022-06-27 12:37+0000\n"
+"PO-Revision-Date: 2022-06-27 20:37+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #. module: wecom_api
 #: code:addons/wecom_api/tools/action.py:0
@@ -166,14 +166,14 @@ msgstr "无法拉取企微全局错误代码，原因：%s"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
 msgid "GET"
-msgstr "GET"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__5
@@ -214,12 +214,12 @@ msgstr "消息推送"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
 msgid "OA"
-msgstr "OA"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
 msgid "POST"
-msgstr "POST"
+msgstr ""
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name

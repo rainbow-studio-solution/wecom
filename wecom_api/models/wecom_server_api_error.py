@@ -44,17 +44,21 @@ class WecomServerApiError(models.Model):
         使用爬虫爬取 全局错误码
         URL的一般格式为： protocol://hostname[:port]/path/[;parameters][?query]#fragment
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        global_error_code_url = ir_config.get_param("wecom.global_error_code_url")
+        global_error_code_troubleshooting_method_node = ir_config.get_param("wecom.global_error_code_troubleshooting_method_node")
         try:
             _logger.info(_("Start pulling the global error code of WeCom."))
-            url = "https://developer.work.weixin.qq.com/document/path/90313"  # 2022-05-29
-            page_text = requests.get(url=url).text
+            # url = "https://developer.work.weixin.qq.com/document/path/90313"  # 2022-05-29
+            page_text = requests.get(url=global_error_code_url).text
             tree = etree.HTML(page_text)
 
             # 生成 排查方法, 企业全局错误码 页面最下面的 “排查方法” 内容
-            methods_elements = tree.xpath("//ul[@data-sign='ce66300d7cc4da471ee44e824d1e9d48list183']/li")
+            # methods_elements = tree.xpath("//ul[@data-sign='07e2431b7bbf7440a0301c13cc9c5afa']/li") # 
+            methods_elements = tree.xpath(global_error_code_troubleshooting_method_node) # 2022-06-27
 
             methods = []
- 
+
             for element in methods_elements:
                 code_str = element.text
                 code = code_str.split("：",1)[1:][0]
@@ -63,7 +67,6 @@ class WecomServerApiError(models.Model):
                     element, encoding="utf-8", pretty_print=True
                 ).decode()
                 
-    
                 code_str = "%s<br/>" % code_str
                 method_str = element_str.replace(code_str, "")
                 method = self.getMiddleStr(method_str,"<li>","</li>")
@@ -127,7 +130,6 @@ class WecomServerApiError(models.Model):
             _logger.info(msg)
             return {"state":True, "msg":msg}
         except Exception as e:
-            print(str(e))
             msg = _("Failed to pull WeCom global error code, reason:%s") % str(e)
             _logger.warning(msg)
             return {"state":False, "msg":msg}
