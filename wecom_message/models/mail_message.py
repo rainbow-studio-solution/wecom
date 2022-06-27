@@ -27,18 +27,14 @@ class Message(models.Model):
 
     message_to_user = fields.Char(string="To Users", help="Message recipients (users)")
     message_to_party = fields.Char(
-        string="To Departments",
-        help="Message recipients (departments)",
+        string="To Departments", help="Message recipients (departments)",
     )
-    message_to_tag = fields.Char(
-        string="To Tags",
-        help="Message recipients (tags)",
-    )
+    message_to_tag = fields.Char(string="To Tags", help="Message recipients (tags)",)
 
     body_html = fields.Html("Html Contents", default="", sanitize_style=True)
     body_json = fields.Text("Json Contents", default={})
     body_markdown = fields.Text("Markdown Contents", default="")
-    is_wecom_message = fields.Boolean("Is WeCom Message",readonly=True)
+    is_wecom_message = fields.Boolean("Is WeCom Message", readonly=True)
     msgtype = fields.Selection(
         [
             ("text", "Text message"),
@@ -56,7 +52,7 @@ class Message(models.Model):
         ],
         string="Message type",
         default="text",
-        readonly=True
+        readonly=True,
     )
 
     # 企业微信消息选项
@@ -89,23 +85,25 @@ class Message(models.Model):
     )
 
     state = fields.Selection(
-        [
-            ("sent", "Sent"),
-            ("exception", "Exception"),
-            ("recall", "Recall"),
-        ],
+        [("sent", "Sent"), ("exception", "Exception"), ("recall", "Recall"),],
         "Status",
         readonly=True,
         copy=False,
         default="sent",
     )
-    failure_reason = fields.Text(
-        'Failure Reason', readonly=1,)
+    failure_reason = fields.Text("Failure Reason", readonly=1,)
+
+    wecom_message_id = fields.Char(
+        "Wecom Message-Id",
+        help="Message unique identifier",
+        index=True,
+        readonly=1,
+        copy=False,
+    )
 
     # ------------------------------------------------------
     # CRUD / ORM
     # ------------------------------------------------------
-    
 
     # ------------------------------------------------------
     # 工具和发送机制
@@ -116,7 +114,7 @@ class Message(models.Model):
         发送企业微信消息
         :return:
         """
-        
+
     def recall_message(self):
         """
         撤回消息
@@ -136,7 +134,7 @@ class Message(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "MESSAGE_RECALL"
                     ),
-                    {"msgid": self.message_id},
+                    {"msgid": self.wecom_message_id},
                 )
                 # print(res)
 
@@ -146,7 +144,7 @@ class Message(models.Model):
                 )
             else:
                 if res["errcode"] == 0:
-                    return self.write({"state": "recall", "message_id": None})
+                    return self.write({"state": "recall", "wecom_message_id": None})
 
     def resend_message(self):
         """
@@ -161,9 +159,7 @@ class Message(models.Model):
             wecom_userids = []
             if self.partner_ids:
                 wecom_userids = [
-                    p.wecom_userid
-                    for p in self.partner_ids
-                    if p.wecom_userid
+                    p.wecom_userid for p in self.partner_ids if p.wecom_userid
                 ]
             try:
                 wecomapi = self.env["wecom.service_api"].InitServiceApi(
@@ -201,5 +197,5 @@ class Message(models.Model):
                 )
             else:
                 if res["errcode"] == 0:
-                    return self.write({"state": "sent", "message_id": res["msgid"]})
-        
+                    return self.write({"state": "sent", "wecom_message_id": res["msgid"]})
+

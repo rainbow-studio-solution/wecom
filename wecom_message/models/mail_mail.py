@@ -122,7 +122,7 @@ class MailMail(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "MESSAGE_RECALL"
                     ),
-                    {"msgid": self.message_id},
+                    {"msgid": self.wecom_message_id},
                 )
                 # print(res)
 
@@ -132,7 +132,7 @@ class MailMail(models.Model):
                 )
             else:
                 if res["errcode"] == 0:
-                    return self.write({"state": "wecom_recall", "message_id": None})
+                    return self.write({"state": "wecom_recall", "wecom_message_id": None})
 
     def resend_message(self):
         """
@@ -180,7 +180,7 @@ class MailMail(models.Model):
                 )
             else:
                 if res["errcode"] == 0:
-                    return self.write({"state": "sent", "message_id": res["msgid"]})
+                    return self.write({"state": "sent", "wecom_message_id": res["msgid"]})
 
     def _send_prepare_body(self):
         """
@@ -340,7 +340,7 @@ class MailMail(models.Model):
             else:
                 # 如果try中的程序执行过程中没有发生错误，继续执行else中的程序；
                 mail.write(
-                    {"state": "sent", "message_id": res["msgid"],}
+                    {"state": "sent", "wecom_message_id": res["msgid"],}
                 )
             if auto_commit is True:
                 self._cr.commit()

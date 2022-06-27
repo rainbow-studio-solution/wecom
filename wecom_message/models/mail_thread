@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 
-from email import message
 import logging
 from odoo import _, api, exceptions, fields, models, tools, registry, SUPERUSER_ID
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -55,6 +54,8 @@ class MailThread(models.AbstractModel):
         else:
             return False
 
+    
+
     # ------------------------------------------------------
     # MESSAGE POST TOOLS
     # 消息发布工具
@@ -76,11 +77,13 @@ class MailThread(models.AbstractModel):
 
         TDE/XDO TODO: 直接标记 rdata，例如 r['notif'] = 'ocn_client' 和 r['needaction']=False 并正确覆盖notify_recipients
         """
-        ir_config = self.env["ir.config_parameter"].sudo()
-        message_sending_method = ir_config.get_param("wecom.message_sending_method")
+        channel_ids = [r["id"] for r in recipients_data["channels"]]
+        if channel_ids:
+            message.write({"channel_ids": [(6, 0, channel_ids)]})
 
-        bus_notifications = []
-        inbox_pids = [r["id"] for r in recipients_data if r["notif"] == "inbox"]
+        inbox_pids = [
+            r["id"] for r in recipients_data["partners"] if r["notif"] == "inbox"
+        ]
         if inbox_pids:
             notif_create_values = [
                 {
@@ -88,38 +91,41 @@ class MailThread(models.AbstractModel):
                     "res_partner_id": pid,
                     "notification_type": "inbox",
                     "notification_status": "sent",
-                    "is_wecom_message": True
-                    if self.env["res.partner"].browse(pid).wecom_userid
-                    else False,
                 }
                 for pid in inbox_pids
             ]
+            self.env["mail.notification"].sudo().create(notif_create_values)
 
-            mail_notification = (
-                self.env["mail.notification"].sudo().create(notif_create_values)
+        bus_notifications = []
+        if inbox_pids or channel_ids:
+            message_format_values = False
+            if inbox_pids:
+                message_format_values = message.message_format()[0]
+                for partner_id in inbox_pids:
+                    bus_notifications.append(
+                        [
+                            (self._cr.dbname, "ir.needaction", partner_id),
+                            dict(message_format_values),
+                        ]
+                    )
+            if channel_ids:
+                channels = self.env["mail.channel"].sudo().browse(channel_ids)
+                bus_notifications += channels._channel_message_notifications(
+                    message, message_format_values
+                )
+
+        if msg_vals["is_wecom_message"]:
+            self._notify_record_by_wecom(
+                message, recipients_data, msg_vals=msg_vals, **kwargs
             )
 
-            message_format_values = message.message_format()[0]
-            for partner_id in inbox_pids:
-                bus_notifications.append(
-                    (
-                        self.env["res.partner"].browse(partner_id),
-                        "mail.message/inbox",
-                        dict(message_format_values),
-                    )
-                )
-            if mail_notification.is_wecom_message:
-                self._notify_record_by_wecom(
-                    message, recipients_data, msg_vals=msg_vals, **kwargs
-                )
-        if message_sending_method != "1":
-            self.env["bus.bus"].sudo()._sendmany(bus_notifications)
+        if bus_notifications:
+            self.env["bus.bus"].sudo().sendmany(bus_notifications)
 
     def _notify_record_by_wecom(
         self, message, recipients_data, msg_vals=False, **kwargs
     ):
         """
-        通过企业微信发送 通知消息
         :param  message: mail.message 记录
         :param list recipients_data: 收件人
         :param dic msg_vals: 消息字典值
@@ -128,70 +134,47 @@ class MailThread(models.AbstractModel):
         model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
 
         partners = []
+        if "partners" in recipients_data:
+            partners = [r["id"] for r in recipients_data["partners"]]
         wecom_userids = [
-            self.env["res.partner"].browse(r["id"]).wecom_userid
-            for r in recipients_data
-            if self.env["res.partner"].browse(r["id"]).wecom_userid
+            p.wecom_userid
+            for p in self.env["res.partner"].browse(partners)
+            if p.wecom_userid
         ]
 
         sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
 
-        body_markdown = (
-            _(
-                """
-**[%s] send a message with the record name [%s] in the application [%s].**
+        if msg_vals.get("subject") or message.subject:
+            pass
+        elif msg_vals.get("subject") and message.subject is False:
+            pass
+        elif msg_vals.get("subject") is False and message.subject:
+            msg_vals["subject"] = message.subject
+        else:
+            msg_vals["subject"] = _(
+                "[%s] Sends a message with the record name [%s] in the application [%s]."
+            ) % (sender, Model.browse(msg_vals["res_id"]).name, model_name)
 
-> <font color="info">Message content:</font>
->              
-> %s
-"""
-            )
-            % (
-                sender,
-                Model.browse(msg_vals["res_id"]).name,
-                model_name,
-                msg_vals["body"],
-            )
+        body_markdown = _(
+            "### %s sent you a message,You can also view it in your inbox in the system."
+            + "\n\n"
+            + "> **Message content:**\n\n> %s"
+        ) % (
+            sender,
+            msg_vals["body"],
         )
-
-        if len(message.attachment_ids) > 0:
-            body_markdown = (
-                _(
-                    """
- **[%s] send a message with the record name [%s] in the application [%s].**
-
-> <font color="info">Message content:</font>
->              
-> %s
-
-
-> The message contains %s attachments   
->
-> Please log in to the system to view.     
-            """
-                )
-                % (
-                    sender,
-                    Model.browse(msg_vals["res_id"]).name,
-                    model_name,
-                    msg_vals["body"],
-                    len(message.attachment_ids),
-                )
-            )
 
         message.write(
             {
-                # "subject": msg_vals["subject"],
+                "subject": msg_vals["subject"],
                 "message_to_user": "|".join(wecom_userids),
                 "message_to_party": None,
                 "message_to_tag": None,
-                "msgtype": "markdown",
                 "body_markdown": body_markdown,
-                "is_wecom_message": True,
             }
         )
-        # company = Model.company_id
-        company = Model.browse(msg_vals["res_id"]).company_id
+
+        company = Model.company_id
         if not company:
             company = self.env.company
         try:
@@ -214,7 +197,7 @@ class MailThread(models.AbstractModel):
                 duplicate_check_interval=1800,
                 company=company,
             )
-
+   
             del msg["company"]
             res = wecomapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("MESSAGE_SEND"),
@@ -230,7 +213,10 @@ class MailThread(models.AbstractModel):
             )
         else:
             message.write(
-                {"state": "sent", "wecom_message_id": res["msgid"],}
+                {
+                    "state": "sent",
+                    "wecom_message_id": res["msgid"],
+                }
             )
 
     # ------------------------------------------------------

@@ -40,36 +40,24 @@ class ResUsers(models.Model):
             "author_id": self.env.user.partner_id.id,
         }
 
-        if message_sending_method == "1":
-            for user in users_to_invite:
-                if user.wecom_userid:
-                    email_values.update({"message_to_user": user.wecom_userid})
-                    self.send_template_email_by_wecom(
-                        user,
-                        template_name="auth_totp_mail.mail_template_totp_invite",
-                        subject=_(
-                            "Invitation to activate two-factor authentication on your Odoo account"
-                        ),
-                        email_values=email_values,
-                    )
-        else:
-            for user in users_to_invite:
-                if user.wecom_userid:
-                    email_values.update({"message_to_user": user.wecom_userid})
-                    self.send_template_email_by_wecom(
-                        user,
-                        template_name="auth_totp_mail.mail_template_totp_invite",
-                        subject=_(
-                            "Invitation to activate two-factor authentication on your Odoo account"
-                        ),
-                        email_values=email_values,
-                    )
-                invite_template.send_mail(
-                    user.id,
-                    force_send=True,
+        for user in users_to_invite:
+            if user.wecom_userid:
+                email_values.update({"message_to_user": user.wecom_userid})
+                self.send_template_email_by_wecom(
+                    user,
+                    template_name="auth_totp_mail.mail_template_totp_invite",
+                    subject=_(
+                        "Invitation to activate two-factor authentication on your Odoo account"
+                    ),
                     email_values=email_values,
-                    notif_layout="mail.mail_notification_light",
                 )
+                if message_sending_method != "1":
+                    invite_template.send_mail(
+                        user.id,
+                        force_send=True,
+                        email_values=email_values,
+                        notif_layout="mail.mail_notification_light",
+                    )
 
         # Display a confirmation toaster
         return {

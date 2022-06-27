@@ -35,7 +35,7 @@
                         <group>
                             <field name="msgtype"/>
                             <field name="media_id"/>
-                            <field name="message_id"/>
+                            <field name="wecom_message_id"/>
                         </group>
                     </group>
                     <notebook>
@@ -87,7 +87,7 @@
                 <field name="templates_id"/>
                 <field name="subject"/>
                 <field name="author_id" string="Sender"/>
-                <field name="message_id" invisible="1"/>
+                <field name="wecom_message_id" invisible="1"/>
                 <field name="recipient_ids" invisible="1"/>
                 <field name="model" invisible="1"/>
                 <field name="res_id" />
@@ -139,7 +139,7 @@
                 <group expand="0" string="Group By">
                     <filter string="Status" name="status" domain="[]" context="{'group_by':'state'}"/>
                     <filter string="Author" name="author" context="{'group_by':'author_id'}"/>
-                    <filter string="Thread" name="thread" domain="[]" context="{'group_by':'message_id'}"/>
+                    <filter string="Thread" name="thread" domain="[]" context="{'group_by':'wecom_message_id'}"/>
                     <filter string="Date" name="month" help="Creation Date" domain="[]" context="{'group_by':'date'}"/>
                 </group>
             </search>

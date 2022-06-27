@@ -55,7 +55,7 @@
                             <group string="Options">
                                 <field name="is_wecom_message"/>
                                 <field name="msgtype"/>
-                                <field name="message_id"/>
+                                <field name="wecom_message_id"/>
                                 <field name="failure_reason"/>
                                 <!-- <field name="use_templates"/> -->
                                 <!-- <field name="templates_id" attrs="{'invisible': [('use_templates','=',False)]}" options="{'quick_create': False,'no_open': True,}"/> -->

@@ -32,6 +32,7 @@
         "data/auth_signup_message_template_data.xml",
         "data/auth_totp_message_template_data.xml",
         "data/portal_message_template_data.xml",
+        "data/followers_message_template_data.xml",
         "wizard/mail_template_preview_views.xml",
         "wizard/invite_view.xml",
         # "views/assets_templates.xml",

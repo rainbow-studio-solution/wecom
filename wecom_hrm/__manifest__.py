@@ -3,7 +3,7 @@
 {
     "name": "WeCom HRM",
     "author": "RStudio",
-    "sequence": 607,
+    "sequence": 608,
     "installable": True,
     "application": True,
     "auto_install": False,

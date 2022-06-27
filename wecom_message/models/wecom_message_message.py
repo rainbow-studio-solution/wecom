@@ -374,10 +374,10 @@ class WecomMessageMessage(models.Model):
         if not company:
             company = self.env.company
         ApiObj = self.env["wecom.message.api"]
-        for message_id in self.ids:
+        for wecom_message_id in self.ids:
             message = None
             try:
-                message = self.browse(message_id)
+                message = self.browse(wecom_message_id)
                 msg = ApiObj.build_message(
                     msgtype=message.msgtype,
                     touser=message.message_to_user,

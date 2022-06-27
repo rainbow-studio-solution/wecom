@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="0">
+  <data noupdate="1">
 
     <!-- 1. 重置密码的消息模板-->
     <record id="auth_signup.reset_password_email" model="mail.template">

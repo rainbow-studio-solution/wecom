@@ -3,7 +3,7 @@
     "name": "WeCom Portal",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 608,
+    "sequence": 607,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -19,8 +19,8 @@
     "depends": ["portal",],
     "external_dependencies": {"python": [],},
     "data": [
-        # "data/portal_message_template_data.xml", 
+        # "data/portal_message_template_data.xml",
         "views/portal_templates.xml",
-        ],
+    ],
     "license": "LGPL-3",
 }

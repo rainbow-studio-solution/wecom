@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="send_message_to_followers_template" model="mail.template">
+            <field name="name">Send message to followers</field>
+            <field name="subject"></field>
+            <field name="msgtype">template_card</field>
+            <field name="message_to_user">{{ object.partner_id.wecom_userid }}</field>
+            <field name="msgtype">markdown</field>
+            <field name="body_markdown">
+## Dear {{object.partner_id.name}}
+
+### {{ user.name }} sent you a message in {{object.model}}.
+
+> **Message content:**
+
+            </field>
+            <field name="safe">1</field>
+            <field name="enable_id_trans" eval="False"/>
+            <field name="enable_duplicate_check" eval="False"/>
+            <field name="duplicate_check_interval">1800</field>
+        </record>
+    </data>
+</odoo>
