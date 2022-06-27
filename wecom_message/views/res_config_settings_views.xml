@@ -94,6 +94,23 @@
 
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                         <div class="o_setting_left_pane">
+                            <i class="fa fa-paper-plane fa-lg" aria-label="Sending method"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="message_sending_method"/>
+                            <div class="content-group mt8">
+                                <field name="message_sending_method" class="w-100 "/>
+                                <div class="row mt8">
+                                    <div class="text-muted col-md-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
                             <field name="module_wecom_portal"/>
                         </div>
                         <div class="o_setting_right_pane" name="module_wecom_portal_settings">

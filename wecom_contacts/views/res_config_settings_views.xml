@@ -183,7 +183,7 @@
                     </div>
 
                     <!-- HRM -->
-                    <h2 id="wecom_hrm" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_contacts_sync','=',False)]}">
+                    <h2 id="wecom_hrm" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_contacts','=',False)]}">
                         <span class="text-left">
                             <i class="fa fa-users fa-lg" aria-label="Wecom HRM settings" />
                                 Wecom HRM settings

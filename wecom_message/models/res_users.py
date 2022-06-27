@@ -30,30 +30,69 @@ class ResUsers(models.Model):
         """
         邀请用户使用 双因素身份验证
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        message_sending_method = ir_config.get_param("wecom.message_sending_method")
+
+        invite_template = self.env.ref("auth_totp_mail.mail_template_totp_invite")
         users_to_invite = self.sudo().filtered(lambda user: not user.totp_secret)
-        for user in users_to_invite:
-            email_values = {
-                "email_from": self.env.user.email_formatted,
-                "author_id": self.env.user.partner_id.id,
-            }
-            if user.wecom_userid:
-                email_values.update({"message_to_user": user.wecom_userid})
-                self.send_template_email_by_wecom(
-                    user,
-                    template_name="auth_totp_mail.mail_template_totp_invite",
-                    subject=_(
-                        "Invitation to activate two-factor authentication on your Odoo account"
-                    ),
+        email_values = {
+            "email_from": self.env.user.email_formatted,
+            "author_id": self.env.user.partner_id.id,
+        }
+
+        if message_sending_method == "1":
+            for user in users_to_invite:
+                if user.wecom_userid:
+                    email_values.update({"message_to_user": user.wecom_userid})
+                    self.send_template_email_by_wecom(
+                        user,
+                        template_name="auth_totp_mail.mail_template_totp_invite",
+                        subject=_(
+                            "Invitation to activate two-factor authentication on your Odoo account"
+                        ),
+                        email_values=email_values,
+                    )
+        else:
+            for user in users_to_invite:
+                if user.wecom_userid:
+                    email_values.update({"message_to_user": user.wecom_userid})
+                    self.send_template_email_by_wecom(
+                        user,
+                        template_name="auth_totp_mail.mail_template_totp_invite",
+                        subject=_(
+                            "Invitation to activate two-factor authentication on your Odoo account"
+                        ),
+                        email_values=email_values,
+                    )
+                invite_template.send_mail(
+                    user.id,
+                    force_send=True,
                     email_values=email_values,
+                    notif_layout="mail.mail_notification_light",
                 )
 
-        return super(ResUsers, self).action_totp_invite()
+        # Display a confirmation toaster
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "type": "info",
+                "sticky": False,
+                "message": _(
+                    "Invitation to use two-factor authentication sent for the following user(s): %s",
+                    ", ".join(users_to_invite.mapped("name")),
+                ),
+            },
+        }
 
     def action_reset_password(self):
         """
         为每个用户创建注册令牌,并通过电子邮件发送他们的注册url
         增加判断模板对象为企业微信用户,使用企业微信发送模板消息的方法
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        message_sending_method = ir_config.get_param("wecom.message_sending_method")
+
         if self.env.context.get("install_mode", False):
             return
         if self.filtered(lambda user: not user.active):
@@ -106,33 +145,37 @@ class ResUsers(models.Model):
                     _("Cannot send email: user %s has no email address.", user.name)
                 )
             else:
-                email_values["email_to"] = user.email
-                # TDE FIXME: make this template technical (qweb)
-                with self.env.cr.savepoint():
-                    force_send = not (self.env.context.get("import_file", False))
-                    template.send_mail(
-                        user.id,
-                        force_send=force_send,
-                        raise_exception=True,
-                        email_values=email_values,
+                if message_sending_method != "1":
+                    email_values["email_to"] = user.email
+                    # TDE FIXME: make this template technical (qweb)
+                    with self.env.cr.savepoint():
+                        force_send = not (self.env.context.get("import_file", False))
+                        template.send_mail(
+                            user.id,
+                            force_send=force_send,
+                            raise_exception=True,
+                            email_values=email_values,
+                        )
+                    _logger.info(
+                        _(
+                            "Password reset email sent for user <%s> to <%s>",
+                            user.login,
+                            user.email,
+                        )
                     )
-                _logger.info(
-                    _(
-                        "Password reset email sent for user <%s> to <%s>",
-                        user.login,
-                        user.email,
-                    )
-                )
 
-        return super(ResUsers, self).action_reset_password()
+        # return super(ResUsers, self).action_reset_password()
 
     def send_unregistered_user_reminder(self, after_days=5):
         """
-        发送未注册的用户提醒 消息
+        TODO:发送未注册的用户提醒 消息
         """
+        ir_config = self.env["ir.config_parameter"].sudo()
+        message_sending_method = ir_config.get_param("wecom.message_sending_method")
+
         datetime_min = fields.Datetime.today() - relativedelta(days=after_days)
         datetime_max = datetime_min + relativedelta(hours=23, minutes=59, seconds=59)
-
+        print(datetime_min, datetime_max)
         res_users_with_details = self.env["res.users"].search_read(
             [
                 ("share", "=", False),
@@ -143,34 +186,38 @@ class ResUsers(models.Model):
             ],
             ["create_uid", "name", "login"],
         )
-
+        print(res_users_with_details)
         # 分组邀请
         invited_users = defaultdict(list)
         for user in res_users_with_details:
+            print(user)
             invited_users[user.get("create_uid")[0]].append(
                 "%s (%s)" % (user.get("name"), user.get("login"))
             )
-
+        email_values = {
+            "email_from": self.env.user.email_formatted,
+            "author_id": self.env.user.partner_id.id,
+        }
         # 用于向所有邀请者发送有关其邀请用户的邮件
         for user in invited_users:
             if user.wecom_userid:
-                return self.send_unregistered_user_reminder_by_wecom(
-                    user, invited_users
+                email_values.update({"message_to_user": user.wecom_userid})
+                self.send_template_email_by_wecom(
+                    user,
+                    template_name="auth_signup.mail_template_data_unregistered_users",
+                    subject=_("Reminder for unregistered users"),
+                    email_values=email_values,
                 )
-            template = self.env.ref(
-                "auth_signup.mail_template_data_unregistered_users"
-            ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
-            template.send_mail(
-                user, notif_layout="mail.mail_notification_light", force_send=False
-            )
 
-    def send_unregistered_user_reminder_by_wecom(self, user, invited_users):
-        message_template = self.env.ref(
-            "wecom_auth_oauth.message_template_data_unregistered_users"
-        ).with_context(dbname=self._cr.dbname, invited_users=invited_users[user])
-        message_template.send_message(
-            user, notif_layout="mail.mail_notification_light", force_send=False
-        )
+            if message_sending_method != "1":
+                template = self.env.ref(
+                    "auth_signup.mail_template_data_unregistered_users"
+                ).with_context(
+                    dbname=self._cr.dbname, invited_users=invited_users[user]
+                )
+                template.send_mail(
+                    user, notif_layout="mail.mail_notification_light", force_send=False
+                )
 
     def send_template_email_by_wecom(
         self, user, template_name=False, subject=False, email_values=None,
