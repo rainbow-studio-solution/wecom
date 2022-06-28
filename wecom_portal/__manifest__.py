@@ -18,9 +18,6 @@
         """,
     "depends": ["portal",],
     "external_dependencies": {"python": [],},
-    "data": [
-        # "data/portal_message_template_data.xml",
-        "views/portal_templates.xml",
-    ],
+    "data": ["views/portal_templates.xml",],
     "license": "LGPL-3",
 }

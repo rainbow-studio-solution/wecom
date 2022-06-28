@@ -43,7 +43,6 @@
         "views/mail_template_views.xml",
         "views/mail_mail_views.xml",
         "views/mail_notification_views.xml",
-        "views/mail_activity_views.xml",
         "views/menu_views.xml",
     ],
     "assets": {"web.assets_backend": [],},
