@@ -115,8 +115,7 @@ class MailTemplate(models.Model):
                 rec["id"]: (rec["company_id"][0] if rec["company_id"] else None)
                 for rec in records
             }
-        print(self.env[self.model], res_ids)
-        print(results.items())
+
         for res_id, values in results.items():
             partner_ids = values.get("partner_ids", list())
             if self._context.get("tpl_partners_only"):
@@ -126,7 +125,6 @@ class MailTemplate(models.Model):
                     + tools.email_split(values.pop("message_to_tag", ""))
                 )
 
-                print(mails)
                 Partner = self.env["res.partner"]
                 if records_company:
                     Partner = Partner.with_context(
@@ -466,7 +464,7 @@ class MailTemplate(models.Model):
 
         # 标识是企微消息
         is_wecom_message = False
-        print(values["message_to_user"])
+
         if "message_to_user" in values and values["message_to_user"]:
             is_wecom_message = True
         if "message_to_party" in values and values["message_to_party"]:

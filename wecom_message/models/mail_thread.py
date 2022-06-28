@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
+import re
 from email import message
 import logging
 from odoo import _, api, exceptions, fields, models, tools, registry, SUPERUSER_ID
@@ -124,34 +125,48 @@ class MailThread(models.AbstractModel):
         :param list recipients_data: 收件人
         :param dic msg_vals: 消息字典值
         """
-        Model = self.env[msg_vals["model"]]
-        model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
+        subject = ""
+        if msg_vals:
+            Model = self.env[msg_vals["model"]]
+            model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
+            sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
+            document_name = Model.browse(msg_vals["res_id"]).name
+            msg = msg_vals["body"]
+            company = Model.browse(msg_vals["res_id"]).company_id
+            author_id = msg_vals["author_id"]
+            if msg_vals.get("subject"):
+                subject = msg_vals.get("subject")
+        else:
+            Model = self.env[message["model"]]
+            model_name = self.env["ir.model"]._get(message["model"]).display_name
+            sender = message["author_id"].display_name
+            document_name = Model.browse(message["res_id"]).name
+            msg = self.env["mail.render.mixin"]._replace_local_links(message["body"])
+            msg = re.compile(r"<[^>]+>", re.S).sub("", msg)
+            company = Model.browse(message["res_id"]).company_id
+            author_id = message["author_id"].id
+            if message["subject"]:
+                subject = message["subject"]
 
-        partners = []
         wecom_userids = [
             self.env["res.partner"].browse(r["id"]).wecom_userid
             for r in recipients_data
             if self.env["res.partner"].browse(r["id"]).wecom_userid
         ]
 
-        sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
-
         body_markdown = (
             _(
                 """
 **[%s] send a message with the record name [%s] in the application [%s].**
-
+>
+> <font color="warning">%s</font>
+>
 > <font color="info">Message content:</font>
 >              
 > %s
 """
             )
-            % (
-                sender,
-                Model.browse(msg_vals["res_id"]).name,
-                model_name,
-                msg_vals["body"],
-            )
+            % (sender, document_name, model_name, subject, msg,)
         )
 
         if len(message.attachment_ids) > 0:
@@ -159,7 +174,9 @@ class MailThread(models.AbstractModel):
                 _(
                     """
  **[%s] send a message with the record name [%s] in the application [%s].**
-
+>
+> <font color="warning">%s</font>
+>
 > <font color="info">Message content:</font>
 >              
 > %s
@@ -172,16 +189,17 @@ class MailThread(models.AbstractModel):
                 )
                 % (
                     sender,
-                    Model.browse(msg_vals["res_id"]).name,
+                    document_name,
                     model_name,
-                    msg_vals["body"],
+                    subject,
+                    msg,
                     len(message.attachment_ids),
                 )
             )
 
         message.write(
             {
-                # "subject": msg_vals["subject"],
+                "subject": subject,
                 "message_to_user": "|".join(wecom_userids),
                 "message_to_party": None,
                 "message_to_tag": None,
@@ -190,8 +208,7 @@ class MailThread(models.AbstractModel):
                 "is_wecom_message": True,
             }
         )
-        # company = Model.company_id
-        company = Model.browse(msg_vals["res_id"]).company_id
+
         if not company:
             company = self.env.company
         try:
@@ -203,10 +220,10 @@ class MailThread(models.AbstractModel):
                 touser="|".join(wecom_userids),
                 toparty="",
                 totag="",
-                subject=msg_vals["subject"],
+                subject=subject,
                 media_id=None,
                 description=None,
-                author_id=msg_vals["author_id"],
+                author_id=author_id,
                 body_markdown=body_markdown,
                 safe=True,
                 enable_id_trans=True,

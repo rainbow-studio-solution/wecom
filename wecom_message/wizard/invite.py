@@ -47,8 +47,7 @@ class Invite(models.TransientModel):
 
             # 过滤合作伙伴ID以获得新的关注者，避免向已经关注的合作伙伴发送电子邮件
             new_partners = wizard.partner_ids - document.sudo().message_partner_ids
-            new_channels = wizard.channel_ids - document.message_channel_ids
-            document.message_subscribe(new_partners.ids, new_channels.ids)
+            document.message_subscribe(partner_ids=new_partners.ids)
 
             model_name = self.env["ir.model"]._get(wizard.res_model).display_name
             # 如果选中选项且存在邮件，则发送电子邮件（不要发送无效邮件）
@@ -62,14 +61,13 @@ class Invite(models.TransientModel):
                             document_model=model_name,
                             document_name=document.display_name,
                         ),
-                        
                         "body": wizard.message,
                         "record_name": document.display_name,
                         "email_from": email_from,
                         "reply_to": email_from,
                         "model": wizard.res_model,
                         "res_id": wizard.res_id,
-                        "no_auto_thread": True,
+                        "reply_to_force_new": True,
                         "add_sign": True,
                     }
                 )
@@ -93,9 +91,7 @@ class Invite(models.TransientModel):
                         partners_data.append(dict(pdata, type="customer"))
 
                 document._notify_record_by_email(
-                    message,
-                    {"partners": partners_data, "channels": []},
-                    send_after_commit=False,
+                    message, partners_data, send_after_commit=False,
                 )
                 # 如果发生故障，Web 客户端必须知道消息已被删除才能丢弃相关的失败通知
                 self.env["bus.bus"].sendone(
@@ -110,32 +106,38 @@ class Invite(models.TransientModel):
                 and not wizard.message == "<br>"
             ):  # 删除邮件时，cleditor会保留一个<br>
                 # tools.html2plaintext
-                msg_vals = {
-                    "subject": _(
-                        "Invitation to follow %(document_model)s: %(document_name)s",
-                        document_model=model_name,
-                        document_name=document.display_name,
-                    ),
-                    "message_type": "email",
-                    "body": tools.html2plaintext(wizard.message),
-                    "record_name": document.display_name,
-                    "email_from": email_from,
-                    "model": wizard.res_model,
-                    "res_id": wizard.res_id,
-                    "author_id": self.env.user.partner_id.id,
-                    #
-                    "is_wecom_message": True,
-                    "msgtype": "markdown",
-                    "enable_duplicate_check": True,
-                    "duplicate_check_interval": 1800,
-                }
-                message = self.env["mail.message"].create(msg_vals)
-                message.write({"partner_ids": new_partners})
+                message = self.env["mail.message"].create(
+                    {
+                        "subject": _(
+                            "Invitation to follow %(document_model)s: %(document_name)s",
+                            document_model=model_name,
+                            document_name=document.display_name,
+                        ),
+                        "body": wizard.message,
+                        "record_name": document.display_name,
+                        "email_from": email_from,
+                        "reply_to": email_from,
+                        "model": wizard.res_model,
+                        "res_id": wizard.res_id,
+                        "reply_to_force_new": True,
+                        "add_sign": True,
+                        #
+                        "is_wecom_message": True,
+                        "msgtype": "markdown",
+                        "enable_duplicate_check": True,
+                        "duplicate_check_interval": 1800,
+                    }
+                )
+
                 partners_data = []
                 recipient_data = self.env["mail.followers"]._get_recipient_data(
                     document, "comment", False, pids=new_partners.ids
                 )
-                for pid, cid, active, pshare, ctype, notif, groups in recipient_data:
+                partners_data = []
+                recipient_data = self.env["mail.followers"]._get_recipient_data(
+                    document, "comment", False, pids=new_partners.ids
+                )
+                for pid, active, pshare, notif, groups in recipient_data:
                     pdata = {
                         "id": pid,
                         "share": pshare,
@@ -150,8 +152,6 @@ class Invite(models.TransientModel):
                     else:  # 没有用户，因此是客户
                         partners_data.append(dict(pdata, type="customer"))
 
-                document._notify_record_by_wecom(
-                    message, {"partners": partners_data, "channels": []}, msg_vals
-                )
+                document._notify_record_by_wecom(message, partners_data, msg_vals=False)
                 # message.unlink()
         return {"type": "ir.actions.act_window_close"}
