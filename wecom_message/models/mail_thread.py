@@ -131,7 +131,7 @@ class MailThread(models.AbstractModel):
             model_name = self.env["ir.model"]._get(msg_vals["model"]).display_name
             sender = self.env.user.partner_id.browse(msg_vals["author_id"]).name
             document_name = Model.browse(msg_vals["res_id"]).name
-            msg = msg_vals["body"]
+            msg = self.env["mail.render.mixin"]._replace_local_links(msg_vals["body"])
             company = Model.browse(msg_vals["res_id"]).company_id
             author_id = msg_vals["author_id"]
             if msg_vals.get("subject"):
@@ -142,12 +142,12 @@ class MailThread(models.AbstractModel):
             sender = message["author_id"].display_name
             document_name = Model.browse(message["res_id"]).name
             msg = self.env["mail.render.mixin"]._replace_local_links(message["body"])
-            msg = re.compile(r"<[^>]+>", re.S).sub("", msg)
+
             company = Model.browse(message["res_id"]).company_id
             author_id = message["author_id"].id
             if message["subject"]:
                 subject = message["subject"]
-
+        msg = re.compile(r"<[^>]+>", re.S).sub("", msg)
         wecom_userids = [
             self.env["res.partner"].browse(r["id"]).wecom_userid
             for r in recipients_data
@@ -164,6 +164,7 @@ class MailThread(models.AbstractModel):
 > <font color="info">Message content:</font>
 >              
 > %s
+>
 """
             )
             % (sender, document_name, model_name, subject, msg,)

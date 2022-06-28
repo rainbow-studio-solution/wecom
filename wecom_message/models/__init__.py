@@ -4,6 +4,9 @@
 from . import res_users
 from . import res_company
 from . import res_config_settings
+
+# mail models
+from . import mail_activity
 from . import mail_template
 from . import mail_mail
 from . import mail_message
@@ -13,6 +16,4 @@ from . import mail_thread
 # from . import mail_followers
 
 from . import wecom_apps
-
-
 from . import wecom_message_api
