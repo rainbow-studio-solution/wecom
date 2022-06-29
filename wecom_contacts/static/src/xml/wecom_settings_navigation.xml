@@ -10,6 +10,9 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-suitcase wecom__jump_anchor" href="#wecom_auth_oauth">
                 <h5 style="display:inline;"> Authentication settings</h5>
             </a>
+            <a type="button" role="button" class="btn btn-secondary fa fa-home wecom__jump_anchor" href="#wecom_portal">
+                <h5 style="display:inline;"> Portal settings</h5>
+            </a>
             <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom__jump_anchor" href="#wecom_message">
                 <h5 style="display:inline;"> Message settings</h5>
             </a>

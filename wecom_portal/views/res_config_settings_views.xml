@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wecom_portal_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="wecom_portal_warning" position="replace"/>
+                <div id="wecom_portal_install" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Portal Application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="menu_app_id" string="Binding application"/>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="menu_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%menu%'),('company_id', '=', company_id)]"/>
+                                </div>
+                                <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
+                                <button class="btn btn-primary" name="get_menu_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('menu_app_id','=',False)]}"/>
+                                <div class="mt4" attrs="{'invisible': [('menu_app_id','=',False)]}">
+                                    <div class="text-warning mt16">
+                                        <strong>Save</strong> this page and come back here to set up other feature.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('menu_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-list-ol fa-lg" aria-label="Portal Agentid"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="menu_agentid"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="menu_agentid" widget="integer" options="{'format': false}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('menu_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-key fa-lg" aria-label="Portal Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="menu_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="menu_secret" widget="wecom_password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('menu_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-bars fa-lg" aria-label="Portal Menu"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="menu_body"/>
+                            <div class="content-group">
+                                <div class="mt4">
+                                    <field name="menu_body" class="w-100" widget="wecom_jsoneditor"/>
+                                </div>
+                            </div>
+                            <div class="row mt16">
+                                <div class="text-muted col-md-12">
+                                    When using the domain name to log in, click the "Initialization menu" button.
+                                </div>
+                            </div>
+                            <div class="content-group mt4">
+                                <div class="btn-group" role="group" aria-label="Button group">
+                                    <button class="oe_highlight" name="init_wecom_app_menu" string="Initialization menu" type="object" icon="fa-cogs" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

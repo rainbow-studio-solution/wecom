@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-25 14:06+0000\n"
-"PO-Revision-Date: 2022-06-25 22:13+0800\n"
+"POT-Creation-Date: 2022-06-29 08:43+0000\n"
+"PO-Revision-Date: 2022-06-29 16:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -69,6 +69,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-home fa-lg\" aria-label=\"Wecom Portal Settings\"/>\n"
+"                                Wecom Portal Settings\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-home fa-lg\" aria-label=\"企微门户设置\"/>\n"
+"                                企微门户设置\n"
+"                        </span>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Wecom Authentication settings\"/>\n"
 "                                Wecom Authentication settings\n"
 "                        </span>"
@@ -124,7 +137,7 @@ msgstr "应用配置"
 #: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
 msgid "Authentication settings"
-msgstr "企微身份验证设置"
+msgstr "身份验证设置"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
@@ -154,7 +167,7 @@ msgstr "自动任务：请启用公司[%s]加入企业微信二维码功能！"
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
 #, python-format
 msgid "Automatic task:Start to get join enterprise QR code of company [%s]"
-msgstr "自动任务：开始获取公司[%s]的加入企业微信二维码"
+msgstr "自动任务：开始获取公司[%s]的加入企业二维码"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
@@ -250,9 +263,19 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_portal
+msgid "Customer Portal"
+msgstr "客户门户"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__display_name model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__display_name model:ir.model.fields,field_description:wecom_contacts.field_res_partner_category__display_name
 msgid "Display Name"
 msgstr "显示名称"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Display enterprise wechat related functions on the personal portal page, and create a menu of enterprise wechat applications."
+msgstr "在个人门户页面上显示企业微信相关功能，并创建企业微信应用菜单。"
 
 #. module: wecom_contacts
 #. openerp-web
@@ -329,7 +352,7 @@ msgstr "创建公司 [%s] 的合作伙伴[%s %s]时出错，错误原因：%s"
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载公司[%s]标签成员[%s]！"
+msgstr "未能下载 标签[%s] 公司[%s]的成员！"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
@@ -467,6 +490,13 @@ msgid "Portal User"
 msgstr "门户用户"
 
 #. module: wecom_contacts
+#. openerp-web
+#: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Portal settings"
+msgstr "门户设置"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Public User"
@@ -492,7 +522,7 @@ msgstr "企微应用接收事件服务"
 #: code:addons/wecom_contacts/static/src/js/download_contacts.js:0 code:addons/wecom_contacts/static/src/js/download_tags.js:0
 #, python-format
 msgid "Refresh"
-msgstr "刷新"
+msgstr ""
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -529,7 +559,7 @@ msgstr "标签id，非负整型，指定此参数时新增的标签会生成对�
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Tag list downloaded successfully."
-msgstr "标签列表下载成功。"
+msgstr "已成功下载标签列表。"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/__init__.py:0
@@ -552,7 +582,7 @@ msgstr "部门中的排序值，默认值为0。该数字必须与部门相同�
 #: code:addons/wecom_contacts/models/res_partner_category.py:0 code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "There is no mapping for field [%s], please contact the developer."
-msgstr "字段 [%s] 没有映射，请与开发人员联系。"
+msgstr "字段[%s]没有映射，请与开发人员联系。"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__user_id
@@ -644,6 +674,11 @@ msgstr "企微：获取加入企业二维码。"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
 msgid "Wecom Info"
 msgstr "企微信息"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_portal
+msgid "Wecom Portal"
+msgstr "企微门户"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form

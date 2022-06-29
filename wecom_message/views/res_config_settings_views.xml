@@ -37,7 +37,7 @@
                             <label for="message_agentid"/>
                             <div class="row">
                                 <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
                                 </div>
                             </div>
                             <div class="content-group">
@@ -55,7 +55,7 @@
                             <label for="message_secret"/>
                             <div class="row">
                                 <div class="text-muted col-md-12">
-                                        Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
                                 </div>
                             </div>
                             <div class="content-group">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
+                    <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                         <div class="o_setting_left_pane">
                             <field name="module_wecom_portal"/>
                         </div>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('message_app_id','=',False)]}">
                         <div class="o_setting_left_pane">

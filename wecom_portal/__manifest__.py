@@ -18,6 +18,10 @@
         """,
     "depends": ["portal",],
     "external_dependencies": {"python": [],},
-    "data": ["views/portal_templates.xml",],
+    "data": [
+        "data/wecom_apps_data.xml",
+        "views/portal_templates.xml",
+        "views/res_config_settings_views.xml",
+    ],
     "license": "LGPL-3",
 }

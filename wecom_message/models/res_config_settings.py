@@ -52,9 +52,6 @@ class ResConfigSettings(models.TransientModel):
         "Send KPI Digests periodically via WeCom",
     )
 
-    module_portal = fields.Boolean("Customer Portal")
-    module_wecom_portal = fields.Boolean("Wecom Portal")
-
     # module_stock = fields.Boolean()
     # module_wecom_stock_message = fields.Boolean(
     #     related="company_id.module_wecom_stock_message", readonly=False
