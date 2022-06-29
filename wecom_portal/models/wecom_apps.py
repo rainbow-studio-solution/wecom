@@ -27,5 +27,17 @@ class WeComApps(models.Model):
             # menu_body 为空
             menu = MENU_TEMPLATE
 
-        print(menu,type(menu))
+
+        for button in menu["button"]:
+            if "id" in button and button["id"] =="portal":
+                # button["url"] = web_base_url+"/my"
+                button.update({
+                    "type": "view", 
+                    "name": _("My Portal"), 
+                    "url": web_base_url+"/my"
+                })
+                del button["id"]
+        # print("buttons",buttons)
+        print("menu",menu)
+
 
