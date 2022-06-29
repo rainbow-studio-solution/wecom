@@ -49,11 +49,13 @@ odoo.define("wecom.FieldTextJson", function (require) {
             self.json_data = $input.val();
             $input.empty();
             _.defer(function ($elm) {
-                // if (this.mode === 'edit') {
-                //     if ($input[1]) {
-                //         $input[1].remove();
-                //     }
-                // }
+                if (this.mode === 'edit' && $input.length > 1) {
+                    $.each($input, function (index, e) {
+                        if (index > 0) {
+                            $(e).remove();
+                        }
+                    })
+                }
 
                 $input.removeClass(this.className);
                 $input.wrap(_.str.sprintf("<div class='%s'></div>", self.className));
@@ -84,7 +86,6 @@ odoo.define("wecom.FieldTextJson", function (require) {
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);
-            console.log(this.$el)
         },
         _setValue: function () {
             var self = this;
