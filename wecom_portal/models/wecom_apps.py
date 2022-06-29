@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
+import json
 from datetime import datetime, timedelta
 from odoo import _, api, fields, models
 
-MENU_BODY = {
+MENU_TEMPLATE = {
     "button": [{"id": "portal", "type": "view", "name": "My Portal", "url": ""}]
 }
 
@@ -18,4 +19,13 @@ class WeComApps(models.Model):
         设置企业微信应用菜单
         """
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
-        print(MENU_BODY["button"])
+        menu ={}
+        if eval(self.menu_body) and "button" in eval(self.menu_body) and eval(self.menu_body)["button"]:
+            # menu_body 不为空  +  存在 button 列表   +   button 列表元素大于一  
+            menu = eval(self.menu_body) 
+        else:
+            # menu_body 为空
+            menu = MENU_TEMPLATE
+
+        print(menu,type(menu))
+

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
@@ -11,7 +12,7 @@ RESPONSE = {}
 
 
 class EmployeeBindWecom(models.TransientModel):
-    _name = "wecom.wizard.employee_bind_wecom"
+    _name = "wecom.employee_bind_wecom_wizard"
     _description = "Employees bind enterprise wechat members"
 
     name = fields.Char(
@@ -22,14 +23,15 @@ class EmployeeBindWecom(models.TransientModel):
     employee_id = fields.Many2one(
         "hr.employee", string="Related Employee", required=True, readonly=True
     )
-    employee_name = fields.Char(related="employee_id.name", readonly=True)
-    company_id = fields.Many2one(related="employee_id.company_id", readonly=True)
+    # employee_name = fields.Char(related="employee_id.name", readonly=True, store=True,)
+    # company_id = fields.Many2one(related="employee_id.company_id", readonly=True)
 
-    @api.depends("company_id", "wecom_userid")
+    # @api.depends("company_id", "wecom_userid")
+    @api.depends("wecom_userid")
     def _compute_user(self):
         for employee in self:
-            if employee.company_id and employee.wecom_userid:
-                company = employee.company_id
+            if employee.employee_id.company_id and employee.wecom_userid:
+                company = employee.employee_id.company_id 
                 try:
                     wxapi = self.env["wecom.service_api"].InitServiceApi(
                         company.corpid, company.contacts_app_id.secret
@@ -65,7 +67,8 @@ class EmployeeBindWecom(models.TransientModel):
                 [
                     ("wecom_userid", "=", self.wecom_userid.lower()),
                     ("is_wecom_user", "=", True),
-                    ("company_id", "=", self.company_id.id),
+                    # ("company_id", "=", self.company_id.id),
+                    ("company_id", "=", self.employee_id.company_id.id),
                     "|",
                     ("active", "=", True),
                     ("active", "=", False),

@@ -16,9 +16,9 @@
     "description": """
 
         """,
-    "depends": [],
+    "depends": ["wecom_contacts"],
     "data": [
-        # "security/ir.model.access.csv",
+        "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
         "data/hr_data.xml",
         "wizard/employee_bind_wecom_views.xml",

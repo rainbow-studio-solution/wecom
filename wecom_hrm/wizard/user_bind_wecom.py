@@ -11,7 +11,7 @@ RESPONSE = {}
 
 
 class UserBindWecom(models.TransientModel):
-    _name = "wecom.wizard.user_bind_wecom"
+    _name = "wecom.user_bind_wecom_wizard"
     _description = "Users bind enterprise wechat members"
 
     name = fields.Char(

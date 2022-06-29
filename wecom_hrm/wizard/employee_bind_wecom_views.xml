@@ -3,8 +3,8 @@
     <data>
 
         <record id="employee_bind_wecom_view_form" model="ir.ui.view">
-            <field name="name">wecom.wizard.employee_bind_wecom.view.form</field>
-            <field name="model">wecom.wizard.employee_bind_wecom</field>
+            <field name="name">wecom.employee_bind_wecom_wizard.view.form</field>
+            <field name="model">wecom.employee_bind_wecom_wizard</field>
             <field name="arch" type="xml">
                 <form create="1">
                     <sheet>
@@ -15,9 +15,9 @@
                             </h1>
                         </div>
                         <group>
-                            <field name="company_id" readonly="1" options="{'no_open': True}"/>
+                            <!-- <field name="company_id" readonly="1" options="{'no_open': True}"/> -->
                             <field name="employee_id" invisible="1"/>
-                            <field name="employee_name"/>
+                            <!-- <field name="employee_name"/> -->
                             <field name="wecom_userid" required="True"/>
                         </group>
                     </sheet>
@@ -32,7 +32,7 @@
 
         <record id="employee_bind_wecom_action" model="ir.actions.act_window">
             <field name="name">Employees bind enterprise wechat members</field>
-            <field name="res_model">wecom.wizard.employee_bind_wecom</field>
+            <field name="res_model">wecom.employee_bind_wecom_wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="employee_bind_wecom_view_form"/>

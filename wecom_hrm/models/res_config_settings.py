@@ -6,6 +6,13 @@ from odoo import models, fields, api, _
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
+    # company_id = fields.Many2one(
+    #     "res.company",
+    #     string="Company",
+    #     required=True,
+    #     default=lambda self: self.env.company,
+    # )
+
     del_wecom_tag = fields.Boolean("Delete wecom tag", default=False)
 
     @api.model

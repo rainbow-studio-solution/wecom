@@ -3,8 +3,8 @@
     <data>
 
         <record id="user_bind_wecom_view_form" model="ir.ui.view">
-            <field name="name">wecom.wizard.user_bind_wecom.view.form</field>
-            <field name="model">wecom.wizard.user_bind_wecom</field>
+            <field name="name">wecom.user_bind_wecom_wizard.view.form</field>
+            <field name="model">wecom.user_bind_wecom_wizard</field>
             <field name="arch" type="xml">
                 <form create="1">
                     <sheet>
@@ -32,7 +32,7 @@
 
         <record id="user_bind_wecom_action" model="ir.actions.act_window">
             <field name="name">User bind enterprise wechat members</field>
-            <field name="res_model">wecom.wizard.user_bind_wecom</field>
+            <field name="res_model">wecom.user_bind_wecom_wizard</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="user_bind_wecom_view_form"/>
