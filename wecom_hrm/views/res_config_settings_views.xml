@@ -7,7 +7,9 @@
             <field name="model">res.config.settings</field>
             <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <div id="wecom_hrm_warning" position="replace"/>
+                <div id="wecom_hrm_warning" position="replace" />
+                <!-- <xpath expr="//div[@id='wecom_hrm_install']//div[@id='wecom_hrm_warning']" position="replace"/> -->
+
 
                 <div id="wecom_hrm_install" position="after">
                     <div class="col-12 col-lg-6 o_setting_box">

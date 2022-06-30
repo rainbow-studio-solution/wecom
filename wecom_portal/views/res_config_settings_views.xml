@@ -73,10 +73,10 @@
                         </div>
                         <div class="o_setting_right_pane">
                             <label for="menu_body"/>
-                            <div class="content-group">
-                                <div class="mt4">
-                                    <field name="menu_body" class="w-100" widget="wecom_jsoneditor"/>
-                                </div>
+                            <div class="content-group mt4">
+                                <!-- <field name="menu_body" widget="wecom_jsoneditor" class="w-100"/> -->
+                                <field name="menu_body" widget="ace" options="{'mode': 'python'}" class="w-100"/>
+                                <!-- class="w-100" widget="wecom_jsoneditor" -->
                             </div>
                             <div class="row mt16">
                                 <div class="text-muted col-md-12">

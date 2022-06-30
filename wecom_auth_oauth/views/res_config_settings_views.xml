@@ -29,7 +29,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('auth_app_id','=',False)]}">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-list-ol fa-lg" aria-label="Auth AgentId"/>
                         </div>
@@ -47,7 +47,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('auth_app_id','=',False)]}">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-key fa-lg" aria-label="Auth Secret"/>
                         </div>

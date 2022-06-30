@@ -29,4 +29,16 @@ class ResConfigSettings(models.TransientModel):
         """
         初始化企微应用菜单
         """
-        self.menu_app_id.set_wecom_app_menu()
+        result = self.menu_app_id.set_wecom_app_menu()
+        if result["state"]:
+            self.menu_body = result["body"]
+            result["msg"].update({
+                'next': {'type': 'ir.actions.act_window_close'},
+            })
+            return self.env["wecomapi.tools.action"].WecomSuccessNotification(
+                result["msg"]
+            )
+        else:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                result["msg"], raise_exception=True
+            )

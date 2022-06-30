@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 08:41+0000\n"
-"PO-Revision-Date: 2022-06-29 16:42+0800\n"
+"POT-Creation-Date: 2022-06-30 07:01+0000\n"
+"PO-Revision-Date: 2022-06-30 15:02+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -115,6 +115,12 @@ msgid "Menu Application"
 msgstr "菜单应用"
 
 #. module: wecom_portal
+#: code:addons/wecom_portal/models/wecom_apps.py:0
+#, python-format
+msgid "My Portal"
+msgstr "我的门户"
+
+#. module: wecom_portal
 #: code:addons/wecom_portal/wizard/portal_wizard.py:0
 #, python-format
 msgid "No email template found for sending email to the portal user"
@@ -138,6 +144,12 @@ msgid "Secret"
 msgstr "密钥"
 
 #. module: wecom_portal
+#: code:addons/wecom_portal/models/wecom_apps.py:0
+#, python-format
+msgid "Set application menu successfully!"
+msgstr "成功设置应用菜单！"
+
+#. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.portal_layout
 msgid "WeCom QR Code"
 msgstr "企微二维码"
@@ -152,3 +164,9 @@ msgstr "企微应用"
 msgid ""
 "When using the domain name to log in, click the \"Initialization menu\" button."
 msgstr "使用域名登录时，单击“初始化菜单”按钮。"
+
+#. module: wecom_portal
+#: code:addons/wecom_portal/models/wecom_apps.py:0
+#, python-format
+msgid "success!"
+msgstr "成功！"

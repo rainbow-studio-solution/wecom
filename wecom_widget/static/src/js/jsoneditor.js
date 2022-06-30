@@ -52,7 +52,8 @@ odoo.define("wecom.FieldTextJson", function (require) {
                 if (this.mode === 'edit' && $input.length > 1) {
                     $.each($input, function (index, e) {
                         if (index > 0) {
-                            $(e).remove();
+                            // $(e).remove();
+                            $(e).addClass("d-none");
                         }
                     })
                 }
