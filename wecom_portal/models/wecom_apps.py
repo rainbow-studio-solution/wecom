@@ -80,7 +80,6 @@ class WeComApps(models.Model):
 
         for button in menu["button"]:
             if "id" in button and button["id"] == "portal":
-                # button["url"] = web_base_url+"/my"
                 button.update(
                     {
                         "type": "view",
@@ -89,21 +88,27 @@ class WeComApps(models.Model):
                     }
                 )
                 del button["id"]
-
-        self.menu_body = json.dumps(
-            menu, sort_keys=False, indent=2, separators=(",", ":"), ensure_ascii=False,
-        )
+        
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id.corpid, self.secret,
             )
             menu.update({"agentid": str(self.agentid)})
-            response = wxapi.httpCall(
+            response_set = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call("MENU_CREATE"),
                 menu,
                 include_agentid=True,
             )
-            if response["errcode"] == 0:
+            response_get = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("MENU_GET"),
+                {"agentid": str(self.agentid)},
+            )
+            
+            if response_get["errcode"] == 0:
+                body = {"button": response_get["button"]}
+                self.menu_body = json.dumps(
+                    body, sort_keys=False, indent=2, separators=(",", ":"), ensure_ascii=False,
+                )
                 message = {
                     "title": _("success!"),
                     "message": _("Set application menu successfully!"),

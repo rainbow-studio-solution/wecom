@@ -122,8 +122,8 @@ msgstr "获取菜单"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
-msgid "Initialization menu"
-msgstr "初始化菜单"
+msgid "Setup menu"
+msgstr "设置菜单"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
@@ -184,8 +184,8 @@ msgstr "企微应用"
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
 msgid ""
-"When using the domain name to log in, click the \"Initialization menu\" button."
-msgstr "使用域名登录时，单击“初始化菜单”按钮。"
+"When using the domain name to log in, click the \"Setup menu\" button."
+msgstr "使用域名登录时，单击“设置菜单”按钮。"
 
 #. module: wecom_portal
 #: code:addons/wecom_portal/models/wecom_apps.py:0

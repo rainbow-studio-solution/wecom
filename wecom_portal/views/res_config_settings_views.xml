@@ -80,12 +80,12 @@
                             </div>
                             <div class="row mt16">
                                 <div class="text-muted col-md-12">
-                                    When using the domain name to log in, click the "Initialization menu" button.
+                                    When using the domain name to log in, click the "Setup menu" button.
                                 </div>
                             </div>
                             <div class="content-group mt4">
                                 <div class="btn-group" role="group" aria-label="Button group">
-                                    <button class="oe_highlight mr-4" name="init_wecom_app_menu" string="Initialization menu" type="object" icon="fa-cogs" />
+                                    <button class="oe_highlight mr-4" name="init_wecom_app_menu" string="Setup menu" type="object" icon="fa-cogs" />
 
                                     <button class="btn-success mr-4" name="get_wecom_app_menu" string="Get menu" type="object" icon="fa-cloud-download" />
 
