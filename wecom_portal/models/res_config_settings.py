@@ -25,6 +25,42 @@ class ResConfigSettings(models.TransientModel):
             else:
                 record.menu_app_id.get_app_info()
 
+    def get_wecom_app_menu(self):
+        """
+        获取企微应用菜单
+        """
+        result = self.menu_app_id.get_wecom_app_menu()
+        if result["state"]:
+            self.menu_body = result["body"]
+            result["msg"].update(
+                {"next": {"type": "ir.actions.act_window_close"},}
+            )
+            return self.env["wecomapi.tools.action"].WecomSuccessNotification(
+                result["msg"]
+            )
+        else:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                result["msg"], raise_exception=True
+            )
+
+    def delete_wecom_app_menu(self):
+        """
+        删除企微应用菜单
+        """
+        result = self.menu_app_id.delete_wecom_app_menu()
+        if result["state"]:
+            self.menu_body = "{}"
+            result["msg"].update(
+                {"next": {"type": "ir.actions.act_window_close"},}
+            )
+            return self.env["wecomapi.tools.action"].WecomSuccessNotification(
+                result["msg"]
+            )
+        else:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                result["msg"], raise_exception=True
+            )
+
     def init_wecom_app_menu(self):
         """
         初始化企微应用菜单
@@ -32,9 +68,9 @@ class ResConfigSettings(models.TransientModel):
         result = self.menu_app_id.set_wecom_app_menu()
         if result["state"]:
             self.menu_body = result["body"]
-            result["msg"].update({
-                'next': {'type': 'ir.actions.act_window_close'},
-            })
+            result["msg"].update(
+                {"next": {"type": "ir.actions.act_window_close"},}
+            )
             return self.env["wecomapi.tools.action"].WecomSuccessNotification(
                 result["msg"]
             )

@@ -85,7 +85,11 @@
                             </div>
                             <div class="content-group mt4">
                                 <div class="btn-group" role="group" aria-label="Button group">
-                                    <button class="oe_highlight" name="init_wecom_app_menu" string="Initialization menu" type="object" icon="fa-cogs" />
+                                    <button class="oe_highlight mr-4" name="init_wecom_app_menu" string="Initialization menu" type="object" icon="fa-cogs" />
+
+                                    <button class="btn-success mr-4" name="get_wecom_app_menu" string="Get menu" type="object" icon="fa-cloud-download" />
+
+                                    <button class="btn-warning" name="delete_wecom_app_menu" string="Delete menu" type="object" icon="fa-times" />
                                 </div>
                             </div>
                         </div>

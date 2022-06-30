@@ -15,6 +15,43 @@ class WeComApps(models.Model):
 
     menu_body = fields.Text("Application menu data", translate=True, default="{}")
 
+    def get_wecom_app_menu(self):
+        """
+        获取企微应用菜单 MENU_GET
+        """
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                self.company_id.corpid, self.secret,
+            )
+
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("MENU_GET"),
+                {"agentid": str(self.agentid)},
+            )
+
+            if response["errcode"] == 0:
+                message = {
+                    "title": _("success!"),
+                    "message": _("Get application menu successfully!"),
+                    "sticky": False,
+                }
+                body = {"button": response["button"]}
+
+                return {
+                    "state": True,
+                    "msg": message,
+                    "body": json.dumps(
+                        body,
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    ),
+                }
+
+        except ApiException as ex:
+            return {"state": False, "msg": ex}
+
     def set_wecom_app_menu(self):
         """
         设置企业微信应用菜单
@@ -23,7 +60,13 @@ class WeComApps(models.Model):
         web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
         menu = {}
         if self.menu_body == "":
-            self.menu_body = json.dumps(MENU_TEMPLATE)
+            self.menu_body = json.dumps(
+                MENU_TEMPLATE,
+                sort_keys=False,
+                indent=2,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            )
         if (
             eval(self.menu_body)
             and "button" in eval(self.menu_body)
@@ -48,7 +91,7 @@ class WeComApps(models.Model):
                 del button["id"]
 
         self.menu_body = json.dumps(
-            menu, sort_keys=True, indent=4, separators=(",", ":")
+            menu, sort_keys=False, indent=2, separators=(",", ":"), ensure_ascii=False,
         )
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
@@ -71,3 +114,30 @@ class WeComApps(models.Model):
         except ApiException as ex:
             return {"state": False, "msg": ex}
 
+    def delete_wecom_app_menu(self):
+        """
+        删除企微应用菜单
+        """
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                self.company_id.corpid, self.secret,
+            )
+
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("MENU_DELETE"),
+                {"agentid": str(self.agentid)},
+            )
+
+            if response["errcode"] == 0:
+                message = {
+                    "title": _("success!"),
+                    "message": _("Delete application menu successfully!"),
+                    "sticky": False,
+                }
+                return {
+                    "state": True,
+                    "msg": message,
+                }
+
+        except ApiException as ex:
+            return {"state": False, "msg": ex}
