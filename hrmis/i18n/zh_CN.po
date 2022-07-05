@@ -692,7 +692,7 @@ msgstr "企业微信部门"
 #. module: hrmis
 #: model:ir.ui.menu,name:hrmis.menu_hrmis_root
 msgid "Human Resources Management Information System"
-msgstr "企微HRM"
+msgstr "HRMIS"
 
 #. module: hrmis
 #: model:ir.model.fields,field_description:hrmis.field_hr_employee__wecom_openid

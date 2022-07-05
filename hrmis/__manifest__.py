@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["hr", "wecom_contacts",],
+    "depends": ["hr", "wecom_contacts_sync",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",

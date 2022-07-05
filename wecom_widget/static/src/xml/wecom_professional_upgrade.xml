@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="WecomProfessionalUpgrade">
+        <div class="row" role="status">
+            <div class="col-6">
+            Get this feature and much more with Wecom Professional!
+                <ul class="list-unstyled">
+                    <li>
+                        <i class="fa fa-check"></i> Get all enterprise wechat Apps
+                    </li>
+                    <li>
+                        <i class="fa fa-check"></i> Mobile support
+                    </li>
+                    <li>
+                        <i class="fa fa-check"></i> Better service</li>
+                    <li>
+                        <i class="fa fa-check"></i> Bugfixes guarantee</li>
+                    <li>
+                        <a href="https://www.rstudio.xyz/" target="_blank">
+                            <i class="fa fa-plus"></i> And more</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-6">
+                <img class="img-fluid" t-att-src='_s + "/web/static/img/enterprise_upgrade.jpg"' draggable="false" alt="Upgrade to Wecom Professional"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

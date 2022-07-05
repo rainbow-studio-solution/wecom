@@ -33,6 +33,7 @@ class ResConfigSettings(models.TransientModel):
         "Global error code troubleshooting method page element node", config_parameter="wecom.global_error_code_troubleshooting_method_node",
     )
 
+    module_wecom_web_theme = fields.Boolean("WeCom Web Theme")
     module_wecom_contacts = fields.Boolean("WeCom Contacts")
 
     @api.model
