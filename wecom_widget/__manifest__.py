@@ -21,9 +21,9 @@
             "wecom_widget/static/src/scss/dialog.scss",
             "wecom_widget/static/src/scss/showpassword.scss",
             "wecom_widget/static/src/scss/wecom_config.scss",
-            "wecom_widget/static/src/legacy/scss/upgrade_wecom_pro_suite.scss",
+            "wecom_widget/static/src/legacy/scss/wecom_pro_tag.scss",
             # js
-            "wecom_widget/static/src/legacy/js/fields/upgrade_fields.js",
+            "wecom_widget/static/src/legacy/js/fields/wecom_pro_tag.js",
             "wecom_widget/static/src/js/wecom_markdown.js",
             "wecom_widget/static/src/js/show_password.js",
             "wecom_widget/static/src/js/fields_wecom_message_widget.js",

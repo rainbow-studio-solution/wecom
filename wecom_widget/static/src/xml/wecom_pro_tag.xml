@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
+    <t t-name="WecomProfessionalTag">
+        <span class="badge badge-success oe_inline o_wecom_pro_label">Wecom Professional</span>
+    </t>
+
     <t t-name="WecomProfessionalUpgrade">
         <div class="row" role="status">
             <div class="col-6">

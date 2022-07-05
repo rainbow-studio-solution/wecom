@@ -17,13 +17,15 @@ class Module(models.Model):
         addon = self.sudo().search([("name", "=", addon_name)])
 
         if not addon:
-            return {
-                "exist": False,
-                "moduleId": 0,
-            }
+            # return {
+            #     "exist": False,
+            #     "moduleId": 0,
+            # }
+            return False
         else:
             # addon.button_install()
-            return {
-                "exist": True,
-                "moduleId": addon.id,
-            }
+            # return {
+            #     "exist": True,
+            #     "moduleId": addon.id,
+            # }
+            return True
