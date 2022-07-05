@@ -85,5 +85,5 @@ odoo.define('wecom.pro_tag', function (require) {
     });
 
     widget_registry.add('wecom_pro_tag', WecomProfessionalSuiteTag);
-    return WecomSettingsNavigationMenu;
+    return WecomProfessionalSuiteTag;
 });

@@ -113,8 +113,8 @@ msgid ""
 "                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-users fa-lg\" aria-label=\"企微HRM设置\"/>\n"
-"                                企微HRM设置\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"人力资源管理信息系统设置\"/>\n"
+"                                人力资源管理信息系统设置\n"
 "                        </span>"
 
 #. module: wecom_contacts
@@ -378,8 +378,8 @@ msgstr "分组"
 #. openerp-web
 #: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "HRM settings"
-msgstr "HRM设置"
+msgid "HR settings"
+msgstr "HR设置"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__id model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__id
@@ -622,7 +622,7 @@ msgstr "企微通讯录同步"
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrmis
 msgid "Human Resources Management Information System"
-msgstr "企微HRM"
+msgstr "人力资源管理信息系统"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_material
