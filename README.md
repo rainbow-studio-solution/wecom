@@ -7,6 +7,11 @@
 [![Docs](http://img.shields.io/badge/Wecom15.0-Docs-F34B7D.svg?style=flat&colorA=8F8F8F)](https://docs.rstudio.xyz/zh/14.0/wecom)
 [![SDK](http://img.shields.io/badge/企微SDK-API-F34B7D.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom_sdk_service/)
 
+## 特点
+
+1. 支持多公司，每个公司可以绑定对应的企微微信。
+2. 功能齐全，未有的功能只要钞能力到位，都可以开发出来。
+3. 社区完善，能快速响应与本项目相关的问题。
 
 ## 功能模块介绍
 
