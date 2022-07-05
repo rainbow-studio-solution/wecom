@@ -10,7 +10,7 @@
 
 ## 功能模块介绍
 
-> 在14.0的基础上， 将通讯簿应用从wecom_base剥离, 并将通讯簿模块放到wecom_contacts中，取消了 wecom_hrm_syncing 模块，同步功能模块放到wecom_contacts_sync中。
+> 在14.0的基础上， 将通讯簿应用从wecom_base剥离, 并将通讯簿模块放到wecom_contacts中，取消了 hrmis_syncing 模块，同步功能模块放到wecom_contacts_sync中。
 > 尚未开发完成，暂时不要使用
 > 
 |   #   | 模块名称            | 模块介绍                                                                               | 开源  | 状态  |
@@ -24,8 +24,8 @@
 |   7   | wecom_auth_oauth    | 网页扫码登陆，企业客户端内置浏览器一键登陆                                             |   ✔   |   ✔   |
 |   8   | wecom_contacts_sync | 企微联系人同步，完成：企微通讯簿向导同步，事件同步                                     |   ✔   |   ✔   |
 |   9   | wecom_portal        | 企微门户，企微应用的菜单设置                                                           |   ✔   | ..... |
-|  10   | wecom_hrm           | 企微HRM 管理企业微信的部门、成员和标签，整合和重建odoo Hr的菜单                        |   ✔   |   ✔   |
-|  11   | wecom_hrm_extension | 企微HRM扩展，安装Odoo中所有Hr相关的模块，整合和重建odoo Hr的菜单。                     |   ✔   |   ✖   |
+|  10   | hrmis               | 人力资源管理信息系统 管理企业微信的部门、成员和标签，整合和重建odoo Hr的菜单           |   ✔   |   ✔   |
+|  11   | hrmis_extension     | 人力资源管理信息系统 扩展，安装Odoo中所有Hr相关的模块，整合和重建odoo Hr的菜单。       |   ✔   |   ✖   |
 |  12   | wecom_checkin       | 企微打卡，获取企微的打卡数据及相关分析报表                                             |   ✔   |   ✖   |
 |  13   | wecom_attendance    | 企微考勤排班                                                                           |   ✖   |   ✖   |
 |  13   | wecom_hr_appraisal  | 企微员工评价，适用于服务行业，客人扫码员工胸前的个人二维码，对其进行评价和金额打赏     |   ✖   |   ✖   |

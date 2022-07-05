@@ -16,7 +16,7 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom__jump_anchor" href="#wecom_message">
                 <h5 style="display:inline;"> Message settings</h5>
             </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#wecom_hrm">
+            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#hrmis">
                 <h5 style="display:inline;"> HRM settings</h5>
             </a>
         </t>

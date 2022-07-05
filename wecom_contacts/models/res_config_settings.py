@@ -23,11 +23,18 @@ class ResConfigSettings(models.TransientModel):
     )
 
     # 加入企微微信二维码
-    contacts_join_qrcode_enabled = fields.Boolean(related="company_id.wecom_contacts_join_qrcode_enabled", readonly=False)
-    contacts_join_qrcode  = fields.Char(related="company_id.wecom_contacts_join_qrcode", readonly=False)
-    contacts_join_qrcode_size_type  = fields.Selection(related="company_id.wecom_contacts_join_qrcode_size_type", readonly=False)
-    contacts_join_qrcode_last_time  = fields.Datetime(related="company_id.wecom_contacts_join_qrcode_last_time", readonly=False)
-
+    contacts_join_qrcode_enabled = fields.Boolean(
+        related="company_id.wecom_contacts_join_qrcode_enabled", readonly=False
+    )
+    contacts_join_qrcode = fields.Char(
+        related="company_id.wecom_contacts_join_qrcode", readonly=False
+    )
+    contacts_join_qrcode_size_type = fields.Selection(
+        related="company_id.wecom_contacts_join_qrcode_size_type", readonly=False
+    )
+    contacts_join_qrcode_last_time = fields.Datetime(
+        related="company_id.wecom_contacts_join_qrcode_last_time", readonly=False
+    )
 
     # 通讯录
     contacts_app_id = fields.Many2one(
@@ -46,23 +53,23 @@ class ResConfigSettings(models.TransientModel):
         related="contacts_app_id.app_callback_service_ids", readonly=False
     )
 
-
-
     module_wecom_contacts_sync = fields.Boolean("WeCom Contacts Synchronized")
-    module_wecom_hrm = fields.Boolean("WeCom HRM")
+    module_hrmis = fields.Boolean("Human Resources Management Information System")
     module_wecom_material = fields.Boolean("WeCom Material")
     module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
     module_wecom_message = fields.Boolean("WeCom Message")
     module_portal = fields.Boolean("Customer Portal")
     module_wecom_portal = fields.Boolean("Wecom Portal")
 
-
     def cron_get_join_qrcode(self):
         """
         自动任务获取加入企业二维码
         """
-        companies =  self.env["res.company"].search(
-            [("is_wecom_organization", "=", True), ("wecom_contacts_join_qrcode_enabled", "=", True)]
+        companies = self.env["res.company"].search(
+            [
+                ("is_wecom_organization", "=", True),
+                ("wecom_contacts_join_qrcode_enabled", "=", True),
+            ]
         )
         for company in companies:
             _logger.info(
@@ -76,7 +83,9 @@ class ResConfigSettings(models.TransientModel):
                 )
             elif not company.wecom_contacts_join_qrcode_enabled:
                 _logger.info(
-                    _("Automatic task:Please enable the company [%s] to join the enterprise wechat QR code function!")
+                    _(
+                        "Automatic task:Please enable the company [%s] to join the enterprise wechat QR code function!"
+                    )
                     % (company.name)
                 )
             else:
@@ -90,9 +99,9 @@ class ResConfigSettings(models.TransientModel):
                     # 超期
                     overdue = False
                     if last_time:
-                        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
-                                last_time, 7
-                            )
+                        overdue = self.env[
+                            "wecomapi.tools.datetime"
+                        ].cheeck_days_overdue(last_time, 7)
                     if not last_time or overdue:
                         response = wecomapi.httpCall(
                             self.env["wecom.service_api_list"].get_server_api_call(
@@ -101,18 +110,28 @@ class ResConfigSettings(models.TransientModel):
                             {"size_type": size_type},
                         )
                         if response["errcode"] == 0:
-                            company.write({
-                                'wecom_contacts_join_qrcode':response["join_qrcode"], 
-                                'wecom_contacts_join_qrcode_last_time':datetime.datetime.now(), 
-                                })
+                            company.write(
+                                {
+                                    "wecom_contacts_join_qrcode": response[
+                                        "join_qrcode"
+                                    ],
+                                    "wecom_contacts_join_qrcode_last_time": datetime.datetime.now(),
+                                }
+                            )
                 except ApiException as ex:
-                    error = self.env["wecom.service_api_error"].get_error_by_code(ex.errCode)
+                    error = self.env["wecom.service_api_error"].get_error_by_code(
+                        ex.errCode
+                    )
                     _logger.warning(
-                        _("Automatic task:Error in obtaining the QR code of joining company [%s],error code: %s, error name: %s, error message: %s")
-                        % (company.name,str(ex.errCode), error["name"], ex.errMsg)
+                        _(
+                            "Automatic task:Error in obtaining the QR code of joining company [%s],error code: %s, error name: %s, error message: %s"
+                        )
+                        % (company.name, str(ex.errCode), error["name"], ex.errMsg)
                     )
             _logger.info(
-                _("Automatic task:End obtaining joining enterprise QR code of company [%s]")
+                _(
+                    "Automatic task:End obtaining joining enterprise QR code of company [%s]"
+                )
                 % (company.name)
             )
 
@@ -123,13 +142,14 @@ class ResConfigSettings(models.TransientModel):
         # self.contacts_app_id.get_join_qrcode()
         ir_config = self.env["ir.config_parameter"].sudo()
         debug = ir_config.get_param("wecom.debug_enabled")
-        
 
         if not self.contacts_app_id:
             raise ValidationError(_("Please bind contact app!"))
 
         if not self.contacts_join_qrcode_enabled:
-            raise ValidationError(_("Please enable the function of join enterprise QR code!"))
+            raise ValidationError(
+                _("Please enable the function of join enterprise QR code!")
+            )
 
         if debug:
             _logger.info(
@@ -147,8 +167,8 @@ class ResConfigSettings(models.TransientModel):
             overdue = False
             if last_time:
                 overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
-                        last_time, 7
-                    )
+                    last_time, 7
+                )
             if not last_time or overdue:
                 response = wecomapi.httpCall(
                     self.env["wecom.service_api_list"].get_server_api_call(
@@ -157,10 +177,12 @@ class ResConfigSettings(models.TransientModel):
                     {"size_type": size_type},
                 )
                 if response["errcode"] == 0:
-                    self.company_id.write({
-                        'wecom_contacts_join_qrcode':response["join_qrcode"], 
-                        'wecom_contacts_join_qrcode_last_time':datetime.datetime.now(), 
-                        })
+                    self.company_id.write(
+                        {
+                            "wecom_contacts_join_qrcode": response["join_qrcode"],
+                            "wecom_contacts_join_qrcode_last_time": datetime.datetime.now(),
+                        }
+                    )
                     # self.contacts_join_qrcode=response["join_qrcode"]
                     # self.contacts_join_qrcode_last_time =  datetime.datetime.now()
 
@@ -173,5 +195,6 @@ class ResConfigSettings(models.TransientModel):
             if debug:
                 _logger.info(
                     _("End getting join enterprise QR code of company [%s]")
-                    % ( self.company_id.name)
+                    % (self.company_id.name)
                 )
+

@@ -1,4 +1,4 @@
-odoo.define('wecom_hrm.staffs', function (require) {
+odoo.define('hrmis.staffs', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;

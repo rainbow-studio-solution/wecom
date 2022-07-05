@@ -108,8 +108,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-users fa-lg\" aria-label=\"Wecom HRM settings\"/>\n"
-"                                Wecom HRM settings\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"Human Resources Management Information System settings\"/>\n"
+"                                Human Resources Management Information System settings\n"
 "                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
@@ -620,8 +620,8 @@ msgid "WeCom Contacts Synchronized"
 msgstr "企微通讯录同步"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_hrm
-msgid "WeCom HRM"
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrmis
+msgid "Human Resources Management Information System"
 msgstr "企微HRM"
 
 #. module: wecom_contacts

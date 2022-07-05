@@ -42,9 +42,7 @@ class WecomApiToolsFile(models.AbstractModel):
             elif gender == "2":
                 image_name = "default_female_image.png"
 
-            default_image = get_module_resource(
-                "wecom_hrm", "static/src/img", image_name
-            )
+            default_image = get_module_resource("hrmis", "static/src/img", image_name)
             # print(default_image)
             with open(default_image, "rb") as f:
                 imgbase64 = base64.b64encode(f.read())

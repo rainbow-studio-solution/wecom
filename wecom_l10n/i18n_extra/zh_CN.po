@@ -161,7 +161,7 @@ msgstr ""
 "        "
 
 #. module: base
-#: model:ir.module.module,summary:base.module_wecom_hrm_syncing
+#: model:ir.module.module,summary:base.module_hrmis_syncing
 msgid ""
 "\n"
 "        WeCom users are synchronized to Odoo Hr and Users\n"
@@ -280,18 +280,18 @@ msgid "WeCom Portal"
 msgstr "企微门户"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrm
-msgid "WeCom HRM"
-msgstr "企微HRM"
+#: model:ir.module.module,shortdesc:base.module_hrmis
+msgid "Human Resources Management Information System"
+msgstr "人力资源管理信息系统"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrm_extension
-msgid "WeCom HRM Extension"
+#: model:ir.module.module,shortdesc:base.module_hrmis_extension
+msgid "Human Resources Management Information System Extension"
 msgstr "企微HRM扩展"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrm_syncing
-msgid "WeCom HRM Syncing"
+#: model:ir.module.module,shortdesc:base.module_hrmis_syncing
+msgid "Human Resources Management Information System Syncing"
 msgstr "企微HRM同步"
 
 #. module: base

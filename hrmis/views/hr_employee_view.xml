@@ -15,7 +15,7 @@
             </field>
         </record>
 
-        <record id="wecom_hrm_employee_form" model="ir.ui.view">
+        <record id="hrmis_employee_form" model="ir.ui.view">
             <field name="name">wxwork employee form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
@@ -42,7 +42,7 @@
                         </div>
                     </button>
                 </xpath>
-                
+
                 <xpath expr="//div[hasclass('oe_title')]//h1" position="after">
                     <h2 attrs="{'invisible': [('is_wecom_user','=',False)]}">
                         <lable for="alias" />
@@ -99,7 +99,7 @@
             </field>
         </record>
 
-        <record id="wecom_hrm_employee_tree" model="ir.ui.view">
+        <record id="hrmis_employee_tree" model="ir.ui.view">
             <field name="name">WeCom employee list</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>

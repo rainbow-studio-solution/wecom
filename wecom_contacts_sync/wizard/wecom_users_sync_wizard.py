@@ -16,6 +16,7 @@ from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
+
 class WecomUsersSyncWizard(models.TransientModel):
     _name = "wecom.users.sync.wizard"
     _description = "Create users from employees Wizard"
@@ -26,18 +27,16 @@ class WecomUsersSyncWizard(models.TransientModel):
         默认公司
         """
         company_ids = self.env["res.company"].search(
-            [
-                ("is_wecom_organization", "=", True),
-            ]
+            [("is_wecom_organization", "=", True),]
         )
         return company_ids
 
     sync_all = fields.Boolean(
-        string="Select all companies",
-        default=True,
-        required=True,
+        string="Select all companies", default=True, required=True,
     )
-    companies = fields.Char(string="Selected company", compute="_compute_sync_companies")
+    companies = fields.Char(
+        string="Selected company", compute="_compute_sync_companies"
+    )
     company_id = fields.Many2one(
         "res.company",
         string="Company",
@@ -82,9 +81,7 @@ class WecomUsersSyncWizard(models.TransientModel):
     )
     error_info = fields.Text("Error info", readonly=1)
     total_time = fields.Float(
-        string="Total time(seconds)",
-        digits=(16, 3),
-        readonly=True,
+        string="Total time(seconds)", digits=(16, 3), readonly=True,
     )
 
     def wizard_generate_users(self):
@@ -99,13 +96,17 @@ class WecomUsersSyncWizard(models.TransientModel):
             )
 
             for company in companies:
-                # 遍历公司                
-                result = self.batch_create_user_from_employee(company,self.send_mail,self.send_message)
+                # 遍历公司
+                result = self.batch_create_user_from_employee(
+                    company, self.send_mail, self.send_message
+                )
                 for res in result:
                     results.append(res)
         else:
             # 同步当前选中公司
-            results = self.batch_create_user_from_employee(self.company_id,self.send_mail,self.send_message)
+            results = self.batch_create_user_from_employee(
+                self.company_id, self.send_mail, self.send_message
+            )
 
         end_time = time.time()
         self.total_time = end_time - start_time
@@ -114,7 +115,7 @@ class WecomUsersSyncWizard(models.TransientModel):
         df = pd.DataFrame(results)
 
         all_rows = len(df)  # 获取所有行数
-        fail_rows = len(df[df["state"] == False])   # 获取失败行数       
+        fail_rows = len(df[df["state"] == False])  # 获取失败行数
 
         error_info = ""
 
@@ -124,7 +125,7 @@ class WecomUsersSyncWizard(models.TransientModel):
             self.state = "partially"
         elif fail_rows == 0:
             self.state = "completed"
-            error_info =_("Complete batch generation of system users from employees.")
+            error_info = _("Complete batch generation of system users from employees.")
 
         for index, row in df.iterrows():
             if row["state"] is False:
@@ -143,14 +144,12 @@ class WecomUsersSyncWizard(models.TransientModel):
             "res_model": "wecom.users.sync.wizard",
             "res_id": self.id,
             "view_id": False,
-            "views": [
-                [form_view.id, "form"],
-            ],
+            "views": [[form_view.id, "form"],],
             "type": "ir.actions.act_window",
             # 'context': '{}',
             # 'context': self.env.context,
             "context": {
-                # "form_view_ref": "wecom_hrm_syncing.dialog_wecom_contacts_sync_result"
+                # "form_view_ref": "hrmis_syncing.dialog_wecom_contacts_sync_result"
             },
             "target": "new",  # target: 打开新视图的方式，current是在本视图打开， new 是弹出一个窗口打开
             # 'auto_refresh': 0, #为1时在视图中添加一个刷新功能
@@ -170,8 +169,7 @@ class WecomUsersSyncWizard(models.TransientModel):
             result = " %s:%s" % (str(index + 1), result)
         return result
 
-
-    def batch_create_user_from_employee(self,company,send_mail,send_message):
+    def batch_create_user_from_employee(self, company, send_mail, send_message):
         """
         根据员工创建用户
         :param company: 公司
@@ -181,20 +179,17 @@ class WecomUsersSyncWizard(models.TransientModel):
 
         # 查询员工
         employees = self.env["hr.employee"].search(
-            [
-                ("company_id", "=", company.id),
-                ("is_wecom_user", "=", True),
-            ]
+            [("company_id", "=", company.id), ("is_wecom_user", "=", True),]
         )
         # 创建用户
         results = []
         for employee in employees:
             # 遍历员工
-            result = self.create_user_from_employee(employee,send_mail,send_message)
+            result = self.create_user_from_employee(employee, send_mail, send_message)
             results.append(result)
         return results
- 
-    def create_user_from_employee(self,employee,send_mail,send_message):
+
+    def create_user_from_employee(self, employee, send_mail, send_message):
         """
         根据员工创建用户
         :param send_mail: 是否发送邮件
@@ -203,23 +198,18 @@ class WecomUsersSyncWizard(models.TransientModel):
         result = {}
         try:
             res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
-                employee,send_mail,send_message
+                employee, send_mail, send_message
             )
-            result.update({
-                "state":True,
-                "result":""
-            })
+            result.update({"state": True, "result": ""})
             return result
         except Exception as e:
-            msg = _(
-                    "Failed to copy employee [%s] as system user, reason:%s"
-                ) % (employee.name, repr(e),)
-            result.update({
-                "state":False,
-                "result":msg
-            })
+            msg = _("Failed to copy employee [%s] as system user, reason:%s") % (
+                employee.name,
+                repr(e),
+            )
+            result.update({"state": False, "result": msg})
             return result
-            
+
     def reload(self):
         return {
             "type": "ir.actions.client",

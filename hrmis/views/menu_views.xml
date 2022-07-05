@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--  ROOT   -->
+        <menuitem id="menu_hrmis_root" name="Human Resources Management Information System" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" web_icon="hrmis,static/description/icon.png" sequence="3"/>
+
+        <!-- 1.组织架构 -->
+        <menuitem id="menu_wecom_organization_main" name="Organization" parent="menu_hrmis_root" groups="hr.group_hr_user" sequence="1"/>
+        <menuitem id="menu_wecom_organization_employee" name="Employee" action="hr.open_view_employee_list_my" parent="menu_wecom_organization_main" sequence="0" groups="hr.group_hr_user" />
+        <menuitem id="menu_wecom_organization_department_kanban" name="Department" action="hr.hr_department_tree_action" parent="menu_wecom_organization_main" sequence="1" groups="hr.group_hr_user" />
+        <menuitem id="menu_wecom_organization_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_wecom_organization_main" sequence="1" groups="hr.group_hr_user" />
+
+        <!-- 2.员工目录 -->
+        <menuitem id="menu_wecom_employee" name="Employee Directory" action="hr.hr_employee_public_action" parent="menu_hrmis_root" sequence="2"/>
+
+        <!-- 90.报表 -->
+        <menuitem name="Reporting" id="menu_wecom_report_root" parent="menu_hrmis_root" sequence="90"/>
+
+        <!-- HR配置菜单 -->
+        <menuitem id="menu_hrmis_manager_configuration" name="Settings" parent="menu_hrmis_root" sequence="99" groups="hr.group_hr_user"/>
+
+        <menuitem id="menu_hrmis_configuration" name="Human Resources Configuration" parent="menu_hrmis_manager_configuration" sequence="1" groups="hr.group_hr_manager"/>
+
+        <menuitem id="hr_wecom_menu_configuration" action="hr.hr_config_settings_action" parent="menu_hrmis_configuration" groups="base.group_system" sequence="0"/>
+        <menuitem id="menu_wecom_view_hr_job" action="hr.action_hr_job" parent="menu_hrmis_configuration" sequence="1"/>
+
+        <menuitem id="menu_wecom_human_resources_configuration_employee" name="Employee" parent="menu_hrmis_configuration" groups="base.group_no_one" sequence="1"/>
+
+        <!--<menuitem id="menu_wecom_view_employee_category_form" name="Tags" action="hr.open_view_categ_form" parent="menu_wecom_human_resources_configuration_employee" groups="base.group_no_one" sequence="1"/> -->
+
+
+        <!-- <menuitem id="menu_hrmis_department_tree" action="hr.hr_department_tree_action" parent="menu_hrmis_configuration" sequence="2" groups="hr.group_hr_user"/> -->
+
+
+        <menuitem id="menu_wecom_config_plan" name="Activity Planning" parent="menu_hrmis_configuration" groups="hr.group_hr_manager" sequence="100"/>
+
+        <menuitem id="menu_wecom_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_wecom_config_plan" groups="base.group_no_one" sequence="99"/>
+
+        <menuitem id="menu_wecom_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_wecom_config_plan" groups="hr.group_hr_manager" sequence="100"/>
+
+
+        <!-- 隐藏人力资源菜单 -->
+        <menuitem id="menu_wecom_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrmis_manager_configuration" groups="base.group_erp_manager" sequence="999"/>
+    </data>
+</odoo>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "WeCom HRM",
+    "name": "Human Resources Management Information System",
     "author": "RStudio",
     "sequence": 608,
     "installable": True,
@@ -34,11 +34,11 @@
         "web.assets_backend": [
             # SCSSS
             # JS
-            "wecom_hrm/static/src/js/download_deps.js",
-            "wecom_hrm/static/src/js/download_staffs.js",
-            "wecom_hrm/static/src/js/download_tags.js",
+            "hrmis/static/src/js/download_deps.js",
+            "hrmis/static/src/js/download_staffs.js",
+            "hrmis/static/src/js/download_tags.js",
         ],
-        "web.assets_qweb": ["wecom_hrm/static/src/xml/*.xml",],
+        "web.assets_qweb": ["hrmis/static/src/xml/*.xml",],
     },
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",

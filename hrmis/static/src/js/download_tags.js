@@ -1,4 +1,4 @@
-odoo.define('wecom_hrm.download_tags', function (require) {
+odoo.define('hrmis.download_tags', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;
