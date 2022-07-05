@@ -33,7 +33,7 @@
         ],
         "web.assets_qweb": ["wecom_widget/static/src/xml/*.xml",],
     },
-    "sequence": 605,
+    "sequence": 600,
     "installable": True,
     "auto_install": False,
     "application": False,
