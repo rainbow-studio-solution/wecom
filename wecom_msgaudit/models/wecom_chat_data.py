@@ -14,6 +14,7 @@ from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
 from lxml import etree
+
 # import multiprocessing
 # from multiprocessing import Pool
 # from multiprocessing import Manager
@@ -72,41 +73,30 @@ class WeComChatData(models.Model):
     from_user = fields.Char(string="From user")
 
     # 消息发送者
-    sender = fields.Many2one(
-        "wecom.chat.sender",
-        string="Related Sender",
-    )
+    sender = fields.Many2one("wecom.chat.sender", string="Related Sender",)
 
-    sender_id = fields.Char(related="sender.sender_id",store=True)
+    sender_id = fields.Char(related="sender.sender_id", store=True)
     sender_type = fields.Selection(
-        string="Sender type",
-        related="sender.sender_type",
-        store=True
+        string="Sender type", related="sender.sender_type", store=True
     )
-    sender_name = fields.Char(
-        string="Sender Name", related="sender.name",store=True
-    )
+    sender_name = fields.Char(string="Sender Name", related="sender.name", store=True)
     employee_id_of_sender = fields.Integer(
-        string="Employee ID", compute="_compute_employee_id_of_sender",store=True
+        string="Employee ID", compute="_compute_employee_id_of_sender", store=True
     )
     partner_id_of_sender = fields.Integer(
-        string="Contact ID", compute="_compute_partner_id_of_sender",store=True
+        string="Contact ID", compute="_compute_partner_id_of_sender", store=True
     )
-
 
     tolist = fields.Char(string="Message recipient list")
 
     # 聊天群
-    room = fields.Many2one(
-        "wecom.chat.group",
-        string="Related Group chat",
-    )
-    roomid = fields.Char(related="room.roomid",store=True)
-    room_name = fields.Char(related="room.room_name",store=True)
-    room_creator = fields.Char(related="room.room_creator",store=True)
-    room_create_time = fields.Datetime(related="room.room_create_time",store=True)
-    room_notice = fields.Text(related="room.room_notice",store=True)
-    room_members = fields.Text(related="room.room_members",store=True)
+    room = fields.Many2one("wecom.chat.group", string="Related Group chat",)
+    roomid = fields.Char(related="room.roomid", store=True)
+    room_name = fields.Char(related="room.room_name", store=True)
+    room_creator = fields.Char(related="room.room_creator", store=True)
+    room_create_time = fields.Datetime(related="room.room_create_time", store=True)
+    room_notice = fields.Text(related="room.room_notice", store=True)
+    room_members = fields.Text(related="room.room_members", store=True)
 
     msgtime = fields.Datetime(string="Message time")
     msgtype = fields.Selection(
@@ -142,11 +132,11 @@ class WeComChatData(models.Model):
             ("sphfeed", "Video account messages"),
         ],
     )
-    formatted = fields.Boolean(string="Formatted",default=False, compute="_compute_formatted")
-
-    time = fields.Datetime(
-        string="Message sending time",
+    formatted = fields.Boolean(
+        string="Formatted", default=False, compute="_compute_formatted"
     )
+
+    time = fields.Datetime(string="Message sending time",)
     user = fields.Char(string="User")
 
     text = fields.Text(string="Text message content")  # msgtype=text
@@ -236,8 +226,7 @@ class WeComChatData(models.Model):
                 record.is_external_msg = True
             else:
                 record.is_external_msg = False
-    
-    
+
     def download_chatdatas(self):
         """
         获取聊天记录
@@ -255,14 +244,16 @@ class WeComChatData(models.Model):
             raise UserError(
                 _(
                     'Please bind the session content archiving application on the "Settings" page after switching company [%s].'
-                ) % company.name
+                )
+                % company.name
             )
         secret = company.msgaudit_app_id.secret
         if secret == False:
             raise UserError(
                 _(
                     "Application secret key of company [%s] session content archive cannot be empty!"
-                ) % company.name
+                )
+                % company.name
             )
 
         private_keys = company.msgaudit_app_id.private_keys
@@ -286,7 +277,7 @@ class WeComChatData(models.Model):
             WHERE company_id=%s
             """
             % (company.id)
-        ) # 查询最大seq的记录
+        )  # 查询最大seq的记录
         results = self.env.cr.dictfetchall()
         if results[0]["max"] is not None:
             max_seq_id = results[0]["max"]
@@ -314,13 +305,12 @@ class WeComChatData(models.Model):
 
             if proxy:
                 body.update(
-                    {
-                        "proxy": msgaudit_chatdata_url,
-                        "paswd": "odoo:odoo",
-                    }
+                    {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
                 )
 
-            response  = requests.get(chatdata_url, data=json.dumps(body), headers=headers).json()
+            response = requests.get(
+                chatdata_url, data=json.dumps(body), headers=headers
+            ).json()
 
             if response["code"] == 0:
                 chat_datas = response["data"]
@@ -335,7 +325,9 @@ class WeComChatData(models.Model):
                             "publickey_ver": data["publickey_ver"],
                             "encrypt_random_key": data["encrypt_random_key"],
                             "encrypt_chat_msg": data["encrypt_chat_msg"],
-                            "decrypted_chat_msg": json.dumps(data["decrypted_chat_msg"]),
+                            "decrypted_chat_msg": json.dumps(
+                                data["decrypted_chat_msg"]
+                            ),
                             "is_external_msg": is_external_msg,
                         }
                         # auto_get_internal_groupchat_name = ir_config.get_param(
@@ -357,18 +349,23 @@ class WeComChatData(models.Model):
                             elif key == "roomid" and value:
                                 room = {}
                                 if is_external_msg:
+                                    # 外部消息
                                     room = {
                                         "roomid": value,
-                                    }                                
+                                    }
                                 else:
                                     # 内部群可以通过API获取群信息
-                                    room =self.get_group_chat_info_by_roomid(company,value)
+                                    room = self.get_group_chat_info_by_roomid(
+                                        company, value
+                                    )
                                 group_chat = self.create_group_chat(room)
                                 dic_data.update({"room": group_chat.id})
                             elif key == "msgtime" or key == "time":
                                 time_stamp = value
                                 # dic_data[key] = self.timestamp2datetime(time_stamp)
-                                dic_data.update({key: self.timestamp2datetime(time_stamp)})
+                                dic_data.update(
+                                    {key: self.timestamp2datetime(time_stamp)}
+                                )
                             else:
                                 dic_data.update({key: value})
                         self.sudo().create(dic_data)
@@ -376,7 +373,9 @@ class WeComChatData(models.Model):
                 else:
                     return False
             else:
-                return _("Request error, error code:%s, error description:%s, suggestion:%s") % (response["code"], response["description"], response["suggestion"])
+                return _(
+                    "Request error, error code:%s, error description:%s, suggestion:%s"
+                ) % (response["code"], response["description"], response["suggestion"])
         except ApiException as e:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 e, raise_exception=True
@@ -406,7 +405,7 @@ class WeComChatData(models.Model):
         )
         return base64.b64encode(open(image_path, "rb").read())
 
-    def get_group_chat_info_by_roomid(self, company_id,roomid):
+    def get_group_chat_info_by_roomid(self, company_id, roomid):
         """
         获取内部群聊信息
         """
@@ -419,9 +418,12 @@ class WeComChatData(models.Model):
                 company.corpid, company.msgaudit_app_id.secret
             )
             response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("GROUPCHAT_GET"),
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "MSGAUDIT_GROUPCHAT_GET"
+                ),
                 {"roomid": roomid},
             )
+
             if response["errcode"] == 0:
                 time_stamp = response["room_create_time"]
                 room_create_time = self.timestamp2datetime(time_stamp)
@@ -431,22 +433,24 @@ class WeComChatData(models.Model):
                     "room_creator": response["creator"],
                     "room_notice": response["notice"],
                     "room_create_time": room_create_time,
-                    "room_members": json.dumps(response["members"]),                    
+                    "room_members": json.dumps(response["members"]),
                 }
         except ApiException as ex:
-            pass
-            # return self.env["wecomapi.tools.action"].ApiExceptionDialog(
-            #     ex, raise_exception=True
-            # )
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                ex, raise_exception=True
+            )
         finally:
-            # print("room_dic",room_dic)
             return room_dic
 
-    def create_group_chat(self,room):
+    def create_group_chat(self, room):
         """
         创建群聊
         """
-        groupchat = self.env["wecom.chat.group"].sudo().search([("roomid", "=", room["roomid"])], limit=1)
+        groupchat = (
+            self.env["wecom.chat.group"]
+            .sudo()
+            .search([("roomid", "=", room["roomid"])], limit=1)
+        )
         if groupchat:
             pass
         else:
@@ -473,7 +477,6 @@ class WeComChatData(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call("GROUPCHAT_GET"),
                 {"roomid": self.roomid},
             )
-            # print("response",response)
             if response["errcode"] == 0:
                 time_stamp = response["room_create_time"]
                 room_create_time = self.timestamp2datetime(time_stamp)
@@ -487,30 +490,32 @@ class WeComChatData(models.Model):
                     }
                 )
                 same_group_chats = self.search([("roomid", "=", self.roomid)])
-                group = self.env["wecom.chat.group"].search([("roomid", "=", self.roomid)],limit=1,)
-                group.write({
-                    "room_name":response["roomname"]
-                })
+                group = self.env["wecom.chat.group"].search(
+                    [("roomid", "=", self.roomid)], limit=1,
+                )
+                group.write({"room_name": response["roomname"]})
                 for chat in same_group_chats:
                     chat.write(
-                        {
-                            "room_name": response["roomname"],
-                        }
+                        {"room_name": response["roomname"],}
                     )
         except ApiException as ex:
             return self.env["wecomapi.tools.action"].ApiExceptionDialog(
                 ex, raise_exception=True
             )
 
-    def get_and_create_chat_sender(self,sender_id):
+    def get_and_create_chat_sender(self, sender_id):
         """
         获取和创建发送者
         """
-        sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+        sender = (
+            self.env["wecom.chat.sender"]
+            .sudo()
+            .search([("sender_id", "=", sender_id)], limit=1)
+        )
         if sender:
             return sender
         else:
-            dic={}
+            dic = {}
             dic.update({"sender_id": sender_id})
             if "wo-" in sender_id or "wm-" in sender_id:
                 dic.update({"name": sender_id[-6:]})
@@ -521,10 +526,7 @@ class WeComChatData(models.Model):
             else:
                 dic.update({"sender_type": "staff"})
                 partner = self.env["res.partner"].search(
-                    [
-                        ("wecom_userid", "=", sender_id),
-                    ],
-                    limit=1,
+                    [("wecom_userid", "=", sender_id),], limit=1,
                 )
                 company = self.company_id
                 if not company:
@@ -541,12 +543,20 @@ class WeComChatData(models.Model):
                     dic.update({"employee_id": employee.id})
                 # 优先使用 联系人的名称
                 if partner:
-                    dic.update({"partner_id": partner.id,"name": partner.name,})
-                else:            
+                    dic.update(
+                        {"partner_id": partner.id, "name": partner.name,}
+                    )
+                else:
                     if employee:
                         dic.update({"name": employee.name})
                     else:
-                        dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
+                        dic.update(
+                            {
+                                "name": sender_id[-6:]
+                                if len(sender_id) > 6
+                                else sender_id
+                            }
+                        )
             sender = self.env["wecom.chat.sender"].sudo().create(dic)
             return sender
 
@@ -554,9 +564,11 @@ class WeComChatData(models.Model):
         """
         创建消息发送者
         同时修改相同发送者的消息记录
-        """        
-        sender_id = self.from_user if self.from_user else eval(self.decrypted_chat_msg)["from"]                
-        dic={}
+        """
+        sender_id = (
+            self.from_user if self.from_user else eval(self.decrypted_chat_msg)["from"]
+        )
+        dic = {}
         dic.update({"sender_id": sender_id})
         chats = self.search([("from_user", "=", sender_id)])
         # print("chats",len(chats),chats)
@@ -564,19 +576,19 @@ class WeComChatData(models.Model):
             if chat.sender:
                 pass
             else:
-                if chat.from_user == sender_id or eval(self.decrypted_chat_msg)["from"] == sender_id:
+                if (
+                    chat.from_user == sender_id
+                    or eval(self.decrypted_chat_msg)["from"] == sender_id
+                ):
                     if "wo-" in sender_id or "wm-" in sender_id:
                         if "wo-" in sender_id:
                             dic.update({"sender_type": "wecom"})
                         if "wm-" in sender_id:
                             dic.update({"sender_type": "wechat"})
                     else:
-                        dic.update({"sender_type": "staff"}) 
+                        dic.update({"sender_type": "staff"})
                         partner = self.env["res.partner"].search(
-                            [
-                                ("wecom_userid", "=", sender_id),
-                            ],
-                            limit=1,
+                            [("wecom_userid", "=", sender_id),], limit=1,
                         )
                         employee = self.env["hr.employee"].search(
                             [
@@ -589,13 +601,25 @@ class WeComChatData(models.Model):
                             dic.update({"employee_id": employee.id})
                         # 优先使用 联系人的名称
                         if partner:
-                            dic.update({"partner_id": partner.id,"name": partner.name,})
-                        else:            
+                            dic.update(
+                                {"partner_id": partner.id, "name": partner.name,}
+                            )
+                        else:
                             if employee:
                                 dic.update({"name": employee.name})
                             else:
-                                dic.update({"name": sender_id[-6:] if len(sender_id)>6 else sender_id})
-                    sender = self.env["wecom.chat.sender"].sudo().search([("sender_id", "=", sender_id)], limit=1)
+                                dic.update(
+                                    {
+                                        "name": sender_id[-6:]
+                                        if len(sender_id) > 6
+                                        else sender_id
+                                    }
+                                )
+                    sender = (
+                        self.env["wecom.chat.sender"]
+                        .sudo()
+                        .search([("sender_id", "=", sender_id)], limit=1)
+                    )
                     if len(sender) == 0:
                         sender = self.env["wecom.chat.sender"].sudo().create(dic)
                     chat.write({"sender": sender.id})
@@ -666,7 +690,7 @@ class WeComChatData(models.Model):
                 WHERE company_id=%s
                 """
                 % (app.company_id.id)
-            ) # 查询最大seq的记录
+            )  # 查询最大seq的记录
             results = self.env.cr.dictfetchall()
             if results[0]["max"] is not None:
                 max_seq_id = results[0]["max"]
@@ -696,13 +720,12 @@ class WeComChatData(models.Model):
                 }
                 if proxy:
                     body.update(
-                        {
-                            "proxy": msgaudit_chatdata_url,
-                            "paswd": "odoo:odoo",
-                        }
+                        {"proxy": msgaudit_chatdata_url, "paswd": "odoo:odoo",}
                     )
 
-                response = requests.get(chatdata_url, data=json.dumps(body), headers=headers).json()
+                response = requests.get(
+                    chatdata_url, data=json.dumps(body), headers=headers
+                ).json()
 
                 if response["code"] == 0:
                     chat_datas = response["data"]
@@ -710,7 +733,9 @@ class WeComChatData(models.Model):
                     if len(chat_datas) > 0:
                         for data in chat_datas:
                             dic_data = {}
-                            is_external_msg = True if "external" in data["msgid"] else False
+                            is_external_msg = (
+                                True if "external" in data["msgid"] else False
+                            )
                             dic_data = {
                                 "company_id": app.company_id.id,
                                 "seq": data["seq"],
@@ -742,16 +767,20 @@ class WeComChatData(models.Model):
                                     if is_external_msg:
                                         room = {
                                             "roomid": value,
-                                        }                                
+                                        }
                                     else:
                                         # 内部群可以通过API获取群信息
-                                        room =self.get_group_chat_info_by_roomid(app.company_id,value)
+                                        room = self.get_group_chat_info_by_roomid(
+                                            app.company_id, value
+                                        )
                                     group_chat = self.create_group_chat(room)
                                     dic_data.update({"room": group_chat.id})
                                 elif key == "msgtime" or key == "time":
                                     time_stamp = value
                                     # dic_data[key] = self.timestamp2datetime(time_stamp)
-                                    dic_data.update({key: self.timestamp2datetime(time_stamp)})
+                                    dic_data.update(
+                                        {key: self.timestamp2datetime(time_stamp)}
+                                    )
                                 else:
                                     dic_data.update({key: value})
 
@@ -770,7 +799,16 @@ class WeComChatData(models.Model):
                             % app.company_id.name
                         )
                 else:
-                    _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") % (response["code"], response["description"], response["suggestion"]))
+                    _logger.warning(
+                        _(
+                            "Request error, error code:%s, error description:%s, suggestion:%s"
+                        )
+                        % (
+                            response["code"],
+                            response["description"],
+                            response["suggestion"],
+                        )
+                    )
             except ApiException as e:
                 _logger.exception(
                     _(
@@ -796,9 +834,9 @@ class WeComChatData(models.Model):
         _logger.info(
             _("Automatic task: Start formatting session content archive record.")
         )
-        chats = self.search([("formatted", "=", False),("action", "!=", "switch")])
+        chats = self.search([("formatted", "=", False), ("action", "!=", "switch")])
 
-        for chat in chats:            
+        for chat in chats:
             chat.format_content()
         # if len(chats) > multiprocessing.cpu_count():
         #     # pool = Pool(multiprocessing.cpu_count()) #创建等同CPU数量进程的进程池
@@ -817,12 +855,11 @@ class WeComChatData(models.Model):
         #     pool.close()
         #     pool.join()
         # else:
-        #     for chat in chats:            
+        #     for chat in chats:
         #         chat.format_content()
         _logger.info(
             _("Automatic task: End formatting session content archive record.")
         )
-
 
     # ------------------------------------------------------------
     # 工具
@@ -857,13 +894,17 @@ class WeComChatData(models.Model):
                 "private_key": key.private_key,
             }
             key_list.append(key_dic)
-        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(self.msgtime, 3) #超期3天
-  
+        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
+            self.msgtime, 3
+        )  # 超期3天
+
         content = self[self._fields[self.msgtype].name]
 
         allow_formatting = False
 
-        if content[0] == "{" and (self.msgtype == "text" or self.msgtype == "link" or self.msgtype == "image"):
+        if content[0] == "{" and (
+            self.msgtype == "text" or self.msgtype == "link" or self.msgtype == "image"
+        ):
             # 是json格式的内容
             allow_formatting = True
         elif self.msgtype == "image":
@@ -871,7 +912,7 @@ class WeComChatData(models.Model):
             tree = etree.HTML(self.image)
             image_str = tree.xpath("//img/@src")
             if self.check_image_base(image_str):
-                allow_formatting = False  
+                allow_formatting = False
             else:
                 allow_formatting = True
 
@@ -882,7 +923,9 @@ class WeComChatData(models.Model):
                 # 文本消息
                 if "content" in msg_content:
                     # content = eval(msg_content)["content"]
-                    content = "<p class='text-wrap'>%s</p>" % eval(msg_content)["content"]
+                    content = (
+                        "<p class='text-wrap'>%s</p>" % eval(msg_content)["content"]
+                    )
                     formatted = True
             elif self.msgtype == "link":
                 # 链接消息
@@ -917,7 +960,9 @@ class WeComChatData(models.Model):
                 # 图片消息
                 if overdue:
                     # 超期无法通过SDK获取图片
-                    content = "<span class='card bg-warning text-white'>%s</span>"  % _("The current message record has exceeded 3 days and cannot be formatted.")
+                    content = "<span class='card bg-warning text-white'>%s</span>" % _(
+                        "The current message record has exceeded 3 days and cannot be formatted."
+                    )
                 else:
                     try:
                         ir_config = self.env["ir.config_parameter"].sudo()
@@ -933,17 +978,16 @@ class WeComChatData(models.Model):
                         headers = {"content-type": "application/json"}
                         body = {
                             "seq": 0,
-                            "sdkfileid": eval(msg_content)["sdkfileid"] if content[0] == "{" else eval(self.decrypted_chat_msg)["image"]["sdkfileid"],
+                            "sdkfileid": eval(msg_content)["sdkfileid"]
+                            if content[0] == "{"
+                            else eval(self.decrypted_chat_msg)["image"]["sdkfileid"],
                             "corpid": corpid,
                             "secret": secret,
                             "private_keys": key_list,
                         }
                         if proxy:
                             body.update(
-                                {
-                                    "proxy": mediadata_url,
-                                    "paswd": "odoo:odoo",
-                                }
+                                {"proxy": mediadata_url, "paswd": "odoo:odoo",}
                             )
                         response = requests.get(
                             mediadata_url, data=json.dumps(body), headers=headers
@@ -956,17 +1000,19 @@ class WeComChatData(models.Model):
                             img_max_size = (
                                 int(
                                     ir_config.get_param(
-                                        "wecom.msgaudit.chatdata.add_to_log_note.img_max_size"
+                                        "wecom.msgaudit.chatdata_img_max_size"
                                     )
                                 )
                                 * 1024
                             )  # 图片最大大小，超过此大小，进行压缩
-                            filesize = eval(msg_content)["filesize"] if content[0] == "{" else eval(self.decrypted_chat_msg)["image"]["filesize"] # 图片原始大小
+                            filesize = (
+                                eval(msg_content)["filesize"]
+                                if content[0] == "{"
+                                else eval(self.decrypted_chat_msg)["image"]["filesize"]
+                            )  # 图片原始大小
 
                             base64_source = self.compress_image_base64(
-                                bytes(mediadata, "utf-8"),
-                                img_max_size,
-                                filesize,
+                                bytes(mediadata, "utf-8"), img_max_size, filesize,
                             )
 
                             if type(base64_source) == bytes:
@@ -981,31 +1027,40 @@ class WeComChatData(models.Model):
                                 % base64_source
                             )
                         else:
-                            _logger.warning(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                            _logger.warning(
+                                _(
+                                    "Request error, error code:%s, error description:%s, suggestion:%s"
+                                )
+                                % (res["code"], res["description"], res["suggestion"])
+                            )
                             raise UserError(res)
                     except Exception as e:
                         _logger.exception("Exception: %s" % e)
                         if "code" in str(e):
-                            raise UserError(_("Request error, error code:%s, error description:%s, suggestion:%s") %(res["code"], res["description"], res["suggestion"]))
+                            raise UserError(
+                                _(
+                                    "Request error, error code:%s, error description:%s, suggestion:%s"
+                                )
+                                % (res["code"], res["description"], res["suggestion"])
+                            )
                         elif "HTTPConnectionPool" in str(e):
                             raise UserError(_("API interface not started!"))
                         else:
                             raise UserError(_("Unknown error:%s") % e)
             else:
                 pass
-            
-            self.write({
-                self._fields[self.msgtype].name: content,
-                "formatted": formatted,
-                })
 
-    def check_image_base(self,image_str):
+            self.write(
+                {self._fields[self.msgtype].name: content, "formatted": formatted,}
+            )
+
+    def check_image_base(self, image_str):
         """
         校验图片的字节流
         """
         try:
-            image_file = io.BytesIO(image_str) # 使用BytesIO把字节流转换为文件对象
-            image = Image.open(image_file) # 检查文件是否能正常打开
+            image_file = io.BytesIO(image_str)  # 使用BytesIO把字节流转换为文件对象
+            image = Image.open(image_file)  # 检查文件是否能正常打开
             image.verify()  # 检查文件完整性
             image_file.close()
             image.close()
@@ -1028,24 +1083,22 @@ class WeComChatData(models.Model):
         else:
             with io.BytesIO(base64.b64decode(base64_source)) as im:
                 o_size = len(im.getvalue())  # 原始图片大小
-                
+
                 stream = im
                 while o_size > t_size:
                     image = Image.open(stream)
-                    # image = image.convert('RGB') 
+                    # image = image.convert('RGB')
                     x, y = image.size
                     if x > 1000:
                         # 图片宽度大于1000px，进行等比例缩放
                         y = int(y * (1000 / x))
-                        x=1000
+                        x = 1000
                         image = image.resize((x, y), Image.ANTIALIAS)
-   
+
                     # output = image.resize(
                     #     (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
                     # )
-                    image = image.resize(
-                        (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
-                    )
+                    image = image.resize((int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS)
                     stream.close()
                     stream = io.BytesIO()
                     image.save(stream, "png")

@@ -11,7 +11,7 @@
             Get this feature and much more with Wecom Professional!
                 <ul class="list-unstyled">
                     <li>
-                        <i class="fa fa-check"></i> Get all enterprise wechat Apps
+                        <i class="fa fa-check"></i> Get enterprise wechat professional Apps
                     </li>
                     <li>
                         <i class="fa fa-check"></i> Mobile support
@@ -27,7 +27,7 @@
                 </ul>
             </div>
             <div class="col-6">
-                <img class="img-fluid" t-att-src='_s + "/web/static/img/enterprise_upgrade.jpg"' draggable="false" alt="Upgrade to Wecom Professional"/>
+                <img class="img-fluid" t-att-src='_s + "/web/static/img/enterprise_upgrade.jpg"' draggable="false" alt="Get enterprise wechat professional application"/>
             </div>
         </div>
     </t>

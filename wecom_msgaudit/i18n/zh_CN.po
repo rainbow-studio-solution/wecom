@@ -1105,7 +1105,7 @@ msgstr "投票消息内容"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__chatdata_img_max_size
-msgid "WeCom Chat data picture attached to log note picture size"
+msgid "Maximum size of session content pictures after compression"
 msgstr "会话内容图片压缩后的最大大小"
 
 #. module: wecom_msgaudit

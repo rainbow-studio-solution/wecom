@@ -23,7 +23,8 @@ class WecomServerApiList(models.Model):
             ("10", "Efficiency tools"),
             ("11", "pay"),
             ("12", "Corp Group"),
-            ("13", "Session content archiving"),
+            ("13", "Corp Chain"),
+            ("14", "Session content archiving"),
             # ("meeting", "Meeting"),
             # ("living", "Living"),
             # ("wedrive", "WeDrive"),
@@ -39,35 +40,21 @@ class WecomServerApiList(models.Model):
     )  # base:基础， contacts:通讯录， external_contact:客户联系，Servicer:微信客服，auth:身份认证， agent:应用管理,  message:消息推送,  media:媒体素材, checkin:打卡, checkin:打卡, approval:审批, worknote:汇报, meetingroom:会议室管理, schedule:日程, meeting:会议, living:直播, wedrive:微盘, telephone:公费电话, pay:企业支付, corpgroup:企业互联, msgaudit:会话内容存档, invoice:电子发票,
 
     name = fields.Char("Request Name", required=True,)
-    function_name = fields.Char(
-        "Request Function Name",
-        required=True,
-        readonly=True,
-    )
+    function_name = fields.Char("Request Function Name", required=True, readonly=True,)
 
-    short_url = fields.Char(
-        "Request Short Url",
-        required=True,
-    )
+    short_url = fields.Char("Request Short Url", required=True,)
 
     request_type = fields.Selection(
-        [
-            ("GET", "GET"),
-            ("POST", "POST"),
-        ],
+        [("GET", "GET"), ("POST", "POST"),],
         string="Api Request Type",
         required=True,
         default="GET",
     )
-    description = fields.Html(string="Description") 
+    description = fields.Html(string="Description")
     sequence = fields.Integer(default=0)
 
     _sql_constraints = [
-        (
-            "function_name_uniq",
-            "unique (function_name)",
-            "The function is unique !",
-        ),
+        ("function_name_uniq", "unique (function_name)", "The function is unique !",),
     ]
 
     def get_server_api_call(self, function_name):
@@ -78,10 +65,7 @@ class WecomServerApiList(models.Model):
         """
         # ['/cgi-bin/gettoken', 'GET']
         data = []
-        res = self.search(
-            [("function_name", "=", function_name)],
-            limit=1,
-        )
+        res = self.search([("function_name", "=", function_name)], limit=1,)
         data.append(res.short_url)
         data.append(res.request_type)
         return data

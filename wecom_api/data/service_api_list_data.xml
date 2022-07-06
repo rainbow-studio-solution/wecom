@@ -2708,7 +2708,19 @@
         <!-- 10. 企业支付 -->
         <!-- 11. 企业互联 -->
         <!-- 12. 上下游 -->
+
         <!-- 13. 会话存档 -->
+        <record id="wecom_service_msgaudit_groupchat_get" model="wecom.service_api_list">
+            <field name="type">14</field>
+            <field name="name">会话内容存档 &gt; 获取会话内容存档内部群信息</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所有群成员的id与加入时间</p>
+            </field>
+            <field name="function_name">MSGAUDIT_GROUPCHAT_GET</field>
+            <field name="short_url">/cgi-bin/msgaudit/groupchat/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">140001</field>
+        </record>
 
         <!-- 14. 电子发票 -->
         <!-- 15. 家校沟通 -->

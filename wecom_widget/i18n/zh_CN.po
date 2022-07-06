@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-05 06:59+0000\n"
-"PO-Revision-Date: 2022-07-05 15:04+0800\n"
+"POT-Creation-Date: 2022-07-06 05:29+0000\n"
+"PO-Revision-Date: 2022-07-06 13:31+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -93,14 +93,14 @@ msgstr ""
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "And more"
 msgstr "以及更多"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Better service"
 msgstr "更好的服务"
@@ -114,14 +114,14 @@ msgstr "二进制文件"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Bugfixes guarantee"
 msgstr "补丁修复保证"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/legacy/js/fields/upgrade_fields.js:0
+#: code:addons/wecom_widget/static/src/legacy/js/fields/wecom_pro_tag.js:0
 #, python-format
 msgid "Cancel"
 msgstr "取消"
@@ -157,14 +157,28 @@ msgstr "文件消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
-msgid "Get all enterprise wechat Apps"
-msgstr "获取所有企业微信应用"
+msgid "Get enterprise wechat professional Apps"
+msgstr "获取企业微信专业版应用"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
+#, python-format
+msgid "Get enterprise wechat professional application"
+msgstr "获取企业微信专业版应用"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/legacy/js/fields/wecom_pro_tag.js:0
+#, python-format
+msgid "Get it now"
+msgstr "马上获取"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Get this feature and much more with Wecom Professional!"
 msgstr "通过企微专业版版获得该功能及其他更多！"
@@ -251,10 +265,15 @@ msgstr "小程序通知消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Mobile support"
 msgstr "支持移动设备"
+
+#. module: wecom_widget
+#: model:ir.model,name:wecom_widget.model_ir_module_module
+msgid "Module"
+msgstr "模块"
 
 #. module: wecom_widget
 #. openerp-web
@@ -296,7 +315,7 @@ msgstr "只读模式"
 #: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
 #, python-format
 msgid "SMS Pricing"
-msgstr "短信价格"
+msgstr ""
 
 #. module: wecom_widget
 #. openerp-web
@@ -426,20 +445,6 @@ msgstr "未知类型"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/legacy/js/fields/upgrade_fields.js:0
-#, python-format
-msgid "Upgrade now"
-msgstr "马上升级"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wecom_professional_upgrade.xml:0
-#, python-format
-msgid "Upgrade to Wecom Professional"
-msgstr "升级到企微专业版"
-
-#. module: wecom_widget
-#. openerp-web
 #: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
 #, python-format
 msgid "Video message"
@@ -454,10 +459,17 @@ msgstr "语音消息"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/legacy/js/fields/upgrade_fields.js:0
+#: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Wecom Professional"
 msgstr "企微专业版"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/legacy/js/fields/wecom_pro_tag.js:0
+#, python-format
+msgid "Wecom Professional App:"
+msgstr "企微专业版应用："
 
 #. module: wecom_widget
 #. openerp-web

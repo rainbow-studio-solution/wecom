@@ -54,6 +54,7 @@ odoo.define('wecom.pro_tag', function (require) {
         check_status: function (box) {
             var self = this;
             var addon_name = box.find(".o_setting_left_pane").contents().attr("name").split("module_")[1];
+
             this._rpc({
                 model: 'ir.module.module',
                 method: 'check_wecom_addons_exist',
@@ -73,15 +74,18 @@ odoo.define('wecom.pro_tag', function (require) {
         _onTagClicked: function (ev) {
             ev.stopPropagation();
             ev.preventDefault();
+            this.app_name = this.$el.prev().html();
             if (!this.addon_exist) {
                 this._openDialog();
             }
         },
         _openDialog: function () {
-            var message = $(QWeb.render(this.upgrade_template));
+            var message = $(QWeb.render(this.upgrade_template, {
+                app_name: this.app_name
+            }));
 
             var buttons = [{
-                    text: _t("Upgrade now"),
+                    text: _t("Get it now"),
                     classes: 'btn-primary',
                     close: true,
                     click: this._confirmUpgrade.bind(this),
@@ -98,7 +102,7 @@ odoo.define('wecom.pro_tag', function (require) {
                 $content: $('<div>', {
                     html: message,
                 }),
-                title: _t("Wecom Professional"),
+                title: _t("Wecom Professional App:") + this.app_name,
             }).open();
         },
         _confirmUpgrade: function () {
