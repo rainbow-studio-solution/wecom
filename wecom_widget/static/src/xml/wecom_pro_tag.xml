@@ -2,7 +2,7 @@
 <templates id="template" xml:space="preserve">
 
     <t t-name="WecomProfessionalTag">
-        <span class="badge badge-success oe_inline o_wecom_pro_label">Wecom Professional</span>
+        <span class="badge badge-primary oe_inline o_wecom_pro_label">Wecom Professional</span>
     </t>
 
     <t t-name="WecomProfessionalUpgrade">

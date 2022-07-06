@@ -34,14 +34,26 @@ odoo.define('wecom.pro_tag', function (require) {
         events: {
             'click': '_onTagClicked',
         },
-        _onTagClicked: function (ev) {
-            ev.stopPropagation();
-            ev.preventDefault();
+        start: function () {
             var self = this;
-            var $box = self.$el.parents(".o_setting_box");
-
-            var addon_name = $box.find(".o_setting_left_pane").contents().attr("name").split("module_")[1];
-
+            // this._super.apply(this, arguments).then(function () {
+            //     self.check_status();
+            // });
+            self.get_box();
+        },
+        get_box: function () {
+            var self = this;
+            setTimeout(function () {
+                if (self.$el.parent().length > 0) {
+                    var $box = self.$el.parents(".o_setting_box");
+                    self.check_status($box);
+                    return;
+                }
+            }, 500);
+        },
+        check_status: function (box) {
+            var self = this;
+            var addon_name = box.find(".o_setting_left_pane").contents().attr("name").split("module_")[1];
             this._rpc({
                 model: 'ir.module.module',
                 method: 'check_wecom_addons_exist',
@@ -50,11 +62,21 @@ odoo.define('wecom.pro_tag', function (require) {
                 },
             }).then(function (data) {
                 if (!data) {
-                    self._openDialog();
+                    self.addon_exist = false;
+                } else {
+                    self.addon_exist = true;
+                    self.$el.css("cursor", "default");
+                    self.$el.removeClass("badge-primary").addClass("badge-success");
                 }
             })
         },
-
+        _onTagClicked: function (ev) {
+            ev.stopPropagation();
+            ev.preventDefault();
+            if (!this.addon_exist) {
+                this._openDialog();
+            }
+        },
         _openDialog: function () {
             var message = $(QWeb.render(this.upgrade_template));
 
