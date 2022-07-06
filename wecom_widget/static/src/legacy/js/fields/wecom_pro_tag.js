@@ -54,7 +54,7 @@ odoo.define('wecom.pro_tag', function (require) {
         check_status: function (box) {
             var self = this;
             var addon_name = box.find(".o_setting_left_pane").contents().attr("name").split("module_")[1];
-
+            var $input = box.find(".o_setting_left_pane").find("input");
             this._rpc({
                 model: 'ir.module.module',
                 method: 'check_wecom_addons_exist',
@@ -64,6 +64,7 @@ odoo.define('wecom.pro_tag', function (require) {
             }).then(function (data) {
                 if (!data) {
                     self.addon_exist = false;
+                    $input.attr('disabled', 'disabled');
                 } else {
                     self.addon_exist = true;
                     self.$el.css("cursor", "default");

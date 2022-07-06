@@ -27,7 +27,7 @@
                             <field name="request_type"/>
                         </group>
                         <group>
-                            <field name="sequence"/>
+                            <field name="sequence" widget="integer" options="{'format': false}"/>
                         </group>
                         <group>
                             <field name="description" widget="html" />

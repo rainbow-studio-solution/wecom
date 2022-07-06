@@ -30,8 +30,6 @@ class WecomServerApiList(models.Model):
             # ("wedrive", "WeDrive"),
             # ("telephone", "Telephone"),
             # ("pay", "Pay"),
-            # ("corpgroup", "Corp Group"),
-            # ("msgaudit", "Session content archiving"),
             # ("invoice", "Session content archiving"),
         ],
         string="Api Type",

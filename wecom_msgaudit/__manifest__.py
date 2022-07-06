@@ -28,6 +28,7 @@
         "views/res_config_settings_views.xml",
         "views/wecom_msgaudit_key_views.xml",
         "views/wecom_chat_data_views.xml",
+        "views/wecom_chat_group_views.xml",
         "views/ir_cron_views.xml",
         "views/menu_views.xml",
     ],

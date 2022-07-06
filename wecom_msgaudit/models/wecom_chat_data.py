@@ -474,7 +474,9 @@ class WeComChatData(models.Model):
                 company.corpid, company.msgaudit_app_id.secret
             )
             response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("GROUPCHAT_GET"),
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "MSGAUDIT_GROUPCHAT_GET"
+                ),
                 {"roomid": self.roomid},
             )
             if response["errcode"] == 0:

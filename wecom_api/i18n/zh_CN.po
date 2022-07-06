@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 12:37+0000\n"
-"PO-Revision-Date: 2022-06-27 20:37+0800\n"
+"POT-Creation-Date: 2022-07-06 07:53+0000\n"
+"PO-Revision-Date: 2022-07-06 15:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -82,6 +82,11 @@ msgstr "基础"
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__2
 msgid "Contacts"
 msgstr "通讯录管理"
+
+#. module: wecom_api
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
+msgid "Corp Chain"
+msgstr "上下游（公司链）"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__12
@@ -166,14 +171,14 @@ msgstr "无法拉取企微全局错误代码，原因：%s"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__get
 msgid "GET"
-msgstr ""
+msgstr "GET"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_error__id
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__5
@@ -214,12 +219,12 @@ msgstr "消息推送"
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__9
 msgid "OA"
-msgstr ""
+msgstr "OA"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__request_type__post
 msgid "POST"
-msgstr ""
+msgstr "POST"
 
 #. module: wecom_api
 #: model:ir.model.fields,field_description:wecom_api.field_wecom_service_api_list__function_name
@@ -248,7 +253,7 @@ msgid "Sequence"
 msgstr "序列"
 
 #. module: wecom_api
-#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__13
+#: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__14
 msgid "Session content archiving"
 msgstr "会话内容存档"
 
@@ -280,14 +285,6 @@ msgstr "排查方法"
 #: model:ir.model,name:wecom_api.model_wecom_message_api
 msgid "WeCom Message API"
 msgstr "企微消息API"
-
-#. module: wecom_api
-#: model:ir.actions.act_window,name:wecom_api.ir_cron_act_pull_wecom_service_api_error
-#: model:ir.actions.server,name:wecom_api.ir_cron_pull_wecom_service_api_error_ir_actions_server
-#: model:ir.cron,cron_name:wecom_api.ir_cron_pull_wecom_service_api_error
-#: model:ir.cron,name:wecom_api.ir_cron_pull_wecom_service_api_error
-msgid "WeCom: Pull the global error code of WeCom."
-msgstr "企微： 拉取企微全局错误代码。"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__4
