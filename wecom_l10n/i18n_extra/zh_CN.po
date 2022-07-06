@@ -312,7 +312,7 @@ msgstr "企微本地化"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_msgaudit
 msgid "WeCom Session Content Archive"
-msgstr "企微会话存档"
+msgstr "企微会话内容存档"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_wedrive
