@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wecom_msgaudit_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="wecom_msgaudit_warning" position="replace"/>
+                <div id="wecom_msgaudit_install" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Session archiving application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_app_id" string="Binding application"/>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="msgaudit_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'like', '%msgaudit%'),('company_id', '=', company_id)]"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_secret_setting">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-lock fa-lg" aria-label="Session content archiving Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                        Session content archiving secret. "Administrative Tools" → "Session content archiving". To ensure data security, the key must not be leaked.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="msgaudit_secret" widget="wecom_password" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <field name="msgaudit_auto_get_internal_groupchat_name" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_auto_get_internal_groupchat_name"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    When downloading the session content archive record, the internal group chat name is automatically obtained.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div> -->
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-picture-o fa-lg" aria-label="WeCom Chat data picture attached to contact's picture size"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="chatdata_img_max_size"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    The picture size of the chat data picture attached to the contact. The unit is 'KB', over which compression is performed.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="chatdata_img_max_size" widget="integer" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_sdk_proxy">
+                        <div class="o_setting_left_pane">
+                            <field name="msgaudit_sdk_proxy"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_sdk_proxy"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Using a proxy to access the session content archive SDK.
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_sdk_url">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-link fa-lg" aria-label="Sdk URL of session Content Archive."/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_sdk_url"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Sdk URL of session Content Archive.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="msgaudit_sdk_url" widget="url" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_chatdata_url">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-link fa-lg" aria-label="Chat data API URL of session Content Archive"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_chatdata_url"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Get chat data API URL of session Content Archive.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="msgaudit_chatdata_url" widget="url" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_mediadata_url">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-link fa-lg" aria-label="Media file data API URL for session content archiving"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_mediadata_url"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Get media file data API URL of session Content Archive.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="msgaudit_mediadata_url" widget="url" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 聊天记录附加到联系人记录备注 -->
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('module_wecom_msgaudit','=',False)]}" id="wecom_chat_data_add_log_note_install">
+                        <div class="o_setting_left_pane">
+                            <field name="module_wecom_chatdata_log_note" />
+                        </div>
+                        <div class="o_setting_right_pane" id="wecom_chat_data2contacts_settings">
+                            <label for="module_wecom_chatdata_log_note"/>
+                            <widget name="wecom_pro_tag"/>
+                            <div class="text-muted">
+
+                            </div>
+                            <div class="content-group" attrs="{'invisible': [('module_wecom_chatdata_log_note', '=', False)]}" id="wecom_chat_data2contacts_warning">
+                                <div class="mt8 text-warning">
+                                    <strong>Save</strong> this page and come back here to set up other feature.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1201 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wecom_msgaudit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-10 04:35+0000\n"
+"PO-Revision-Date: 2022-04-10 12:37+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-link fa-lg\" aria-label=\"Chat data API URL of session "
+"Content Archive\"/>"
+msgstr ""
+"<i class=\"fa fa-link fa-lg\" aria-label=\"会话内容存档的聊天数据API URL\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-link fa-lg\" aria-label=\"Media file data API URL for "
+"session content archiving\"/>"
+msgstr ""
+"<i class=\"fa fa-link fa-lg\" aria-label=\"会话内容存档的媒体文件数据API URL"
+"\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-link fa-lg\" aria-label=\"Sdk URL of session Content Archive."
+"\"/>"
+msgstr "<i class=\"fa fa-link fa-lg\" aria-label=\"会话内容存档的Sdk URL。\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-lock fa-lg\" aria-label=\"Session content archiving Secret\"/"
+">"
+msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"会话内容存档密钥\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-picture-o fa-lg\" aria-label=\"WeCom Chat data picture "
+"attached to contact's picture size\"/>"
+msgstr ""
+"<i class=\"fa fa-picture-o fa-lg\" aria-label=\"企微聊天数据图片附加到联系人的"
+"图片大小\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Session archiving "
+"application\"/>"
+msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"会话存档应用\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">Wecom "
+"Professional Edition</span>"
+msgstr ""
+"<span class=\"badge badge-primary oe_inline o_wecom_pro_label\">企微专业版</"
+"span>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "API interface not started!"
+msgstr "API接口未启动！"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_access_token
+msgid "Access Token"
+msgstr "访问令牌"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__agree
+msgid "Agree message"
+msgstr "同意消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__agree
+msgid "Agree message content"
+msgstr "同意消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_company__msgaudit_app_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_app_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__app_id
+msgid "Application"
+msgstr "应用"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Application secret key of company [%s] session content archive cannot be "
+"empty!"
+msgstr "公司 [%s] 会话内容存档应用密钥不能为空！"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
+msgid "Are you sure to generate message encryption public key and private key ?"
+msgstr "确定生成消息加密公钥和私钥吗？"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__meeting_voice_call
+msgid "Audio archive message"
+msgstr "音频存档消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__meeting_voice_call
+msgid "Audio archive message content"
+msgstr "音频存档消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__voip_doc_share
+msgid "Audio shared document messages"
+msgstr "音频共享文档消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__voip_doc_share
+msgid "Audio shared document messages content"
+msgstr "音频共享文档消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Automatic task: End download session content record for [%s]"
+msgstr "自动任务：结束[%s]的下载会话内容记录"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Automatic task: End download session content record for [%s],There are no "
+"records to download."
+msgstr "自动任务：结束[%s]的下载会话内容记录，没有可下载的记录。"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Automatic task: End formatting session content archive record."
+msgstr "自动任务：结束格式化会话内容存档记录。"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Automatic task: Exception in downloading session content record for [%s],"
+"Exception:%s"
+msgstr "自动任务：下载[%s]的会话内容记录时出现异常，异常：%s"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Automatic task: Start download session content record for [%s]"
+msgstr "自动任务：启动[%s]的下载会话内容记录"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Automatic task: Start formatting session content archive record."
+msgstr "自动任务：启动格式化会话内容存档记录。"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Basic info"
+msgstr "基本信息"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid "Binding application"
+msgstr "绑定应用"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__calendar
+msgid "Calendar messages"
+msgstr "日程消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__calendar
+msgid "Calendar messages content"
+msgstr "日程消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__card
+msgid "Card message"
+msgstr "名片消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__card
+msgid "Card message content"
+msgstr "名片消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_chatdata_url
+msgid "Chat data API URL"
+msgstr "聊天数据API URL"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__chatrecord
+msgid "Chat record message"
+msgstr "会话记录消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__chatrecord
+msgid "Chat record message content"
+msgstr "会话记录消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__collect
+msgid "Collect message"
+msgstr "填表消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__collect
+msgid "Collect message content"
+msgstr "填表消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_res_company
+msgid "Companies"
+msgstr "公司"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__company_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__company_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Complete the download of chat records."
+msgstr "完成聊天记录的下载。"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__partner_id_of_sender
+msgid "Contact ID"
+msgstr "联系人ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__partner_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_partner_id
+msgid "Contacts"
+msgstr "联系人"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Corp ID cannot be empty!"
+msgstr "公司ID不能为空！"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Create sender"
+msgstr "创建发送者"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__create_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__create_uid
+msgid "Created by"
+msgstr "创建者"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__create_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Decrypt the original chat message"
+msgstr "原始解密的聊天信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__decrypted_chat_msg
+msgid "Decrypted chat message"
+msgstr "解密的聊天信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__disagree
+msgid "Disagree message"
+msgstr "不同意消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__disagree
+msgid "Disagree message content"
+msgstr "不同意消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_company__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__display_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/xml/list_header_button.xml:0
+#: code:addons/wecom_msgaudit/static/src/xml/list_header_button.xml:0
+#, python-format
+msgid "Download chat data"
+msgstr "下载聊天数据"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_cron_download_wecom_chat_datas
+msgid "Download session content record"
+msgstr "下载会话内容记录"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Download succeeded!"
+msgstr "下载成功！"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__emotion
+msgid "Emotion message"
+msgstr "表情消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__emotion
+msgid "Emotion message content"
+msgstr "表情消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__employee_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_employee_id
+msgid "Employee"
+msgstr "员工"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__employee_id_of_sender
+msgid "Employee ID"
+msgstr "员工ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__encrypt_chat_msg
+msgid "Encrypt chat message"
+msgstr "加密聊天信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__encrypt_random_key
+msgid "Encrypt random key"
+msgstr "加密随机密钥"
+
+#. module: wecom_msgaudit
+#: model:wecom.apps,description:wecom_msgaudit.wecom_app_msgaudit
+msgid ""
+"Enterprises can obtain members' conversation content through the interface to "
+"meet the regulatory compliance requirements of enterprises and ensure the "
+"quality of customer service."
+msgstr ""
+"企业可通过接口获取成员会话内容，以符合企业监管合规要求和保障客户服务质量。"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Error!"
+msgstr "错误!"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__is_external_msg
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "External message"
+msgstr "外部消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__file
+msgid "File message"
+msgstr "文件消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__file
+msgid "File message content"
+msgstr "文件消息内容"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_tree
+msgid "Format message"
+msgstr "格式化消息"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_cron_format_session_content_archive_record
+msgid "Format the session content archive record"
+msgstr "格式化会话内容存档记录"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__formatted
+msgid "Formatted"
+msgstr "已格式化"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__from_user
+msgid "From user"
+msgstr "来自用户"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_msgaudit_key_form
+msgid "Generate key"
+msgstr "生成密钥"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid "Get chat data API URL of session Content Archive."
+msgstr "获取会话内容存档的聊天数据API URL。"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid "Get media file data API URL of session Content Archive."
+msgstr "获取会话内容存档的媒体文件数据API URL。"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
+msgid "Group Chat"
+msgstr "群聊"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__roomid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__roomid
+msgid "Group chat ID"
+msgstr "群聊ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room_create_time
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__room_create_time
+msgid "Group chat create time"
+msgstr "群创建时间"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room_creator
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__room_creator
+msgid "Group chat creator"
+msgstr "群创建者"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Group chat information"
+msgstr "群聊信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room_members
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__room_members
+msgid "Group chat members"
+msgstr "群成员"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__room_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__room_name
+msgid "Group chat name"
+msgstr "群名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room_notice
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__room_notice
+msgid "Group chat notice"
+msgstr "群公告"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_company__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__id
+msgid "ID"
+msgstr ""
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__image
+msgid "Image message"
+msgstr "图片消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__image
+msgid "Image message content"
+msgstr "图片消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__staff
+msgid "Internal staff"
+msgstr "内部员工"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__external_redpacket
+msgid "Interworking red packet messages"
+msgstr "互通红包消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__external_redpacket
+msgid "Interworking red packet messages content"
+msgstr "互通红包消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_msgaudit_key.py:0
+#: code:addons/wecom_msgaudit/models/wecom_msgaudit_key.py:0
+#, python-format
+msgid "Key"
+msgstr "密钥"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_msgaudit_key.py:0
+#: code:addons/wecom_msgaudit/models/wecom_msgaudit_key.py:0
+#, python-format
+msgid "Key version must be unique !"
+msgstr "密钥版本必须是唯一的！"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_company____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name____last_update
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key____last_update
+msgid "Last Modified on"
+msgstr "最后修改日"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__write_uid
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__write_uid
+msgid "Last Updated by"
+msgstr "最后更新者"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__write_date
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__write_date
+msgid "Last Updated on"
+msgstr "更新时间"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__link
+msgid "Link message"
+msgstr "链接消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__link
+msgid "Link message content"
+msgstr "链接消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__location
+msgid "Location message"
+msgstr "位置消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__location
+msgid "Location message content"
+msgstr "位置消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__markdown
+msgid "MarkDown messages"
+msgstr "MarkDown消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__markdown
+msgid "MarkDown messages content"
+msgstr "MarkDown消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_mediadata_url
+msgid "Media file data API URL"
+msgstr "媒体文件数据API URL"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__meeting
+msgid "Meeting invitation message"
+msgstr "会议邀请消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__meeting
+msgid "Meeting invitation message content"
+msgstr "会议邀请消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__action
+msgid "Message Action"
+msgstr "消息动作"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Message Content"
+msgstr "消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__msgid
+msgid "Message ID"
+msgstr "消息ID"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.action_wecom_session_key_list
+msgid "Message encryption key"
+msgstr "消息加密密钥"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Message info"
+msgstr "消息信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__tolist
+msgid "Message recipient list"
+msgstr "消息接收方列表"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__time
+msgid "Message sending time"
+msgstr "消息发送时间"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__seq
+msgid "Message sequence number"
+msgstr "消息序号"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__msgtime
+msgid "Message time"
+msgstr "消息发送时间"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__msgtype
+msgid "Message type"
+msgstr "消息类型"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__mixed
+msgid "Mixed messages"
+msgstr "混合消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__mixed
+msgid "Mixed messages content"
+msgstr "混合消息内容"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Modify external group chat name"
+msgstr "修改外部群聊名称"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.modify_external_groupchat_name_action
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_groupchat_name_view
+msgid "Modify external groupchat name"
+msgstr "修改外部群聊名称"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Modify external sender Name"
+msgstr "修改外部发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.modify_external_sender_name_action
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
+msgid "Modify sender name"
+msgstr "修改发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_group__name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__name
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_groupchat_name_view
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
+msgid "Name"
+msgstr "名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__news
+msgid "News messages"
+msgstr "图文消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__news
+msgid "News messages content"
+msgstr "图文消息内容"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "No data to download!"
+msgstr "没有数据可下载！"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "No message encryption key exists!"
+msgstr "没有消息加密密钥存在！"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__docmsg
+msgid "Online document messages"
+msgstr "在线文档消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__docmsg
+msgid "Online document messages content"
+msgstr "在线文档消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Open link"
+msgstr "打开链接"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Please bind the session content archiving application on the \"Settings\" "
+"page after switching company [%s]."
+msgstr "切换公司 [%s] 后，请在“设置”页面上绑定会话内容存档应用。"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid ""
+"Please bind the session content archiving application on the settings page."
+msgstr "请在“设置”页面上绑定会话内容存档应用。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__private_key
+msgid "Private key"
+msgstr "私钥"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__public_key
+msgid "Public key"
+msgstr "公钥"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__publickey_ver
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_msgaudit_key__publickey_ver
+msgid "Public key version"
+msgstr "公钥版本号"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__action__recall
+msgid "Recall message"
+msgstr "撤回消息"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Recipient list"
+msgstr "接收者名单"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__redpacket
+msgid "Red packet message"
+msgstr "红包消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__redpacket
+msgid "Red packet message content"
+msgstr "红包消息内容"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Refresh"
+msgstr "刷新"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__chatdata_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__chatdata_id
+msgid "Related Chat Data"
+msgstr "关联的聊天数据"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__room
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_groupchat_name__room
+msgid "Related Group chat"
+msgstr "关联的群聊"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender
+msgid "Related Sender"
+msgstr "关联发送者"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Request error, error code:%s, error description:%s, suggestion:%s"
+msgstr "请求错误，错误代码：%s，错误描述：%s，建议：%s"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__revoke
+msgid "Revoke message"
+msgstr "撤回消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__revoke
+msgid "Revoke message content"
+msgstr "撤回消息内容"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_groupchat_name_view
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.modify_external_sender_name_view
+msgid "Save"
+msgstr "保存"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_sdk_url
+msgid "Sdk Request Url"
+msgstr "Sdk请求Url"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid "Sdk URL of session Content Archive."
+msgstr "会话内容存档的Sdk URL。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_secret
+msgid "Secret"
+msgstr "密钥"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__action__send
+msgid "Send message"
+msgstr "发送消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_id
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__sender_id
+msgid "Sender ID"
+msgstr "发送者ID"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_name
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__name
+msgid "Sender Name"
+msgstr "发送者名称"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+msgid "Sender information"
+msgstr "发送者信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_name
+msgid "Sender name"
+msgstr "发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sender_type
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_sender__sender_type
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_modify_external_sender_name__sender_type
+msgid "Sender type"
+msgstr "发送者类型"
+
+#. module: wecom_msgaudit
+#: model:wecom.apps,app_name:wecom_msgaudit.wecom_app_msgaudit
+msgid "Session archiving"
+msgstr "会话存档"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_apps__private_keys
+msgid "Session content archive key"
+msgstr "会话内容存档密钥"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_session_root
+msgid "Session content archiving"
+msgstr "会话内容存档"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.action_wecom_msgaudit_key_list
+msgid "Session content archiving key"
+msgstr "会话内容存档密钥"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.action_view_wecom_chat_data_list
+msgid "Session content archiving record"
+msgstr "会话内容存档记录"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"Session content archiving secret. \"Administrative Tools\" → \"Session "
+"content archiving\". To ensure data security, the key must not be leaked."
+msgstr ""
+"会话内容存档密钥。在“管理工具”→ “会话内容存档”。为确保数据安全，密钥不得泄漏。"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/xml/wecom_settings_navigation.xml:0
+#: code:addons/wecom_msgaudit/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Session content archiving settings"
+msgstr "会话内容存档设置"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_cron_session_archiving
+msgid "Session content archiving task"
+msgstr "会话内容存档任务"
+
+#. module: wecom_msgaudit
+#: model:ir.ui.menu,name:wecom_msgaudit.menu_wecom_session_list
+msgid "Session content record"
+msgstr "会话内容记录"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__action__switch
+msgid "Switch enterprise log"
+msgstr "切换企业日志"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__text
+msgid "Text message"
+msgstr "文本消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__text
+msgid "Text message content"
+msgstr "文本消息内容"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
+msgid "Text message content contains"
+msgstr "文本消息内容包含"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "The current message record has exceeded 3 days and cannot be formatted."
+msgstr "当前消息记录已超过3天，无法格式化。"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_message_res_config_settings_view_form
+msgid ""
+"The picture size of the chat data picture attached to the contact. The unit "
+"is 'KB', over which compression is performed."
+msgstr "聊天数据图片附加到联系人的图片大小。单位为'KB'，超过进行压缩。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__publickey_ver
+msgid "The version number of the public key used to encrypt this message."
+msgstr "加密此条消息使用的公钥版本号。"
+
+#. module: wecom_msgaudit
+#. openerp-web
+#: code:addons/wecom/wecom_msgaudit/static/src/js/list_header_button.js:0
+#: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
+#, python-format
+msgid "Tips!"
+msgstr "提示！"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__todo
+msgid "Todo message"
+msgstr "待办消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__todo
+msgid "Todo message content"
+msgstr "待办消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Unable to get media file information"
+msgstr "无法获取媒体文件信息"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#, python-format
+msgid "Unknown error:%s"
+msgstr "未知错误：%s"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_form
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_tree
+msgid "Update group chat info"
+msgstr "更新群聊信息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__user
+msgid "User"
+msgstr "用户"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__sphfeed
+msgid "Video account messages"
+msgstr "视频号消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__sphfeed
+msgid "Video account messages content"
+msgstr "视频号消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__video
+msgid "Video message"
+msgstr "视频消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__video
+msgid "Video message content"
+msgstr "视频消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__voice
+msgid "Voice message"
+msgstr "语音消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__voice
+msgid "Voice message content"
+msgstr "语音消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__vote
+msgid "Vote message"
+msgstr "投票消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__vote
+msgid "Vote message content"
+msgstr "投票消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__chatdata_img_max_size
+msgid "WeCom Chat data picture attached to log note picture size"
+msgstr "会话内容图片压缩后的最大大小"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.ir_cron_act_download_wecom_chat_datas
+#: model:ir.actions.server,name:wecom_msgaudit.ir_cron_pull_wecom_download_chatdatas_ir_actions_server
+#: model:ir.cron,cron_name:wecom_msgaudit.ir_cron_pull_wecom_download_chatdatas
+#: model:ir.cron,name:wecom_msgaudit.ir_cron_pull_wecom_download_chatdatas
+msgid "WeCom: Download session content record."
+msgstr "企微：下载会话内容记录。"
+
+#. module: wecom_msgaudit
+#: model:ir.actions.act_window,name:wecom_msgaudit.ir_cron_act_format_session_content_archive_record
+#: model:ir.actions.server,name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record_ir_actions_server
+#: model:ir.cron,cron_name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record
+#: model:ir.cron,name:wecom_msgaudit.ir_cron_pull_wecom_format_session_content_archive_record
+msgid "WeCom: Format the session content archive record."
+msgstr "企微：格式化会话内容存档记录。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__weapp
+msgid "Weapp message"
+msgstr "小程序消息"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__weapp
+msgid "Weapp message content"
+msgstr "小程序消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__wechat
+msgid "Wechat user"
+msgstr "微信用户"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_chat_data
+msgid "Wecom Chat Data"
+msgstr "企微聊天数据"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_chat_group
+msgid "Wecom Chat Group"
+msgstr "企微群聊"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_chat_sender
+msgid "Wecom Chat Sender"
+msgstr "企微消息发送者"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_msgaudit_key
+msgid "Wecom Session content archive key"
+msgstr "企微会话内容存档密钥"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__module_wecom_chatdata_log_note
+msgid "Wecom chat records attached to log note"
+msgstr "企微聊天记录备注"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_modify_external_groupchat_name
+msgid "Wecom modify external groupcha name"
+msgstr "企微修改外部群聊名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_modify_external_sender_name
+msgid "Wecom modify external sender name"
+msgstr "企微修改外部发送者名称"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_sender__sender_type__wecom
+msgid "Wecom user"
+msgstr "企微用户"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__seq
+msgid ""
+"When pulling again, you need to bring the largest SEQ in the last packet."
+msgstr "再次拉取需要带上上次回包中最大的seq。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__msgid
+msgid "You can use this field for message de duplication."
+msgstr "可以使用此字段进行消息去重。"
+
+#. module: wecom_msgaudit
+#: model:ir.model.constraint,message:wecom_msgaudit.constraint_wecom_msgaudit_key_app_id_ver_uniq
+msgid "密钥版本必须是唯一的！"
+msgstr ""

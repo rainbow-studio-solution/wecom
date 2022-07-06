@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_wecom_session_root" name="Session content archiving" parent="wecom_base.menu_wecom_root" groups="base.group_erp_manager" sequence="2"/>
+
+        <menuitem id="action_wecom_session_key_list" name="Message encryption key" parent="wecom_msgaudit.menu_wecom_session_root" groups="base.group_erp_manager" sequence="1" action="wecom_msgaudit.action_wecom_msgaudit_key_list" />
+
+        <menuitem id="menu_wecom_session_list" name="Session content record" parent="wecom_msgaudit.menu_wecom_session_root" groups="base.group_erp_manager" sequence="2" action="wecom_msgaudit.action_view_wecom_chat_data_list" />
+
+
+
+        <menuitem id="menu_wecom_cron_session_archiving" name="Session content archiving task" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_download_wecom_chat_datas" sequence="10"/>
+
+        <menuitem id="menu_wecom_cron_download_wecom_chat_datas" name="Download session content record" parent="wecom_msgaudit.menu_wecom_cron_session_archiving" action="ir_cron_act_download_wecom_chat_datas" sequence="1"/>
+
+        <menuitem id="menu_wecom_cron_format_session_content_archive_record" name="Format the session content archive record" parent="wecom_msgaudit.menu_wecom_cron_session_archiving" action="ir_cron_act_format_session_content_archive_record" sequence="2"/>
+    </data>
+</odoo>

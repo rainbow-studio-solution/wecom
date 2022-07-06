@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="wecom_app_config_msgaudit_public_key" model="wecom.app_config">
+            <field name="app_id" ref="wecom_msgaudit.wecom_app_msgaudit"/>
+            <field name="name">Session content archive public key</field>
+            <field name="key">msgaudit_public_key</field>
+            <field name="ttype">text</field>
+            <field name="value"></field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Used to encrypt session content data.
+                </p>
+            </field>
+        </record>
+        <record id="wecom_app_config_msgaudit_private_key" model="wecom.app_config">
+            <field name="app_id" ref="wecom_msgaudit.wecom_app_msgaudit"/>
+            <field name="name">Session content archive private key</field>
+            <field name="key">msgaudit_private_key</field>
+            <field name="ttype">text</field>
+            <field name="value"></field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Used to decrypt session content data.
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -37,7 +37,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-6 o_setting_box"  id="china_technical_support">
+                <div class="col-12 col-lg-6 o_setting_box" id="china_technical_support">
                     <div class="o_setting_left_pane">
                         <field name="technical_support"/>
                     </div>
@@ -46,21 +46,21 @@
                         <div class="text-muted">
                             Display customizable technical support information on the website.
                         </div>
-                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}" >
-                            <div class="row mt16">
+                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}">
+                            <div class="row mt8">
                                 <label class="col-lg-5" for="technical_support_icon" />
                                 <field name="technical_support_icon" widget="image" class="float-left oe_avatar col-lg-7"/>
                             </div>
-                        </div>    
+                        </div>
 
-                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}" >                   
+                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}">
                             <label for="technical_support_name"/>
                             <div class="mt8">
                                 <field name="technical_support_name" placeholder="Powered by Odoo"/>
                             </div>
                         </div>
 
-                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}" >     
+                        <div class="content-group" attrs="{'invisible':[('technical_support','=',False)]}">
                             <label for="technical_support_url"/>
                             <div class="mt8">
                                 <field name="technical_support_url" placeholder="https://www.odoo.com/help"/>
@@ -71,7 +71,7 @@
             </div>
 
             <div id="google_maps_setting" position="after">
-                <div class="col-12 col-lg-6 o_setting_box"  id="baidu_maps_setting">
+                <div class="col-12 col-lg-6 o_setting_box" id="baidu_maps_setting">
                     <div class="o_setting_left_pane">
                         <field name="has_baidu_maps"/>
                     </div>
@@ -85,14 +85,13 @@
                             Enabling Baidu map will replace Google map in the foreground.
                         </div>
                         <div class="content-group" attrs="{'invisible': [('has_baidu_maps', '=', False)]}">
-                            <div class="row mt16">
+                            <div class="row mt8">
                                 <label class="col-lg-3 o_light_label" string="API AK" for="baidu_maps_api_key"/>
                                 <field name="baidu_maps_api_key" attrs="{'required': [('has_baidu_maps', '=', True)]}" />
                             </div>
                         </div>
                         <div class="mt8" attrs="{'invisible': [('has_baidu_maps', '=', False)]}">
-                            <a role="button" class="btn-link" target="_blank"
-                                href="https://lbsyun.baidu.com/apiconsole/key?application=key#/home">
+                            <a role="button" class="btn-link" target="_blank" href="https://lbsyun.baidu.com/apiconsole/key?application=key#/home">
                                 <i class="fa fa-arrow-right"/>
                                 Create Baidu app and get AK
                             </a>
@@ -100,10 +99,10 @@
                         <div class="text-muted">
                             You need to create an application of type "server".
                         </div>
-                    </div>   
+                    </div>
                 </div>
             </div>
-            
+
             <div id="google_console_setting" position="after">
                 <div class="col-12 col-lg-offset-6 col-lg-6 o_setting_box" id="baidu_analytics_setting">
                     <div class="o_setting_left_pane">
@@ -116,10 +115,9 @@
                             Track visits in Baidu Analytics
                         </div>
                         <div class="content-group" attrs="{'invisible': [('has_baidu_analytics', '=', False)]}">
-                            <div class="row mt16">
+                            <div class="row mt8">
                                 <label class="col-lg-3 o_light_label" string="Tracking ID" for="baidu_analytics_key"/>
-                                <field name="baidu_analytics_key" placeholder=""
-                                    attrs="{'required': [('has_baidu_analytics', '=', True)]}"/>
+                                <field name="baidu_analytics_key" placeholder="" attrs="{'required': [('has_baidu_analytics', '=', True)]}"/>
                             </div>
                         </div>
                         <div attrs="{'invisible': [('has_baidu_analytics', '=', False)]}">
@@ -131,7 +129,7 @@
                     </div>
                 </div>
             </div>
- 
+
 
             <div id="social_media_settings" position="before">
                 <div class="col-12 col-lg-6 o_setting_box">
@@ -144,27 +142,27 @@
                         <div class="text-muted">
                             Enable the social media sidebar on the website.
                         </div>
-                        <div class="content-group" attrs="{'invisible':[('has_social_sidebar','=',False)]}" >
-                            <div class="row mt16">
+                        <div class="content-group" attrs="{'invisible':[('has_social_sidebar','=',False)]}">
+                            <div class="row mt8">
                                 <label for="social_sidebar_top" class="col-lg-5"/>
                                 <field name="social_sidebar_top" options="{'format': false}"/>
                             </div>
                             <div class="row">
                                 <label for="social_sidebar_bg_color" class="col-lg-5"/>
-                                <field name="social_sidebar_bg_color" widget="colorpicker"/> 
-                            </div>                                                          
-                        </div> 
+                                <field name="social_sidebar_bg_color" widget="colorpicker"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
+
             <xpath expr="//div[@id='social_media_settings']/div[@class='o_setting_right_pane']/div[@class='content-group']/div[@class='row'][last()]" position="after">
                 <div class="row">
                     <label for="social_wechat" string="WeChat official account QR code" class="col-md-6 o_light_label"/>
                     <field name="social_wechat" widget="image" class="float-left oe_avatar col-lg-4"/>
                 </div>
                 <field name="module_wxwork_customer_service" invisible="1" />
-                <div class="row mt16" attrs="{'invisible': [('module_wxwork_customer_service','=',False)]}">
+                <div class="row mt8" attrs="{'invisible': [('module_wxwork_customer_service','=',False)]}">
                     <div class="text-info col-md-12">
                         You have installed the enterprise wechat customer service function. Please set the customer service QR code in the enterprise wechat application.
                     </div>
@@ -177,10 +175,10 @@
                     <label for="social_wechat_kf_compute" string="WeChat customer service QR code" class="col-md-6 o_light_label"/>
                     <field name="social_wechat_kf_compute" widget="image" class="float-left oe_avatar col-lg-4"/>
                 </div>
-                
+
                 <div class="row">
                     <label for="social_qq" string="QQ" class="col-md-3 o_light_label"/>
-                    <field name="social_qq" placeholder="88888888"  options="{'format': false}"/>
+                    <field name="social_qq" placeholder="88888888" options="{'format': false}"/>
                 </div>
                 <div class="row">
                     <label for="social_weibo" string="WeiBo" class="col-md-3 o_light_label"/>
@@ -191,8 +189,8 @@
                     <field name="social_renren" placeholder="http://www.renren.com/youraccount"/>
                 </div>
 
-            </xpath>            
-            
+            </xpath>
+
         </field>
     </record>
 

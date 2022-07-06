@@ -131,10 +131,10 @@ msgstr ""
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.company_description
 msgid ""
-"<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"Address\" title=\"Address\"/"
+"<span class=\"fa fa-map-marker fa-fw mt8\" role=\"img\" aria-label=\"Address\" title=\"Address\"/"
 ">"
 msgstr ""
-"<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"地址\" title=\"地址\"/>"
+"<span class=\"fa fa-map-marker fa-fw mt8\" role=\"img\" aria-label=\"地址\" title=\"地址\"/>"
 
 #. module: website_china_extends
 #: model_terms:ir.ui.view,arch_db:website_china_extends.res_config_settings_view_form

@@ -743,8 +743,8 @@ msgstr "<span class=\"fa fa-lg fa-globe\" title=\"此处设置的值是特定于
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.company_description
-msgid "<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"Address\" title=\"Address\"/>"
-msgstr "<span class=\"fa fa-map-marker fa-fw mt16\" role=\"img\" aria-label=\"地址\" title=\"地址\"/>"
+msgid "<span class=\"fa fa-map-marker fa-fw mt8\" role=\"img\" aria-label=\"Address\" title=\"Address\"/>"
+msgstr "<span class=\"fa fa-map-marker fa-fw mt8\" role=\"img\" aria-label=\"地址\" title=\"地址\"/>"
 
 #. module: website
 #: model_terms:ir.ui.view,arch_db:website.user_navbar

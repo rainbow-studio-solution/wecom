@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-29 08:43+0000\n"
-"PO-Revision-Date: 2022-06-29 16:46+0800\n"
+"POT-Creation-Date: 2022-07-06 03:08+0000\n"
+"PO-Revision-Date: 2022-07-06 11:12+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -51,6 +51,21 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"通讯录应用\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_res_users_kanban
 msgid "<i class=\"fa fa-weixin\" role=\"img\" aria-label=\"Enterprise wechat user\" title=\" Enterprise wechat user\"/>"
 msgstr "<i class=\"fa fa-weixin\" role=\"img\" aria-label=\"企微用户\" title=\"企微用户\"/>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-archive fa-lg\" aria-label=\"Session Content Archive\"/>\n"
+"                                Session Content Archive\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-archive fa-lg\" aria-label=\"会话内容存档\"/>\n"
+"                                会话内容存档\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -343,6 +358,11 @@ msgid "Enterprise wechat user"
 msgstr "企微用户"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Enterprises can obtain members' conversation content through the interface to meet the regulatory compliance requirements of enterprises and ensure the quality of customer service."
+msgstr "企业可通过接口获取成员会话内容，以符合企业监管合规要求和保障客户服务质量。"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "Error creating company %s partner %s %s, error reason: %s"
@@ -352,7 +372,7 @@ msgstr "创建公司 [%s] 的合作伙伴[%s %s]时出错，错误原因：%s"
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载 标签[%s] 公司[%s]的成员！"
+msgstr "未能下载标签成员[%s] 公司为[%s]！"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
@@ -380,6 +400,11 @@ msgstr "分组"
 #, python-format
 msgid "HR settings"
 msgstr "HR设置"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrmis
+msgid "Human Resources Management Information System"
+msgstr "人力资源管理信息系统"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__id model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__id
@@ -475,7 +500,7 @@ msgstr "个人二维码，扫描可作为外部联系人添加"
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
 #, python-format
 msgid "Please bind contact app!"
-msgstr "请绑定通讯录应用！"
+msgstr ""
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
@@ -522,7 +547,7 @@ msgstr "企微应用接收事件服务"
 #: code:addons/wecom_contacts/static/src/js/download_contacts.js:0 code:addons/wecom_contacts/static/src/js/download_tags.js:0
 #, python-format
 msgid "Refresh"
-msgstr ""
+msgstr "刷新"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -533,6 +558,18 @@ msgstr "刷新二维码"
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_secret
 msgid "Secret"
 msgstr "密钥"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Session Content Archive"
+msgstr "会话内容存档"
+
+#. module: wecom_contacts
+#. openerp-web
+#: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Session content archiving settings"
+msgstr "会话内容存档设置"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_users_search_inherit
@@ -559,7 +596,7 @@ msgstr "标签id，非负整型，指定此参数时新增的标签会生成对�
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Tag list downloaded successfully."
-msgstr "已成功下载标签列表。"
+msgstr "标签列表下载成功。"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/__init__.py:0
@@ -571,7 +608,7 @@ msgstr "当前公司没有为企业微信配置公司ID"
 #: code:addons/wecom_contacts/models/res_partner_category.py:0 code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
-msgstr "当前公司未识别企业微信组织。请配置或切换公司。"
+msgstr "当前公司未标识为企业微信组织。请配置或切换公司。"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,help:wecom_contacts.field_res_partner__wecom_user_order model:ir.model.fields,help:wecom_contacts.field_res_users__wecom_user_order
@@ -582,7 +619,7 @@ msgstr "部门中的排序值，默认值为0。该数字必须与部门相同�
 #: code:addons/wecom_contacts/models/res_partner_category.py:0 code:addons/wecom_contacts/models/res_users.py:0
 #, python-format
 msgid "There is no mapping for field [%s], please contact the developer."
-msgstr "字段[%s]没有映射，请与开发人员联系。"
+msgstr "字段 [%s] 没有映射，请与开发人员联系。"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__user_id
@@ -618,11 +655,6 @@ msgstr "企微身份验证"
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_contacts_sync
 msgid "WeCom Contacts Synchronized"
 msgstr "企微通讯录同步"
-
-#. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrmis
-msgid "Human Resources Management Information System"
-msgstr "人力资源管理信息系统"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_material
@@ -679,6 +711,11 @@ msgstr "企微信息"
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_portal
 msgid "Wecom Portal"
 msgstr "企微门户"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_msgaudit
+msgid "Wecom Session Content Archive"
+msgstr "企微会话内容存档"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form

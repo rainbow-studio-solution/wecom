@@ -19,6 +19,12 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#hrmis">
                 <h5 style="display:inline;"> HR settings</h5>
             </a>
+            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom__jump_anchor" href="#hrmis">
+                <h5 style="display:inline;"> HR settings</h5>
+            </a>
+            <a type="button" role="button" class="btn btn-secondary fa fa-archive wecom__jump_anchor" href="#wecom_msgaudit">
+                <h5 style="display:inline;"> Session content archiving settings</h5>
+            </a>
         </t>
     </t>
 

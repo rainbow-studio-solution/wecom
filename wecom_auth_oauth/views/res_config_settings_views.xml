@@ -23,7 +23,7 @@
                                 </div>
                                 <button class="btn btn-primary" name="get_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('auth_app_id','=',False)]}" context="{'app': 'auth'}"/>
                                 <div class="mt4" attrs="{'invisible': [('material_app_id','=',False)]}">
-                                    <div class="text-warning mt16">
+                                    <div class="text-warning mt8">
                                         <strong>Save</strong> this page and come back here to set up other feature.</div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="content-group">
-                                <div class="mt16">
+                                <div class="mt8">
                                     <field name="auth_agentid" widget="integer" options="{'format': false}" />
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                             <div class="content-group">
-                                <div class="mt16">
+                                <div class="mt8">
                                     <field name="auth_secret" widget="wecom_password"/>
                                 </div>
                             </div>

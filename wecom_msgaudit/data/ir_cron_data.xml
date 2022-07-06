@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record forcecreate="True" id="ir_cron_pull_wecom_download_chatdatas" model="ir.cron">
+            <field name="name">WeCom: Download session content record.</field>
+            <field name="model_id" ref="model_wecom_chat_data"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_download_chatdatas()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">10</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="False"/>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_pull_wecom_format_session_content_archive_record" model="ir.cron">
+            <field name="name">WeCom: Format the session content archive record.</field>
+            <field name="model_id" ref="model_wecom_chat_data"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_format_content()</field>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+            <field name="doall" eval="False"/>
+            <!-- <field name="nextcall" eval="(DateTime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')"/> -->
+        </record>
+
+    </data>
+</odoo>

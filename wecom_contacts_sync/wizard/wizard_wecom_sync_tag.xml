@@ -13,7 +13,7 @@
                             <div>
                                 The Linux production server uses the following command to view real-time logs:
                             </div>
-                            <div class="mt16 mb16">
+                            <div class="mt8 mb16">
                                 <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
                             </div>
                             <div>
