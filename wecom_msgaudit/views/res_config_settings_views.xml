@@ -131,6 +131,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_mediadata_url">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-link fa-lg" aria-label="Media file data API URL for session content archiving"/>
@@ -150,7 +151,26 @@
                         </div>
                     </div>
 
-                    <!-- 聊天记录附加到联系人记录备注 -->
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('msgaudit_app_id','=',False)]}" name="msgaudit_compress_image_url">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-link fa-lg" aria-label="Image file compression API URL for session content archiving"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="msgaudit_compress_image_url"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    It is used to compress pictures to avoid taking up too much space.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="msgaudit_compress_image_url" widget="url" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 聊天记录关联到模型 -->
                     <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('module_wecom_msgaudit','=',False)]}" id="wecom_chat_data_add_log_note_install">
                         <div class="o_setting_left_pane">
                             <field name="module_wecom_chatdata_log_note" />

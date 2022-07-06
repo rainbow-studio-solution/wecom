@@ -52,6 +52,11 @@ class ResConfigSettings(models.TransientModel):
         default="/wecom/finance/mediadata",
         config_parameter="wecom.msgaudit.msgaudit_mediadata_url",
     )
+    msgaudit_compress_image_url = fields.Char(
+        "Image file compression API URL",
+        default="/wecom/tools/compress_image",
+        config_parameter="wecom.msgaudit.msgaudit_compress_image_url",
+    )
 
     module_wecom_chatdata_log_note = fields.Boolean(
         "Wecom chat records attached to log note"
