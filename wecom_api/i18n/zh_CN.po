@@ -349,7 +349,7 @@ msgstr "企微工具"
 
 #. module: wecom_api
 #: model:ir.model.fields.selection,name:wecom_api.selection__wecom_service_api_list__type__11
-msgid "pay"
+msgid "externalpay"
 msgstr "企业支付"
 
 #. module: wecom_api

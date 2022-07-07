@@ -11,31 +11,29 @@ class WecomServerApiList(models.Model):
 
     type = fields.Selection(
         [
-            ("1", "Base"),
-            ("2", "Contacts"),
-            ("3", "Customer contact"),
-            ("4", "Wechat customer service"),
-            ("5", "Identity authentication"),
-            ("6", "Application management"),
-            ("7", "Message push"),
-            ("8", "Media material"),
-            ("9", "OA"),
-            ("10", "Efficiency tools"),
-            ("11", "pay"),
-            ("12", "Corp Group"),
-            ("13", "Corp Chain"),
-            ("14", "Session content archiving"),
-            # ("meeting", "Meeting"),
-            # ("living", "Living"),
-            # ("wedrive", "WeDrive"),
-            # ("telephone", "Telephone"),
-            # ("pay", "Pay"),
-            # ("invoice", "Session content archiving"),
+            ("1", "Base"), # 基础
+            ("2", "Contacts"), # 通讯录，
+            ("3", "Customer contact"), # 客户联系
+            ("4", "Wechat customer service"), # 微信客服
+            ("5", "Identity authentication"), # 身份验证
+            ("6", "Application management"), # 应用管理
+            ("7", "Message push"), # 消息推送
+            ("8", "Media material"), # 媒体素材
+            ("9", "OA"), # OA
+            ("10", "Efficiency tools"), # 效率工具
+            ("11", "externalpay"), # 企业支付
+            ("12", "Corp Group"), # 企业互联
+            ("13", "Corp Chain"), # 企业链，上下游
+            ("14", "Session content archiving"), # 会话内容存档
+            ("15", "Electronic invoice"), # 电子发票
+            ("16", "School"),   # 家校沟通
+            ("17", "School Apps"), # 家校应用
+            ("18", "Report"),  # 政民沟通
         ],
         string="Api Type",
         required=True,
         default="GET",
-    )  # base:基础， contacts:通讯录， external_contact:客户联系，Servicer:微信客服，auth:身份认证， agent:应用管理,  message:消息推送,  media:媒体素材, checkin:打卡, checkin:打卡, approval:审批, worknote:汇报, meetingroom:会议室管理, schedule:日程, meeting:会议, living:直播, wedrive:微盘, telephone:公费电话, pay:企业支付, corpgroup:企业互联, msgaudit:会话内容存档, invoice:电子发票,
+    )  
 
     name = fields.Char("Request Name", required=True,)
     function_name = fields.Char("Request Function Name", required=True, readonly=True,)

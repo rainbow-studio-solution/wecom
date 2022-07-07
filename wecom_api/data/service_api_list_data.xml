@@ -2700,14 +2700,122 @@
             <field name="sequence">94024</field>
         </record>
 
-
-
-
         <!-- 9.5 公费电话 -->
+        <record id="wecom_service_tools_get_dial_record" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 公费电话 &gt; 获取公费电话拨打记录</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，按时间范围拉取成功接通的公费电话拨打记录。</p>
+            </field>
+            <field name="function_name">GET_DIAL_RECORD</field>
+            <field name="short_url">/cgi-bin/dial/get_dial_record?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">95001</field>
+        </record>
 
         <!-- 10. 企业支付 -->
+        <!-- 10.1 企业红包 -->
+        <!-- 10.2 向员工付款 -->
+        <!-- 10.3 向员工收款 -->
+        <!-- 10.4 对外收款 -->
+        <record id="wecom_service_externalpay_addmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 新增商户号</field>
+            <field name="description" type="html">
+                <p>使用该接口时需要开通对外收款能力并绑定第一个商户号。（说明：第一个商户号的绑定需要由企业管理员手动绑定，绑定入口在：手机端工作台-对外收款，或管理后台-应用管理-对外收款-启用）</p>
+                <p>通过该接口可以导入其他商户号，同一个企业最多绑定5000个商户号。</p>
+            </field>
+            <field name="function_name">ADDMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/addmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114001</field>
+        </record>
+
+        <record id="wecom_service_externalpay_getmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 查询商户号详情</field>
+            <field name="description" type="html">
+                <p>通过该接口可以查询已绑定商户号信息以及商户号使用范围</p>
+            </field>
+            <field name="function_name">GETMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/getmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114002</field>
+        </record>
+
+        <record id="wecom_service_externalpay_delmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 删除商户号</field>
+            <field name="description" type="html">
+                <p>通过该接口可以删除未绑定的商户号</p>
+            </field>
+            <field name="function_name">DELMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/delmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114003</field>
+        </record>
+
+        <record id="wecom_service_externalpay_set_mch_use_scope" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 设置商户号使用范围</field>
+            <field name="description" type="html">
+                <p>通过该接口可以设置已绑定商户号的使用范围</p>
+            </field>
+            <field name="function_name">SET_MCH_USE_SCOPE</field>
+            <field name="short_url">/cgi-bin/externalpay/set_mch_use_scope?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114004</field>
+        </record>
+
+        <record id="wecom_service_externalpay_get_bill_list" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 获取对外收款记录</field>
+            <field name="description" type="html">
+                <p>企业和服务商可通过此接口获取企业的对外收款记录。</p>
+            </field>
+            <field name="function_name">GET_BILL_LIST</field>
+            <field name="short_url">/cgi-bin/externalpay/get_bill_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114004</field>
+        </record>
 
         <!-- 11. 企业互联 -->
+        <record id="wecom_service_corpgroup_corp_list_app_share_info" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取应用共享信息</field>
+            <field name="description" type="html">
+                <p>上级/上游企业通过该接口可以获取某个应用分享给的所有企业列表。</p>
+                <p>对于有敏感权限的应用，需要下级/下游企业确认后才能共享成功，若下级/下游企业未确认，则不会存在于该接口的返回列表</p>
+            </field>
+            <field name="function_name">CORP_LIST_APP_SHARE_INFO</field>
+            <field name="short_url">/cgi-bin/corpgroup/corp/list_app_share_info?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120001</field>
+        </record>
+
+        <record id="wecom_service_corpgroup_corp_gettoken" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取下级/下游企业的access_token</field>
+            <field name="description" type="html">
+                <p>获取应用可见范围内下级/下游企业的access_token，该access_token可用于调用下级/下游企业通讯录的只读接口。</p>
+            </field>
+            <field name="function_name">CORP_GETTOKEN</field>
+            <field name="short_url">/cgi-bin/corpgroup/corp/gettoken?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120002</field>
+        </record>
+
+        <record id="wecom_service_corpgroup_miniprogram_transfer_session" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取下级/下游企业小程序session</field>
+            <field name="description" type="html">
+                <p>上级/上游企业通过该接口转换为下级/下游企业的小程序session</p>
+            </field>
+            <field name="function_name">CORP_MINIPROGRAM_TRANSFER_SESSION</field>
+            <field name="short_url">/cgi-bin/miniprogram/transfer_session?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120003</field>
+        </record>
 
         <!-- 12. 上下游 -->
 
