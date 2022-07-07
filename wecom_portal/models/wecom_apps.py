@@ -13,7 +13,9 @@ MENU_TEMPLATE = {
 class WeComApps(models.Model):
     _inherit = "wecom.apps"
 
-    menu_body = fields.Text("Application menu data", translate=True, default="{}")
+    menu_body = fields.Text(
+        "Application menu data", translate=True, default="{}", copy=False,
+    )
 
     def get_wecom_app_menu(self):
         """
@@ -88,7 +90,7 @@ class WeComApps(models.Model):
                     }
                 )
                 del button["id"]
-        
+
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 self.company_id.corpid, self.secret,
@@ -103,11 +105,15 @@ class WeComApps(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call("MENU_GET"),
                 {"agentid": str(self.agentid)},
             )
-            
+
             if response_get["errcode"] == 0:
                 body = {"button": response_get["button"]}
                 self.menu_body = json.dumps(
-                    body, sort_keys=False, indent=2, separators=(",", ":"), ensure_ascii=False,
+                    body,
+                    sort_keys=False,
+                    indent=2,
+                    separators=(",", ":"),
+                    ensure_ascii=False,
                 )
                 message = {
                     "title": _("success!"),

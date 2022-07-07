@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-06 12:31+0000\n"
-"PO-Revision-Date: 2022-07-06 20:35+0800\n"
+"POT-Creation-Date: 2022-07-07 05:02+0000\n"
+"PO-Revision-Date: 2022-07-07 13:07+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -60,6 +60,16 @@ msgid ""
 "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Session archiving "
 "application\"/>"
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"会话存档应用\"/>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
+msgid "<span class=\"oe_inline \">Storage path: </span>"
+msgstr "<span class=\"oe_inline \">存储路径： </span>"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
+msgid "<span class=\"oe_inline \">msgaudit</span>"
+msgstr "<span class=\"oe_inline \">msgaudit</span>"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
@@ -392,7 +402,7 @@ msgstr ""
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "Error!"
-msgstr "错误！"
+msgstr "错误!"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__is_external_msg
@@ -511,6 +521,7 @@ msgstr "ID"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__image
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
 msgid "Image message"
 msgstr "图片消息"
 
@@ -1026,6 +1037,11 @@ msgid "Unknown error:%s"
 msgstr "未知错误：%s"
 
 #. module: wecom_msgaudit
+#: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_use_physical_path_storage_media_files
+msgid "Use physical paths to store media files"
+msgstr "使用物理路径存储媒体文件"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__user
 msgid "User"
 msgstr "用户"
@@ -1151,6 +1167,13 @@ msgstr "企微用户"
 msgid ""
 "When pulling again, you need to bring the largest SEQ in the last packet."
 msgstr "再次拉取需要带上上次回包中最大的seq。"
+
+#. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
+msgid ""
+"With this feature enabled, media files will be stored using physical paths. "
+"Otherwise, it will be stored in the database."
+msgstr "启用此功能后，将使用物理路径存储媒体文件。否则，它将存储在数据库中。"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__msgid

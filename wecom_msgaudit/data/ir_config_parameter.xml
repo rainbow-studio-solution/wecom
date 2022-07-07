@@ -22,10 +22,7 @@
             <field name="value">/wecom/finance/mediadata</field>
         </record>
 
-        <record model="ir.config_parameter" id="msgaudit_compress_image_url">
-            <field name="key">wecom.msgaudit.msgaudit_compress_image_url</field>
-            <field name="value">/wecom/tools/compress_image</field>
-        </record>
+        <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit.use_physical_path_storage, 'False')"/>
 
     </data>
 </odoo>

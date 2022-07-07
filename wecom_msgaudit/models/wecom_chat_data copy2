@@ -1,20 +1,26 @@
 # -*- coding: utf-8 -*-
 
 import logging
+from math import fabs
 import time
 import io
 import requests
 import json
 import base64
 import logging
+from datetime import datetime, timedelta
 from PIL import Image
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
 from odoo.modules.module import get_module_resource
 from lxml import etree
 
-
+# import multiprocessing
+# from multiprocessing import Pool
+# from multiprocessing import Manager
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
+
 import pandas as pd
 
 pd.set_option("max_colwidth", 4096)  # 设置最大列宽
@@ -127,7 +133,7 @@ class WeComChatData(models.Model):
         ],
     )
     formatted = fields.Boolean(
-        string="Formatted", default=False, compute="_compute_formatted", store=True
+        string="Formatted", default=False, compute="_compute_formatted"
     )
 
     time = fields.Datetime(string="Message sending time",)
@@ -567,7 +573,7 @@ class WeComChatData(models.Model):
         dic = {}
         dic.update({"sender_id": sender_id})
         chats = self.search([("from_user", "=", sender_id)])
-
+        # print("chats",len(chats),chats)
         for chat in chats:
             if chat.sender:
                 pass
@@ -906,9 +912,7 @@ class WeComChatData(models.Model):
         elif self.msgtype == "image":
             # 检查图片是否可以打开
             tree = etree.HTML(self.image)
-            image_str = tree.xpath("//img/@src")[0]
-
-            print(self.check_image_base(image_str))
+            image_str = tree.xpath("//img/@src")
             if self.check_image_base(image_str):
                 allow_formatting = False
             else:
@@ -974,20 +978,6 @@ class WeComChatData(models.Model):
                         )
 
                         headers = {"content-type": "application/json"}
-                        original_file_size = (
-                            eval(msg_content)["filesize"]
-                            if content[0] == "{"
-                            else eval(self.decrypted_chat_msg)["image"]["filesize"]
-                        )  # 图片原始大小
-                        targetfile_file_size = (
-                            int(
-                                ir_config.get_param(
-                                    "wecom.msgaudit.chatdata_img_max_size"
-                                )
-                            )
-                            * 1024
-                        )  # 图片最大大小，超过此大小，进行压缩
-
                         body = {
                             "seq": 0,
                             "sdkfileid": eval(msg_content)["sdkfileid"]
@@ -996,9 +986,6 @@ class WeComChatData(models.Model):
                             "corpid": corpid,
                             "secret": secret,
                             "private_keys": key_list,
-                            "targetfile_file_size": targetfile_file_size,
-                            "original_file_size": original_file_size,
-                            "msgtype": self.msgtype,
                         }
                         if proxy:
                             body.update(
@@ -1008,18 +995,44 @@ class WeComChatData(models.Model):
                             mediadata_url, data=json.dumps(body), headers=headers
                         )
                         res = response.json()
-
                         if res is None:
                             raise UserError(_("Unable to get media file information"))
                         if res["code"] == 0:
                             mediadata = res["data"]
-                            data_image = "data:image/png;base64,%s" % mediadata
-                            if self.check_image_base(mediadata):
+                            img_max_size = (
+                                int(
+                                    ir_config.get_param(
+                                        "wecom.msgaudit.chatdata_img_max_size"
+                                    )
+                                )
+                                * 1024
+                            )  # 图片最大大小，超过此大小，进行压缩
+                            msgaudit_sdk_url = ir_config.get_param("wecom.msgaudit.msgaudit_sdk_url")
+                            msgaudit_compress_image_url = ir_config.get_param(
+                                "wecom.msgaudit.msgaudit_compress_image_url"
+                            )  # 图片压缩接口URL
+                            compress_image_url = msgaudit_sdk_url + msgaudit_compress_image_url
+                            filesize = (
+                                eval(msg_content)["filesize"]
+                                if content[0] == "{"
+                                else eval(self.decrypted_chat_msg)["image"]["filesize"]
+                            )  # 图片原始大小
+
+                            base64_source = self.compress_image_base64(
+                                bytes(mediadata, "utf-8"), img_max_size, filesize,
+                            )
+
+                            if type(base64_source) == bytes:
+                                base64_source = base64_source.decode()
+                            if self.check_image_base(base64_source):
                                 formatted = True
                             else:
                                 formatted = False
 
-                            content = "<img class='mw-100' src='%s' />" % data_image
+                            content = (
+                                "<img class='mw-100' src='data:image/png;base64,%s' />"
+                                % base64_source
+                            )
                         else:
                             _logger.warning(
                                 _(
@@ -1048,18 +1061,55 @@ class WeComChatData(models.Model):
                 {self._fields[self.msgtype].name: content, "formatted": formatted,}
             )
 
-    def check_image_base(self, data_image):
+    def check_image_base(self, image_str):
         """
         校验图片的字节流
-        data_image: data:image/png;base64,...................
         """
         try:
-            # 检查文件是否能正常打开
-            image = Image.open(io.BytesIO(base64.b64decode(data_image)))
+            image_file = io.BytesIO(image_str)  # 使用BytesIO把字节流转换为文件对象
+            image = Image.open(image_file)  # 检查文件是否能正常打开
             image.verify()  # 检查文件完整性
+            image_file.close()
             image.close()
         except:
             return False
         else:
             return True
 
+    def compress_image_base64(self, base64_source, t_size, o_size):
+        """
+        压缩图片最大宽度为1000px(避免4K图片循环过多)，最大大小为 t_size
+        不改变图片尺寸压缩到指定大小
+        :param base64_source: 图像base64编码
+        :param t_size: 目标大小
+        :param o_size: 原大小
+        :return: 返回压缩后的base64编码
+        """
+        if o_size <= t_size:
+            return base64_source
+        else:
+            with io.BytesIO(base64.b64decode(base64_source)) as im:
+                o_size = len(im.getvalue())  # 原始图片大小
+
+                stream = im
+                while o_size > t_size:
+                    image = Image.open(stream)
+                    # image = image.convert('RGB')
+                    x, y = image.size
+                    if x > 1000:
+                        # 图片宽度大于1000px，进行等比例缩放
+                        y = int(y * (1000 / x))
+                        x = 1000
+                        image = image.resize((x, y), Image.ANTIALIAS)
+
+                    # output = image.resize(
+                    #     (int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS
+                    # )
+                    image = image.resize((int(x * 0.9), int(y * 0.9)), Image.ANTIALIAS)
+                    stream.close()
+                    stream = io.BytesIO()
+                    image.save(stream, "png")
+                    o_size = len(stream.getvalue())  # 压缩后图片大小
+                base64_source = base64.b64encode(stream.getvalue()).decode()
+                stream.close()
+                return base64_source
