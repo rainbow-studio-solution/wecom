@@ -63,13 +63,9 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"会话存档应用\"/
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
-msgid "<span class=\"oe_inline \">Storage path: </span>"
-msgstr "<span class=\"oe_inline \">存储路径： </span>"
+msgid "<span class=\"oe_inline \">Storage path: /wecom_msgaudit/static/media/</span>"
+msgstr "<span class=\"oe_inline \">存储路径： /wecom_msgaudit/static/media/</span>"
 
-#. module: wecom_msgaudit
-#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
-msgid "<span class=\"oe_inline \">msgaudit</span>"
-msgstr "<span class=\"oe_inline \">msgaudit</span>"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form

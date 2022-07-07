@@ -7,10 +7,11 @@ import requests
 import json
 import base64
 import logging
+import platform
 from PIL import Image
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, Warning
-from odoo.modules.module import get_module_resource
+from odoo.modules.module import get_module_resource, get_resource_path
 from lxml import etree
 
 
@@ -226,7 +227,7 @@ class WeComChatData(models.Model):
         获取聊天记录
         注:获取会话记录内容不能超过3天，如果企业需要全量数据，则企业需要定期拉取聊天消息。返回的ChatDatas内容为json格式。
         """
-        ir_config = self.env["ir.config_parameter"].sudo()
+        get_param = self.env["ir.config_parameter"].sudo().get_param
         company = self.company_id
         if not company:
             company = self.env.company
@@ -277,18 +278,12 @@ class WeComChatData(models.Model):
             max_seq_id = results[0]["max"]
 
         try:
-            msgaudit_sdk_url = ir_config.get_param("wecom.msgaudit.msgaudit_sdk_url")
-            msgaudit_chatdata_url = ir_config.get_param(
-                "wecom.msgaudit.msgaudit_chatdata_url"
-            )
+            msgaudit_sdk_url = get_param("wecom.msgaudit.msgaudit_sdk_url")
+            msgaudit_chatdata_url = get_param("wecom.msgaudit.msgaudit_chatdata_url")
 
             chatdata_url = msgaudit_sdk_url + msgaudit_chatdata_url
 
-            proxy = (
-                True
-                if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
-                else False
-            )
+            proxy = True if get_param("wecom.msgaudit_sdk_proxy") == "True" else False
             headers = {"content-type": "application/json"}
             body = {
                 "seq": max_seq_id,
@@ -692,20 +687,17 @@ class WeComChatData(models.Model):
                 max_seq_id = results[0]["max"]
 
             try:
-                ir_config = self.env["ir.config_parameter"].sudo()
-                msgaudit_sdk_url = ir_config.get_param(
-                    "wecom.msgaudit.msgaudit_sdk_url"
-                )
-                msgaudit_chatdata_url = ir_config.get_param(
+                get_param = self.env["ir.config_parameter"].sudo().get_param
+
+                msgaudit_sdk_url = get_param("wecom.msgaudit.msgaudit_sdk_url")
+                msgaudit_chatdata_url = get_param(
                     "wecom.msgaudit.msgaudit_chatdata_url"
                 )
 
                 chatdata_url = msgaudit_sdk_url + msgaudit_chatdata_url
 
                 proxy = (
-                    True
-                    if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
-                    else False
+                    True if get_param("wecom.msgaudit_sdk_proxy") == "True" else False
                 )
                 headers = {"content-type": "application/json"}
                 body = {
@@ -834,25 +826,7 @@ class WeComChatData(models.Model):
 
         for chat in chats:
             chat.format_content()
-        # if len(chats) > multiprocessing.cpu_count():
-        #     # pool = Pool(multiprocessing.cpu_count()) #创建等同CPU数量进程的进程池
-        #     # # pool.map(self.format_content, chats)
-        #     # with pool as p:
-        #     #     p.map(self.format_content, chats)
-        #     manager=Manager()
-        #     queue=manager.Queue()
-        #     processedNum=manager.Value('i',0)
-        #     for i in chats:
-        #         queue.put(i)
-        #     processesNum = int(self.maxProcessesInput.get())
-        #     pool = Pool(processesNum)
-        #     for i in range(processesNum):
-        #         pool.apply_async(self.format_content,())
-        #     pool.close()
-        #     pool.join()
-        # else:
-        #     for chat in chats:
-        #         chat.format_content()
+
         _logger.info(
             _("Automatic task: End formatting session content archive record.")
         )
@@ -865,8 +839,8 @@ class WeComChatData(models.Model):
         格式化消息内容
         暂时支持消息类型: text / link / image 
         """
-        # if self.formatted:
-        #     return
+        get_param = self.env["ir.config_parameter"].sudo().get_param
+
         formatted = False
         company = self.company_id
         if not company:
@@ -907,9 +881,7 @@ class WeComChatData(models.Model):
             # 检查图片是否可以打开
             tree = etree.HTML(self.image)
             image_str = tree.xpath("//img/@src")[0]
-
-            print(self.check_image_base(image_str))
-            if self.check_image_base(image_str):
+            if self.check_media_file_or_store(image_str):
                 allow_formatting = False
             else:
                 allow_formatting = True
@@ -963,13 +935,12 @@ class WeComChatData(models.Model):
                     )
                 else:
                     try:
-                        ir_config = self.env["ir.config_parameter"].sudo()
-                        mediadata_url = ir_config.get_param(
+                        mediadata_url = get_param(
                             "wecom.msgaudit.msgaudit_sdk_url"
-                        ) + ir_config.get_param("wecom.msgaudit.msgaudit_mediadata_url")
+                        ) + get_param("wecom.msgaudit.msgaudit_mediadata_url")
                         proxy = (
                             True
-                            if ir_config.get_param("wecom.msgaudit_sdk_proxy") == "True"
+                            if get_param("wecom.msgaudit_sdk_proxy") == "True"
                             else False
                         )
 
@@ -980,11 +951,7 @@ class WeComChatData(models.Model):
                             else eval(self.decrypted_chat_msg)["image"]["filesize"]
                         )  # 图片原始大小
                         targetfile_file_size = (
-                            int(
-                                ir_config.get_param(
-                                    "wecom.msgaudit.chatdata_img_max_size"
-                                )
-                            )
+                            int(get_param("wecom.msgaudit.chatdata_img_max_size"))
                             * 1024
                         )  # 图片最大大小，超过此大小，进行压缩
 
@@ -1014,12 +981,31 @@ class WeComChatData(models.Model):
                         if res["code"] == 0:
                             mediadata = res["data"]
                             data_image = "data:image/png;base64,%s" % mediadata
-                            if self.check_image_base(mediadata):
+
+                            use_physical_path_storage = (
+                                get_param("wecom.msgaudit.use_physical_path_storage")
+                                == "True"
+                            )
+
+                            check_image_result = self.check_media_file_or_store(
+                                mediadata,
+                                store=use_physical_path_storage,
+                                msgtype=self.msgtype,
+                                msgid=self.msgid,
+                                msgtime=self.msgtime,
+                            )
+                            if check_image_result[self.msgtype]["verify"]:
                                 formatted = True
                             else:
                                 formatted = False
-
-                            content = "<img class='mw-100' src='%s' />" % data_image
+                            if use_physical_path_storage:
+                                image = "/wecom_msgaudit/static/media%s/%s" % (
+                                    check_image_result[self.msgtype]["path"],
+                                    check_image_result[self.msgtype]["file"],
+                                )
+                                content = "<img src='%s' class='img-fluid'>" % image
+                            else:
+                                content = "<img class='mw-100' src='%s' />" % data_image
                         else:
                             _logger.warning(
                                 _(
@@ -1048,18 +1034,52 @@ class WeComChatData(models.Model):
                 {self._fields[self.msgtype].name: content, "formatted": formatted,}
             )
 
-    def check_image_base(self, data_image):
+    def check_media_file_or_store(
+        self, data_image, store=False, msgid=None, msgtype=None, msgtime=None
+    ):
         """
-        校验图片的字节流
+        校验媒体文件，根据给定的条件存储文件
+
         data_image: data:image/png;base64,...................
+        msgid: 消息id
+        msgtype: 消息类型
+        msgtime: UTC时间
+        store: 是否存储到物理路径
+        path: 存储到物理路径的路径
         """
+        result = {msgtype: {}}
+        if store:
+            media_sub_path = "/%s/%s" % (self.msgtype, self.msgtime.strftime("%Y%m%d"),)
+            media_path = get_module_resource("wecom_msgaudit", "static", "media",)
+            media_full_path = self.env["wecomapi.tools.file"].path_is_exists(
+                media_path, media_sub_path
+            )
+
         try:
-            # 检查文件是否能正常打开
-            image = Image.open(io.BytesIO(base64.b64decode(data_image)))
-            image.verify()  # 检查文件完整性
-            image.close()
-        except:
-            return False
-        else:
-            return True
+            if msgtype == "image":
+                # 检查文件是否能正常打开
+                image = Image.open(io.BytesIO(base64.b64decode(data_image)))
+                image.verify()  # 检查文件完整性
+                image.close()
+                result[msgtype].update(
+                    {"verify": True,}
+                )
+                if store:
+                    media_file_name = "%s.png" % self.msgid
+                    media_file_full_path = "%s%s" % (media_full_path, media_file_name)
+                    with open(media_file_full_path, "wb") as f:
+                        f.write(base64.b64decode(data_image))
+                        result[msgtype].update(
+                            {"path": media_sub_path, "file": media_file_name,}
+                        )
+                else:
+                    result[msgtype].update({"file": data_image})
+
+        except Exception as e:
+            _logger.warning("Exception: %s" % e)
+            result[msgtype].update(
+                {"verify": False,}
+            )
+        finally:
+            return result
 

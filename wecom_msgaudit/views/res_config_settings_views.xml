@@ -163,9 +163,7 @@
                                 </div>
                                 <div class="text-info col-md-12 mt8" attrs="{'invisible': [('msgaudit_use_physical_path_storage_media_files','=',False)]}">
                                     <kbd>
-                                        <span class="oe_inline ">Storage path: </span>
-                                        <field name="resources_path" class="oe_inline" readonly="1"/>
-                                        <span class="oe_inline ">msgaudit</span>
+                                        <span class="oe_inline ">Storage path: /wecom_msgaudit/static/media/ </span>
                                     </kbd>
                                 </div>
                             </div>
