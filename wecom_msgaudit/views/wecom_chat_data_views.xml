@@ -14,8 +14,10 @@
                     <field name="msgid"/>
                     <field name="roomid"/>
                     <field name="room_name" filter_domain="[('room_name', 'ilike', self)]"/>
-                    <filter string="Group Chat" help="Group Chat" name="groupChat" domain="[('room', '!=', False)]"/>
-                    <filter string="Image message" help="Group Chat" name="groupChat" domain="[('msgtype', '=', 'image')]"/>
+                    <filter string="Group Chat" name="groupChat" domain="[('room', '!=', False)]"/>
+                    <filter string="Image message" name="image_message" domain="[('msgtype', '=', 'image')]"/>
+                    <filter string="Mixed message" name="mixed_message" domain="[('msgtype', '=', 'mixed')]"/>
+                    <filter string="Link message" name="link_message" domain="[('msgtype', '=', 'link')]"/>
                     <!-- <filter string="External message" help="Group Chat" name="ExternalMessage" domain="[('is_external_msg', '!=', False)]"/> -->
                     <searchpanel>
                         <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
@@ -59,6 +61,7 @@
                         <div name="button_box" class="oe_button_box">
                             <!-- <button class="oe_stat_button" name="update_group_chat" string=" Update group chat info" type="object" icon="fa-users" attrs="{'invisible': ['|','|',('room','=', False),('is_external_msg','=', True),('action','=', 'switch')]}"/> -->
                             <!-- attrs="{'invisible': ['|','|',('room','=', ''),('is_external_msg','=', True),('action','=', 'switch')]}" -->
+
 
                             <button class="oe_stat_button" name="format_content" string="Format message" type="object" icon="fa-check-square-o" attrs="{'invisible': ['|','|',('formatted','=', True),('action','=', 'switch'),('action','=', 'recall')]}"/>
 

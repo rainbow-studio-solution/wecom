@@ -844,12 +844,16 @@ class WeComMsgauditChatData(models.Model):
     def format_content(self):
         """
         格式化消息内容
-        暂时支持消息类型: 见 FORMATTED_MESSAGE_TYPE 定义
+        暂时支持消息类型: text / link / image 
         """
+        get_param = self.env["ir.config_parameter"].sudo().get_param
+
         formatted = False
         company = self.company_id
         if not company:
             company = self.env.company
+
+        corpid = company.corpid
 
         if company.msgaudit_app_id is False:
             raise UserError(
@@ -857,6 +861,19 @@ class WeComMsgauditChatData(models.Model):
                     "Please bind the session content archiving application on the settings page."
                 )
             )
+        secret = company.msgaudit_app_id.secret
+        private_keys = company.msgaudit_app_id.private_keys
+        key_list = []
+
+        for key in private_keys:
+            key_dic = {
+                "publickey_ver": key.publickey_ver,
+                "private_key": key.private_key,
+            }
+            key_list.append(key_dic)
+        overdue = self.env["wecomapi.tools.datetime"].cheeck_days_overdue(
+            self.msgtime, 3
+        )  # 超期3天
 
         content = self[self._fields[self.msgtype].name]
 
@@ -869,49 +886,208 @@ class WeComMsgauditChatData(models.Model):
             # 检查图片是否可以打开
             tree = etree.HTML(self.image)
             image_str = tree.xpath("//img/@src")[0]
-            if self.env["wecom.msgaudit.tools"].verify_img(image_str):
-                # 图片正常,不允许格式化
+            if self.check_media_file_or_store(image_str):
                 allow_formatting = False
             else:
-                # 图片异常,允许格式化
                 allow_formatting = True
 
         if allow_formatting:
-            # msg_content = self[self._fields[self.msgtype].name]
+            msg_content = self[self._fields[self.msgtype].name]
 
             if self.msgtype == "text":
                 # 文本消息
-                format_result = self.env["wecom.msgaudit.tools"].format_text_message(
-                    self
-                )
-                formatted = format_result["formatted"]
-                content = format_result["content"]
+                if "content" in msg_content:
+                    # content = eval(msg_content)["content"]
+                    content = (
+                        "<p class='text-wrap'>%s</p>" % eval(msg_content)["content"]
+                    )
+                    formatted = True
             elif self.msgtype == "link":
                 # 链接消息
-                format_result = self.env["wecom.msgaudit.tools"].format_link_message(
-                    self
+                link = eval(msg_content)
+                content = """
+                <div class="card mt-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            <img src="%s" alt="%s">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">%s</h5>
+                                <p class="card-text">%s</p>
+                                <p class="card-text"><small class="text-muted">
+                                    <a href="%s" target="_blank">%s</a>
+                                </small></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                """ % (
+                    link["image_url"],
+                    link["title"],
+                    link["title"],
+                    link["description"],
+                    link["link_url"],
+                    _("Open link"),
                 )
-                formatted = format_result["formatted"]
-                content = format_result["content"]
+                formatted = True
             elif self.msgtype == "image":
                 # 图片消息
-                format_result = self.env["wecom.msgaudit.tools"].format_image_message(
-                    self
-                )
-                formatted = format_result["formatted"]
-                content = format_result["content"]
+                if overdue:
+                    # 超期无法通过SDK获取图片
+                    content = "<span class='card bg-warning text-white'>%s</span>" % _(
+                        "The current message record has exceeded 3 days and cannot be formatted."
+                    )
+                else:
+                    try:
+                        mediadata_url = get_param(
+                            "wecom.msgaudit.msgaudit_sdk_url"
+                        ) + get_param("wecom.msgaudit.msgaudit_mediadata_url")
+                        proxy = (
+                            True
+                            if get_param("wecom.msgaudit_sdk_proxy") == "True"
+                            else False
+                        )
 
+                        headers = {"content-type": "application/json"}
+                        original_file_size = (
+                            eval(msg_content)["filesize"]
+                            if content[0] == "{"
+                            else eval(self.decrypted_chat_msg)["image"]["filesize"]
+                        )  # 图片原始大小
+                        targetfile_file_size = (
+                            int(get_param("wecom.msgaudit.chatdata_img_max_size"))
+                            * 1024
+                        )  # 图片最大大小，超过此大小，进行压缩
+
+                        body = {
+                            "seq": 0,
+                            "sdkfileid": eval(msg_content)["sdkfileid"]
+                            if content[0] == "{"
+                            else eval(self.decrypted_chat_msg)["image"]["sdkfileid"],
+                            "corpid": corpid,
+                            "secret": secret,
+                            "private_keys": key_list,
+                            "targetfile_file_size": targetfile_file_size,
+                            "original_file_size": original_file_size,
+                            "msgtype": self.msgtype,
+                        }
+                        if proxy:
+                            body.update(
+                                {"proxy": mediadata_url, "paswd": "odoo:odoo",}
+                            )
+                        response = requests.get(
+                            mediadata_url, data=json.dumps(body), headers=headers
+                        )
+                        res = response.json()
+
+                        if res is None:
+                            raise UserError(_("Unable to get media file information"))
+                        if res["code"] == 0:
+                            mediadata = res["data"]
+                            data_image = "data:image/png;base64,%s" % mediadata
+
+                            use_physical_path_storage = (
+                                get_param("wecom.msgaudit.use_physical_path_storage")
+                                == "True"
+                            )
+
+                            check_image_result = self.check_media_file_or_store(
+                                mediadata,
+                                store=use_physical_path_storage,
+                                msgtype=self.msgtype,
+                                msgid=self.msgid,
+                                msgtime=self.msgtime,
+                            )
+                            if check_image_result[self.msgtype]["verify"]:
+                                formatted = True
+                            else:
+                                formatted = False
+                            if use_physical_path_storage:
+                                image = "/wecom_msgaudit/static/media%s/%s" % (
+                                    check_image_result[self.msgtype]["path"],
+                                    check_image_result[self.msgtype]["file"],
+                                )
+                                content = "<img src='%s' class='img-fluid'>" % image
+                            else:
+                                content = "<img class='mw-100' src='%s' />" % data_image
+                        else:
+                            _logger.warning(
+                                _(
+                                    "Request error, error code:%s, error description:%s, suggestion:%s"
+                                )
+                                % (res["code"], res["description"], res["suggestion"])
+                            )
+                            raise UserError(res)
+                    except Exception as e:
+                        _logger.exception("Exception: %s" % e)
+                        if "code" in str(e):
+                            raise UserError(
+                                _(
+                                    "Request error, error code:%s, error description:%s, suggestion:%s"
+                                )
+                                % (res["code"], res["description"], res["suggestion"])
+                            )
+                        elif "HTTPConnectionPool" in str(e):
+                            raise UserError(_("API interface not started!"))
+                        else:
+                            raise UserError(_("Unknown error:%s") % e)
             elif self.msgtype == "mixed":
-                # 混合消息
-                format_result = self.env["wecom.msgaudit.tools"].format_mixed_message(
-                    self
-                )
-                formatted = format_result["formatted"]
-                content = format_result["content"]
+                # if "content" in msg_content:
+                self.env["wecom.msgaudit.tools"].format_mixed_message(self)
             else:
                 pass
 
             self.write(
                 {self._fields[self.msgtype].name: content, "formatted": formatted,}
             )
+
+    def check_media_file_or_store(
+        self, data_image, store=False, msgid=None, msgtype=None, msgtime=None
+    ):
+        """
+        校验媒体文件，根据给定的条件存储文件
+
+        data_image: data:image/png;base64,...................
+        msgid: 消息id
+        msgtype: 消息类型
+        msgtime: UTC时间
+        store: 是否存储到物理路径
+        path: 存储到物理路径的路径
+        """
+        result = {msgtype: {}}
+        if store:
+            media_sub_path = "/%s/%s" % (self.msgtype, self.msgtime.strftime("%Y%m%d"),)
+            media_path = get_module_resource("wecom_msgaudit", "static", "media",)
+            media_full_path = self.env["wecomapi.tools.file"].path_is_exists(
+                media_path, media_sub_path
+            )
+
+        try:
+            if msgtype == "image":
+                # 检查文件是否能正常打开
+                image = Image.open(io.BytesIO(base64.b64decode(data_image)))
+                image.verify()  # 检查文件完整性
+                image.close()
+                result[msgtype].update(
+                    {"verify": True,}
+                )
+                if store:
+                    media_file_name = "%s.png" % self.msgid
+                    media_file_full_path = "%s%s" % (media_full_path, media_file_name)
+                    with open(media_file_full_path, "wb") as f:
+                        f.write(base64.b64decode(data_image))
+                        result[msgtype].update(
+                            {"path": media_sub_path, "file": media_file_name,}
+                        )
+                else:
+                    result[msgtype].update({"file": data_image})
+
+        except Exception as e:
+            _logger.warning("Exception: %s" % e)
+            result[msgtype].update(
+                {"verify": False,}
+            )
+        finally:
+            return result
 

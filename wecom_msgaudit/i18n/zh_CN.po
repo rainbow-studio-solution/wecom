@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 05:02+0000\n"
-"PO-Revision-Date: 2022-07-07 13:07+0800\n"
+"POT-Creation-Date: 2022-07-08 08:20+0000\n"
+"PO-Revision-Date: 2022-07-08 16:25+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -63,9 +63,16 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"会话存档应用\"/
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
-msgid "<span class=\"oe_inline \">Storage path: /wecom_msgaudit/static/media/</span>"
-msgstr "<span class=\"oe_inline \">存储路径： /wecom_msgaudit/static/media/</span>"
-
+msgid ""
+"<kbd>\n"
+"                                        <span class=\"oe_inline \">Storage "
+"path: /wecom_msgaudit/static/media/ </span>\n"
+"                                    </kbd>"
+msgstr ""
+"<kbd>\n"
+"                                        <span class=\"oe_inline \">存储路"
+"径： /wecom_msgaudit/static/media/ </span>\n"
+"                                    </kbd>"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
@@ -75,7 +82,7 @@ msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。
 
 #. module: wecom_msgaudit
 #. openerp-web
-#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
 #: code:addons/wecom_msgaudit/static/src/js/list_header_button.js:0
 #, python-format
 msgid "API interface not started!"
@@ -227,6 +234,12 @@ msgstr "会话记录消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__chatrecord
 msgid "Chat record message content"
 msgstr "会话记录消息内容"
+
+#. module: wecom_msgaudit
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
+#, python-format
+msgid "Click to view"
+msgstr "单击以查看"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__collect
@@ -585,6 +598,7 @@ msgstr "更新时间"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__link
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
 msgid "Link message"
 msgstr "链接消息"
 
@@ -696,6 +710,11 @@ msgid "Message type"
 msgstr "消息类型"
 
 #. module: wecom_msgaudit
+#: model_terms:ir.ui.view,arch_db:wecom_msgaudit.view_wecom_chat_data_filter
+msgid "Mixed message"
+msgstr "混合消息"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__mixed
 msgid "Mixed messages"
 msgstr "混合消息"
@@ -771,7 +790,7 @@ msgid "Online document messages content"
 msgstr "在线文档消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
 #, python-format
 msgid "Open link"
 msgstr "打开链接"
@@ -854,6 +873,7 @@ msgstr "关联发送者"
 
 #. module: wecom_msgaudit
 #: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
 #, python-format
 msgid "Request error, error code:%s, error description:%s, suggestion:%s"
 msgstr "请求错误，错误代码：%s，错误描述：%s，建议：%s"
@@ -992,7 +1012,7 @@ msgid "Text message content contains"
 msgstr "文本消息内容包含"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
 #, python-format
 msgid ""
 "The current message record has exceeded 3 days and cannot be formatted."
@@ -1021,13 +1041,7 @@ msgid "Todo message content"
 msgstr "待办消息内容"
 
 #. module: wecom_msgaudit
-#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
-#, python-format
-msgid "Unable to get media file information"
-msgstr "无法获取媒体文件信息"
-
-#. module: wecom_msgaudit
-#: code:addons/wecom_msgaudit/models/wecom_chat_data.py:0
+#: code:addons/wecom_msgaudit/models/wecom_chat_tools.py:0
 #, python-format
 msgid "Unknown error:%s"
 msgstr "未知错误：%s"
@@ -1081,6 +1095,11 @@ msgstr "投票消息"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_wecom_chat_data__vote
 msgid "Vote message content"
 msgstr "投票消息内容"
+
+#. module: wecom_msgaudit
+#: model:ir.model,name:wecom_msgaudit.model_wecom_msgaudit_tools
+msgid "WeCom Session Content Archive Tools"
+msgstr "企微会话内容存档工具"
 
 #. module: wecom_msgaudit
 #: model:ir.actions.act_window,name:wecom_msgaudit.ir_cron_act_download_wecom_chat_datas

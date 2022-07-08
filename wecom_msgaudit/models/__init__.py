@@ -9,3 +9,4 @@ from . import wecom_chat_group
 from . import wecom_chat_data
 from . import wecom_chat_sender
 from . import wecom_msgaudit_key
+from . import wecom_chat_tools
