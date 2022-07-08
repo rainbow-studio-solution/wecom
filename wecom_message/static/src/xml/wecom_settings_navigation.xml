@@ -3,7 +3,7 @@
 
     <t t-extend="res_config_wecom_navigation_menu">
         <t t-jquery="a:last" t-operation="after">
-            <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom__jump_anchor" href="#wecom_push">
+            <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom_jump_anchor" href="#wecom_push">
                 <h5 style="display:inline;"> Message settings</h5>
             </a>
         </t>

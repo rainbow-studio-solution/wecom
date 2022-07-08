@@ -7,7 +7,7 @@ odoo.define('wecom_base.WecomSettingsNavigationMenu', function (require) {
     var WecomSettingsNavigationMenu = Widget.extend({
         template: 'res_config_wecom_navigation_menu',
         events: {
-            'click a.wecom__jump_anchor': '_jump_anchor',
+            'click a.wecom_jump_anchor': '_jump_anchor',
         },
         init: function () {
             this._super.apply(this, arguments);

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-06 03:08+0000\n"
-"PO-Revision-Date: 2022-07-06 11:12+0800\n"
+"POT-Creation-Date: 2022-07-08 09:09+0000\n"
+"PO-Revision-Date: 2022-07-08 17:12+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -97,6 +97,21 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-pencil-square-o fa-lg\" aria-label=\"Approvals\"/>\n"
+"                                Approvals\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-pencil-square-o fa-lg\" aria-label=\"审批\"/>\n"
+"                                审批\n"
+"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
+"                        </span>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
 "                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Wecom Authentication settings\"/>\n"
 "                                Wecom Authentication settings\n"
 "                        </span>"
@@ -143,9 +158,21 @@ msgid "Address book synchronization secret. Check it in \"Administrative Tools\"
 msgstr "通讯簿同步密钥。 在“管理工具”→“地址簿同步”中进行检查（需要打开“ API接口同步”）。 为了确保数据安全，切勿泄露密钥。"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Anytime, anywhere approval, you can customize the approval template, support countersigning, or signing, superior approval, conditional approval, and adapt to various processes."
+msgstr "随时随地审批，可自定义审批模板，支持会签、或签、上级审批、条件审批，适应各种流程。"
+
+#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_app_config_ids
 msgid "Application Configuration"
 msgstr "应用配置"
+
+#. module: wecom_contacts
+#. openerp-web
+#: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Approvals settings"
+msgstr "审批设置"
 
 #. module: wecom_contacts
 #. openerp-web
@@ -372,7 +399,7 @@ msgstr "创建公司 [%s] 的合作伙伴[%s %s]时出错，错误原因：%s"
 #: code:addons/wecom_contacts/models/res_partner_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载标签成员[%s] 公司为[%s]！"
+msgstr "未能下载标签成员[%s] ，其公司为[%s]！"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
@@ -409,7 +436,7 @@ msgstr "人力资源管理信息系统"
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_change_type_user__id model:ir.model.fields,field_description:wecom_contacts.field_change_type_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_users.py:0
@@ -500,7 +527,7 @@ msgstr "个人二维码，扫描可作为外部联系人添加"
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
 #, python-format
 msgid "Please bind contact app!"
-msgstr ""
+msgstr "请绑定通讯录应用！"
 
 #. module: wecom_contacts
 #: code:addons/wecom_contacts/models/res_config_settings.py:0
@@ -645,6 +672,11 @@ msgstr "用户"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
 msgid "WeCom"
 msgstr "企微"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_approval model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "WeCom Approvals"
+msgstr "企微审批"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_wecom_auth_oauth
