@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/WeCom",
+    "category": "WeCom Suites/CRM",
     "version": "15.0.0.1",
     "summary": """
         WeCom Contacts

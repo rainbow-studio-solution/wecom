@@ -8,7 +8,7 @@
     "installable": True,
     "application": False,
     "auto_install": True,
-    "category": "WeCom Suites/WeCom",
+    "category": "WeCom Suites/Localizations",
     "version": "15.0.0.1",
     "summary": """
         

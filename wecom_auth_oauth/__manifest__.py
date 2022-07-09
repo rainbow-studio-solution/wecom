@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/WeCom",
+    "category": "WeCom Suites/Tools",
     "version": "15.0.0.1",
     "summary": """
         One click login, code scanning login.

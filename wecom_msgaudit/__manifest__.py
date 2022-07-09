@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/WeCom",
+    "category": "WeCom Suites/Chat log",
     "version": "15.0.0.1",
     "summary": """
 
@@ -19,6 +19,7 @@
     "depends": ["wecom_contacts"],
     "external_dependencies": {"python": ["pycryptodome", "pandas"],},
     "data": [
+        "security/wecom_msgaudit_security.xml",
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
         "data/wecom_apps_data.xml",

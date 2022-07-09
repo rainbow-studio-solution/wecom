@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/WeCom",
+    "category": "WeCom Suites/Messages",
     "version": "15.0.0.1",
     "summary": """
         Odoo event notification to WeCom
@@ -26,6 +26,7 @@
     ],
     "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
+        "security/wecom_message_security.xml",
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
         "data/wecom_apps_data.xml",
