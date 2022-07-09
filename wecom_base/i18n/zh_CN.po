@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-08 14:43+0000\n"
-"PO-Revision-Date: 2022-07-08 22:48+0800\n"
+"POT-Creation-Date: 2022-07-09 14:17+0000\n"
+"PO-Revision-Date: 2022-07-09 22:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -156,7 +156,7 @@ msgstr "AES密钥"
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_service_api_list_filter
 msgid "API"
-msgstr ""
+msgstr "API"
 
 #. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.action_view_wecom_service_api_list
@@ -181,7 +181,7 @@ msgid "Active"
 msgstr "有效"
 
 #. module: wecom_base
-#: model:res.groups,name:wecom_base.group_wecom_manager
+#: model:res.groups,name:wecom_base.group_wecom_settings_manager
 msgid "Administrator"
 msgstr "管理员"
 
@@ -250,6 +250,11 @@ msgstr "应用列表"
 #: model:wecom.app.subtype,name:wecom_base.wecom_app_subtype_app
 msgid "Application management"
 msgstr "应用管理"
+
+#. module: wecom_base
+#: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__menu_body
+msgid "Application menu data"
+msgstr "应用菜单数据"
 
 #. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.wecom_app_callback_service_list_action
@@ -323,6 +328,8 @@ msgstr "代码和指令"
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_subtype.py:0
 #: code:addons/wecom_base/models/wecom_app_type.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_subtype_code_uniq
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_type_code_uniq
 #, python-format
 msgid "Code must be unique !"
 msgstr "代码必须是唯一的！"
@@ -703,6 +710,7 @@ msgstr "模块"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__name
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__name
+#: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_app_subtype_filter
 msgid "Name"
 msgstr "名称"
 
@@ -734,9 +742,9 @@ msgid "OA:Meeting room"
 msgstr "OA：会议室"
 
 #. module: wecom_base
-#: model:res.groups,name:wecom_base.group_wecom_user
+#: model:res.groups,name:wecom_base.group_wecom_settings_user
 msgid "Officer"
-msgstr "主管"
+msgstr "专员"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0
@@ -763,6 +771,11 @@ msgstr "参数"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_subtype__parent_id
 msgid "Parent"
 msgstr "上级"
+
+#. module: wecom_base
+#: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_app_subtype_filter
+msgid "Parent type"
+msgstr "父类型"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
@@ -898,18 +911,21 @@ msgstr "用于自动爬取的企业微信API全局错误代码页面的URL。"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
 #, python-format
 msgid "The code of each application must be unique !"
 msgstr "每个应用的代码必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_config.py:0
+#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
 #, python-format
 msgid "The key of each application must be unique !"
 msgstr "每个应用的密钥必须是唯一的！"
@@ -935,12 +951,12 @@ msgstr ""
 "                                            Linux 或 Docker: /var/lib/odoo/resources/"
 
 #. module: wecom_base
-#: model:res.groups,comment:wecom_base.group_wecom_user
+#: model:res.groups,comment:wecom_base.group_wecom_settings_user
 msgid "The user will be able to approve document created by employees."
-msgstr "此用户将有权限审批员工创建的文档。"
+msgstr "用户将能够批准员工创建的文档。"
 
 #. module: wecom_base
-#: model:res.groups,comment:wecom_base.group_wecom_manager
+#: model:res.groups,comment:wecom_base.group_wecom_settings_manager
 msgid ""
 "The user will have access to the WeCom configuration as well as statistic reports."
 msgstr "用户可以访问企微配置以及统计报告。"
@@ -991,7 +1007,7 @@ msgstr "类型"
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_event_type.py:0
@@ -1025,7 +1041,6 @@ msgid "Visible range (personnel)"
 msgstr "可见范围（人员）"
 
 #. module: wecom_base
-#: model:ir.module.category,name:wecom_base.module_category_wxwork
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
 msgid "WeCom"
 msgstr "企业微信"
@@ -1041,6 +1056,7 @@ msgid "WeCom Information"
 msgstr "企业微信信息"
 
 #. module: wecom_base
+#: model:ir.module.category,name:wecom_base.module_category_wecom_settings
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_root
 msgid "WeCom Settings"
 msgstr "企微设置"
@@ -1205,7 +1221,7 @@ msgstr "浮点型"
 #. module: wecom_base
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__html
 msgid "html"
-msgstr ""
+msgstr "html"
 
 #. module: wecom_base
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__integer
@@ -1251,24 +1267,3 @@ msgstr "选择项"
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__text
 msgid "text"
 msgstr "文本"
-
-#. module: wecom_base
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_subtype_code_uniq
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_type_code_uniq
-msgid "代码必须是唯一的！"
-msgstr ""
-
-#. module: wecom_base
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
-msgid "每个公司的应用程序名称必须是唯一的！"
-msgstr ""
-
-#. module: wecom_base
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
-msgid "每个应用的代码必须是唯一的！"
-msgstr ""
-
-#. module: wecom_base
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
-msgid "每个应用的密钥必须是唯一的！"
-msgstr ""

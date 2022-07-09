@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom/WeCom",
+    "category": "WeCom Suites/WeCom",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "version": "15.0.0.1",
     "summary": """

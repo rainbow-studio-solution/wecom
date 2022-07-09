@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-01 07:54+0000\n"
-"PO-Revision-Date: 2022-07-05 12:13+0800\n"
+"POT-Creation-Date: 2022-07-09 13:38+0000\n"
+"PO-Revision-Date: 2022-07-09 21:46+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,105 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1\n"
-
-#. module: base
-#: model:ir.module.module,summary:base.module_web_widget_colorpicker
-msgid "Added Color Picker for From"
-msgstr "增加了颜色选择器"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_web_widget_colorpicker
-msgid "Web Widget Colorpicker"
-msgstr "Web颜色选择小部件"
-
-#. module: base
-#: model:ir.module.module,description:base.module_web_widget_colorpicker
-msgid ""
-"\n"
-"\n"
-"            For Form View - added = widget=\"colorpicker\"\n"
-"            \n"
-"            ...\n"
-"            <field name=\"arch\" type=\"xml\">\n"
-"                <form string=\"View name\">\n"
-"                    ...\n"
-"                    <field name=\"colorpicker\" widget=\"colorpicker\"/>\n"
-"                    ...\n"
-"                </form>\n"
-"            </field>\n"
-"            ...\n"
-"\n"
-"    "
-msgstr ""
-"\n"
-"\n"
-"            对于表单视图-添加 widget=\"colorpicker\"\n"
-"            \n"
-"            ...\n"
-"            <field name=\"arch\" type=\"xml\">\n"
-"                <form string=\"View name\">\n"
-"                    ...\n"
-"                    <field name=\"colorpicker\" widget=\"colorpicker\"/>\n"
-"                    ...\n"
-"                </form>\n"
-"            </field>\n"
-"            ...\n"
-"\n"
-"    "
-
-#. module: base
-#: model:ir.module.module,summary:base.module_website_china_extends
-msgid "Baidu map,Baidu Analytics,social media,ICP filing"
-msgstr "百度地图、百度分析、社交媒体、ICP备案"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_website_china_extends
-msgid "Chinese website Extension"
-msgstr "中文网站扩展"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_digest_message
-msgid "Wecom KPI Digests Message"
-msgstr "企微KPI摘要消息"
-
-#. module: base
-#: model:ir.module.module,description:base.module_wecom_digest_message
-msgid ""
-"\n"
-"Use Enterprise WeChat to periodically send KPI digest messages periodically.\n"
-msgstr ""
-"\n"
-"通过企微定期发送KPI摘要。\n"
-
-#. module: base
-#: model:ir.module.module,summary:base.module_wecom_digest_message
-msgid ""
-"\n"
-"Use Enterprise WeChat to periodically send KPI digest messages periodically.  \n"
-msgstr ""
-"\n"
-"通过企微定期发送KPI摘要。  \n"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_contacts
-msgid "WeCom Contacts"
-msgstr "企微通讯录"
-
-#. module: base
-#: model:ir.module.module,summary:base.module_wecom_contacts
-msgid ""
-"\n"
-"        WeCom Contacts\n"
-"        "
-msgstr ""
-"\n"
-"        企微通讯录\n"
-"        "
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_contacts_sync
-msgid "WeCom Contacts Synchronized"
-msgstr "企微通讯录同步"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_message
@@ -131,11 +32,22 @@ msgstr ""
 #: model:ir.module.module,summary:base.module_wecom_auth_oauth
 msgid ""
 "\n"
-"        WeCom Authentication\n"
+"        One click login, code scanning login.\n"
 "        "
 msgstr ""
 "\n"
-"        企微验证登陆\n"
+"        一键登录，扫码登录。\n"
+"        "
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wecom_contacts
+msgid ""
+"\n"
+"        WeCom Contacts\n"
+"        "
+msgstr ""
+"\n"
+"        企微通讯录\n"
 "        "
 
 #. module: base
@@ -161,16 +73,40 @@ msgstr ""
 "        "
 
 #. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_widget
+msgid "Widget"
+msgstr "小部件"
+
+#. module: base
 #: model:ir.module.module,description:base.module_wecom_api
 msgid ""
 "\n"
 " WeCom Service-side API and Client-side API\n"
-" Reconstruction based on project \"https://github.com/sbzhu/weworkapi_python\"\n"
+" Reconstruction based on project \"https://github.com/sbzhu/"
+"weworkapi_python\"\n"
 "        "
 msgstr ""
 "\n"
 " 企业微信服务端API和客户端APIn\n"
-" Reconstruction based on project \"https://github.com/sbzhu/weworkapi_python\"\n"
+" Reconstruction based on project \"https://github.com/sbzhu/"
+"weworkapi_python\"\n"
+"        "
+
+#. module: base
+#: model:ir.module.module,description:base.module_wecom_web_theme
+msgid ""
+"\n"
+"Enterprise wechat Web Client.\n"
+"===========================\n"
+"\n"
+"This module modifies the web addon to provide responsiveness.\n"
+"        "
+msgstr ""
+"\n"
+"企业微信网络客户端。\n"
+"===========================\n"
+"\n"
+"此模块修改 Web 插件以提供响应能力。\n"
 "        "
 
 #. module: base
@@ -188,7 +124,8 @@ msgstr ""
 #: model:ir.module.module,description:base.module_wecom_material
 msgid ""
 "\n"
-"please make sure ffmpeg, sox, and mediainfo are installed on your system, e.g.\n"
+"please make sure ffmpeg, sox, and mediainfo are installed on your "
+"system, e.g.\n"
 "\n"
 "DOC:\n"
 "=============\n"
@@ -238,7 +175,34 @@ msgstr ""
 "\n"
 
 #. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_approvals
+msgid "Approvals"
+msgstr "审批"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_wecom_wedrive
+msgid ""
+"Enterprises can operate and set permissions for files on the microdisk "
+"through the microdisk related interfaces."
+msgstr "企业通过微盘相关接口，可以对微盘的文件进行操作和设置权限。"
+
+#. module: base
+#: model:ir.module.category,description:base.module_category_wecom_suites_settings
+msgid "Helps you manage your WeCom."
+msgstr "帮助管理您的企业微信。"
+
+#. module: base
+#: model:ir.actions.act_window,name:base.res_config_setting_act_window
+#: model:ir.module.category,name:base.module_category_wecom_suites_settings
+#: model:ir.ui.menu,name:base.menu_administration
+#: model:res.groups,name:base.group_system
+#: model_terms:ir.ui.view,arch_db:base.res_config_settings_view_form
+msgid "Settings"
+msgstr "设置"
+
+#. module: base
 #: model:ir.module.category,name:base.module_category_wecom
+#: model:ir.module.category,name:base.module_category_wecom_suites_wecom
 #: model:ir.module.category,name:base.module_category_wecom_wecom
 msgid "WeCom"
 msgstr "企业微信"
@@ -264,19 +228,14 @@ msgid "WeCom Base"
 msgstr "企微基础"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_portal
-msgid "WeCom Portal"
-msgstr "企微门户"
+#: model:ir.module.module,shortdesc:base.module_wecom_contacts
+msgid "WeCom Contacts"
+msgstr "企微通讯录"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_hrmis
-msgid "Human Resources Management Information System"
-msgstr "人力资源管理信息系统"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_hrmis_extension
-msgid "HRMIS Extension"
-msgstr "HRMIS扩展"
+#: model:ir.module.module,shortdesc:base.module_wecom_contacts_sync
+msgid "WeCom Contacts Synchronized"
+msgstr "企微通讯录同步"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_material
@@ -284,19 +243,35 @@ msgid "WeCom Material"
 msgstr "企微媒体素材"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_auth_oauth
-msgid "WeCom Authentication "
-msgstr "企微身份验证 "
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_message
 msgid "WeCom Message"
 msgstr "企微消息"
 
 #. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_portal
+msgid "WeCom Portal"
+msgstr "企微门户"
+
+#. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_pro_widget
 msgid "WeCom Pro Widget"
 msgstr "企微专业版小部件"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_msgaudit
+msgid "WeCom Session Content Archive"
+msgstr "企微会话内容存档"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites
+#: model_terms:ir.ui.view,arch_db:base.user_groups_view
+msgid "WeCom Suites"
+msgstr "企微套件"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_web_theme
+msgid "WeCom Web Theme"
+msgstr "企微Web主题"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_widget
@@ -310,65 +285,12 @@ msgid "WeCom localization"
 msgstr "企微本地化"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_msgaudit
-msgid "WeCom Session Content Archive"
-msgstr "企微会话内容存档"
-
-#. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_wedrive
 msgid "WeCom wedrive"
 msgstr "企微微盘"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_chatdata2contacts
-msgid "WeCom Chat data attached to contacts"
-msgstr "企微聊天数据附加到联系人"
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_rainbow_community_theme
-msgid "Rainbow Community Theme"
-msgstr "彩虹社区版主题"
-
-#. module: base
-#: model:ir.module.module,description:base.module_rainbow_community_theme
-msgid ""
-"\n"
-"Rainbow Community Theme\n"
-"===========================\n"
-"\n"
-"Backend/Launcher/Multi-level menu/Theme Settings/Custom login page/\n"
-"        "
-msgstr ""
-"\n"
-"彩虹社区版主题\n"
-"===========================\n"
-"\n"
-"后端/启动器/多级菜单/主题设置/自定义登录页面\n"
-"        "
-
-#. module: base
-#: model:ir.module.category,name:base.module_category_themes
-msgid "Themes"
+#: model:ir.module.category,name:base.module_category_theme
+#: model:ir.module.category,name:base.module_category_wecom_suites_theme
+msgid "Theme"
 msgstr "主题"
-
-#. module: base
-#: model:ir.module.module,description:base.module_wecom_web_theme
-msgid ""
-"\n"
-"Enterprise wechat Web Client.\n"
-"===========================\n"
-"\n"
-"This module modifies the web addon to provide responsiveness.\n"
-"        "
-msgstr ""
-"\n"
-"企业微信网络客户端。\n"
-"===========================\n"
-"\n"
-"此模块修改 Web 插件以提供响应能力。\n"
-"        "
-
-#. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_web_theme
-msgid "WeCom Web Theme"
-msgstr "企微Web主题"

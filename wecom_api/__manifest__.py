@@ -7,7 +7,7 @@
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "WeCom/WeCom",
+    "category": "WeCom Suites/WeCom",
     "version": "15.0.0.1",
     "summary": """
 WeCom Service-side API and Client-side API              

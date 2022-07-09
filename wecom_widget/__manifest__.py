@@ -3,7 +3,7 @@
 {
     "name": "WeCom Widget",
     "author": "RStudio",
-    "category": "WeCom/WeCom",
+    "category": "WeCom Suites/Widget",
     "summary": "WeCom Widget",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "version": "15.0.0.1",
