@@ -3,16 +3,16 @@
   <data noupdate="1">
 
     <!-- 应用子类型 -->
-    <record id="wecom_app_subtype_menu" model="wecom.app.subtype">
+    <!-- <record id="wecom_app_subtype_menu" model="wecom.app.subtype">
       <field name="name">Application Menu</field>
       <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
       <field name="code">menu</field>
       <field name="sequence">1</field>
-    </record>
+    </record> -->
 
     <!-- 应用 -->
-    <record id="wecom_material.wecom_app_first_self_app" model="wecom.apps">
-      <field name="subtype_ids" eval="[(4, ref('wecom_portal.wecom_app_subtype_menu'))]"/>
+    <record id="wecom_contacts.wecom_app_first_self_app" model="wecom.apps">
+      <field name="subtype_ids" eval="[(4, ref('wecom_base.wecom_app_subtype_app'))]"/>
       <field name="menu_body">{}</field>
     </record>
 

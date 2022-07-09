@@ -22,7 +22,7 @@
             <field name="value">/wecom/finance/mediadata</field>
         </record>
 
-        <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit.use_physical_path_storage, 'False')"/>
+        <!-- <function model="ir.config_parameter" name="set_param" eval="('wecom.msgaudit.use_physical_path_storage, 'True')"/> -->
 
     </data>
 </odoo>

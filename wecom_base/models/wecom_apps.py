@@ -80,9 +80,16 @@ class WeComApps(models.Model):
         计算应用类型代码
         """
         if self.subtype_ids:
-            self.type_code = self.subtype_ids.mapped("code")
+            self.type_code = str(self.subtype_ids.mapped("code"))
         else:
-            self.type_code = []
+            self.type_code = "[]"
+    
+    def get_type_code(self):
+        """
+        测试代码
+        """
+        type_code = str(self.subtype_ids.mapped("code"))
+        print(type_code,type(type_code))
 
     @api.onchange("subtype_ids")
     def _onchange_subtype_ids(self):
@@ -95,10 +102,7 @@ class WeComApps(models.Model):
                 raise UserError(
                     _("Only one subtype can be selected for the current app type!")
                 )
-        # if self.subtype_ids:
-        #     self.type_code = self.subtype_ids.mapped("code")
-        # else:
-        #     self.type_code = []
+
 
     @api.model
     def _type_selection_values(self):
@@ -107,15 +111,19 @@ class WeComApps(models.Model):
 
     @api.onchange("type")
     def _onchange_type(self):
-        self.subtype_ids = False
-        self.type_code = ""
-        if self.type:
-            type = self.env["wecom.app.type"].sudo().search([("code", "=", self.type)])
-            self.type_id = type
-            return {"domain": {"subtype_ids": [("parent_id", "=", type.id)]}}
+        # self.subtype_ids = False
+        # self.type_code = ""
+        # if self.type:
+        #     type = self.env["wecom.app.type"].sudo().search([("code", "=", self.type)])
+        #     self.type_id = type
+        #     return {"domain": {"subtype_ids": [("parent_id", "=", type.id)]}}
+        # else:
+        #     self.type_id = False
+        #     return {"domain": {"subtype": []}}
+        if self.subtype_ids:
+            self.type_code = str(self.subtype_ids.mapped("code"))
         else:
-            self.type_id = False
-            return {"domain": {"subtype": []}}
+            self.type_code = "[]"
 
     agentid = fields.Integer(string="Agent ID", copy=False)  # 企业应用id
     secret = fields.Char("Secret", default="", copy=False)
@@ -139,6 +147,9 @@ class WeComApps(models.Model):
     home_url = fields.Char(string="Home page", copy=True)  # 企业应用主页url
 
     sequence = fields.Integer(default=0, copy=True)
+    menu_body = fields.Text(
+        "Application menu data", translate=True, default="{}", copy=False,
+    )
 
     # 访问令牌
     access_token = fields.Char(string="Access Token", readonly=True, copy=False)
@@ -153,6 +164,15 @@ class WeComApps(models.Model):
             _("The application name of each company must be unique !"),
         )
     ]
+
+    @api.model_create_multi
+    def create(self, values):
+        res = super(WeComApps, self).create(values)
+        if res.subtype_ids:
+            res.type_code = str(res.subtype_ids.mapped("code"))
+        else:
+            res.type_code = "[]"
+        return res
 
     @api.depends("company_id", "app_name", "type")
     def _compute_name(self):

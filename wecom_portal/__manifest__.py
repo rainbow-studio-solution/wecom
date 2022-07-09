@@ -3,7 +3,7 @@
     "name": "WeCom Portal",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 607,
+    "sequence": 605,
     "installable": True,
     "application": True,
     "auto_install": False,

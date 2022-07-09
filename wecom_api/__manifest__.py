@@ -46,7 +46,7 @@ WeCom Service-side API and Client-side API
             "html2text",
         ],
     },
-    "qweb": ["static/src/xml/*.xml",],
+    
     "license": "LGPL-3",
     # "post_init_hook": "post_init_hook",
 }

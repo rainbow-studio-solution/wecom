@@ -54,7 +54,7 @@ class ResConfigSettings(models.TransientModel):
     )
     msgaudit_use_physical_path_storage_media_files = fields.Boolean(
         string="Use physical paths to store media files",
-        default=False,
+        default=True,
         config_parameter="wecom.msgaudit.use_physical_path_storage",
     )
 

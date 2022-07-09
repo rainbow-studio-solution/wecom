@@ -17,7 +17,7 @@
                             <label for="menu_app_id" string="Binding application"/>
                             <div class="content-group">
                                 <div class="mt8">
-                                    <field name="menu_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%menu%'),('company_id', '=', company_id)]"/>
+                                    <field name="menu_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%app%'),('company_id', '=', company_id)]"/>
                                 </div>
                                 <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
                                 <button class="btn btn-primary" name="get_menu_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('menu_app_id','=',False)]}"/>

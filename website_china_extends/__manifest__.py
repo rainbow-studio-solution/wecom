@@ -22,7 +22,7 @@
         "views/wesite_top_menu.xml",
         "views/wesite_social_media.xml",
     ],
-    "qweb": ["static/src/xml/*.xml",],
+
     "auto_install": False,
     "application": True,
     "installable": True,

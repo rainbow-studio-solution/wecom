@@ -2,15 +2,9 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- 应用 -->
-        <record id="wecom_app_first_self_app" model="wecom.apps">
-            <field name="company_id" ref="base.main_company"/>
-            <field name="app_name">The first application you built yourself.</field>
-            <field name="type">self</field>
-            <field name="type_id" ref="wecom_base.wecom_app_type_self"/>
-            <field name="description"></field>
-            <field name="square_logo_url"></field>
-            <field name="sequence">1</field>
+        <record id="wecom_contacts.wecom_app_first_self_app" model="wecom.apps">
+            <field name="subtype_ids" eval="[(4,ref('wecom_base.wecom_app_subtype_material_management'))]"/>
+            <!-- <field name="subtype_ids" eval="[(4, ref('wecom_base.wecom_app_subtype_auth')),(4, ref('wecom_base.wecom_app_subtype_app')),(4, ref('wecom_base.wecom_app_subtype_message_push')),(4, ref('wecom_base.wecom_app_subtype_material_management'))]"/> -->
         </record>
 
     </data>

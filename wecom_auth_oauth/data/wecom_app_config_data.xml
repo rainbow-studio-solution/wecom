@@ -3,7 +3,7 @@
     <data noupdate="1">
         <!-- 1 -->
         <record id="wecom_app_config_authentication_auth_redirect_uri" model="wecom.app_config">
-            <field name="app_id" ref="wecom_material.wecom_app_first_self_app"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_first_self_app"/>
             <field name="name">Callback link address redirected after authorization</field>
             <field name="key">auth_redirect_uri</field>
             <field name="ttype">char</field>
@@ -20,7 +20,7 @@
 
         <!-- 2 -->
         <record id="wecom_app_config_authentication_qr_redirect_uri" model="wecom.app_config">
-            <field name="app_id" ref="wecom_material.wecom_app_first_self_app"/>
+            <field name="app_id" ref="wecom_contacts.wecom_app_first_self_app"/>
             <field name="name">Scan the QR code to log in and call back the link address</field>
             <field name="key">qr_redirect_uri</field>
             <field name="ttype">char</field>

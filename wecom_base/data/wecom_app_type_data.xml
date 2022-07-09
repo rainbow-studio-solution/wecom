@@ -1,122 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <data noupdate="1">
+    <data noupdate="0">
         <!-- 类型 -->
 
+        <!-- 类型：管理工具 -->
         <record id="wecom_app_type_manage" model="wecom.app.type">
             <field name="name">Manage Tools</field>
             <field name="code">manage</field>
             <field name="sequence">1</field>
         </record>
+
+        <!-- 类型：基础应用 -->
         <record id="wecom_app_type_base" model="wecom.app.type">
             <field name="name">Base application</field>
             <field name="code">base</field>
             <field name="sequence">2</field>
         </record>
+
+        <!-- 类型：外部联系-->
+        <record id="wecom_app_type_external_contact" model="wecom.app.type">
+            <field name="name">External contact</field>
+            <field name="code">external_contact</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- 类型：自建应用 -->
         <record id="wecom_app_type_self" model="wecom.app.type">
             <field name="name">Self built application</field>
             <field name="code">self</field>
-            <field name="sequence">3</field>
+            <field name="sequence">4</field>
         </record>
+
+        <!-- 类型：第三方应用 -->
         <record id="wecom_app_type_third" model="wecom.app.type">
             <field name="name">Third party application</field>
             <field name="code">third</field>
-            <field name="sequence">4</field>
+            <field name="sequence">5</field>
         </record>
 
         <!-- 子类型 -->
-        <record id="wecom_app_subtype_msgaudit" model="wecom.app.subtype">
-            <field name="name">Session content archiving</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_manage"/>
-            <field name="code">msgaudit</field>
-            <field name="sequence">1</field>
-        </record>
-        <record id="wecom_app_subtype_contacts" model="wecom.app.subtype">
-            <field name="name">Contacts synchronization</field>
+
+        <!-- 子类型 ：通讯录管理-->
+        <record id="wecom_app_subtype_contacts_management" model="wecom.app.subtype">
+            <field name="name">Contacts management</field>
             <field name="parent_id" ref="wecom_base.wecom_app_type_manage"/>
             <field name="code">contacts</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- 子类型 ：客户联系 -->
+        <record id="wecom_app_subtype_customer_contact" model="wecom.app.subtype">
+            <field name="name">Customer contact</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_external_contact"/>
+            <field name="code">customer</field>
             <field name="sequence">2</field>
         </record>
 
-        <record id="wecom_app_subtype_calendar" model="wecom.app.subtype">
-            <field name="name">Calendar</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">calendar</field>
-            <field name="sequence">1</field>
-        </record>
-        <record id="wecom_app_subtype_meeting" model="wecom.app.subtype">
-            <field name="name">Meeting</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">meeting</field>
-            <field name="sequence">2</field>
-        </record>
-        <record id="wecom_app_subtype_dial" model="wecom.app.subtype">
-            <field name="name">Public telephone</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">dial</field>
-            <field name="sequence">3</field>
-        </record>
-        <record id="wecom_app_subtype_wedrive" model="wecom.app.subtype">
-            <field name="name">We Drive</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">wedrive</field>
-            <field name="sequence">4</field>
-        </record>
-        <record id="wecom_app_subtype_living" model="wecom.app.subtype">
-            <field name="name">Living</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">living</field>
-            <field name="sequence">5</field>
-        </record>
-        <record id="wecom_app_subtype_checkin" model="wecom.app.subtype">
-            <field name="name">Checkin</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">checkin</field>
-            <field name="sequence">6</field>
-        </record>
-        <record id="wecom_app_subtype_approval" model="wecom.app.subtype">
-            <field name="name">Approval</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">approval</field>
-            <field name="sequence">7</field>
-        </record>
-        <record id="wecom_app_subtype_journal" model="wecom.app.subtype">
-            <field name="name">Journal</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">journal</field>
-            <field name="sequence">8</field>
-        </record>
-        <record id="wecom_app_subtype_meetingroom" model="wecom.app.subtype">
-            <field name="name">Meeting room</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">meetingroom</field>
-            <field name="sequence">9</field>
-        </record>
-        <record id="wecom_app_subtype_health" model="wecom.app.subtype">
-            <field name="name">Health</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">health</field>
-            <field name="sequence">9</field>
-        </record>
-        <record id="wecom_app_subtype_externalpay" model="wecom.app.subtype">
-            <field name="name">External pay</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">externalpay</field>
-            <field name="sequence">10</field>
-        </record>
+        <!-- 子类型 ：微信客服 -->
         <record id="wecom_app_subtype_kf" model="wecom.app.subtype">
             <field name="name">Wechat customer service</field>
             <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
             <field name="code">kf</field>
-            <field name="sequence">11</field>
+            <field name="sequence">3</field>
         </record>
-        <record id="wecom_app_subtype_enterprisepay" model="wecom.app.subtype">
-            <field name="name">Enterprise pay</field>
+
+        <!-- 子类型 ： 身份验证 -->
+        <record id="wecom_app_subtype_auth" model="wecom.app.subtype">
+            <field name="name">Authentication</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
+            <field name="code">auth</field>
+            <field name="sequence">4</field>
+        </record>
+
+        <!-- 子类型 ： 应用管理 -->
+        <record id="wecom_app_subtype_app" model="wecom.app.subtype">
+            <field name="name">Application management</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
+            <field name="code">app</field>
+            <field name="sequence">5</field>
+        </record>
+
+        <!-- 子类型 ： 消息推送  -->
+        <record id="wecom_app_subtype_message_push" model="wecom.app.subtype">
+            <field name="name">Message push</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
+            <field name="code">message</field>
+            <field name="sequence">6</field>
+        </record>
+
+        <!-- 子类型 ： 素材管理  -->
+        <record id="wecom_app_subtype_material_management" model="wecom.app.subtype">
+            <field name="name">Material management</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
+            <field name="code">material</field>
+            <field name="sequence">7</field>
+        </record>
+
+        <!-- 子类型 ： OA-打卡  -->
+        <record id="wecom_app_subtype_oa_checkin" model="wecom.app.subtype">
+            <field name="name">OA:Checkin</field>
             <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
-            <field name="code">enterprisepay</field>
+            <field name="code">checkin</field>
+            <field name="sequence">8</field>
+        </record>
+
+        <!-- 子类型 ： OA-审批  -->
+        <record id="wecom_app_subtype_oa_approval" model="wecom.app.subtype">
+            <field name="name">OA:Approval</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">approval</field>
+            <field name="sequence">9</field>
+        </record>
+
+        <!-- 子类型 ： OA-汇报  -->
+        <record id="wecom_app_subtype_oa_journal" model="wecom.app.subtype">
+            <field name="name">OA:Journal</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">journal</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- 子类型 ： OA-会议室  -->
+        <record id="wecom_app_subtype_oa_meetingroom" model="wecom.app.subtype">
+            <field name="name">OA:Meeting room</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">meetingroom</field>
             <field name="sequence">11</field>
         </record>
+
+        <!-- 子类型 ： 效率工具-企业邮箱  -->
+        <record id="wecom_app_subtype_efficiency_tools_exmail" model="wecom.app.subtype">
+            <field name="name">Efficiency tools:Corporate email</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">exmail</field>
+            <field name="sequence">12</field>
+        </record>
+
+        <!-- 子类型 ： 效率工具-日程  -->
+        <record id="wecom_app_subtype_efficiency_tools_calendar" model="wecom.app.subtype">
+            <field name="name">Efficiency tools:Calendar</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">calendar</field>
+            <field name="sequence">13</field>
+        </record>
+
+        <!-- 子类型 ： 效率工具-直播 -->
+        <record id="wecom_app_subtype_efficiency_tools_living" model="wecom.app.subtype">
+            <field name="name">Efficiency tools:Living</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">living</field>
+            <field name="sequence">14</field>
+        </record>
+
+        <!-- 子类型 ： 效率工具-微盘 -->
+        <record id="wecom_app_subtype_efficiency_tools_wedrive" model="wecom.app.subtype">
+            <field name="name">Efficiency tools:We Drive</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">wedrive</field>
+            <field name="sequence">15</field>
+        </record>
+
+        <!-- 子类型 ： 效率工具-公费电话  -->
+        <record id="wecom_app_subtype_efficiency_tools_dial" model="wecom.app.subtype">
+            <field name="name">Efficiency tools:Public telephone</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="code">dial</field>
+            <field name="sequence">16</field>
+        </record>
+
+        <!-- 子类型 ： 会话内容存档  -->
+        <record id="wecom_app_subtype_msgaudit" model="wecom.app.subtype">
+            <field name="name">Session content archiving</field>
+            <field name="parent_id" ref="wecom_base.wecom_app_type_manage"/>
+            <field name="code">msgaudit</field>
+            <field name="sequence">17</field>
+        </record>
+
+
+
 
     </data>
 

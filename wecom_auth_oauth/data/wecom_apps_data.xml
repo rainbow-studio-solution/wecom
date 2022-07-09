@@ -3,16 +3,16 @@
     <data noupdate="1">
 
         <!-- 应用子类型 -->
-        <record id="wecom_app_subtype_auth" model="wecom.app.subtype">
+        <!-- <record id="wecom_app_subtype_auth" model="wecom.app.subtype">
             <field name="name">Authentication</field>
             <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
             <field name="code">auth</field>
             <field name="sequence">1</field>
-        </record>
+        </record> -->
 
         <!-- 应用 -->
-        <record id="wecom_material.wecom_app_first_self_app" model="wecom.apps">
-            <field name="subtype_ids" eval="[(4,ref('wecom_auth_oauth.wecom_app_subtype_auth'))]"/>
+        <record id="wecom_contacts.wecom_app_first_self_app" model="wecom.apps">
+            <field name="subtype_ids" eval="[(4,ref('wecom_base.wecom_app_subtype_auth'))]"/>
         </record>
 
     </data>

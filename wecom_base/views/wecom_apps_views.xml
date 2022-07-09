@@ -72,6 +72,7 @@
                             <button class="oe_stat_button" name="get_app_info" string="Get application" type="object" icon="fa-cloud-download" attrs="{'invisible': ['|',('agentid','=',0),('type','=','manage')]}"/>
                             <!-- <button class="oe_stat_button" name="set_app_info" string="Set application" type="object" icon="fa-cloud-upload" attrs="{'invisible': ['|','|',('agentid','=',0),('type','=','manage'),('type','=','base'),]}"/> -->
                             <button class="oe_stat_button" name="get_access_token" string="Get Access Token" type="object" icon="fa-key" attrs="{'invisible': ['|',('company_id','=', False),('type','=', 'self')]}"/>
+                            <!-- <button class="oe_stat_button" name="get_type_code" string="Get Type Code" type="object" icon="fa-key" /> -->
                         </div>
 
                         <field name="square_logo_url" widget="image_url" options='{"size": [80, 80]}' class="oe_right"/>
@@ -218,7 +219,7 @@
             <field name="name">wecom.apps.tree</field>
             <field name="model">wecom.apps</field>
             <field name="arch" type="xml">
-                <tree expand="1">
+                <tree expand="1" sample="1">
                     <!-- <field name="display_name" /> -->
                     <field name="name" />
                     <field name="company_id" />
@@ -237,6 +238,9 @@
             <field name="view_mode">kanban,tree,form</field>
             <field name="context">{'group_by':['company_id']}</field>
             <field name="search_view_id" ref="view_wecom_apps_filter"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face"></p>
+            </field>
         </record>
     </data>
 </odoo>

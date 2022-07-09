@@ -13,9 +13,7 @@ MENU_TEMPLATE = {
 class WeComApps(models.Model):
     _inherit = "wecom.apps"
 
-    menu_body = fields.Text(
-        "Application menu data", translate=True, default="{}", copy=False,
-    )
+    
 
     def get_wecom_app_menu(self):
         """

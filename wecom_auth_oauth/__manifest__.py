@@ -27,7 +27,6 @@
         "views/auth_signup_login_templates.xml",
         # "views/menu_views.xml",
     ],
-    # "qweb": ["static/src/xml/*.xml",],
     "assets": {
         "web.assets_frontend": [
             # css

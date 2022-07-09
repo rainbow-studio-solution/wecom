@@ -227,7 +227,7 @@ msgid "Name"
 msgstr "名称"
 
 #. module: wecom_material
-#: model:wecom.apps,app_name:wecom_material.wecom_app_first_self_app
+#: model:wecom.apps,app_name:wecom_contacts.wecom_app_first_self_app
 msgid "ODOO"
 msgstr ""
 

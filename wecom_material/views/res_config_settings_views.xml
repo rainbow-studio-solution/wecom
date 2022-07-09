@@ -18,11 +18,11 @@
                             <label for="material_app_id" string="Binding application"/>
                             <div class="content-group">
                                 <div class="mt8">
-                                    <field name="material_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'not like', '%contacts%'),('company_id', '=', company_id)]"/>
+                                    <field name="material_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'like', '%material%'),('company_id', '=', company_id)]"/>
                                 </div>
 
                                 <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
-                                <button class="btn btn-primary" name="get_material_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('material_app_id','=',False)]}"/>
+                                <button class="btn btn-primary" name="get_material_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('material_app_id','=',False)]}"  context="{'app': 'material'}"/>
                                 <div class="mt4" attrs="{'invisible': [('material_app_id','=',False)]}">
                                     <div class="text-warning mt8">
                                         <strong>Save</strong> this page and come back here to set up other feature.</div>

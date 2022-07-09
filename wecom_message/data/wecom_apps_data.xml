@@ -2,19 +2,9 @@
 <odoo>
     <data noupdate="1">
 
-        <!-- 应用子类型 -->
-        <record id="wecom_app_subtype_message" model="wecom.app.subtype">
-            <field name="name">Message</field>
-            <field name="parent_id" ref="wecom_base.wecom_app_type_self"/>
-            <field name="code">message</field>
-            <field name="sequence">1</field>
-        </record>
-
         <!-- 应用 -->
-        <record id="wecom_material.wecom_app_first_self_app" model="wecom.apps">
-            <!-- <field name="subtype_ids" eval="[(4, [ref('wecom_message.wecom_app_subtype_message')])]"/> -->
-            <field name="subtype_ids" eval="[(4, ref('wecom_message.wecom_app_subtype_message'))]"/>
-            <!-- <field name="type_code">['message']</field> -->
+        <record id="wecom_contacts.wecom_app_first_self_app" model="wecom.apps">
+            <field name="subtype_ids" eval="[(4, ref('wecom_base.wecom_app_subtype_message_push'))]"/>
         </record>
 
     </data>
