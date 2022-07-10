@@ -190,12 +190,16 @@ msgstr "企业通过微盘相关接口，可以对微盘的文件进行操作和
 
 #. module: base
 #: model:ir.actions.act_window,name:base.res_config_setting_act_window
-#: model:ir.module.category,name:base.module_category_wecom_suites_settings
 #: model:ir.ui.menu,name:base.menu_administration
 #: model:res.groups,name:base.group_system
 #: model_terms:ir.ui.view,arch_db:base.res_config_settings_view_form
 msgid "Settings"
 msgstr "设置"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_settings
+msgid "Settings"
+msgstr "企微设置"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom
@@ -306,7 +310,7 @@ msgstr "客户关系管理"
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_chat_log
 msgid "Chat log"
-msgstr "聊天日志"
+msgstr "企微聊天日志"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_efficiency_tools
@@ -335,17 +339,18 @@ msgstr "本地化"
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_material
 msgid "Material"
-msgstr "素材"
+msgstr "企微素材"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_messages
 msgid "Messages"
-msgstr "消息"
+msgstr "企微消息"
+
 
 #. module: base
-#: model:ir.module.category,name:base.module_category_wecom_suites_oa
-msgid "OA"
-msgstr "OA"
+#: model:ir.module.category,name:base.module_category_wecom_suites_oa_approval
+msgid "Approval"
+msgstr "企微OA审批"
 
 
 #. module: base
