@@ -354,9 +354,9 @@ msgstr "企微OA审批"
 
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_hrmis
-msgid "Human Resources Management Information System"
-msgstr "人力资源管理信息系统"
+#: model:ir.module.module,shortdesc:base.module_hrms_base
+msgid "Human Resource Management System"
+msgstr "人力资源管理系统"
 
 
 #. module: base

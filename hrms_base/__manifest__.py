@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Human Resources Management Information System",
+    "name": "Human Resource Management System",
     "author": "RStudio",
     "sequence": 608,
     "installable": True,
@@ -34,11 +34,11 @@
         "web.assets_backend": [
             # SCSSS
             # JS
-            "hrmis/static/src/js/download_deps.js",
-            "hrmis/static/src/js/download_staffs.js",
-            "hrmis/static/src/js/download_tags.js",
+            "hrms_base/static/src/js/download_deps.js",
+            "hrms_base/static/src/js/download_staffs.js",
+            "hrms_base/static/src/js/download_tags.js",
         ],
-        "web.assets_qweb": ["hrmis/static/src/xml/*.xml",],
+        "web.assets_qweb": ["hrms_base/static/src/xml/*.xml",],
     },
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",

@@ -1,4 +1,4 @@
-odoo.define('hrmis.download_deps', function (require) {
+odoo.define('hrms_base.download_deps', function (require) {
     "use strict";
     var core = require('web.core');
     var _t = core._t;

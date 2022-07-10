@@ -54,7 +54,7 @@ class ResConfigSettings(models.TransientModel):
     )
 
     module_wecom_contacts_sync = fields.Boolean("WeCom Contacts Synchronized")
-    module_hrmis = fields.Boolean("Human Resources Management Information System")
+    module_hrms = fields.Boolean("Human Resource Management System")
     module_wecom_material = fields.Boolean("WeCom Material")
     module_wecom_auth_oauth = fields.Boolean("WeCom Authentication")
     module_wecom_message = fields.Boolean("WeCom Message")

@@ -15,7 +15,7 @@
             </field>
         </record>
 
-        <record id="hrmis_employee_form" model="ir.ui.view">
+        <record id="hrms_base_employee_form" model="ir.ui.view">
             <field name="name">wxwork employee form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
@@ -99,7 +99,7 @@
             </field>
         </record>
 
-        <record id="hrmis_employee_tree" model="ir.ui.view">
+        <record id="hrms_base_employee_tree" model="ir.ui.view">
             <field name="name">WeCom employee list</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>

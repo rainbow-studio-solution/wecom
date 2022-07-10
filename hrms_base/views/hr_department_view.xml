@@ -38,7 +38,7 @@
             </field>
         </record>
 
-        <record id="hrmis_department_tree" model="ir.ui.view">
+        <record id="hrms_base_department_tree" model="ir.ui.view">
             <field name="name">wxwork hr departmen tree</field>
             <field name="model">hr.department</field>
             <field name="field_parent">child_ids</field>
