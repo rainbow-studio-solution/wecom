@@ -18,8 +18,6 @@
         """,
     "depends": [
         "mail",
-        "digest",
-        "rating",
         "wecom_material",
     ],
     "external_dependencies": {"python": ["html2text", "lxml"],},

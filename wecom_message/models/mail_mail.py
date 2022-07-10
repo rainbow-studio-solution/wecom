@@ -99,6 +99,12 @@ class MailMail(models.Model):
         ]
     )
 
+    @api.model_create_multi
+    def create(self, values_list):
+        res = super(MailMail, self).create(values_list)
+        
+        return res
+
     # ------------------------------------------------------
     # mail_mail formatting, tools and send mechanism
     # 邮件格式、工具和发送机制

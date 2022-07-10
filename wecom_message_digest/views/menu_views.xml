@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- 3.1摘要 -->
+        <menuitem name="Digest Message" id="menu_wecom_email_digest" action="digest.digest_digest_action" parent="wecom_message.menu_wecom_message_email" groups="wecom_message.group_wecom_messages_manager" sequence="5"/>
+    </data>
+</odoo>

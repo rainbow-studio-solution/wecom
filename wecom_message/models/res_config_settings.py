@@ -48,7 +48,7 @@ class ResConfigSettings(models.TransientModel):
     # )
 
     module_digest = fields.Boolean("KPI Digests")
-    module_wecom_digest_message = fields.Boolean(
+    module_wecom_message_digest = fields.Boolean(
         "Send KPI Digests periodically via WeCom",
     )
 

@@ -80,22 +80,19 @@
         <field name="arch" type="xml">
             <tree string="WeCom Message" decoration-muted="state in ('sent', 'cancel')" decoration-info="state=='outgoing'" decoration-danger="state=='wecom_exception'">
                 <field name="date"/>
-                <field name="state" />
+                <field name="subject"/>
+                <field name="author_id" string="Sender"/>
                 <field name="is_wecom_message"/>
                 <field name="use_templates"/>
                 <field name="message_type"/>
                 <field name="templates_id"/>
-                <field name="subject"/>
-                <field name="author_id" string="Sender"/>
                 <field name="wecom_message_id" invisible="1"/>
                 <field name="recipient_ids" invisible="1"/>
                 <field name="model" invisible="1"/>
                 <field name="res_id" />
-
+                <field name="state" />
                 <button name="send_wecom_mail_message" string="Send Now" type="object" icon="fa-paper-plane" states='outgoing'/>
-
                 <button name="recall_message" string="Recall Message" type="object" icon="fa-times-circle" states='sent'/>
-
                 <button name="resend_message" string="Resend Message" type="object" icon="fa-repeat" states='wecom_exception,wecom_recall'/>
             </tree>
         </field>
