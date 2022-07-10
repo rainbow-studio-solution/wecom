@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 06:17+0000\n"
-"PO-Revision-Date: 2022-02-18 14:20+0800\n"
+"POT-Creation-Date: 2022-07-10 01:51+0000\n"
+"PO-Revision-Date: 2022-07-10 09:57+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
@@ -46,6 +46,11 @@ msgstr "访问令牌"
 #: model:wecom.material,name:wecom_material.wecom_material_image_account_created
 msgid "Account Created"
 msgstr "创建的帐户"
+
+#. module: wecom_material
+#: model:res.groups,name:wecom_material.group_wecom_material_manager
+msgid "Administrator"
+msgstr "管理员"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_agentid
@@ -141,12 +146,12 @@ msgstr "分组"
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: wecom_material
 #: model:wecom.material,name:wecom_material.wecom_material_image_kpi
 msgid "KPI"
-msgstr ""
+msgstr "KPI"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material____last_update
@@ -166,7 +171,7 @@ msgstr "最后更新时间"
 #. module: wecom_material
 #: model:wecom.material,name:wecom_material.wecom_material_image_logo
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
@@ -227,9 +232,9 @@ msgid "Name"
 msgstr "名称"
 
 #. module: wecom_material
-#: model:wecom.apps,app_name:wecom_contacts.wecom_app_first_self_app
-msgid "ODOO"
-msgstr ""
+#: model:res.groups,name:wecom_material.group_wecom_material_user
+msgid "Officer"
+msgstr "主管"
 
 #. module: wecom_material
 #: model:ir.model.fields.selection,name:wecom_material.selection__wecom_material__media_type__file
@@ -306,6 +311,18 @@ msgid ""
 "The unique identification obtained after uploading the media file is valid for 3 "
 "days"
 msgstr "媒体文件上传后获取的唯一标识，3天内有效"
+
+#. module: wecom_material
+#: model:res.groups,comment:wecom_material.group_wecom_material_user
+msgid "The user will be able to approve document created by employees."
+msgstr "此用户将有权限审批员工创建的文档。"
+
+#. module: wecom_material
+#: model:res.groups,comment:wecom_material.group_wecom_material_manager
+msgid ""
+"The user will have access to the WeCom configuration as well as statistic "
+"reports."
+msgstr ""
 
 #. module: wecom_material
 #: code:addons/wecom_material/__init__.py:0

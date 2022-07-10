@@ -3,7 +3,7 @@
 {
     "name": "WeCom wedrive",
     "author": "RStudio",
-    "category": "WeCom Suites/Too;s",
+    "category": "WeCom Suites/Efficiency tools",
     "summary": "Enterprises can operate and set permissions for files on the microdisk through the microdisk related interfaces.",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "version": "15.0.0.1",

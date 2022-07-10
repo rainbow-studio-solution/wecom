@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-08 08:20+0000\n"
-"PO-Revision-Date: 2022-07-08 16:25+0800\n"
+"POT-Creation-Date: 2022-07-10 04:19+0000\n"
+"PO-Revision-Date: 2022-07-10 12:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_msgaudit
 #: model_terms:ir.ui.view,arch_db:wecom_msgaudit.wecom_msgaudit_res_config_settings_view_form
@@ -92,6 +92,11 @@ msgstr "API接口未启动！"
 #: model:ir.model.fields,field_description:wecom_msgaudit.field_res_config_settings__msgaudit_access_token
 msgid "Access Token"
 msgstr "访问令牌"
+
+#. module: wecom_msgaudit
+#: model:res.groups,name:wecom_msgaudit.group_wecom_msgaudit_manager
+msgid "Administrator"
+msgstr "管理员"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__agree
@@ -562,6 +567,7 @@ msgstr "密钥"
 
 #. module: wecom_msgaudit
 #: code:addons/wecom_msgaudit/models/wecom_msgaudit_key.py:0
+#: model:ir.model.constraint,message:wecom_msgaudit.constraint_wecom_msgaudit_key_app_id_ver_uniq
 #, python-format
 msgid "Key version must be unique !"
 msgstr "密钥版本必须是唯一的！"
@@ -778,6 +784,11 @@ msgstr "没有数据可下载！"
 #, python-format
 msgid "No message encryption key exists!"
 msgstr "没有消息加密密钥存在！"
+
+#. module: wecom_msgaudit
+#: model:res.groups,name:wecom_msgaudit.group_wecom_msgaudit_user
+msgid "Officer"
+msgstr "主管"
 
 #. module: wecom_msgaudit
 #: model:ir.model.fields.selection,name:wecom_msgaudit.selection__wecom_chat_data__msgtype__docmsg
@@ -1019,6 +1030,18 @@ msgid ""
 msgstr "当前消息记录已超过3天，无法格式化。"
 
 #. module: wecom_msgaudit
+#: model:res.groups,comment:wecom_msgaudit.group_wecom_msgaudit_user
+msgid "The user will be able to approve document created by employees."
+msgstr "此用户将有权限审批员工创建的文档。"
+
+#. module: wecom_msgaudit
+#: model:res.groups,comment:wecom_msgaudit.group_wecom_msgaudit_manager
+msgid ""
+"The user will have access to the wecom session content archive "
+"configuration as well as statistic reports."
+msgstr "此用户将有权限访问企微会话存档配置以及统计报表。"
+
+#. module: wecom_msgaudit
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__publickey_ver
 msgid "The version number of the public key used to encrypt this message."
 msgstr "加密此条消息使用的公钥版本号。"
@@ -1194,8 +1217,3 @@ msgstr "启用此功能后，将使用物理路径存储媒体文件。否则，
 #: model:ir.model.fields,help:wecom_msgaudit.field_wecom_chat_data__msgid
 msgid "You can use this field for message de duplication."
 msgstr "可以使用此字段进行消息去重。"
-
-#. module: wecom_msgaudit
-#: model:ir.model.constraint,message:wecom_msgaudit.constraint_wecom_msgaudit_key_app_id_ver_uniq
-msgid "密钥版本必须是唯一的！"
-msgstr ""

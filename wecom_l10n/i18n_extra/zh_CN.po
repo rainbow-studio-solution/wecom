@@ -186,10 +186,7 @@ msgid ""
 "through the microdisk related interfaces."
 msgstr "企业通过微盘相关接口，可以对微盘的文件进行操作和设置权限。"
 
-#. module: base
-#: model:ir.module.category,description:base.module_category_wecom_suites_settings
-msgid "Helps you manage your WeCom."
-msgstr "帮助管理您的企业微信。"
+
 
 #. module: base
 #: model:ir.actions.act_window,name:base.res_config_setting_act_window
@@ -294,3 +291,58 @@ msgstr "企微微盘"
 #: model:ir.module.category,name:base.module_category_wecom_suites_theme
 msgid "Theme"
 msgstr "主题"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_authentication
+msgid "Authentication"
+msgstr "身份验证"
+
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_crm
+msgid "CRM"
+msgstr "客户关系管理"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_chat_log
+msgid "Chat log"
+msgstr "聊天日志"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_efficiency_tools
+msgid "Efficiency tools"
+msgstr "效率工具"
+
+
+#. module: base
+#: model:ir.module.category,description:base.module_category_wecom_suites_material
+#: model:ir.module.category,description:base.module_category_wecom_suites_settings
+msgid "Helps you manage your WeCom."
+msgstr "帮助管理您的企业微信。"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_human_resources
+#: model_terms:ir.ui.view,arch_db:base.user_groups_view
+msgid "Human Resources"
+msgstr "人力资源"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_localizations
+msgid "Localizations"
+msgstr "本地化"
+
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_material
+msgid "Material"
+msgstr "素材"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_messages
+msgid "Messages"
+msgstr "消息"
+
+#. module: base
+#: model:ir.module.category,name:base.module_category_wecom_suites_oa
+msgid "OA"
+msgstr "OA"

@@ -3,11 +3,11 @@
     "name": "WeCom Contacts Synchronized",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
-    "sequence": 607,
+    "sequence": 603,
     "installable": True,
     "application": False,
     "auto_install": False,
-    "category": "WeCom Suites/Tools",
+    "category": "WeCom Suites/CRM",
     "version": "15.0.0.1",
     "summary": """
         

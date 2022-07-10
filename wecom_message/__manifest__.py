@@ -20,9 +20,7 @@
         "mail",
         "digest",
         "rating",
-        "wecom_widget",
         "wecom_material",
-        "wecom_contacts",
     ],
     "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [

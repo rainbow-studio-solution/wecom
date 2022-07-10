@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/Settings",
+    "category": "WeCom Suites/Material",
     "version": "15.0.0.1",
     "summary": """
         WeCom material management 
@@ -39,6 +39,7 @@ Install:
 """,
     "depends": ["attachment_indexation", "wecom_contacts"],
     "data": [
+        "security/wecom_material_security.xml",
         "security/ir.model.access.csv",
         "data/wecom_apps_data.xml",
         "data/material_data.xml",

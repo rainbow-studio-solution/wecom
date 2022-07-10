@@ -7,7 +7,7 @@
     "installable": True,
     "application": True,
     "auto_install": False,
-    "category": "WeCom Suites/Tools",
+    "category": "WeCom Suites/Settings",
     "version": "15.0.0.1",
     "summary": """
         WeCom Portal
@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["portal",],
+    "depends": ["portal","wecom_contacts"],
     "external_dependencies": {"python": [],},
     "data": [
         "data/wecom_apps_data.xml",

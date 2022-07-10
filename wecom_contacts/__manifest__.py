@@ -19,6 +19,7 @@
     "depends": [
         "contacts",
         "hr",
+        "wecom_base",
     ],
     "data": [
         "security/ir.model.access.csv",

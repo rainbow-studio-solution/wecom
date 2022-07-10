@@ -744,7 +744,7 @@ msgstr "OA：会议室"
 #. module: wecom_base
 #: model:res.groups,name:wecom_base.group_wecom_settings_user
 msgid "Officer"
-msgstr "专员"
+msgstr "主管"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0
