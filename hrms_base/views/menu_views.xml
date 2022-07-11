@@ -2,49 +2,57 @@
 <odoo>
     <data>
         <!--  ROOT   -->
-        <menuitem id="menu_hrms_base_root" name="HRMS" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" web_icon="hrms_base,static/description/icon.png" sequence="2"/>
+        <menuitem id="menu_hrms_root" name="HRMS" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" web_icon="hrms_base,static/description/icon.png" sequence="2"/>
 
         <!-- 1.组织架构 -->
-        <menuitem id="menu_wecom_organization_main" name="Organization" parent="menu_hrms_base_root" groups="hr.group_hr_user" sequence="1"/>
+        <menuitem id="menu_wecom_organization_main" name="Organization" parent="menu_hrms_root" groups="hr.group_hr_user" sequence="1"/>
         <menuitem id="menu_wecom_organization_employee" name="Employee" action="hr.open_view_employee_list_my" parent="menu_wecom_organization_main" sequence="0" groups="hr.group_hr_user" />
         <menuitem id="menu_wecom_organization_department_kanban" name="Department" action="hr.hr_department_tree_action" parent="menu_wecom_organization_main" sequence="1" groups="hr.group_hr_user" />
-        <menuitem id="menu_wecom_organization_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_wecom_organization_main" sequence="1" groups="hr.group_hr_user" />
+        <menuitem id="menu_wecom_organization_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_wecom_organization_main" sequence="1" groups="base.group_no_one"/>
 
         <!-- 2.员工目录 -->
-        <menuitem id="menu_wecom_employee" name="Employee Directory" action="hr.hr_employee_public_action" parent="menu_hrms_base_root" sequence="2"/>
+        <menuitem id="menu_wecom_employee" name="Employee Directory" action="hr.hr_employee_public_action" parent="menu_hrms_root" sequence="2"/>
 
         <!-- 90.报表 -->
-        <menuitem name="Reporting" id="menu_hrms_report_root" parent="menu_hrms_base_root" sequence="90"/>
+        <menuitem name="Reporting" id="menu_hrms_report_root" parent="menu_hrms_root" sequence="90"/>
 
-        <!-- HR配置菜单 -->
-        <menuitem id="menu_hrms_base_manager_configuration" name="Settings" parent="menu_hrms_base_root" sequence="99" groups="hr.group_hr_user"/>
+        <!-- HR配置菜单：设置  -->
+        <menuitem id="menu_hrms_configuration" name="Configuration" parent="menu_hrms_root" sequence="99" groups="hr.group_hr_user"/>
 
-        <!-- HR配置菜单 > 人力资源配置 -->
-        <menuitem id="menu_hrms_base_configuration" name="Human Resources Configuration" parent="menu_hrms_base_manager_configuration" sequence="1" groups="hr.group_hr_manager"/>
+        <!-- HR配置菜单：设置  > 员工设置 -->
+        <menuitem id="menu_hrms_configuration_employee" name="Employee Settings" parent="menu_hrms_configuration" groups="base.group_system" action="hr.hr_config_settings_action" sequence="0"/>
 
-        <!-- HR配置菜单  > 人力资源配置  > 设置 -->
-        <menuitem id="hr_wecom_menu_configuration" action="hr.hr_config_settings_action" parent="menu_hrms_base_configuration" groups="base.group_system" sequence="0"/>
+        <!-- HR配置菜单：设置 > 员工  > 设置 -->
+        <!-- <menuitem id="menu_hrms_configuration_employee_settings" name="Settings" parent="menu_hrms_configuration_employee" groups="base.group_system" action="hr.hr_config_settings_action" sequence="0"/> -->
 
-        <!-- HR配置菜单  > 人力资源配置  > 工作岗位 -->
-        <menuitem id="menu_wecom_view_hr_job" action="hr.action_hr_job" parent="menu_hrms_base_configuration" sequence="1"/>
+        <!-- HR配置菜单：设置 > 工作岗位 -->
+        <menuitem id="menu_hrms_configuration_employee_job" action="hr.action_hr_job" parent="menu_hrms_configuration" sequence="1"/>
 
-        <!-- HR配置菜单  > 人力资源配置  > 员工 -->
-        <menuitem id="menu_wecom_human_resources_configuration_employee" name="Employee" parent="menu_hrms_base_configuration" groups="base.group_no_one" sequence="1"/>
+        <!-- HR配置菜单：设置 > 标签 -->
+        <!-- <menuitem id="menu_hrms_configuration_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_hrms_configuration_employee" groups="base.group_no_one" sequence="2"/> -->
 
-        <!--<menuitem id="menu_wecom_view_employee_category_form" name="Tags" action="hr.open_view_categ_form" parent="menu_wecom_human_resources_configuration_employee" groups="base.group_no_one" sequence="1"/> -->
+        <!-- HR配置菜单：设置 >  部门 -->
+        <!-- <menuitem id="menu_hrms_configuration_employee_department" action="hr.hr_department_tree_action" parent="menu_hrms_configuration_employee" groups="hr.group_hr_user" sequence="3"/> -->
+
+        <!-- HR配置菜单：设置 > 工作地点 -->
+        <menuitem id="menu_hrms_configuration_employee_work_location" action="hr.hr_work_location_action" parent="menu_hrms_configuration" sequence="4" groups="hr.group_hr_user"/>
+
+        <!-- HR配置菜单：设置 > 离职原因 -->
+        <menuitem id="menu_hrms_configuration_employee_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_configuration" sequence="5" groups="hr.group_hr_user"/>
+
+        <!-- HR配置菜单：设置 > 活动规划 -->
+        <menuitem id="menu_hrms_configuration_employee_config_plan" name="Activity Planning" parent="menu_hrms_configuration" groups="hr.group_hr_manager" sequence="2"/>
+
+        <!-- HR配置菜单：设置 > 活动规划 > 规划类型 -->
+        <menuitem id="menu_hrms_configuration_employee_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_configuration_employee_config_plan" groups="base.group_no_one" sequence="7"/>
+
+        <!-- HR配置菜单：设置 > 活动规划 > 计划 -->
+        <menuitem id="menu_hrms_configuration_employee_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_hrms_configuration_employee_config_plan" groups="hr.group_hr_manager" sequence="8"/>
 
 
-        <!-- <menuitem id="menu_hrms_base_department_tree" action="hr.hr_department_tree_action" parent="menu_hrms_base_configuration" sequence="2" groups="hr.group_hr_user"/> -->
-
-
-        <menuitem id="menu_wecom_config_plan" name="Activity Planning" parent="menu_hrms_base_configuration" groups="hr.group_hr_manager" sequence="100"/>
-
-        <menuitem id="menu_wecom_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_wecom_config_plan" groups="base.group_no_one" sequence="99"/>
-
-        <menuitem id="menu_wecom_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_wecom_config_plan" groups="hr.group_hr_manager" sequence="100"/>
 
 
         <!-- 隐藏人力资源菜单 -->
-        <menuitem id="menu_wecom_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrms_base_manager_configuration" groups="base.group_erp_manager" sequence="999"/>
+        <menuitem id="menu_wecom_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrms_configuration" groups="base.group_erp_manager" sequence="999"/>
     </data>
 </odoo>

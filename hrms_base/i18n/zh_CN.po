@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 08:53+0000\n"
-"PO-Revision-Date: 2022-07-11 16:56+0800\n"
+"POT-Creation-Date: 2022-07-11 13:38+0000\n"
+"PO-Revision-Date: 2022-07-11 21:45+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
@@ -63,9 +63,9 @@ msgid "API error: %s, error name: %s, error message: %s"
 msgstr "API错误：%s，错误名称：%s，错误消息：%s"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_config_plan
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan
 msgid "Activity Planning"
-msgstr "活动计划"
+msgstr "活动规划"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
@@ -114,6 +114,11 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration
+msgid "Configuration"
+msgstr "基础配置"
+
+#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "Copy as system user"
 msgstr "复制为系统用户"
@@ -157,6 +162,11 @@ msgstr "部门"
 #, python-format
 msgid "Department list downloaded successfully."
 msgstr "部门列表下载成功。"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_departure_reason
+msgid "Departure Reasons"
+msgstr "离职原因"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee.py:0
@@ -215,7 +225,6 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_human_resources_configuration_employee
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee
 msgid "Employee"
 msgstr "员工"
@@ -224,6 +233,11 @@ msgstr "员工"
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_employee
 msgid "Employee Directory"
 msgstr "员工目录"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee
+msgid "Employee Settings"
+msgstr "员工设置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
@@ -320,7 +334,7 @@ msgstr "失败"
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Failed"
-msgstr "失败"
+msgstr "失败的"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee.py:0
@@ -352,7 +366,7 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_base_root
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_root
 msgid "HRMS"
 msgstr "HRMS"
 
@@ -372,11 +386,6 @@ msgid "Hr Menu Items"
 msgstr "HR菜单项目"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_base_configuration
-msgid "Human Resources Configuration"
-msgstr "人力资源配置"
-
-#. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__id
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__id
 msgid "ID"
@@ -392,7 +401,7 @@ msgstr ""
 "用</b>。"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_view_hr_job
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_job
 msgid "Job Positions"
 msgstr "工作岗位"
 
@@ -445,12 +454,12 @@ msgid "Organization"
 msgstr "组织架构"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_config_plan_types
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan_types
 msgid "Planning Types"
 msgstr "规划类型"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_config_plan_plan
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan_plan
 msgid "Plans"
 msgstr "计划"
 
@@ -474,15 +483,9 @@ msgid "Related User"
 msgstr "关联用户"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_report_root
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_report_root
 msgid "Reporting"
 msgstr "报表"
-
-#. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.hr_wecom_menu_configuration
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_base_manager_configuration
-msgid "Settings"
-msgstr "设置"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee.py:0
@@ -623,3 +626,8 @@ msgstr "企微标签"
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "WeCom settings"
 msgstr "企微设置"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_work_location
+msgid "Work Locations"
+msgstr "工作地点"
