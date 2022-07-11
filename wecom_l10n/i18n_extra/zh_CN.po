@@ -358,6 +358,11 @@ msgstr "企微OA审批"
 msgid "Human Resource Management System"
 msgstr "人力资源管理系统"
 
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_extension
+msgid "Human Resource Management System Extension"
+msgstr "人力资源管理系统扩展"
+
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_message_digest

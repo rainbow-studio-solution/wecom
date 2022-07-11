@@ -143,8 +143,8 @@ msgid ""
 "                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-users fa-lg\" aria-label=\"人力资源管理信息系统设置\"/>\n"
-"                                人力资源管理信息系统设置\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"人力资源管理系统设置\"/>\n"
+"                                人力资源管理系统设置\n"
 "                        </span>"
 
 #. module: wecom_contacts
@@ -425,11 +425,11 @@ msgstr "分组"
 #. openerp-web
 #: code:addons/wecom_contacts/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "HR settings"
-msgstr "HR设置"
+msgid "HRM settings"
+msgstr "HRM设置"
 
 #. module: wecom_contacts
-#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrms
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrms_base
 msgid "Human Resource Management System"
 msgstr "人力资源管理信息系统"
 

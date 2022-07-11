@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-18 06:00+0000\n"
-"PO-Revision-Date: 2022-02-18 14:03+0800\n"
+"POT-Creation-Date: 2022-07-11 08:53+0000\n"
+"PO-Revision-Date: 2022-07-11 16:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1\n"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
-msgid "<i class=\"fa fa-th fa-lg\" aria-label=\"Hr related menus\"/>"
-msgstr "<i class=\"fa fa-th fa-lg\" aria-label=\"Hr相关菜单\"/>"
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
+msgid "<i class=\"fa fa-th fa-lg\" aria-label=\"HR related menus\"/>"
+msgstr "<i class=\"fa fa-th fa-lg\" aria-label=\"HR相关菜单\"/>"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_kanban_view_employees
@@ -34,7 +34,7 @@ msgstr ""
 "                        </span>"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Hide HR related menus</span>"
 msgstr "<span class=\"o_form_label\">隐藏HR相关菜单</span>"
 
@@ -68,7 +68,6 @@ msgid "Activity Planning"
 msgstr "活动计划"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__alias
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "Alias"
 msgstr "别名"
@@ -79,16 +78,15 @@ msgid "Are you sure to release the binding with enterprise wechat members ?"
 msgstr "确认解除与企业微信成员的绑定吗？"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__avatar
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__avatar
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__avatar
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__avatar
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__avatar
 msgid "Avatar"
 msgstr "头像"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
-#: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 msgid "Binding"
 msgstr "绑定"
 
@@ -104,9 +102,7 @@ msgid "Cancel"
 msgstr "取消"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__company_id
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__company_id
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__company_id
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_department_filter
 msgid "Company"
@@ -129,14 +125,14 @@ msgid "Create contacts tags: %s to WeCom"
 msgstr "创建通讯录标签：%s 到企业微信"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__create_uid
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__create_uid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__create_uid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__create_uid
 msgid "Created by"
-msgstr "创建者"
+msgstr "创建人"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__create_date
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__create_date
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__create_date
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__create_date
 msgid "Created on"
 msgstr "创建时间"
 
@@ -152,7 +148,6 @@ msgid "Delete wecom tag"
 msgstr "删除企业标签"
 
 #. module: hrms_base
-#: model:ir.model,name:hrms_base.model_hr_department
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_department_kanban
 msgid "Department"
 msgstr "部门"
@@ -164,20 +159,14 @@ msgid "Department list downloaded successfully."
 msgstr "部门列表下载成功。"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__department_ids
-msgid "Departments"
-msgstr "部门"
-
-#. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee.py:0
 #, python-format
 msgid "Dismissal of employee [%s] failed, reason%s"
 msgstr "解雇员工 [%s] 失败，原因 %s"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__display_name
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__display_name
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__display_name
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__display_name
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -226,26 +215,15 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: hrms_base
-#: model:ir.model,name:hrms_base.model_hr_employee
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_human_resources_configuration_employee
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee
 msgid "Employee"
 msgstr "员工"
 
 #. module: hrms_base
-#: model:ir.model,name:hrms_base.model_hr_employee_category
-msgid "Employee Category"
-msgstr "员工类别"
-
-#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_employee
 msgid "Employee Directory"
 msgstr "员工目录"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__employee_name
-msgid "Employee Name"
-msgstr "员工姓名"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
@@ -257,7 +235,7 @@ msgstr "员工标签"
 #: code:addons/hrms_base/static/src/js/download_staffs.js:0
 #, python-format
 msgid "Employee Termination"
-msgstr "员工解雇"
+msgstr "员工解聘"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee.py:0
@@ -272,13 +250,8 @@ msgid "Employee with ID [%s] already exists"
 msgstr "ID为 [%s] 的员工已存在"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__employee_ids
-msgid "Employees"
-msgstr "员工"
-
-#. module: hrms_base
 #: model:ir.actions.act_window,name:hrms_base.employee_bind_wecom_action
-#: model:ir.model,name:hrms_base.model_wecom_wizard_employee_bind_wecom
+#: model:ir.model,name:hrms_base.model_wecom_employee_bind_wecom_wizard
 msgid "Employees bind enterprise wechat members"
 msgstr "员工绑定企微成员"
 
@@ -289,14 +262,13 @@ msgid "End setting the direct leader of the employee with the company name '%s'.
 msgstr "结束设置公司名称为 [%s] 的员工的直属上级。"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__english_name
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "English Name"
 msgstr "英语名称"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__wecom_userid
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__wecom_userid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__wecom_userid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__wecom_userid
 msgid "Enterprise wechat user Id"
 msgstr "企微用户Id"
 
@@ -360,7 +332,7 @@ msgstr "无法将员工[%s]复制为系统用户，原因：%s"
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载公司[%s]标签成员[%s]！"
+msgstr "未能下载标签成员[%s] ，其公司为[%s]！"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
@@ -380,12 +352,17 @@ msgid "Group By"
 msgstr "分组"
 
 #. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_base_root
+msgid "HRMS"
+msgstr "HRMS"
+
+#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_config_hide_hr_menu
 msgid "Hide Hr Menu"
 msgstr "隐藏HR菜单"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "Hide the menu"
 msgstr "隐藏菜单"
 
@@ -400,19 +377,19 @@ msgid "Human Resources Configuration"
 msgstr "人力资源配置"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__id
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__id
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__id
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid ""
 "If selected, deleting the local tag record will delete the tag of remote enterprise "
 "wechat at the same time.Default <b class=\"text-warning\">disable</b>."
 msgstr ""
-"如果选中，删除本地标签记录将同时删除远程企业微信的标签。默认值<b class=\"text-warning\">"
-"禁用</b>。"
+"如果选中，删除本地标签记录将同时删除远程企业微信的标签。默认<b class=\"text-warning\">禁"
+"用</b>。"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_view_hr_job
@@ -420,22 +397,22 @@ msgid "Job Positions"
 msgstr "工作岗位"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom____last_update
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom____last_update
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard____last_update
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改时间"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__write_uid
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__write_uid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__write_uid
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__write_uid
 msgid "Last Updated by"
-msgstr "最后更新者"
+msgstr "最后更新人"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__write_date
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__write_date
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__write_date
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__write_date
 msgid "Last Updated on"
-msgstr "更新时间"
+msgstr "最后更新时间"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_menu_search
@@ -444,51 +421,28 @@ msgid "Menu"
 msgstr "菜单"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__department_ids
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "Multiple departments"
 msgstr "多部门"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__name
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__name
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__user_name
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__name
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__name
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__user_name
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
 #: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 msgid "Name"
 msgstr "名称"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "One click Hide Menu"
 msgstr "一键隐藏菜单"
-
-#. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_hr_department__wecom_department_order
-msgid ""
-"Order value in parent department. The higher order value is sorted first. The value "
-"range is[0, 2^32]"
-msgstr "上级部门中的排序值。高阶值首先排序。值范围为[0，2^32]"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_main
 msgid "Organization"
 msgstr "组织架构"
-
-#. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_hr_department__wecom_department_parent_id
-msgid "Parent department ID,32-bit integer.Root department is 1"
-msgstr "上级部门ID，32位整数。根部门为1"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__qr_code
-msgid "Personal QR code"
-msgstr "个人二维码"
-
-#. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_hr_employee__qr_code
-msgid "Personal QR code, Scan can be added as external contact"
-msgstr "个人QR码，出示可以让他人添加为外部联系人"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_config_plan_types
@@ -510,14 +464,14 @@ msgid "Refresh"
 msgstr "刷新"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_employee_bind_wecom__employee_id
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__employee_id
 msgid "Related Employee"
-msgstr "相关的员工"
+msgstr "关联员工"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_wecom_wizard_user_bind_wecom__user_id
+#: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__user_id
 msgid "Related User"
-msgstr "相关用户"
+msgstr "关联用户"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_report_root
@@ -556,16 +510,6 @@ msgid "Successfully updated tag."
 msgstr "已成功更新标签。"
 
 #. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_hr_employee_category__tagid
-msgid ""
-"Tag ID, non negative integer. When this parameter is specified, the new tag will "
-"generate the corresponding tag ID. if it is not specified, it will be automatically "
-"increased by the current maximum ID."
-msgstr ""
-"标签id，非负整型，指定此参数时新增的标签会生成对应的标签id，不指定时则以目前最大的id自"
-"增。"
-
-#. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Tag downloaded failed."
@@ -602,7 +546,6 @@ msgid "Tag: %s deletion failed."
 msgstr "标签：%s 删除失败。"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_department__category_ids
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee_tag
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_department_form
@@ -621,23 +564,14 @@ msgid ""
 msgstr "当前公司未标识为企业微信组织。请配置或切换公司。"
 
 #. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_wecom_wizard_user_bind_wecom__company_id
+#: model:ir.model.fields,help:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
 msgid "The default company for this user."
 msgstr "这个用户的默认公司。"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "The menu is rebuilt. It is recommended to hide the original HR menu."
-msgstr "菜单将被重建。建议隐藏原生HR菜单。"
-
-#. module: hrms_base
-#: model:ir.model.fields,help:hrms_base.field_hr_employee__wecom_user_order
-msgid ""
-"The sort value within the department, the default is 0. The quantity must be the same "
-"as the department, The greater the value the more sort front.The value range is [0, "
-"2^32)"
-msgstr ""
-"部门的排序值，默认为0。数量必须与部门相同，值越大，排序前部就越多。值范围为[0，2 ^ 32）"
+msgstr "菜单已重建。建议隐藏原始HR菜单。"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_department.py:0
@@ -659,11 +593,6 @@ msgid "Upload Tags"
 msgstr "上传标签"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__use_system_avatar
-msgid "Use System Avatar"
-msgstr "使用系统头像"
-
-#. module: hrms_base
 #: model:ir.actions.act_window,name:hrms_base.user_bind_wecom_action
 msgid "User bind enterprise wechat members"
 msgstr "系统用户绑定企微成员"
@@ -675,9 +604,9 @@ msgid "User with ID [%s] already exists"
 msgstr "ID为 [%s] 的用户已存在"
 
 #. module: hrms_base
-#: model:ir.model,name:hrms_base.model_wecom_wizard_user_bind_wecom
+#: model:ir.model,name:hrms_base.model_wecom_user_bind_wecom_wizard
 msgid "Users bind enterprise wechat members"
-msgstr "系统用户绑定企微成员"
+msgstr "用户绑定企微成员"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_department_form
@@ -685,63 +614,12 @@ msgid "WeCom"
 msgstr "企业微信"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_department__is_wecom_department
-msgid "WeCom Department"
-msgstr "企业微信部门"
-
-#. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_base_root
-msgid "Human Resource Management System"
-msgstr "hrms_base"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__wecom_openid
-msgid "WeCom OpenID"
-msgstr "企微用户OpenID"
-
-#. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__is_wecom_tag
 #, python-format
 msgid "WeCom Tag"
 msgstr "企微标签"
 
 #. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee_category__tagid
-msgid "WeCom Tag ID"
-msgstr "企微标签ID"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_department__wecom_department_id
-msgid "WeCom department ID"
-msgstr "企业微信部门ID"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_department__wecom_department_order
-msgid "WeCom department sort"
-msgstr "企业微信部门排序"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__is_wecom_user
-msgid "WeCom employees"
-msgstr "企微员工"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_department__wecom_department_parent_id
-msgid "WeCom parent department ID"
-msgstr "企业微信上级部门ID"
-
-#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "WeCom settings"
 msgstr "企微设置"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__wecom_userid
-msgid "WeCom user Id"
-msgstr "企业微信用户ID"
-
-#. module: hrms_base
-#: model:ir.model.fields,field_description:hrms_base.field_hr_employee__wecom_user_order
-msgid "WeCom user sort"
-msgstr "企业微信用户排序"
