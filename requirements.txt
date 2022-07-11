@@ -1,6 +1,7 @@
 numpy==1.19.3 
-opencv-python
-pdfminer
-num2words
+pandas
+pypandoc==1.7.0
+lxml-to-dict==0.1.2
+pycryptodome
 ffmpy
 pydub
