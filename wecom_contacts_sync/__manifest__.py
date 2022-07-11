@@ -16,13 +16,14 @@
 
 
         """,
-    "depends": [ "wecom_contacts",],
+    "depends": ["wecom_contacts",],
     "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
         "data/wecom_app_config_data.xml",
         "data/wecom_app_event_type_data.xml",
         "data/ir_cron_data.xml",
+        "data/hr_data.xml",
         "views/res_config_settings_views.xml",
         "views/wecom_apps_views.xml",
         "views/ir_cron_views.xml",

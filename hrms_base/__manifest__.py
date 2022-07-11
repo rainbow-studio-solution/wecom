@@ -20,7 +20,7 @@
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
-        "data/hr_data.xml",
+        # "data/hr_data.xml",
         "wizard/employee_bind_wecom_views.xml",
         "wizard/user_bind_wecom_views.xml",
         "views/ir_ui_menu_views.xml",
