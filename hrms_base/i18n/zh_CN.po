@@ -235,9 +235,9 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee
-msgid "Employee Settings"
-msgstr "员工设置"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_settings
+msgid "Settings"
+msgstr "设置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form

@@ -16,43 +16,35 @@
         <!-- 90.报表 -->
         <menuitem name="Reporting" id="menu_hrms_report_root" parent="menu_hrms_root" sequence="90"/>
 
-        <!-- HR配置菜单：设置  -->
-        <menuitem id="menu_hrms_configuration" name="Configuration" parent="menu_hrms_root" sequence="99" groups="hr.group_hr_user"/>
+        <!-- 99 员工配置菜单  -->
+        <menuitem id="menu_hrms_employee_settings" name="Employee Settings" parent="menu_hrms_root" sequence="99" groups="hr.group_hr_user"/>
 
-        <!-- HR配置菜单：设置  > 员工设置 -->
-        <menuitem id="menu_hrms_configuration_employee" name="Employee Settings" parent="menu_hrms_configuration" groups="base.group_system" action="hr.hr_config_settings_action" sequence="0"/>
+        <!-- 员工配置菜单  > 设置 -->
+        <menuitem id="menu_hrms_employee_settings_settings" name="Settings" parent="menu_hrms_employee_settings" groups="base.group_system" action="hr.hr_config_settings_action" sequence="0"/>
 
-        <!-- HR配置菜单：设置 > 员工  > 设置 -->
-        <!-- <menuitem id="menu_hrms_configuration_employee_settings" name="Settings" parent="menu_hrms_configuration_employee" groups="base.group_system" action="hr.hr_config_settings_action" sequence="0"/> -->
+        <!-- 员工配置菜单 > 工作岗位 -->
+        <menuitem id="menu_hrms_employee_settings_job" action="hr.action_hr_job" parent="menu_hrms_employee_settings" sequence="1"/>
 
-        <!-- HR配置菜单：设置 > 工作岗位 -->
-        <menuitem id="menu_hrms_configuration_employee_job" action="hr.action_hr_job" parent="menu_hrms_configuration" sequence="1"/>
+        <!-- 员工配置菜单 > 员工 -->
+        <menuitem id="menu_hrms_employee_settings_employee" name="Employee" parent="menu_hrms_employee_settings" sequence="2" groups="base.group_no_one"/>
 
-        <!-- HR配置菜单：设置 > 标签 -->
-        <!-- <menuitem id="menu_hrms_configuration_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_hrms_configuration_employee" groups="base.group_no_one" sequence="2"/> -->
+        <!-- 员工配置菜单 > 工作地点 -->
+        <menuitem id="menu_hrms_employee_settings_work_location" action="hr.hr_work_location_action" parent="menu_hrms_employee_settings" sequence="4" groups="hr.group_hr_user"/>
 
-        <!-- HR配置菜单：设置 >  部门 -->
-        <!-- <menuitem id="menu_hrms_configuration_employee_department" action="hr.hr_department_tree_action" parent="menu_hrms_configuration_employee" groups="hr.group_hr_user" sequence="3"/> -->
+        <!-- 员工配置菜单 > 离职原因 -->
+        <menuitem id="menu_hrms_employee_settings_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_employee_settings" sequence="5" groups="hr.group_hr_user"/>
 
-        <!-- HR配置菜单：设置 > 工作地点 -->
-        <menuitem id="menu_hrms_configuration_employee_work_location" action="hr.hr_work_location_action" parent="menu_hrms_configuration" sequence="4" groups="hr.group_hr_user"/>
+        <!-- 员工配置菜单 > 活动规划 -->
+        <menuitem id="menu_hrms_employee_settings_config_plan" name="Activity Planning" parent="menu_hrms_employee_settings" groups="hr.group_hr_manager" sequence="6"/>
 
-        <!-- HR配置菜单：设置 > 离职原因 -->
-        <menuitem id="menu_hrms_configuration_employee_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_configuration" sequence="5" groups="hr.group_hr_user"/>
+        <!-- 员工配置菜单 > 活动规划 > 规划类型 -->
+        <menuitem id="menu_hrms_employee_settings_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_employee_settings_config_plan" groups="base.group_no_one" sequence="1"/>
 
-        <!-- HR配置菜单：设置 > 活动规划 -->
-        <menuitem id="menu_hrms_configuration_employee_config_plan" name="Activity Planning" parent="menu_hrms_configuration" groups="hr.group_hr_manager" sequence="2"/>
-
-        <!-- HR配置菜单：设置 > 活动规划 > 规划类型 -->
-        <menuitem id="menu_hrms_configuration_employee_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_configuration_employee_config_plan" groups="base.group_no_one" sequence="7"/>
-
-        <!-- HR配置菜单：设置 > 活动规划 > 计划 -->
-        <menuitem id="menu_hrms_configuration_employee_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_hrms_configuration_employee_config_plan" groups="hr.group_hr_manager" sequence="8"/>
-
-
+        <!-- 员工配置菜单 > 活动规划 > 计划 -->
+        <menuitem id="menu_hrms_employee_settings_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_hrms_employee_settings_config_plan" groups="hr.group_hr_manager" sequence="2"/>
 
 
         <!-- 隐藏人力资源菜单 -->
-        <menuitem id="menu_wecom_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrms_configuration" groups="base.group_erp_manager" sequence="999"/>
+        <menuitem id="menu_hrms_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrms_employee_settings" groups="base.group_erp_manager" sequence="999"/>
     </data>
 </odoo>

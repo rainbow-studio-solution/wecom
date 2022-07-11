@@ -29,8 +29,8 @@ msgstr "全部申请"
 
 #. module: hrms_extension
 #: model:ir.ui.menu,name:hrms_extension.hr_applicant_report_menu
-msgid "Analysis"
-msgstr "分析"
+msgid "Recruitment Analysis"
+msgstr "招聘分析"
 
 #. module: hrms_extension
 #: model:ir.ui.menu,name:hrms_extension.menu_hr_attendance_settings
