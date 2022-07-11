@@ -34,7 +34,6 @@ WeCom Service-side API and Client-side API
         "web.assets_backend": [
             # JS
         ],
-        "web.assets_qweb": ["wecom_api/static/src/xml/*.xml",],
     },
     "external_dependencies": {
         "python": [
@@ -46,7 +45,6 @@ WeCom Service-side API and Client-side API
             "html2text",
         ],
     },
-    
     "license": "LGPL-3",
     # "post_init_hook": "post_init_hook",
 }
