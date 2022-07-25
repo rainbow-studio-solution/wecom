@@ -52,6 +52,15 @@
             <field name="model">res.users</field>
             <field name="inherit_id" ref="base.view_users_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//label[@for='login']" position="replace">
+                    <label for="login" string="Login account"/>
+                </xpath>
+
+                <xpath expr="//field[@name='action_id']" position="after">
+                    <field name="email" widget="email" />
+                    <field name="private_email" widget="email" readonly="1"/>
+                    <field name="work_email" widget="email" readonly="1"/>
+                </xpath>
                 <xpath expr="//page[@name='access_rights']" position="after">
                     <page name="wecom" string="WeCom">
                         <group>

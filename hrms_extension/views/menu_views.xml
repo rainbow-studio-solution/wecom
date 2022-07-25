@@ -14,11 +14,11 @@
         <!-- <menuitem id="menu_hrms_contract" name="Contracts" action="hr_contract.action_hr_contract" parent="hrms_base.menu_hrms_root" sequence="4" groups="hr_contract.group_hr_contract_manager"/> -->
 
         <!-- 5.考勤 -->
-        <!-- <menuitem name="Attendances Manager" id="menu_hrms_attendance_manage_attendances" parent="hrms_base.menu_hrms_root" sequence="5" groups="hr_attendance.group_hr_attendance_user"/>
+        <menuitem name="Attendances Manager" id="menu_hrms_attendance_manage_attendances" parent="hrms_base.menu_hrms_root" sequence="5" groups="hr_attendance.group_hr_attendance_user" />
 
         <menuitem name="Attendances" id="menu_hrms_attendance_view_attendances" parent="menu_hrms_attendance_manage_attendances" sequence="10" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>
 
-        <menuitem name="Employees" id="menu_hrms_attendance_view_employees_kanban" parent="menu_hrms_attendance_manage_attendances" sequence="15" groups="hr_attendance.group_hr_attendance_user" action="hr.open_view_employee_list_my"/> -->
+        <!-- <menuitem name="Employees" id="menu_hrms_attendance_view_employees_kanban" parent="menu_hrms_attendance_manage_attendances" sequence="15" groups="hr_attendance.group_hr_attendance_user" action="hr.open_view_employee_list_my"/> -->
 
         <!-- 90.报表菜单 -->
         <!-- 招聘报表 -->

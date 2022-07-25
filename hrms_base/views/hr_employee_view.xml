@@ -56,6 +56,9 @@
                 <xpath expr="//field[@name='department_id']" position="after">
                     <field name="department_ids" widget="many2many_tags" string="Multiple departments"/>
                 </xpath>
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="private_email" widget="email"/>
+                </xpath>
                 <xpath expr="//page[last()]" position="after">
                     <page name="wecom_settings" string="WeCom settings" attrs="{'invisible': [('is_wecom_user', '=', False)]}">
                         <group>

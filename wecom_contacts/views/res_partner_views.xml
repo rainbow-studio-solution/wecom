@@ -29,6 +29,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='email']" position="replace">
                     <field name="email" widget="email" context="{'gravatar_image': True}" required="context.get('force_email', False)" attrs="{'required': ['|',('is_wecom_user','!=', True),'&amp;',('is_wecom_user','=', False),('user_ids','!=', [])]}"/>
+                    <!-- <field name="email" widget="email" context="{'gravatar_image': True}" attrs="{'required': [('user_ids','!=', [])]}"/> -->
                 </xpath>
                 <xpath expr="//page[@name='contact_addresses']" position="after">
                     <page name="wecom_info" string="Enterprise wechat information" attrs="{'invisible': [('is_wecom_user','=',False)]}">

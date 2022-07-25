@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from ast import Store
 import logging
 import base64
 import time
@@ -40,6 +41,13 @@ WECOM_USER_MAPPING_ODOO_EMPLOYEE = {
 class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
     _order = "wecom_user_order"
+
+    private_email = fields.Char(
+        related="address_home_id.email",
+        string="Private Email",
+        groups="hr.group_hr_user",
+        store=True,
+    )  # 添加 store 属性
 
     wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
     wecom_openid = fields.Char(string="WeCom OpenID", readonly=True,)
@@ -368,7 +376,8 @@ class HrEmployeePrivate(models.Model):
                     ),
                     "mobile_phone": wecom_employee["mobile"],
                     "work_phone": wecom_employee["telephone"],
-                    "work_email": wecom_employee["email"],
+                    "work_email": wecom_employee["biz_mail"],  # 企业邮箱
+                    "private_email": wecom_employee["email"],  # 私人邮箱
                     "active": True if wecom_employee["status"] == 1 else False,
                     "alias": wecom_employee["alias"],
                     "department_id": self.get_main_department(
@@ -421,7 +430,9 @@ class HrEmployeePrivate(models.Model):
                     ),
                     "mobile_phone": wecom_employee["mobile"],
                     "work_phone": wecom_employee["telephone"],
-                    "work_email": wecom_employee["email"],
+                    # "email": wecom_employee["biz_mail"],  # 企业邮箱
+                    "work_email": wecom_employee["biz_mail"],  # 企业邮箱
+                    "private_email": wecom_employee["email"],  # 私人邮箱
                     "active": True if wecom_employee["status"] == 1 else False,
                     "alias": wecom_employee["alias"],
                     "department_id": self.get_main_department(
