@@ -42,12 +42,14 @@ class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
     _order = "wecom_user_order"
 
-    private_email = fields.Char(
-        related="address_home_id.email",
-        string="Private Email",
-        groups="hr.group_hr_user",
-        store=True,
-    )  # 添加 store 属性
+    # private_email = fields.Char(
+    #     related="address_home_id.email",
+    #     string="Private Email",
+    #     groups="hr.group_hr_user",
+    #     store=True,
+    # )  # 添加 store 属性
+
+    
 
     wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
     wecom_openid = fields.Char(string="WeCom OpenID", readonly=True,)
@@ -358,7 +360,7 @@ class HrEmployeePrivate(models.Model):
                 "contacts_use_default_avatar_when_adding_employees",
             )  # 使用系统微信默认头像的标识
 
-            employee.create(
+            emp= employee.create(
                 {
                     "wecom_userid": wecom_employee["userid"].lower(),
                     "name": wecom_employee["name"],
@@ -377,7 +379,7 @@ class HrEmployeePrivate(models.Model):
                     "mobile_phone": wecom_employee["mobile"],
                     "work_phone": wecom_employee["telephone"],
                     "work_email": wecom_employee["biz_mail"],  # 企业邮箱
-                    "private_email": wecom_employee["email"],  # 私人邮箱
+                    # "private_email": wecom_employee["email"],  # 私人邮箱
                     "active": True if wecom_employee["status"] == 1 else False,
                     "alias": wecom_employee["alias"],
                     "department_id": self.get_main_department(
@@ -393,6 +395,9 @@ class HrEmployeePrivate(models.Model):
                     "is_wecom_user": True,
                 }
             )
+            # 创建员工成功后，更新员工的私人邮箱
+            # 使用create()方法，不会更新员工的私人邮箱
+            emp.private_email = wecom_employee["email"]
         except Exception as e:
             result = _("Error creating company %s employee %s %s, error reason: %s") % (
                 company.name,
@@ -421,7 +426,7 @@ class HrEmployeePrivate(models.Model):
             department_ids = self.get_employee_parent_wecom_department(
                 company, wecom_employee["department"]
             )
-        try:
+        try:            
             employee.write(
                 {
                     "name": wecom_employee["name"],
@@ -684,7 +689,7 @@ class HrEmployeePrivate(models.Model):
         callback_employee = employee.search(
             [("wecom_userid", "=", dic["UserID"].lower())] + domain, limit=1,
         )
-        print("员工CMD", cmd)
+        # print("员工CMD", cmd)
         if callback_employee:
             # 如果存在，则更新
             # 用于退出企业微信又重新加入企业微信的员工

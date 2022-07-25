@@ -58,8 +58,8 @@
 
                 <xpath expr="//field[@name='action_id']" position="after">
                     <field name="email" widget="email" />
-                    <field name="private_email" widget="email" readonly="1"/>
-                    <field name="work_email" widget="email" readonly="1"/>
+                    <field name="private_email" widget="email" />
+                    <field name="work_email" widget="email" />
                 </xpath>
                 <xpath expr="//page[@name='access_rights']" position="after">
                     <page name="wecom" string="WeCom">

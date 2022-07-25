@@ -39,8 +39,8 @@ WECOM_USER_MAPPING_ODOO_USER = {
 }
 
 
-class ResUsers(models.Model):
-    _inherit = "res.users"
+class User(models.Model):
+    _inherit = ['res.users']
 
     employee_id = fields.Many2one(
         "hr.employee",
@@ -49,6 +49,25 @@ class ResUsers(models.Model):
         search="_search_company_employee",
         store=True,
     )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
+
+    # ----------------------------------------------------------------------------------
+    # 开发人员注意：hr模块中
+    # hr.employee.work_email = res.users.email 
+    # hr.employee.private_email = res.partner.email 
+    # ----------------------------------------------------------------------------------
+    # base 模块中
+    # res.user.email = res.partner.email 
+    # res.user.private_email = res.partner.email 
+    # ------------------------------------------
+    # hr.employee.create() 方法中 创建hr.employee.work_email时会将 res.users.email更新到hr.employee.work_email
+    # res.users.write() 方法中 更新res.users.email时会将 res.users.email更新到hr.employee.work_email
+    # ------------------------------------------
+    # 故重写了 将  private_email = address_home_id.email 修改为 private_email=employee_id.private_email
+    # 故重写了 SELF_WRITEABLE_FIELDS
+    # ----------------------------------------------------------------------------------
+
+    private_email = fields.Char(related='employee_id.private_email', string="Private Email")
+
 
     def get_wecom_openid(self):
         """
@@ -150,7 +169,7 @@ class ResUsers(models.Model):
         send_mail: true 表示发送邀请邮件, false 表示不发送邀请邮件
         批量创建用户时，建议 send_mail=False
         """
-        users = super(ResUsers, self).create(vals_list)
+        users = super(User, self).create(vals_list)
 
         if not self.env.context.get('no_reset_password') and self.env.context.get('send_mail'):
             users_with_email = users.filtered('email')
