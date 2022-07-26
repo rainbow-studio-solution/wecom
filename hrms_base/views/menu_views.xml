@@ -13,6 +13,17 @@
         <!-- 2.员工目录 -->
         <menuitem id="menu_wecom_employee" name="Employee Directory" action="hr.hr_employee_public_action" parent="menu_hrms_root" sequence="2"/>
 
+
+        <!-- 4.计划 -->
+        <menuitem id="menu_hrms_employee_plan" name="Planning" parent="menu_hrms_root" groups="hr.group_hr_manager" sequence="4"/>
+
+        <!-- 4.1计划 > 计划 -->
+        <menuitem id="menu_hrms_employee_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_hrms_employee_plan" groups="hr.group_hr_manager" sequence="1"/>
+
+        <!-- 4.2计划 > 计划类型 -->
+        <menuitem id="menu_hrms_employee_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_employee_plan" groups="base.group_no_one" sequence="2"/>
+
+
         <!-- 90.报表 -->
         <menuitem name="Reporting" id="menu_hrms_report_root" parent="menu_hrms_root" sequence="90"/>
 
@@ -34,14 +45,7 @@
         <!-- 员工配置菜单 > 离职原因 -->
         <menuitem id="menu_hrms_employee_settings_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_employee_settings" sequence="5" groups="hr.group_hr_user"/>
 
-        <!-- 员工配置菜单 > 活动规划 -->
-        <menuitem id="menu_hrms_employee_settings_config_plan" name="Activity Planning" parent="menu_hrms_employee_settings" groups="hr.group_hr_manager" sequence="6"/>
 
-        <!-- 员工配置菜单 > 活动规划 > 规划类型 -->
-        <menuitem id="menu_hrms_employee_settings_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_employee_settings_config_plan" groups="base.group_no_one" sequence="1"/>
-
-        <!-- 员工配置菜单 > 活动规划 > 计划 -->
-        <menuitem id="menu_hrms_employee_settings_config_plan_plan" name="Plans" action="hr.hr_plan_action" parent="menu_hrms_employee_settings_config_plan" groups="hr.group_hr_manager" sequence="2"/>
 
 
         <!-- 隐藏人力资源菜单 -->
