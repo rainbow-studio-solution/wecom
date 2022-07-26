@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 13:38+0000\n"
-"PO-Revision-Date: 2022-07-11 21:45+0800\n"
+"POT-Creation-Date: 2022-07-26 10:18+0000\n"
+"PO-Revision-Date: 2022-07-26 18:21+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1.1\n"
+
+#. module: hrms_base
+#: code:addons/hrms_base/models/hr_employee.py:0
+#, python-format
+msgid ""
+"<b>Congratulations!</b> May I recommend you to setup an <a href=\"%s\">onboarding plan?"
+"</a>"
+msgstr "<b>恭喜！</b> 我可以建议您设置<a href=\"%s\">入职计划吗？</a>"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
@@ -63,11 +71,6 @@ msgid "API error: %s, error name: %s, error message: %s"
 msgstr "API错误：%s，错误名称：%s，错误消息：%s"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan
-msgid "Activity Planning"
-msgstr "活动规划"
-
-#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 msgid "Alias"
 msgstr "别名"
@@ -97,6 +100,7 @@ msgstr "绑定企微成员"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
+#: model_terms:ir.ui.view,arch_db:hrms_base.plan_wizard
 #: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 msgid "Cancel"
 msgstr "取消"
@@ -112,11 +116,6 @@ msgstr "公司"
 #: model:ir.model,name:hrms_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
-
-#. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration
-msgid "Configuration"
-msgstr "基础配置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
@@ -164,15 +163,9 @@ msgid "Department list downloaded successfully."
 msgstr "部门列表下载成功。"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_departure_reason
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_departure_reason
 msgid "Departure Reasons"
 msgstr "离职原因"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Dismissal of employee [%s] failed, reason%s"
-msgstr "解雇员工 [%s] 失败，原因 %s"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__display_name
@@ -225,6 +218,8 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: hrms_base
+#: model:ir.model,name:hrms_base.model_hr_employee
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_employee
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee
 msgid "Employee"
 msgstr "员工"
@@ -235,9 +230,9 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_settings
-msgid "Settings"
-msgstr "设置"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings
+msgid "Employee Settings"
+msgstr "员工设置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
@@ -252,12 +247,6 @@ msgid "Employee Termination"
 msgstr "员工解聘"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Employee list downloaded successfully."
-msgstr "员工列表下载成功。"
-
-#. module: hrms_base
 #: code:addons/hrms_base/wizard/employee_bind_wecom.py:0
 #, python-format
 msgid "Employee with ID [%s] already exists"
@@ -268,12 +257,6 @@ msgstr "ID为 [%s] 的员工已存在"
 #: model:ir.model,name:hrms_base.model_wecom_employee_bind_wecom_wizard
 msgid "Employees bind enterprise wechat members"
 msgstr "员工绑定企微成员"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "End setting the direct leader of the employee with the company name '%s'."
-msgstr "结束设置公司名称为 [%s] 的员工的直属上级。"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
@@ -293,29 +276,10 @@ msgid "Error creating Department [%s], error details:%s"
 msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Error creating company %s employee %s %s, error reason: %s"
-msgstr "创建公司[%s] ,员工[%s %s] 时出错，错误原因：%s"
-
-#. module: hrms_base
 #: code:addons/hrms_base/models/hr_department.py:0
 #, python-format
 msgid "Error setting parent department for company %s, Error details:%s"
 msgstr "设置公司 [%s] 的上级部门时出错，错误详细信息：%s"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid ""
-"Error setting the direct leader of the company %s employee %s. The wrong reason is: %s."
-msgstr "设置公司 [%s] 的员工 [%s] 的直属领导时出错。错误原因是：%s。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Error update company %s employee %s %s, error reason: %s"
-msgstr "更新公司 [%s] 的员工 [%s %s]时出错，错误原因：%s"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_department.py:0
@@ -324,7 +288,6 @@ msgid "Error updating Department [%s], error details:%s"
 msgstr "更新部门 [%s] 时出错，错误详细信息：%s"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Fail"
@@ -335,12 +298,6 @@ msgstr "失败"
 #, python-format
 msgid "Failed"
 msgstr "失败的"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Failed to copy employee [%s] as system user, reason:%s"
-msgstr "无法将员工[%s]复制为系统用户，原因：%s"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -354,13 +311,6 @@ msgid "Get OpenID"
 msgstr "获取OpenID"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid ""
-"Get the main department error of the company %s employee %s. The wrong reason is: %s."
-msgstr "获取公司 [%s] 的员工 [%s] 的主部门错误。错误的原因是：%s。"
-
-#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
 msgid "Group By"
 msgstr "分组"
@@ -371,7 +321,7 @@ msgid "HRMS"
 msgstr "HRMS"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_config_hide_hr_menu
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_config_hide_hr_menu
 msgid "Hide Hr Menu"
 msgstr "隐藏HR菜单"
 
@@ -389,7 +339,7 @@ msgstr "HR菜单项目"
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__id
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
@@ -401,7 +351,7 @@ msgstr ""
 "用</b>。"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_job
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_job
 msgid "Job Positions"
 msgstr "工作岗位"
 
@@ -422,6 +372,12 @@ msgstr "最后更新人"
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__write_date
 msgid "Last Updated on"
 msgstr "最后更新时间"
+
+#. module: hrms_base
+#: model:ir.actions.act_window,name:hrms_base.plan_wizard_action
+#: model_terms:ir.ui.view,arch_db:hrms_base.plan_wizard
+msgid "Launch Plan"
+msgstr "启动计划"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_menu_search
@@ -454,12 +410,17 @@ msgid "Organization"
 msgstr "组织架构"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan_types
-msgid "Planning Types"
-msgstr "规划类型"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan
+msgid "Planning"
+msgstr "计划"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_config_plan_plan
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_config_plan_types
+msgid "Planning Types"
+msgstr "计划类型"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan_plan
 msgid "Plans"
 msgstr "计划"
 
@@ -488,23 +449,15 @@ msgid "Reporting"
 msgstr "报表"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Start setting the direct leader of the employee with the company name '%s'."
-msgstr "开始设置公司名称为 [%s] 的员工的直属上级。"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_settings
+msgid "Settings"
+msgstr "设置"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Success"
 msgstr "成功"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee.py:0
-#, python-format
-msgid "Successfully copied employee [%s] as system user"
-msgstr "已成功将员工[%s]复制为系统用户"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -558,7 +511,6 @@ msgstr "标签"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_department.py:0
-#: code:addons/hrms_base/models/hr_employee.py:0
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid ""
@@ -578,7 +530,6 @@ msgstr "菜单已重建。建议隐藏原始HR菜单。"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_department.py:0
-#: code:addons/hrms_base/models/hr_employee.py:0
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "There is no mapping for field [%s], please contact the developer."
@@ -628,6 +579,6 @@ msgid "WeCom settings"
 msgstr "企微设置"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_configuration_employee_work_location
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_work_location
 msgid "Work Locations"
 msgstr "工作地点"

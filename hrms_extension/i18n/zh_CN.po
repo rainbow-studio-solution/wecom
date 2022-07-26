@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 09:43+0000\n"
-"PO-Revision-Date: 2022-07-11 17:48+0800\n"
+"POT-Creation-Date: 2022-07-26 10:56+0000\n"
+"PO-Revision-Date: 2022-07-26 18:59+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,10 +15,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_menu_config_activity_type
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_menu_config_activity_type
 msgid "Activity Types"
 msgstr "活动类型"
 
@@ -28,34 +28,22 @@ msgid "All Applications"
 msgstr "全部申请"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.hr_applicant_report_menu
-msgid "Recruitment Analysis"
-msgstr "招聘分析"
-
-#. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hr_attendance_settings
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_attendance_report
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_attendance_report_menu
-msgid "Attendance"
-msgstr "出勤"
-
-#. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_attendance_view_attendances
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_attendance_view_attendances
 msgid "Attendances"
-msgstr "出勤"
+msgstr "考勤"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_attendance_manage_attendances
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_attendance_manage_attendances
 msgid "Attendances Manager"
-msgstr "出勤管理"
+msgstr "考勤管理"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_badge
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_badge_menu_hr
 msgid "Badges"
 msgstr "徽章"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_job_position
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_job_position
 msgid "By Job Positions"
 msgstr "按工作岗位"
 
@@ -65,85 +53,74 @@ msgid "Category of applicant"
 msgstr "申请人类别"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_challenge
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_gamification
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_challenge_menu_hr
 msgid "Challenges"
 msgstr "挑战"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_contract
-msgid "Contracts"
-msgstr "合同"
-
-#. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_degree
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_degree
 msgid "Degrees"
 msgstr "学历"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_department
-msgid "Departments"
-msgstr "部门"
-
-#. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_attendance_view_employees_kanban
-msgid "Employees"
-msgstr "员工"
-
-#. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_goal
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_gamification_goal_menu_hr
 msgid "Goals History"
 msgstr "历史目标"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_job_position_config
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_job_position_config
 msgid "Job Positions"
 msgstr "工作岗位"
 
 #. module: hrms_extension
-#: model:ir.model.fields,field_description:hrms_extension.field_hr_plan__name
 #: model:ir.model.fields,field_description:hrms_extension.field_hr_resume_line_type__name
 msgid "Name"
 msgstr "名称"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.hr_applicant_report_recruitment_menu
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_main
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_main
+#: model:ir.ui.menu,name:hrms_extension.report_hr_recruitment
 msgid "Recruitment"
 msgstr "招聘"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_configuration
-msgid "Recruitment Configuration"
-msgstr "招聘配置"
+#: model:ir.ui.menu,name:hrms_extension.hr_applicant_report_menu
+msgid "Recruitment Analysis"
+msgstr "招聘分析"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_applicant_refuse_reason
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_settings
+msgid "Recruitment Settings"
+msgstr "招聘设置"
+
+#. module: hrms_extension
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_applicant_refuse_reason
 msgid "Refuse Reasons"
 msgstr "拒绝原因"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_configuration_resume
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_configuration_resume
 msgid "Resumé"
 msgstr "简历"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_global_settings
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_global_settings
 msgid "Settings"
 msgstr "设置"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_skill_type
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_employee_settings_employee_skill_type
 msgid "Skills"
 msgstr "技能"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_source
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_source
 msgid "Sources of Applicants"
 msgstr "申请人来源"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_recruitment_stage
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_recruitment_stage
 msgid "Stages"
 msgstr "阶段"
 
@@ -153,7 +130,7 @@ msgid "Tag Name"
 msgstr "标签名"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_applicant_category_menu
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_applicant_category_menu
 msgid "Tags"
 msgstr "标签"
 
@@ -163,11 +140,6 @@ msgid "Type of a resumé line"
 msgstr "简历的类型"
 
 #. module: hrms_extension
-#: model:ir.ui.menu,name:hrms_extension.menu_hrms_hr_resume_line_type_menu
+#: model:ir.ui.menu,name:hrms_extension.menu_hrms_resume_line_type_menu
 msgid "Types"
 msgstr "类型"
-
-#. module: hrms_extension
-#: model:ir.model,name:hrms_extension.model_hr_plan
-msgid "plan"
-msgstr "计划"

@@ -11,9 +11,7 @@
 
 """,
     "depends": ["web",],
-    "data": [
-        # "views/assets_templates.xml",
-    ],
+    "data": [],
     "assets": {
         "web.assets_backend": [
             # SCSSS
