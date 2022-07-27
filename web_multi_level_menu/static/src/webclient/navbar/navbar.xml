@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-inherit="web.NavBar.SectionsMenu.Dropdown.MenuSlot" t-inherit-mode="extension" owl="1">
+
+        <xpath expr="t[@t-foreach='items']" position="replace">
+            <t t-foreach="items" t-as="item" t-key="item.id">
+                <t t-if="!item.childrenTree.length">
+                    <MenuItem payload="item" href="getMenuItemHref(item)" class="dropdown-item" t-esc="item.name" />
+                </t>
+                <t t-else="">
+                    <div class="dropdown-menu_group dropdown-header" t-esc="item.name" />
+
+                    <t t-foreach="item.childrenTree" t-as="subItem" t-key="subItem.id">
+                        <t t-if="!subItem.childrenTree.length">
+                            <MenuItem class="o_dropdown_menu_group_entry dropdown-item" payload="subItem" href="getMenuItemHref(subItem)" t-esc="subItem.name" />
+                        </t>
+                        <t t-else="">
+                            <div class="dropdown-menu_group o_dropdown_fifth_menu_group_header dropdown-header" t-esc="subItem.name" />
+
+                            <!-- 五级菜单 -->
+                            <t t-foreach="subItem.childrenTree" t-as="subSubItem" t-key="subSubItem.id">
+                                <MenuItem class="o_dropdown_menu_group_entry o_dropdown_fifth_menu_group dropdown-item" payload="subSubItem" href="getMenuItemHref(subSubItem)" style="padding-left: 60px;" t-esc="subSubItem.name" />
+                            </t>
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </xpath>
+
+    </t>
+
+</templates>

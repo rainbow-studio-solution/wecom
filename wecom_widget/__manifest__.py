@@ -24,7 +24,6 @@
             "wecom_widget/static/src/legacy/js/fields/wecom_pro_tag.js",
             "wecom_widget/static/src/js/wecom_markdown.js",
             "wecom_widget/static/src/js/show_password.js",
-            "wecom_widget/static/src/js/fields_wecom_message_widget.js",
             "wecom_widget/static/src/js/wecom_widget_image_url.js",
             "wecom_widget/static/src/js/jsoneditor.js",
             "wecom_widget/static/src/js/dialog.js",
