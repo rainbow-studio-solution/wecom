@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-26 10:18+0000\n"
-"PO-Revision-Date: 2022-07-26 18:21+0800\n"
+"POT-Creation-Date: 2022-07-27 11:06+0000\n"
+"PO-Revision-Date: 2022-07-27 19:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -87,6 +87,11 @@ msgid "Avatar"
 msgstr "头像"
 
 #. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_basic_settings
+msgid "Basic settings"
+msgstr "基础设置"
+
+#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 #: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
@@ -104,6 +109,11 @@ msgstr "绑定企微成员"
 #: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 msgid "Cancel"
 msgstr "取消"
+
+#. module: hrms_base
+#: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__coach
+msgid "Coach"
+msgstr "教练"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
@@ -219,6 +229,7 @@ msgstr "下载企微标签数据"
 
 #. module: hrms_base
 #: model:ir.model,name:hrms_base.model_hr_employee
+#: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__employee
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_employee
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee
 msgid "Employee"
@@ -228,11 +239,6 @@ msgstr "员工"
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_employee
 msgid "Employee Directory"
 msgstr "员工目录"
-
-#. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings
-msgid "Employee Settings"
-msgstr "员工设置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
@@ -245,6 +251,11 @@ msgstr "员工标签"
 #, python-format
 msgid "Employee Termination"
 msgstr "员工解聘"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles
+msgid "Employee profiles"
+msgstr "员工档案"
 
 #. module: hrms_base
 #: code:addons/hrms_base/wizard/employee_bind_wecom.py:0
@@ -339,7 +350,7 @@ msgstr "HR菜单项目"
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__id
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
@@ -380,6 +391,11 @@ msgid "Launch Plan"
 msgstr "启动计划"
 
 #. module: hrms_base
+#: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__manager
+msgid "Manager"
+msgstr "管理员"
+
+#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hr_menu_search
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_hr_menu_list
 msgid "Menu"
@@ -391,6 +407,7 @@ msgid "Multiple departments"
 msgstr "多部门"
 
 #. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_hr_plan__name
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__name
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__name
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__user_name
@@ -405,9 +422,19 @@ msgid "One click Hide Menu"
 msgstr "一键隐藏菜单"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_main
-msgid "Organization"
-msgstr "组织架构"
+#: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__other
+msgid "Other"
+msgstr "其他"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_other_settings
+msgid "Other Settings"
+msgstr "其他设置"
+
+#. module: hrms_base
+#: model:ir.model,name:hrms_base.model_hr_plan_activity_type
+msgid "Plan activity type"
+msgstr "计划的活动类型"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan
@@ -449,9 +476,9 @@ msgid "Reporting"
 msgstr "报表"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_settings
-msgid "Settings"
-msgstr "设置"
+#: model:ir.model.fields,field_description:hrms_base.field_hr_plan_activity_type__responsible
+msgid "Responsible"
+msgstr "负责人"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -464,6 +491,11 @@ msgstr "成功"
 #, python-format
 msgid "Successfully updated tag."
 msgstr "已成功更新标签。"
+
+#. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_hr_plan_activity_type__summary
+msgid "Summary"
+msgstr "摘要"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -582,3 +614,8 @@ msgstr "企微设置"
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_work_location
 msgid "Work Locations"
 msgstr "工作地点"
+
+#. module: hrms_base
+#: model:ir.model,name:hrms_base.model_hr_plan
+msgid "plan"
+msgstr "计划"
