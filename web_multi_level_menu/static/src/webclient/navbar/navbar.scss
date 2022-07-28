@@ -4,8 +4,8 @@
     .o_menu_sections,
     .o_menu_systray {
         .o_dropdown_menu_group_entry.o_dropdown_fifth_menu_group.dropdown-item {
-            // padding-left: $o-dropdown-hpadding * 1.75;
-            padding-left: 45px !important;
+            padding-left: $o-dropdown-hpadding * 2 !important;
+            // padding-left: 45px !important;
 
             +.dropdown-item:not(.o_dropdown_menu_group_entry) {
                 margin-top: .8em;

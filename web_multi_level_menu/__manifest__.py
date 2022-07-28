@@ -1,15 +1,16 @@
 # -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
     "name": "Web multi level menu",
-    "category": "Hidden",
+    "category": "Extra Tools",
     "version": "15.0.0.1",
     "summary": "Let odoo support more than 4 levels of menus.",
     "description": """""",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "depends": ["web"],
+    "installable": True,
+    "application": True,
     "auto_install": False,
     "data": [],
     "assets": {
@@ -20,5 +21,6 @@
             "web_multi_level_menu/static/src/webclient/navbar/navbar.xml",
         ],
     },
+    "images": ["static/description/images/main_screenshot.png"],
     "license": "LGPL-3",
 }
