@@ -16,9 +16,7 @@
             <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom_jump_anchor" href="#wecom_message">
                 <h5 style="display:inline;"> Message settings</h5>
             </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-users wecom_jump_anchor" href="#hrms_base">
-                <h5 style="display:inline;"> HRM settings</h5>
-            </a>
+            
             <a type="button" role="button" class="btn btn-secondary fa fa-archive wecom_jump_anchor" href="#wecom_msgaudit">
                 <h5 style="display:inline;"> Session content archiving settings</h5>
             </a>

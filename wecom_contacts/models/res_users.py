@@ -66,7 +66,7 @@ class User(models.Model):
     # 故重写了 SELF_WRITEABLE_FIELDS
     # ----------------------------------------------------------------------------------
 
-    private_email = fields.Char(related='employee_id.private_email', string="Private Email")
+    # private_email = fields.Char(related='employee_id.private_email', string="Private Email")
 
 
     def get_wecom_openid(self):

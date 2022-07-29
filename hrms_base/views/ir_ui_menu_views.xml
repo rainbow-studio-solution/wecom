@@ -14,6 +14,7 @@
                 </tree>
             </field>
         </record>
+        
         <record id="hr_menu_search" model="ir.ui.view">
             <field name="name">hrms_base.menu.search</field>
             <field name="model">ir.ui.menu</field>

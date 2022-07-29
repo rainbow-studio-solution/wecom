@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- 1.3 员工合同 -->
+        <menuitem id="menu_hrms_contract" name="Contracts" action="hr_contract.action_hr_contract" parent="hrms_base.menu_hrms_employee_profiles" sequence="5" groups="hr_contract.group_hr_contract_manager"/>
+
         <!-- 1.99.2 员工档案配置菜单 > 员工 > 技能 -->
         <menuitem id="menu_employee_profiles_settings_skill_type" name="Skills" action="hr_skills.hr_skill_type_action" parent="hrms_base.menu_hrms_employee_profiles_other_settings" sequence="3" groups="base.group_no_one"/>
 
@@ -43,7 +46,7 @@
 
 
         <!-- 5.合同 -->
-        <menuitem id="menu_hrms_contract" name="Contracts" action="hr_contract.action_hr_contract" parent="hrms_base.menu_hrms_root" sequence="5" groups="hr_contract.group_hr_contract_manager"/>
+
 
         <!-- 6.考勤 -->
         <menuitem name="Attendances Manager" id="menu_hrms_attendance_manage_attendances" parent="hrms_base.menu_hrms_root" sequence="6" groups="hr_attendance.group_hr_attendance_user" />

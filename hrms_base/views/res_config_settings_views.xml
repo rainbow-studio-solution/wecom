@@ -5,10 +5,32 @@
         <record id="hrms_base_res_config_settings_view_form" model="ir.ui.view">
             <field name="name">Settings</field>
             <field name="model">res.config.settings</field>
-            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <div id="hrms_base_warning" position="replace" />
-                <div id="hrms_base_install" position="after">
+                <xpath expr="//div[@data-key='hr']/h2[1]" position="before">
+                    <h2>Hr Menu</h2>
+                    <div class="row mt16 o_settings_container" name="hr_menu_setting_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <i class="fa fa-th fa-lg" aria-label="HR related menus"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <div class="content-group">
+                                    <span class="o_form_label">Hide HR related menus</span>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                    The menu is rebuilt. It is recommended to hide the original HR menu.
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <button name="%(hrms_base.action_view_hr_menu)d" icon="fa-arrow-right" type="action" string="Hide the menu" class="btn-link"/>
+                                <button class="oe_highlight ml-1" name="hide_hr_menu" string=" One click Hide Menu" type="object" icon="fa-eye-slash" />
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+                <!-- <div id="presence_control_setting" position="befroe">
                     <div class="col-12 col-lg-6 o_setting_box">
                         <div class="o_setting_left_pane">
                             <i class="fa fa-th fa-lg" aria-label="HR related menus"/>
@@ -42,7 +64,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
             </field>
         </record>
 

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-27 11:06+0000\n"
-"PO-Revision-Date: 2022-07-27 19:08+0800\n"
+"POT-Creation-Date: 2022-07-29 12:21+0000\n"
+"PO-Revision-Date: 2022-07-29 20:26+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -21,8 +21,8 @@ msgstr ""
 #: code:addons/hrms_base/models/hr_employee.py:0
 #, python-format
 msgid ""
-"<b>Congratulations!</b> May I recommend you to setup an <a href=\"%s\">onboarding plan?"
-"</a>"
+"<b>Congratulations!</b> May I recommend you to setup an <a href=\"%s"
+"\">onboarding plan?</a>"
 msgstr "<b>恭喜！</b> 我可以建议您设置<a href=\"%s\">入职计划吗？</a>"
 
 #. module: hrms_base
@@ -31,38 +31,9 @@ msgid "<i class=\"fa fa-th fa-lg\" aria-label=\"HR related menus\"/>"
 msgstr "<i class=\"fa fa-th fa-lg\" aria-label=\"HR相关菜单\"/>"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hr_kanban_view_employees
-msgid ""
-"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"Enterprise wechat "
-"Employee\" title=\"Enterprise wechat Employee\">\n"
-"                        </span>"
-msgstr ""
-"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"企微员工\" title="
-"\"企微员工\">\n"
-"                        </span>"
-
-#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "<span class=\"o_form_label\">Hide HR related menus</span>"
 msgstr "<span class=\"o_form_label\">隐藏HR相关菜单</span>"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid ""
-"<span class=\"o_stat_value\">Binding</span>\n"
-"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
-msgstr ""
-"<span class=\"o_stat_value\">绑定</span>\n"
-"                            <span class=\"o_stat_text\">企微成员</span>"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid ""
-"<span class=\"o_stat_value\">Unbind</span>\n"
-"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
-msgstr ""
-"<span class=\"o_stat_value\">解绑</span>\n"
-"                            <span class=\"o_stat_text\">企微成员</span>"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -71,37 +42,21 @@ msgid "API error: %s, error name: %s, error message: %s"
 msgstr "API错误：%s，错误名称：%s，错误消息：%s"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "Alias"
-msgstr "别名"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "Are you sure to release the binding with enterprise wechat members ?"
-msgstr "确认解除与企业微信成员的绑定吗？"
-
-#. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__avatar
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__avatar
 msgid "Avatar"
 msgstr "头像"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_basic_settings
-msgid "Basic settings"
-msgstr "基础设置"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_configuration
+msgid "Basic Configuration"
+msgstr "基础配置"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
 #: model_terms:ir.ui.view,arch_db:hrms_base.user_bind_wecom_view_form
 msgid "Binding"
 msgstr "绑定"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_tree
-msgid "Binding wecom members"
-msgstr "绑定企微成员"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.employee_bind_wecom_view_form
@@ -117,7 +72,6 @@ msgstr "教练"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
-#: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
 #: model_terms:ir.ui.view,arch_db:hrms_base.view_department_filter
 msgid "Company"
 msgstr "公司"
@@ -126,11 +80,6 @@ msgstr "公司"
 #: model:ir.model,name:hrms_base.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "Copy as system user"
-msgstr "复制为系统用户"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -182,11 +131,6 @@ msgstr "离职原因"
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__display_name
 msgid "Display Name"
 msgstr "显示名称"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
-msgid "Download Tags"
-msgstr "下载标签"
 
 #. module: hrms_base
 #. openerp-web
@@ -241,11 +185,6 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
-msgid "Employee Tags"
-msgstr "员工标签"
-
-#. module: hrms_base
 #. openerp-web
 #: code:addons/hrms_base/static/src/js/download_staffs.js:0
 #, python-format
@@ -268,11 +207,6 @@ msgstr "ID为 [%s] 的员工已存在"
 #: model:ir.model,name:hrms_base.model_wecom_employee_bind_wecom_wizard
 msgid "Employees bind enterprise wechat members"
 msgstr "员工绑定企微成员"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "English Name"
-msgstr "英语名称"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__wecom_userid
@@ -308,23 +242,13 @@ msgstr "失败"
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Failed"
-msgstr "失败的"
+msgstr "失败"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载标签成员[%s] ，其公司为[%s]！"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "Get OpenID"
-msgstr "获取OpenID"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
-msgid "Group By"
-msgstr "分组"
+msgstr "下载标签 [%s]成员， 公司[%s] 失败!"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_root
@@ -332,14 +256,14 @@ msgid "HRMS"
 msgstr "HRMS"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_config_hide_hr_menu
-msgid "Hide Hr Menu"
-msgstr "隐藏HR菜单"
-
-#. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
 msgid "Hide the menu"
 msgstr "隐藏菜单"
+
+#. module: hrms_base
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
+msgid "Hr Menu"
+msgstr "HR菜单"
 
 #. module: hrms_base
 #: model:ir.actions.act_window,name:hrms_base.action_view_hr_menu
@@ -351,15 +275,6 @@ msgstr "HR菜单项目"
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__id
 msgid "ID"
 msgstr "ID"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
-msgid ""
-"If selected, deleting the local tag record will delete the tag of remote enterprise "
-"wechat at the same time.Default <b class=\"text-warning\">disable</b>."
-msgstr ""
-"如果选中，删除本地标签记录将同时删除远程企业微信的标签。默认<b class=\"text-warning\">禁"
-"用</b>。"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_job
@@ -402,11 +317,6 @@ msgid "Menu"
 msgstr "菜单"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "Multiple departments"
-msgstr "多部门"
-
-#. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_hr_plan__name
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__name
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_user_bind_wecom_wizard__name
@@ -425,11 +335,6 @@ msgstr "一键隐藏菜单"
 #: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__other
 msgid "Other"
 msgstr "其他"
-
-#. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_other_settings
-msgid "Other Settings"
-msgstr "其他设置"
 
 #. module: hrms_base
 #: model:ir.model,name:hrms_base.model_hr_plan_activity_type
@@ -458,7 +363,7 @@ msgstr "计划"
 #: code:addons/hrms_base/static/src/js/download_tags.js:0
 #, python-format
 msgid "Refresh"
-msgstr "刷新"
+msgstr ""
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__employee_id
@@ -479,6 +384,11 @@ msgstr "报表"
 #: model:ir.model.fields,field_description:hrms_base.field_hr_plan_activity_type__responsible
 msgid "Responsible"
 msgstr "负责人"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_basic_configuration_settings
+msgid "Settings"
+msgstr "设置"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -513,7 +423,7 @@ msgstr "标签下载成功。"
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "Tag list downloaded successfully."
-msgstr "标签列表下载成功。"
+msgstr "标签列表下载成功！"
 
 #. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
@@ -534,10 +444,7 @@ msgid "Tag: %s deletion failed."
 msgstr "标签：%s 删除失败。"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee_tag
-#: model_terms:ir.ui.view,arch_db:hrms_base.hr_employee_category_view_search
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_department_form
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_list
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_employee_tag
 msgid "Tags"
 msgstr "标签"
 
@@ -546,9 +453,9 @@ msgstr "标签"
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid ""
-"The current company does not identify the enterprise wechat organization. Please "
-"configure or switch the company."
-msgstr "当前公司未标识为企业微信组织。请配置或切换公司。"
+"The current company does not identify the enterprise wechat organization. "
+"Please configure or switch the company."
+msgstr "当前公司未识别企业微信组织。请配置或切换公司。"
 
 #. module: hrms_base
 #: model:ir.model.fields,help:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
@@ -574,11 +481,6 @@ msgid "Update contacts tags: %s to WeCom"
 msgstr "将通讯录标签 \"%s\" 更新到企业微信"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_employee_category_form
-msgid "Upload Tags"
-msgstr "上传标签"
-
-#. module: hrms_base
 #: model:ir.actions.act_window,name:hrms_base.user_bind_wecom_action
 msgid "User bind enterprise wechat members"
 msgstr "系统用户绑定企微成员"
@@ -595,20 +497,10 @@ msgid "Users bind enterprise wechat members"
 msgstr "用户绑定企微成员"
 
 #. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.view_department_form
-msgid "WeCom"
-msgstr "企业微信"
-
-#. module: hrms_base
 #: code:addons/hrms_base/models/hr_employee_category.py:0
 #, python-format
 msgid "WeCom Tag"
 msgstr "企微标签"
-
-#. module: hrms_base
-#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_employee_form
-msgid "WeCom settings"
-msgstr "企微设置"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_work_location

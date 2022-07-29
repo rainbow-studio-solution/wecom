@@ -368,3 +368,18 @@ msgstr "人力资源管理系统扩展"
 #: model:ir.module.module,shortdesc:base.module_wecom_message_digest
 msgid "Wecom KPI Digests Message"
 msgstr "企微KPI摘要消息"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_web_multi_level_menu
+msgid "Let odoo support more than 4 levels of menus."
+msgstr "让odoo支持4级以上的菜单。"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_web_multi_level_menu
+msgid "Web multi level menu"
+msgstr "Web多级菜单"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_hr_approval
+msgid "Human Resources Approval"
+msgstr "HR审批"

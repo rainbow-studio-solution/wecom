@@ -36,6 +36,7 @@ class ResConfigSettings(models.TransientModel):
     module_wecom_web_theme = fields.Boolean("WeCom Web Theme")
     module_wecom_contacts = fields.Boolean("WeCom Contacts")
 
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()

@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["hr", "wecom_contacts_sync",],
+    "depends": ["hr", "web_multi_level_menu",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",
@@ -32,14 +32,7 @@
         "views/menu_views.xml",
     ],
     "assets": {
-        "web.assets_backend": [
-            # SCSSS
-            # JS
-            "hrms_base/static/src/js/download_deps.js",
-            "hrms_base/static/src/js/download_staffs.js",
-            "hrms_base/static/src/js/download_tags.js",
-        ],
-        "web.assets_qweb": ["hrms_base/static/src/xml/*.xml",],
+        
     },
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",

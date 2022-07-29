@@ -1,86 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="hr_employee_category_view_search" model="ir.ui.view">
-            <field name="name">hr.employee.category.search</field>
-            <field name="model">hr.employee.category</field>
-            <field name="arch" type="xml">
-                <search string="Tags">
-                    <field name="company_id" string="Company"/>
-                    <group expand="0" string="Group By">
-                        <filter name="group_company" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
-                    </group>
-                    <searchpanel>
-                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
-                    </searchpanel>
-                </search>
+        
+        
 
-            </field>
-        </record>
-
-        <record id="view_employee_category_form" model="ir.ui.view">
-            <field name="name">hr.employee.category.form</field>
-            <field name="model">hr.employee.category</field>
-            <field name="inherit_id" ref="hr.view_employee_category_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//form" position="replace">
-                    <form string="Employee Tags">
-                        <sheet>
-                            <div name="button_box" class="oe_button_box">
-
-                                <button string="Download Tags" class="oe_stat_button" type="object" name="download_wecom_tag" icon="fa-cloud-download" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_tag','=',False)]}"/>
-
-                                <button name="upload_wecom_tag" type="object" string="Upload Tags" class="oe_stat_button" icon="fa-cloud-upload" attrs="{'invisible': [('is_wecom_tag','=',False)]}"/>
-
-                                <!-- <button name="delete_wecom_tag" type="object" string="Delete WeCom Tags" class="oe_stat_button" icon="fa-times" attrs="{'invisible': ['|',('tagid','=',0),('is_wecom_tag','=',False)]}"/> -->
-                            </div>
-                            <group>
-
-                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
-                                <field name="name"/>
-                                <field name="display_name" class="badge badge-primary"/>
-
-                                <field name="is_wecom_tag"/>
-                                <field name="tagid"/>
-
-                                <field name="employee_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
-                                <field name="department_ids" widget="many2many_tags" options="{'no_edit': True, 'no_create': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
-
-                            </group>
-
-                        </sheet>
-                    </form>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="view_employee_category_list" model="ir.ui.view">
-            <field name="name">hr.employee.category.list</field>
-            <field name="model">hr.employee.category</field>
-            <field name="inherit_id" ref="hr.view_employee_category_list"/>
-            <field name="arch" type="xml">
-                <xpath expr="//tree" position="replace">
-                    <tree string="Tags" js_class="hr_category_download">
-                        <field name="company_id" groups="base.group_multi_company"/>
-                        <!-- <field name="company_id" readonly="1" groups="base.group_multi_company" options="{ 'no_open': True}"/> -->
-                        <field name="name"/>
-                        <field name="display_name"/>
-                        <field name="is_wecom_tag"/>
-                        <field name="tagid" />
-                    </tree>
-                </xpath>
-            </field>
-        </record>
-
-        <function model="ir.actions.act_window" name="write">
-            <value eval="[ref('hr.open_view_categ_form')]"/>
-            <value eval="{'name': 'Tags'}"/>
-        </function>
-
-        <record id="hr.open_view_categ_form" model="ir.actions.act_window">
-            <field name="search_view_id" ref="hr_employee_category_view_search"/>
-            <field name="domain">[]</field>
-            <field name="context">{ 'search_default_company': 1,}</field>
-        </record>
     </data>
 </odoo>
