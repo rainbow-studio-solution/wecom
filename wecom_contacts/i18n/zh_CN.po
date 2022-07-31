@@ -138,8 +138,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid ""
 "<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-users fa-lg\" aria-label=\"Human Resource Management System settings\"/>\n"
-"                                Human Resource Management System settings\n"
+"                            <i class=\"fa fa-users fa-lg\" aria-label=\"HRMS settings\"/>\n"
+"                                HRMS settings\n"
 "                        </span>"
 msgstr ""
 "<span class=\"text-left\">\n"
@@ -430,7 +430,7 @@ msgstr "HRM设置"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__module_hrms_base
-msgid "Human Resource Management System"
+msgid "HRMS"
 msgstr "人力资源管理信息系统"
 
 #. module: wecom_contacts

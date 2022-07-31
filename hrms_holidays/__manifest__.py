@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Human Resource Management System Holidays",
+    "name": "HRMS Holidays",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 503,

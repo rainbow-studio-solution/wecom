@@ -195,8 +195,8 @@
                         <!-- HRMS -->
                         <!-- <h2 id="hrms_base" class="d-flex justify-content-between" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                             <span class="text-left">
-                                <i class="fa fa-users fa-lg" aria-label="Human Resource Management System settings" />
-                                Human Resource Management System settings
+                                <i class="fa fa-users fa-lg" aria-label="HRMS settings" />
+                                HRMS settings
                             </span>
                             <widget name='res_config_wecom_navigation_gotop'/>
                         </h2>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    "name": "Human Resource Management System",
+    "name": "HRMS",
     "author": "RStudio",
     "sequence": 501,
     "installable": True,

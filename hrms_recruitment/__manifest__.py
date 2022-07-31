@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Human Resource Management System Recruitment",
+    "name": "HRMS Recruitment",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 502,

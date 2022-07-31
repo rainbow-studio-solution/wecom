@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Human Resource Management System Gamification",
+    "name": "HRMS Gamification",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 505,

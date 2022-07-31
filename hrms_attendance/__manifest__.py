@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "Human Resource Management System Attendances",
+    "name": "HRMS Attendances",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 504,
