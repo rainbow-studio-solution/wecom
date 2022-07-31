@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-29 12:21+0000\n"
-"PO-Revision-Date: 2022-07-29 20:26+0800\n"
+"POT-Creation-Date: 2022-07-31 06:54+0000\n"
+"PO-Revision-Date: 2022-07-31 14:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -36,10 +36,10 @@ msgid "<span class=\"o_form_label\">Hide HR related menus</span>"
 msgstr "<span class=\"o_form_label\">隐藏HR相关菜单</span>"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "API error: %s, error name: %s, error message: %s"
-msgstr "API错误：%s，错误名称：%s，错误消息：%s"
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
+msgid ""
+"<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__avatar
@@ -82,10 +82,9 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Create contacts tags: %s to WeCom"
-msgstr "创建通讯录标签：%s 到企业微信"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_contract
+msgid "Contracts"
+msgstr "合同"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__create_uid
@@ -100,26 +99,14 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Delete contacts tags: %s to WeCom"
-msgstr "删除通讯录标签：%s 到企业微信"
-
-#. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__del_wecom_tag
 msgid "Delete wecom tag"
 msgstr "删除企业标签"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_department_kanban
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_department_kanban
 msgid "Department"
 msgstr "部门"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#, python-format
-msgid "Department list downloaded successfully."
-msgstr "部门列表下载成功。"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_departure_reason
@@ -133,51 +120,17 @@ msgid "Display Name"
 msgstr "显示名称"
 
 #. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/js/download_deps.js:0
-#: code:addons/hrms_base/static/src/js/download_staffs.js:0
-#: code:addons/hrms_base/static/src/js/download_tags.js:0
-#, python-format
-msgid "Download failed!"
-msgstr "下载失败！"
-
-#. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/js/download_deps.js:0
-#: code:addons/hrms_base/static/src/js/download_staffs.js:0
-#: code:addons/hrms_base/static/src/js/download_tags.js:0
-#, python-format
-msgid "Download succeeded!"
-msgstr "下载成功！"
-
-#. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom department data"
-msgstr "下载企微部门数据"
-
-#. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom employee data"
-msgstr "下载企微员工数据"
-
-#. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom tag data"
-msgstr "下载企微标签数据"
-
-#. module: hrms_base
 #: model:ir.model,name:hrms_base.model_hr_employee
 #: model:ir.model.fields.selection,name:hrms_base.selection__hr_plan_activity_type__responsible__employee
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_employee
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_employee
-#: model:ir.ui.menu,name:hrms_base.menu_wecom_organization_employee
 msgid "Employee"
 msgstr "员工"
+
+#. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_attendance
+msgid "Employee Attendances"
+msgstr "员工出勤"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_wecom_employee
@@ -185,11 +138,29 @@ msgid "Employee Directory"
 msgstr "员工目录"
 
 #. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/js/download_staffs.js:0
-#, python-format
-msgid "Employee Termination"
-msgstr "员工解聘"
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_empowerment
+msgid "Employee Empowerment"
+msgstr "员工激励"
+
+#. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_expense
+msgid "Employee Expenses"
+msgstr "员工报销费用"
+
+#. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_holidays
+msgid "Employee Holidays"
+msgstr "员工假期"
+
+#. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan
+msgid "Employee Planning"
+msgstr "员工计划"
+
+#. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_recruitment
+msgid "Employee Recruitment"
+msgstr "员工招聘"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles
@@ -215,45 +186,14 @@ msgid "Enterprise wechat user Id"
 msgstr "企微用户Id"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#, python-format
-msgid "Error creating Department [%s], error details:%s"
-msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#, python-format
-msgid "Error setting parent department for company %s, Error details:%s"
-msgstr "设置公司 [%s] 的上级部门时出错，错误详细信息：%s"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#, python-format
-msgid "Error updating Department [%s], error details:%s"
-msgstr "更新部门 [%s] 时出错，错误详细信息：%s"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Fail"
-msgstr "失败"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Failed"
-msgstr "失败"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "下载标签 [%s]成员， 公司[%s] 失败!"
-
-#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_root
 msgid "HRMS"
 msgstr "HRMS"
+
+#. module: hrms_base
+#: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
+msgid "HRMS Applications"
+msgstr "HRMS应用"
 
 #. module: hrms_base
 #: model_terms:ir.ui.view,arch_db:hrms_base.hrms_base_res_config_settings_view_form
@@ -342,11 +282,6 @@ msgid "Plan activity type"
 msgstr "计划的活动类型"
 
 #. module: hrms_base
-#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan
-msgid "Planning"
-msgstr "计划"
-
-#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_config_plan_types
 msgid "Planning Types"
 msgstr "计划类型"
@@ -355,15 +290,6 @@ msgstr "计划类型"
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan_plan
 msgid "Plans"
 msgstr "计划"
-
-#. module: hrms_base
-#. openerp-web
-#: code:addons/hrms_base/static/src/js/download_deps.js:0
-#: code:addons/hrms_base/static/src/js/download_staffs.js:0
-#: code:addons/hrms_base/static/src/js/download_tags.js:0
-#, python-format
-msgid "Refresh"
-msgstr ""
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_wecom_employee_bind_wecom_wizard__employee_id
@@ -386,21 +312,19 @@ msgid "Responsible"
 msgstr "负责人"
 
 #. module: hrms_base
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_settings_resume
+msgid "Resumé"
+msgstr "简历"
+
+#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_basic_configuration_settings
 msgid "Settings"
 msgstr "设置"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Success"
-msgstr "成功"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Successfully updated tag."
-msgstr "已成功更新标签。"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_settings_skill_type
+msgid "Skills"
+msgstr "技能"
 
 #. module: hrms_base
 #: model:ir.model.fields,field_description:hrms_base.field_hr_plan_activity_type__summary
@@ -408,54 +332,9 @@ msgid "Summary"
 msgstr "摘要"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag downloaded failed."
-msgstr "标签下载失败。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag downloaded successfully."
-msgstr "标签下载成功。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag list downloaded successfully."
-msgstr "标签列表下载成功！"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag successfully created."
-msgstr "标签已成功创建。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag: %s deleted successfully."
-msgstr "标签：%s 已成功删除。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag: %s deletion failed."
-msgstr "标签：%s 删除失败。"
-
-#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_employee_tag
 msgid "Tags"
 msgstr "标签"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid ""
-"The current company does not identify the enterprise wechat organization. "
-"Please configure or switch the company."
-msgstr "当前公司未识别企业微信组织。请配置或切换公司。"
 
 #. module: hrms_base
 #: model:ir.model.fields,help:hrms_base.field_wecom_user_bind_wecom_wizard__company_id
@@ -468,17 +347,9 @@ msgid "The menu is rebuilt. It is recommended to hide the original HR menu."
 msgstr "菜单已重建。建议隐藏原始HR菜单。"
 
 #. module: hrms_base
-#: code:addons/hrms_base/models/hr_department.py:0
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "There is no mapping for field [%s], please contact the developer."
-msgstr "字段 [%s] 没有映射，请与开发人员联系。"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "Update contacts tags: %s to WeCom"
-msgstr "将通讯录标签 \"%s\" 更新到企业微信"
+#: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_profiles_settings_resume_type
+msgid "Types"
+msgstr "类型"
 
 #. module: hrms_base
 #: model:ir.actions.act_window,name:hrms_base.user_bind_wecom_action
@@ -495,12 +366,6 @@ msgstr "ID为 [%s] 的用户已存在"
 #: model:ir.model,name:hrms_base.model_wecom_user_bind_wecom_wizard
 msgid "Users bind enterprise wechat members"
 msgstr "用户绑定企微成员"
-
-#. module: hrms_base
-#: code:addons/hrms_base/models/hr_employee_category.py:0
-#, python-format
-msgid "WeCom Tag"
-msgstr "企微标签"
 
 #. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_settings_work_location

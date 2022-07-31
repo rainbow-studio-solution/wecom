@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+
+        <!-- 3.招聘 -->
+        <menuitem id="menu_hrms_recruitment_main" name="Employee Recruitment" parent="hrms_base.menu_hrms_root" groups="hr_recruitment.group_hr_recruitment_user" sequence="3"/>
+
+        <!-- 3.1 招聘：按工作岗位 -->
+        <menuitem id="menu_hrms_job_position" name="By Job Positions" parent="menu_hrms_recruitment_main" action="hr_recruitment.action_hr_job" sequence="1"/>
+
+        <!-- 3.2 招聘：全部申请 -->
+        <menuitem id="menu_hrms_crm_case_categ_all_app" name="All Applications" parent="menu_hrms_recruitment_main" action="hr_recruitment.crm_case_categ0_act_job" sequence="2"/>
+
+        <!-- 3.99 招聘配置菜单 -->
+        <menuitem id="menu_hrms_recruitment_settings" name="Recruitment Settings" parent="menu_hrms_recruitment_main" sequence="99"/>
+
+        <!-- 3.99.1 设置-->
+        <menuitem id="menu_hrms_recruitment_global_settings" name="Settings" parent="menu_hrms_recruitment_settings" sequence="1" action="hr_recruitment.action_hr_recruitment_configuration" groups="base.group_system"/>
+
+        <!-- 3.99.2 阶段-->
+        <menuitem id="menu_hrms_recruitment_stage" name="Stages" parent="menu_hrms_recruitment_settings" action="hr_recruitment.hr_recruitment_stage_act" groups="base.group_no_one" sequence="2"/>
+
+        <!-- 3.99.3 标签-->
+        <menuitem id="menu_hrms_applicant_category_menu" parent="menu_hrms_recruitment_settings" action="hr_recruitment.hr_applicant_category_action" sequence="3" groups="base.group_no_one"/>
+
+        <!-- 3.99.4 学历-->
+        <menuitem id="menu_hrms_recruitment_degree" name="Degrees" parent="menu_hrms_recruitment_settings" action="hr_recruitment.hr_recruitment_degree_action" sequence="4" groups="base.group_no_one"/>
+
+        <!-- 3.99.5 工作岗位-->
+        <menuitem id="menu_hrms_job_position_config" parent="menu_hrms_recruitment_settings" action="hr_recruitment.action_hr_job_config" sequence="5"/>
+
+        <!-- 3.99.6 申请拒绝原因-->
+        <menuitem id="menu_hrms_applicant_refuse_reason" action="hr_recruitment.hr_applicant_refuse_reason_action" parent="menu_hrms_recruitment_settings" sequence="6"/>
+
+        <!-- 3.99.7 申请人来源-->
+        <menuitem id="menu_hrms_recruitment_source" parent="menu_hrms_recruitment_settings" action="hr_recruitment.hr_recruitment_source_action" groups="base.group_no_one" sequence="7"/>
+
+        <!-- 3.99.8 活动类型-->
+        <menuitem id="menu_hrms_recruitment_menu_config_activity_type" action="hr_recruitment.mail_activity_type_action_config_hr_applicant" parent="menu_hrms_recruitment_settings" sequence="8"/>
+
+
+        <!-- 90.报表菜单 -->
+        <!-- 99.3 报表：招聘 -->
+        <menuitem name="Recruitment" id="menu_hrms_report_hr_recruitment" parent="hrms_base.menu_hrms_report_root" sequence="3" groups="hr_recruitment.group_hr_recruitment_user"/>
+
+        <!-- 99.3.1 报表：招聘分析 -->
+        <menuitem name="Recruitment Analysis" id="menu_hrms_hr_applicant_report_menu" parent="menu_hrms_report_hr_recruitment" sequence="1" action="hr_recruitment.hr_applicant_action_analysis"/>
+
+        
+    </data>
+</odoo>

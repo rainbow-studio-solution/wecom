@@ -359,9 +359,29 @@ msgid "Human Resource Management System"
 msgstr "人力资源管理系统"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_hrms_extension
-msgid "Human Resource Management System Extension"
-msgstr "人力资源管理系统扩展"
+#: model:ir.module.module,shortdesc:base.module_hrms_recruitment
+msgid "Human Resource Management System Recruitment"
+msgstr "HRMS员工招聘"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_holidays
+msgid "Human Resource Management System Holidays"
+msgstr "HRMS员工休假"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_attendance
+msgid "Human Resource Management System Attendances"
+msgstr "HRMS员工出勤"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_expense
+msgid "Human Resource Management System Expenses"
+msgstr "HRMS员工费用"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_empowerment
+msgid "Human Resource Management System Empowerment"
+msgstr "HRMS员工激励"
 
 
 #. module: base

@@ -3,7 +3,7 @@
 {
     "name": "Human Resource Management System",
     "author": "RStudio",
-    "sequence": 608,
+    "sequence": 501,
     "installable": True,
     "application": True,
     "auto_install": False,
@@ -16,7 +16,7 @@
     "description": """
 
         """,
-    "depends": ["hr", "web_multi_level_menu",],
+    "depends": ["hr","hr_contract","hr_skills", "web_multi_level_menu",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",

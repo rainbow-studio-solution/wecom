@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 9.Employee Empowerment 员工激励 -->
+        <menuitem id="menu_hrms_employee_empowerment" name="Employee Empowerment" sequence="9" parent="hrms_base.menu_hrms_root" />
+
+        <!-- 9.1 游戏化工具 -->
+        <menuitem id="menu_hrms_gamification_menu" name="Gamification Tools" parent="menu_hrms_employee_empowerment" />
+
+        <!-- 9.1.1 挑战 -->
+        <menuitem id="menu_hrms_gamification_challenge_menu" parent="menu_hrms_gamification_menu" action="gamification.challenge_list_action" sequence="1"/>
+
+        <!-- 9.1.2 目标 -->
+        <menuitem id="menu_hrms_gamification_goal_menu" parent="menu_hrms_gamification_menu" action="gamification.goal_list_action" sequence="2"/>
+
+        <!-- 9.1.3 目标定义 -->
+        <menuitem id="menu_hrms_gamification_definition_menu" parent="menu_hrms_gamification_menu" action="gamification.goal_definition_list_action" sequence="3"/>
+
+        <!-- 9.1.4 徽章 -->
+        <menuitem id="menu_hrms_gamification_badge_menu" parent="menu_hrms_gamification_menu" action="gamification.badge_list_action" sequence="4"/>
+
+        <!-- 9.1.5 等级 -->
+        <menuitem id="menu_hrms_gamification_karma_ranks_menu" parent="menu_hrms_gamification_menu" action="gamification.gamification_karma_ranks_action" sequence="5"/>
+
+        <!-- 9.1.6 跟踪 -->
+        <menuitem id="menu_hrms_gamification_karma_tracking_menu" parent="menu_hrms_gamification_menu" action="gamification.gamification_karma_tracking_action" sequence="6"/>
+
+    </data>
+</odoo>

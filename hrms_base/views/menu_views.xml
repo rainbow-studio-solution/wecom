@@ -8,45 +8,53 @@
         <menuitem id="menu_hrms_employee_profiles" name="Employee profiles" parent="menu_hrms_root" groups="hr.group_hr_user" sequence="1"/>
 
         <!-- 1.1 员工 -->
-        <menuitem id="menu_wecom_organization_employee" name="Employee" action="hr.open_view_employee_list_my" parent="menu_hrms_employee_profiles" sequence="1" groups="hr.group_hr_user" />
+        <menuitem id="menu_hrms_employee_profiles_employee" name="Employee" action="hr.open_view_employee_list_my" parent="menu_hrms_employee_profiles" sequence="1" groups="hr.group_hr_user" />
 
         <!-- 1.2 部门 -->
-        <menuitem id="menu_wecom_organization_department_kanban" name="Department" action="hr.hr_department_tree_action" parent="menu_hrms_employee_profiles" sequence="2" groups="hr.group_hr_user" />
+        <menuitem id="menu_hrms_employee_profiles_department_kanban" name="Department" action="hr.hr_department_tree_action" parent="menu_hrms_employee_profiles" sequence="2" groups="hr.group_hr_user" />
+
+        <!-- 1.3 员工合同 -->
+        <menuitem id="menu_hrms_employee_profiles_contract" name="Contracts" action="hr_contract.action_hr_contract" parent="menu_hrms_employee_profiles" sequence="3" groups="hr_contract.group_hr_contract_manager"/>
 
 
+        <!-- 1.99 基础配置 -->
 
-        <!-- 1.100 基础配置 -->
+        <menuitem id="menu_hrms_employee_configuration" name="Basic Configuration" parent="menu_hrms_employee_profiles" groups="hr.group_hr_user" sequence="99"/>
 
-        <menuitem id="menu_hrms_employee_configuration" name="Basic Configuration" parent="menu_hrms_employee_profiles" groups="hr.group_hr_user" sequence="100"/>
-
-        <!-- 1.100.1 员工设置 -->
+        <!-- 1.99.1 员工设置 -->
         <menuitem id="menu_hrms_employee_basic_configuration_settings" name="Settings" parent="menu_hrms_employee_configuration" groups="base.group_system" action="hr.hr_config_settings_action" sequence="1"/>
 
-
-        <!-- 1.100.2 工作岗位 -->
+        <!-- 1.99.2 工作岗位 -->
         <menuitem id="menu_hrms_employee_settings_job" action="hr.action_hr_job" parent="menu_hrms_employee_configuration" sequence="2"/>
 
-        <!-- 1.100.3员工 -->
+        <!-- 1.99.3员工 -->
         <menuitem id="menu_hrms_employee_settings_employee" name="Employee" parent="menu_hrms_employee_configuration" sequence="2" groups="base.group_no_one"/>
 
-        <!-- 1.100.3.1 标签 -->
+        <!-- 1.99.3.1 标签 -->
         <menuitem id="menu_hrms_employee_settings_employee_tag" name="Tags" action="hr.open_view_categ_form" parent="menu_hrms_employee_settings_employee" sequence="1" groups="base.group_no_one"/>
 
-        <!-- 1.100.4 工作地点 -->
-        <menuitem id="menu_hrms_employee_settings_work_location" action="hr.hr_work_location_action" parent="menu_hrms_employee_configuration" sequence="4" groups="hr.group_hr_user"/>
+        <!-- 1.99.3.2 技能 -->
+        <menuitem id="menu_hrms_employee_profiles_settings_skill_type" name="Skills" action="hr_skills.hr_skill_type_action" parent="menu_hrms_employee_settings_employee" sequence="2" groups="base.group_no_one"/>
 
-        <!-- 1.100.5 离职原因 -->
-        <menuitem id="menu_hrms_employee_settings_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_employee_configuration" sequence="5" groups="hr.group_hr_user"/>
+        <!-- 1.99.4 简历 -->
+        <menuitem id="menu_hrms_employee_profiles_settings_resume" name="Resumé" parent="menu_hrms_employee_configuration" sequence="4" groups="base.group_no_one"/>
 
-        <!-- 1.100.99隐藏人力资源菜单 -->
-        <!-- <menuitem id="menu_hrms_config_hide_hr_menu" name="Hide Hr Menu" action="action_view_hr_menu" parent="menu_hrms_employee_configuration" groups="base.group_erp_manager" sequence="99"/> -->
+        <!-- 1.99.4.1 简历类型 -->
+        <menuitem id="menu_hrms_employee_profiles_settings_resume_type" name="Types" action="hr_skills.hr_resume_type_action" parent="menu_hrms_employee_profiles_settings_resume" sequence="1" groups="base.group_no_one"/>
+
+        <!-- 1.99.5 工作地点 -->
+        <menuitem id="menu_hrms_employee_settings_work_location" action="hr.hr_work_location_action" parent="menu_hrms_employee_configuration" sequence="5" groups="hr.group_hr_user"/>
+
+        <!-- 1.99.6 离职原因 -->
+        <menuitem id="menu_hrms_employee_settings_departure_reason" action="hr.hr_departure_reason_action" parent="menu_hrms_employee_configuration" sequence="6" groups="hr.group_hr_user"/>
+
 
         <!-- 2.员工目录 -->
         <menuitem id="menu_wecom_employee" name="Employee Directory" action="hr.hr_employee_public_action" parent="menu_hrms_root" sequence="2"/>
 
 
         <!-- 4.计划 -->
-        <menuitem id="menu_hrms_employee_plan" name="Planning" parent="menu_hrms_root" groups="hr.group_hr_manager" sequence="4"/>
+        <menuitem id="menu_hrms_employee_plan" name="Employee Planning" parent="menu_hrms_root" groups="hr.group_hr_manager" sequence="4"/>
 
         <!-- 4.1 计划类型 -->
         <menuitem id="menu_hrms_employee_config_plan_types" name="Planning Types" action="hr.hr_plan_activity_type_action" parent="menu_hrms_employee_plan" groups="base.group_no_one" sequence="1"/>

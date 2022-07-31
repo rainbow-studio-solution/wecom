@@ -15,6 +15,12 @@ class ResConfigSettings(models.TransientModel):
 
     del_wecom_tag = fields.Boolean("Delete wecom tag", default=False)
 
+    module_hrms_recruitment = fields.Boolean("Employee Recruitment")
+    module_hrms_holidays = fields.Boolean("Employee Holidays")
+    module_hrms_attendance = fields.Boolean("Employee Attendances")
+    module_hrms_expense = fields.Boolean("Employee Expenses")
+    module_hrms_empowerment = fields.Boolean("Employee Empowerment")
+
     @api.model
     def get_values(self):
         res = super(ResConfigSettings, self).get_values()

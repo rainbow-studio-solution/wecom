@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- 7.考勤管理 -->
+        <menuitem name="Attendances Manager" id="menu_hrms_attendance_manage_attendances" parent="hrms_base.menu_hrms_root" sequence="7" groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_kiosk" />
+
+        <!-- 7.1 考勤 -->
+        <menuitem name="Attendances" id="menu_hrms_attendance_view_attendances" parent="menu_hrms_attendance_manage_attendances" sequence="10" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>
+
+        <!-- 7.99 考勤设置 -->
+        <menuitem id="menu_hrms_attendance_settings" name="Configuration" parent="menu_hrms_attendance_manage_attendances" sequence="99" action="hr_attendance.action_hr_attendance_settings" groups="hr_attendance.group_hr_attendance_manager"/>
+
+
+        <!-- 99.7 考勤报表 -->
+        <menuitem id="menu_hrms_attendance_report_menu" name="Attendance" parent="hrms_base.menu_hrms_report_root" sequence="7"/>
+
+        <!-- 99.7.1 考勤分析 -->
+        <menuitem id="menu_hrms_attendance_report" name="Attendance Analysis" action="hr_attendance.hr_attendance_report_action" parent="menu_hrms_attendance_report_menu" sequence="1" groups="hr_attendance.group_hr_attendance_user"/>
+
+    </data>
+</odoo>
