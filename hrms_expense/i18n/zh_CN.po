@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-31 06:06+0000\n"
-"PO-Revision-Date: 2022-07-31 14:10+0800\n"
+"POT-Creation-Date: 2022-08-01 13:41+0000\n"
+"PO-Revision-Date: 2022-08-01 21:45+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -18,9 +18,43 @@ msgstr ""
 "X-Generator: Poedit 3.1.1\n"
 
 #. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"此处设置的值是特定于公司"
+"的。\"/>"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-jpy fa-lg\" aria-label="
+"\"Expenses\"/>\n"
+"                                Expenses\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-jpy fa-lg\" aria-label=\"费用"
+"\"/>\n"
+"                                费用\n"
+"                        </span>"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "<span>@</span>"
+msgstr "<span>@</span>"
+
+#. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_menu_config_activity_type
 msgid "Activity Types"
 msgstr "活动类型"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Alias"
+msgstr "别名"
 
 #. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_my_expenses_all
@@ -38,9 +72,26 @@ msgid "Configuration"
 msgstr "配置"
 
 #. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Create expenses from incoming emails"
+msgstr ""
+"邮件报销：意思是往指定邮箱里发送规定格式的邮件进行报销。系统会把该指定邮箱中"
+"所收到指定格式的邮件，按该格式自动生成符合系统格式的费用报销单。"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Digitalize your receipts with OCR and Artificial Intelligence"
+msgstr "使用OCR和人工智能将收据数字化"
+
+#. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_report_menu
 msgid "Employee Expenses"
 msgstr "员工费用"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Expense Digitalization (OCR)"
+msgstr "费用数字化（OCR）"
 
 #. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_product
@@ -53,7 +104,10 @@ msgid "Expense Reports"
 msgstr "费用报告"
 
 #. module: hrms_expense
+#. openerp-web
+#: code:addons/hrms_expense/static/src/xml/hr_settings_navigation.xml:0
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_main
+#, python-format
 msgid "Expenses"
 msgstr "费用"
 
@@ -61,6 +115,11 @@ msgstr "费用"
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_all_expenses
 msgid "Expenses Analysis"
 msgstr "费用分析"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Incoming Emails"
+msgstr "收件"
 
 #. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_my_expenses
@@ -78,6 +137,16 @@ msgid "My Reports"
 msgstr "我的报告"
 
 #. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Reimburse expenses in payslips"
+msgstr "报销工资单中的费用"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Reimburse in Payslip"
+msgstr "工资单上的报销"
+
+#. module: hrms_expense
 #: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_sheet_all_to_approve
 msgid "Reports to Approve"
 msgstr "待批准的报告"
@@ -93,6 +162,24 @@ msgid "Reports to Post"
 msgstr "待过账的报告"
 
 #. module: hrms_expense
-#: model:ir.ui.menu,name:hrms_expense.menu_hrms_expense_global_settings
-msgid "Settings"
-msgstr "设置"
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid ""
+"Send an email to this email alias with the receipt in attachment to create "
+"an expense in one click. If the first word of the mail subject contains the "
+"category's internal reference or the category name, the corresponding "
+"category will automatically be set. Type the expense amount in the mail "
+"subject to set it on the expense too."
+msgstr ""
+"向这个电子邮件别名发送电子邮件，并将收据作为附件，一键生成费用。如果邮件主题"
+"的第一个词包含类别的内部参考或类别名称，相应的类别将被自动设置。在邮件主题中"
+"输入费用金额，也可将其设置在费用上。"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "Setup your domain alias"
+msgstr "设置你的域名别名"
+
+#. module: hrms_expense
+#: model_terms:ir.ui.view,arch_db:hrms_expense.hrms_expense_res_config_settings_view_form
+msgid "use OCR to fill data from a picture of the bill"
+msgstr "使用OCR技术从发票图片中识别并自动录入数据"

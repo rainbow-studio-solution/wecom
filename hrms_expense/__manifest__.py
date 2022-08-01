@@ -21,6 +21,7 @@
         "hr_expense",
     ],
     "data": ["views/menu_views.xml","views/res_config_settings_views.xml"],
+    "assets": {"web.assets_qweb": ["hrms_expense/static/src/xml/*.xml",],},
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",
 }

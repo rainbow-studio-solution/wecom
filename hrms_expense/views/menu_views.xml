@@ -35,7 +35,7 @@
         <menuitem id="menu_hrms_expense_configuration" name="Configuration" parent="menu_hrms_expense_main" sequence="100"/>
 
         <!-- 8.99.1 设置 -->
-        <menuitem id="menu_hrms_expense_global_settings" name="Settings" parent="menu_hrms_expense_configuration" sequence="1" action="hr_expense.action_hr_expense_configuration" groups="base.group_system"/>
+        <!-- <menuitem id="menu_hrms_expense_global_settings" name="Settings" parent="menu_hrms_expense_configuration" sequence="1" action="hr_expense.action_hr_expense_configuration" groups="base.group_system"/> -->
 
         <!-- 8.99.2 费用产品 -->
         <menuitem id="menu_hrms_expense_product" name="Expense Products" parent="menu_hrms_expense_configuration" action="hr_expense.hr_expense_product" groups="hr_expense.group_hr_expense_manager" sequence="2"/>

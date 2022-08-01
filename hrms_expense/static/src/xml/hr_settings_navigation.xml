@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+
+    <t t-extend="res_config_hrms_navigation_menu">
+        <t t-jquery="a.hrms_jump_anchor:last" t-operation="after">
+            <a type="button" role="button" class="btn btn-secondary fa fa-jpy hrms_jump_anchor" href="#hrms_expense">
+                <h5 style="display:inline;"> Expenses</h5>
+            </a>
+        </t>
+    </t>
+
+</template>

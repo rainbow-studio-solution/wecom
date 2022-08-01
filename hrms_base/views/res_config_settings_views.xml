@@ -240,6 +240,10 @@
             </field>
         </record>
 
+
+        <record id="hr.hr_config_settings_action" model="ir.actions.act_window">
+            <field name="context">{'module' : 'hrms_base', 'bin_size': False}</field>
+        </record>
     </data>
 </odoo>
 <!-- <div id="presence_control_setting" position="befroe">
