@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "HRMS Recruitment",
+    "name": "HRMS Recruitment Interview Forms",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 502,
@@ -16,9 +16,9 @@
 
 
         """,
-    "depends": ["hrms_base", "hr_recruitment",],
-    "data": ["views/menu_views.xml", "views/res_config_settings_views.xml",],
-    "assets": {"web.assets_qweb": ["hrms_recruitment/static/src/xml/*.xml",],},
+    "depends": ["hrms_recruitment", "hr_recruitment_survey",],
+    "data": ["views/res_config_settings_views.xml",],
+    "assets": {},
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",
 }

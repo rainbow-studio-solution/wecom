@@ -49,4 +49,5 @@
     },
     # "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
+    "bootstrap": True,
 }

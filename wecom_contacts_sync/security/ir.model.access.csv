@@ -2,3 +2,6 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 "access_wecom_contacts_block","access.wecom.contacts.block","model_wecom_contacts_block","wecom_base.group_wecom_settings_manager",1,1,1,1
 "access_wecom_contacts_sync_wizard","access.wecom.contacts.sync.wizard","model_wecom_contacts_sync_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0
 "access_wecom_users_sync_wizard","access.wecom.users.sync.wizard","model_wecom_users_sync_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0
+
+"wecom_employee_bind_wecom_wizard","access.wecom.employee_bind_wecom_wizard","model_wecom_employee_bind_wecom_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0
+"wecom_user_bind_wecom_wizard_access_right","access.wecom.user_bind_wecom_wizard","model_wecom_user_bind_wecom_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0

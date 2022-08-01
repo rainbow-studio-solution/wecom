@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-31 02:50+0000\n"
-"PO-Revision-Date: 2022-07-31 10:53+0800\n"
+"POT-Creation-Date: 2022-08-01 07:34+0000\n"
+"PO-Revision-Date: 2022-08-01 15:36+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1.1\n"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-user-plus fa-lg\" aria-label="
+"\"Recruitment\"/>\n"
+"                                Recruitment\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-user-plus fa-lg\" aria-label="
+"\"招聘\"/>\n"
+"                                招聘\n"
+"                        </span>"
 
 #. module: hrms_recruitment
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_recruitment_menu_config_activity_type
@@ -33,6 +48,11 @@ msgid "By Job Positions"
 msgstr "按工作岗位"
 
 #. module: hrms_recruitment
+#: model:ir.model,name:hrms_recruitment.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: hrms_recruitment
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_recruitment_degree
 msgid "Degrees"
 msgstr "学历"
@@ -43,12 +63,35 @@ msgid "Employee Recruitment"
 msgstr "员工招聘"
 
 #. module: hrms_recruitment
+#: model:ir.model.fields,field_description:hrms_recruitment.field_res_config_settings__module_hrms_recruitment_survey
+msgid "Interview Forms"
+msgstr "面试表单"
+
+#. module: hrms_recruitment
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_job_position_config
 msgid "Job Positions"
 msgstr "工作岗位"
 
 #. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid "Job Posting"
+msgstr "工作发布"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid "Online Posting"
+msgstr "在线发布"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid "Publish available jobs on your website"
+msgstr "在网站上发布现有职位"
+
+#. module: hrms_recruitment
+#. openerp-web
+#: code:addons/hrms_recruitment/static/src/xml/hr_settings_navigation.xml:0
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_report_hr_recruitment
+#, python-format
 msgid "Recruitment"
 msgstr "招聘"
 
@@ -56,6 +99,11 @@ msgstr "招聘"
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_hr_applicant_report_menu
 msgid "Recruitment Analysis"
 msgstr "招聘分析"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid "Recruitment Process"
+msgstr "招聘流程"
 
 #. module: hrms_recruitment
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_recruitment_settings
@@ -68,9 +116,15 @@ msgid "Refuse Reasons"
 msgstr "拒绝原因"
 
 #. module: hrms_recruitment
-#: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_recruitment_global_settings
-msgid "Settings"
-msgstr "设置"
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid "Send Interview Survey"
+msgstr "发送面试调查"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid ""
+"Send an Interview Survey to the applicant during the recruitment process"
+msgstr "在招聘过程中向申请人发送一份面试调查"
 
 #. module: hrms_recruitment
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_recruitment_source
@@ -86,3 +140,13 @@ msgstr "阶段"
 #: model:ir.ui.menu,name:hrms_recruitment.menu_hrms_applicant_category_menu
 msgid "Tags"
 msgstr "标签"
+
+#. module: hrms_recruitment
+#: model_terms:ir.ui.view,arch_db:hrms_recruitment.hrms_recruitment_res_config_settings_view_form
+msgid ""
+"Use interview forms tailored to each job position during the recruitment "
+"process. Select the form to use in the job position detail form. This "
+"relies on the Survey app."
+msgstr ""
+"在招聘过程中，使用针对每个工作岗位的面试表格。在工作职位的详细表格中选择要使"
+"用的表格。这有赖于调查应用程序。"

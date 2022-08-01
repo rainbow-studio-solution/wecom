@@ -17,7 +17,7 @@
         <menuitem id="menu_hrms_recruitment_settings" name="Recruitment Settings" parent="menu_hrms_recruitment_main" sequence="99"/>
 
         <!-- 3.99.1 设置-->
-        <menuitem id="menu_hrms_recruitment_global_settings" name="Settings" parent="menu_hrms_recruitment_settings" sequence="1" action="hr_recruitment.action_hr_recruitment_configuration" groups="base.group_system"/>
+        <!-- <menuitem id="menu_hrms_recruitment_global_settings" name="Settings" parent="menu_hrms_recruitment_settings" sequence="1" action="hr_recruitment.action_hr_recruitment_configuration" groups="base.group_system"/> -->
 
         <!-- 3.99.2 阶段-->
         <menuitem id="menu_hrms_recruitment_stage" name="Stages" parent="menu_hrms_recruitment_settings" action="hr_recruitment.hr_recruitment_stage_act" groups="base.group_no_one" sequence="2"/>
@@ -48,6 +48,6 @@
         <!-- 99.3.1 报表：招聘分析 -->
         <menuitem name="Recruitment Analysis" id="menu_hrms_hr_applicant_report_menu" parent="menu_hrms_report_hr_recruitment" sequence="1" action="hr_recruitment.hr_applicant_action_analysis"/>
 
-        
+
     </data>
 </odoo>

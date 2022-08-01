@@ -356,12 +356,17 @@ msgstr "企微OA审批"
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_base
 msgid "HRMS"
-msgstr "人力资源管理系统"
+msgstr "HRMS"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_recruitment
 msgid "HRMS Recruitment"
 msgstr "HRMS员工招聘"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_recruitment_survey
+msgid "HRMS Recruitment Interview Forms"
+msgstr "HRMS招聘面试表单"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_holidays
@@ -382,6 +387,11 @@ msgstr "HRMS员工费用"
 #: model:ir.module.module,shortdesc:base.module_hrms_empowerment
 msgid "HRMS Empowerment"
 msgstr "HRMS员工激励"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_maintenance
+msgid "HRMS Maintenance"
+msgstr "HRMS员工维修"
 
 
 #. module: base

@@ -21,8 +21,7 @@
 
         <menuitem id="menu_hrms_employee_configuration" name="Basic Configuration" parent="menu_hrms_employee_profiles" groups="hr.group_hr_user" sequence="99"/>
 
-        <!-- 1.99.1 员工设置 -->
-        <menuitem id="menu_hrms_employee_basic_configuration_settings" name="Settings" parent="menu_hrms_employee_configuration" groups="base.group_system" action="hr.hr_config_settings_action" sequence="1"/>
+
 
         <!-- 1.99.2 工作岗位 -->
         <menuitem id="menu_hrms_employee_settings_job" action="hr.action_hr_job" parent="menu_hrms_employee_configuration" sequence="2"/>
@@ -64,6 +63,10 @@
 
         <!-- 90.报表 -->
         <menuitem name="Reporting" id="menu_hrms_report_root" parent="menu_hrms_root" sequence="90"/>
+
+
+        <!-- 100 设置 -->
+        <menuitem id="menu_hrms_employee_basic_configuration_settings" name="Settings" parent="menu_hrms_root" groups="base.group_system" action="hr.hr_config_settings_action" sequence="100"/>
 
 
     </data>

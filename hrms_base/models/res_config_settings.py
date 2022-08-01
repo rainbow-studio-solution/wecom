@@ -20,6 +20,7 @@ class ResConfigSettings(models.TransientModel):
     module_hrms_attendance = fields.Boolean("Employee Attendances")
     module_hrms_expense = fields.Boolean("Employee Expenses")
     module_hrms_empowerment = fields.Boolean("Employee Empowerment")
+    module_hrms_maintenance = fields.Boolean("Employee Maintenance")
 
     @api.model
     def get_values(self):

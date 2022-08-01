@@ -50,5 +50,6 @@
         ],
     },
     "license": "LGPL-3",
+    "bootstrap": True,
     # "post_init_hook": "_open_wecom_settings",
 }
