@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-31 05:03+0000\n"
-"PO-Revision-Date: 2022-07-31 13:05+0800\n"
+"POT-Creation-Date: 2022-08-01 07:03+0000\n"
+"PO-Revision-Date: 2022-08-01 15:08+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -16,6 +16,77 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1.1\n"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-"
+"specific.\" role=\"img\" aria-label=\"Values set here are company-specific."
+"\" groups=\"base.group_multi_company\"/>"
+msgstr ""
+"<span class=\"fa fa-lg fa-building-o\" title=\"此处设置的值是特定于公司"
+"的。\" role=\"img\" aria-label=\"此处设置的值是特定于公司的。\" groups="
+"\"base.group_multi_company\"/>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Employee PIN</span>"
+msgstr "<span class=\"o_form_label\">员工 PIN</span>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-clock-o fa-lg\" aria-label="
+"\"Attendances\"/>\n"
+"                                Attendances\n"
+"                        </span>"
+msgstr ""
+"<span class=\"text-left\">\n"
+"                            <i class=\"fa fa-clock-o fa-lg\" aria-label="
+"\"出勤\"/>\n"
+"                                出勤\n"
+"                        </span>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "<span> Minutes</span>"
+msgstr "<span> 分钟</span>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"<span> Minutes</span>\n"
+"                                    <br/>\n"
+"                                    <br/>"
+msgstr ""
+"<span> 分钟</span>\n"
+"                                    <br/>\n"
+"                                    <br/>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "<span>Time Period </span>"
+msgstr "<span>时间期间 </span>"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Activate the count of employees' extra hours."
+msgstr "激活员工的加班工作时间的数量。"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"Allow a period of time (around working hours) where extra time will not be "
+"counted, in benefit of the company"
+msgstr "为了公司的利益，允许有一段时间（工作时间前后）不计算加班时间。"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"Allow a period of time (around working hours) where extra time will not be "
+"deducted, in benefit of the employee"
+msgstr "为了雇员的利益，允许在一段时间内（工作时间前后）不扣减加班时间。"
 
 #. module: hrms_attendance
 #: model:ir.ui.menu,name:hrms_attendance.menu_hrms_attendance_report_menu
@@ -28,7 +99,10 @@ msgid "Attendance Analysis"
 msgstr "出勤分析"
 
 #. module: hrms_attendance
+#. openerp-web
+#: code:addons/hrms_attendance/static/src/xml/hr_settings_navigation.xml:0
 #: model:ir.ui.menu,name:hrms_attendance.menu_hrms_attendance_view_attendances
+#, python-format
 msgid "Attendances"
 msgstr "出勤"
 
@@ -38,7 +112,54 @@ msgid "Attendances Manager"
 msgstr "出勤管理"
 
 #. module: hrms_attendance
-#: model:ir.ui.menu,name:hrms_attendance.menu_hrms_attendance_settings
-msgid "Configuration"
-msgstr "配置"
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Check-In/Out"
+msgstr "签到/签退"
 
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Compare attendance with working hours set on employee."
+msgstr "将出勤率与员工设定的工作时间进行比较。"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Count of Extra Hours"
+msgstr "加班小时数量"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid ""
+"Count of extra hours is considered from this date. Potential extra hours "
+"prior to this date are not considered."
+msgstr ""
+"加班时间的计算是从这个日期开始考虑的。在此日期之前的潜在加班小时不被考虑。"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Extra Hours"
+msgstr "加班时间"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Set PIN codes in the employee detail form (in HR Settings tab)."
+msgstr "在员工详细信息表单（HR设置页卡）中设置PIN码。"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Start from"
+msgstr "从"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Tolerance Time In Favor Of Company"
+msgstr "有利于公司的宽容时间"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Tolerance Time In Favor Of Employee"
+msgstr "有利于雇员的宽容时间"
+
+#. module: hrms_attendance
+#: model_terms:ir.ui.view,arch_db:hrms_attendance.hrms_attendance_res_config_settings_view_form
+msgid "Use PIN codes to check in in Kiosk Mode"
+msgstr "使用PIN码在Kiosk模式下登录"
