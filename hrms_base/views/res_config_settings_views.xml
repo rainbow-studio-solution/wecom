@@ -8,7 +8,7 @@
             <field name="inherit_id" ref="hr.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='hr']" position="replace">
-                    <div class="app_settings_block" data-string="Employees" string="Employees" data-key="hr" groups="hr.group_hr_manager">
+                    <div class="app_settings_block" data-string="HRMS" string="HRMS" data-key="hrms_base" groups="hr.group_hr_manager">
                         <widget name="res_config_hrms_navigation_menu"/>
                         <h2 id="hrms_menu" class="bg-info d-flex justify-content-between">
                             <span class="text-left">
