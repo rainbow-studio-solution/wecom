@@ -7,19 +7,21 @@
             <field name="model">hr.menus.wizard</field>
             <field name="arch" type="xml">
                 <form string="Hr Menus">
-                    <!-- <field name="hr_menus_ids">
-                        <tree string="Menu" create="false" delete="false" multi_edit="true" import="false" export_xlsx="false" editable="top">
+                    <field name="hr_menus_ids" widget="many2many" nolabel="1" options="{'no_open': True,'no_create_edit': True,'reload_on_button': True}" mode="tree" readonly="True" context="{'active_test':False}" domain="['&amp;','&amp;','&amp;',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRMS'),'|',('active','=',True),('active','=',False)]">
+                        <tree string="Menu" create="false" delete="false" multi_edit="false" import="false" no_open="1" export_xlsx="false" editable="top">
                             <field name="name" readonly="1"/>
                             <field name="parent_id" readonly="1"/>
                             <field name="child_id" readonly="1"/>
                             <field name="action" readonly="1"/>
                             <field name="active" />
                         </tree>
-                    </field> -->
-                    <field name="hr_menus_domain" />
-                    <field name="hr_menus_ids" widget="many2many_checkboxes"/>
+                    </field>
+                    <!-- <field name="hr_menus_domain" /> -->
+                    <!-- <field name="hr_menus_ids" widget="many2many_checkboxes"/> -->
                 </form>
+                <!-- domain="['&amp;','&amp;','&amp;',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRMS'),'|',('active','=',True),('active','=',False)]"  -->
                 <!-- required="1" widget="many2many_checkboxes" -->
+                <!--  -->
             </field>
         </record>
 

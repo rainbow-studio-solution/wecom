@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from . import hr_menu_wizard
+# from . import hr_menu_wizard

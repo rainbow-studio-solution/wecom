@@ -21,16 +21,29 @@ class HrMenusWizard(models.TransientModel):
         "ir.ui.menu",
         string="HR Related Menus",
         store=True,
-        readonly=False,
-        compute_sudo=True,
-        compute="_compute_hr_menus"
+        # readonly=False,
+        # default=lambda self: self.env["ir.ui.menu"].search(
+        #     [
+        #         "&",
+        #         "&",
+        #         "&",
+        #         ("parent_id", "=", False),
+        #         ("web_icon", "ilike", "hr"),
+        #         ("name", "not like", "HRMS"),
+        #         "|",
+        #         ("active", "=", True),
+        #         ("active", "=", False),
+        #     ]
+        # ),
+        # compute_sudo=True,
+        # compute="_compute_hr_menus"，
         # domain="['&','&','&',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRMS'),'|',('active','=',True),('active','=',False)]",
     )
     # compute_sudo=True,domain="['&amp;','&amp;','&amp;',('parent_id','=',False),('web_icon', 'ilike', 'hr'),('name', 'not like', 'HRMS'),'|',('active','=',True),('active','=',False)]",
 
     def _compute_hr_menus(self):
         for res in self:
-            res.hr_menus_ids = self.env["ir.ui.menu"].search(
+            hr_menus_ids = self.env["ir.ui.menu"].search(
                 [
                     "&",
                     "&",
@@ -43,3 +56,5 @@ class HrMenusWizard(models.TransientModel):
                     ("active", "=", False),
                 ]
             )
+            print(hr_menus_ids)
+            res.hr_menus_ids = hr_menus_ids
