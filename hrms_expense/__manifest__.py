@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    "name": "HRMS Gamification",
+    "name": "HRMS Expenses",
     "author": "RStudio",
     "website": "https://gitee.com/rainbowstudio/wecom",
     "sequence": 505,
@@ -16,11 +16,8 @@
 
 
         """,
-    "depends": [
-        "hrms_base",
-        "hr_expense",
-    ],
-    "data": ["views/menu_views.xml","views/res_config_settings_views.xml"],
+    "depends": ["hrms_base", "hr_expense",],
+    "data": ["views/menu_views.xml", "views/res_config_settings_views.xml"],
     "assets": {"web.assets_qweb": ["hrms_expense/static/src/xml/*.xml",],},
     "external_dependencies": {"python": [],},
     "license": "LGPL-3",

@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-09 13:38+0000\n"
-"PO-Revision-Date: 2022-07-09 21:46+0800\n"
+"PO-Revision-Date: 2022-08-02 12:40+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,60 +15,50 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_message
-msgid ""
-"\n"
+msgid "\n"
 "        Odoo event notification to WeCom\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "        Odoo 事件通知到企业微信\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_auth_oauth
-msgid ""
-"\n"
+msgid "\n"
 "        One click login, code scanning login.\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "        一键登录，扫码登录。\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_contacts
-msgid ""
-"\n"
+msgid "\n"
 "        WeCom Contacts\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "        企微通讯录\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_portal
-msgid ""
-"\n"
+msgid "\n"
 "        WeCom Portal\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "        企微门户\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_material
-msgid ""
-"\n"
+msgid "\n"
 "        WeCom material management \n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "        企微媒体素材管理 \n"
 "        "
 
@@ -79,30 +69,24 @@ msgstr "小部件"
 
 #. module: base
 #: model:ir.module.module,description:base.module_wecom_api
-msgid ""
-"\n"
+msgid "\n"
 " WeCom Service-side API and Client-side API\n"
-" Reconstruction based on project \"https://github.com/sbzhu/"
-"weworkapi_python\"\n"
+" Reconstruction based on project \"https://github.com/sbzhu/weworkapi_python\"\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 " 企业微信服务端API和客户端APIn\n"
-" Reconstruction based on project \"https://github.com/sbzhu/"
-"weworkapi_python\"\n"
+" Reconstruction based on project \"https://github.com/sbzhu/weworkapi_python\"\n"
 "        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_wecom_web_theme
-msgid ""
-"\n"
+msgid "\n"
 "Enterprise wechat Web Client.\n"
 "===========================\n"
 "\n"
 "This module modifies the web addon to provide responsiveness.\n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "企业微信网络客户端。\n"
 "===========================\n"
 "\n"
@@ -111,21 +95,17 @@ msgstr ""
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_api
-msgid ""
-"\n"
+msgid "\n"
 "WeCom Service-side API and Client-side API              \n"
 "        "
-msgstr ""
-"\n"
+msgstr "\n"
 "企微服务端API和客户端API              \n"
 "        "
 
 #. module: base
 #: model:ir.module.module,description:base.module_wecom_material
-msgid ""
-"\n"
-"please make sure ffmpeg, sox, and mediainfo are installed on your "
-"system, e.g.\n"
+msgid "\n"
+"please make sure ffmpeg, sox, and mediainfo are installed on your system, e.g.\n"
 "\n"
 "DOC:\n"
 "=============\n"
@@ -148,8 +128,7 @@ msgid ""
 "    or\n"
 "    pip3 install pydub ffmpy\n"
 "\n"
-msgstr ""
-"\n"
+msgstr "\n"
 "请确保您的系统上安装了ffmpeg、sox和mediainfo，例如。\n"
 "\n"
 "文档:\n"
@@ -181,20 +160,9 @@ msgstr "审批"
 
 #. module: base
 #: model:ir.module.module,summary:base.module_wecom_wedrive
-msgid ""
-"Enterprises can operate and set permissions for files on the microdisk "
-"through the microdisk related interfaces."
+msgid "Enterprises can operate and set permissions for files on the microdisk through the microdisk related interfaces."
 msgstr "企业通过微盘相关接口，可以对微盘的文件进行操作和设置权限。"
 
-
-
-#. module: base
-#: model:ir.actions.act_window,name:base.res_config_setting_act_window
-#: model:ir.ui.menu,name:base.menu_administration
-#: model:res.groups,name:base.group_system
-#: model_terms:ir.ui.view,arch_db:base.res_config_settings_view_form
-msgid "Settings"
-msgstr "设置"
 
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_settings
@@ -301,7 +269,6 @@ msgstr "主题"
 msgid "Authentication"
 msgstr "身份验证"
 
-
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_crm
 msgid "CRM"
@@ -316,7 +283,6 @@ msgstr "企微聊天日志"
 #: model:ir.module.category,name:base.module_category_wecom_suites_efficiency_tools
 msgid "Efficiency tools"
 msgstr "效率工具"
-
 
 #. module: base
 #: model:ir.module.category,description:base.module_category_wecom_suites_material
@@ -335,7 +301,6 @@ msgstr "人力资源"
 msgid "Localizations"
 msgstr "本地化"
 
-
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_material
 msgid "Material"
@@ -346,17 +311,20 @@ msgstr "企微素材"
 msgid "Messages"
 msgstr "企微消息"
 
-
 #. module: base
 #: model:ir.module.category,name:base.module_category_wecom_suites_oa_approval
 msgid "Approval"
 msgstr "企微OA审批"
 
-
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_base
 msgid "HRMS"
 msgstr "HRMS"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_hrms_base
+msgid "Human Resource Management System"
+msgstr "人力资源管理系统"
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_recruitment
@@ -367,6 +335,7 @@ msgstr "HRMS员工招聘"
 #: model:ir.module.module,shortdesc:base.module_hrms_recruitment_survey
 msgid "HRMS Recruitment Interview Forms"
 msgstr "HRMS招聘面试表单"
+
 
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_hrms_holidays
@@ -393,7 +362,6 @@ msgstr "HRMS员工激励"
 msgid "HRMS Maintenance"
 msgstr "HRMS员工维修"
 
-
 #. module: base
 #: model:ir.module.module,shortdesc:base.module_wecom_message_digest
 msgid "Wecom KPI Digests Message"
@@ -414,17 +382,52 @@ msgstr "Web多级菜单"
 msgid "Human Resources Approval"
 msgstr "HR审批"
 
+
+
+
+
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrms_payroll
+#: model:ir.module.module,shortdesc:base.module_hrms_payroll_expense
+msgid "Expenses in Payslips"
+msgstr "报销工资单中的费用"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_hrms_payroll_expense
+msgid "Submit, validate and reinvoice employee expenses"
+msgstr "提交，验证，支付员工报销"
+
+#. module: base
+#: model:ir.module.module,description:base.module_hrms_payroll_expense
+msgid "\n"
+"Reimbursement of expenses in Payslips\n"
+"=====================================\n"
+"\n"
+"This application allows you to reimburse expenses in payslips.\n"
+"    "
+msgstr "\n"
+"工资单中的费用报销\n"
+"=====================================\n"
+"\n"
+"此应用程序允许您在工资单中报销费用。\n"
+"    "
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_hrms_payroll
 msgid "HRMS Payroll"
 msgstr "HRMS 工资表"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrms_payroll_expense
-msgid "Expenses in Payslips"
-msgstr "HRMS 工资表中的费用"
+#: model:ir.module.module,summary:base.module_hrms_payroll
+msgid "Manage your employee payroll records"
+msgstr "管理员工工资记录"
 
 #. module: base
-#: model:ir.module.module,shortdesc:base.module_wecom_hrms_work_entry_contract
+#: model:ir.module.module,shortdesc:base.module_hrms_work_entry_contract
 msgid "HRMS Work Entries - Contract"
 msgstr "HRMS 工作分录 - 合同"
+
+#. module: base
+#: model:ir.module.module,summary:base.module_hrms_work_entry_contract
+msgid "Manage work entries"
+msgstr "管理工时记录"
+
