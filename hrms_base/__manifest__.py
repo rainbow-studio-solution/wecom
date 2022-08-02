@@ -14,7 +14,7 @@
     "description": """
 
         """,
-    "depends": ["hr", "hr_contract", "hr_skills", "web_multi_level_menu",],
+    "depends": ["hr", "hr_work_entry_contract", "hr_skills", "web_multi_level_menu",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_config_parameter.xml",

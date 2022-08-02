@@ -53,12 +53,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-12 o_setting_box" id="hr_payroll_accountant">
+                        <div class="col-lg-6 col-12 o_setting_box" id="hrms_payroll_accountant">
                             <div class="o_setting_left_pane">
-                                <field name="module_hr_payroll_expense" widget="upgrade_boolean"/>
+                                <field name="module_hrms_payroll_expense"/>
                             </div>
                             <div class="o_setting_right_pane">
-                                <label for="module_hr_payroll_expense" string="Reimburse in Payslip"/>
+                                <label for="module_hrms_payroll_expense" string="Reimburse in Payslip"/>
+                                <widget name="wecom_pro_tag"/>
                                 <div class="text-muted">
                                         Reimburse expenses in payslips
                                 </div>
@@ -66,10 +67,11 @@
                         </div>
                         <div class="col-xs-12 col-md-6 o_setting_box" title="use OCR to fill data from a picture of the bill">
                             <div class="o_setting_left_pane">
-                                <field name="module_hr_expense_extract" widget="upgrade_boolean"/>
+                                <field name="module_hrms_expense_extract" />
                             </div>
                             <div class="o_setting_right_pane" id="expense_extract_settings">
-                                <label string="Expense Digitalization (OCR)" for="module_hr_expense_extract"/>
+                                <label string="Expense Digitalization (OCR)" for="module_hrms_expense_extract"/>
+                                <widget name="wecom_pro_tag"/>
                                 <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."/>
                                 <div class="text-muted">
                                         Digitalize your receipts with OCR and Artificial Intelligence

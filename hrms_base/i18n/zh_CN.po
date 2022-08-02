@@ -248,6 +248,11 @@ msgid "Employee Maintenance"
 msgstr "员工维修"
 
 #. module: hrms_base
+#: model:ir.model.fields,field_description:hrms_base.field_res_config_settings__module_hrms_payroll
+msgid "Employee Payrolls"
+msgstr "员工工资"
+
+#. module: hrms_base
 #: model:ir.ui.menu,name:hrms_base.menu_hrms_employee_plan
 msgid "Employee Planning"
 msgstr "员工计划"

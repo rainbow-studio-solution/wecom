@@ -21,6 +21,7 @@ class ResConfigSettings(models.TransientModel):
     module_hrms_expense = fields.Boolean("Employee Expenses")
     module_hrms_empowerment = fields.Boolean("Employee Empowerment")
     module_hrms_maintenance = fields.Boolean("Employee Maintenance")
+    module_hrms_payroll = fields.Boolean("Employee Payrolls")
 
     @api.model
     def get_values(self):
@@ -31,9 +32,7 @@ class ResConfigSettings(models.TransientModel):
             True if ir_config.get_param("wecom.del_wecom_tag") == "True" else False
         )
 
-        res.update(
-            del_wecom_tag=del_wecom_tag,
-        )
+        res.update(del_wecom_tag=del_wecom_tag,)
         return res
 
     def set_values(self):

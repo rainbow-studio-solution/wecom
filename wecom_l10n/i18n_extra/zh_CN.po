@@ -413,3 +413,18 @@ msgstr "Web多级菜单"
 #: model:ir.module.module,shortdesc:base.module_wecom_hr_approval
 msgid "Human Resources Approval"
 msgstr "HR审批"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_hrms_payroll
+msgid "HRMS Payroll"
+msgstr "HRMS 工资表"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_hrms_payroll_expense
+msgid "Expenses in Payslips"
+msgstr "HRMS 工资表中的费用"
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_hrms_work_entry_contract
+msgid "HRMS Work Entries - Contract"
+msgstr "HRMS 工作分录 - 合同"

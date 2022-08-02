@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <!--  ROOT   -->
-        <menuitem id="menu_hrms_root" name="HRMS" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" web_icon="hrms_base,static/description/icon.png" sequence="2"/>
+        <menuitem id="menu_hrms_root" name="HRMS" groups="hr.group_hr_manager,hr.group_hr_user,base.group_user" web_icon="hrms_base,static/description/icon.png" sequence="11"/>
 
         <!-- 1.员工档案 -->
         <menuitem id="menu_hrms_employee_profiles" name="Employee profiles" parent="menu_hrms_root" groups="hr.group_hr_user" sequence="1"/>
