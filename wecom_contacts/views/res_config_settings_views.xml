@@ -99,7 +99,7 @@
                 <div name="wecom_contact_settings_container" position="after">
 
                     <!-- 素材 -->
-                    <h2 id="wecom_material" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_contacts','=',False)]}">
+                    <h2 id="wecom_material" class="bg-info d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_contacts','=',False)]}">
                         <span class="text-left">
                             <i class="fa fa-suitcase fa-lg" aria-label="Wecom Material settings" />
                                 Wecom Material settings
@@ -127,7 +127,7 @@
                     </div>
 
                     <!-- 身份验证 -->
-                    <h2 id="wecom_auth_oauth" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
+                    <h2 id="wecom_auth_oauth" class="bg-info d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
                         <span class="text-left">
                             <i class="fa fa-sign-in fa-lg" aria-label="Wecom Authentication settings" />
                                 Wecom Authentication settings
@@ -156,7 +156,7 @@
                     </div>
 
                     <!-- 门户设置 -->
-                    <h2 id="wecom_portal" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
+                    <h2 id="wecom_portal" class="bg-info d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
                         <span class="text-left">
                             <i class="fa fa-home fa-lg" aria-label="Wecom Portal Settings" />
                                 Wecom Portal Settings
@@ -183,7 +183,7 @@
                     </div>
 
                     <!-- 消息 -->
-                    <h2 id="wecom_message" class="d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
+                    <h2 id="wecom_message" class="bg-info d-flex justify-content-between" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_material','=',False)]}">
                         <span class="text-left">
                             <i class="fa fa-envelope-o fa-lg" aria-label="Wecom Message settings" />
                                 Wecom Message settings
@@ -212,7 +212,7 @@
                     
 
                     <!-- 会话内容存档 -->
-                    <h2 id="wecom_msgaudit" class="d-flex justify-content-between">
+                    <h2 id="wecom_msgaudit" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-archive fa-lg" aria-label="Session Content Archive"/>
                                 Session Content Archive
@@ -240,7 +240,7 @@
                     </div>
 
                     <!-- 审批 -->
-                    <h2 id="wecom_approval" class="d-flex justify-content-between">
+                    <h2 id="wecom_approval" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-pencil-square-o fa-lg" aria-label="Approvals"/>
                                 Approvals

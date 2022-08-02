@@ -9,7 +9,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wecom_base']//div[hasclass('o_settings_container')][last()]" position="after">
                     <field name="company_id" invisible="1"/>
-                    <h2 id="wecom_contact" class="d-flex justify-content-between">
+                    <h2 id="wecom_contact" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/>
                                 Contact synchronization Settings
@@ -134,7 +134,7 @@
                     </div>
 
                     <!-- 素材 -->
-                    <h2 id="wecom_material" class="d-flex justify-content-between">
+                    <h2 id="wecom_material" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-suitcase fa-lg" aria-label="WeCom Material"/>
                                 WeCom Material
@@ -163,7 +163,7 @@
                     </div>
 
                     <!-- 身份验证 -->
-                    <h2 id="wecom_oauth" class="d-flex justify-content-between">
+                    <h2 id="wecom_oauth" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" />
                             Application login authorization
@@ -193,7 +193,7 @@
                     </div>
 
                     <!-- 门户 -->
-                    <h2 id="wecom_portal" class="d-flex justify-content-between">
+                    <h2 id="wecom_portal" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-home fa-lg" aria-label="Portal"/>
                                 Portal
@@ -221,7 +221,7 @@
                     </div>
 
                     <!-- 联系人 -->
-                    <h2 id="wecom_contacts" class="d-flex justify-content-between">
+                    <h2 id="wecom_contacts" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-address-book fa-lg" aria-label="Contacts"/>
                                 Contacts
@@ -249,7 +249,7 @@
                     </div>
 
                     <!-- 会话内容存档 -->
-                    <h2 id="wecom_msgaudit" class="d-flex justify-content-between">
+                    <h2 id="wecom_msgaudit" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-archive fa-lg" aria-label="Session Content Archive"/>
                                 Session Content Archive
@@ -278,7 +278,7 @@
                     </div>
 
                     <!-- 发送应用消息 -->
-                    <h2 id="wecom_push" class="d-flex justify-content-between">
+                    <h2 id="wecom_push" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-envelope-o fa-lg" aria-label="WeCom Message"/>
                                 WeCom Message
