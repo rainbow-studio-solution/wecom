@@ -2,10 +2,12 @@
 <odoo>
 
     <data>
+        <!-- priority eval值越大优先级越小-->
 
         <record id="view_form_wecom_checkin_rules_wizard" model="ir.ui.view">
             <field name="name">Wecom Checkin Rules Wizard</field>
             <field name="model">wecom.checkin.rules.wizard</field>
+            <field name="priority" eval="1"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form>
@@ -24,6 +26,7 @@
         <record id="view_form_wecom_checkin_rules_result" model="ir.ui.view">
             <field name="name">Wecom Checkin Rules Result</field>
             <field name="model">wecom.checkin.rules.wizard</field>
+            <field name="priority" eval="2"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form class="wecom_sync_result_dialog">
@@ -34,7 +37,7 @@
                         <field name="total_time" />
                     </group>
                     <group>
-                        <field name="sync_result" />
+                        <field name="result" />
                     </group>
                     <footer>
                         <button string="Close" class="btn-primary" special="cancel"/>

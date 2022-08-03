@@ -16,13 +16,15 @@ odoo.define('wecom_attendance.get_checkin_rules', function (require) {
             var self = this;
             this.do_action({
                 // context: {},
-                name: "Use the wizard to get check-in rules",
+                name: _t("Use the wizard to get check-in rules"),
                 type: "ir.actions.act_window",
                 res_id: false,
+                // res_id: "1245",
                 res_model: "wecom.checkin.rules.wizard",
                 target: "new",
                 view_mode: "form",
                 view_type: "form",
+                search_view_id: [false],
                 views: [
                     [false, "form"]
                 ]
