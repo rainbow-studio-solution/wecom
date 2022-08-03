@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- USER -->
+
+        <record id="view_users_search_inherit" model="ir.ui.view">
+            <field name="name">res.users.search.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='no_share']" position="after">
+                    <filter name="share" string="Share User" domain="[('share','=',True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--转换用户类型 wizard-->
+        <record id="change_type_wizard_view" model="ir.ui.view">
+            <field name="name">Change user type</field>
+            <field name="model">change.type.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Change user type">
+                    <field name="user_ids"/>
+                    <footer>
+                        <button string="Change type" name="change_type_button" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="change_type_wizard_user_tree_view" model="ir.ui.view">
+            <field name="name">Change Type Users</field>
+            <field name="model">change.type.user</field>
+            <field name="arch" type="xml">
+                <tree string="Users" editable="bottom" create="false" delete="false">
+                    <field name="user_id" invisible="1"/>
+                    <field name="user_name" />
+                    <field name="user_login" />
+                    <field name="new_type" required="True"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="change_type_wizard_action" model="ir.actions.act_window">
+            <field name="name">Change Type</field>
+            <field name="res_model">change.type.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="base.model_res_users"/>
+        </record>
+
+    </data>
+</odoo>

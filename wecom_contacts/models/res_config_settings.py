@@ -61,6 +61,7 @@ class ResConfigSettings(models.TransientModel):
     module_portal = fields.Boolean("Customer Portal")
     module_wecom_portal = fields.Boolean("Wecom Portal")
     module_wecom_msgaudit = fields.Boolean("Wecom Session Content Archive")
+    module_wecom_attendance = fields.Boolean("WeCom Attendances")
     module_wecom_approval = fields.Boolean("WeCom Approvals")
 
     def cron_get_join_qrcode(self):

@@ -16,11 +16,7 @@
 
 
         """,
-    "depends": [
-        "contacts",
-        "hr",
-        "wecom_base",
-    ],
+    "depends": ["contacts", "hr", "wecom_base",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",
@@ -40,13 +36,9 @@
             "wecom_contacts/static/src/js/download_contacts.js",
             "wecom_contacts/static/src/js/download_tags.js",
         ],
-        "web.assets_qweb": [
-            "wecom_contacts/static/src/xml/*.xml",
-        ],
+        "web.assets_qweb": ["wecom_contacts/static/src/xml/*.xml",],
     },
-    "external_dependencies": {
-        "python": [],
-    },
+    "external_dependencies": {"python": [],},
     # "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
     "bootstrap": True,

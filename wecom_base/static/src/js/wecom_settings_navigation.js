@@ -63,7 +63,7 @@ odoo.define('wecom_base.WeComSettingsNavigationGoTop', function (require) {
 
             if (wecomSettingsEl.height() > settingsEl.height()) {
                 settingsEl.animate({
-                    scrollTop: $("#wecom_global").position().top,
+                    scrollTop: $("#wecom_settings_navigation").position().top,
                 }, 1000)
             }
         }

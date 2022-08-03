@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="wecom_attendance_res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <div id="wecom_attendance_warning" position="replace"/>
+                <div id="wecom_attendance_install" position="after">
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Attendance application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="attendance_app_id" string="Binding application"/>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="attendance_app_id" class="w-100" widget="selection" domain="['&amp;',('type_code', 'like', '%checkin%'),('company_id', '=', company_id)]"/>
+                                </div>
+                                <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link" attrs="{'invisible': [('attendance_app_id','!=',False)]}"/>
+                                <button class="btn btn-primary" name="get_app_info" string="Get application info" type="object" icon="fa-cloud-download" attrs="{'invisible': [('attendance_app_id','=',False)]}" context="{'app': 'checkin'}"/>
+
+                                <div class="mt4" attrs="{'invisible': [('attendance_app_id','=',False)]}">
+                                    <div class="text-warning mt8">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('attendance_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-list-ol fa-lg" aria-label="Attendance Agentid"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="attendance_agentid"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="attendance_agentid" widget="integer" options="{'format': false}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('attendance_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-key fa-lg" aria-label="Attendance Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="attendance_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="attendance_secret" widget="wecom_password"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

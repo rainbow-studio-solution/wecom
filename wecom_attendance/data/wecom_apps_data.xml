@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- 应用 -->
+        <record id="wecom_app_attendances" model="wecom.apps">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="app_name">Attendances</field>
+            <field name="agentid">3010011</field>
+            <field name="type">base</field>
+            <field name="type_id" ref="wecom_base.wecom_app_type_base"/>
+            <field name="subtype_ids" eval="[(4, ref('wecom_base.wecom_app_subtype_oa_checkin'))]"/>
+
+            <field name="description">Enterprise members can easily punch in on mobile phones or smart attendance machines, and automatically generate attendance reports in combination with approval applications. Support fixed time commuting, flexible scheduling, free commuting and out clock.</field>
+            <field name="square_logo_url">https://wwcdn.weixin.qq.com/node/wwmng/wwmng/style/images/icons/AppAttendanceBig$4c447bd8.svg</field>
+            <field name="sequence">3</field>
+        </record>
+
+
+    </data>
+</odoo>

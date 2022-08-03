@@ -258,6 +258,12 @@ msgstr "企微本地化"
 msgid "WeCom wedrive"
 msgstr "企微微盘"
 
+
+#. module: base
+#: model:ir.module.module,shortdesc:base.module_wecom_attendance
+msgid "WeCom Attendances"
+msgstr "企微考勤"
+
 #. module: base
 #: model:ir.module.category,name:base.module_category_theme
 #: model:ir.module.category,name:base.module_category_wecom_suites_theme

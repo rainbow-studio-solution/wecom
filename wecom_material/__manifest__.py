@@ -48,9 +48,8 @@ Install:
         "views/res_company_views.xml",
         "views/menu_views.xml",
     ],
-    "external_dependencies": {
-        "python": ["ffmpy", "pydub", "requests_toolbelt"],
-    },
+    "assets": {"web.assets_qweb": ["wecom_material/static/src/xml/*.xml",],},
+    "external_dependencies": {"python": ["ffmpy", "pydub", "requests_toolbelt"],},
     "pre_init_hook": "pre_init_hook",
     "license": "LGPL-3",
 }

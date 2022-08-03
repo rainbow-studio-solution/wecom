@@ -16,12 +16,13 @@
 
 
         """,
-    "depends": ["portal","wecom_contacts"],
+    "depends": ["portal", "wecom_contacts"],
     "external_dependencies": {"python": [],},
     "data": [
         "data/wecom_apps_data.xml",
         "views/portal_templates.xml",
         "views/res_config_settings_views.xml",
     ],
+    "assets": {"web.assets_qweb": ["wecom_portal/static/src/xml/*.xml",],},
     "license": "LGPL-3",
 }

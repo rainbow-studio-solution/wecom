@@ -16,10 +16,7 @@
 
 
         """,
-    "depends": [
-        "mail",
-        "wecom_material",
-    ],
+    "depends": ["mail", "wecom_material",],
     "external_dependencies": {"python": ["html2text", "lxml"],},
     "data": [
         "security/wecom_message_security.xml",
@@ -42,7 +39,7 @@
         "views/mail_notification_views.xml",
         "views/menu_views.xml",
     ],
-    "assets": {"web.assets_backend": [],},
+    "assets": {"web.assets_qweb": ["wecom_message/static/src/xml/*.xml",],},
     # "post_init_hook": "_auto_install_lang",
     # 'external_dependencies': {'python': ['skimage']},
     "license": "LGPL-3",

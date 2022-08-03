@@ -10,9 +10,14 @@
             <field name="value">https://developer.work.weixin.qq.com/document/path/90313</field>
         </record>
 
+
+        <!-- 2022-08-03更新 -->
+        <!-- # 生成 排查方法, 企业全局错误码 页面最下面的 “排查方法” 内容 -->
+        <!-- # methods_elements = tree.xpath("//ul[@data-sign='12309549435022fd54b0549f5968b4c2']/li") #  -->
         <record model="ir.config_parameter" id="wecom_global_error_code_troubleshooting_method_node">
             <field name="key">wecom.global_error_code_troubleshooting_method_node</field>
-            <field name="value">//ul[@data-sign='5772b5328d04411cbdea59f01981995alist183']/li</field>
+            <!-- <field name="value">//ul[@data-sign='12309549435022fd54b0549f5968b4c2']/li</field> -->
+            <field name="value">@data-sign='12309549435022fd54b0549f5968b4c2'</field>
         </record>
 
 

@@ -35,9 +35,9 @@
             "wecom_auth_oauth/static/src/js/wecom_join.js",
             "wecom_auth_oauth/static/src/js/wecom_providers.js",
         ],
-        # "web.assets_qweb": [
-        #     "wecom_auth_oauth/static/src/xml/*.xml",
-        # ],
+        "web.assets_qweb": [
+            "wecom_auth_oauth/static/src/xml/*.xml",
+        ],
     },
     "bootstrap": True,  # 加载登录屏幕的翻译，
     "license": "LGPL-3",

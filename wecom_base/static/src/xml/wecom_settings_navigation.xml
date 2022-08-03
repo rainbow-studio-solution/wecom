@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <template>
     <t t-name="res_config_wecom_navigation_menu">
-        <div class="row btn-group ml8 mt8 mb8" role="group" aria-label="Navigation">
+        <div class="row btn-group ml8 mt8 mb8" role="group" aria-label="Navigation" id="wecom_settings_navigation">
             <a type="button" role="button" class="btn btn-secondary fa fa-building wecom_jump_anchor" href="#wecom_companies">
                 <h5 style="display:inline;"> Companies settings</h5>
             </a>

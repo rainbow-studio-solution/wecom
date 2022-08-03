@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["wecom_contacts",],
+    "depends": ["wecom_contacts", "hrms_base",],
     "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
@@ -25,6 +25,7 @@
         "data/ir_cron_data.xml",
         "data/hr_data.xml",
         "views/res_config_settings_views.xml",
+        "views/res_users_views.xml",
         "views/wecom_apps_views.xml",
         "views/hr_department_view.xml",
         "views/hr_employee_view.xml",

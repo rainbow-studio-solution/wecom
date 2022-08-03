@@ -4,25 +4,7 @@
     <t t-extend="res_config_wecom_navigation_menu">
         <t t-jquery="a:last" t-operation="after">
 
-            <a type="button" role="button" class="btn btn-secondary fa fa-suitcase wecom_jump_anchor" href="#wecom_material">
-                <h5 style="display:inline;"> Material settings</h5>
-            </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-suitcase wecom_jump_anchor" href="#wecom_auth_oauth">
-                <h5 style="display:inline;"> Authentication settings</h5>
-            </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-home wecom_jump_anchor" href="#wecom_portal">
-                <h5 style="display:inline;"> Portal settings</h5>
-            </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-envelope-o wecom_jump_anchor" href="#wecom_message">
-                <h5 style="display:inline;"> Message settings</h5>
-            </a>
 
-            <a type="button" role="button" class="btn btn-secondary fa fa-archive wecom_jump_anchor" href="#wecom_msgaudit">
-                <h5 style="display:inline;"> Session content archiving settings</h5>
-            </a>
-            <a type="button" role="button" class="btn btn-secondary fa fa-pencil-square-o wecom_jump_anchor" href="#wecom_approval">
-                <h5 style="display:inline;"> Approvals settings</h5>
-            </a>
         </t>
     </t>
 
