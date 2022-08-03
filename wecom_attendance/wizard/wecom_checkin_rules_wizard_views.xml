@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_form_wecom_checkin_rules_wizard" model="ir.ui.view">
+            <field name="name">Wecom Checkin Rules Wizard</field>
+            <field name="model">wecom.checkin.rules.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group string="Get the checkin rules of all companies?">
+                        <field name="select_all" />
+                        <field name="company_id" widget="selection" attrs="{'required': [('select_all','=', False)]}"/>
+                        <field name="companies" />
+                    </group>
+                    <footer>
+                        <button name="wizard_get_checkin_rules" string="Start" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_form_wecom_checkin_rules_result" model="ir.ui.view">
+            <field name="name">Wecom Checkin Rules Result</field>
+            <field name="model">wecom.checkin.rules.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form class="wecom_sync_result_dialog">
+                    <group>
+                        <field name="create_date" string="Starting time"/>
+                        <field name="companies" />
+                        <field name="state" />
+                        <field name="total_time" />
+                    </group>
+                    <group>
+                        <field name="sync_result" />
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="actions_wecom_checkin_rules_wizard" model="ir.actions.act_window">
+            <field name="name">Wecom Checkin Rules Wizard</field>
+            <field name="res_model">wecom.checkin.rules.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wecom_checkin_rules_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+
+</odoo>

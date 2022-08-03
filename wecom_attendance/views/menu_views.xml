@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem name="Wecom Checkin Rules" id="menu_hrms_wecom_checkin_rule_list" parent="hrms_attendance.menu_hrms_attendance_manage_attendances" sequence="3" action="action_view_wecom_checkin_rule_list" groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_user" />
+
+    </data>
+
+</odoo>

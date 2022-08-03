@@ -5,7 +5,7 @@
         <menuitem name="Attendances Manager" id="menu_hrms_attendance_manage_attendances" parent="hrms_base.menu_hrms_root" sequence="7" groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_kiosk" />
 
         <!-- 7.1 考勤 -->
-        <menuitem name="Attendances" id="menu_hrms_attendance_view_attendances" parent="menu_hrms_attendance_manage_attendances" sequence="10" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>
+        <menuitem name="Attendances" id="menu_hrms_attendance_view_attendances" parent="menu_hrms_attendance_manage_attendances" sequence="1" groups="hr_attendance.group_hr_attendance_user" action="hr_attendance.hr_attendance_action"/>
 
         <!-- 7.99 考勤设置 -->
         <!-- <menuitem id="menu_hrms_attendance_settings" name="Configuration" parent="menu_hrms_attendance_manage_attendances" sequence="99" action="hr_attendance.action_hr_attendance_settings" groups="hr_attendance.group_hr_attendance_manager"/> -->

@@ -17,7 +17,17 @@
 
         """,
     "depends": ["wecom_contacts", "hrms_base", "hrms_attendance",],
-    "data": ["data/wecom_apps_data.xml", "views/res_config_settings_views.xml",],
-    "assets": {"web.assets_qweb": ["wecom_attendance/static/src/xml/*.xml",],},
+    "data": [
+        "security/ir.model.access.csv",
+        "data/wecom_apps_data.xml",
+        "views/res_config_settings_views.xml",
+        "views/wecom_checkin_rule_views.xml",
+        "wizard/wecom_checkin_rules_wizard_views.xml",
+        "views/menu_views.xml",
+    ],
+    "assets": {
+        "web.assets_backend": ["wecom_attendance/static/src/js/list_header_button.js",],
+        "web.assets_qweb": ["wecom_attendance/static/src/xml/*.xml",],
+    },
     "license": "LGPL-3",
 }

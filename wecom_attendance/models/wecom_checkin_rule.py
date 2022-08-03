@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+import time
+import json
+import binascii
+
+import logging
 from odoo import models, fields, api, exceptions, _
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+
+_logger = logging.getLogger(__name__)
 
 
 class WecomCheckinRule(models.Model):
@@ -9,13 +18,21 @@ class WecomCheckinRule(models.Model):
     """
 
     _name = "wecom.checkin.rule"
-    _description = "Wecom attendance rule"
+    _description = "Wecom Checkin Rules"
     _order = "create_time"
+
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        domain="[('is_wecom_organization', '=', True)]",
+        copy=False,
+        store=True,
+    )
 
     group = fields.Text(
         string="Information about Checkin rules", readonly=True,
     )  # 打卡规则相关信息
-    name = fields.Char(string="Checkin rule name", readonly=True,)  # 打卡规则名称
+    name = fields.Char(string="Name", readonly=True,)  # 打卡规则信息
 
     grouptype = fields.Integer(
         string="Checkin rule type", readonly=True
@@ -23,7 +40,7 @@ class WecomCheckinRule(models.Model):
     groupname = fields.Char(string="Checkin rule id", readonly=True,)  # 卡规则名称
     groupid = fields.Integer(string="Checkin rule id", readonly=True,)  # 打卡规则id
     checkindate = fields.Text(
-        string="Attendance time data", readonly=True,
+        string="Checkin time data", readonly=True,
     )  # 打卡时间配置，当规则类型为排班时没有意义
     spe_workdays = fields.Text(
         string="Special date - must check in date information", readonly=True,
@@ -58,7 +75,7 @@ class WecomCheckinRule(models.Model):
         string="Whitelist", readonly=True
     )  # 打卡人员白名单，即不需要打卡人员，需要有设置白名单才能查看
     type = fields.Integer(
-        string="Checkin rule type", readonly=True
+        string="Checkin type", readonly=True
     )  # 打卡方式，0:手机；2:智慧考勤机；3:手机+智慧考勤机
     reporterinfo = fields.Text(string="Report to", readonly=True)  # 汇报对象信息
     ot_info = fields.Text(
@@ -86,3 +103,17 @@ class WecomCheckinRule(models.Model):
     offwork_interval_time = fields.Integer(
         string="Free sign in", readonly=True,
     )  # 自由签到，上班打卡后xx秒可打下班卡
+
+    @api.model
+    def get_checkin_rules(self):
+        """
+        获取企微打卡规则
+        """
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                self.company_id.corpid, self.company_id.material_app_id.secret,
+            )
+        except ApiException as ex:
+            return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                ex, raise_exception=True
+            )
