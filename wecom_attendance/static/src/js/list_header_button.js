@@ -14,20 +14,28 @@ odoo.define('wecom_attendance.get_checkin_rules', function (require) {
         },
         _get_checkin_rules: function () {
             var self = this;
-            this.do_action({
-                // context: {},
-                name: _t("Use the wizard to get check-in rules"),
-                type: "ir.actions.act_window",
-                res_id: false,
-                // res_id: "1245",
-                res_model: "wecom.checkin.rules.wizard",
-                target: "new",
-                view_mode: "form",
-                view_type: "form",
-                search_view_id: [false],
-                views: [
-                    [false, "form"]
-                ]
+            const current_selected_company_id = session.user_context.allowed_company_ids[0];
+
+            // this.do_action({
+            //     // context: {},
+            //     name: _t("Use the wizard to get check-in rules"),
+            //     type: "ir.actions.act_window",
+            //     res_id: false,
+            //     // res_id: "1245",
+            //     res_model: "wecom.checkin.rules.wizard",
+            //     target: "new",
+            //     view_mode: "form",
+            //     view_type: "form",
+            //     search_view_id: [false],
+            //     views: [
+            //         [false, "form"]
+            //     ]
+            // })
+
+            self._rpc({
+                model: 'wecom.checkin.rule',
+                method: 'get_checkin_rules',
+                args: ["", current_selected_company_id],
             })
         },
 

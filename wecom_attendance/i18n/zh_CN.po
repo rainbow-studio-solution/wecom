@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 09:39+0000\n"
-"PO-Revision-Date: 2022-08-03 17:42+0800\n"
+"POT-Creation-Date: 2022-08-04 08:26+0000\n"
+"PO-Revision-Date: 2022-08-04 16:30+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -101,9 +101,39 @@ msgid "Check in on non-working days"
 msgstr "非工作日允许打卡"
 
 #. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__wifimac_infos
+msgid "Check-in location - WiFi check-in information"
+msgstr "打卡地点-WiFi打卡信息"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__loc_infos
+msgid "Check-in location - location check-in information"
+msgstr "打卡地点-位置打卡信息"
+
+#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__range
-msgid "Check-in staff information"
-msgstr "打卡人员信息"
+msgid "Check-in staff"
+msgstr "打卡人员"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Checkin Rule Type"
+msgstr "打卡规则类型"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Checkin Type"
+msgstr "打卡方式"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Checkin personnel"
+msgstr "打卡人员"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Checkin place"
+msgstr "打卡地点"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__groupid
@@ -112,25 +142,38 @@ msgid "Checkin rule id"
 msgstr "打卡规则id"
 
 #. module: wecom_attendance
-#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__grouptype
-msgid "Checkin rule type"
-msgstr "打卡规则类型"
-
-#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__checkindate
 msgid "Checkin time data"
 msgstr "打卡时间配置"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__type
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__type_name
 msgid "Checkin type"
 msgstr "打卡方式"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
+msgid "Close"
+msgstr "关闭"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
+msgid "Close and refresh"
+msgstr "关闭和刷新"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__2
+#, python-format
+msgid "Commuting by shift"
+msgstr "按班次上下班"
 
 #. module: wecom_attendance
 #: model:ir.model,name:wecom_attendance.model_res_company
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__companies
 msgid "Companies"
-msgstr "多公司"
+msgstr "公司"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__company_id
@@ -159,6 +202,11 @@ msgid "Created on"
 msgstr "创建时间"
 
 #. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_time
+msgid "Created on(UTC)"
+msgstr "创建时间(UTC)"
+
+#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__display_name
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__display_name
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__display_name
@@ -169,6 +217,27 @@ msgstr "显示名称"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__use_face_detect
 msgid "Face recognition attendance switch"
 msgstr "人脸识别打卡开关"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_apps.py:0
+#, python-format
+msgid ""
+"Failed to obtain all the checkin rules of the company [%s]. Reason for failure: %s"
+msgstr "无法获取公司[%s]的所有打卡规则。失败原因：%s"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__1
+#, python-format
+msgid "Fixed time commuting"
+msgstr "固定时间上下班"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__3
+#, python-format
+msgid "Free commuting"
+msgstr "自由上下班"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__offwork_interval_time
@@ -246,6 +315,20 @@ msgid "Maximum number of card replacements"
 msgstr "每月最多补卡次数"
 
 #. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__0
+#, python-format
+msgid "Mobile phone"
+msgstr "手机"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__3
+#, python-format
+msgid "Mobile phone & smart attendance machine"
+msgstr "手机+智慧考勤机"
+
+#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__monday
 msgid "Monday"
 msgstr "星期一"
@@ -260,6 +343,16 @@ msgstr "必须拍照"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__name
 msgid "Name"
 msgstr "名称"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Operation information"
+msgstr "操作信息"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Original rule information"
+msgstr "原始规则信息"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__option_out_range
@@ -279,7 +372,7 @@ msgstr "部分完成"
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__reporterinfo
 msgid "Report to"
-msgstr "汇报对象信息"
+msgstr "汇报对象"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__result
@@ -290,6 +383,12 @@ msgstr "结果"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__rule_id
 msgid "Rule"
 msgstr "规则"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__grouptype
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__grouptype_name
+msgid "Rule type"
+msgstr "规则类型"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__saturday
@@ -312,6 +411,13 @@ msgid "Select all companies"
 msgstr "选择所有的公司"
 
 #. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__2
+#, python-format
+msgid "Smart attendance machine"
+msgstr "智慧考勤机"
+
+#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__spe_workdays
 msgid "Special date - must check in date information"
 msgstr "特殊日期-必须打卡日期"
@@ -327,9 +433,20 @@ msgid "Start"
 msgstr "启动"
 
 #. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
+msgid "Starting time"
+msgstr "开始时间"
+
+#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__state
 msgid "Status"
 msgstr "状态"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_apps.py:0
+#, python-format
+msgid "Successfully obtained all the checkin rules of the company [%s]"
+msgstr "已成功获取公司[%s]的所有打卡规则"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_workdays__sunday
@@ -362,14 +479,14 @@ msgid "Tuesday"
 msgstr "星期二"
 
 #. module: wecom_attendance
-#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_time
-msgid "UTC creation time"
-msgstr "打卡规则UTC创建时间"
-
-#. module: wecom_attendance
 #: model:ir.model,name:wecom_attendance.model_wecom_checkin_rules_wizard
 msgid "WeCom checkin rules wizard"
 msgstr "企微打卡规则向导"
+
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
 
 #. module: wecom_attendance
 #: model:ir.actions.act_window,name:wecom_attendance.action_view_wecom_checkin_rule_list
@@ -397,12 +514,6 @@ msgstr "星期三"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__white_users
 msgid "Whitelist"
 msgstr "白名单"
-
-#. module: wecom_attendance
-#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__loc_infos
-#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__wifimac_infos
-msgid "WiFi check-ins"
-msgstr "打卡地点-WiFi打卡信息"
 
 #. module: wecom_attendance
 #: model:wecom.apps,description:wecom_attendance.wecom_app_attendances

@@ -25,4 +25,32 @@ class WeComApps(models.Model):
         """
         获取打卡规则
         """
+        company = self.company_id
         result = {}
+        print(company.corpid, self.secret)
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, self.secret,
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "GET_CORP_CHECKIN_OPTION"
+                ),
+                {},
+            )
+            _logger.info(
+                _("Successfully obtained all the checkin rules of the company [%s]")
+                % (company.name)
+            )
+            return response
+        except ApiException as ex:
+            _logger.warning(
+                _(
+                    "Failed to obtain all the checkin rules of the company [%s]. Reason for failure: %s"
+                )
+                % (company.name, ex)
+            )
+            return False
+            # return self.env["wecomapi.tools.action"].ApiExceptionDialog(
+            #     ex, raise_exception=True
+            # )

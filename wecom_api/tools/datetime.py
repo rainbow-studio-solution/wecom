@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import time
 from odoo import api, models, tools, _
 from datetime import datetime, timedelta
 import logging
@@ -10,6 +11,16 @@ _logger = logging.getLogger(__name__)
 class WecomApiToolsDatetime(models.AbstractModel):
     _name = "wecomapi.tools.datetime"
     _description = "Wecom API Tools - Datetime"
+
+    def timestamp2datetime(self, time_stamp):
+        """
+        时间戳转日期时间
+        """
+        if len(str(time_stamp)) > 10:
+            # 一般爬取下来的时间戳长度都是13位的数字，而time.localtime的参数要的长度是10位，所以我们需要将其/1000并取整即可
+            time_stamp = int(time_stamp / 1000)
+        loc_time = time.localtime(time_stamp)
+        return time.strftime("%Y-%m-%d %H:%M:%S", loc_time)
 
     def cheeck_days_overdue(self, datetime_start, maxday):
         """[summary]

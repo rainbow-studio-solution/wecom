@@ -9,7 +9,7 @@ class WecomCheckinWorkdays(models.Model):
     """
 
     _name = "wecom.checkin.workdays"
-    _description = "Wecom checkin workdays"
+    _description = "Wecom Check-in workdays"
 
     rule_id = fields.Many2one("wecom.checkin.rule")  # 打卡规则id
     name = fields.Char(string="Name", related="rule_id.name",)  # 打卡规则名称

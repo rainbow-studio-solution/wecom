@@ -3,29 +3,86 @@
     <data>
 
         <record id="view_wecom_checkin_rule_tree" model="ir.ui.view">
-            <field name="name">Wecom Checkin Rules List</field>
+            <field name="name">Wecom Check-in Rules List</field>
             <field name="model">wecom.checkin.rule</field>
             <field name="arch" type="xml">
                 <tree edit="false" create="false">
                     <field name="name"/>
-                    <field name="grouptype"/>
-                    <field name="type"/>
-                    <field name="sync_holidays"/>
-                    <field name="need_photo"/>
-                    <field name="note_can_use_local_pic"/>
-                    <field name="allow_checkin_offworkday"/>
-                    <field name="allow_apply_offworkday"/>
-                    <field name="allow_apply_bk_cnt"/>
-                    <field name="option_out_range"/>
-                    <field name="use_face_detect"/>
-                    <field name="allow_apply_bk_day_limit"/>
+                    <field name="grouptype_name"/>
+
+
                     <field name="create_time"/>
                 </tree>
             </field>
         </record>
 
+        <record id="view_wecom_checkin_rule_form" model="ir.ui.view">
+            <field name="name">Wecom Check-in Rules form</field>
+            <field name="model">wecom.checkin.rule</field>
+            <field name="arch" type="xml">
+                <form edit="false" create="false">
+                    <field name="company_id" invisible="1"/>
+                    <header>
+
+                    </header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box"></div>
+                        <div class="oe_title">
+                            <label for="name"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Check-in Rule Type">
+                                <field name="grouptype_name" widget="radio" />
+                            </group>
+                            <group string="Check-in personnel">
+                                <field name="range" />
+                                <field name="white_users" />
+                                <field name="reporterinfo" />
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Check-in Type">
+                                <field name="type_name" widget="radio" />
+                            </group>
+                            <group tring="Check-in place">
+                                <!-- <field name="wifimac_infos" />
+                                <field name="loc_infos" /> -->
+                            </group>
+                        </group>
+                        <group>
+                            <group></group>
+                            <group string="Operation information">
+                                <field name="create_time" />
+                                <field name="create_userid" />
+                                <field name="update_userid" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="rule_info" string="Original rule information">
+                                <!-- <field name="group" widget="ace" options="{'mode': 'python'}" class="w-100"/> -->
+                                <field name="group" widget="wecom_jsoneditor" nolabel="1" options='{"safe": True}'/>
+                            </page>
+                            <page name="place" string="Check-in place">
+                                <group>
+                                    <group string="Check-in location - WiFi check-in information">
+                                        <field name="loc_infos" widget="ace" options="{'mode': 'python'}" class="w-100" nolabel="1"/>
+                                    </group>
+                                    <group string="Check-in location - location check-in information">
+                                        <field name="wifimac_infos" widget="ace" options="{'mode': 'python'}" class="w-100" nolabel="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="action_view_wecom_checkin_rule_list" model="ir.actions.act_window">
-            <field name="name">Wecom Checkin Rules</field>
+            <field name="name">Wecom Check-in Rules</field>
             <field name="res_model">wecom.checkin.rule</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[]</field>
