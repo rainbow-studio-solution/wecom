@@ -26,7 +26,12 @@
         "views/menu_views.xml",
     ],
     "assets": {
-        "web.assets_backend": ["wecom_attendance/static/src/js/list_header_button.js",],
+        "web.assets_backend": [
+            # SCSSS
+            "wecom_attendance/static/src/scss/*.scss",
+            # JS
+            "wecom_attendance/static/src/js/*.js",
+            ],
         "web.assets_qweb": ["wecom_attendance/static/src/xml/*.xml",],
     },
     "license": "LGPL-3",

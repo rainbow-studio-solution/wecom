@@ -9,8 +9,13 @@
                 <tree edit="false" create="false">
                     <field name="name"/>
                     <field name="grouptype_name"/>
+                    <field name="type_name"/>
 
 
+                    <field name="sync_holidays"/>
+                    <field name="need_photo"/>
+                    <field name="allow_apply_bk_cnt"/>
+                    <field name="use_face_detect"/>
                     <field name="create_time"/>
                 </tree>
             </field>
@@ -35,6 +40,7 @@
                         </div>
                         <group>
                             <group string="Check-in Rule Type">
+                                <field name="grouptype" invisible="1" />
                                 <field name="grouptype_name" widget="radio" />
                             </group>
                             <group string="Check-in personnel">
@@ -52,6 +58,9 @@
                                 <field name="loc_infos" /> -->
                             </group>
                         </group>
+                        <group col="4" string="Check-in Time">
+                            <field name="checkindate" widget="wecom_attendance_checkindate" nolabel="1"/>
+                        </group>
                         <group>
                             <group></group>
                             <group string="Operation information">
@@ -65,13 +74,18 @@
                                 <!-- <field name="group" widget="ace" options="{'mode': 'python'}" class="w-100"/> -->
                                 <field name="group" widget="wecom_jsoneditor" nolabel="1" options='{"safe": True}'/>
                             </page>
+                            <page name="place" string="Check-in time" attrs="{'invisible': [('grouptype','=',2)]}">
+                                <group>
+                                    <!-- <field name="checkindate" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/> -->
+                                </group>
+                            </page>
                             <page name="place" string="Check-in place">
                                 <group>
                                     <group string="Check-in location - WiFi check-in information">
-                                        <field name="loc_infos" widget="ace" options="{'mode': 'python'}" class="w-100" nolabel="1"/>
+                                        <field name="loc_infos" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/>
                                     </group>
                                     <group string="Check-in location - location check-in information">
-                                        <field name="wifimac_infos" widget="ace" options="{'mode': 'python'}" class="w-100" nolabel="1"/>
+                                        <field name="wifimac_infos" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/>
                                     </group>
                                 </group>
                             </page>

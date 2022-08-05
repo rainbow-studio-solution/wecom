@@ -30,7 +30,7 @@ class WecomCheckinRule(models.Model):
     )
 
     group = fields.Text(
-        string="Information about Checkin rules", readonly=True, default="{}"
+        string="Information about Check-in rules", readonly=True, default="{}"
     )  # 打卡规则相关信息
     name = fields.Char(string="Name", readonly=True, compute="_compute_name")  # 打卡规则信息
 
@@ -48,10 +48,10 @@ class WecomCheckinRule(models.Model):
         compute="_compute_grouptype_name",
     )  # 打卡规则类型。1：固定时间上下班；2：按班次上下班；3：自由上下班 。
 
-    groupname = fields.Char(string="Checkin rule id", readonly=True,)  # 打卡规则名称
-    groupid = fields.Integer(string="Checkin rule id", readonly=True,)  # 打卡规则id
+    groupname = fields.Char(string="Check-in rule id", readonly=True,)  # 打卡规则名称
+    groupid = fields.Integer(string="Check-in rule id", readonly=True,)  # 打卡规则id
     checkindate = fields.Text(
-        string="Checkin time data", readonly=True,
+        string="Check-in time", readonly=True,default="{}"
     )  # 打卡时间配置，当规则类型为排班时没有意义
     spe_workdays = fields.Text(
         string="Special date - must check in date information",
@@ -93,7 +93,7 @@ class WecomCheckinRule(models.Model):
     )  # 打卡人员白名单，即不需要打卡人员，需要有设置白名单才能查看
 
     type = fields.Integer(
-        string="Checkin type", readonly=True
+        string="Check-in type", readonly=True
     )  # 打卡方式，0:手机；2:智慧考勤机；3:手机+智慧考勤机
     type_name = fields.Selection(
         [
@@ -102,7 +102,7 @@ class WecomCheckinRule(models.Model):
             ("3", _("Mobile phone & smart attendance machine")),
         ],
         readonly=True,
-        string="Checkin type",
+        string="Check-in type",
         compute="_compute_type_name",
     )  # 打卡方式，0:手机；2:智慧考勤机；3:手机+智慧考勤机
 
@@ -120,7 +120,7 @@ class WecomCheckinRule(models.Model):
     )  # 范围外打卡处理方式，0-视为范围外异常，默认值；1-视为正常外勤；2:不允许范围外打卡
     create_userid = fields.Char(string="Created by", readonly=True)  # 规则创建人userid
     use_face_detect = fields.Boolean(
-        string="Face recognition attendance switch", readonly=True,
+        string="Face recognition", readonly=True,
     )  # 人脸识别打卡开关，true为启用，false为不启用
     allow_apply_bk_day_limit = fields.Integer(
         string="Time limit for card replacement", readonly=True,
@@ -196,32 +196,60 @@ class WecomCheckinRule(models.Model):
                         dic[key] = group[key]
 
                 if rule:
-                    rule.update_checkin_rule(dic)
+                    rule.update_checkin_rule(dic,group)
                 else:
                     dic["company_id"] = company.id
-                    rule.create_checkin_rule(dic)
+                    rule.create_checkin_rule(dic,group)
 
-    def create_checkin_rule(self, dic):
+    def create_checkin_rule(self, dic, group):
         """
         创建打卡规则
         """
-        group = json.loads(dic["group"])
         self.process_submodels(group)
         self.sudo().create(dic)
 
-    def update_checkin_rule(self, dic):
+    def update_checkin_rule(self, dic, group):
         """
         更新打卡规则
         """
-        group = json.loads(dic["group"])
         self.process_submodels(group)
         self.sudo().write(dic)
 
     def process_submodels(self, group):
         """
         处理子模型
-        checkindate, spe_workdays, spe_offdays, wifimac_infos, loc_infos, range, white_users, reporterinfo, ot_info, schedulelist,
+        获取类型为列表或字典的数据，并将其存储到对应的子模型中
+        key:checkindate(list), spe_workdays(list), spe_offdays(list), wifimac_infos(list), loc_infos(list), range(dict), white_users(list), reporterinfo(dict), ot_info(dict), schedulelist(list),
         """
         for key in group.keys():
             if type(group[key]) in (list, dict) and group[key]:
-                print(key, group["groupid"])
+                if key =="checkindate":
+                    # 处理 打卡时间配置
+                    pass
+                elif key =="spe_workdays":
+                    # 处理 特殊日期-必须打卡日期信息
+                    pass
+                elif key =="spe_offdays":
+                    # 处理 特殊日期-不用打卡日期信息
+                    pass
+                elif key =="wifimac_infos":
+                    # 处理 打卡地点-WiFi打卡信息
+                    pass
+                elif key =="loc_infos":
+                    # 处理 打卡地点-位置打卡信息
+                    pass
+                elif key =="range":
+                    # 处理 打卡人员信息
+                    pass
+                elif key =="white_users":
+                    # 处理 打卡人员白名单
+                    pass
+                elif key =="reporterinfo":
+                    # 处理 汇报对象信息
+                    pass
+                elif key =="ot_info":
+                    # 处理 加班信息
+                    pass
+                elif key =="schedulelist":
+                    # 处理 排班信息
+                    pass

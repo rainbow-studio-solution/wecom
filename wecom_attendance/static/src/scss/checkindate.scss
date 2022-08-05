@@ -1,0 +1,74 @@
+.wecom_attendance_checkindate_view {
+    box-shadow: 0 5px 20px -15px rgba(black, .3);
+    -webkit-user-select: none;
+    user-select: none;
+
+    .wecom_attendance_checkindate_view_container {
+        width: max-content;
+        border-right: 1px solid #9DA1AA;
+
+        .wecom_attendance_checkindate_header_container {
+            top: 0;
+            z-index: 10; // header should overlap the pills
+
+
+            .wecom_attendance_checkindate_header {
+                border-top: 1px solid #9DA1AA;
+                border-bottom: 1px solid #9DA1AA;
+
+                // box-shadow: inset 1px 0 0 $gray-400;
+                .wecom_attendance_checkindate_header_cell {
+                    // border-left: 1px solid #9DA1AA;
+                    border-left: 1px solid #9DA1AA;
+                    color: #091124;
+                    text-align: center !important;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+
+        .wecom_attendance_checkindate_row_container {
+            .wecom_attendance_checkindate_row {
+                border-bottom: 1px solid $gray-400;
+                background: #FFFFFF;
+
+                .wecom_attendance_checkindate_row_cell {
+                    border-left: 1px solid #9DA1AA;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    min-height: 25px;
+                    flex-direction: column;
+                    height: 100%;
+
+                    input[type=checkbox] {
+                        -moz-appearance: none;
+                        -webkit-appearance: none;
+                        -o-appearance: none;
+                        outline: none;
+                        content: none;
+                    }
+
+                    input[type=checkbox]:before {
+                        font-family: "FontAwesome";
+                        content: "\f00c";
+                        color: transparent !important;
+                        background-color: rgba(0, 123, 255, .5);
+                        border: 1px solid #007bff !important;
+                    }
+
+                    input[type=checkbox]:checked:before {
+                        color: #fff !important;
+                    }
+                }
+
+
+            }
+
+        }
+    }
+
+
+}
