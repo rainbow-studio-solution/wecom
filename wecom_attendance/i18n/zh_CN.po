@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-05 16:59+0000\n"
-"PO-Revision-Date: 2022-08-06 01:10+0800\n"
+"POT-Creation-Date: 2022-08-06 15:15+0000\n"
+"PO-Revision-Date: 2022-08-06 23:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -68,6 +68,13 @@ msgstr "备注时允许上传本地图片"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__allow_apply_offworkday
 msgid "Allow to submit card replacement application"
 msgstr "允许提交补卡申请"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
+#, python-format
+msgid "Allowable check-in range (m)"
+msgstr "允许打卡范围（米）"
 
 #. module: wecom_attendance
 #: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
@@ -143,11 +150,6 @@ msgid "Check-in personnel"
 msgstr "打卡人员"
 
 #. module: wecom_attendance
-#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
-msgid "Check-in place"
-msgstr "打卡地点"
-
-#. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__groupid
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__groupname
 msgid "Check-in rule id"
@@ -160,9 +162,8 @@ msgstr "打卡人员"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__checkindate
-#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
 msgid "Check-in time"
-msgstr "打开时间"
+msgstr "打卡时间"
 
 #. module: wecom_attendance
 #. openerp-web
@@ -231,6 +232,13 @@ msgstr "创建时间"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_time
 msgid "Created on(UTC)"
 msgstr "创建时间(UTC)"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
+#, python-format
+msgid "Details of check-in place"
+msgstr "位置打卡地点详情"
 
 #. module: wecom_attendance
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__display_name
@@ -355,7 +363,10 @@ msgid "Late times are allowed"
 msgstr "允许迟到时间"
 
 #. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__lat
+#, python-format
 msgid "Latitude"
 msgstr "纬度"
 
@@ -370,7 +381,10 @@ msgid "Location Title"
 msgstr "位置打卡地点名称"
 
 #. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__lng
+#, python-format
 msgid "Longitude"
 msgstr "经度"
 
@@ -414,6 +428,13 @@ msgstr "必须拍照"
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__name
 msgid "Name"
 msgstr "名称"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
+#, python-format
+msgid "Name of check-in place"
+msgstr "位置打卡地点名称"
 
 #. module: wecom_attendance
 #. openerp-web
@@ -634,12 +655,18 @@ msgid "Whitelist"
 msgstr "白名单"
 
 #. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/wifimac.xml:0
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__wifimac
+#, python-format
 msgid "WiFi MAC address"
 msgstr "WiFi打卡地点MAC地址"
 
 #. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/wifimac.xml:0
 #: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__wifiname
+#, python-format
 msgid "WiFi Name"
 msgstr "WiFi打卡地点名称"
 

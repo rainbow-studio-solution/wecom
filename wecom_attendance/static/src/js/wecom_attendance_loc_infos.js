@@ -1,8 +1,8 @@
 //---------------------------------------------------------------------------
-// 企业微信打卡规则-打卡日期渲染小部件
+// 企业微信打卡规则- WiFi打卡信息 渲染小部件
 //---------------------------------------------------------------------------
 
-odoo.define('wecom_attendance.checkindate', function (require) {
+odoo.define('wecom_attendance.loc_infos', function (require) {
     "use strict";
 
     var core = require('web.core');
@@ -12,7 +12,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
     var fieldRegistry = require('web.field_registry');
     var QWeb = core.qweb;
 
-    var WecomAttendanceCheckindate = AbstractField.extend({
+    var WecomAttendanceLocInfos = AbstractField.extend({
         className: 'wecom_attendance_view',
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
@@ -20,7 +20,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
             this.state = state; // 字段名称
             this.params = params;
             this.data = params.data;
-            this.template_content = params.data["checkindate"]
+            this.template_content = params.data["loc_infos"]
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);
@@ -34,45 +34,38 @@ odoo.define('wecom_attendance.checkindate', function (require) {
             } else {
                 this.template_content = JSON.parse(this.template_content);
                 if (this.template_content.length > 0) {
-                    self._renderCheckindate();
+                    self._renderWifimac();
                 }
             }
         },
         _prepareInput: function ($el) {
             return this.$el;
         },
-        _renderCheckindate: function () {
+        _renderWifimac: function () {
             var self = this;
             let rows = this.template_content;
-            console.log(rows)
+
             _.forEach(rows, function (row) {
-                let times = row.checkintime;
-                _.forEach(times, function (time) {
-                    for (var key in time) {
-                        time[key] = self.changeSecondsToHours(time[key]);
+                for (var key in row) {
+                    if (key == 'lat' || key == 'lng') {
+                        row[key] = self.transformLatAndLng(row[key]);
                     }
-                })
+                }
 
             });
-            let $control = $(QWeb.render('WecomAttendance.Checkindate', {
+            let $control = $(QWeb.render('WecomAttendance.Location', {
                 rows: rows,
             }));
             $control.appendTo(this.$el);
         },
-        changeSecondsToHours: function (seconds) {
-            // 将秒转化成 HH:mm 格式
-            const time = moment.duration(seconds, 'seconds');
-            const hours = time.hours();
-            const minutes = time.minutes();
-            return moment({
-                h: hours,
-                m: minutes
-            }).format('HH:mm');
+        transformLatAndLng: function (value) {
+            // 位置打卡地点纬度和精度，是实际纬度和维度的1000000倍，与腾讯地图一致采用GCJ-02坐标系统标准
+            return value / 1000000;
         },
     });
-    fieldRegistry.add('wecom_attendance_checkindate', WecomAttendanceCheckindate);
+    fieldRegistry.add('wecom_attendance_loc_infos', WecomAttendanceLocInfos);
 
     return {
-        WecomAttendanceCheckindate: WecomAttendanceCheckindate,
+        WecomAttendanceLocInfos: WecomAttendanceLocInfos,
     };
 });

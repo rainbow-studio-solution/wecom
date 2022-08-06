@@ -1,93 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
 
-    <div t-name="WecomAttendance.Checkindate" class="wecom_attendance_checkindate_view_container container-fluid p-0 w-100">
-        <div class="row no-gutters wecom_attendance_checkindate_header_container position-sticky bg-white">
-            <div class="col-3  wecom_attendance_checkindate_header">
+    <div t-name="WecomAttendance.Checkindate" class="wecom_attendance_view_container container-fluid p-0 w-100">
+        <div class="row no-gutters wecom_attendance_header_container position-sticky bg-white">
+            <div class="col-3  wecom_attendance_header">
                 <div class="row no-gutters border-bottom">
-                    <div class="col text-center p-1 font-weight-bold wecom_attendance_checkindate_header_cell">
+                    <div class="col text-center p-1 font-weight-bold wecom_attendance_header_cell">
                         Work Days
                     </div>
                 </div>
                 <div class="row no-gutters">
                     <div class="col col-text-center font-weight-bold">
                         <div class="row no-gutters">
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Mon</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Tues</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Wed</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Thur</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Fri</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Sat</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1">Sun</div>
+                            <div class="col wecom_attendance_header_cell p-1">Mon</div>
+                            <div class="col wecom_attendance_header_cell p-1">Tues</div>
+                            <div class="col wecom_attendance_header_cell p-1">Wed</div>
+                            <div class="col wecom_attendance_header_cell p-1">Thur</div>
+                            <div class="col wecom_attendance_header_cell p-1">Fri</div>
+                            <div class="col wecom_attendance_header_cell p-1">Sat</div>
+                            <div class="col wecom_attendance_header_cell p-1">Sun</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-3 wecom_attendance_checkindate_header">
+            <div class="col-3 wecom_attendance_header">
                 <div class="row no-gutters border-bottom">
-                    <div class="col text-center p-1 font-weight-bold wecom_attendance_checkindate_header_cell">
+                    <div class="col text-center p-1 font-weight-bold wecom_attendance_header_cell">
                         Check-in Time
                     </div>
                 </div>
                 <div class="row no-gutters">
                     <div class="col text-center font-weight-bold">
                         <div class="row no-gutters">
-                            <div class="col wecom_attendance_checkindate_header_cell p-1 ">On work</div>
-                            <div class="col wecom_attendance_checkindate_header_cell p-1 ">Off work</div>
+                            <div class="col wecom_attendance_header_cell p-1 ">On work</div>
+                            <div class="col wecom_attendance_header_cell p-1 ">Off work</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col row no-gutters wecom_attendance_checkindate_header">
-                <div class="col text-center font-weight-bold wecom_attendance_checkindate_header_cell p-1 h-100">
+            <div class="col row no-gutters wecom_attendance_header">
+                <div class="col text-center font-weight-bold wecom_attendance_header_cell p-1 h-100">
                     No need to Check-out after work
                 </div>
-                <div class="col text-center font-weight-bold wecom_attendance_checkindate_header_cell p-1 h-100">
+                <div class="col text-center font-weight-bold wecom_attendance_header_cell p-1 h-100">
                     Check-in time limit
                 </div>
-                <div class="col text-center font-weight-bold wecom_attendance_checkindate_header_cell p-1 h-100">
+                <div class="col text-center font-weight-bold wecom_attendance_header_cell p-1 h-100">
                     Late times are allowed
                 </div>
-                <div class="col text-center font-weight-bold wecom_attendance_checkindate_header_cell p-1 h-100">
+                <div class="col text-center font-weight-bold wecom_attendance_header_cell p-1 h-100">
                     Early departure time allowed
                 </div>
 
             </div>
         </div>
         <div class="row no-gutters">
-            <div class="col wecom_attendance_checkindate_row_container">
-                <div class="row no-gutters wecom_attendance_checkindate_row" t-foreach="rows" t-as="row">
+            <div class="col wecom_attendance_row_container">
+                <div class="row no-gutters wecom_attendance_row" t-foreach="rows" t-as="row">
                     <div class="col-3 col-text-center">
                         <t set="workdays" t-value="row.workdays.split(',')"/>
                         <t set="checkintime" t-value="row.checkintime" />
 
                         <div class="row no-gutters h-100">
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(1) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(2) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(3) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(4) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(5) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(6) > -1 ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{workdays.indexOf(0) > -1 ? 'true':undefined }}"/>
                             </div>
                         </div>
                     </div>
                     <div class="col-3 col-text-center">
                         <div class="row no-gutters" t-foreach="checkintime" t-as="time">
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <span>
                                     <t t-esc="time.work_sec"/>
                                 </span>
@@ -96,7 +96,7 @@
                                     <t t-esc="time.remind_work_sec"/>
                                 </span>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <span>
                                     <t t-esc="time.off_work_sec"/>
                                 </span>
@@ -110,18 +110,18 @@
                     </div>
                     <div class="col col-text-center">
                         <div class="row no-gutters h-100">
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <input type="checkbox" disabled="disable" t-attf-checked="{{row.noneed_offwork ? 'true':undefined }}"/>
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <t t-esc="row.limit_aheadtime"/>
  (millisecond)
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <t t-esc="row.flex_on_duty_time"/>
  (millisecond)
                             </div>
-                            <div class="col p-1 wecom_attendance_checkindate_row_cell">
+                            <div class="col p-1 wecom_attendance_row_cell">
                                 <t t-esc="row.flex_on_duty_time"/>
  (millisecond)
                             </div>

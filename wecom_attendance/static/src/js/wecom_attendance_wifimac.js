@@ -1,8 +1,8 @@
 //---------------------------------------------------------------------------
-// 企业微信打卡规则-打卡日期渲染小部件
+// 企业微信打卡规则- WiFi打卡信息 渲染小部件
 //---------------------------------------------------------------------------
 
-odoo.define('wecom_attendance.checkindate', function (require) {
+odoo.define('wecom_attendance.wifimac', function (require) {
     "use strict";
 
     var core = require('web.core');
@@ -12,7 +12,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
     var fieldRegistry = require('web.field_registry');
     var QWeb = core.qweb;
 
-    var WecomAttendanceCheckindate = AbstractField.extend({
+    var WecomAttendanceWifimac = AbstractField.extend({
         className: 'wecom_attendance_view',
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
@@ -20,7 +20,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
             this.state = state; // 字段名称
             this.params = params;
             this.data = params.data;
-            this.template_content = params.data["checkindate"]
+            this.template_content = params.data["wifimac_infos"]
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);
@@ -34,27 +34,18 @@ odoo.define('wecom_attendance.checkindate', function (require) {
             } else {
                 this.template_content = JSON.parse(this.template_content);
                 if (this.template_content.length > 0) {
-                    self._renderCheckindate();
+                    self._renderWifimac();
                 }
             }
         },
         _prepareInput: function ($el) {
             return this.$el;
         },
-        _renderCheckindate: function () {
+        _renderWifimac: function () {
             var self = this;
             let rows = this.template_content;
-            console.log(rows)
-            _.forEach(rows, function (row) {
-                let times = row.checkintime;
-                _.forEach(times, function (time) {
-                    for (var key in time) {
-                        time[key] = self.changeSecondsToHours(time[key]);
-                    }
-                })
 
-            });
-            let $control = $(QWeb.render('WecomAttendance.Checkindate', {
+            let $control = $(QWeb.render('WecomAttendance.Wifimac', {
                 rows: rows,
             }));
             $control.appendTo(this.$el);
@@ -70,9 +61,9 @@ odoo.define('wecom_attendance.checkindate', function (require) {
             }).format('HH:mm');
         },
     });
-    fieldRegistry.add('wecom_attendance_checkindate', WecomAttendanceCheckindate);
+    fieldRegistry.add('wecom_attendance_wifimac', WecomAttendanceWifimac);
 
     return {
-        WecomAttendanceCheckindate: WecomAttendanceCheckindate,
+        WecomAttendanceWifimac: WecomAttendanceWifimac,
     };
 });

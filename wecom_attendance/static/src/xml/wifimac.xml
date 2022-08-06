@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <div t-name="WecomAttendance.Wifimac" class="wecom_attendance_view_container container-fluid p-0 w-100">
+        <div class="row no-gutters wecom_attendance_header_container position-sticky bg-white">
+            <div class="col">
+                <div class="row no-gutters border-bottom wecom_attendance_header">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 h-100 w-100">
+                        WiFi Name
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row no-gutters border-bottom wecom_attendance_header">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 h-100 w-100">
+                        WiFi MAC address
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col wecom_attendance_row_container">
+                <div class="row no-gutters wecom_attendance_row" t-foreach="rows" t-as="row">
+                    <div class="col p-1 wecom_attendance_row_cell text-left">
+                        <t t-esc="row.wifiname"/>
+                    </div>
+                    <div class="col p-1 wecom_attendance_row_cell text-left">
+                        <t t-esc="row.wifimac"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</templates>

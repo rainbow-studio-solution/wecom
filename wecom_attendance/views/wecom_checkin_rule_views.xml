@@ -25,7 +25,7 @@
             <field name="name">Wecom Check-in Rules form</field>
             <field name="model">wecom.checkin.rule</field>
             <field name="arch" type="xml">
-                <form edit="false" create="false">
+                <form edit="false" create="false" class="wecom_checkin_rule_form">
                     <field name="company_id" invisible="1"/>
                     <header>
 
@@ -41,24 +41,24 @@
                         <group>
                             <group string="Check-in Rule Type">
                                 <field name="grouptype" invisible="1" />
-                                <field name="grouptype_name" widget="radio" />
+                                <field name="grouptype_name" widget="radio" class="disabled-radio"/>
                             </group>
-                            <group string="Check-in personnel">
-                                <field name="range" />
-                                <field name="white_users" />
-                                <field name="reporterinfo" />
-                            </group>
-                        </group>
-                        <group>
                             <group string="Check-in Type">
                                 <field name="type_name" widget="radio" />
                             </group>
-                            <group tring="Check-in place">
-                                <!-- <field name="wifimac_infos" />
-                                <field name="loc_infos" /> -->
-                            </group>
                         </group>
-                        <group col="4" string="Check-in Time">
+                        <group string="Check-in personnel" col="4">
+                            <field name="range" />
+                            <field name="white_users" />
+                            <field name="reporterinfo" />
+                        </group>
+                        <group string="Check-in location - WiFi check-in information" col="4">
+                            <field nolabel="1" name="wifimac_infos" widget="wecom_attendance_wifimac"/>
+                        </group>
+                        <group string="Check-in location - location check-in information" col="4">
+                            <field nolabel="1" name="loc_infos" widget="wecom_attendance_loc_infos"/>
+                        </group>
+                        <group string="Check-in Time" attrs="{'invisible': [('grouptype','=',2)]}" col="4">
                             <field name="checkindate" widget="wecom_attendance_checkindate" nolabel="1"/>
                         </group>
                         <group>
@@ -71,12 +71,12 @@
                         </group>
                         <notebook>
                             <page name="rule_info" string="Original rule information">
-                                <!-- <field name="group" widget="ace" options="{'mode': 'python'}" class="w-100"/> -->
-                                <field name="group" widget="wecom_jsoneditor" nolabel="1" options='{"safe": True}'/>
+                                <field name="group" widget="ace" options="{'mode': 'python'}" class="w-100"/>
+                                <!-- <field name="group" widget="wecom_jsoneditor" nolabel="1" options='{"safe": True}'/> -->
                             </page>
-                            <page name="place" string="Check-in time" attrs="{'invisible': [('grouptype','=',2)]}">
+                            <!-- <page name="place" string="Check-in time" attrs="{'invisible': [('grouptype','=',2)]}">
                                 <group>
-                                    <!-- <field name="checkindate" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/> -->
+                                    <field name="checkindate" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/>
                                 </group>
                             </page>
                             <page name="place" string="Check-in place">
@@ -88,7 +88,7 @@
                                         <field name="wifimac_infos" widget="ace" options="{'mode': 'python'}" class="w-100 border" nolabel="1"/>
                                     </group>
                                 </group>
-                            </page>
+                            </page> -->
                         </notebook>
                     </sheet>
                 </form>

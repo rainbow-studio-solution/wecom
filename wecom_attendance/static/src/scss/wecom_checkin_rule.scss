@@ -1,0 +1,19 @@
+.wecom_checkin_rule_form {
+    .o_field_radio {
+        .custom-control.custom-radio.o_radio_item {
+            
+
+            .custom-control-input:disabled:checked~.custom-control-label::before {
+                border: 1px solid #007bff !important;
+                background-color: rgba(0, 123, 255, .5) !important;
+            }
+        }
+    }
+
+    .custom-radio.custom-control-input:disabled:checked~.custom-control-label::before {
+        background-color: rgba(0, 123, 255, .5) !important;
+    }
+
+
+
+}

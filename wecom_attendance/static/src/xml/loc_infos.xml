@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <div t-name="WecomAttendance.Location" class="wecom_attendance_view_container container-fluid p-0 w-100">
+        <div class="row no-gutters wecom_attendance_header_container position-sticky bg-white">
+            <div class="col-3">
+                <div class="row no-gutters border-bottom wecom_attendance_header h-100">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 w-100">
+                        Name of check-in place
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="row no-gutters border-bottom wecom_attendance_header h-100">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 w-100">
+                        Details of check-in place
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="row no-gutters border-bottom wecom_attendance_header h-100">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 w-100">
+                        Latitude
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="row no-gutters border-bottom wecom_attendance_header h-100">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 w-100">
+                        Longitude
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row no-gutters border-bottom wecom_attendance_header h-100">
+                    <div class=" text-center font-weight-bold wecom_attendance_header_cell p-1 w-100">
+                        Allowable check-in range (m)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col wecom_attendance_row_container">
+                <div class="row no-gutters wecom_attendance_row" t-foreach="rows" t-as="row">
+                    <div class="col-3 p-1 wecom_attendance_row_cell text-left">
+                        <t t-esc="row.loc_title"/>
+                    </div>
+                    <div class="col-5 p-1 wecom_attendance_row_cell text-left">
+                        <t t-esc="row.loc_detail"/>
+                    </div>
+                    <div class="col-1 p-1 wecom_attendance_row_cell text-right">
+                        <t t-esc="row.lat"/>
+                    </div>
+                    <div class="col-1 p-1 wecom_attendance_row_cell text-right">
+                        <t t-esc="row.lng"/>
+                    </div>
+                    <div class="col-2 p-1 wecom_attendance_row_cell text-right">
+                        <t t-esc="row.distance"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</templates>
