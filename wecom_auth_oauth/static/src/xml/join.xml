@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="wecom_auth_oauth.Join">
-        <a role="button" class="btn btn-info btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#join_qrcode_collapse" aria-controls="login_join_qrcode">
+        <a role="button" class="btn btn-info btn-block mt8 mb8" aria-expanded="false" data-toggle="collapse" href="#join_qrcode_collapse" aria-controls="login_join_qrcode" >
             <t t-esc="button_name"/>
         </a>
 
