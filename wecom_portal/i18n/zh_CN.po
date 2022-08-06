@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-30 09:20+0000\n"
-"PO-Revision-Date: 2022-06-30 17:21+0800\n"
+"POT-Creation-Date: 2022-08-06 15:58+0000\n"
+"PO-Revision-Date: 2022-08-06 23:59+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
@@ -63,13 +63,7 @@ msgid ""
 msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“Secret”"
 
 #. module: wecom_portal
-#: model:wecom.app.subtype,name:wecom_portal.wecom_app_subtype_menu
-msgid "Application Menu"
-msgstr "应用菜单"
-
-#. module: wecom_portal
 #: model:ir.model.fields,field_description:wecom_portal.field_res_config_settings__menu_body
-#: model:ir.model.fields,field_description:wecom_portal.field_wecom_apps__menu_body
 msgid "Application menu data"
 msgstr "应用菜单数据"
 
@@ -94,15 +88,15 @@ msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wecom_portal
-#: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
-msgid "Delete menu"
-msgstr "删除菜单"
-
-#. module: wecom_portal
 #: code:addons/wecom_portal/models/wecom_apps.py:0
 #, python-format
 msgid "Delete application menu successfully!"
 msgstr "删除应用菜单成功！"
+
+#. module: wecom_portal
+#: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
+msgid "Delete menu"
+msgstr "删除菜单"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
@@ -119,11 +113,6 @@ msgstr "获取应用菜单成功！"
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
 msgid "Get menu"
 msgstr "获取菜单"
-
-#. module: wecom_portal
-#: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
-msgid "Setup menu"
-msgstr "设置菜单"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
@@ -146,19 +135,26 @@ msgstr "我的门户"
 #: code:addons/wecom_portal/wizard/portal_wizard.py:0
 #, python-format
 msgid "No email template found for sending email to the portal user"
-msgstr ""
+msgstr "未找到用于向门户用户发送电子邮件的电子邮件模板"
 
 #. module: wecom_portal
 #: code:addons/wecom_portal/wizard/portal_wizard.py:0
 #, python-format
 msgid "No message template found for sending message to the portal user"
-msgstr ""
+msgstr "未找到用于向门户用户发送消息的消息模板"
 
 #. module: wecom_portal
 #: code:addons/wecom_portal/models/res_config_settings.py:0
 #, python-format
 msgid "Portal application ID and secret cannot be empty!"
 msgstr "门户应用ID和密钥不能为空！"
+
+#. module: wecom_portal
+#. openerp-web
+#: code:addons/wecom_portal/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Portal settings"
+msgstr "门户设置"
 
 #. module: wecom_portal
 #: model:ir.model.fields,field_description:wecom_portal.field_res_config_settings__menu_secret
@@ -172,6 +168,11 @@ msgid "Set application menu successfully!"
 msgstr "成功设置应用菜单！"
 
 #. module: wecom_portal
+#: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
+msgid "Setup menu"
+msgstr "设置菜单"
+
+#. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.portal_layout
 msgid "WeCom QR Code"
 msgstr "企微二维码"
@@ -183,8 +184,7 @@ msgstr "企微应用"
 
 #. module: wecom_portal
 #: model_terms:ir.ui.view,arch_db:wecom_portal.wecom_portal_res_config_settings_view_form
-msgid ""
-"When using the domain name to log in, click the \"Setup menu\" button."
+msgid "When using the domain name to log in, click the \"Setup menu\" button."
 msgstr "使用域名登录时，单击“设置菜单”按钮。"
 
 #. module: wecom_portal

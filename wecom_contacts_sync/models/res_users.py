@@ -47,7 +47,7 @@ class User(models.Model):
         string="Company employee",
         compute="_compute_company_employee",
         search="_search_company_employee",
-        store=True,
+        # store=True,
     )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
 
     # ----------------------------------------------------------------------------------

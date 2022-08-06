@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-10 01:51+0000\n"
-"PO-Revision-Date: 2022-07-10 09:57+0800\n"
+"POT-Creation-Date: 2022-08-06 15:52+0000\n"
+"PO-Revision-Date: 2022-08-06 23:53+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -146,12 +146,12 @@ msgstr "分组"
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: wecom_material
 #: model:wecom.material,name:wecom_material.wecom_material_image_kpi
 msgid "KPI"
-msgstr "KPI"
+msgstr ""
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material____last_update
@@ -171,7 +171,7 @@ msgstr "最后更新时间"
 #. module: wecom_material
 #: model:wecom.material,name:wecom_material.wecom_material_image_logo
 msgid "Logo"
-msgstr "Logo"
+msgstr ""
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
@@ -189,6 +189,13 @@ msgstr "素材应用"
 #, python-format
 msgid "Material application ID and secret cannot be empty!"
 msgstr "媒体应用ID和Secret 不能为空！"
+
+#. module: wecom_material
+#. openerp-web
+#: code:addons/wecom_material/static/src/xml/wecom_settings_navigation.xml:0
+#, python-format
+msgid "Material settings"
+msgstr "素材设置"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__media_filename
@@ -320,9 +327,9 @@ msgstr "此用户将有权限审批员工创建的文档。"
 #. module: wecom_material
 #: model:res.groups,comment:wecom_material.group_wecom_material_manager
 msgid ""
-"The user will have access to the WeCom configuration as well as statistic "
-"reports."
-msgstr ""
+"The user will have access to the wecom material configuration as well as "
+"statistic reports."
+msgstr "用户可以访问企微素材配置以及统计报告。"
 
 #. module: wecom_material
 #: code:addons/wecom_material/__init__.py:0

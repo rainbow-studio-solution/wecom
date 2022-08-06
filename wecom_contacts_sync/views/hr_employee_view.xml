@@ -3,7 +3,7 @@
     <data>
 
         <record id="hrms_base_employee_form" model="ir.ui.view">
-            <field name="name">wxwork employee form</field>
+            <field name="name">wecom employee form</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">

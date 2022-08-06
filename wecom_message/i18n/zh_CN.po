@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-10 07:13+0000\n"
-"PO-Revision-Date: 2022-07-10 15:25+0800\n"
+"POT-Creation-Date: 2022-08-06 16:01+0000\n"
+"PO-Revision-Date: 2022-08-07 00:03+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -116,7 +116,7 @@ msgstr ""
 "\n"
 "开启接收消息模式后，应用中用户发送的消息会推送到企业后台。此外，还可以配置地理位置报告等事件消息。当事件触发时，企业微信会将相应的数据推送到企业后台。<br/>\n"
 "\n"
-"收到消息后，企业后台可以在响应包中带来一条新消息来回复消息请求，企业微信会将被动回复消息推送给用户。<br/>"
+"收到消息后，企业后台可以在响应包中带来一条新消息来回复消息请求，企业微信会将被动回复消息推送给用户。<br/> "
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_template_view_form
@@ -243,7 +243,7 @@ msgstr "取消"
 #: code:addons/wecom_message/models/res_users.py:0
 #, python-format
 msgid "Cannot send email: user %s has no email address."
-msgstr "无法发送电子邮件：用户 %s 没有电子邮件地址。"
+msgstr "无法发送电子邮件：%s 用户没有电子邮件地址。"
 
 #. module: wecom_message
 #: model:ir.model.fields.selection,name:wecom_message.selection__mail_mail__safe__1 model:ir.model.fields.selection,name:wecom_message.selection__mail_message__safe__1
@@ -359,7 +359,7 @@ msgstr "邮件主题"
 #: code:addons/wecom_message/models/wecom_message_api.py:0
 #, python-format
 msgid "Error sending message: %s"
-msgstr "发送消息时出错： %s"
+msgstr "发送消息时出错：%s"
 
 #. module: wecom_message
 #: model:ir.model.fields.selection,name:wecom_message.selection__mail_message__state__exception
@@ -662,7 +662,7 @@ msgstr "小程序通知消息"
 #: code:addons/wecom_message/wizard/mail_compose_message.py:0
 #, python-format
 msgid "No recipient found."
-msgstr "未找到收件人。"
+msgstr "没有找到收件人。"
 
 #. module: wecom_message
 #: model_terms:ir.ui.view,arch_db:wecom_message.view_wecom_mail_search model_terms:ir.ui.view,arch_db:wecom_message.wecom_message_notification_view_form
