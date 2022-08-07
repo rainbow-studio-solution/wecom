@@ -9,3 +9,8 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
 "wecom_employee_bind_wecom_wizard","access.wecom.employee_bind_wecom_wizard","model_wecom_employee_bind_wecom_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0
 "wecom_user_bind_wecom_wizard_access_right","access.wecom.user_bind_wecom_wizard","model_wecom_user_bind_wecom_wizard","wecom_base.group_wecom_settings_manager",1,1,1,0
+
+
+"access_wecom_department_right","access.wecom.department","model_wecom_department","wecom_base.group_wecom_settings_manager",1,1,1,1
+"access_wecom_user_right","access.wecom.user","model_wecom_user","wecom_base.group_wecom_settings_manager",1,1,1,1
+"access_wecom_tag_right","access.wecom.tag","model_wecom_tag","wecom_base.group_wecom_settings_manager",1,1,1,1

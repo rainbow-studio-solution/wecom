@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
@@ -14,17 +15,29 @@
                         <field name="companies" />
 
                     </group>
-
-                    <separator string="Help"/>
-                    <div>
-                        Linux production server uses the following command to view real-time logs:
-                    </div>
-                    <div class="mt8 mb16">
-                        <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
-                    </div>
-                    <div>
-                        If an error occurs, please check the help file.
-                    </div>
+                    <group string="Application Configuration">
+                        <field name="contacts_app_id" invisible="1"/>
+                        <field name="contacts_app_config_ids" class="w-100" nolabel="1">
+                            <tree create="0" edit="0" delete="0">
+                                <field name="name"/>
+                                <field name="ttype"/>
+                                <field name="value"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <notebook>
+                        <page string="Help">
+                            <div>
+                                Linux production server uses the following command to view real-time logs:
+                            </div>
+                            <div class="mt8 mb16">
+                                <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                            </div>
+                            <div>
+                                If an error occurs, please check the help file.
+                            </div>
+                        </page>
+                    </notebook>
 
                     <footer>
                         <button name="wizard_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>

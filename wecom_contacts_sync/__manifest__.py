@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["wecom_contacts", "hrms_base",],
+    "depends": ["wecom_contacts", "hr",],
     "external_dependencies": {"python": ["pandas"],},
     "data": [
         "security/ir.model.access.csv",
@@ -37,6 +37,7 @@
         "views/hr_employee_view.xml",
         "views/hr_employee_category_views.xml",
         "views/ir_cron_views.xml",
+        "views/wecom_user_views.xml",
         "views/menu_views.xml",
     ],
     "assets": {
@@ -46,9 +47,7 @@
         "web.assets_backend": [
             # SCSSS
             # JS
-            "wecom_contacts_sync/static/src/js/download_deps.js",
-            "wecom_contacts_sync/static/src/js/download_staffs.js",
-            "wecom_contacts_sync/static/src/js/download_tags.js",
+            "wecom_contacts_sync/static/src/js/*.js",
         ],
         "web.assets_qweb": ["wecom_contacts_sync/static/src/xml/*.xml",],
     },

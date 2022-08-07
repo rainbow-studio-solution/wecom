@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <menuitem name="Wecom Checkin Rules" id="menu_hrms_wecom_checkin_rule_list" parent="hrms_attendance.menu_hrms_attendance_manage_attendances" sequence="3" action="action_view_wecom_checkin_rule_list" groups="hr_attendance.group_hr_attendance,hr_attendance.group_hr_attendance_user" />
+        <menuitem name="Wecom Checkin Rules" id="menu_wecom_checkin_rule_list" parent="wecom_base.menu_wecom_attendance" sequence="3" action="action_view_wecom_checkin_rule_list" groups="wecom_base.group_wecom_settings_manager" />
 
     </data>
 

@@ -47,6 +47,9 @@
         <!-- 4.通讯录-->
         <menuitem id="menu_wecom_contacts" name="Wecom Contacts" parent="wecom_base.menu_wecom_root" sequence="4" groups="group_wecom_settings_manager"/>
 
+        <!-- 5.企微打卡-->
+        <menuitem id="menu_wecom_attendance" name="Wecom Attendances" parent="wecom_base.menu_wecom_root" sequence="5" groups="group_wecom_settings_manager"/>
+
         <!-- 99.自动任务-->
         <menuitem id="menu_wecom_cron" name="Wecom tasks" parent="wecom_base.menu_wecom_root" sequence="99" groups="group_wecom_settings_manager"/>
 

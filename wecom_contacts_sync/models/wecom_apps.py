@@ -379,25 +379,25 @@ Synchronize contact tag results:
                 }
             )
 
-            # # 同步HR员工
-            # sync_employee_result = (
-            #     self.env["hr.employee"]
-            #     .with_context(company_id=self.company_id)
-            #     .download_wecom_staffs()
-            # )
-            # print(sync_employee_result)
-            # (
-            #     hr_employee_sync_state,
-            #     hr_employee_sync_times,
-            #     hr_employee_sync_result,
-            # ) = self.handle_sync_task_state(sync_employee_result, self.company_id)
-            # result.update(
-            #     {
-            #         "hr_employee_sync_state": hr_employee_sync_state,
-            #         "hr_employee_sync_times": hr_employee_sync_times,
-            #         "hr_employee_sync_result": hr_employee_sync_result,
-            #     }
-            # )
+            # 同步HR员工
+            sync_employee_result = (
+                self.env["hr.employee"]
+                .with_context(company_id=self.company_id)
+                .download_wecom_staffs()
+            )
+            print(sync_employee_result)
+            (
+                hr_employee_sync_state,
+                hr_employee_sync_times,
+                hr_employee_sync_result,
+            ) = self.handle_sync_task_state(sync_employee_result, self.company_id)
+            result.update(
+                {
+                    "hr_employee_sync_state": hr_employee_sync_state,
+                    "hr_employee_sync_times": hr_employee_sync_times,
+                    "hr_employee_sync_result": hr_employee_sync_result,
+                }
+            )
 
             # # 同步HR标签
             # sync_hr_tag_result = (
@@ -467,6 +467,7 @@ Synchronize contact tag results:
                     )
                     % self.company_id.name,
 
+                    # 部门
                     "hr_department_sync_state": "fail",
                     "hr_department_sync_times": 0,
                     "hr_department_sync_result": _(
@@ -474,12 +475,13 @@ Synchronize contact tag results:
                     )
                     % self.company_id.name,
 
-                    # "hr_employee_sync_state": "fail",
-                    # "hr_employee_sync_times": 0,
-                    # "hr_employee_sync_result": _(
-                    #     "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
-                    # )
-                    # % self.company_id.name,
+                    # 员工
+                    "hr_employee_sync_state": "fail",
+                    "hr_employee_sync_times": 0,
+                    "hr_employee_sync_result": _(
+                        "Synchronization of company [%s] failed. Reason:configuration does not allow synchronization to HR."
+                    )
+                    % self.company_id.name,
 
                     # "hr_tag_sync_state": "fail",
                     # "hr_tag_sync_times": 0,
@@ -539,9 +541,9 @@ Synchronize contact tag results:
         fail_department_state_rows = len(
             df[df["hr_department_sync_state"] == "fail"]
         )  # 获取HR部门失败行数
-        # fail_employee_state_rows = len(
-        #     df[df["hr_employee_sync_state"] == "fail"]
-        # )  # 获取HR员工失败行数
+        fail_employee_state_rows = len(
+            df[df["hr_employee_sync_state"] == "fail"]
+        )  # 获取HR员工失败行数
         # fail_hr_tag_state_rows = len(
         #     df[df["hr_tag_sync_state"] == "fail"]
         # )  # 获取HR标签失败行数
@@ -554,7 +556,7 @@ Synchronize contact tag results:
 
         sync_state = None
         hr_department_sync_state = None
-        # hr_employee_sync_state = None
+        hr_employee_sync_state = None
         # hr_tag_sync_state = None
         # res_user_sync_state = None
         # partner_tag_sync_state = None
@@ -566,6 +568,7 @@ Synchronize contact tag results:
         elif fail_state_rows == 0:
             sync_state = "completed"
 
+        # 部门
         if fail_department_state_rows == all_state_rows:
             hr_department_sync_state = "fail"
         elif (
@@ -576,12 +579,13 @@ Synchronize contact tag results:
         elif fail_department_state_rows == 0:
             hr_department_sync_state = "completed"
 
-        # if fail_employee_state_rows == all_state_rows:
-        #     hr_employee_sync_state = "fail"
-        # elif fail_employee_state_rows > 0 and fail_employee_state_rows < all_state_rows:
-        #     hr_employee_sync_state = "partially"
-        # elif fail_employee_state_rows == 0:
-        #     hr_employee_sync_state = "completed"
+        # 员工
+        if fail_employee_state_rows == all_state_rows:
+            hr_employee_sync_state = "fail"
+        elif fail_employee_state_rows > 0 and fail_employee_state_rows < all_state_rows:
+            hr_employee_sync_state = "partially"
+        elif fail_employee_state_rows == 0:
+            hr_employee_sync_state = "completed"
 
         # if fail_hr_tag_state_rows == all_state_rows:
         #     hr_tag_sync_state = "fail"
@@ -610,7 +614,7 @@ Synchronize contact tag results:
         return (
             sync_state,
             hr_department_sync_state,
-            # hr_employee_sync_state,
+            hr_employee_sync_state,
             # hr_tag_sync_state,
             # res_user_sync_state,
             # partner_tag_sync_state,

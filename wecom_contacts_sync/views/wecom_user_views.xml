@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_user_filter" model="ir.ui.view">
+            <field name="name">wecom.user.search</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="name" string="User" />
+                    <field name="userid" string="User ID" />
+                </search>
+                <searchpanel>
+                    <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                    <field name="department_id" icon="fa-users" enable_counters="1"/>
+                </searchpanel>
+            </field>
+        </record>
+
+        <record id="view_wecom_user_tree" model="ir.ui.view">
+            <field name="name">wecom.user.tree</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <tree string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_tree_sync">
+                    <field name="name" />
+                    <field name="userid" />
+                    <field name="main_department" />
+                    <field name="is_leader_in_dept" />
+                    <field name="direct_leader" />
+                    <field name="status_name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="actions_wecom_contacts_list" model="ir.actions.act_window">
+            <field name="name">Wecom Contacts</field>
+            <field name="res_model">wecom.user</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_wecom_user_filter"/>
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

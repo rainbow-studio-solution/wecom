@@ -63,6 +63,9 @@
                                 <field name="qr_code" widget="image_url" class="oe_avatar"/>
                             </group>
                         </group>
+                        <group col="4" groups="base.group_no_one">
+                            <field name="wecom_user_info" widget="ace" options="{'mode': 'python'}" class="w-100"/>
+                        </group>
                     </page>
                 </xpath>
             </field>

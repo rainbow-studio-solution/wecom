@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from ast import Store
+
+import json
 import logging
 import base64
 import time
@@ -60,6 +61,7 @@ class HrEmployeePrivate(models.Model):
 
     
 
+    wecom_user_info = fields.Text(string="WeCom user info", readonly=True, default="{}")
     wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
     wecom_openid = fields.Char(string="WeCom OpenID", readonly=True,)
     alias = fields.Char(string="Alias", readonly=True,)
@@ -201,7 +203,7 @@ class HrEmployeePrivate(models.Model):
                 contacts_sync_hr_department_id = app_config.get_param(
                     company.contacts_app_id.id, "contacts_sync_hr_department_id"
                 )  # 需要同步的企业微信部门ID
-                # TODO 需要判断是否安装了 同步模块
+
                 response = wxapi.httpCall(
                     self.env["wecom.service_api_list"].get_server_api_call("USER_LIST"),
                     {
@@ -343,6 +345,7 @@ class HrEmployeePrivate(models.Model):
             result = self.create_employee(company, employee, wecom_employee)
         else:
             result = self.update_employee(company, employee, wecom_employee)
+        print("result", result)
         return result
 
     def create_employee(self, company, employee, wecom_employee):
@@ -363,9 +366,9 @@ class HrEmployeePrivate(models.Model):
                 "contacts_use_default_avatar_when_adding_employees",
             )  # 使用系统微信默认头像的标识
 
-            emp= employee.create(
+            emp= employee.sudo().create(
                 {
-                    "wecom_userid": wecom_employee["userid"].lower(),
+
                     "name": wecom_employee["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
                         wecom_employee, "english_name"
@@ -384,7 +387,7 @@ class HrEmployeePrivate(models.Model):
                     "work_email": wecom_employee["biz_mail"],  # 企业邮箱
                     # "private_email": wecom_employee["email"],  # 私人邮箱
                     "active": True if wecom_employee["status"] == 1 else False,
-                    "alias": wecom_employee["alias"],
+                    
                     "department_id": self.get_main_department(
                         company,
                         wecom_employee["name"],
@@ -392,7 +395,17 @@ class HrEmployeePrivate(models.Model):
                         department_ids,
                     ),
                     "company_id": company.id,
+                    # 企微字段
+                    "wecom_user_info": json.dumps(
+                        wecom_employee,
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    ),
+                    "alias": wecom_employee["alias"],
                     "department_ids": [(6, 0, department_ids)],
+                    "wecom_userid": wecom_employee["userid"].lower(),
                     "wecom_user_order": wecom_employee["order"],
                     "qr_code": wecom_employee["qr_code"],
                     "is_wecom_user": True,

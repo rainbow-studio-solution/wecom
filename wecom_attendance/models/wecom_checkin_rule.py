@@ -86,7 +86,7 @@ class WecomCheckinRule(models.Model):
     )  # 打卡地点-位置打卡信息
     range = fields.Text(string="Check-in staff", readonly=True, default="{}")  # 打卡人员信息
     create_time = fields.Datetime(
-        string="Created on(UTC)", readonly=True,
+        string="Created on", readonly=True,
     )  # 创建打卡规则时间，为unix时间戳
     white_users = fields.Text(
         string="Whitelist", readonly=True, default="{}"

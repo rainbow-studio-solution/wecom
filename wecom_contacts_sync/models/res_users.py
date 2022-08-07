@@ -42,13 +42,13 @@ WECOM_USER_MAPPING_ODOO_USER = {
 class User(models.Model):
     _inherit = ["res.users"]
 
-    employee_id = fields.Many2one(
-        "hr.employee",
-        string="Company employee",
-        compute="_compute_company_employee",
-        search="_search_company_employee",
-        # store=True,
-    )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
+    # employee_id = fields.Many2one(
+    #     "hr.employee",
+    #     string="Company employee",
+    #     compute="_compute_company_employee",
+    #     search="_search_company_employee",
+    #     store=True,
+    # )  # 变更用户类型时，需要绑定用户，避免出现“创建员工”的按钮，故 store=True
 
     # ----------------------------------------------------------------------------------
     # 开发人员注意：hr模块中

@@ -1154,6 +1154,11 @@ msgid "Wecom Contacts"
 msgstr "企微通讯录"
 
 #. module: wecom_base
+#: model:ir.ui.menu,name:wecom_base.menu_wecom_attendance
+msgid "Wecom Attendances"
+msgstr "企微出勤"
+
+#. module: wecom_base
 #: model:ir.model,name:wecom_base.model_wecom_service_api
 msgid "Wecom Server API"
 msgstr "企微服务API"

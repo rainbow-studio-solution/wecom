@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+    <!-- 同步通讯录 -->
+    <t t-extend="ListView.buttons" t-name="WecomUserSyncRequestListView.buttons">
+        <t t-jquery="t:last" t-operation="after">
+            <button type="button" class="btn btn-info o_button_sync_contacts fa fa-refresh" title="Sync Contacts" accesskey="s">
+                Sync Contacts
+            </button>
+        </t>
+    </t>
+
+</templates>
