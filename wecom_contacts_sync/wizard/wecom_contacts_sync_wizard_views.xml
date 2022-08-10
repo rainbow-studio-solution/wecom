@@ -51,51 +51,34 @@
                             <field name="sync_result" />
                         </group>
                     </group>
-                    <group string="Hr Department sync">
+                    <group string="Wecom Department sync">
                         <group>
-                            <field name="hr_department_sync_state" />
-                            <field name="hr_department_sync_times" />
+                            <field name="wecom_department_sync_state" />
+                            <field name="wecom_department_sync_times" />
                         </group>
                         <group>
-                            <field name="hr_department_sync_result" />
-                        </group>
-                    </group>
-                    <group string="Hr Employee sync">
-                        <group>
-                            <field name="hr_employee_sync_state" />
-                            <field name="hr_employee_sync_times" />
-                        </group>
-                        <group>
-                            <field name="hr_employee_sync_result" />
+                            <field name="wecom_department_sync_result" />
                         </group>
                     </group>
-                    <group string="Hr Tag sync">
+                    <group string="Wecom User sync">
                         <group>
-                            <field name="hr_tag_sync_state" />
-                            <field name="hr_tag_sync_times" />
+                            <field name="wecom_user_sync_state" />
+                            <field name="wecom_user_sync_times" />
                         </group>
                         <group>
-                            <field name="hr_tag_sync_result" />
-                        </group>
-                    </group>
-                    <group string="System User sync">
-                        <group>
-                            <field name="res_user_sync_state" />
-                            <field name="res_user_sync_times" />
-                        </group>
-                        <group>
-                            <field name="res_user_sync_result" />
+                            <field name="wecom_user_sync_result" />
                         </group>
                     </group>
-                    <group string="Contact tag sync">
+                    <group string="Wecom Tag sync">
                         <group>
-                            <field name="partner_tag_sync_state" />
-                            <field name="partner_tag_sync_times" />
+                            <field name="wecom_tag_sync_state" />
+                            <field name="wecom_tag_sync_times" />
                         </group>
                         <group>
-                            <field name="partner_tag_sync_result" />
+                            <field name="wecom_tag_sync_result" />
                         </group>
                     </group>
+
                     <footer>
                         <button string="Close" class="btn-primary" special="cancel"/>
                         <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>

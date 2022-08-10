@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-03 05:08+0000\n"
-"PO-Revision-Date: 2022-08-03 13:10+0800\n"
+"POT-Creation-Date: 2022-08-10 02:27+0000\n"
+"PO-Revision-Date: 2022-08-10 10:29+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -46,6 +46,11 @@ msgstr "<i class=\"fa fa-lock fa-lg\" aria-label=\"通讯录Secret\"/>"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Contacts Application\"/>"
 msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"通讯录应用\"/>"
+
+#. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Wecom API Domain IP\"/>"
+msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"企业微信API域名IP段\"/>"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_res_users_kanban
@@ -289,11 +294,6 @@ msgid "Download wecom tag data"
 msgstr "下载企微标签数据"
 
 #. module: wecom_contacts
-#: model:ir.model,name:wecom_contacts.model_hr_employee
-msgid "Employee"
-msgstr "员工"
-
-#. module: wecom_contacts
 #: model:ir.model.fields,field_description:wecom_contacts.field_res_company__wecom_contacts_join_qrcode_enabled model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__contacts_join_qrcode_enabled
 msgid "Enable to join the enterprise QR code"
 msgstr "启用加入企业微信二维码"
@@ -303,6 +303,12 @@ msgstr "启用加入企业微信二维码"
 #, python-format
 msgid "End getting join enterprise QR code of company [%s]"
 msgstr "结束获取公司[%s]的加入企业微信二维码"
+
+#. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "End obtaining enterprise wechat API domain name IP segment"
+msgstr "结束获取企业微信API域名IP段"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
@@ -345,6 +351,11 @@ msgstr "企业可通过接口获取成员会话内容，以符合企业监管合
 #, python-format
 msgid "Failed to download tag [%s] member of company [%s]!"
 msgstr "未能下载标签成员[%s] ，其公司为[%s]！"
+
+#. module: wecom_contacts
+#: model:ir.ui.menu,name:wecom_contacts.menu_get_wecom_api_domain_ip model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid "Get API Domain IP"
+msgstr "获取API域名IP段"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_form model_terms:ir.ui.view,arch_db:wecom_contacts.wecom_view_users_form
@@ -395,11 +406,6 @@ msgstr "登录帐户"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Management application"
 msgstr "管理应用"
-
-#. module: wecom_contacts
-#: model:wecom.apps,app_name:wecom_contacts.wecom_app_first_self_app
-msgid "ODOO"
-msgstr ""
 
 #. module: wecom_contacts
 #: model:ir.model,name:wecom_contacts.model_res_partner_category
@@ -472,6 +478,12 @@ msgid "Start getting join enterprise QR code of company [%s]"
 msgstr "开始获取公司[%s]的加入企业微信二维码"
 
 #. module: wecom_contacts
+#: code:addons/wecom_contacts/models/res_config_settings.py:0
+#, python-format
+msgid "Start to get enterprise wechat API domain name IP segment"
+msgstr "开始获取企业微信API域名IP段"
+
+#. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
 msgid "Synchronize address book information such as department, member, tag, etc."
 msgstr "同步通讯簿信息，如部门、成员、标签等。"
@@ -488,6 +500,13 @@ msgid "Tag list downloaded successfully."
 msgstr "标签列表下载成功。"
 
 #. module: wecom_contacts
+#: model_terms:ir.ui.view,arch_db:wecom_contacts.res_config_settings_view_form
+msgid ""
+"The API domain name IP is the resolved address of the qyapi.weixin.qq.com, and the developer calls the access IP address of the enterprise WeChat terminal. If you need to configure a firewall, you can obtain all relevant IP segments through this interface. When the IP segment changes, the new and old IP segments will be "
+"retained for a period of time at the same time. We recommend that enterprises regularly pull IP segments every day and update firewall settings to avoid network blockage due to IP segment changes."
+msgstr "API域名IP即qyapi.weixin.qq.com的解析地址，由开发者调用企业微信端的接入IP。如果企业需要做防火墙配置，那么可以通过这个接口获取到所有相关的IP段。IP段有变更可能，当IP段变更时，新旧IP段会同时保留一段时间。建议企业每天定时拉取IP段，更新防火墙设置，避免因IP段变更导致网络不通。"
+
+#. module: wecom_contacts
 #: code:addons/wecom_contacts/__init__.py:0
 #, python-format
 msgid "The current company does not have an Corp ID configured for enterprise wechat"
@@ -498,6 +517,11 @@ msgstr "当前公司没有为企业微信配置公司ID"
 #, python-format
 msgid "The current company does not identify the enterprise wechat organization. Please configure or switch the company."
 msgstr "当前公司未标识为企业微信组织。请配置或切换公司。"
+
+#. module: wecom_contacts
+#: model:wecom.apps,app_name:wecom_contacts.wecom_app_first_self_app
+msgid "The first application you built yourself."
+msgstr "您自建的第一个应用程序。"
 
 #. module: wecom_contacts
 #: model:ir.model.fields,help:wecom_contacts.field_res_partner__wecom_user_order model:ir.model.fields,help:wecom_contacts.field_res_users__wecom_user_order
@@ -577,6 +601,11 @@ msgid "WeCom User sequence"
 msgstr "企微用户排序"
 
 #. module: wecom_contacts
+#: model:ir.actions.server,name:wecom_contacts.ir_cron_get_wecom_api_domain_ip_ir_actions_server model:ir.cron,cron_name:wecom_contacts.ir_cron_get_wecom_api_domain_ip model:ir.cron,name:wecom_contacts.ir_cron_get_wecom_api_domain_ip
+msgid "WeCom: Get API Domain IP"
+msgstr "企微：获取API域名IP段"
+
+#. module: wecom_contacts
 #: model:ir.actions.server,name:wecom_contacts.ir_cron_get_join_qrcode_ir_actions_server model:ir.cron,cron_name:wecom_contacts.ir_cron_get_join_qrcode model:ir.cron,name:wecom_contacts.ir_cron_get_join_qrcode
 msgid "WeCom: Get join enterprise QR code"
 msgstr "企微：获取加入企业二维码"
@@ -585,6 +614,11 @@ msgstr "企微：获取加入企业二维码"
 #: model:ir.actions.act_window,name:wecom_contacts.ir_cron_act_get_join_qrcode
 msgid "WeCom: Get join enterprise QR code."
 msgstr "企微：获取加入企业二维码。"
+
+#. module: wecom_contacts
+#: model:ir.model.fields,field_description:wecom_contacts.field_res_config_settings__wecom_api_domain_ip
+msgid "Wecom API Domain IP"
+msgstr "企业微信API域名IP段"
 
 #. module: wecom_contacts
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
@@ -614,19 +648,3 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:wecom_contacts.view_partner_category_form
 msgid "e.g. \"Consulting Services\""
 msgstr "例如：咨询服务"
-
-#. module: wecom_contacts
-#: model:wecom.apps,menu_body:wecom_contacts.wecom_app_first_self_app
-msgid ""
-"{\n"
-"  \"button\":[\n"
-"    {\n"
-"      \"type\":\"view\",\n"
-"      \"name\":\"我的门户\",\n"
-"      \"key\":\"http://localhost:8069/my\",\n"
-"      \"sub_button\":[],\n"
-"      \"url\":\"http://localhost:8069/my\"\n"
-"    }\n"
-"  ]\n"
-"}"
-msgstr ""

@@ -32,8 +32,17 @@ class WecomContactsSyncWizard(models.TransientModel):
         )
         return company_ids
 
+    manage_multiple_companies = fields.Boolean(
+        string="Manage multiple companies",
+        default=False,
+        readonly=True,
+        compute="_compute_manage_multiple_companies",
+    )
     sync_all = fields.Boolean(
-        string="Synchronize all companies", default=True, required=True,
+        string="Synchronize all companies",
+        default=True,
+        required=True,
+        compute="_compute_sync_all",
     )
     companies = fields.Char(string="Sync Companies", compute="_compute_sync_companies")
     company_id = fields.Many2one(
@@ -47,6 +56,20 @@ class WecomContactsSyncWizard(models.TransientModel):
     contacts_app_id = fields.Many2one(
         related="company_id.contacts_app_id", store=False,
     )
+
+    def _compute_manage_multiple_companies(self):
+        if self.user_has_groups("base.group_multi_company"):
+            self.manage_multiple_companies = True
+        else:
+            self.manage_multiple_companies = False
+
+    @api.depends("manage_multiple_companies")
+    def _compute_sync_all(self):
+        # 有管理多公司的权限，则默认同步所有公司
+        if self.manage_multiple_companies:
+            self.sync_all = True
+        else:
+            self.sync_all = False
 
     @api.depends("sync_all")
     def _compute_sync_companies(self):
@@ -69,20 +92,6 @@ class WecomContactsSyncWizard(models.TransientModel):
         if self.sync_all is False:
             self.companies = self.company_id.name
 
-    @api.depends("contacts_app_id")
-    def _compute_config(self):
-        self.contacts_app_config_ids = self.contacts_app_id.app_config_ids.filtered(
-            lambda x: x.key.startswith("contacts_")
-        )
-
-    contacts_app_config_ids = fields.One2many(
-        "wecom.app_config",
-        "app_id",
-        store=False,
-        string="Application Configuration",
-        compute=_compute_config,
-    )
-
     state = fields.Selection(
         [
             ("completed", "All completed"),
@@ -99,102 +108,66 @@ class WecomContactsSyncWizard(models.TransientModel):
         string="Total time(seconds)", digits=(16, 3), readonly=True,
     )
 
-    # HR部门
-    hr_department_sync_state = fields.Selection(
+    # 企微部门
+    wecom_department_sync_state = fields.Selection(
         [
             ("completed", "All completed"),
             ("partially", "Partially complete"),
             ("fail", "All failed"),
         ],
-        "Hr department synchronization Status",
+        "Wecom department synchronization Status",
         readonly=True,
         copy=False,
         default="completed",
     )
-    hr_department_sync_times = fields.Float(
-        string="Hr department synchronization time (seconds)",
+    wecom_department_sync_times = fields.Float(
+        string="Wecom department synchronization time (seconds)",
         digits=(16, 3),
         readonly=True,
     )
-    hr_department_sync_result = fields.Text(
-        "Hr department synchronization results", readonly=1
+    wecom_department_sync_result = fields.Text(
+        "Wecom department synchronization results", readonly=1
     )
 
-    # HR员工
-    hr_employee_sync_state = fields.Selection(
+    # 企微用户
+    wecom_user_sync_state = fields.Selection(
         [
             ("completed", "All completed"),
             ("partially", "Partially complete"),
             ("fail", "All failed"),
         ],
-        "Hr employee synchronization Status",
+        "Wecom user synchronization Status",
         readonly=True,
         copy=False,
         default="completed",
     )
-    hr_employee_sync_times = fields.Float(
-        string="Hr employee synchronization time (seconds)",
+    wecom_user_sync_times = fields.Float(
+        string="Wecom user synchronization time (seconds)",
         digits=(16, 3),
         readonly=True,
     )
-    hr_employee_sync_result = fields.Text(
-        "Hr employee synchronization results", readonly=1
+    wecom_user_sync_result = fields.Text(
+        "Wecom user synchronization results", readonly=1
     )
 
-    # HR标签
-    hr_tag_sync_state = fields.Selection(
+    # 企微标签
+    wecom_tag_sync_state = fields.Selection(
         [
             ("completed", "All completed"),
             ("partially", "Partially complete"),
             ("fail", "All failed"),
         ],
-        "Hr tag synchronization Status",
+        "Wecom tag synchronization Status",
         readonly=True,
         copy=False,
         default="completed",
     )
-    hr_tag_sync_times = fields.Float(
-        string="Hr tag synchronization time (seconds)", digits=(16, 3), readonly=True,
-    )
-    hr_tag_sync_result = fields.Text("Hr tag synchronization results", readonly=1)
-
-    # 系统用户
-    res_user_sync_state = fields.Selection(
-        [
-            ("completed", "All completed"),
-            ("partially", "Partially complete"),
-            ("fail", "All failed"),
-        ],
-        "User synchronization Status",
-        readonly=True,
-        copy=False,
-        default="completed",
-    )
-    res_user_sync_times = fields.Float(
-        string="User synchronization time (seconds)", digits=(16, 3), readonly=True,
-    )
-    res_user_sync_result = fields.Text("User synchronization results", readonly=1)
-
-    # 联系人标签
-    partner_tag_sync_state = fields.Selection(
-        [
-            ("completed", "All completed"),
-            ("partially", "Partially complete"),
-            ("fail", "All failed"),
-        ],
-        "Contact tag synchronization Status",
-        readonly=True,
-        copy=False,
-        default="completed",
-    )
-    partner_tag_sync_times = fields.Float(
-        string="Contact tag synchronization time (seconds)",
+    wecom_tag_sync_times = fields.Float(
+        string="Wecom tag synchronization time (seconds)",
         digits=(16, 3),
         readonly=True,
     )
-    partner_tag_sync_result = fields.Text(
-        "Contact tag synchronization results", readonly=1
-    )
+    wecom_tag_sync_result = fields.Text("Wecom tag synchronization results", readonly=1)
 
     def wizard_sync_contacts(self):
         results = []
@@ -218,73 +191,56 @@ class WecomContactsSyncWizard(models.TransientModel):
 
         sync_end_time = time.time()
         self.total_time = sync_end_time - sync_start_time
-        # 处理数据
 
+        # 使用 pandas 处理数据
         df = pd.DataFrame(results)
 
+        # 处理同步状态
         (
             self.state,
-            self.hr_department_sync_state,
-            self.hr_employee_sync_state,
-            # self.hr_tag_sync_state,
-            # self.res_user_sync_state,
-            # self.partner_tag_sync_state,
-        ) = self.handle_sync_all_state(
-            df
-        )  # 处理同步状态
+            self.wecom_department_sync_state,
+            self.wecom_user_sync_state,
+            self.wecom_tag_sync_state,
+        ) = self.handle_sync_all_state(df)
 
-        # 处理同步结果和时间
+        # 处理同步结果
         sync_result = ""
-        hr_department_sync_result = ""
-        hr_employee_sync_result = ""
-        # hr_tag_sync_result = ""
-        # res_user_sync_result = ""
-        # partner_tag_sync_result = ""
+        wecom_department_sync_result = ""
+        wecom_user_sync_result = ""
+        wecom_tag_sync_result = ""
 
-        hr_department_sync_times = 0
-        hr_employee_sync_times = 0
-        # hr_tag_sync_times = 0
-        # res_user_sync_times = 0
-        # partner_tag_sync_times = 0
+        # 处理同步时间
+        wecom_department_sync_times = 0
+        wecom_user_sync_times = 0
+        wecom_tag_sync_times = 0
 
         rows = len(df)  # 获取所有行数
+
         for index, row in df.iterrows():
             if row["sync_state"] == "fail":
                 sync_result += self.handle_sync_result(index, rows, row["sync_result"])
-            hr_department_sync_result += self.handle_sync_result(
-                index, rows, row["hr_department_sync_result"]
+            wecom_department_sync_result += self.handle_sync_result(
+                index, rows, row["wecom_department_sync_result"]
             )
-            hr_employee_sync_result += self.handle_sync_result(
-                index, rows, row["hr_employee_sync_result"]
+            wecom_user_sync_result += self.handle_sync_result(
+                index, rows, row["wecom_user_sync_result"]
             )
-            # hr_tag_sync_result += self.handle_sync_result(
-            #     index, rows, row["hr_tag_sync_result"]
-            # )
-            # res_user_sync_result += self.handle_sync_result(
-            #     index, rows, row["res_user_sync_result"]
-            # )
-            # partner_tag_sync_result += self.handle_sync_result(
-            #     index, rows, row["partner_tag_sync_result"]
-            # )
+            wecom_tag_sync_result += self.handle_sync_result(
+                index, rows, row["wecom_tag_sync_result"]
+            )
 
-            hr_department_sync_times += row["hr_department_sync_times"]
-            hr_employee_sync_times += row["hr_employee_sync_times"]
-            # hr_tag_sync_times += row["hr_tag_sync_times"]
-            # res_user_sync_times += row["res_user_sync_times"]
-            # partner_tag_sync_times += row["partner_tag_sync_times"]
+            wecom_department_sync_times += row["wecom_department_sync_times"]
+            wecom_user_sync_times += row["wecom_user_sync_times"]
+            wecom_tag_sync_times += row["wecom_tag_sync_times"]
 
         self.sync_result = sync_result
-        self.hr_department_sync_result = hr_department_sync_result
-        self.hr_employee_sync_result = hr_employee_sync_result
-        # self.hr_tag_sync_result = hr_tag_sync_result
-        # self.res_user_sync_result = res_user_sync_result
-        # self.partner_tag_sync_result = partner_tag_sync_result
+        self.wecom_department_sync_result = wecom_department_sync_result
+        self.wecom_user_sync_result = wecom_user_sync_result
+        self.wecom_tag_sync_result = wecom_tag_sync_result
 
-        self.hr_department_sync_times = hr_department_sync_times
-        self.hr_employee_sync_times = hr_employee_sync_times
-        # self.hr_tag_sync_times = hr_tag_sync_times
-        # self.res_user_sync_times = res_user_sync_times
-        # self.partner_tag_sync_times = partner_tag_sync_times
+        self.wecom_department_sync_times = wecom_department_sync_times
+        self.wecom_employee_sync_times = wecom_user_sync_times
+        self.wecom_tag_sync_times = wecom_tag_sync_times
 
         # 显示同步结果
         form_view = self.env.ref(

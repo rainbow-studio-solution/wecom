@@ -3,8 +3,10 @@
     <data>
 
         <!-- 自动任务 -->
-        <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="3"/>
-        
+        <menuitem id="menu_get_wecom_api_domain_ip" name="Get API Domain IP" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_wecom_api_domain_ip" sequence="3"/>
+
+        <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="4"/>
+
     </data>
 
 </odoo>

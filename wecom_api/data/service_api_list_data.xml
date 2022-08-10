@@ -209,7 +209,7 @@
             <field name="type">2</field>
             <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取子部门ID列表</field>
             <field name="function_name">DEPARTMENT_SIMPLELIST</field>
-            <field name="short_url">/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN&amp;id=ID</field>
+            <field name="short_url">/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
             <field name="sequence">12005</field>
         </record>
@@ -217,7 +217,7 @@
             <field name="type">2</field>
             <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取单个部门详情</field>
             <field name="function_name">DEPARTMENT_DETAILS</field>
-            <field name="short_url">/cgi-bin/department/get?access_token=ACCESS_TOKEN&amp;id=ID</field>
+            <field name="short_url">/cgi-bin/department/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
             <field name="sequence">12006</field>
         </record>

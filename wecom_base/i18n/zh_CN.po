@@ -382,8 +382,8 @@ msgstr "通讯录管理"
 #. openerp-web
 #: code:addons/wecom_base/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "Contacts synchronization settings"
-msgstr "通讯录同步设置"
+msgid "Contacts settings"
+msgstr "通讯录设置"
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_res_company__corpid

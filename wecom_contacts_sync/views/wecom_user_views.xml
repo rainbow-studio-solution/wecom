@@ -9,11 +9,13 @@
                 <search string="Users">
                     <field name="name" string="User" />
                     <field name="userid" string="User ID" />
+
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="department_id" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
                 </search>
-                <searchpanel>
-                    <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
-                    <field name="department_id" icon="fa-users" enable_counters="1"/>
-                </searchpanel>
+
             </field>
         </record>
 
