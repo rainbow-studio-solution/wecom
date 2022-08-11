@@ -24,10 +24,10 @@ class WecomDepartment(models.Model):
     name = fields.Char(string="Name", readonly=True, default="")  # 部门名称
     name_en = fields.Char(string="English name", readonly=True, default="")  # 英部门文名称
     department_leader = fields.Char(
-        string="Department Leader", readonly=True, default=""
+        string="Department Leader", readonly=True, default="[]"
     )  # 部门负责人的UserID；第三方仅通讯录应用可获取
     parentid = fields.Integer(
-        string="Superior department", readonly=True, default="0",
+        string="Parent department", readonly=True, default="0",
     )  # 父部门id。根部门为1
     order = fields.Integer(
         string="Sequence", readonly=True, default="0",
@@ -48,7 +48,7 @@ class WecomDepartment(models.Model):
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
     )
     child_ids = fields.One2many(
-        "wecom.department", "parent_id", string="Child Departments"
+        "wecom.department", "parentid", string="Child Departments"
     )
     member_ids = fields.One2many(
         "wecom.user", "department_id", string="Members", readonly=True
@@ -115,7 +115,14 @@ class WecomDepartment(models.Model):
                     for r in download_department_result:
                         tasks.append(r)
 
-            # 2.完成下载
+            # 2.设置上级部门
+            set_parent_department_result = self.set_parent_department(company)
+            print("set_parent_department_result", set_parent_department_result)
+            if set_parent_department_result:
+                for r in set_parent_department_result:
+                    tasks.append(r)
+
+            # 2.完成
             end_time = time.time()
             task = {
                 "name": "download_department_data",
@@ -132,6 +139,7 @@ class WecomDepartment(models.Model):
         下载部门
         """
         # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
+
         department = self.sudo().search(
             [
                 ("department_id", "=", wecom_department["id"]),
@@ -163,32 +171,42 @@ class WecomDepartment(models.Model):
             _logger.warning(result)
         else:
             if not department:
-                result = self.create_department(company, department, response)
+                result = self.create_department(
+                    company, department, response["department"]
+                )
             else:
-                result = self.update_department(company, department, response)
+                result = self.update_department(
+                    company, department, response["department"]
+                )
         finally:
             return result
 
-    def create_department(self, company, department, response):
+    def create_department(self, company, department, wecom_department):
         """
         创建部门
         """
         try:
             department.create(
                 {
-                    "name": response["name"],
-                    "name_en": response["name_en"],
-                    "department_leader": response["department_leader"],
-                    "department_id": response["id"],
-                    "parentid": response["parentid"],
-                    "order": response["order"],
+                    "department_id": wecom_department["id"],
+                    "name": wecom_department["name"],
+                    "name_en": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_department, "name_en"
+                    ),
+                    "department_leader": wecom_department["department_leader"],
+                    "parentid": wecom_department["parentid"],
+                    "order": wecom_department["order"],
                     "company_id": company.id,
                 }
             )
         except Exception as e:
-            result = _("Error creating Department [%s], error details:%s") % (
-                response["name"],
-                str(e),
+            result = _(
+                "Error creating company [%s]'s department [%s,%s], error reason: %s"
+            ) % (
+                company.name,
+                wecom_department["id"],
+                wecom_department["name"],
+                repr(e),
             )
             _logger.warning(result)
             return {
@@ -198,25 +216,35 @@ class WecomDepartment(models.Model):
                 "msg": result,
             }
 
-    def update_department(self, company, department, response):
+    def update_department(self, company, department, wecom_department):
         """
         更新部门
         """
         try:
             department.write(
                 {
-                    "name": response["name"],
-                    "name_en": response["name_en"],
-                    "department_leader": response["department_leader"],
-                    "department_id": response["id"],
-                    "parentid": response["parentid"],
-                    "order": response["order"],
+                    "department_id": wecom_department["id"],
+                    "name": wecom_department["name"],
+                    "name_en": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_department, "name_en"
+                    ),
+                    "department_leader": wecom_department["department_leader"],
+                    "parentid": wecom_department["parentid"],
+                    "order": wecom_department["order"],
                 }
             )
         except Exception as e:
             result = _("Error updating Department [%s], error details:%s") % (
-                response["name"],
+                wecom_department["name"],
                 str(e),
+            )
+            result = _(
+                "Error update company [%s]'s Department [%s,%s], error reason: %s"
+            ) % (
+                company.name,
+                wecom_department["id"],
+                wecom_department["name"],
+                repr(e),
             )
             _logger.warning(result)
             return {
@@ -225,3 +253,55 @@ class WecomDepartment(models.Model):
                 "time": 0,
                 "msg": result,
             }
+
+    def set_parent_department(self, company):
+        """[summary]
+        由于json数据是无序的，故在同步到本地数据库后，需要设置新增企业微信部门的上级部门
+        """
+        params = self.env["ir.config_parameter"].sudo()
+        debug = params.get_param("wecom.debug_enabled")
+
+        departments = self.search([("company_id", "=", company.id)])
+
+        results = []
+        for department in departments:
+            if department.parentid and department.parentid != 0:
+                # 忽略 parentid 为 0的部门
+                parent_department = self.get_parent_department_by_department_id(
+                    department, company
+                )
+
+                try:
+                    department.write(
+                        {"parent_id": parent_department.id,}
+                    )
+                except Exception as e:
+                    result = _(
+                        "Error setting parent department for company [%s], Error details:%s"
+                    ) % (company.name, repr(e))
+                    if debug:
+                        _logger.warning(result)
+                    results.append(
+                        {
+                            "name": "set_parent_department",
+                            "state": False,
+                            "time": 0,
+                            "msg": result,
+                        }
+                    )
+        return results  # 返回失败的结果
+
+    def get_parent_department_by_department_id(self, department, company):
+        """[summary]
+        通过企微部门id 获取上级部门
+        Args:
+            department ([type]): [description]
+            departments ([type]): [descriptions]
+        """
+        parent_department = self.search(
+            [
+                ("department_id", "=", department.parentid),
+                ("company_id", "=", company.id),
+            ]
+        )
+        return parent_department

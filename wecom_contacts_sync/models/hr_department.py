@@ -32,9 +32,7 @@ class Department(models.Model):
     )
 
     wecom_department_id = fields.Integer(
-        string="WeCom department ID",
-        readonly=True,
-        default="0",
+        string="WeCom department ID", readonly=True, default="0",
     )
 
     wecom_department_parent_id = fields.Integer(
@@ -49,9 +47,7 @@ class Department(models.Model):
         readonly=True,
     )
     is_wecom_department = fields.Boolean(
-        string="WeCom Department",
-        readonly=True,
-        default=False,
+        string="WeCom Department", readonly=True, default=False,
     )
 
     # ------------------------------------------------------------
@@ -81,9 +77,7 @@ class Department(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "DEPARTMENT_LIST"
                     ),
-                    {
-                        "id": contacts_sync_hr_department_id,
-                    },
+                    {"id": contacts_sync_hr_department_id,},
                 )
             except ApiException as ex:
                 end_time = time.time()
@@ -274,9 +268,7 @@ class Department(models.Model):
                 else:
                     try:
                         department.write(
-                            {
-                                "parent_id": parent_department.id,
-                            }
+                            {"parent_id": parent_department.id,}
                         )
                     except Exception as e:
                         result = _(
@@ -330,8 +322,7 @@ class Department(models.Model):
             .search([("company_id", "=", company_id.id)] + domain)
         )
         callback_department = department.search(
-            [("wecom_department_id", "=", dic["Id"])] + domain,
-            limit=1,
+            [("wecom_department_id", "=", dic["Id"])] + domain, limit=1,
         )
 
         update_dict = {}
@@ -341,8 +332,7 @@ class Department(models.Model):
                 pass
             else:
                 parent_department = department.search(
-                    [("wecom_department_id", "=", int(dic["ParentId"]))],
-                    limit=1,
+                    [("wecom_department_id", "=", int(dic["ParentId"]))], limit=1,
                 )
         for key, value in dic.items():
             if (

@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 class WecomUser(models.Model):
     _name = "wecom.user"
     _description = "Wecom user"
-    _order = "order_in_Department"
+    _order = "order_in_department"
 
     # 企微字段
     userid = fields.Char(
@@ -81,13 +81,16 @@ class WecomUser(models.Model):
         domain="[('is_wecom_organization', '=', True)]",
         copy=False,
         store=True,
+        readonly=True,
     )
     department_id = fields.Many2one(
         "wecom.department",
         "Department",
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+        compute="_compute_department_id",
+        store=True,
     )
-    order_in_Department = fields.Integer(
+    order_in_department = fields.Integer(
         string="Sequence in department", readonly=True, default="0",
     )  # 成员在对应部门中的排序值，默认为0。数量必须和department一致
     status_name = fields.Selection(
@@ -106,6 +109,19 @@ class WecomUser(models.Model):
     def _compute_status_name(self):
         for user in self:
             user.status_name = str(user.status)
+
+    @api.depends("main_department")
+    def _compute_department_id(self):
+        for user in self:
+            department_id = self.env["wecom.department"].search(
+                [
+                    ("department_id", "=", user.main_department),
+                    ("company_id", "=", user.company_id.id),
+                ],
+                limit=1,
+            )
+            if department_id:
+                user.department_id = department_id
 
     # ------------------------------------------------------------
     # 企微用户下载
@@ -158,7 +174,6 @@ class WecomUser(models.Model):
         else:
             # response["userlist"] 只含 'name', 'department', 'userid' 三个字段
             wecom_users = response["userlist"]
-            print(wecom_users)
             # 1.下载用户
             for wecom_user in wecom_users:
                 download_user_result = self.download_user(company, wecom_user)
@@ -241,22 +256,27 @@ class WecomUser(models.Model):
                     "telephone": response["telephone"],
                     "alias": response["alias"],
                     "extattr": response["extattr"],
-                    "external_profile": response["external_profile"],
-                    "external_position": response["external_position"],
+                    "external_profile": self.env[
+                        "wecom.tools"
+                    ].check_dictionary_keywords(response, "external_profile"),
+                    "external_position": self.env[
+                        "wecom.tools"
+                    ].check_dictionary_keywords(response, "external_position"),
                     "status": response["status"],
                     "qr_code": response["qr_code"],
-                    "address": response["address"],
-                    "open_userid": response["open_userid"],
+                    "address": self.env["wecom.tools"].check_dictionary_keywords(
+                        response, "address"
+                    ),
+                    "open_userid": self.env["wecom.tools"].check_dictionary_keywords(
+                        response, "open_userid"
+                    ),
                     "company_id": company.id,
                 }
             )
         except Exception as e:
-            result = _("Error creating company [%s] user [%s,%s], error reason: %s") % (
-                company.name,
-                response["userid"].lower(),
-                response["name"],
-                repr(e),
-            )
+            result = _(
+                "Error creating company [%s]'s user [%s,%s], error reason: %s"
+            ) % (company.name, response["userid"].lower(), response["name"], repr(e),)
 
             _logger.warning(result)
             return {
@@ -292,17 +312,25 @@ class WecomUser(models.Model):
                     "telephone": response["telephone"],
                     "alias": response["alias"],
                     "extattr": response["extattr"],
-                    "external_profile": response["external_profile"],
-                    "external_position": response["external_position"],
+                    "external_profile": self.env[
+                        "wecom.tools"
+                    ].check_dictionary_keywords(response, "external_profile"),
+                    "external_position": self.env[
+                        "wecom.tools"
+                    ].check_dictionary_keywords(response, "external_position"),
                     "status": response["status"],
                     "qr_code": response["qr_code"],
-                    "address": response["address"],
-                    "open_userid": response["open_userid"],
+                    "address": self.env["wecom.tools"].check_dictionary_keywords(
+                        response, "address"
+                    ),
+                    "open_userid": self.env["wecom.tools"].check_dictionary_keywords(
+                        response, "open_userid"
+                    ),
                 }
             )
 
         except Exception as e:
-            result = _("Error update company [%s] user [%s,%s], error reason: %s") % (
+            result = _("Error update company [%s]'s user [%s,%s], error reason: %s") % (
                 company.name,
                 response["userid"].lower(),
                 response["name"],

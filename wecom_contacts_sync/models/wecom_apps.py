@@ -367,7 +367,7 @@ Synchronize Wecom tag results:
 
         # 同步企微标签
         sync_wecom_tag_result = (
-            self.env["hr.tag"]
+            self.env["wecom.tag"]
             .with_context(company_id=self.company_id)
             .download_wecom_tags()
         )

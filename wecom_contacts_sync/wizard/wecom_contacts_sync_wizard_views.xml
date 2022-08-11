@@ -9,10 +9,11 @@
             <field name="arch" type="xml">
                 <form>
                     <group string="Synchronize all companies?">
-                        <field name="sync_all" />
+                        <!-- invisible="1" -->
+                        <field name="manage_multiple_companies" invisible="1"/>
+                        <field name="sync_all" attrs="{'readonly': [('manage_multiple_companies', '=', False)]}"/>
                         <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
                         <field name="companies" />
-
                     </group>
 
                     <separator string="Help"/>

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
 import logging
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError, Warning
@@ -11,8 +10,6 @@ pd.set_option("max_colwidth", 4096)  # 设置最大列宽
 pd.set_option("display.max_columns", 30)  # 设置最大列数
 pd.set_option("expand_frame_repr", False)  # 当列太多时不换行
 import time
-
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
 
@@ -32,15 +29,15 @@ class WecomContactsSyncWizard(models.TransientModel):
         )
         return company_ids
 
+    def _default_right(self):
+        return self.user_has_groups("base.group_multi_company")
+
     manage_multiple_companies = fields.Boolean(
-        string="Manage multiple companies",
-        default=False,
-        readonly=True,
-        compute="_compute_manage_multiple_companies",
+        string="Manage multiple companies", readonly=True, default=_default_right,
     )
     sync_all = fields.Boolean(
         string="Synchronize all companies",
-        default=True,
+        default=False,
         required=True,
         compute="_compute_sync_all",
     )
@@ -52,16 +49,6 @@ class WecomContactsSyncWizard(models.TransientModel):
         domain="[('is_wecom_organization', '=', True)]",
         store=True,
     )
-
-    contacts_app_id = fields.Many2one(
-        related="company_id.contacts_app_id", store=False,
-    )
-
-    def _compute_manage_multiple_companies(self):
-        if self.user_has_groups("base.group_multi_company"):
-            self.manage_multiple_companies = True
-        else:
-            self.manage_multiple_companies = False
 
     @api.depends("manage_multiple_companies")
     def _compute_sync_all(self):
@@ -181,9 +168,12 @@ class WecomContactsSyncWizard(models.TransientModel):
             )
 
             for company in companies:
-                # 遍历公司
-                result = self.sync_contacts(company)
-                results.append(result)
+                # 遍历公司,判断是否绑定了通讯录应用
+                if company.contacts_app_id:
+                    result = self.sync_contacts(company)
+                    results.append(result)
+                else:
+                    pass
         else:
             # 同步当前选中公司
             result = self.sync_contacts(self.company_id)
@@ -239,7 +229,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         self.wecom_tag_sync_result = wecom_tag_sync_result
 
         self.wecom_department_sync_times = wecom_department_sync_times
-        self.wecom_employee_sync_times = wecom_user_sync_times
+        self.wecom_user_sync_times = wecom_user_sync_times
         self.wecom_tag_sync_times = wecom_tag_sync_times
 
         # 显示同步结果
@@ -294,27 +284,19 @@ class WecomContactsSyncWizard(models.TransientModel):
         fail_state_rows = len(df[df["sync_state"] == "fail"])  # 获取失败行数
 
         fail_department_state_rows = len(
-            df[df["hr_department_sync_state"] == "fail"]
+            df[df["wecom_department_sync_state"] == "fail"]
         )  # 获取HR部门失败行数
-        fail_employee_state_rows = len(
-            df[df["hr_employee_sync_state"] == "fail"]
+        fail_user_state_rows = len(
+            df[df["wecom_user_sync_state"] == "fail"]
         )  # 获取HR员工失败行数
-        # fail_hr_tag_state_rows = len(
-        #     df[df["hr_tag_sync_state"] == "fail"]
-        # )  # 获取HR标签失败行数
-        # fail_user_state_rows = len(
-        #     df[df["res_user_sync_state"] == "fail"]
-        # )  # 获取系统用户失败行数
-        # fail_partner_tag_state_rows = len(
-        #     df[df["res_user_sync_state"] == "fail"]
-        # )  # 获取联系人标签失败行数
+        fail_tag_state_rows = len(
+            df[df["wecom_tag_sync_state"] == "fail"]
+        )  # 获取HR标签失败行数
 
         sync_state = None
-        hr_department_sync_state = None
-        hr_employee_sync_state = None
-        # hr_tag_sync_state = None
-        # res_user_sync_state = None
-        # partner_tag_sync_state = None
+        wecom_department_sync_state = None
+        wecom_user_sync_state = None
+        wecom_tag_sync_state = None
 
         if fail_state_rows == all_state_rows:
             sync_state = "fail"
@@ -325,54 +307,35 @@ class WecomContactsSyncWizard(models.TransientModel):
 
         # 部门
         if fail_department_state_rows == all_state_rows:
-            hr_department_sync_state = "fail"
+            wecom_department_sync_state = "fail"
         elif (
             fail_department_state_rows > 0
             and fail_department_state_rows < all_state_rows
         ):
-            hr_department_sync_state = "partially"
+            wecom_department_sync_state = "partially"
         elif fail_department_state_rows == 0:
-            hr_department_sync_state = "completed"
+            wecom_department_sync_state = "completed"
 
         # 员工
-        if fail_employee_state_rows == all_state_rows:
-            hr_employee_sync_state = "fail"
-        elif fail_employee_state_rows > 0 and fail_employee_state_rows < all_state_rows:
-            hr_employee_sync_state = "partially"
-        elif fail_employee_state_rows == 0:
-            hr_employee_sync_state = "completed"
+        if fail_user_state_rows == all_state_rows:
+            wecom_user_sync_state = "fail"
+        elif fail_user_state_rows > 0 and fail_user_state_rows < all_state_rows:
+            wecom_user_sync_state = "partially"
+        elif fail_user_state_rows == 0:
+            wecom_user_sync_state = "completed"
 
-        # if fail_hr_tag_state_rows == all_state_rows:
-        #     hr_tag_sync_state = "fail"
-        # elif fail_hr_tag_state_rows > 0 and fail_hr_tag_state_rows < all_state_rows:
-        #     hr_tag_sync_state = "partially"
-        # elif fail_hr_tag_state_rows == 0:
-        #     hr_tag_sync_state = "completed"
-
-        # if fail_user_state_rows == all_state_rows:
-        #     res_user_sync_state = "fail"
-        # elif fail_user_state_rows > 0 and fail_user_state_rows < all_state_rows:
-        #     res_user_sync_state = "partially"
-        # elif fail_user_state_rows == 0:
-        #     res_user_sync_state = "completed"
-
-        # if fail_partner_tag_state_rows == all_state_rows:
-        #     partner_tag_sync_state = "fail"
-        # elif (
-        #     fail_partner_tag_state_rows > 0
-        #     and fail_partner_tag_state_rows < all_state_rows
-        # ):
-        #     partner_tag_sync_state = "partially"
-        # elif fail_partner_tag_state_rows == 0:
-        #     partner_tag_sync_state = "completed"
+        if fail_tag_state_rows == all_state_rows:
+            wecom_tag_sync_state = "fail"
+        elif fail_tag_state_rows > 0 and fail_tag_state_rows < all_state_rows:
+            wecom_tag_sync_state = "partially"
+        elif fail_tag_state_rows == 0:
+            wecom_tag_sync_state = "completed"
 
         return (
             sync_state,
-            hr_department_sync_state,
-            hr_employee_sync_state,
-            # hr_tag_sync_state,
-            # res_user_sync_state,
-            # partner_tag_sync_state,
+            wecom_department_sync_state,
+            wecom_user_sync_state,
+            wecom_tag_sync_state,
         )
 
     def reload(self):

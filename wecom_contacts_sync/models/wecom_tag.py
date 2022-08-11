@@ -85,8 +85,6 @@ class WecomTag(models.Model):
                 if download_tag_result:
                     for r in download_tag_result:
                         tasks.append(r)  # 加入 下载标签失败结果
-
-        finally:
             end_time = time.time()
             task = {
                 "name": "download_tag_data",
@@ -95,6 +93,8 @@ class WecomTag(models.Model):
                 "msg": _("Tag list downloaded successfully."),
             }
             tasks.append(task)
+        finally:
+            return tasks  # 返回结果
 
     def download_tag(self, company, wecom_tag):
         """
@@ -114,7 +114,7 @@ class WecomTag(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "TAG_GET_MEMBER"
                 ),
-                {"tagid": wecom_tag["tagid"]},
+                {"tagid": str(wecom_tag["tagid"])},
             )
             wecom_tag.update(
                 {
@@ -160,7 +160,7 @@ class WecomTag(models.Model):
                 }
             )
         except Exception as e:
-            result = _("Error creating company [%s] tag [%s], error reason: %s") % (
+            result = _("Error creating company [%s]'s tag [%s], error reason: %s") % (
                 company.name,
                 wecom_tag["tagname"],
                 repr(e),
@@ -187,7 +187,7 @@ class WecomTag(models.Model):
                 }
             )
         except Exception as e:
-            result = _("Error update company [%s] tag [%s], error reason: %s") % (
+            result = _("Error update company [%s]'s tag [%s], error reason: %s") % (
                 company.name,
                 wecom_tag["tagname"],
                 repr(e),
