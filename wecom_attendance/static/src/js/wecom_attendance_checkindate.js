@@ -44,7 +44,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
         _renderCheckindate: function () {
             var self = this;
             let rows = this.template_content;
-            console.log(rows)
+
             _.forEach(rows, function (row) {
                 let times = row.checkintime;
                 _.forEach(times, function (time) {

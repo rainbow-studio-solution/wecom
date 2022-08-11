@@ -28,7 +28,7 @@
                     <field name="userid" />
                     <field name="main_department" />
                     <field name="is_leader_in_dept" />
-                    <field name="direct_leader" />
+                    <field name="direct_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
                     <field name="status_name" />
                 </tree>
             </field>

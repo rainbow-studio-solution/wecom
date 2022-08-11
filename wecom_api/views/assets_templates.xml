@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="assets_common" inherit_id="web.assets_common">
-        <xpath expr="//script[last()]" position="after">
-            <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
-            <script type="text/javascript" src="/wecom_api/static/src/js/wxconfig.js"></script>
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-call-assets='web.assets_common']" position="before">
+            <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" referrerpolicy="origin"></script>
+            <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js" referrerpolicy="origin"></script>
         </xpath>
     </template>
 
-    <template id="assets_backend" name="account assets" inherit_id="web._assets_bootstrap">
-        <xpath expr="." position="inside">
-            <script type="text/javascript" src="/wecom_api/static/src/js/list_header_button.js"></script>
+
+    <!-- <template id="layout" inherit_id="web.layout">
+        <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+            <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js" referrerpolicy="origin"></script>
+            <script src="https://open.work.weixin.qq.com/wwopen/js/jwxwork-1.0.0.js" referrerpolicy="origin"></script>
         </xpath>
-    </template>
+    </template> -->
 
 </odoo>

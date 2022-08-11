@@ -22,14 +22,12 @@ WeCom Service-side API and Client-side API
         "data/ir_config_parameter.xml",
         "data/wecom_server_api_error_data.xml",
         "data/service_api_list_data.xml",
-        # "data/ir_cron_data.xml",
-        # "views/ir_cron_views.xml",
+        "views/assets_templates.xml",
     ],
     "assets": {
         "web.assets_common": [
             # JS
-            "https://res.wx.qq.com/open/js/jweixin-1.2.0.js",
-            "wecom_api/static/src/js/wxconfig.js",
+            "wecom_api/static/src/js/*.js",
         ],
         "web.assets_backend": [
             # JS

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="WecomContactsDisplayUserNameItem">
+        <ww-open-data type="userName" t-attf-openid="{{user}}"></ww-open-data>
+        <script>
+	        WWOpenData.bind(document.querySelector('ww-open-data'))
+        </script>
+    </t>
+
+    <t t-name="WecomContactsDisplayDepartmentNameItem">
+        <ww-open-data type="departmentName" t-attf-openid="{{openid}}"></ww-open-data>
+        <script>
+	        WWOpenData.bind(document.querySelector('ww-open-data'))
+        </script>
+    </t>
+
+    <t t-name="WecomUsersSimple">
+        <t t-foreach="users" t-as="user">
+
+        </t>
+    </t>
+</templates>

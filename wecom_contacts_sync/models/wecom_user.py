@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import json
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
@@ -211,6 +212,17 @@ class WecomUser(models.Model):
                 self.env["wecom.service_api_list"].get_server_api_call("USER_GET"),
                 {"userid": wecom_user["userid"]},
             )
+            for key in response.keys():
+                if type(response[key]) in (list, dict) and response[key]:
+                    json_str = json.dumps(
+                        response[key],
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    )
+                    response[key] = json_str
+
         except ApiException as ex:
             result = _(
                 "Wecom API acquisition company[%s]'s user [id:%s] details failed, error details: %s"
