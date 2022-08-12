@@ -91,6 +91,9 @@ class WecomUser(models.Model):
         compute="_compute_department_id",
         store=True,
     )
+    tag_ids = fields.Many2many(
+        'wecom.tag', 'user_tag_rel',
+        'user_id', 'tag_id', string='Tags')
     department_complete_name = fields.Char(string="Department complete Name", related="department_id.complete_name")
     order_in_department = fields.Integer(
         string="Sequence in department", readonly=True, default="0",
@@ -367,3 +370,9 @@ class WecomUser(models.Model):
                 "time": 0,
                 "msg": result,
             }  # 返回失败结果
+
+
+    def download_single_user(self):
+        """
+        下载单个用户
+        """

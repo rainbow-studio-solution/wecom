@@ -35,6 +35,148 @@
             </field>
         </record>
 
+        <record id="view_wecom_user_kanban" model="ir.ui.view">
+            <field name="name">wecom.user.kanban</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <kanban string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_kanban_sync">
+                    <field name="name" />
+                    <field name="gender" />
+                    <field name="userid" />
+                    <field name="department_complete_name" />
+                    <field name="is_leader_in_dept" />
+                    <field name="direct_leader" />
+                    <field name="status_name" />
+                    <field name="biz_mail" />
+                    <field name="email" />
+                    <field name="telephone" />
+                    <field name="mobile" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <field name="avatar" widget="image_url" class="o_kanban_image_fill_left" options='{"size": [128, 128]}'/>
+                                <div class="oe_kanban_details ml8">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <div class="float-right" t-if="record.gender.raw_value == '1'" name="gender">
+                                                    <span class="fa fa-user text-primary" role="img" aria-label="Male" title="Male" name="Male">
+                                                    </span>
+                                                </div>
+                                                <div class="float-right" t-if="record.gender.raw_value == '2'" name="gender">
+                                                    <span class="fa fa-user text-warning" role="img" aria-label="Female" title="Female" name="Female">
+                                                    </span>
+                                                </div>
+                                                <div class="float-right" t-if="record.gender.raw_value == '0'" name="gender">
+                                                    <span class="fa fa-user text-muted" role="img" aria-label="Undefined" title="Undefined" name="Undefined">
+                                                    </span>
+                                                </div>
+                                                <field name="name" placeholder="Employee's Name"/>
+                                            </strong>
+                                            <span t-if="record.position.raw_value" class="o_kanban_record_subtitle">
+                                                <field name="position"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li t-if="record.biz_mail.raw_value" class="o_text_overflow">
+                                            <field name="biz_mail" />
+                                        </li>
+                                        <li t-if="record.email.raw_value" class="o_text_overflow">
+                                            <field name="email" />
+                                        </li>
+                                        <li t-if="record.telephone.raw_value" class="o_force_ltr">
+                                            <field name="telephone" />
+                                        </li>
+                                        <li t-if="record.mobile.raw_value" class="o_force_ltr">
+                                            <field name="mobile" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_wecom_user_form" model="ir.ui.view">
+            <field name="name">wecom.user.form</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <form string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_form_sync">
+                    <header></header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="btn oe_stat_button btn-succes" name="download_single_user" type="object">
+                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download" title="Download"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Download</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="status_name" invisible="1"/>
+                        <widget name="web_ribbon" title="Not active" bg_color="bg-danger" attrs="{'invisible': [('status_name', '=', '1')]}"/>
+                        <field name="thumb_avatar" invisible="1"/>
+                        <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"thumb_avatar"}'/>
+                        <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="name" placeholder="Employee's Name" required="True"/>
+                            </h1>
+                            <h2>
+                                <field name="position" placeholder="Job Position" />
+                            </h2>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="mobile" widget="phone"/>
+                                <field name="telephone" widget="telephone"/>
+                                <field name="biz_mail" widget="email"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="is_leader_in_dept"/>
+                                    <field name="department_complete_name"/>
+                                    <field name="department"/>
+                                </group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="public" string="Work Information">
+                                <group>
+                                    <field name="address"/>
+                                    <field name="direct_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
+                                    <field name="external_position"/>
+                                </group>
+                            </page>
+                            <page name="personal_information" string="Private Information">
+                                <group>
+                                    <group string="Private Contact">
+                                        <field name="email" widget="email"/>
+                                    </group>
+                                    <group string="Gender">
+                                        <field name="gender_name"/>
+                                    </group>
+                                    <group string="Identity information">
+                                        <field name="userid"/>
+                                        <field name="qr_code" widget="image_url" class="oe_avatar"/>
+                                        <field name="open_userid"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="external_attributes" string="External attributes">
+                                <field name="extattr"/>
+                            </page>
+                            <page name="external_profile" string="External attributes">
+                                <field name="external_profile"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <record id="actions_wecom_contacts_list" model="ir.actions.act_window">
             <field name="name">Wecom Contacts</field>
             <field name="res_model">wecom.user</field>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-06 05:29+0000\n"
-"PO-Revision-Date: 2022-07-06 13:31+0800\n"
+"POT-Creation-Date: 2022-08-12 11:33+0000\n"
+"PO-Revision-Date: 2022-08-12 19:35+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_widget
 #. openerp-web
@@ -93,6 +93,13 @@ msgstr ""
 
 #. module: wecom_widget
 #. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Account number"
+msgstr "账号"
+
+#. module: wecom_widget
+#. openerp-web
 #: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "And more"
@@ -132,6 +139,13 @@ msgstr "取消"
 #, python-format
 msgid "Could not display the specified image url."
 msgstr "无法显示指定的图像url。"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Department"
+msgstr "部门"
 
 #. module: wecom_widget
 #. openerp-web
@@ -265,6 +279,13 @@ msgstr "小程序通知消息"
 
 #. module: wecom_widget
 #. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Mobile phone"
+msgstr "手机"
+
+#. module: wecom_widget
+#. openerp-web
 #: code:addons/wecom_widget/static/src/xml/wecom_pro_tag.xml:0
 #, python-format
 msgid "Mobile support"
@@ -302,6 +323,13 @@ msgstr "请检查JSON文本！"
 #, python-format
 msgid "Please click on the \"save\" button first"
 msgstr "请先点击“保存”按钮"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Position"
+msgstr "职务"
 
 #. module: wecom_widget
 #. openerp-web
@@ -442,6 +470,13 @@ msgstr ""
 #, python-format
 msgid "Unknown type"
 msgstr "未知类型"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "User Details"
+msgstr "用户详情"
 
 #. module: wecom_widget
 #. openerp-web
