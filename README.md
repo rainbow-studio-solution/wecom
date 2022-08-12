@@ -4,7 +4,7 @@
 
 [![Github](http://img.shields.io/badge/Wecom15.0-Github-4cb648.svg?style=flat&colorA=8F8F8F)](https://github.com/rainbow-studio-solution/wecom/tree/15.0/)
 [![Gitee](http://img.shields.io/badge/Wecom15.0-Gitee-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom/tree/15.0/)
-[![Coding](http://img.shields.io/badge/Wecom15.0-Coding-ee6666.svg?style=flat&colorA=8F8F8F)](https://e.coding.net/eis-solution/odoo/wecom/tree/15.0/)
+[![Coding](http://img.shields.io/badge/Wecom15.0-Coding-ee6666.svg?style=flat&colorA=8F8F8F)](https://eis-solution.coding.net/public/odoo/wecom/git/files/15.0/)
 
 
 [![Docker](http://img.shields.io/badge/Wecom15.0-Docker-C22D40.svg?style=flat&colorA=8F8F8F)](https://hub.docker.com/r/rainbowstudiosolution/wecom_for_odoo)
@@ -13,7 +13,7 @@
 
 # Odoo 本地化模块
 [![Github](http://img.shields.io/badge/15.0-Gitee-4cb648.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/odoo_cn/tree/15.0/)
-[![Gitee](http://img.shields.io/badge/15.0-Coding-875A7B.svg?style=flat&colorA=8F8F8F)](https://gitee.com/rainbowstudio/wecom)
+[![Gitee](http://img.shields.io/badge/15.0-Coding-875A7B.svg?style=flat&colorA=8F8F8F)](https://eis-solution.coding.net/public/odoo/odoo_cn/git/files/15.0)
 
 ## 特点
 

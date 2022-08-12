@@ -53,6 +53,16 @@ class WecomDepartment(models.Model):
     member_ids = fields.One2many(
         "wecom.user", "department_id", string="Members", readonly=True
     )
+    complete_name = fields.Char('Complete Name', compute='_compute_complete_name', recursive=True, store=True)
+
+    @api.depends('name', 'parent_id.complete_name')
+    def _compute_complete_name(self):
+        for department in self:
+            if department.parent_id:
+                department.complete_name = '%s / %s' % (department.parent_id.complete_name, department.name)
+            else:
+                department.complete_name = department.name
+
 
     # ------------------------------------------------------------
     # 企微部门下载
@@ -117,7 +127,7 @@ class WecomDepartment(models.Model):
 
             # 2.设置上级部门
             set_parent_department_result = self.set_parent_department(company)
-            print("set_parent_department_result", set_parent_department_result)
+            # print("set_parent_department_result", set_parent_department_result)
             if set_parent_department_result:
                 for r in set_parent_department_result:
                     tasks.append(r)

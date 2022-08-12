@@ -12,6 +12,10 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
     var QWeb = core.qweb;
 
     var WecomContactDisplay = AbstractField.extend({
+        events: _.extend({
+            'mouseover .user_simple': '_onShowUserCard',
+            'mouseout .user_simple': '_onHideUserCard',
+        }, AbstractField.prototype.events),
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
             this.parent = parent;
@@ -19,8 +23,8 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
             this.params = params;
             this.data = params.data;
             this.template_content = params.data[state]; // 字段值
-            this.control_type = self.nodeOptions.type; // 控件类型:user,department
-            this.show_type = self.nodeOptions.show; // 显示类型：simple，details
+            this.control_type = this.nodeOptions.type; // 控件类型:user,department
+            this.show_type = this.nodeOptions.show; // 显示类型：simple，details
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);
@@ -40,9 +44,9 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
         _prepareInput: function ($el) {
             return this.$el;
         },
-        _renderWecomUsersDisplaySimple: function () {
+        _renderWecomUsersDisplaySimple: async function () {
             var self = this;
-            let rows = this.template_content;
+            let contacts = this.template_content;
             if (this.control_type == null || this.control_type == "") {
                 return;
             } else if (this.show_type == null || this.show_type == "") {
@@ -53,54 +57,60 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
                 let data_dic = {};
                 let fields = [];
                 let domain_key = "";
+                let control_key = {};
 
                 if (this.control_type === 'user') {
                     template_name = "WecomUsers";
                     model_name = "wecom.user";
-                    fields = ["name", "alias", "userid", "mobile", "main_department", "thumb_avatar", "gender"];
+                    fields = ["name", "alias", "userid", "mobile", "department_complete_name", "thumb_avatar", "gender", "position"];
                     domain_key = "userid";
-                    data_dic = {
-                        users: rows
-                    }
+                    domain_key = "userid";
+                    control_key = "users";
                 }
                 if (this.control_type === 'department') {
                     template_name = "WecomDepartments";
                     model_name = "wecom.department";
                     domain_key = "userid";
-                    data_dic = {
-                        departments: rows
-                    }
+                    control_key = "departments";
                 }
                 if (this.show_type === 'simple') {
                     template_name = template_name + "Simple";
-                    data_dic = {
-                        departments: rows
-                    }
                 }
                 if (this.show_type === 'details') {
                     template_name = template_name + "Details";
-                    data_dic = {
-                        departments: rows
-                    }
                 }
-                const current_selected_company_id = session.user_context.allowed_company_ids[0];
-                _.forEach(rows, function (row) {
-                    self._rpc({
-                        model: model_name,
-                        method: 'search_read',
-                        fields: fields,
-                        domain: [
-                            ['company_id', '=', current_selected_company_id],
-                            [domain_key, '=', row]
-                        ],
-                    }).then(function (data) {
-                        console.log(data);
-                    });
-                });
 
-                let $control = $(QWeb.render(template_name, data_dic));
-                $control.appendTo(this.$el);
+                const current_selected_company_id = session.user_context.allowed_company_ids[0];
+
+                self._rpc({
+                    model: model_name,
+                    method: 'search_read',
+                    fields: fields,
+                    domain: [
+                        ['company_id', '=', current_selected_company_id],
+                        [domain_key, 'in', contacts]
+                    ],
+                }).then(function (rows) {
+                    // console.log(typeof (rows), rows);
+                    let $control = $(QWeb.render(template_name, {
+                        rows: rows,
+                    }));
+                    $control.appendTo(self.$el);
+                })
             }
+        },
+        _onShowUserCard: function (ev) {
+            let badge = ev.currentTarget;
+            let card = $(badge).next().clone(); // 克隆card,并去掉o_hidden样式
+            $(badge).data("content", card.html()); // 将card的html内容存储到data-content中
+            $(badge).popover({
+                template: '<div class="popover wecom_contacts_popover" role="tooltip"><div class="arrow"></div><h3 class="popover-header text-center"></h3><div class="popover-body"></div></div>',
+            });
+            $(badge).popover('show');
+        },
+        _onHideUserCard: function (ev) {
+            let badge = ev.currentTarget;
+            $(badge).popover('hide');
         }
     });
 

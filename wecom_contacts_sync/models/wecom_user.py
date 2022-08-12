@@ -91,6 +91,7 @@ class WecomUser(models.Model):
         compute="_compute_department_id",
         store=True,
     )
+    department_complete_name = fields.Char(string="Department complete Name", related="department_id.complete_name")
     order_in_department = fields.Integer(
         string="Sequence in department", readonly=True, default="0",
     )  # 成员在对应部门中的排序值，默认为0。数量必须和department一致
@@ -105,6 +106,12 @@ class WecomUser(models.Model):
         readonly=True,
         compute="_compute_status_name",
     )  # 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。已激活代表已激活企业微信或已关注微信插件（原企业号）。未激活代表既未激活企业微信又未关注微信插件（原企业号）。
+
+    gender_name = fields.Selection([
+        ('1', _('Male')),
+        ('2', _('Female')),
+        ('0', _('Undefined'))
+    ], string="Gender",compute="_compute_gender_name")
 
     @api.depends("status")
     def _compute_status_name(self):
@@ -123,6 +130,11 @@ class WecomUser(models.Model):
             )
             if department_id:
                 user.department_id = department_id
+
+    @api.depends("gender")
+    def _compute_gender_name(self):
+        for user in self:
+            user.gender_name = str(user.gender)
 
     # ------------------------------------------------------------
     # 企微用户下载

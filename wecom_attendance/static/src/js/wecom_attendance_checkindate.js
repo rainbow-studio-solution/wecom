@@ -54,6 +54,7 @@ odoo.define('wecom_attendance.checkindate', function (require) {
                 })
 
             });
+            console.log(typeof(rows),rows);
             let $control = $(QWeb.render('WecomAttendance.Checkindate', {
                 rows: rows,
             }));

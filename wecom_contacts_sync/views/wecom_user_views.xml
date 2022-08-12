@@ -25,8 +25,9 @@
             <field name="arch" type="xml">
                 <tree string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_tree_sync">
                     <field name="name" />
+                    <field name="gender_name" />
                     <field name="userid" />
-                    <field name="main_department" />
+                    <field name="department_complete_name" />
                     <field name="is_leader_in_dept" />
                     <field name="direct_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
                     <field name="status_name" />

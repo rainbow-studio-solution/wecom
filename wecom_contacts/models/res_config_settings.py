@@ -205,6 +205,8 @@ class ResConfigSettings(models.TransientModel):
                     % (self.company_id.name)
                 )
 
+    # TODO: 使用任务 获取IP
+
     def get_wecom_api_domain_ip(self):
         """
         获取企业微信API域名IP段
