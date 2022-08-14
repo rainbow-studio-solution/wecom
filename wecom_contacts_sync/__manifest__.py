@@ -29,6 +29,8 @@
         "wizard/wecom_contacts_sync_wizard_views.xml",
         "wizard/wecom_users_sync_wizard_views.xml",
         "views/wecom_user_views.xml",
+        "views/wecom_department_views.xml",
+        "views/wecom_tag_views.xml",
         "views/wecom_contacts_block_views.xml",
         "views/res_config_settings_views.xml",
         "views/res_users_views.xml",

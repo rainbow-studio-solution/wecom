@@ -3,8 +3,7 @@
 
     <t t-name="WecomUsersSimple">
         <t t-foreach="rows" t-as="user">
-            <!-- data-original-title="title" data-bs-customClass="wecom_contacts_popover"-->
-            <span class="badge badge-pill badge-primary user_simple" data-toggle="popover" title="User Details" data-placement="bottom" data-html="true" >
+            <span class="badge badge-primary contacts_simple" data-toggle="popover" title="User Details" data-placement="bottom" data-html="true">
                 <t t-esc="user.name"/>
             </span>
             <div class="user_card o_hidden">
@@ -13,7 +12,6 @@
                         <div class="media-body">
                             <h3 class="mt-0 mb-3">
                                 <t t-esc="user.name"/>
-
                                 <t t-if=" user.gender=='1' ">
                                     <i class="fa fa-user text-primary"></i>
                                 </t>
@@ -63,4 +61,146 @@
         </t>
     </t>
 
+    <t t-name="WecomUsersDetails">
+        <t t-foreach="rows" t-as="user">
+            <div class="card m-1 p-1 contacts_details" style="background-color: transparent;" data-toggle="popover" title="User Details" data-placement="bottom" data-html="true">
+                <div class="card-img-top d-flex justify-content-center">
+                    <img t-att-src="user.thumb_avatar" style="width: 40px;"/>
+                </div>
+                <div class="card-body d-flex justify-content-center" style="background-color: transparent!important;padding: 0;">
+                    <t t-esc="user.name"/>
+                </div>
+            </div>
+            <div class="user_card o_hidden">
+                <div class="card p-2" style="width: 400px;">
+                    <div class="media">
+                        <div class="media-body">
+                            <h3 class="mt-0 mb-3">
+                                <t t-esc="user.name"/>
+                                <t t-if=" user.gender=='1' ">
+                                    <i class="fa fa-user text-primary"></i>
+                                </t>
+                                <t t-elif=" user.gender=='2' ">
+                                    <i class="fa fa-user text-warning"></i>
+                                </t>
+                                <t t-else="">
+                                    <i class="fa fa-user text-muted"></i>
+                                </t>
+                            </h3>
+                            <p>
+                                <t t-esc="alias"/>
+                            </p>
+                        </div>
+                        <img t-att-src="user.thumb_avatar" class="ml-3" alt="" style="width: 60px;"/>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Account number</span>
+                            <div class="col-sm-9">
+                                <t t-esc="user.userid"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Position</span>
+                            <div class="col-sm-9">
+                                <t t-esc="user.position"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Mobile phone</span>
+                            <div class="col-sm-9">
+                                <t t-esc="user.mobile"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Department</span>
+                            <div class="col-sm-9">
+                                <t t-esc="user.department_complete_name"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </t>
+    </t>
+
+    <t t-name="WecomDepartmentsSimple">
+        <t t-foreach="rows" t-as="department">
+            <span class="badge badge-primary contacts_simple" data-toggle="popover" title="Department Details" data-placement="bottom" data-html="true">
+                <t t-esc="department.name"/>
+            </span>
+            <div class="department_card o_hidden">
+                <div class="card p-2" style="width: 400px;">
+                    <div class="card-body p-0">
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.name"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters" t-if="department.name_en">
+                            <span class="col-sm-3">English name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.name_en"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">ID</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.department_id"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Complete Name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.complete_name"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="WecomDepartmentsDetails">
+        <t t-foreach="rows" t-as="department">
+            <span class="badge badge-primary contacts_details" data-toggle="popover" title="Department Details" data-placement="bottom" data-html="true">
+                <t t-esc="department.complete_name"/>
+            </span>
+            <div class="department_card o_hidden">
+                <div class="card p-2" style="width: 400px;">
+                    <div class="card-body p-0">
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.name"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters" t-if="department.name_en">
+                            <span class="col-sm-3">English name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.name_en"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">ID</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.department_id"/>
+                            </div>
+                        </div>
+                        <div class="row no-gutters">
+                            <span class="col-sm-3">Complete Name</span>
+                            <div class="col-sm-9">
+                                <t t-esc="department.complete_name"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
 </templates>

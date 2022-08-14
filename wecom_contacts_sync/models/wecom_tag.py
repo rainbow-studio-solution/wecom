@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import json
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
@@ -24,16 +25,20 @@ class WecomTag(models.Model):
         store=True,
     )
 
-    name = fields.Char(string="Name", readonly=True, default="")  # 标签名称
+    name = fields.Char(string="Name", readonly=True, compute='_compute_name')  # 标签名称
     tagid = fields.Integer(string="Tag ID", readonly=True, default="0",)  # 标签id
     tagname = fields.Char(string="Tag name", readonly=True, default="")  # 标签名称
-    userlist = fields.Text(string="User list", readonly=True, default="")  # 标签中包含的成员列表
+    userlist = fields.Text(string="User list", readonly=True, default="[]")  # 标签中包含的成员列表
     partylist = fields.Text(
-        string="Party list", readonly=True, default=""
+        string="Party list", readonly=True, default="[]"
     )  # 标签中包含的部门id列表
 
     # odoo 字段
-    user_ids = fields.Many2many('wecom.user', 'user_tag_rel', 'tag_id', 'user_id', string='Users')
+    user_ids = fields.Many2many('wecom.user', 'wecom_user_tag_rel', 'wecom_tag_id', 'wecom_user_id', string='Members')
+
+    def _compute_name(self):
+        for tag in self:
+            tag.name = tag.tagname
 
     # ------------------------------------------------------------
     # 企微标签下载
@@ -141,6 +146,16 @@ class WecomTag(models.Model):
             ) % (company.name, wecom_tag["tagid"], str(e))
             _logger.warning(result)
         else:
+            for key in wecom_tag.keys():
+                if type(wecom_tag[key]) in (list, dict) and wecom_tag[key]:
+                    json_str = json.dumps(
+                        wecom_tag[key],
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    )
+                    wecom_tag[key] = json_str
             if not tag:
                 result = self.create_tag(company, tag, wecom_tag)
             else:
@@ -203,3 +218,80 @@ class WecomTag(models.Model):
                 "time": 0,
                 "msg": result,
             }  # 返回失败结果
+
+    def download_single_tag(self):
+        """
+        下载单个标签
+        """
+        company = self.company_id
+        params = {}
+        message =""
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.contacts_app_id.secret
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_MEMBER"),
+                {"tagid": str(self.tagid)},
+            )
+            print(response)
+            for key in response.keys():
+                if type(response[key]) in (list, dict) and response[key]:
+                    json_str = json.dumps(
+                        response[key],
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    )
+                    response[key] = json_str
+            self.write(
+                {
+                    "tagname": response["tagname"],
+                    "userlist": response["userlist"],
+                    "partylist": response["partylist"],
+                }
+            )
+        except ApiException as ex:
+            message = _(
+                "Tag [id:%s, name:%s] failed to download,Reason: %s"
+            ) % (self.tagid,self.tagname, str(ex))
+            _logger.warning(message)
+            params = {
+                "title": _("Download failed!"),
+                "message": message,
+                "sticky": True,  # 延时关闭
+                "className": "bg-danger",
+                "type": "danger",
+            }
+        except Exception as e:
+            message = _(
+                "Tag [id:%s, name:%s] failed to download,Reason: %s"
+            ) % (self.tagid,self.tagname, str(e))
+            _logger.warning(message)
+            params = {
+                "title": _("Download failed!"),
+                "message": message,
+                "sticky": True,  # 延时关闭
+                "className": "bg-danger",
+                "type": "danger",
+            }
+        else:
+            message = _(
+                "Tag [id:%s, name:%s] downloaded successfully"
+            ) % (self.tagid,self.tagname)
+            params = {
+                "title": _("Download Success!"),
+                "message": message,
+                "sticky": False,  # 延时关闭
+                "className": "bg-success",
+                "type": "success",
+                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+            }
+        finally:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": params,
+            }
+            return action # 返回结果

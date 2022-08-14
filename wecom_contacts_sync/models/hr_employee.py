@@ -81,7 +81,6 @@ class HrEmployeePrivate(models.Model):
     wecom_user_order = fields.Char(
         "WeCom user sort",
         default="0",
-        help="The sort value within the department, the default is 0. The quantity must be the same as the department, The greater the value the more sort front.The value range is [0, 2^32)",
         readonly=True,
     )
     is_wecom_user = fields.Boolean(

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
+import json
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
@@ -15,8 +16,9 @@ _logger = logging.getLogger(__name__)
 class WecomDepartment(models.Model):
     _name = "wecom.department"
     _description = "Wecom department"
-    _order = "order"
+    _order = "complete_name"
 
+    # 企微字段
     # 企微字段
     department_id = fields.Integer(
         string="Department ID", readonly=True, default="0"
@@ -50,10 +52,11 @@ class WecomDepartment(models.Model):
     child_ids = fields.One2many(
         "wecom.department", "parentid", string="Child Departments"
     )
-    member_ids = fields.One2many(
-        "wecom.user", "department_id", string="Members", readonly=True
-    )
+
     complete_name = fields.Char('Complete Name', compute='_compute_complete_name', recursive=True, store=True)
+    department_leader_ids = fields.Many2many("wecom.user", 'user_department_rel', 'tag_id', 'user_id', string="Department Leader")
+    user_ids = fields.Many2many('wecom.user', 'wecom_user_department_rel', 'department_id', 'user_id', string='Members')
+    color = fields.Integer('Color Index')
 
     @api.depends('name', 'parent_id.complete_name')
     def _compute_complete_name(self):
@@ -127,7 +130,6 @@ class WecomDepartment(models.Model):
 
             # 2.设置上级部门
             set_parent_department_result = self.set_parent_department(company)
-            # print("set_parent_department_result", set_parent_department_result)
             if set_parent_department_result:
                 for r in set_parent_department_result:
                     tasks.append(r)
@@ -169,6 +171,18 @@ class WecomDepartment(models.Model):
                 ),
                 {"id": str(wecom_department["id"])},
             )
+            department_obj = response["department"]
+            for key in department_obj.keys():
+                if type(department_obj[key]) in (list, dict) and department_obj[key]:
+                    json_str = json.dumps(
+                        department_obj[key],
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    )
+                    department_obj[key] = json_str
+            
         except ApiException as ex:
             result = _(
                 "Wecom API acquisition company[%s]'s department [id:%s] details failed, error details: %s"
@@ -182,11 +196,11 @@ class WecomDepartment(models.Model):
         else:
             if not department:
                 result = self.create_department(
-                    company, department, response["department"]
+                    company, department, department_obj
                 )
             else:
                 result = self.update_department(
-                    company, department, response["department"]
+                    company, department, department_obj
                 )
         finally:
             return result
@@ -233,7 +247,6 @@ class WecomDepartment(models.Model):
         try:
             department.write(
                 {
-                    "department_id": wecom_department["id"],
                     "name": wecom_department["name"],
                     "name_en": self.env["wecom.tools"].check_dictionary_keywords(
                         wecom_department, "name_en"
@@ -315,3 +328,85 @@ class WecomDepartment(models.Model):
             ]
         )
         return parent_department
+
+
+    def download_single_department(self):
+        """
+        下载单个部门
+        """
+        company = self.company_id
+        params = {}
+        message =""
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.contacts_app_id.secret
+            )
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call("DEPARTMENT_DETAILS"),
+                {"id": str(self.department_id)},
+            )
+            department = response["department"]
+            for key in department.keys():
+                if type(department[key]) in (list, dict) and department[key]:
+                    json_str = json.dumps(
+                        department[key],
+                        sort_keys=False,
+                        indent=2,
+                        separators=(",", ":"),
+                        ensure_ascii=False,
+                    )
+                    department[key] = json_str
+            self.sudo().write(
+                {                    
+                    "name": department["name"],
+                    "name_en": self.env["wecom.tools"].check_dictionary_keywords(
+                        department, "name_en"
+                    ),
+                    "department_leader": department["department_leader"],
+                    "parentid": department["parentid"],
+                    "order": department["order"],
+                }
+            )
+        except ApiException as ex:
+            message = _(
+                "Department [id:%s, name:%s] failed to download,Reason: %s"
+            ) % (self.department_id,self.name, str(ex))
+            _logger.warning(message)
+            params = {
+                "title": _("Download failed!"),
+                "message": message,
+                "sticky": True,  # 延时关闭
+                "className": "bg-danger",
+                "type": "danger",
+            }
+        except Exception as e:
+            message = _(
+                "Department [id:%s, name:%s] failed to download,Reason: %s"
+            ) % (self.department_id,self.name, str(e))
+            _logger.warning(message)
+            params = {
+                "title": _("Download failed!"),
+                "message": message,
+                "sticky": True,  # 延时关闭
+                "className": "bg-danger",
+                "type": "danger",
+            }
+        else:
+            message = _(
+                "Department [id:%s, name:%s] downloaded successfully"
+            ) % (self.department_id,self.name)            
+            params = {
+                "title": _("Download Success!"),
+                "message": message,
+                "sticky": False,  # 延时关闭
+                "className": "bg-success",
+                "type": "success",
+                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+            }
+        finally:
+            action = {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": params,
+            }
+            return action

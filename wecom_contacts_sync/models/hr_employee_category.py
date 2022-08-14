@@ -52,7 +52,6 @@ class EmployeeCategory(models.Model):
         string="WeCom Tag ID",
         readonly=True,
         default=0,
-        help="Tag ID, non negative integer. When this parameter is specified, the new tag will generate the corresponding tag ID. if it is not specified, it will be automatically increased by the current maximum ID.",
     )
     is_wecom_tag = fields.Boolean(string="WeCom Tag", default=False,)
 

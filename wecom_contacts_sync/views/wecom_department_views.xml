@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_wecom_department_tree" model="ir.ui.view">
+            <field name="name">wecom.department.tree</field>
+            <field name="model">wecom.department</field>
+            <field name="arch" type="xml">
+                <tree string="Department" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="name" />
+                    <field name="name_en" />
+                    <field name="parent_id" />
+                    <field name="complete_name" />
+                    <field name="department_id" widget="integer" options="{'format': false}"/>
+                    <field name="department_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
+                    
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wecom_department_form" model="ir.ui.view">
+            <field name="name">wecom.department.form</field>
+            <field name="model">wecom.department</field>
+            <field name="arch" type="xml">
+                <form string="department" create="false" delete="false" edit="false">
+                    <header></header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="btn oe_stat_button btn-succes" name="download_single_department" type="object">
+                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download department information" title="Download department information"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">Download</span>
+                                    <span class="o_stat_text">department information</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group col="4">
+                            <field name="department_id"/>
+                            <field name="name"/>
+                            <field name="name_en"/>
+                            <field name="parent_id"  options="{'no_open': True, 'no_create': True}"/>
+                            <field name="complete_name"/>
+                            <field name="department_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
+                            <field name="company_id" options="{'no_open': True, 'no_create': True}" groups="base.group_multi_company"/>
+                            <field name="user_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_wecom_contacts_department" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">wecom.department</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" eval="False"/>
+            <!-- <field name="search_view_id" ref="view_wecom_user_filter"/> -->
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

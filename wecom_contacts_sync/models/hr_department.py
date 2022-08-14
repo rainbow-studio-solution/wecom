@@ -37,13 +37,11 @@ class Department(models.Model):
 
     wecom_department_parent_id = fields.Integer(
         "WeCom parent department ID",
-        help="Parent department ID,32-bit integer.Root department is 1",
         readonly=True,
     )
     wecom_department_order = fields.Char(
         "WeCom department sort",
         default="1",
-        help="Order value in parent department. The higher order value is sorted first. The value range is[0, 2^32]",
         readonly=True,
     )
     is_wecom_department = fields.Boolean(

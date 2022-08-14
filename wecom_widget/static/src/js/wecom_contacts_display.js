@@ -13,9 +13,12 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
 
     var WecomContactDisplay = AbstractField.extend({
         events: _.extend({
-            'mouseover .user_simple': '_onShowUserCard',
-            'mouseout .user_simple': '_onHideUserCard',
+            'mouseover .contacts_simple': '_onShowUserCard',
+            'mouseout .contacts_simple': '_onHideUserCard',
+            'mouseover .contacts_details': '_onShowUserCard',
+            'mouseout .contacts_details': '_onHideUserCard',
         }, AbstractField.prototype.events),
+        className: "d-flex flex-row",
         init: function (parent, state, params) {
             this._super.apply(this, arguments);
             this.parent = parent;
@@ -37,16 +40,32 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
             } else {
                 self.template_content = JSON.parse(self.template_content);
                 if (this.template_content.length > 0) {
-                    self._renderWecomUsersDisplaySimple();
+                    self._renderWecomContactDisplay();
                 }
             }
         },
         _prepareInput: function ($el) {
             return this.$el;
         },
-        _renderWecomUsersDisplaySimple: async function () {
+        _renderWecomContactDisplay: async function () {
             var self = this;
             let contacts = this.template_content;
+            let new_contacts = [];
+            _.forEach(contacts, function (contact) {
+                // 处理Tag的userlist
+                if ($.isPlainObject(contact)) {
+                    if (self.hasKey("userid", contact)) {
+                        new_contacts.push(contact["userid"]);
+                    }
+                    if (self.hasKey("name", contact)) {
+                        delete contact["name"];
+                    }
+                }
+            })
+            if (new_contacts.length > 0) {
+                contacts = new_contacts;
+            }
+
             if (this.control_type == null || this.control_type == "") {
                 return;
             } else if (this.show_type == null || this.show_type == "") {
@@ -64,13 +83,13 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
                     model_name = "wecom.user";
                     fields = ["name", "alias", "userid", "mobile", "department_complete_name", "thumb_avatar", "gender", "position"];
                     domain_key = "userid";
-                    domain_key = "userid";
                     control_key = "users";
                 }
                 if (this.control_type === 'department') {
                     template_name = "WecomDepartments";
                     model_name = "wecom.department";
-                    domain_key = "userid";
+                    fields = ["name", "name_en", "department_id", "complete_name"];
+                    domain_key = "department_id";
                     control_key = "departments";
                 }
                 if (this.show_type === 'simple') {
@@ -111,6 +130,13 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
         _onHideUserCard: function (ev) {
             let badge = ev.currentTarget;
             $(badge).popover('hide');
+        },
+        hasKey(key, obj) {
+            if (obj.hasOwnProperty(key)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     });
 

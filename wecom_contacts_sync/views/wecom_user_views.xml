@@ -23,7 +23,7 @@
             <field name="name">wecom.user.tree</field>
             <field name="model">wecom.user</field>
             <field name="arch" type="xml">
-                <tree string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_tree_sync">
+                <tree string="User" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1">
                     <field name="name" />
                     <field name="gender_name" />
                     <field name="userid" />
@@ -104,14 +104,15 @@
             <field name="name">wecom.user.form</field>
             <field name="model">wecom.user</field>
             <field name="arch" type="xml">
-                <form string="User" create="false" delete="false" multi_edit="false" import="false" sample="1" js_class="wecom_user_form_sync">
+                <form string="User" create="false" delete="false" edit="false">
                     <header></header>
                     <sheet>
                         <div name="button_box" class="oe_button_box">
                             <button class="btn oe_stat_button btn-succes" name="download_single_user" type="object">
-                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download" title="Download"/>
+                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download user information" title="Download user information"/>
                                 <div class="o_stat_info">
-                                    <span class="o_stat_text">Download</span>
+                                    <span class="o_stat_value">Download</span>
+                                    <span class="o_stat_text">user information</span>
                                 </div>
                             </button>
                         </div>
@@ -126,7 +127,7 @@
                             <h2>
                                 <field name="position" placeholder="Job Position" />
                             </h2>
-                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags"/>
+                            <field name="tag_ids" widget="many2many_tags" placeholder="Tags"/>
                         </div>
                         <group>
                             <group>
@@ -137,8 +138,8 @@
                             <group>
                                 <group>
                                     <field name="is_leader_in_dept"/>
-                                    <field name="department_complete_name"/>
-                                    <field name="department"/>
+                                    <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="department_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                                 </group>
                             </group>
                         </group>
@@ -173,12 +174,13 @@
                             </page>
                         </notebook>
                     </sheet>
+
                 </form>
             </field>
         </record>
 
-        <record id="actions_wecom_contacts_list" model="ir.actions.act_window">
-            <field name="name">Wecom Contacts</field>
+        <record id="actions_wecom_contacts_member" model="ir.actions.act_window">
+            <field name="name">Member</field>
             <field name="res_model">wecom.user</field>
             <field name="type">ir.actions.act_window</field>
             <field name="view_mode">tree,kanban,form</field>

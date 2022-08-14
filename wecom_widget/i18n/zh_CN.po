@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-12 11:33+0000\n"
-"PO-Revision-Date: 2022-08-12 19:35+0800\n"
+"POT-Creation-Date: 2022-08-14 05:02+0000\n"
+"PO-Revision-Date: 2022-08-14 13:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -135,6 +135,13 @@ msgstr "取消"
 
 #. module: wecom_widget
 #. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Complete Name"
+msgstr "完整名称"
+
+#. module: wecom_widget
+#. openerp-web
 #: code:addons/wecom_widget/static/src/js/wecom_widget_image_url.js:0
 #, python-format
 msgid "Could not display the specified image url."
@@ -146,6 +153,13 @@ msgstr "无法显示指定的图像url。"
 #, python-format
 msgid "Department"
 msgstr "部门"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Department Details"
+msgstr "部门详情"
 
 #. module: wecom_widget
 #. openerp-web
@@ -161,6 +175,13 @@ msgstr "说明"
 #, python-format
 msgid "Edit mode"
 msgstr "编辑模式"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "English name"
+msgstr "英文名称"
 
 #. module: wecom_widget
 #. openerp-web
@@ -217,7 +238,14 @@ msgstr "图文消息（mpnews）"
 #: code:addons/wecom_widget/static/src/js/wecom_markdown.js:0
 #, python-format
 msgid "Help"
-msgstr "帮助"
+msgstr ""
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "ID"
+msgstr ""
 
 #. module: wecom_widget
 #. openerp-web
@@ -295,6 +323,13 @@ msgstr "支持移动设备"
 #: model:ir.model,name:wecom_widget.model_ir_module_module
 msgid "Module"
 msgstr "模块"
+
+#. module: wecom_widget
+#. openerp-web
+#: code:addons/wecom_widget/static/src/xml/contacts_display.xml:0
+#, python-format
+msgid "Name"
+msgstr "名称"
 
 #. module: wecom_widget
 #. openerp-web
