@@ -410,6 +410,11 @@ msgid "Contact synchronization Wizard"
 msgstr "通讯录同步向导"
 
 #. module: wecom_contacts_sync
+#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_sync
+msgid "Contacts Sync"
+msgstr "通讯录同步"
+
+#. module: wecom_contacts_sync
 #: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_management
 msgid "Contacts"
 msgstr "通讯录"
