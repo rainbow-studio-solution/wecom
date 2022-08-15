@@ -20,7 +20,7 @@ odoo.define('wecom_contacts_sync.download_deps', function (require) {
                         if (result["state"]) {
                             self.displayNotification({
                                 type: 'success',
-                                title: _t("Download succeeded!"),
+                                title: _t("Sync succeeded!"),
                                 message: result["msg"],
                                 sticky: true,
                                 buttons: [{
@@ -34,7 +34,7 @@ odoo.define('wecom_contacts_sync.download_deps', function (require) {
                         } else {
                             self.displayNotification({
                                 type: 'danger',
-                                title: _t("Download failed!"),
+                                title: _t("Sync failed!"),
                                 message: result["msg"],
                                 sticky: true,
                             });

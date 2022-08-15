@@ -53,19 +53,35 @@ class WecomDepartment(models.Model):
         "wecom.department", "parentid", string="Child Departments"
     )
 
-    complete_name = fields.Char('Complete Name', compute='_compute_complete_name', recursive=True, store=True)
-    department_leader_ids = fields.Many2many("wecom.user", 'user_department_rel', 'tag_id', 'user_id', string="Department Leader")
-    user_ids = fields.Many2many('wecom.user', 'wecom_user_department_rel', 'department_id', 'user_id', string='Members')
-    color = fields.Integer('Color Index')
+    complete_name = fields.Char(
+        "Complete Name", compute="_compute_complete_name", recursive=True, store=True
+    )
+    department_leader_ids = fields.Many2many(
+        "wecom.user",
+        "user_department_rel",
+        "tag_id",
+        "user_id",
+        string="Department Leader",
+    )
+    user_ids = fields.Many2many(
+        "wecom.user",
+        "wecom_user_department_rel",
+        "department_id",
+        "user_id",
+        string="Members",
+    )
+    color = fields.Integer("Color Index")
 
-    @api.depends('name', 'parent_id.complete_name')
+    @api.depends("name", "parent_id.complete_name")
     def _compute_complete_name(self):
         for department in self:
             if department.parent_id:
-                department.complete_name = '%s / %s' % (department.parent_id.complete_name, department.name)
+                department.complete_name = "%s / %s" % (
+                    department.parent_id.complete_name,
+                    department.name,
+                )
             else:
                 department.complete_name = department.name
-
 
     # ------------------------------------------------------------
     # 企微部门下载
@@ -77,6 +93,8 @@ class WecomDepartment(models.Model):
         """
         start_time = time.time()
         company = self.env.context.get("company_id")
+        if type(company) == int:
+            company = self.env["res.company"].browse(company)
 
         tasks = []
 
@@ -182,7 +200,7 @@ class WecomDepartment(models.Model):
                         ensure_ascii=False,
                     )
                     department_obj[key] = json_str
-            
+
         except ApiException as ex:
             result = _(
                 "Wecom API acquisition company[%s]'s department [id:%s] details failed, error details: %s"
@@ -195,13 +213,9 @@ class WecomDepartment(models.Model):
             _logger.warning(result)
         else:
             if not department:
-                result = self.create_department(
-                    company, department, department_obj
-                )
+                result = self.create_department(company, department, department_obj)
             else:
-                result = self.update_department(
-                    company, department, department_obj
-                )
+                result = self.update_department(company, department, department_obj)
         finally:
             return result
 
@@ -329,20 +343,21 @@ class WecomDepartment(models.Model):
         )
         return parent_department
 
-
     def download_single_department(self):
         """
         下载单个部门
         """
         company = self.company_id
         params = {}
-        message =""
+        message = ""
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
             )
             response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("DEPARTMENT_DETAILS"),
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "DEPARTMENT_DETAILS"
+                ),
                 {"id": str(self.department_id)},
             )
             department = response["department"]
@@ -357,7 +372,7 @@ class WecomDepartment(models.Model):
                     )
                     department[key] = json_str
             self.sudo().write(
-                {                    
+                {
                     "name": department["name"],
                     "name_en": self.env["wecom.tools"].check_dictionary_keywords(
                         department, "name_en"
@@ -368,9 +383,11 @@ class WecomDepartment(models.Model):
                 }
             )
         except ApiException as ex:
-            message = _(
-                "Department [id:%s, name:%s] failed to download,Reason: %s"
-            ) % (self.department_id,self.name, str(ex))
+            message = _("Department [id:%s, name:%s] failed to download,Reason: %s") % (
+                self.department_id,
+                self.name,
+                str(ex),
+            )
             _logger.warning(message)
             params = {
                 "title": _("Download failed!"),
@@ -380,9 +397,11 @@ class WecomDepartment(models.Model):
                 "type": "danger",
             }
         except Exception as e:
-            message = _(
-                "Department [id:%s, name:%s] failed to download,Reason: %s"
-            ) % (self.department_id,self.name, str(e))
+            message = _("Department [id:%s, name:%s] failed to download,Reason: %s") % (
+                self.department_id,
+                self.name,
+                str(e),
+            )
             _logger.warning(message)
             params = {
                 "title": _("Download failed!"),
@@ -392,9 +411,10 @@ class WecomDepartment(models.Model):
                 "type": "danger",
             }
         else:
-            message = _(
-                "Department [id:%s, name:%s] downloaded successfully"
-            ) % (self.department_id,self.name)            
+            message = _("Department [id:%s, name:%s] downloaded successfully") % (
+                self.department_id,
+                self.name,
+            )
             params = {
                 "title": _("Download Success!"),
                 "message": message,

@@ -25,16 +25,24 @@ class WecomTag(models.Model):
         store=True,
     )
 
-    name = fields.Char(string="Name", readonly=True, compute='_compute_name')  # 标签名称
+    name = fields.Char(string="Name", readonly=True, compute="_compute_name")  # 标签名称
     tagid = fields.Integer(string="Tag ID", readonly=True, default="0",)  # 标签id
     tagname = fields.Char(string="Tag name", readonly=True, default="")  # 标签名称
-    userlist = fields.Text(string="User list", readonly=True, default="[]")  # 标签中包含的成员列表
+    userlist = fields.Text(
+        string="User list", readonly=True, default="[]"
+    )  # 标签中包含的成员列表
     partylist = fields.Text(
         string="Party list", readonly=True, default="[]"
     )  # 标签中包含的部门id列表
 
     # odoo 字段
-    user_ids = fields.Many2many('wecom.user', 'wecom_user_tag_rel', 'wecom_tag_id', 'wecom_user_id', string='Members')
+    user_ids = fields.Many2many(
+        "wecom.user",
+        "wecom_user_tag_rel",
+        "wecom_tag_id",
+        "wecom_user_id",
+        string="Members",
+    )
 
     def _compute_name(self):
         for tag in self:
@@ -50,6 +58,8 @@ class WecomTag(models.Model):
         """
         start_time = time.time()
         company = self.env.context.get("company_id")
+        if type(company) == int:
+            company = self.env["res.company"].browse(company)
         tasks = []
 
         try:
@@ -225,13 +235,15 @@ class WecomTag(models.Model):
         """
         company = self.company_id
         params = {}
-        message =""
+        message = ""
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
             )
             response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("TAG_GET_MEMBER"),
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "TAG_GET_MEMBER"
+                ),
                 {"tagid": str(self.tagid)},
             )
             print(response)
@@ -253,9 +265,11 @@ class WecomTag(models.Model):
                 }
             )
         except ApiException as ex:
-            message = _(
-                "Tag [id:%s, name:%s] failed to download,Reason: %s"
-            ) % (self.tagid,self.tagname, str(ex))
+            message = _("Tag [id:%s, name:%s] failed to download,Reason: %s") % (
+                self.tagid,
+                self.tagname,
+                str(ex),
+            )
             _logger.warning(message)
             params = {
                 "title": _("Download failed!"),
@@ -265,9 +279,11 @@ class WecomTag(models.Model):
                 "type": "danger",
             }
         except Exception as e:
-            message = _(
-                "Tag [id:%s, name:%s] failed to download,Reason: %s"
-            ) % (self.tagid,self.tagname, str(e))
+            message = _("Tag [id:%s, name:%s] failed to download,Reason: %s") % (
+                self.tagid,
+                self.tagname,
+                str(e),
+            )
             _logger.warning(message)
             params = {
                 "title": _("Download failed!"),
@@ -277,9 +293,10 @@ class WecomTag(models.Model):
                 "type": "danger",
             }
         else:
-            message = _(
-                "Tag [id:%s, name:%s] downloaded successfully"
-            ) % (self.tagid,self.tagname)
+            message = _("Tag [id:%s, name:%s] downloaded successfully") % (
+                self.tagid,
+                self.tagname,
+            )
             params = {
                 "title": _("Download Success!"),
                 "message": message,
@@ -294,4 +311,5 @@ class WecomTag(models.Model):
                 "tag": "display_notification",
                 "params": params,
             }
-            return action # 返回结果
+            return action  # 返回结果
+
