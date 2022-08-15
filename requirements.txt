@@ -5,3 +5,4 @@ lxml-to-dict==0.1.2
 pycryptodome
 ffmpy
 pydub
+html2text
