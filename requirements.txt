@@ -12,3 +12,4 @@ xmltodict
 pycryptodome
 ffmpy
 pydub
+html2text

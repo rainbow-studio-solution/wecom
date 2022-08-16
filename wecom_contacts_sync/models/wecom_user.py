@@ -93,12 +93,24 @@ class WecomUser(models.Model):
         store=True,
     )
     department_ids = fields.Many2many(
-        "wecom.department", 'wecom_user_department_rel','user_id','department_id', string="Multiple Departments", readonly=True, compute="_compute_department_ids",
+        "wecom.department",
+        "wecom_user_department_rel",
+        "user_id",
+        "department_id",
+        string="Multiple Departments",
+        readonly=True,
+        compute="_compute_department_ids",
     )
     tag_ids = fields.Many2many(
-        'wecom.tag', 'wecom_user_tag_rel',
-        'wecom_user_id', 'wecom_tag_id', string='Tags')
-    department_complete_name = fields.Char(string="Department complete Name", related="department_id.complete_name")
+        "wecom.tag",
+        "wecom_user_tag_rel",
+        "wecom_user_id",
+        "wecom_tag_id",
+        string="Tags",
+    )
+    department_complete_name = fields.Char(
+        string="Department complete Name", related="department_id.complete_name"
+    )
     order_in_department = fields.Integer(
         string="Sequence in department", readonly=True, default="0",
     )  # 成员在对应部门中的排序值，默认为0。数量必须和department一致
@@ -114,12 +126,12 @@ class WecomUser(models.Model):
         compute="_compute_status_name",
     )  # 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。已激活代表已激活企业微信或已关注微信插件（原企业号）。未激活代表既未激活企业微信又未关注微信插件（原企业号）。
 
-    gender_name = fields.Selection([
-        ('1', _('Male')),
-        ('2', _('Female')),
-        ('0', _('Undefined'))
-    ], string="Gender",compute="_compute_gender_name")
-    color = fields.Integer('Color Index')
+    gender_name = fields.Selection(
+        [("1", _("Male")), ("2", _("Female")), ("0", _("Undefined"))],
+        string="Gender",
+        compute="_compute_gender_name",
+    )
+    color = fields.Integer("Color Index")
 
     @api.depends("status")
     def _compute_status_name(self):
@@ -151,7 +163,9 @@ class WecomUser(models.Model):
         """
         for user in self:
             department_list = eval(user.department)
-            department_ids = self.get_parent_department(user.company_id, department_list)
+            department_ids = self.get_parent_department(
+                user.company_id, department_list
+            )
             # department_ids = self.env["wecom.department"].search(
             #     [
             #         ("department_id", "in", department_list),
@@ -168,10 +182,7 @@ class WecomUser(models.Model):
         department_ids = []
         for department in departments:
             department_id = self.env["wecom.department"].search(
-                [
-                    ("department_id", "=", department),
-                    ("company_id", "=", company.id),
-                ],
+                [("department_id", "=", department), ("company_id", "=", company.id),],
                 limit=1,
             )
             if department_id:
@@ -187,7 +198,11 @@ class WecomUser(models.Model):
         下载用户列表
         """
         start_time = time.time()
+
         company = self.env.context.get("company_id")
+        if type(company) == int:
+            company = self.env["res.company"].browse(company)
+
         tasks = []
 
         try:
@@ -410,14 +425,13 @@ class WecomUser(models.Model):
                 "msg": result,
             }  # 返回失败结果
 
-
     def download_single_user(self):
         """
         下载单个用户
         """
         company = self.company_id
         params = {}
-        message =""
+        message = ""
         try:
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
@@ -474,33 +488,36 @@ class WecomUser(models.Model):
                 }
             )
         except ApiException as ex:
-            message = _(
-                "User [id:%s, name:%s] failed to download,Reason: %s"
-            ) % (self.userid,self.name, str(ex))
+            message = _("User [id:%s, name:%s] failed to download,Reason: %s") % (
+                self.userid,
+                self.name,
+                str(ex),
+            )
             _logger.warning(message)
             params = {
-                    "title": _("Download failed!"),
-                    "message": message,
-                    "sticky": True,  # 延时关闭
-                    "className": "bg-danger",
-                    "type": "danger",
-                }
+                "title": _("Download failed!"),
+                "message": message,
+                "sticky": True,  # 延时关闭
+                "className": "bg-danger",
+                "type": "danger",
+            }
         else:
-            message = _(
-                "User [id:%s, name:%s] downloaded successfully"
-            ) % (self.userid,self.name)
+            message = _("User [id:%s, name:%s] downloaded successfully") % (
+                self.userid,
+                self.name,
+            )
             params = {
-                    "title": _("Download Success!"),
-                    "message": message,
-                    "sticky": False,  # 延时关闭
-                    "className": "bg-success",
-                    "type": "success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                }
+                "title": _("Download Success!"),
+                "message": message,
+                "sticky": False,  # 延时关闭
+                "className": "bg-success",
+                "type": "success",
+                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
+            }
         finally:
             action = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": params,
-                }
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": params,
+            }
             return action

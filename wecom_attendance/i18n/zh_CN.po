@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* wecom_contacts_sync
+# 	* wecom_attendance
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-07 11:57+0000\n"
-"PO-Revision-Date: 2022-08-07 20:28+0800\n"
+"POT-Creation-Date: 2022-08-06 15:15+0000\n"
+"PO-Revision-Date: 2022-08-06 23:17+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -17,1729 +17,704 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.1.1\n"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid ""
-"\n"
-"Automatic task: end the synchronization of the enterprise wechat organizational "
-"structure of all companies.\n"
-"=======================================================================================================================\n"
-"Task Synchronization status:%s, Synchronization task time:%s seconds,\n"
-"Synchronization results：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"Hr department sync status:%s, Synchronize HR department time: %s seconds,\n"
-"Synchronize HR department results:\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"Hr employee sync status:%s, Synchronize HR employee time: %s seconds,\n"
-"Synchronize HR employee results:\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"Hr tag sync status:%s, Synchronize HR tag time: %s seconds,\n"
-"Synchronize HR tag results:\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"System user status:%s, Synchronize system user time: %s seconds,\n"
-"Synchronize system user results:\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"Contact tag status:%s, Synchronize contact tag time: %s seconds,\n"
-"Synchronize contact tag results:\n"
-"%s\n"
-"======================================================================================================================="
-msgstr ""
-"\n"
-"自动任务：结束所有公司的企业微信组织架构同步。\n"
-"=======================================================================================================================\n"
-"任务同步状态：%s，同步任务时间：%s 秒\n"
-"同步结果：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"HR部门同步状态：%s，同步HR部门时间：%s秒，\n"
-"同步HR部门结果：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"HR员工同步状态：%s，同步HR员工时间：%s秒，\n"
-"同步HR员工结果：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"HR标签同步状态：%s，同步HR标签时间：%s秒，\n"
-"同步HR标签结果：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"系统用户同步状态：%s，同步系统用户时间：%s秒，\n"
-"同步系统用户结果：\n"
-"%s\n"
-"-----------------------------------------------------------------------------------------------------------------------\n"
-"联系人标签同步状态：%s, 同步联系人标签时间：%s seconds,\n"
-"同步联系人标签结果：\n"
-"%s\n"
-"======================================================================================================================="
+msgid "(millisecond)"
+msgstr "(毫秒)"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "<i class=\"fa fa-cogs fa-lg\" aria-label=\"Contacts Configuration\"/>"
-msgstr "<i class=\"fa fa-cogs fa-lg\" aria-label=\"通讯录配置\"/>"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Attendance Secret\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"出勤密钥\"/>"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "<i class=\"fa fa-server fa-lg\" aria-label=\"Contacts Service\"/>"
-msgstr "<i class=\"fa fa-server fa-lg\" aria-label=\"通讯录服务\"/>"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Attendance Agentid\"/>"
+msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"出勤应用Id\"/>"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "<kbd>tail -f /var/log/odoo/odoo-server.log</kbd>"
-msgstr ""
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Attendance application\"/>"
+msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"出勤应用\"/>"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hr_kanban_view_employees
-msgid ""
-"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"Enterprise wechat "
-"Employee\" title=\"Enterprise wechat Employee\">\n"
-"                        </span>"
-msgstr ""
-"<span class=\"fa fa-weixin text-info mr4\" role=\"img\" aria-label=\"企微员工\" title="
-"\"企微员工\">\n"
-"                        </span>"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid ""
-"<span class=\"o_stat_value\">Binding</span>\n"
-"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
-msgstr ""
-"<span class=\"o_stat_value\">绑定</span>\n"
-"                            <span class=\"o_stat_text\">企微成员</span>"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__attendance_agentid
+msgid "Agent ID"
+msgstr "应用ID"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid ""
-"<span class=\"o_stat_value\">Unbind</span>\n"
-"                            <span class=\"o_stat_text\">Enterprise wechat members</span>"
-msgstr ""
-"<span class=\"o_stat_value\">解绑</span>\n"
-"                            <span class=\"o_stat_text\">企微成员</span>"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_default_avatar_when_adding_employees
-msgid ""
-"<span class=\"text-info font-weight-bold\">Valid only when synchronizing new employees."
-"</span>\n"
-"                    <br>Value: True or False"
-msgstr ""
-"<span class=\"text-info font-weight-bold\">仅在同步新员工时有效。</span>\n"
-"                    <br>值: True 或 False"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync_employees
-msgid ""
-"<span class=\"text-warning font-weight-bold\">Use this feature with caution.</span>\n"
-"                    <br>Value: True or False"
-msgstr ""
-"<span class=\"text-warning font-weight-bold\">请谨慎使用此功能。</span>\n"
-"                    <br>值: True 或 False"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "API error: %s, error name: %s, error message: %s"
-msgstr "企微API错误: %s, 错误名称e: %s, 错误消息: %s"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_user.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__1
-#, python-format
-msgid "Activated"
-msgstr "已激活"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_user
-msgid "Add member events"
-msgstr "新增成员事件"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__address
-msgid "Address"
-msgstr "地址"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid ""
-"After the first batch generation of users from employees, it is recommended to start "
-"the event service of \"address book synchronization\" to create and update employees "
-"and users."
-msgstr "第一次从员工生成用户后，建议启动“通讯簿同步”事件服务，创建和更新员工和用户。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__alias
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__alias
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "Alias"
-msgstr "别名"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__completed
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__completed
-#, python-format
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rules_wizard__state__completed
 msgid "All completed"
-msgstr "全部完成"
+msgstr "全部已完成"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__fail
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__fail
-#, python-format
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rules_wizard__state__fail
 msgid "All failed"
 msgstr "全部失败"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_edit_enabled
-msgid "Allow API to edit WeCom contacts"
-msgstr "允许API编辑企业微信通讯录"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__note_can_use_local_pic
+msgid "Allow local images to be uploaded when remarks"
+msgstr "备注时允许上传本地图片"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
-msgid "Allow wecom contacts to add system users"
-msgstr "允许企微通讯录添加系统用户"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__allow_apply_offworkday
+msgid "Allow to submit card replacement application"
+msgstr "允许提交补卡申请"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
-msgid "Allow wecom contacts to synchronize HR"
-msgstr "允许企微通讯录同步人力资源"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_config_ids
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "Application Configuration"
-msgstr "应用配置"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "Are you sure to release the binding with enterprise wechat members ?"
-msgstr "您确定要解除企业微信成员的绑定吗？"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
 #, python-format
+msgid "Allowable check-in range (m)"
+msgstr "允许打卡范围（米）"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
 msgid ""
-"Automatic task: end synchronizing the enterprise wechat organizational structure of the "
-"company [%s]"
-msgstr "自动任务：结束同步公司[%s]的企业微信组织架构"
+"Application Management→Application→Open the application that needs to be verified "
+"and authorized, copy 'AgentId'"
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“AgentId”"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
-#, python-format
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
 msgid ""
-"Automatic task: start to synchronize the enterprise wechat organizational structure of "
-"the company [%s]"
-msgstr "自动任务：开始同步公司[%s]的企业微信组织架构"
+"Application Management→Application→Open the application that needs to be verified "
+"and authorized, copy 'Secret'"
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“Secret”"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__avatar
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__avatar
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__avatar
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__avatar
-msgid "Avatar"
-msgstr "头像"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_company__attendance_app_id
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__attendance_app_id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__attendance_app_id
+msgid "Attendance Application"
+msgstr "出勤应用"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__thumb_avatar
-msgid "Avatar thumbnail"
-msgstr "头像缩略图"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.actions_wecom_users_sync_wizard
-msgid "Batch generate users from employees"
-msgstr "从员工批量生成用户"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "Before clicking the 'Change User Type' button, you must modify the new user type"
-msgstr "在单击“更改用户类型”按钮之前，必须修改新的用户类型"
+msgid "Attendances settings"
+msgstr "出勤设置"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.employee_bind_wecom_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.user_bind_wecom_view_form
-msgid "Binding"
-msgstr "绑定"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "Binding application"
+msgstr "绑定应用"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_tree
-msgid "Binding wecom members"
-msgstr "绑定企微成员"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__allow_checkin_offworkday
+msgid "Check in on non-working days"
+msgstr "非工作日允许打卡"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__biz_mail
-msgid "BizMail"
-msgstr "企业邮箱"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Check-in Rule Type"
+msgstr "打卡规则类型"
 
-#. module: wecom_contacts_sync
-#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_block_record
-msgid "Block List"
-msgstr "阻止列表"
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+#, python-format
+msgid "Check-in Time"
+msgstr "打卡时间"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "Button group"
-msgstr "按钮组"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Check-in Type"
+msgstr "打卡方式"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.change_type_wizard_view
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.employee_bind_wecom_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.user_bind_wecom_view_form
-msgid "Cancel"
-msgstr "取消"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__wifimac_infos
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Check-in location - WiFi check-in information"
+msgstr "打卡地点-WiFi打卡信息"
 
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.change_type_wizard_action
-msgid "Change Type"
-msgstr "更改类型"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__loc_infos
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Check-in location - location check-in information"
+msgstr "打卡地点-位置打卡信息"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.change_type_wizard_view
-msgid "Change type"
-msgstr "更改类型"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Check-in personnel"
+msgstr "打卡人员"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.change_type_wizard_view
-msgid "Change user type"
-msgstr "更改用户类型"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__groupid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__groupname
+msgid "Check-in rule id"
+msgstr "打卡规则Id"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__child_ids
-msgid "Child Departments"
-msgstr "子部门"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__range
+msgid "Check-in staff"
+msgstr "打卡人员"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__checkindate
+msgid "Check-in time"
+msgstr "打卡时间"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Check-in time limit"
+msgstr "打卡时间限制"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__type
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__type_name
+msgid "Check-in type"
+msgstr "打卡方式"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
 msgid "Close"
 msgstr "关闭"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
 msgid "Close and refresh"
-msgstr "关闭并刷新"
+msgstr "关闭和刷新"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__company_id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__company_id
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hr_employee_category_view_search
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#, python-format
+msgid "Commuting by shift"
+msgstr "按班次上下班"
+
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_res_company
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__companies
+msgid "Companies"
+msgstr "公司"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__company_id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__company_id
 msgid "Company"
 msgstr "公司"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
-#, python-format
-msgid "Complete batch generation of system users from employees."
-msgstr "完成从员工批量生成系统用户。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_res_config_settings
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.actions_wecom_contacts_sync_wizard
-msgid "Contact synchronization Wizard"
-msgstr "通讯录同步向导"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "Contact tag sync"
-msgstr "联系人标签同步"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__partner_tag_sync_state
-msgid "Contact tag synchronization Status"
-msgstr "联系人标签同步状态"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__partner_tag_sync_result
-msgid "Contact tag synchronization results"
-msgstr "联系人标签同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__partner_tag_sync_times
-msgid "Contact tag synchronization time (seconds)"
-msgstr "联系人标签同步时间(秒)"
-
-#. module: wecom_contacts_sync
-#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_contacts_list
-msgid "Contacts"
-msgstr "通讯录"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__contacts_app_id
-msgid "Contacts Application"
-msgstr "通讯录营业"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_asyn_task_completion_notification
-msgid "Contacts asynchronous task completion notification"
-msgstr "通讯录异步任务完成通知"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#, python-format
-msgid "Contacts list downloaded successfully."
-msgstr "通讯录已成功下载。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
-#, python-format
-msgid "Contacts synchronization"
-msgstr "通讯录同步"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "Copy as system user"
-msgstr "复制为系统用户"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Create contacts tags: %s to WeCom"
-msgstr "创建通讯录标签：%s 到企微"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_users_sync_wizard
-msgid "Create users from employees Wizard"
-msgstr "从员工创建用户向导"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__create_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__create_uid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_userid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__create_uid
 msgid "Created by"
-msgstr "创建者"
+msgstr "创建人"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__create_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__create_date
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__create_date
 msgid "Created on"
 msgstr "创建时间"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_delete_party
-msgid "Delete Department events"
-msgstr "删除部门事件"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__create_time
+msgid "Created on(UTC)"
+msgstr "创建时间(UTC)"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
 #, python-format
-msgid "Delete contacts tags: %s to WeCom"
-msgstr "删除通讯录标签：%s 到企微"
+msgid "Details of check-in place"
+msgstr "位置打卡地点详情"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_delete_user
-msgid "Delete member events"
-msgstr "删除成员事件"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_hr_department
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__department
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__department_id
-msgid "Department"
-msgstr "部门"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__department_id
-msgid "Department ID"
-msgstr "部门ID"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_sync_hr_department_id
-msgid "Department ID to be synchronized"
-msgstr "需要同步的部门ID"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__department_leader
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__is_leader_in_dept
-msgid "Department Leader"
-msgstr "部门负责人"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_sync_hr_department_id
-msgid ""
-"Department id. Get the specified department and its sub-departments. If you don’t fill "
-"in, get the full organization structure by default\n"
-"                    <br>Value: Department id."
-msgstr ""
-"部门id。获取指定的部门及其子部门。如果不填写，默认情况下获取完整的组织架构\n"
-"                    <br>值：部门id。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
-#, python-format
-msgid "Department list downloaded successfully."
-msgstr "部门列表下载成功。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__department_ids
-msgid "Departments"
-msgstr "部门"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__direct_leader
-msgid "Direct Leader"
-msgstr "直属上级"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_user.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__2
-#, python-format
-msgid "Disabled"
-msgstr "已禁用"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "Dismissal of employee [%s] failed, reason%s"
-msgstr "解雇员工 [%s] 失败，原因是%s"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__display_name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__display_name
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__display_name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Do not send mail to new users by default."
-msgstr "默认不向新用户发送邮件。"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__distance
+msgid "Distance"
+msgstr "允许打卡范围"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_employee_category_form
-msgid "Download Tags"
-msgstr "下载标签"
-
-#. module: wecom_contacts_sync
+#. module: wecom_attendance
 #. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/js/download_deps.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_staffs.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_tags.js:0
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid "Download failed!"
-msgstr "下载失败！"
+msgid "Early departure time allowed"
+msgstr "允许早退时间"
 
-#. module: wecom_contacts_sync
-#. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/js/download_deps.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_staffs.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_tags.js:0
-#, python-format
-msgid "Download succeeded!"
-msgstr "下载成功！"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__use_face_detect
+msgid "Face recognition"
+msgstr "人脸识别"
 
-#. module: wecom_contacts_sync
-#. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom department data"
-msgstr "下载企微部门数据"
-
-#. module: wecom_contacts_sync
-#. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom employee data"
-msgstr "下载企微员工数据"
-
-#. module: wecom_contacts_sync
-#. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/xml/hr_templates.xml:0
-#, python-format
-msgid "Download wecom tag data"
-msgstr "下载企微标签数据"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__email
-msgid "Email"
-msgstr "电子邮件"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_hr_employee
-msgid "Employee"
-msgstr "员工"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_hr_employee_category
-msgid "Employee Category"
-msgstr "员工类别"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_employee_category_form
-msgid "Employee Tags"
-msgstr "员工标签"
-
-#. module: wecom_contacts_sync
-#. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/js/download_staffs.js:0
-#, python-format
-msgid "Employee Termination"
-msgstr "员工解聘"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "Employee list downloaded successfully."
-msgstr "员工列表下载成功。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/employee_bind_wecom.py:0
-#, python-format
-msgid "Employee with ID [%s] already exists"
-msgstr "ID为 [%s] 的员工已存在"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__employee_ids
-msgid "Employees"
-msgstr "员工"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.employee_bind_wecom_action
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_employee_bind_wecom_wizard
-msgid "Employees bind enterprise wechat members"
-msgstr "员工绑定企微成员"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_use_default_avatar_when_adding_employees
-msgid ""
-"Enable this, Employee photos will use the default avatar. Will save a lot of "
-"synchronization time."
-msgstr "启用此选项，员工照片将使用默认头像。将节省大量的同步时间。"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync_employees
-msgid "Enable this,Each update will overwrite the employee photos you have set up."
-msgstr "启用此选项后，每次更新都将覆盖您设置的员工照片。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "End setting the direct leader of the employee with the company name '%s'."
-msgstr "结束设置公司名称为“%s”的员工的直接领导。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__english_name
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "English Name"
-msgstr "英文名称"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__name_en
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__english_name
-msgid "English name"
-msgstr "英文名称"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_edit_enabled
-msgid ""
-"Enterprise wechat Contacts can be read and edited through API interface\n"
-"                    <br>Value: True or False"
-msgstr ""
-"企业微信通讯录可以通过API接口读取和编辑\n"
-"                    <br>值: True 或 False"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__wecom_userid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__wecom_userid
-msgid "Enterprise wechat user Id"
-msgstr "企微用户Id"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
-#, python-format
-msgid "Error creating Department [%s], error details:%s"
-msgstr "创建部门 [%s] 时出错，错误详细信息：%s"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#, python-format
-msgid "Error creating company %s partner %s %s, error reason: %s"
-msgstr "创建公司 [%s] 合作伙伴 [%s %s]时出错，错误原因：%s"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "Error creating company [%s] employee [%s %s], error reason: %s"
-msgstr "创建公司 [%s] 员工 [%s %s]时出错，错误原因：%s"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__error_info
-msgid "Error info"
-msgstr "错误信息"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
-#, python-format
-msgid "Error setting parent department for company %s, Error details:%s"
-msgstr "设置公司 [%s] 的上级部门时出错，错误详细信息：%s"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_apps.py:0
 #, python-format
 msgid ""
-"Error setting the direct leader of the company %s employee %s. The wrong reason is: %s."
-msgstr "设置公司 [%s] 员工 [%s] 的直属领导时出错。错误的原因是：%s。"
+"Failed to obtain all the checkin rules of the company [%s]. Reason for failure: %s"
+msgstr "无法获取公司[%s]的所有打卡规则。失败原因：%s"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
 #, python-format
-msgid "Error update company %s employee %s %s, error reason: %s"
-msgstr "更新公司 [%s] 的员工 [%s %s]时出错，错误原因：%s"
+msgid "Fixed time commuting"
+msgstr "固定时间上下班"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
 #, python-format
-msgid "Error updating Department [%s], error details:%s"
-msgstr "更新部门 [%s] 时出错，错误详细信息：%s"
+msgid "Free commuting"
+msgstr "自由上下班"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_user.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__5
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__offwork_interval_time
+msgid "Free sign in"
+msgstr "自由签到"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid "Exit the enterprise"
-msgstr "退出企业"
+msgid "Fri"
+msgstr "周五"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__extattr
-msgid "Extended attributes"
-msgstr "扩展属性"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "Get application info"
+msgstr "获取应用信息"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__external_profile
-msgid "External attributes"
-msgstr "对外属性"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__external_position
-msgid "External position"
-msgstr "对外职务"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/list_header_button.xml:0
 #, python-format
-msgid "Fail"
-msgstr "失败"
+msgid "Get checkin rules"
+msgstr "获取打卡规则"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Failed"
-msgstr "失败"
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_wizard
+msgid "Get the checkin rules of all companies?"
+msgstr "获取所有公司的打卡规则？"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
-#, python-format
-msgid "Failed to copy employee [%s] as system user, reason:%s"
-msgstr "无法将员工[%s]复制为系统用户，原因：%s"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Failed to download tag [%s] member of company [%s]!"
-msgstr "未能下载标签 [%s] 的成员，公司[%s]的！"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__gender
-msgid "Gender"
-msgstr "性别"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "Generate parameters"
-msgstr "生成参数"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wecom_users_sync_wizard.py:0
-#, python-format
-msgid "Generate results using the wizard"
-msgstr "使用向导生成结果"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "Generate service"
-msgstr "生成服务"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "Get OpenID"
-msgstr "获取OpenID"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid ""
-"Get the main department error of the company %s employee %s. The wrong reason is: %s."
-msgstr "获取公司 %s 员工 %s 的主部门错误。错误的原因是：%s。"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hr_employee_category_view_search
-msgid "Group By"
-msgstr "分组"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Help"
-msgstr "帮助"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "Hr Department sync"
-msgstr "HR部门同步"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "Hr Employee sync"
-msgstr "HR员工同步"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "Hr Tag sync"
-msgstr "HR标签同步"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_department_sync_state
-msgid "Hr department synchronization Status"
-msgstr "HR部门同步状态"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_department_sync_result
-msgid "Hr department synchronization results"
-msgstr "HR部门同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_department_sync_times
-msgid "Hr department synchronization time (seconds)"
-msgstr "HR部门同步时间(秒)"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_employee_sync_state
-msgid "Hr employee synchronization Status"
-msgstr "HR员工同步状态"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_employee_sync_result
-msgid "Hr employee synchronization results"
-msgstr "HR员工同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_employee_sync_times
-msgid "Hr employee synchronization time (seconds)"
-msgstr "HR员工同步时间(秒)"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_tag_sync_state
-msgid "Hr tag synchronization Status"
-msgstr "HR标签同步状态"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_tag_sync_result
-msgid "Hr tag synchronization results"
-msgstr "HR标签同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__hr_tag_sync_times
-msgid "Hr tag synchronization time (seconds)"
-msgstr "HR标签同步时间(秒)"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__id
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__id
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__id
 msgid "ID"
 msgstr ""
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "If an error occurs, please check the help file."
-msgstr "如果发生错误，请查看帮助文件。"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__group
+msgid "Information about Check-in rules"
+msgstr "打卡规则相关信息"
 
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
-msgid ""
-"If the value is true, system users can be added through wizards, tasks and events;<br>\n"
-"                    If the value is false, you can only update;<br>\n"
-"                    The default is false;<br>"
-msgstr ""
-"如果该值为true，则可以通过向导、任务和事件添加系统用户；<br>\n"
-"                    如果该值为false，则只能更新；<br>\n"
-"                    默认值 false;<br>"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
-msgid ""
-"If the value is true, the wizard and task are allowed to synchronize the organization "
-"structure of wecom contacts to HR;<br>\n"
-"                    If the value is false, you need to manually bind HR employees to "
-"wecom users. At the same time, only employees with wecom user ID can be updated by "
-"events;<br>\n"
-"                    The default is true;"
-msgstr ""
-"如果该值为true，则允许向导和任务将企微通讯录的组织架构同步到HR；<br>\n"
-"                    如果该值为false，则需要手动将HR员工绑定到企微用户。同时，只有拥有企"
-"微用户ID的员工才能通过事件进行更新；<br>\n"
-"                    默认值 true;"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
-msgid "Info"
-msgstr "信息"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__1
-#, python-format
-msgid "Internal User"
-msgstr "内部用户"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Internal users occupy system resources."
-msgstr "内部用户占用系统资源。"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid ""
-"It is recommended to generate system users from employees in batch only during system "
-"initialization."
-msgstr "建议仅在系统初始化时从员工批量生成系统用户。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard____last_update
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard____last_update
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule____last_update
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard____last_update
 msgid "Last Modified on"
-msgstr "最后更改日"
+msgstr "最后修改时间"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__write_uid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__write_uid
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__write_uid
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__write_uid
 msgid "Last Updated by"
-msgstr "最后更新者"
+msgstr "最后更新人"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__write_date
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__write_date
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__write_date
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__write_date
 msgid "Last Updated on"
-msgstr "更新时间"
+msgstr "最后更新时间"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "Linux production server uses the following command to view real-time logs:"
-msgstr "Linux生产服务器使用以下命令查看实时日志："
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__update_userid
+msgid "Last modified by"
+msgstr "最近编辑人"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__user_login
-msgid "Login account"
-msgstr "登录账号"
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Late times are allowed"
+msgstr "允许迟到时间"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__user_name
-msgid "Login name"
-msgstr "登录名称"
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__lat
+#, python-format
+msgid "Latitude"
+msgstr "纬度"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__main_department
-msgid "Main department"
-msgstr "主部门"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__loc_detail
+msgid "Location Detail"
+msgstr "位置打卡地点详情"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__member_ids
-msgid "Members"
-msgstr "成员"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__loc_title
+msgid "Location Title"
+msgstr "位置打卡地点名称"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__department_ids
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "Multiple departments"
-msgstr "多部门"
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__lng
+#, python-format
+msgid "Longitude"
+msgstr "经度"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__name
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__user_name
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.employee_bind_wecom_view_form
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.user_bind_wecom_view_form
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.wecom_attendance_res_config_settings_view_form
+msgid "Management application"
+msgstr "管理应用"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__allow_apply_bk_cnt
+msgid "Maximum number of card replacements"
+msgstr "每月最多补卡次数"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#, python-format
+msgid "Mobile phone"
+msgstr "手机"
+
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#, python-format
+msgid "Mobile phone & smart attendance machine"
+msgstr "手机+智慧考勤机"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Mon"
+msgstr "周一"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__need_photo
+msgid "Must take pictures"
+msgstr "必须拍照"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__name
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__name
 msgid "Name"
 msgstr "名称"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Need to be converted into internal users in the user list."
-msgstr "需要在用户列表中转换为内部用户。"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_party
-msgid "New departmental events"
-msgstr "新增部门事件"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_user.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__4
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/loc_infos.xml:0
 #, python-format
-msgid "Not active"
-msgstr "未激活"
+msgid "Name of check-in place"
+msgstr "位置打卡地点名称"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__open_userid
-msgid "Open userid"
-msgstr "Open userid"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_hr_department__wecom_department_order
-msgid ""
-"Order value in parent department. The higher order value is sorted first. The value "
-"range is[0, 2^32]"
-msgstr ""
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__parent_id
-msgid "Parent Department"
-msgstr "父部门"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_hr_department__wecom_department_parent_id
-msgid "Parent department ID,32-bit integer.Root department is 1"
-msgstr "父部门ID，32位整数。根部门为1"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_department_sync_state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_employee_sync_state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__hr_tag_sync_state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__partner_tag_sync_state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__res_user_sync_state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_contacts_sync_wizard__state__partially
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_users_sync_wizard__state__partially
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
+msgid "No need to Check-out after work"
+msgstr "下班不需要打卡"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Off work"
+msgstr "下班"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "On work"
+msgstr "上班"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Operation information"
+msgstr "操作信息"
+
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_wecom_checkin_rule_form
+msgid "Original rule information"
+msgstr "原始规则信息"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__option_out_range
+msgid "Out-of-range punch card processing"
+msgstr "范围外打卡处理方式"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__ot_info
+msgid "Overtime information"
+msgstr "加班信息"
+
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rules_wizard__state__partially
 msgid "Partially complete"
 msgstr "部分完成"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__partylist
-msgid "Party list"
-msgstr "部门列表"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__qr_code
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__qr_code
-msgid "Personal QR code"
-msgstr "个人二维码"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_hr_employee__qr_code
-msgid "Personal QR code, Scan can be added as external contact"
-msgstr "个人二维码，扫描可添加为外部联系人"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_config_settings.py:0
-#, python-format
-msgid "Please bind contact app!"
-msgstr "请绑定通讯录应用！"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__9
-#, python-format
-msgid "Portal User"
-msgstr "门户用户"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Portal users are free users and do not occupy system resources."
-msgstr "门户用户是免费用户，不占用系统资源。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__position
-msgid "Position"
-msgstr "职位"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__10
-#, python-format
-msgid "Public User"
-msgstr "公共用户"
-
-#. module: wecom_contacts_sync
+#. module: wecom_attendance
 #. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/js/download_deps.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_staffs.js:0
-#: code:addons/wecom_contacts_sync/static/src/js/download_tags.js:0
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid "Refresh"
-msgstr "刷新"
+msgid "Reminder time"
+msgstr "提醒时间"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_employee_bind_wecom_wizard__employee_id
-msgid "Related Employee"
-msgstr "相关员工"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__reporterinfo
+msgid "Report to"
+msgstr "汇报对象"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__user_id
-msgid "Related User"
-msgstr "相关用户"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__result
+msgid "Result"
+msgstr "结果"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__sync_all
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_location__rule_id
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__rule_id
+msgid "Rule"
+msgstr "规则"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__grouptype
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__grouptype_name
+msgid "Rule type"
+msgstr "规则类型"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Sat"
+msgstr "周六"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__schedulelist
+msgid "Scheduling information"
+msgstr "排班信息"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_res_config_settings__attendance_secret
+msgid "Secret"
+msgstr "密钥"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__select_all
 msgid "Select all companies"
-msgstr "选择所有公司"
+msgstr "选择所有的公司"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Select all companies?"
-msgstr "选择所有公司？"
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_checkin_rule.py:0
+#, python-format
+msgid "Smart attendance machine"
+msgstr "智慧考勤机"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__companies
-msgid "Selected company"
-msgstr "所选公司"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__spe_workdays
+msgid "Special date - must check in date information"
+msgstr "特殊日期-必须打卡日期"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__send_mail
-msgid "Send mail"
-msgstr "发送邮件"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__spe_offdays
+msgid "Special date-no check-in date information"
+msgstr "特殊日期-不用打卡日期"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__send_message
-msgid "Send message"
-msgstr "发送消息"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Send messages to new users by default."
-msgstr "默认向新用户发送邮件或消息。"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "Send notification to new users?"
-msgstr "是否向新用户发送通知？"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__order
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__order
-msgid "Sequence"
-msgstr "排序"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_users_search_inherit
-msgid "Share User"
-msgstr "共享用户"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__sort_in_Department
-msgid "Sort in department"
-msgstr "部门中的排序"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_wizard
 msgid "Start"
 msgstr "启动"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "Start setting the direct leader of the employee with the company name '%s'."
-msgstr "开始设置公司名称为“%s”的员工的直属领导。"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "Start syncing"
-msgstr "开始同步"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
+#. module: wecom_attendance
+#: model_terms:ir.ui.view,arch_db:wecom_attendance.view_form_wecom_checkin_rules_result
 msgid "Starting time"
-msgstr "启动时间"
+msgstr "开始时间"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__state
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__status
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__state
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__state
 msgid "Status"
 msgstr "状态"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__status_name
-msgid "Status name"
-msgstr "状态"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
+#. module: wecom_attendance
+#: code:addons/wecom_attendance/models/wecom_apps.py:0
 #, python-format
-msgid "Success"
-msgstr "成功"
+msgid "Successfully obtained all the checkin rules of the company [%s]"
+msgstr "已成功获取公司[%s]的所有打卡规则"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#, python-format
-msgid "Successfully copied employee [%s] as system user"
-msgstr "成功复制员工 [%s] 为系统用户"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Successfully updated tag."
-msgstr "已成功更新标签。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_department__parentid
-msgid "Superior department"
-msgstr "上级部门"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__companies
-msgid "Sync Companies"
-msgstr "同步公司"
-
-#. module: wecom_contacts_sync
+#. module: wecom_attendance
 #. openerp-web
-#: code:addons/wecom_contacts_sync/static/src/xml/wecom_organization.xml:0
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid "Sync Contacts"
-msgstr "同步通讯录"
+msgid "Sun"
+msgstr "周日"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__sync_result
-msgid "Sync result"
-msgstr "同步结果"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__sync_holidays
+msgid "Synchronize statutory holidays"
+msgstr "同步法定节假日"
 
-#. module: wecom_contacts_sync
-#: model:ir.ui.menu,name:wecom_contacts_sync.menu_wecom_sync_contacts
-msgid "Sync wecom contacts"
-msgstr "同步企微通讯录"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid ""
-"Synchronization of company [%s] failed. Reason:configuration does not allow "
-"synchronization to HR."
-msgstr "公司[%s]的同步失败。原因：配置不允许同步到HR。"
+msgid "Thur"
+msgstr "周四"
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "Synchronization status"
-msgstr "同步状态"
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__allow_apply_bk_day_limit
+msgid "Time limit for card replacement"
+msgstr "允许补卡时限"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__sync_all
-msgid "Synchronize all companies"
-msgstr "同步所有公司"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_wizard
-msgid "Synchronize all companies?"
-msgstr "同步所有公司？"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wecom_contacts_sync_wizard.py:0
-#, python-format
-msgid "Synchronize results using the wizard"
-msgstr "使用向导同步结果"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_contacts_sync_result
-msgid "System User sync"
-msgstr "系统用户同步"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__tagid
-msgid "Tag ID"
-msgstr "标签ID"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_hr_employee_category__tagid
-msgid ""
-"Tag ID, non negative integer. When this parameter is specified, the new tag will "
-"generate the corresponding tag ID. if it is not specified, it will be automatically "
-"increased by the current maximum ID."
-msgstr ""
-"标记ID，非负整数。指定此参数时，新标签将生成相应的标签ID。如果未指定，则将自动增加当前最"
-"大ID。"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_tag
-msgid "Tag change events"
-msgstr "标签变更事件"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag downloaded failed."
-msgstr "标签下载失败。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag downloaded successfully."
-msgstr "标签下载成功。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag list downloaded successfully."
-msgstr "标签列表下载成功。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__tagname
-msgid "Tag name"
-msgstr "标签名称"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag successfully created."
-msgstr "标签成功创建。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag: %s deleted successfully."
-msgstr "标签：%s 删除成功。"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Tag: %s deletion failed."
-msgstr "标签：%s 删除失败。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_department__category_ids
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hr_employee_category_view_search
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_department_form
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_employee_category_list
-msgid "Tags"
-msgstr "标签"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__telephone
-msgid "Telephone"
-msgstr "座机"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#, python-format
-msgid ""
-"The current company does not identify the enterprise wechat organization. Please "
-"configure or switch the company."
-msgstr "当前公司未识别企业微信组织。请配置或切换公司。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_wecom_user_bind_wecom_wizard__company_id
-msgid "The default company for this user."
-msgstr "此用户的默认公司。"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid "The generated user type belongs to the portal user by default."
-msgstr "默认情况下，生成的用户类型属于门户用户。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,help:wecom_contacts_sync.field_hr_employee__wecom_user_order
-msgid ""
-"The sort value within the department, the default is 0. The quantity must be the same "
-"as the department, The greater the value the more sort front.The value range is [0, "
-"2^32)"
-msgstr ""
-"部门内的排序值，默认值为0。数量必须与部门相同，值越大，排序前沿越多。值范围为[0,2^32]"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.constraint,message:wecom_contacts_sync.constraint_wecom_contacts_block_userid_company_uniq
-msgid "The user ID of each company must be unique!"
-msgstr "每个公司的用户ID必须唯一！"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_department.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee.py:0
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#: code:addons/wecom_contacts_sync/models/res_users.py:0
-#, python-format
-msgid "There is no mapping for field [%s], please contact the developer."
-msgstr "字段 [%s] 没有映射，请与开发人员联系。"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__total_time
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_users_sync_wizard__total_time
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rules_wizard__total_time
 msgid "Total time(seconds)"
 msgstr "总时间（秒）"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
-msgid "Unknown"
-msgstr "未知"
+msgid "Tues"
+msgstr "周二"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#, python-format
-msgid "Update contacts tags: %s to WeCom"
-msgstr "更新通讯录标签：%s 到企微"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wecom_checkin_rules_wizard
+msgid "WeCom checkin rules wizard"
+msgstr "企微打卡规则向导"
 
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_party
-msgid "Update department events"
-msgstr "更新部门事件"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_update_avatar_every_time_sync_employees
-msgid "Update employees avatar every time sync"
-msgstr "每次同步时更新员工头像"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_update_user
-msgid "Update member events"
-msgstr "更新成员事件"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_employee_category_form
-msgid "Upload Tags"
-msgstr "上传标签"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__use_system_avatar
-msgid "Use System Avatar"
-msgstr "使用系统头像"
-
-#. module: wecom_contacts_sync
-#: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_use_default_avatar_when_adding_employees
-msgid "Use the system default avatar when adding employees"
-msgstr "在添加员工时使用系统默认头像"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__user_id
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_filter
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_tree
-msgid "User"
-msgstr "用户"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__userid
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_filter
-msgid "User ID"
-msgstr "用户ID"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__new_type
-msgid "User Type"
-msgstr "用户类型"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.user_bind_wecom_action
-msgid "User bind enterprise wechat members"
-msgstr "用户绑定企微成员"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_tag__userlist
-msgid "User list"
-msgstr "用户列表"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__res_user_sync_state
-msgid "User synchronization Status"
-msgstr "用户同步状态"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__res_user_sync_result
-msgid "User synchronization results"
-msgstr "用户同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_sync_wizard__res_user_sync_times
-msgid "User synchronization time (seconds)"
-msgstr "用户同步时间(秒)"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/user_bind_wecom.py:0
-#, python-format
-msgid "User with ID [%s] already exists"
-msgstr "ID为 [%s] 的用户已存在"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_change_type_user
-msgid "User, Change Type Wizard"
-msgstr "用户，变更类型向导"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_res_users
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_wizard__user_ids
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.change_type_wizard_user_tree_view
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_filter
-msgid "Users"
-msgstr "用户"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_user_bind_wecom_wizard
-msgid "Users bind enterprise wechat members"
-msgstr "用户绑定企微成员"
-
-#. module: wecom_contacts_sync
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_add_system_users
-#: model_terms:wecom.app_config,description:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
-msgid "Value: True or False"
-msgstr "值： True 或 False"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_department_form
-msgid "WeCom"
-msgstr "企微"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_department__is_wecom_department
-msgid "WeCom Department"
-msgstr "企微部门"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__wecom_openid
-msgid "WeCom OpenID"
-msgstr "企微OpenID"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/hr_employee_category.py:0
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__is_wecom_tag
-#, python-format
-msgid "WeCom Tag"
-msgstr "企微标签"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee_category__tagid
-msgid "WeCom Tag ID"
-msgstr "企微标签ID"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.open_view_wecom_contacts_block_tree
-msgid "WeCom contacts block list"
-msgstr "企微通讯录阻止列表"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_sync_wizard
-msgid "WeCom contacts synchronization wizard"
-msgstr "企微通讯录同步向导"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_department__wecom_department_id
-msgid "WeCom department ID"
-msgstr "企微部门ID"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_department__wecom_department_order
-msgid "WeCom department sort"
-msgstr "企微部门排序"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__is_wecom_user
-msgid "WeCom employees"
-msgstr "企微员工"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_department__wecom_department_parent_id
-msgid "WeCom parent department ID"
-msgstr "企微上级部门ID"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
-msgid "WeCom settings"
-msgstr "企微设置"
-
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/wizard/wizard_wecom_sync_tag.py:0
-#, python-format
-msgid "WeCom tags synchronization results"
-msgstr "企微标签同步结果"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__wecom_userid
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_contacts_block__wecom_userid
-msgid "WeCom user Id"
-msgstr "企微用户Id"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__wecom_user_info
-msgid "WeCom user info"
-msgstr "企微用户信息"
-
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__wecom_user_order
-msgid "WeCom user sort"
-msgstr "企微用户排序"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.server,name:wecom_contacts_sync.ir_cron_sync_wecom_contacts_ir_actions_server
-#: model:ir.cron,cron_name:wecom_contacts_sync.ir_cron_sync_wecom_contacts
-#: model:ir.cron,name:wecom_contacts_sync.ir_cron_sync_wecom_contacts
-msgid "WeCom: Synchronize contacts"
-msgstr "企微：同步通讯录"
-
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.ir_cron_act_sync_wecom_contacts
-msgid "WeCom: Synchronize contacts regularly"
-msgstr "企微：定时同步通讯录"
-
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_apps
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wecom_apps
 msgid "Wecom Application"
 msgstr "企微应用"
 
-#. module: wecom_contacts_sync
-#: model:ir.actions.act_window,name:wecom_contacts_sync.actions_wecom_contacts_list
-msgid "Wecom Contacts"
-msgstr "企微通讯录"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wecom_checkin_location_location
+msgid "Wecom Check-in Location"
+msgstr "企微打卡地点-位置打卡信息"
 
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_contacts_block
-msgid "Wecom contacts synchronization block list"
-msgstr "企微通讯录同步阻止列表"
+#. module: wecom_attendance
+#: model:ir.model,name:wecom_attendance.model_wecom_checkin_location_wifi
+msgid "Wecom Check-in Location WiFi"
+msgstr "企微打卡地点-WiFi打卡信息"
 
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_department
-msgid "Wecom department"
-msgstr "企微部门"
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.action_view_wecom_checkin_rule_list
+#: model:ir.model,name:wecom_attendance.model_wecom_checkin_rule
+msgid "Wecom Check-in Rules"
+msgstr "企微打卡规则"
 
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_tag
-msgid "Wecom tag"
-msgstr "企微标签"
+#. module: wecom_attendance
+#: model:ir.ui.menu,name:wecom_attendance.menu_hrms_wecom_checkin_rule_list
+msgid "Wecom Checkin Rules"
+msgstr "企微打卡规则"
 
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_wecom_user
-msgid "Wecom user"
-msgstr "企微用户"
+#. module: wecom_attendance
+#: model:ir.actions.act_window,name:wecom_attendance.actions_wecom_checkin_rules_wizard
+msgid "Wecom Checkin Rules Wizard"
+msgstr "企微打卡规则向导"
 
-#. module: wecom_contacts_sync
-#: code:addons/wecom_contacts_sync/models/wecom_apps.py:0
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
 #, python-format
+msgid "Wed"
+msgstr "周三"
+
+#. module: wecom_attendance
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_rule__white_users
+msgid "Whitelist"
+msgstr "白名单"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/wifimac.xml:0
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__wifimac
+#, python-format
+msgid "WiFi MAC address"
+msgstr "WiFi打卡地点MAC地址"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/wifimac.xml:0
+#: model:ir.model.fields,field_description:wecom_attendance.field_wecom_checkin_location_wifi__wifiname
+#, python-format
+msgid "WiFi Name"
+msgstr "WiFi打卡地点名称"
+
+#. module: wecom_attendance
+#. openerp-web
+#: code:addons/wecom_attendance/static/src/xml/checkindate.xml:0
+#, python-format
+msgid "Work Days"
+msgstr "工作日"
+
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__1
+msgid "固定时间上下班"
+msgstr ""
+
+#. module: wecom_attendance
+#: model:wecom.apps,description:wecom_attendance.wecom_app_attendances
 msgid ""
-"When members modify their personal information, the modified information will be pushed "
-"to the following URL in the form of events to ensure the synchronization of the address "
-"book."
-msgstr "当成员修改个人信息时，被修改的信息将以事件的形式推送到以下URL，保证通讯录同步。"
+"在手机上轻松打卡，并结合审批单据自动生成出勤报表。支持固定时间上下班、灵活排班、自"
+"由上下班和外出打卡。 "
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid ""
-"When you have a large number of employees, it is recommended to <b class=\"text-danger"
-"\">turn off</b> \"send mail\"."
-msgstr "当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送邮件”。"
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__0
+msgid "手机"
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_wizard
-msgid ""
-"When you have a large number of employees, it is recommended to <b class=\"text-danger"
-"\">turn off</b> \"send message\"."
-msgstr "当您有大量员工时，建议您<b class=\"text-danger\">关闭</b>“发送消息”。"
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__3
+msgid "手机+智慧考勤机"
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_change_type_user__wizard_id
-msgid "Wizard"
-msgstr "向导"
+#. module: wecom_attendance
+#: model:wecom.apps,app_name:wecom_attendance.wecom_app_attendances
+msgid "打卡"
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model:ir.model,name:wecom_contacts_sync.model_change_type_wizard
-msgid "Wizard to change user type(WeCom)"
-msgstr "更改用户类型的向导（企微）"
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__2
+msgid "按班次上下班"
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.res_config_settings_view_form
-msgid "description"
-msgstr "说明"
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__type_name__2
+msgid "智慧考勤机"
+msgstr ""
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__mobile
-msgid "mobile phone"
-msgstr "手机"
-
-#. module: wecom_contacts_sync
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
-msgid "status"
-msgstr "状态"
+#. module: wecom_attendance
+#: model:ir.model.fields.selection,name:wecom_attendance.selection__wecom_checkin_rule__grouptype_name__3
+msgid "自由上下班"
+msgstr ""
