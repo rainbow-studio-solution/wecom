@@ -8,7 +8,9 @@ from odoo.tools.safe_eval import safe_eval, test_python_expr
 from lxml import etree
 from lxml import etree as ET
 from odoo.http import Response
-from lxml_to_dict import lxml_to_dict
+# from lxml_to_dict import lxml_to_dict
+# from xmltodict import lxml_to_dict
+import xmltodict, json
 
 _logger = logging.getLogger(__name__)
 

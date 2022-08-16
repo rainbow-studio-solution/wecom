@@ -5,7 +5,8 @@ import base64
 import time
 from lxml import etree
 from odoo import api, fields, models, _
-from lxml_to_dict import lxml_to_dict
+# from lxml_to_dict import lxml_to_dict
+from xmltodict import lxml_to_dict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)

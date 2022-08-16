@@ -37,8 +37,9 @@ WeCom Service-side API and Client-side API
         "python": [
             "requests_toolbelt",
             "pandas",
-            "pypandoc==1.7.0",
-            "lxml_to_dict",
+            # "pypandoc==1.7.0",
+            # "lxml_to_dict",
+            "xmltodict",
             "pycryptodome",
             "html2text",
         ],
