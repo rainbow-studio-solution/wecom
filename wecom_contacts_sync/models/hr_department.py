@@ -6,8 +6,10 @@ from pdb import _rstr
 import time
 from lxml import etree
 from odoo import api, fields, models, _
+
 # from lxml_to_dict import lxml_to_dict
-from xmltodict import lxml_to_dict
+# from xmltodict import lxml_to_dict
+import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
@@ -37,13 +39,10 @@ class Department(models.Model):
     )
 
     wecom_department_parent_id = fields.Integer(
-        "WeCom parent department ID",
-        readonly=True,
+        "WeCom parent department ID", readonly=True,
     )
     wecom_department_order = fields.Char(
-        "WeCom department sort",
-        default="1",
-        readonly=True,
+        "WeCom department sort", default="1", readonly=True,
     )
     is_wecom_department = fields.Boolean(
         string="WeCom Department", readonly=True, default=False,

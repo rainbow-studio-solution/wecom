@@ -6,8 +6,10 @@ import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
 from lxml import etree
+
 # from lxml_to_dict import lxml_to_dict
-from xmltodict import lxml_to_dict
+# from xmltodict import lxml_to_dict
+import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
 

@@ -7,8 +7,10 @@ import base64
 import time
 from lxml import etree
 from odoo import api, fields, models, _, Command, tools
+
 # from lxml_to_dict import lxml_to_dict
-from xmltodict import lxml_to_dict
+# from xmltodict import lxml_to_dict
+import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
@@ -46,12 +48,12 @@ class HrEmployeePrivate(models.Model):
 
     # ----------------------------------------------------------------------------------
     # 开发人员注意：hr模块中
-    # hr.employee.work_email = res.users.email 
-    # hr.employee.private_email = res.partner.email 
+    # hr.employee.work_email = res.users.email
+    # hr.employee.private_email = res.partner.email
     # ----------------------------------------------------------------------------------
     # base 模块中
-    # res.user.email = res.partner.email 
-    # res.user.private_email = res.partner.email 
+    # res.user.email = res.partner.email
+    # res.user.private_email = res.partner.email
     # ------------------------------------------
     # hr.employee.create() 方法中 创建hr.employee.work_email时会将 res.users.email更新到hr.employee.work_email
     # res.users.write() 方法中 更新res.users.email时会将 res.users.email更新到hr.employee.work_email
@@ -59,8 +61,6 @@ class HrEmployeePrivate(models.Model):
     # 故重写了 将  related='address_home_id.email'去掉，并添加 store 属性
     # ----------------------------------------------------------------------------------
     # private_email = fields.Char(string="Private Email", groups="hr.group_hr_user",store=True,)
-
-    
 
     wecom_user_info = fields.Text(string="WeCom user info", readonly=True, default="{}")
     wecom_userid = fields.Char(string="WeCom user Id", readonly=True,)
@@ -79,11 +79,7 @@ class HrEmployeePrivate(models.Model):
         help="Personal QR code, Scan can be added as external contact",
         readonly=True,
     )
-    wecom_user_order = fields.Char(
-        "WeCom user sort",
-        default="0",
-        readonly=True,
-    )
+    wecom_user_order = fields.Char("WeCom user sort", default="0", readonly=True,)
     is_wecom_user = fields.Boolean(
         string="WeCom employees", readonly=True, default=False,
     )
@@ -366,9 +362,8 @@ class HrEmployeePrivate(models.Model):
                 "contacts_use_default_avatar_when_adding_employees",
             )  # 使用系统微信默认头像的标识
 
-            emp= employee.sudo().create(
+            emp = employee.sudo().create(
                 {
-
                     "name": wecom_employee["name"],
                     "english_name": self.env["wecom.tools"].check_dictionary_keywords(
                         wecom_employee, "english_name"
@@ -387,7 +382,6 @@ class HrEmployeePrivate(models.Model):
                     "work_email": wecom_employee["biz_mail"],  # 企业邮箱
                     # "private_email": wecom_employee["email"],  # 私人邮箱
                     "active": True if wecom_employee["status"] == 1 else False,
-                    
                     "department_id": self.get_main_department(
                         company,
                         wecom_employee["name"],
@@ -415,7 +409,9 @@ class HrEmployeePrivate(models.Model):
             # 使用create()方法，不会更新员工的私人邮箱
             emp.private_email = wecom_employee["email"]
         except Exception as e:
-            result = _("Error creating company [%s] employee [%s %s], error reason: %s") % (
+            result = _(
+                "Error creating company [%s] employee [%s %s], error reason: %s"
+            ) % (
                 company.name,
                 wecom_employee["userid"].lower(),
                 wecom_employee["name"],
@@ -442,7 +438,7 @@ class HrEmployeePrivate(models.Model):
             department_ids = self.get_employee_parent_wecom_department(
                 company, wecom_employee["department"]
             )
-        try:            
+        try:
             employee.write(
                 {
                     "name": wecom_employee["name"],

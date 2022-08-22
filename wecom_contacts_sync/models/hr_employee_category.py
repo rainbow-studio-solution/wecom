@@ -5,8 +5,10 @@ import base64
 import time
 from lxml import etree
 from odoo import api, fields, models, _
+
 # from lxml_to_dict import lxml_to_dict
-from xmltodict import lxml_to_dict
+# from xmltodict import lxml_to_dict
+import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 
 _logger = logging.getLogger(__name__)
@@ -49,11 +51,7 @@ class EmployeeCategory(models.Model):
         domain="[('company_id', '=', company_id)]",
     )
 
-    tagid = fields.Integer(
-        string="WeCom Tag ID",
-        readonly=True,
-        default=0,
-    )
+    tagid = fields.Integer(string="WeCom Tag ID", readonly=True, default=0,)
     is_wecom_tag = fields.Boolean(string="WeCom Tag", default=False,)
 
     @api.depends("is_wecom_tag")
