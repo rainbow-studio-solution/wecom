@@ -99,12 +99,16 @@ class WeComAppEventType(models.Model):
         func_name = self.code.split("model.")[1]
         cmd = self.command
 
-        for model in self.model_ids:
-            model_obj = self.env.get(model.model)
-            _logger.info(
-                _("Method [%s] to execute model [%s]") % (func_name, model_obj,)
-            )
-            getattr(
-                model_obj.with_context(xml_tree=xml_tree, company_id=company_id),
-                func_name,
-            )(cmd)
+        for m in self.model_ids:
+            model_obj = self.env.get(m.model)
+            if hasattr(model_obj, func_name):
+                # 存在函数
+                func = getattr(model_obj.with_context(xml_tree=xml_tree, company_id=company_id), func_name)
+                func(cmd)
+                _logger.info(
+                    _("Method [%s] to execute model [%s]") % (func_name, model_obj,)
+                )
+            else:
+                _logger.warning(
+                    _("Function [%s] does not exist in model [%s]") % (func_name, model_obj,)
+                )

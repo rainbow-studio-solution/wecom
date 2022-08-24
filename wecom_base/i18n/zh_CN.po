@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-09 14:17+0000\n"
-"PO-Revision-Date: 2022-07-09 22:20+0800\n"
+"POT-Creation-Date: 2022-08-24 02:13+0000\n"
+"PO-Revision-Date: 2022-08-24 10:15+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_wecom_apps_form
@@ -156,7 +156,7 @@ msgstr "AES密钥"
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.view_service_api_list_filter
 msgid "API"
-msgstr "API"
+msgstr ""
 
 #. module: wecom_base
 #: model:ir.actions.act_window,name:wecom_base.action_view_wecom_service_api_list
@@ -328,8 +328,6 @@ msgstr "代码和指令"
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_subtype.py:0
 #: code:addons/wecom_base/models/wecom_app_type.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_subtype_code_uniq
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_type_code_uniq
 #, python-format
 msgid "Code must be unique !"
 msgstr "代码必须是唯一的！"
@@ -621,7 +619,7 @@ msgstr "首页"
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_type__id
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_apps__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_config__key
@@ -911,21 +909,18 @@ msgstr "用于自动爬取的企业微信API全局错误代码页面的URL。"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_apps.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_apps_company_id_key_uniq
 #, python-format
 msgid "The application name of each company must be unique !"
 msgstr "每个公司的应用程序名称必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_callback_service.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_callback_service_app_code_uniq
 #, python-format
 msgid "The code of each application must be unique !"
 msgstr "每个应用的代码必须是唯一的！"
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_config.py:0
-#: model:ir.model.constraint,message:wecom_base.constraint_wecom_app_config_app_id_key_uniq
 #, python-format
 msgid "The key of each application must be unique !"
 msgstr "每个应用的密钥必须是唯一的！"
@@ -958,7 +953,7 @@ msgstr "用户将能够批准员工创建的文档。"
 #. module: wecom_base
 #: model:res.groups,comment:wecom_base.group_wecom_settings_manager
 msgid ""
-"The user will have access to the WeCom configuration as well as statistic reports."
+"The user will have access to the wecom configuration as well as statistic reports."
 msgstr "用户可以访问企微配置以及统计报告。"
 
 #. module: wecom_base
@@ -1007,13 +1002,13 @@ msgstr "类型"
 #. module: wecom_base
 #: model:ir.model.fields,field_description:wecom_base.field_wecom_app_callback_service__callback_url
 msgid "URL"
-msgstr "URL"
+msgstr ""
 
 #. module: wecom_base
 #: code:addons/wecom_base/models/wecom_app_event_type.py:0
 #, python-format
 msgid "Unable to execute [%s] change type for company [%s], ignoring it. reason: %s"
-msgstr "无法为公司 [%s] 执行 [%s] 更改类型，将忽略它。原因：%s"
+msgstr "无法为公司 [%s] 执行 [%s] 变更类型，将忽略它。原因：%s"
 
 #. module: wecom_base
 #: model_terms:ir.ui.view,arch_db:wecom_base.res_config_settings_view_form
@@ -1149,14 +1144,14 @@ msgid "Wecom Application receive event service"
 msgstr "企微应用接收事件服务"
 
 #. module: wecom_base
-#: model:ir.ui.menu,name:wecom_base.menu_wecom_contacts
-msgid "Wecom Contacts"
-msgstr "企微通讯录"
-
-#. module: wecom_base
 #: model:ir.ui.menu,name:wecom_base.menu_wecom_attendance
 msgid "Wecom Attendances"
 msgstr "企微出勤"
+
+#. module: wecom_base
+#: model:ir.ui.menu,name:wecom_base.menu_wecom_contacts
+msgid "Wecom Contacts"
+msgstr "企微通讯录"
 
 #. module: wecom_base
 #: model:ir.model,name:wecom_base.model_wecom_service_api
@@ -1226,7 +1221,7 @@ msgstr "浮点型"
 #. module: wecom_base
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__html
 msgid "html"
-msgstr "html"
+msgstr ""
 
 #. module: wecom_base
 #: model:ir.model.fields.selection,name:wecom_base.selection__wecom_app_config__ttype__integer

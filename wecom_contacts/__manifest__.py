@@ -16,7 +16,7 @@
 
 
         """,
-    "depends": ["contacts", "wecom_base",],
+    "depends": ["contacts","hr", "wecom_base",],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron_data.xml",

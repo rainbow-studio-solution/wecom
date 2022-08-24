@@ -2,13 +2,13 @@
 
 import logging
 import json
+import base64
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
 from lxml import etree
 
-# from lxml_to_dict import lxml_to_dict
-# from xmltodict import lxml_to_dict
+from xml.etree import ElementTree
 import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -134,11 +134,20 @@ class WecomUser(models.Model):
         compute="_compute_gender_name",
     )
     color = fields.Integer("Color Index")
+    active = fields.Boolean('Active', default=True, store=True, readonly=True,compute="_compute_active",)
 
     @api.depends("status")
     def _compute_status_name(self):
-        for user in self:
+        for user in self:            
             user.status_name = str(user.status)
+
+    @api.depends("status")
+    def _compute_active(self):
+        for user in self:
+            if user.status == 1:
+                user.active = True
+            else:
+                user.active = False
 
     @api.depends("main_department")
     def _compute_department_id(self):
@@ -523,3 +532,59 @@ class WecomUser(models.Model):
                 "params": params,
             }
             return action
+
+
+    # ------------------------------------------------------------
+    # 企微通讯录事件
+    # ------------------------------------------------------------
+    def wecom_event_change_contact_user(self, cmd):
+        """
+        通讯录事件变更成员
+        """
+        xml_tree = self.env.context.get("xml_tree")
+        company_id = self.env.context.get("company_id")
+        user_dict = xmltodict.parse(xml_tree)["xml"]
+
+        domain = [
+            "|",
+            ("active", "=", True),
+            ("active", "=", False),
+        ]
+
+        users = self.sudo().search([("company_id", "=", company_id.id)] + domain)
+        callback_user = users.search(
+            [("userid", "=", user_dict["UserID"])] , limit=1,
+        )
+
+        if callback_user:
+            # 如果存在，则更新
+            # 用于退出企业微信又重新加入企业微信的员工
+            cmd = "update"
+        else:
+            # 如果不存在，停止
+            return
+
+        update_dict = {}
+
+        for key, value in user_dict.items():
+            if key.lower() in self._fields.keys():
+                update_dict.update({
+                    key.lower(): value
+                })
+        if cmd == "create":
+            update_dict.update(
+                {
+                    "company_id": company_id.id
+                }
+            )
+            callback_user.create(update_dict)
+        elif cmd == "update":
+            if "userid" in update_dict:
+                del update_dict["userid"]
+            callback_user.write(update_dict)
+        elif cmd == "delete":
+            callback_user.write(
+                {
+                    "active": False,
+                }
+            )

@@ -116,8 +116,8 @@
                                 </div>
                             </button>
                         </div>
-                        <field name="status_name" invisible="1"/>
-                        <widget name="web_ribbon" title="Not active" bg_color="bg-danger" attrs="{'invisible': [('status_name', '=', '1')]}"/>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                         <field name="thumb_avatar" invisible="1"/>
                         <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"thumb_avatar"}'/>
                         <div class="oe_title">
@@ -186,7 +186,7 @@
             <field name="view_mode">tree,kanban,form</field>
             <field name="view_id" eval="False"/>
             <field name="search_view_id" ref="view_wecom_user_filter"/>
-            <field name="context">{}</field>
+            <field name="context">{"active_test": False}</field>
         </record>
 
     </data>
