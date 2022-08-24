@@ -5,8 +5,6 @@ import json
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
-from lxml import etree
-# from lxml_to_dict import lxml_to_dict
 import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -49,6 +47,8 @@ class WecomDepartment(models.Model):
         string="Parent Department",
         index=True,
         domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+        store=True,
+        compute="_compute_parent_id"
     )
     child_ids = fields.One2many(
         "wecom.department", "parentid", string="Child Departments"
@@ -73,7 +73,14 @@ class WecomDepartment(models.Model):
     )
     color = fields.Integer("Color Index")
 
-    @api.depends("name", "parent_id.complete_name")
+    @api.depends("parentid")
+    def _compute_parent_id(self):
+        for department in self:
+            if department.parentid:
+                parent_department = self.sudo().search([("department_id", "=", department.parentid)])
+                department.parent_id = parent_department.id
+
+    @api.depends("name", "parent_id")
     def _compute_complete_name(self):
         for department in self:
             if department.parent_id:
@@ -83,6 +90,15 @@ class WecomDepartment(models.Model):
                 )
             else:
                 department.complete_name = department.name
+
+    # @api.onchange('parent_id')
+    # def _onchange_parentid(self):
+    #     for department in self:
+    #         if department.parent_id:
+    #             department.complete_name = "%s / %s" % (
+    #                 department.parent_id.complete_name,
+    #                 department.name,
+    #             )
 
     # ------------------------------------------------------------
     # 企微部门下载
@@ -431,3 +447,47 @@ class WecomDepartment(models.Model):
                 "params": params,
             }
             return action
+
+
+    # ------------------------------------------------------------
+    # 企微通讯录事件
+    # ------------------------------------------------------------
+    def wecom_event_change_contact_party(self, cmd):
+        xml_tree = self.env.context.get("xml_tree")
+        company_id = self.env.context.get("company_id")
+        department_dict = xmltodict.parse(xml_tree)["xml"]
+        # print("wecom_event_change_contact_party", department_dict)
+
+        departments = self.sudo().search([("company_id", "=", company_id.id)])
+        callback_department = departments.search(
+            [("department_id", "=", department_dict["Id"])] , limit=1,
+        )
+        update_dict = {}
+
+        for key, value in department_dict.items():
+            if key.lower() in self._fields.keys():
+                update_dict.update({
+                    key.lower(): value
+                })
+            else:
+                if key=="Id":
+                    update_dict.update({
+                        "department_id": value
+                    })
+
+        if "parentid" in update_dict:
+            parent_id = departments.search(
+                [("department_id", "=", update_dict["parentid"])], limit=1,
+            ).id
+            update_dict.update({
+                "parent_id": parent_id
+            })
+
+        if cmd == "create":
+            callback_department.create(update_dict)
+        elif cmd == "update":
+            if "department_id" in update_dict:
+                del update_dict["department_id"]
+            callback_department.write(update_dict)
+        elif cmd == "delete":
+            callback_department.unlink()

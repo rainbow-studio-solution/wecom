@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-08-15 06:02+0000\n"
-"PO-Revision-Date: 2022-08-15 14:09+0800\n"
+"POT-Creation-Date: 2022-08-24 09:19+0000\n"
+"PO-Revision-Date: 2022-08-24 17:20+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -153,7 +153,7 @@ msgid ""
 "                                    <span class=\"o_stat_text\">department information</span>"
 msgstr ""
 "<span class=\"o_stat_value\">下载</span>\n"
-"                                    <span class=\"o_stat_text\">部门西悉尼</span>"
+"                                    <span class=\"o_stat_text\">部门信息</span>"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_form
@@ -203,6 +203,11 @@ msgstr "API错误：%s，错误名称：%s，出错消息：%s"
 #, python-format
 msgid "Activated"
 msgstr "已激活"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields,field_description:wecom_contacts_sync.field_wecom_user__active
+msgid "Active"
+msgstr "启用"
 
 #. module: wecom_contacts_sync
 #: model:wecom.app.event_type,name:wecom_contacts_sync.wecom_app_event_change_contact_create_user
@@ -264,6 +269,11 @@ msgstr "允许企微通讯录添加系统用户"
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
 msgid "Allow wecom contacts to synchronize HR"
 msgstr "允许企微通讯录同步人力资源"
+
+#. module: wecom_contacts_sync
+#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_form
+msgid "Archived"
+msgstr "已归档"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.hrms_base_employee_form
@@ -1175,7 +1185,6 @@ msgstr "新增部门事件"
 
 #. module: wecom_contacts_sync
 #: code:addons/wecom_contacts_sync/models/wecom_user.py:0
-#: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_form
 #, python-format
 msgid "Not active"
 msgstr "未激活"
@@ -1968,3 +1977,53 @@ msgstr "手机"
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_form_wecom_users_sync_result
 msgid "status"
 msgstr "状态"
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__10
+msgid "公共用户"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__1
+msgid "内部用户"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__gender_name__2
+msgid "女性"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__1
+msgid "已激活"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__2
+msgid "已禁用"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__gender_name__0
+msgid "未定义"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__4
+msgid "未激活"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__gender_name__1
+msgid "男性"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__wecom_user__status_name__5
+msgid "退出企业"
+msgstr ""
+
+#. module: wecom_contacts_sync
+#: model:ir.model.fields.selection,name:wecom_contacts_sync.selection__change_type_user__new_type__9
+msgid "门户用户"
+msgstr ""

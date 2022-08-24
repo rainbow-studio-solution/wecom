@@ -2,13 +2,10 @@
 
 import logging
 import json
-import base64
+
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
-from lxml import etree
-
-from xml.etree import ElementTree
 import xmltodict
 from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
 from odoo.addons.base.models.ir_mail_server import MailDeliveryException
@@ -544,7 +541,7 @@ class WecomUser(models.Model):
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
         user_dict = xmltodict.parse(xml_tree)["xml"]
-
+        # print("wecom_event_change_contact_user", user_dict)
         domain = [
             "|",
             ("active", "=", True),
@@ -571,6 +568,23 @@ class WecomUser(models.Model):
                 update_dict.update({
                     key.lower(): value
                 })
+            else:
+                if key=="MainDepartment":
+                    update_dict.update({
+                        "main_department": value
+                    })
+                elif key=="IsLeaderInDept":
+                    update_dict.update({
+                        "is_leader_in_dept": value
+                    })
+                elif key=="DirectLeader":
+                    update_dict.update({
+                        "direct_leader": value
+                    })
+                elif key=="BizMail":
+                    update_dict.update({
+                        "biz_mail": value
+                    })
         if cmd == "create":
             update_dict.update(
                 {
