@@ -1,6 +1,7 @@
-//----------------------------------------
-// 企业微信通讯录展示组件
-//----------------------------------------
+// *-------------------------------------------------------
+// * 企业微信通讯录展示组件
+// * 注意视图中必须含有 <field name="company_id" />
+// *-------------------------------------------------------
 odoo.define('wecom.wecom_contacts_display', function (require) {
     "use strict";
     var core = require('web.core');
@@ -28,6 +29,8 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
             this.template_content = params.data[state]; // 字段值
             this.control_type = this.nodeOptions.type; // 控件类型:user,department
             this.show_type = this.nodeOptions.show; // 显示类型：simple，details
+
+            this.current_company_id = this.data["company_id"].res_id;
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);
@@ -98,24 +101,22 @@ odoo.define('wecom.wecom_contacts_display', function (require) {
                 if (this.show_type === 'details') {
                     template_name = template_name + "Details";
                 }
-
-                const current_selected_company_id = session.user_context.allowed_company_ids[0];
-
-                self._rpc({
-                    model: model_name,
-                    method: 'search_read',
-                    fields: fields,
-                    domain: [
-                        ['company_id', '=', current_selected_company_id],
-                        [domain_key, 'in', contacts]
-                    ],
-                }).then(function (rows) {
-                    // console.log(typeof (rows), rows);
-                    let $control = $(QWeb.render(template_name, {
-                        rows: rows,
-                    }));
-                    $control.appendTo(self.$el);
-                })
+                if (this.current_company_id) {
+                    self._rpc({
+                        model: model_name,
+                        method: 'search_read',
+                        fields: fields,
+                        domain: [
+                            ['company_id', '=', self.current_company_id],
+                            [domain_key, 'in', contacts]
+                        ],
+                    }).then(function (rows) {
+                        let $control = $(QWeb.render(template_name, {
+                            rows: rows,
+                        }));
+                        $control.appendTo(self.$el);
+                    })
+                }
             }
         },
         _onShowUserCard: function (ev) {

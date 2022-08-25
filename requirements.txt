@@ -2,7 +2,6 @@ html2text
 numpy
 pandas
 pypandoc==1.7.0
-# lxml-to-dict==0.1.2
 xmltodict
 # ------------------------------------------------------------------------------
 # xmltodict 的使用方法
@@ -12,4 +11,3 @@ xmltodict
 pycryptodome
 ffmpy
 pydub
-html2text
