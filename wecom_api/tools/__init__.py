@@ -6,6 +6,7 @@ from . import file
 from . import datetime
 from . import message
 from . import security
+from . import data
 
 
 from . import wx_tools

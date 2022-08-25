@@ -24,6 +24,7 @@
             <field name="model">wecom.user</field>
             <field name="arch" type="xml">
                 <tree string="User" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1" js_class="wecom_user_tree_sync">
+                    <field name="company_id" invisible="1"/>
                     <field name="name" />
                     <field name="gender_name" />
                     <field name="userid" />
