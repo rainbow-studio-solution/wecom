@@ -343,7 +343,6 @@ Synchronize Wecom tag results:
             "wecom_tag_sync_result": "",
         }
 
-
         # 同步企微部门
         sync_department_result = (
             self.env["wecom.department"]

@@ -162,17 +162,16 @@ class WecomDepartment(models.Model):
 
             # 1.下载部门
             for wecom_department in wecom_departments:
-                department = self.sudo().search(
-                    [
-                        ("department_id", "=", wecom_department["id"]),
-                        ("company_id", "=", company.id),
-                    ],
-                    limit=1,
+                download_department_result = self.download_department(
+                    company, wecom_department
                 )
-                if not department:
-                    self.create_department(company, department, wecom_department)
+                if isinstance(download_department_result,list):
+                    # 判断是对象是 list 类型
+                    if download_department_result:
+                        for r in download_department_result:
+                            tasks.append(r)
                 else:
-                    self.update_department(company, department, wecom_department)
+                    tasks.append(download_department_result)
             # 2.设置上级部门
             # set_parent_department_result = self.set_parent_department(company)
             # print(set_parent_department_result)
@@ -192,6 +191,78 @@ class WecomDepartment(models.Model):
         finally:
             return tasks  # 返回结果
 
+    def download_department(self, company, wecom_department):
+        """
+        下载部门
+        """
+        # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
+
+        department = self.sudo().search(
+            [
+                ("department_id", "=", wecom_department["id"]),
+                ("company_id", "=", company.id),
+            ],
+            limit=1,
+        )
+        result = {}
+        try:
+            wxapi = self.env["wecom.service_api"].InitServiceApi(
+                company.corpid, company.contacts_app_id.secret
+            )
+
+            response = wxapi.httpCall(
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "DEPARTMENT_DETAILS"
+                ),
+                {"id": str(wecom_department["id"])},
+            )
+
+        except ApiException as ex:            
+            result = _(
+                "Wecom API acquisition company[%s]'s department [id:%s] details failed, error details: %s"
+            ) % (company.name, wecom_department["id"], str(ex))
+            _logger.warning(result)
+            return {
+                "name": "get_department",
+                "state": False,
+                "time": 0,
+                "msg": result,
+            }
+        except Exception as e:
+            result = _(
+                "Wecom API acquisition company[%s]'s department [id:%s] details failed, error details: %s"
+            ) % (company.name, wecom_department["id"], str(e))
+            _logger.warning(result)
+            return {
+                "name": "get_department",
+                "state": False,
+                "time": 0,
+                "msg": result,
+            }
+        else:
+            # 从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过「获取部门ID列表」
+            # 故增加判断，
+            if response["errcode"] == 0:
+                department_obj = response["department"]
+                for key in department_obj.keys():
+                    if (
+                        type(department_obj[key]) in (list, dict)
+                        and department_obj[key]
+                    ):
+                        json_str = json.dumps(
+                            department_obj[key],
+                            sort_keys=False,
+                            indent=2,
+                            separators=(",", ":"),
+                            ensure_ascii=False,
+                        )
+                        department_obj[key] = json_str
+                if not department:
+                    result = self.create_department(company, department, department_obj)
+                else:
+                    result = self.update_department(company, department, department_obj)
+        finally:
+            return result
 
     def create_department(self, company, department, wecom_department):
         """
@@ -201,11 +272,11 @@ class WecomDepartment(models.Model):
             department.create(
                 {
                     "department_id": wecom_department["id"],
-                    # "name": wecom_department["name"],
-                    # "name_en": self.env["wecom.tools"].check_dictionary_keywords(
-                    #     wecom_department, "name_en"
-                    # ),
-                    # "department_leader": wecom_department["department_leader"],
+                    "name": wecom_department["name"],
+                    "name_en": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_department, "name_en"
+                    ),
+                    "department_leader": wecom_department["department_leader"],
                     "parentid": wecom_department["parentid"],
                     "order": wecom_department["order"],
                     "company_id": company.id,
@@ -235,11 +306,11 @@ class WecomDepartment(models.Model):
         try:
             department.write(
                 {
-                    # "name": wecom_department["name"],
-                    # "name_en": self.env["wecom.tools"].check_dictionary_keywords(
-                    #     wecom_department, "name_en"
-                    # ),
-                    # "department_leader": wecom_department["department_leader"],
+                    "name": wecom_department["name"],
+                    "name_en": self.env["wecom.tools"].check_dictionary_keywords(
+                        wecom_department, "name_en"
+                    ),
+                    "department_leader": wecom_department["department_leader"],
                     "parentid": wecom_department["parentid"],
                     "order": wecom_department["order"],
                 }
