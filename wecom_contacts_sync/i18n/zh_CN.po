@@ -268,7 +268,7 @@ msgstr "允许企微通讯录添加系统用户"
 #. module: wecom_contacts_sync
 #: model:wecom.app_config,name:wecom_contacts_sync.wecom_app_config_contacts_allow_sync_hr
 msgid "Allow wecom contacts to synchronize HR"
-msgstr "允许企微通讯录同步人力资源"
+msgstr "允许企微通讯录同步到人力资源"
 
 #. module: wecom_contacts_sync
 #: model_terms:ir.ui.view,arch_db:wecom_contacts_sync.view_wecom_user_form

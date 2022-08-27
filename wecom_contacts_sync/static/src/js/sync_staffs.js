@@ -1,5 +1,7 @@
 odoo.define('wecom_contacts_sync.staffs', function (require) {
     "use strict";
+
+    var session = require('web.session');
     var core = require('web.core');
     var _t = core._t;
     var ListController = require('web.ListController');
@@ -31,20 +33,20 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
     };
 
     // 企微员工
-    function renderDownloadEmployeeButton() {
+    function renderSyncEmployeeButton() {
         if (this.$buttons) {
             var self = this;
-            this.$buttons.on('click', '.o_button_download_staffs', function () {
+            this.$buttons.on('click', '.o_button_sync_staffs', function () {
                 return self._rpc({
                     model: 'hr.employee',
-                    method: 'download_wecom_staffs',
+                    method: 'sync_wecom_user',
                     args: [],
                 }).then(function (results) {
                     $.each(results, function (index, result) {
                         if (result["state"]) {
                             self.displayNotification({
                                 type: 'success',
-                                title: _t("Download succeeded!"),
+                                title: _t("Sync succeeded!"),
                                 message: result["msg"],
                                 sticky: true,
                                 buttons: [{
@@ -58,7 +60,7 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
                         } else {
                             self.displayNotification({
                                 type: 'danger',
-                                title: _t("Download failed!"),
+                                title: _t("Sync failed!"),
                                 message: result["msg"],
                                 sticky: true,
                             });
@@ -71,17 +73,26 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
     var HrEmployeeRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_download_button = false;
             var ready = this.getSession().user_has_group('hr.group_hr_user')
                 .then(function (is_hr_user) {
-                    if (is_hr_user) {
-                        self.buttons_template = 'HrEmployeeDownloadRequestListView.buttons';
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_download_button = company["is_wecom_organization"];
+                        }
+                    })
+
+                    if (is_hr_user && show_download_button) {
+                        self.buttons_template = 'HrEmployeeSyncRequestListView.buttons';
                     }
                 });
             return Promise.all([this._super.apply(this, arguments), ready]);
         },
         _onSelectionChanged: function (ev) {
             this._super(ev);
-            var $buttonDownload = this.$el.find('.o_button_download_staffs');
+            var $buttonDownload = this.$el.find('.o_button_sync_staffs');
             if (this.getSelectedIds().length === 0) {
                 $buttonDownload.removeClass('d-none');
             } else {
@@ -90,11 +101,11 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
         },
         renderButtons: function () {
             this._super.apply(this, arguments);
-            renderDownloadEmployeeButton.apply(this, arguments);
+            renderSyncEmployeeButton.apply(this, arguments);
         }
     })
 
-    var HrEmployeeDownloadRequestListView = ListView.extend({
+    var HrEmployeeSyncRequestListView = ListView.extend({
         config: _.extend({}, ListView.prototype.config, {
             Controller: HrEmployeeRequestListController,
         }),
@@ -103,17 +114,27 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
     var HrEmployeeRequestKanbanController = KanbanController.extend({
         willStart: function () {
             var self = this;
+
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_download_button = false;
             var ready = this.getSession().user_has_group('hr.group_hr_user')
                 .then(function (is_hr_user) {
-                    if (is_hr_user) {
-                        self.buttons_template = 'HrEmployeeDownloadRequestKanbanView.buttons';
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_download_button = company["is_wecom_organization"];
+                        }
+                    })
+
+                    if (is_hr_user && show_download_button) {
+                        self.buttons_template = 'HrEmployeeSyncRequestKanbanView.buttons';
                     }
                 });
             return Promise.all([this._super.apply(this, arguments), ready]);
         },
         renderButtons: function () {
             this._super.apply(this, arguments);
-            renderDownloadEmployeeButton.apply(this, arguments);
+            renderSyncEmployeeButton.apply(this, arguments);
         }
     });
 
@@ -125,7 +146,7 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
         }),
     });
 
-    var HrEmployeeDownloadRequestKanbanView = KanbanView.extend({
+    var HrEmployeeSyncRequestKanbanView = KanbanView.extend({
         config: _.extend({}, KanbanView.prototype.config, {
             Controller: HrEmployeeRequestKanbanController,
             Renderer: EmployeeKanbanRenderer
@@ -133,6 +154,6 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
     });
 
 
-    viewRegistry.add('hr_employee_tree_download', HrEmployeeDownloadRequestListView);
-    viewRegistry.add('hr_employee_kanban_download', HrEmployeeDownloadRequestKanbanView);
+    viewRegistry.add('hr_employee_tree_sync', HrEmployeeSyncRequestListView);
+    viewRegistry.add('hr_employee_kanban_sync', HrEmployeeSyncRequestKanbanView);
 });

@@ -118,6 +118,7 @@
                             </button>
                         </div>
                         <field name="active" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
                         <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                         <field name="thumb_avatar" invisible="1"/>
                         <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"thumb_avatar"}'/>
@@ -133,7 +134,8 @@
                         <group>
                             <group>
                                 <field name="mobile" widget="phone"/>
-                                <field name="telephone" widget="telephone"/>
+                                <!-- widget="telephone" -->
+                                <field name="telephone" widget="phone"/>
                                 <field name="biz_mail" widget="email"/>
                             </group>
                             <group>
@@ -163,7 +165,12 @@
                                     <group string="Identity information">
                                         <field name="userid"/>
                                         <field name="qr_code" widget="image_url" class="oe_avatar"/>
-                                        <field name="open_userid"/>
+
+                                        <label for="open_userid"/>
+                                        <div class="o_row">
+                                            <field name="open_userid"/>
+                                            <button string="Get OpenID" class="btn btn-outline-primary" type="object" icon="fa-openid" name="get_open_userid" attrs="{'invisible': [('open_userid', '!=', False)]}"/>
+                                        </div>
                                     </group>
                                 </group>
                             </page>

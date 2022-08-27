@@ -174,12 +174,6 @@ class WecomUser(models.Model):
             department_ids = self.get_parent_department(
                 user.company_id, department_list
             )
-            # department_ids = self.env["wecom.department"].search(
-            #     [
-            #         ("department_id", "in", department_list),
-            #         ("company_id", "=", user.company_id.id),
-            #     ],
-            # )
 
             user.write({"department_ids": [(6, 0, department_ids)]})
 
@@ -529,6 +523,29 @@ class WecomUser(models.Model):
                 "params": params,
             }
             return action
+
+    def get_open_userid(self):
+        """
+        获取企微 open_userid
+        """
+        for user in self:
+            try:
+                wxapi = self.env["wecom.service_api"].InitServiceApi(
+                    user.company_id.corpid,
+                    user.company_id.contacts_app_id.secret,
+                )
+                response = wxapi.httpCall(
+                    self.env["wecom.service_api_list"].get_server_api_call(
+                        "USERID_TO_OPENID"
+                    ),
+                    {"userid": user.userid,},
+                )
+            except ApiException as ex:
+                self.env["wecomapi.tools.action"].ApiExceptionDialog(
+                    ex, raise_exception=True
+                )
+            else:
+                user.open_userid = response["openid"]
 
 
     # ------------------------------------------------------------

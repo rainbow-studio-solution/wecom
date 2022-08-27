@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from . import ir_http
+
 from . import wecom_server_api
 from . import wecom_server_api_error
 from . import wecom_server_api_list
