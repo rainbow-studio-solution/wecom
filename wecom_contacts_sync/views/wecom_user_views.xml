@@ -29,7 +29,8 @@
                     <field name="gender_name" />
                     <field name="userid" />
                     <field name="department_complete_name" />
-                    <field name="is_leader_in_dept" />
+                    <field name="department" invisible="1"/>
+                    <field name="is_leader_in_dept" widget="wecom_contacts_leader"/>
                     <field name="direct_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
                     <field name="status_name" />
                 </tree>
@@ -140,7 +141,8 @@
                             </group>
                             <group>
                                 <group>
-                                    <field name="is_leader_in_dept"/>
+                                    <field name="is_leader_in_dept" widget="wecom_contacts_leader"/>
+                                    <field name="department" invisible="1"/>
                                     <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
                                     <field name="department_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                                 </group>

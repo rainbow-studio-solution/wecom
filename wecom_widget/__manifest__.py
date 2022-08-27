@@ -30,6 +30,7 @@
             "wecom_widget/static/src/js/dialog.js",
             "wecom_widget/static/src/js/wecom_config.js",
             "wecom_widget/static/src/js/wecom_contacts_display.js",
+            "wecom_widget/static/src/js/wecom_contacts_leader.js",
         ],
         "web.assets_qweb": ["wecom_widget/static/src/xml/*.xml",],
     },
