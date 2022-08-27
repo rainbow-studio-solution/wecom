@@ -168,6 +168,73 @@
             <field name="request_type">POST</field>
             <field name="sequence">11013</field>
         </record>
+        <record id="wecom_service_api_contacts_list_member_auth" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取成员授权列表</field>
+            <field name="description" type="html">
+                <p>当企业当前授权模式为成员授权时，可调用该接口获取成员授权列表。</p>
+            </field>
+            <field name="function_name">LIST_MEMBER_AUTH</field>
+            <field name="short_url">/cgi-bin/user/list_member_auth?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11014</field>
+        </record>
+        <record id="wecom_service_api_contacts_check_member_auth" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 查询成员用户是否已授权</field>
+            <field name="description" type="html">
+                <p>当企业当前授权模式为成员授权时，可调用该接口查询成员用户是否已授权。</p>
+            </field>
+            <field name="function_name">CHECK_MEMBER_AUTH</field>
+            <field name="short_url">/cgi-bin/user/check_member_auth?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11015</field>
+        </record>
+        <record id="wecom_service_api_contacts_list_selected_ticket_user" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取选人ticket对应的用户</field>
+            <field name="description" type="html">
+                <p>当企业以成员授权的方式安装了第三方应用，成员在企业微信终端通过选人jsapi选择通讯录，应用获取到selectedTicket后，可调用该接口获取SelectedTicket对应的用户open_userid列表。</p>
+            </field>
+            <field name="function_name">LIST_SELECTED_TICKET_USER</field>
+            <field name="short_url">/cgi-bin/user/list_selected_ticket_user?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11016</field>
+        </record>
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; userid转换为open_userid</field>
+            <field name="description" type="html">
+                <p>将自建应用或代开发应用获取的userid转换为第三方应用的userid</p>
+            </field>
+            <field name="function_name">USERID_TO_OPENUSERID</field>
+            <field name="short_url">/cgi-bin/user/userid_to_openuserid?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11017</field>
+        </record>
+
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 邮箱获取userid</field>
+            <field name="description" type="html">
+                <p>通过邮箱获取其所对应的userid。</p>
+            </field>
+            <field name="function_name">GET_USERID_BY_EMAIL</field>
+            <field name="short_url">/cgi-bin/user/get_userid_by_email?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11018</field>
+        </record>
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取成员ID列表</field>
+            <field name="description" type="html">
+                <p>获取企业成员的open_userid与对应的部门ID列表。</p>
+            </field>
+            <field name="function_name">USER_LIST_ID</field>
+            <field name="short_url">/cgi-bin/user/list_id?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11019</field>
+        </record>
 
         <!-- 1.2 通讯录-部门管理 -->
         <record id="wecom_service_api_contacts_department_create" model="wecom.service_api_list">

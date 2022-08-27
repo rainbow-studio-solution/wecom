@@ -20,9 +20,7 @@ class WecomUser(models.Model):
 
     # 企微字段
     userid = fields.Char(
-        string="User ID",
-        readonly=True,
-        default="",
+        string="User ID", readonly=True, default="",
     )  # 成员UserID。对应管理端的帐号
     name = fields.Char(string="Name", readonly=True, default="")  # 成员名称
     english_name = fields.Char(
@@ -113,9 +111,7 @@ class WecomUser(models.Model):
         string="Department complete Name", related="department_id.complete_name"
     )
     order_in_department = fields.Integer(
-        string="Sequence in department",
-        readonly=True,
-        default="0",
+        string="Sequence in department", readonly=True, default="0",
     )  # 成员在对应部门中的排序值，默认为0。数量必须和department一致
     status_name = fields.Selection(
         [
@@ -135,17 +131,11 @@ class WecomUser(models.Model):
         compute="_compute_gender_name",
     )
     color = fields.Integer("Color Index")
-    active = fields.Boolean(
-        "Active",
-        default=True,
-        store=True,
-        readonly=True,
-        compute="_compute_active",
-    )
+    active = fields.Boolean('Active', default=True, store=True, readonly=True,compute="_compute_active",)
 
     @api.depends("status")
     def _compute_status_name(self):
-        for user in self:
+        for user in self:            
             user.status_name = str(user.status)
 
     @api.depends("status")
@@ -194,10 +184,7 @@ class WecomUser(models.Model):
         department_ids = []
         for department in departments:
             department_id = self.env["wecom.department"].search(
-                [
-                    ("department_id", "=", department),
-                    ("company_id", "=", company.id),
-                ],
+                [("department_id", "=", department), ("company_id", "=", company.id),],
                 limit=1,
             )
             if department_id:
@@ -225,17 +212,13 @@ class WecomUser(models.Model):
                 company.corpid, company.contacts_app_id.secret
             )
 
-            # 2020-8-27 按照官方API要求，进行重构
-            # json对象只有 userid 和 department 两个字段
-            # 参数："cursor", 必须:否, 说明:用于分页查询的游标，字符串类型，由上一次调用返回，首次调用不填
-            # 参数："limit", 必须:否, 说明:分页，预期请求的数据量，取值范围 1 ~ 10000
-
+            # 2020-8-10 按照官方API要求，进行重构
             response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("USER_LIST_ID"),
-                {}
-                # {"department_id": "1", "fetch_child": "1",},
+                self.env["wecom.service_api_list"].get_server_api_call(
+                    "USER_SIMPLE_LIST"
+                ),
+                {"department_id": "1", "fetch_child": "1",},
             )
-            print("response", response)
         except ApiException as ex:
             end_time = time.time()
 
@@ -287,10 +270,7 @@ class WecomUser(models.Model):
         下载用户
         """
         user = self.sudo().search(
-            [
-                ("userid", "=", wecom_user["userid"]),
-                ("company_id", "=", company.id),
-            ],
+            [("userid", "=", wecom_user["userid"]), ("company_id", "=", company.id),],
             limit=1,
         )
         result = {}
@@ -379,12 +359,7 @@ class WecomUser(models.Model):
         except Exception as e:
             result = _(
                 "Error creating company [%s]'s user [%s,%s], error reason: %s"
-            ) % (
-                company.name,
-                response["userid"].lower(),
-                response["name"],
-                repr(e),
-            )
+            ) % (company.name, response["userid"].lower(), response["name"], repr(e),)
 
             _logger.warning(result)
             return {
@@ -539,10 +514,7 @@ class WecomUser(models.Model):
                 "sticky": False,  # 延时关闭
                 "className": "bg-success",
                 "type": "success",
-                "next": {
-                    "type": "ir.actions.client",
-                    "tag": "reload",
-                },  # 刷新窗体
+                "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
             }
         finally:
             action = {
@@ -566,9 +538,7 @@ class WecomUser(models.Model):
                     self.env["wecom.service_api_list"].get_server_api_call(
                         "USERID_TO_OPENID"
                     ),
-                    {
-                        "userid": user.userid,
-                    },
+                    {"userid": user.userid,},
                 )
             except ApiException as ex:
                 self.env["wecomapi.tools.action"].ApiExceptionDialog(
@@ -576,6 +546,7 @@ class WecomUser(models.Model):
                 )
             else:
                 user.open_userid = response["openid"]
+
 
     # ------------------------------------------------------------
     # 企微通讯录事件
@@ -596,8 +567,7 @@ class WecomUser(models.Model):
 
         users = self.sudo().search([("company_id", "=", company_id.id)] + domain)
         callback_user = users.search(
-            [("userid", "=", user_dict["UserID"])],
-            limit=1,
+            [("userid", "=", user_dict["UserID"])] , limit=1,
         )
 
         if callback_user:
@@ -612,18 +582,32 @@ class WecomUser(models.Model):
 
         for key, value in user_dict.items():
             if key.lower() in self._fields.keys():
-                update_dict.update({key.lower(): value})
+                update_dict.update({
+                    key.lower(): value
+                })
             else:
-                if key == "MainDepartment":
-                    update_dict.update({"main_department": value})
-                elif key == "IsLeaderInDept":
-                    update_dict.update({"is_leader_in_dept": value})
-                elif key == "DirectLeader":
-                    update_dict.update({"direct_leader": value})
-                elif key == "BizMail":
-                    update_dict.update({"biz_mail": value})
+                if key=="MainDepartment":
+                    update_dict.update({
+                        "main_department": value
+                    })
+                elif key=="IsLeaderInDept":
+                    update_dict.update({
+                        "is_leader_in_dept": value
+                    })
+                elif key=="DirectLeader":
+                    update_dict.update({
+                        "direct_leader": value
+                    })
+                elif key=="BizMail":
+                    update_dict.update({
+                        "biz_mail": value
+                    })
         if cmd == "create":
-            update_dict.update({"company_id": company_id.id})
+            update_dict.update(
+                {
+                    "company_id": company_id.id
+                }
+            )
             callback_user.create(update_dict)
         elif cmd == "update":
             if "userid" in update_dict:
