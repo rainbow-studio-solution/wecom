@@ -2,6 +2,7 @@
 
 import logging
 import datetime
+import re
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 
@@ -123,12 +124,12 @@ class WeComApps(models.Model):
             )[
                 1
             ]  # 5
-            contacts_update_avatar_every_time_sync_employees = ir_model_data.get_object_reference(
-                "wecom_contacts_sync",
-                "wecom_app_config_contacts_update_avatar_every_time_sync_employees",
-            )[
-                1
-            ]  # 6
+            contacts_update_avatar_every_time_sync_employees = (
+                ir_model_data.get_object_reference(
+                    "wecom_contacts_sync",
+                    "wecom_app_config_contacts_update_avatar_every_time_sync_employees",
+                )[1]
+            )  # 6
             # enabled_join_qrcode = ir_model_data.get_object_reference(
             #     "wecom_contacts_sync", "wecom_app_config_contacts_enabled_join_qrcode"
             # )[
@@ -321,9 +322,27 @@ Synchronize Wecom tag results:
         """
         同步通讯录
         """
-        result = {}
+        # result = {
+            
+        # }
 
-        result = {"company_name": self.company_id.name, "sync_state": "completed"}
+        result = {
+            "company_name": self.company_id.name, 
+            "sync_state": "completed",
+
+            "wecom_department_sync_state": "fail",
+            "wecom_department_sync_times": 0,
+            "wecom_department_sync_result": "",
+
+            "wecom_user_sync_state": "fail",
+            "wecom_user_sync_times": 0,
+            "wecom_user_sync_result": "",
+
+            "wecom_tag_sync_state": "fail",
+            "wecom_tag_sync_times": 0,
+            "wecom_tag_sync_result": "",
+        }
+
 
         # 同步企微部门
         sync_department_result = (
@@ -346,6 +365,9 @@ Synchronize Wecom tag results:
             }
         )
 
+        if result["wecom_department_sync_state"] == "fail":
+            return result
+
         # 同步企微用户
         sync_user_result = (
             self.env["wecom.user"]
@@ -365,6 +387,9 @@ Synchronize Wecom tag results:
             }
         )
 
+        if result["wecom_user_sync_state"] == "fail":
+            return result
+
         # 同步企微标签
         sync_wecom_tag_result = (
             self.env["wecom.tag"]
@@ -383,6 +408,9 @@ Synchronize Wecom tag results:
                 "wecom_tag_sync_result": wecom_tag_sync_result,
             }
         )
+
+        if result["wecom_tag_sync_state"] == "fail":
+            return result
 
         return result
 
