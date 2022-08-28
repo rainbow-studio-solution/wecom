@@ -32,6 +32,12 @@ class WecomContactsSyncWizard(models.TransientModel):
     def _default_right(self):
         return self.user_has_groups("base.group_multi_company")
 
+    def _default_company_id(self):
+        company = self.env.user.company_id
+        if not company:
+            company = self.env.company
+        return company  
+
     manage_multiple_companies = fields.Boolean(
         string="Manage multiple companies", readonly=True, default=_default_right,
     )
@@ -39,7 +45,7 @@ class WecomContactsSyncWizard(models.TransientModel):
         string="Synchronize all companies",
         default=False,
         required=True,
-        compute="_compute_sync_all",
+        # compute="_compute_sync_all",
     )
     companies = fields.Char(string="Sync Companies", compute="_compute_sync_companies")
     company_id = fields.Many2one(
@@ -48,15 +54,15 @@ class WecomContactsSyncWizard(models.TransientModel):
         default=lambda self: self.env.company,
         domain="[('is_wecom_organization', '=', True)]",
         store=True,
-    )
+        # default=_default_company_id,
+    )    
 
     @api.depends("manage_multiple_companies")
     def _compute_sync_all(self):
         # 有管理多公司的权限，则默认同步所有公司
-        if self.manage_multiple_companies:
-            self.sync_all = True
-        else:
+        if not self.manage_multiple_companies:
             self.sync_all = False
+
 
     @api.depends("sync_all")
     def _compute_sync_companies(self):
@@ -159,8 +165,10 @@ class WecomContactsSyncWizard(models.TransientModel):
     def wizard_sync_contacts(self):
         results = []
         sync_start_time = time.time()
+
         if self.sync_all:
             # 同步所有公司
+            
             companies = (
                 self.sudo()
                 .env["res.company"]

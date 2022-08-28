@@ -107,7 +107,7 @@ class WecomTag(models.Model):
                 "name": "download_tag_data",
                 "state": True,
                 "time": end_time - start_time,
-                "msg": _("Tag list downloaded successfully."),
+                "msg": _("Tag list sync completed."),
             }
             tasks.append(task)
         finally:

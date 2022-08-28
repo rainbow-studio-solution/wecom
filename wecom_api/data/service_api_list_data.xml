@@ -1844,6 +1844,18 @@
             <field name="sequence">41001</field>
         </record>
 
+        <record id="wecom_service_api_auth_user_getuserdetail" model="wecom.service_api_list">
+            <field name="type">5</field>
+            <field name="name">身份验证 &gt; 获取访问用户敏感信息</field>
+            <field name="description" type="html">
+                <p>自建应用与代开发应用可通过该接口获取成员授权的敏感字段</p>
+            </field>
+            <field name="function_name">GET_USER_DETAIL_BY_USER_TICKET</field>
+            <field name="short_url">/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">41002</field>
+        </record>
+
         <!-- 5. 应用管理 -->
         <!-- 5.1 获取管理 -->
         <record id="wecom_service_api_agent_get" model="wecom.service_api_list">

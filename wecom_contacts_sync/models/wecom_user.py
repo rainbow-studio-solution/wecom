@@ -2,7 +2,7 @@
 
 import logging
 import json
-
+from collections import defaultdict
 import time
 from odoo import fields, models, api, Command, tools, _
 from odoo.exceptions import UserError
@@ -28,16 +28,16 @@ class WecomUser(models.Model):
     english_name = fields.Char(
         string="English name", readonly=True, default=""
     )  # 英部门文名称
-    mobile = fields.Char(string="mobile phone", readonly=True, default="")  # 手机号码
+    mobile = fields.Char(string="mobile phone", readonly=True,default="")  # 手机号码
     department = fields.Char(
-        string="Multiple Departments", readonly=True, default=""
+        string="Multiple Department ID", readonly=True, store=True, default="[]"
     )  # 成员所属部门id列表
 
     main_department = fields.Char(
         string="Main department", readonly=True, default=""
     )  # 主部门
     order = fields.Char(
-        string="Sequence", readonly=True, default=""
+        string="Sequence", readonly=True, default="[]"
     )  # 部门内的排序值，默认为0。数量必须和department一致，数值越大排序越前面。值范围是[0, 2^32)
     position = fields.Char(string="Position", readonly=True, default="")  # 职务信息；
     gender = fields.Char(
@@ -46,10 +46,10 @@ class WecomUser(models.Model):
     email = fields.Char(string="Email", readonly=True, default="")  # 邮箱
     biz_mail = fields.Char(string="BizMail", readonly=True, default="")  # 企业邮箱
     is_leader_in_dept = fields.Char(
-        string="Is Department Leader", readonly=True, default=False
+        string="Is Department Leader", readonly=True, default="[]"
     )  # 表示在所在的部门内是否为部门负责人。0-否；1-是。是一个列表，数量必须与department一致。
     direct_leader = fields.Char(
-        string="Direct Leader", readonly=True, default=""
+        string="Direct Leader", readonly=True, default="[]"
     )  # 直属上级UserID，返回在应用可见范围内的直属上级列表，最多有五个直属上级
     avatar = fields.Char(string="Avatar", readonly=True, default="")  # 头像url
     thumb_avatar = fields.Char(
@@ -126,13 +126,13 @@ class WecomUser(models.Model):
         ],
         string="Status",
         readonly=True,
-        compute="_compute_status_name",
+        # compute="_compute_status_name",
     )  # 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。已激活代表已激活企业微信或已关注微信插件（原企业号）。未激活代表既未激活企业微信又未关注微信插件（原企业号）。
 
     gender_name = fields.Selection(
         [("1", _("Male")), ("2", _("Female")), ("0", _("Undefined"))],
         string="Gender",
-        compute="_compute_gender_name",
+        # compute="_compute_gender_name",
     )
     color = fields.Integer("Color Index")
     active = fields.Boolean(
@@ -140,7 +140,7 @@ class WecomUser(models.Model):
         default=True,
         store=True,
         readonly=True,
-        compute="_compute_active",
+        # compute="_compute_active",
     )
 
     @api.depends("status")
@@ -235,7 +235,7 @@ class WecomUser(models.Model):
                 {}
                 # {"department_id": "1", "fetch_child": "1",},
             )
-            print("response", response)
+            
         except ApiException as ex:
             end_time = time.time()
 
@@ -261,24 +261,43 @@ class WecomUser(models.Model):
                 }
             ]
         else:
-            # response["userlist"] 只含 'name', 'department', 'userid' 三个字段
-            wecom_users = response["userlist"]
-            # 1.下载用户
-            for wecom_user in wecom_users:
-                download_user_result = self.download_user(company, wecom_user)
-                if download_user_result:
-                    for r in download_user_result:
-                        tasks.append(r)  # 加入 下载员工失败结果
+            # response["userlist"] 只含  'department', 'userid' 2个字段
+            if response["errcode"] == 0:
+                # 1. 合并多部门
+                dept_user = response["dept_user"]
+                d = defaultdict(lambda : defaultdict(list))
+                for dic in dept_user:
+                    userid, department = dic["userid"], dic["department"]
+                    d[userid]["userid"] = userid
+                    d[userid]["department"].extend(str(department))
 
-            # 2.完成下载
-            end_time = time.time()
-            task = {
-                "name": "download_user_data",
-                "state": True,
-                "time": end_time - start_time,
-                "msg": _("User list downloaded successfully."),
-            }
-            tasks.append(task)
+                userlist = []
+                for key, value in d.items():
+                    dept_user = {}
+                    department = []
+                    userid = value["userid"]
+                    departments = value["department"]
+                    for dep in departments:
+                        department.append(int(dep))
+                    userlist.append({"userid": userid, "department": department})
+
+                # 2.下载用户
+                if userlist:
+                    for wecom_user in userlist:
+                        download_user_result = self.download_user(company, wecom_user)
+                        if download_user_result:
+                            for r in download_user_result:
+                                tasks.append(r)  # 加入 下载员工失败结果
+
+                # 3.完成下载
+                end_time = time.time()
+                task = {
+                    "name": "download_user_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("User list sync completed."),
+                }
+                tasks.append(task)
         finally:
             return tasks  # 返回结果
 
@@ -293,96 +312,32 @@ class WecomUser(models.Model):
             ],
             limit=1,
         )
+   
         result = {}
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                company.corpid, company.contacts_app_id.secret
-            )
-
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call("USER_GET"),
-                {"userid": wecom_user["userid"]},
-            )
-            for key in response.keys():
-                if type(response[key]) in (list, dict) and response[key]:
-                    json_str = json.dumps(
-                        response[key],
-                        sort_keys=False,
-                        indent=2,
-                        separators=(",", ":"),
-                        ensure_ascii=False,
-                    )
-                    response[key] = json_str
-
-        except ApiException as ex:
-            result = _(
-                "Wecom API acquisition company[%s]'s user [id:%s] details failed, error details: %s"
-            ) % (company.name, wecom_user["id"], str(ex))
-            _logger.warning(result)
-        except Exception as e:
-            result = _(
-                "Wecom API acquisition company[%s]'s user [id:%s] details failed, error details: %s"
-            ) % (company.name, wecom_user["id"], str(e))
-            _logger.warning(result)
+        if not user:
+            result = self.create_user(company, user, wecom_user)
         else:
-            if not user:
-                result = self.create_user(company, user, response)
-            else:
-                result = self.update_user(company, user, response)
-        finally:
-            return result
+            result = self.update_user(company, user, wecom_user)
+        return result
 
-    def create_user(self, company, user, response):
+    def create_user(self, company, user, wecom_user):
         """
         创建用户
         """
         try:
             user.create(
                 {
-                    "userid": response["userid"],
-                    "name": response["name"],
-                    "english_name": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "english_name"
-                    ),
-                    "mobile": response["mobile"],
-                    "department": response["department"],
-                    "main_department": response["main_department"],
-                    "order": response["order"],
-                    "position": response["position"],
-                    "gender": response["gender"],
-                    "email": response["email"],
-                    "biz_mail": response["biz_mail"],
-                    "is_leader_in_dept": response["is_leader_in_dept"],
-                    "direct_leader": response["direct_leader"],
-                    "avatar": response["avatar"],
-                    "thumb_avatar": response["thumb_avatar"],
-                    "telephone": response["telephone"],
-                    "alias": response["alias"],
-                    "extattr": response["extattr"],
-                    "external_profile": self.env[
-                        "wecom.tools"
-                    ].check_dictionary_keywords(response, "external_profile"),
-                    "external_position": self.env[
-                        "wecom.tools"
-                    ].check_dictionary_keywords(response, "external_position"),
-                    "status": response["status"],
-                    "qr_code": response["qr_code"],
-                    "address": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "address"
-                    ),
-                    "open_userid": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "open_userid"
-                    ),
+                    "userid": wecom_user["userid"],
+                    "department": wecom_user["department"],
                     "company_id": company.id,
                 }
             )
         except Exception as e:
             result = _(
-                "Error creating company [%s]'s user [%s,%s], error reason: %s"
+                "Error creating company [%s]'s user [%s], error reason: %s"
             ) % (
-                company.name,
-                response["userid"].lower(),
-                response["name"],
+                company.userid,
+                wecom_user["userid"].lower(),
                 repr(e),
             )
 
@@ -394,57 +349,24 @@ class WecomUser(models.Model):
                 "msg": result,
             }
 
-    def update_user(self, company, user, response):
+    def update_user(self, company, user, wecom_user):
         """
         更新用户
         """
         try:
-            user.write(
+            user.sudo().write(
                 {
-                    "name": response["name"],
-                    "english_name": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "english_name"
-                    ),
-                    "mobile": response["mobile"],
-                    "department": response["department"],
-                    "main_department": response["main_department"],
-                    "order": response["order"],
-                    "position": response["position"],
-                    "gender": response["gender"],
-                    "email": response["email"],
-                    "biz_mail": response["biz_mail"],
-                    "is_leader_in_dept": response["is_leader_in_dept"],
-                    "direct_leader": response["direct_leader"],
-                    "avatar": response["avatar"],
-                    "thumb_avatar": response["thumb_avatar"],
-                    "telephone": response["telephone"],
-                    "alias": response["alias"],
-                    "extattr": response["extattr"],
-                    "external_profile": self.env[
-                        "wecom.tools"
-                    ].check_dictionary_keywords(response, "external_profile"),
-                    "external_position": self.env[
-                        "wecom.tools"
-                    ].check_dictionary_keywords(response, "external_position"),
-                    "status": response["status"],
-                    "qr_code": response["qr_code"],
-                    "address": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "address"
-                    ),
-                    "open_userid": self.env["wecom.tools"].check_dictionary_keywords(
-                        response, "open_userid"
-                    ),
+                    "department": wecom_user["department"],
                 }
             )
 
         except Exception as e:
-            result = _("Error update company [%s]'s user [%s,%s], error reason: %s") % (
+            result = _("Error update company [%s]'s user [%s], error reason: %s") % (
                 company.name,
-                response["userid"].lower(),
-                response["name"],
+                wecom_user["userid"].lower(),
                 repr(e),
             )
-
+            _logger.warning(result)
             return {
                 "name": "update_user",
                 "state": False,

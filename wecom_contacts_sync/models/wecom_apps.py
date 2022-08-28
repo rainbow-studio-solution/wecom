@@ -325,8 +325,8 @@ Synchronize Wecom tag results:
         # result = {
             
         # }
-
-        result = {
+        result = {}
+        result.update({
             "company_name": self.company_id.name, 
             "sync_state": "completed",
 
@@ -341,7 +341,7 @@ Synchronize Wecom tag results:
             "wecom_tag_sync_state": "fail",
             "wecom_tag_sync_times": 0,
             "wecom_tag_sync_result": "",
-        }
+        })
 
         # 同步企微部门
         sync_department_result = (
@@ -349,6 +349,7 @@ Synchronize Wecom tag results:
             .with_context(company_id=self.company_id)
             .download_wecom_deps()
         )
+        # [{'name': 'download_department_data', 'state': True, 'time': 0.3037421703338623, 'msg': 'Department list sync completed.'}]
 
         (
             wecom_department_sync_state,

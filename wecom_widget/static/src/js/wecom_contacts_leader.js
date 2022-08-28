@@ -23,8 +23,8 @@ odoo.define('wecom.wecom_contacts_leader', function (require) {
             this.is_leader = params.data[state]; // 字段值
             this.current_company_id = this.data["company_id"].res_id;
             this.department = this.data["department"]; //部门列表字符串
-            console.log(this.department)
-            console.log(this.is_leader)
+            // console.log(this.department)
+            // console.log(this.is_leader)
         },
         _renderEdit: function () {
             this._prepareInput(this.$el);

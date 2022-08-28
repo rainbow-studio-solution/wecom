@@ -18,9 +18,8 @@ class WecomDepartment(models.Model):
     _order = "complete_name"
 
     # 企微字段
-    # 企微字段
     department_id = fields.Integer(
-        string="Department ID", readonly=True, default="0"
+        string="Department ID", readonly=True, default=0
     )  # 部门id
     name = fields.Char(string="Name", readonly=True, default="")  # 部门名称
     name_en = fields.Char(string="English name", readonly=True, default="")  # 英部门文名称
@@ -28,14 +27,15 @@ class WecomDepartment(models.Model):
         string="Department Leader", readonly=True, default="[]"
     )  # 部门负责人的UserID；第三方仅通讯录应用可获取
     parentid = fields.Integer(
-        string="Parent department",
+        string="Parent department id",
         readonly=True,
-        default="0",
+        default=0,
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]"
     )  # 父部门id。根部门为1
     order = fields.Integer(
         string="Sequence",
         readonly=True,
-        default="0",
+        default=0,
     )  # 在父部门中的次序值。order值大的排序靠前。值范围是[0, 2^32)
 
     # odoo字段
@@ -77,16 +77,18 @@ class WecomDepartment(models.Model):
     )
     color = fields.Integer("Color Index")
 
-    @api.depends("parentid")
+    @api.depends("parentid","company_id")
     def _compute_parent_id(self):
         for department in self:
             if department.parentid:
                 parent_department = self.sudo().search(
-                    [("department_id", "=", department.parentid)]
+                    [
+                        ("department_id", "=", department.parentid),("company_id", "=", department.company_id.id)
+                    ]
                 )
                 department.parent_id = parent_department.id
 
-    @api.depends("name", "parent_id")
+    @api.depends("name", "parent_id","company_id")
     def _compute_complete_name(self):
         for department in self:
             if department.parent_id:
@@ -115,6 +117,7 @@ class WecomDepartment(models.Model):
         下载部门列表
         """
         start_time = time.time()
+        
         company = self.env.context.get("company_id")
         if type(company) == int:
             company = self.env["res.company"].browse(company)
@@ -157,41 +160,51 @@ class WecomDepartment(models.Model):
                 }
             ]
         else:
-            # 获取只有 'id' , 'parentid' , 'order' 字段的列表
-            wecom_departments = response["department_id"]
+            if response["errcode"] == 0:
+                # 获取只有 'id' , 'parentid' , 'order' 字段的列表
+                wecom_departments = response["department_id"]
 
-            # 1.下载部门
-            for wecom_department in wecom_departments:
-                department = self.sudo().search(
-                    [
-                        ("department_id", "=", wecom_department["id"]),
-                        ("company_id", "=", company.id),
-                    ],
-                    limit=1,
-                )
-                if not department:
-                    self.create_department(company, department, wecom_department)
-                else:
-                    self.update_department(company, department, wecom_department)
-            # 2.设置上级部门
-            # set_parent_department_result = self.set_parent_department(company)
-            # print(set_parent_department_result)
-            # if set_parent_department_result:
-            #     for r in set_parent_department_result:
-            #         tasks.append(r)
+                # 1.下载部门
+                for wecom_department in wecom_departments:
+                    download_department_result = self.download_department(
+                        company, wecom_department
+                    )
+                    if download_department_result:
+                        for r in download_department_result:
+                            tasks.append(r)  # 加入 下载员工失败结果
 
-            # 3.完成
-            end_time = time.time()
-            task = {
-                "name": "download_department_data",
-                "state": True,
-                "time": end_time - start_time,
-                "msg": _("Department list download completed."),
-            }
-            tasks.append(task)
+                # 3.完成
+                end_time = time.time()
+                task = {
+                    "name": "download_department_data",
+                    "state": True,
+                    "time": end_time - start_time,
+                    "msg": _("Department list sync completed."),
+                }
+                tasks.append(task)
         finally:
             return tasks  # 返回结果
 
+    def download_department(self, company, wecom_department):
+        """
+        下载部门
+        """
+        # 查询数据库是否存在相同的企业微信部门ID，有则更新，无则新建
+        department = self.sudo().search(
+            [
+                ("department_id", "=", wecom_department["id"]),
+                ("company_id", "=", company.id),
+            ],
+            limit=1,
+        )
+
+        result = {}        
+
+        if not department:                
+            result = self.create_department(company, department, wecom_department)
+        else:
+            result = self.update_department(company, department, wecom_department)
+        return result
 
     def create_department(self, company, department, wecom_department):
         """
@@ -201,23 +214,18 @@ class WecomDepartment(models.Model):
             department.create(
                 {
                     "department_id": wecom_department["id"],
-                    # "name": wecom_department["name"],
-                    # "name_en": self.env["wecom.tools"].check_dictionary_keywords(
-                    #     wecom_department, "name_en"
-                    # ),
-                    # "department_leader": wecom_department["department_leader"],
                     "parentid": wecom_department["parentid"],
                     "order": wecom_department["order"],
                     "company_id": company.id,
                 }
             )
+
         except Exception as e:
             result = _(
-                "Error creating company [%s]'s department [%s,%s], error reason: %s"
+                "Error creating company [%s]'s department [%s], error reason: %s"
             ) % (
                 company.name,
                 wecom_department["id"],
-                wecom_department["name"],
                 repr(e),
             )
             _logger.warning(result)
@@ -235,11 +243,6 @@ class WecomDepartment(models.Model):
         try:
             department.write(
                 {
-                    # "name": wecom_department["name"],
-                    # "name_en": self.env["wecom.tools"].check_dictionary_keywords(
-                    #     wecom_department, "name_en"
-                    # ),
-                    # "department_leader": wecom_department["department_leader"],
                     "parentid": wecom_department["parentid"],
                     "order": wecom_department["order"],
                 }
@@ -250,11 +253,10 @@ class WecomDepartment(models.Model):
                 str(e),
             )
             result = _(
-                "Error update company [%s]'s Department [%s,%s], error reason: %s"
+                "Error update company [%s]'s Department [%s], error reason: %s"
             ) % (
                 company.name,
                 wecom_department["id"],
-                wecom_department["name"],
                 repr(e),
             )
             _logger.warning(result)
@@ -417,7 +419,7 @@ class WecomDepartment(models.Model):
         xml_tree = self.env.context.get("xml_tree")
         company_id = self.env.context.get("company_id")
         department_dict = xmltodict.parse(xml_tree)["xml"]
-        # print("wecom_event_change_contact_party", department_dict)
+ 
 
         departments = self.sudo().search([("company_id", "=", company_id.id)])
         callback_department = departments.search(

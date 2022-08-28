@@ -25,11 +25,11 @@
             <field name="arch" type="xml">
                 <tree string="User" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1" js_class="wecom_user_tree_sync">
                     <field name="company_id" invisible="1"/>
+                    <field name="userid" />
+                    <field name="department"/>
                     <field name="name" />
                     <field name="gender_name" />
-                    <field name="userid" />
                     <field name="department_complete_name" />
-                    <field name="department" invisible="1"/>
                     <field name="is_leader_in_dept" widget="wecom_contacts_leader"/>
                     <field name="direct_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
                     <field name="status_name" />

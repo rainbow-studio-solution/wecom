@@ -7,13 +7,13 @@
             <field name="arch" type="xml">
                 <tree string="Department" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1" js_class="wecom_department_tree_sync">
                     <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="department_id" widget="integer" options="{'format': false}"/>
+                    <field name="parentid" widget="integer" options="{'format': false}"/>
                     <field name="name" />
                     <field name="name_en" />
                     <field name="parent_id" />
                     <field name="complete_name" />
-                    <field name="department_id" widget="integer" options="{'format': false}"/>
                     <field name="department_leader" widget="wecom_contact_display" options="{'type':'user','show':'simple'}"/>
-
                 </tree>
             </field>
         </record>

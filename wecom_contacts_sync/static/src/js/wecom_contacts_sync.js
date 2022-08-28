@@ -57,9 +57,17 @@ odoo.define('wecom_contacts_sync.sync_contacts', function (require) {
     var WecomUserSyncRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_button = false;
             var ready = this.getSession().user_has_group('wecom_base.group_wecom_settings_manager')
                 .then(function (is_wecom_settings_manager) {
-                    if (is_wecom_settings_manager) {
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_button = company["is_wecom_organization"];
+                        }
+                    })
+                    if (is_wecom_settings_manager && show_button) {
                         self.buttons_template = 'WecomUserSyncRequestListView.buttons';
                     }
                 });
@@ -137,9 +145,17 @@ odoo.define('wecom_contacts_sync.sync_contacts', function (require) {
     var WecomDepartmentSyncRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_button = false;
             var ready = this.getSession().user_has_group('wecom_base.group_wecom_settings_manager')
                 .then(function (is_wecom_settings_manager) {
-                    if (is_wecom_settings_manager) {
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_button = company["is_wecom_organization"];
+                        }
+                    })
+                    if (is_wecom_settings_manager && show_button) {
                         self.buttons_template = 'WecomDepartmentSyncRequestListView.buttons';
                     }
                 });
@@ -217,9 +233,17 @@ odoo.define('wecom_contacts_sync.sync_contacts', function (require) {
     var WecomTagSyncRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_button = false;
             var ready = this.getSession().user_has_group('wecom_base.group_wecom_settings_manager')
                 .then(function (is_wecom_settings_manager) {
-                    if (is_wecom_settings_manager) {
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_button = company["is_wecom_organization"];
+                        }
+                    })
+                    if (is_wecom_settings_manager && show_button) {
                         self.buttons_template = 'WecomTagSyncRequestListView.buttons';
                     }
                 });
