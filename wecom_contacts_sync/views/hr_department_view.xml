@@ -2,8 +2,8 @@
 <odoo>
     <data>
 
-        <record id="view_department_form" model="ir.ui.view">
-            <field name="name">wecom.department.form</field>
+        <record id="view_hrms_department_form" model="ir.ui.view">
+            <field name="name">hrms.department.form</field>
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.view_department_form"/>
             <field name="arch" type="xml">
@@ -21,14 +21,14 @@
             </field>
         </record>
 
-        <record id="hrms_base_department_tree" model="ir.ui.view">
-            <field name="name">wxwork hr departmen tree</field>
+        <record id="view_hrms_department_tree" model="ir.ui.view">
+            <field name="name">hrms.department.tree</field>
             <field name="model">hr.department</field>
             <field name="field_parent">child_ids</field>
             <field name="inherit_id" ref="hr.view_department_tree"/>
             <field name="arch" type="xml">
                 <xpath expr="//tree" position="attributes">
-                    <attribute name="js_class">hr_department_tree_download</attribute>
+                    <attribute name="js_class">hrms_department_tree_sync</attribute>
                 </xpath>
                 <xpath expr="//field[@name='company_id']" position="replace"/>
                 <xpath expr="//field[@name='display_name']" position="before">
@@ -38,6 +38,17 @@
                     <field name="is_wecom_department"/>
                     <field name="wecom_department_id" options="{'format': false}"/>
                     <!-- <field name="wecom_department_order"/> -->
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_hrms_department_kanban" model="ir.ui.view">
+            <field name="name">hrms.department.kanban</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.hr_department_view_kanban"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="js_class">hrms_department_kanban_sync</attribute>
                 </xpath>
             </field>
         </record>

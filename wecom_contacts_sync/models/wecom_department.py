@@ -21,7 +21,7 @@ class WecomDepartment(models.Model):
     department_id = fields.Integer(
         string="Department ID", readonly=True, default=0
     )  # 部门id
-    name = fields.Char(string="Name", readonly=True, default="")  # 部门名称
+    name = fields.Char(string="Name", readonly=True, default="",compute="_compute_name",)  # 部门名称
     name_en = fields.Char(string="English name", readonly=True, default="")  # 英部门文名称
     department_leader = fields.Char(
         string="Department Leader", readonly=True, default="[]"
@@ -76,6 +76,12 @@ class WecomDepartment(models.Model):
         string="Members",
     )
     color = fields.Integer("Color Index")
+
+    @api.depends("department_id","company_id")
+    def _compute_name(self):
+        for department in self:
+            if not department.name:
+                department.name = "%s:%s" % (department.company_id.name, department.department_id)
 
     @api.depends("parentid","company_id")
     def _compute_parent_id(self):

@@ -4,21 +4,27 @@
 
 
     <!-- 部门 Department-->
-    <t t-name="HrDepartmentDownloadRequest.download_deps_button">
-        <button type="button" class="btn btn-info o_button_download_deps fa fa-cloud-download">
-            Download wecom department data
+    <t t-name="HrDepartmentSyncRequest.sync_deps_button">
+        <button type="button" class="btn btn-info o_button_sync_deps fa fa-refresh">
+            Sync wecom department
         </button>
     </t>
 
-    <t t-extend="ListView.buttons" t-name="HrDepartmentDownloadRequestListView.buttons">
+    <t t-extend="ListView.buttons" t-name="HrDepartmentSyncRequestListView.buttons">
         <t t-jquery="button.o_list_button_add" t-operation="after">
-            <t t-call="HrDepartmentDownloadRequest.download_deps_button"/>
+            <t t-call="HrDepartmentSyncRequest.sync_deps_button"/>
+        </t>
+    </t>
+
+    <t t-extend="KanbanView.buttons" t-name="HrDepartmentSyncRequestKanbanView.buttons">
+        <t t-jquery="button" t-operation="after">
+            <t t-call="HrDepartmentSyncRequest.sync_deps_button"/>
         </t>
     </t>
 
     <!-- 员工 Employee-->
     <t t-name="HrEmployeeSyncRequest.sync_staffs_button">
-        <button type="button" class="btn btn-info o_button_sync_staffs fa fa-cloud-download">
+        <button type="button" class="btn btn-info o_button_sync_staffs fa fa-refresh">
             Sync wecom employee
         </button>
     </t>
@@ -37,15 +43,15 @@
 
 
     <!-- 类别 标签 -->
-    <t t-name="HrCategoryDownloadRequest.download_tags_button">
-        <button type="button" class="btn btn-info o_button_download_tags fa fa-cloud-download">
-            Download wecom tag data
+    <t t-name="HrCategorySyncRequest.sync_tags_button">
+        <button type="button" class="btn btn-info o_button_download_tags fa fa-refresh">
+            Sync wecom tag
         </button>
     </t>
 
     <t t-extend="ListView.buttons" t-name="HrCategoryDownloadRequestListView.buttons">
         <t t-jquery="button.o_list_button_add" t-operation="after">
-            <t t-call="HrCategoryDownloadRequest.download_tags_button"/>
+            <t t-call="HrCategorySyncRequest.sync_tags_button"/>
         </t>
     </t>
 </templates>

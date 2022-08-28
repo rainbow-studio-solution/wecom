@@ -46,6 +46,16 @@
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/get?access_token=ACCESS_TOKEN</field>
             <field name="sequence">11002</field>
+            <field name="description" type="html">
+                <p>应用只能获取可见范围内的成员信息，且每种应用获取的字段有所不同，在返回结果说明中会逐个说明。企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>从2022年6月20号20点开始，除通讯录同步以外的基础应用（如客户联系、微信客服、会话存档、日程等），以及新创建的自建应用与代开发应用，调用该接口时，不再返回以下字段：头像、性别、手机、邮箱、企业邮箱、员工个人二维码、地址，应用需要通过<a href="https://developer.work.weixin.qq.com/document/path/91335" target ="_blank">oauth2手工授权</a>的方式获取管理员与员工本人授权的字段。
+                    </li>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_user_update" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -83,6 +93,14 @@
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN</field>
             <field name="sequence">11006</field>
+            <field name="description" type="html">
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点：： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_user_details_list" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -91,6 +109,17 @@
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/list?access_token=ACCESS_TOKEN</field>
             <field name="sequence">11007</field>
+            <field name="description" type="html">
+                <p>应用只能获取可见范围内的成员信息，且每种应用获取的字段有所不同，在返回结果说明中会逐个说明。企业通讯录安全特别重要，企业微信持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        从2022年6月20号20点开始，除通讯录同步以外的基础应用（如客户联系、微信客服、会话存档、日程等），以及新创建的自建应用与代开发应用，调用该接口时，不再返回以下字段：头像、性别、手机、邮箱、企业邮箱、员工个人二维码、地址，应用需要通过<a href="https://developer.work.weixin.qq.com/document/path/91335" target ="_blank">oauth2手工授权</a>的方式获取管理员与员工本人授权的字段。
+                    </li>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_userid_to_openid" model="wecom.service_api_list">
             <field name="type">2</field>
@@ -265,7 +294,12 @@
             <field name="type">2</field>
             <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取部门列表</field>
             <field name="description" type="html">
-                <p>注：该接口性能较低，建议换用获取子部门ID列表与获取单个部门详情</p>
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
             </field>
             <field name="function_name">DEPARTMENT_LIST</field>
             <field name="short_url">/cgi-bin/department/list?access_token=ACCESS_TOKEN</field>
@@ -287,6 +321,14 @@
             <field name="short_url">/cgi-bin/department/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
             <field name="sequence">12006</field>
+            <field name="description" type="html">
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
 
         <!-- 1.3 通讯录-标签管理 -->

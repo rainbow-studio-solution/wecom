@@ -1,4 +1,4 @@
-odoo.define('wecom_contacts_sync.staffs', function (require) {
+odoo.define('hrms.sync_contacts_staffs', function (require) {
     "use strict";
 
     var session = require('web.session');
@@ -154,6 +154,6 @@ odoo.define('wecom_contacts_sync.staffs', function (require) {
     });
 
 
-    viewRegistry.add('hr_employee_tree_sync', HrEmployeeSyncRequestListView);
-    viewRegistry.add('hr_employee_kanban_sync', HrEmployeeSyncRequestKanbanView);
+    viewRegistry.add('hrms_employee_tree_sync', HrEmployeeSyncRequestListView);
+    viewRegistry.add('hrms_employee_kanban_sync', HrEmployeeSyncRequestKanbanView);
 });
