@@ -3,7 +3,6 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
 
     const publicWidget = require('web.public.widget');
     var core = require('web.core');
-    var wxconfig = require('web.wxconfig');
     var qweb = core.qweb;
 
 
@@ -13,7 +12,9 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
         events: {
             'click a': '_onClick',
         },
-
+        init: function () {
+            this._super.apply(this, arguments);
+        },
         start: function () {
             var self = this;
             this.companies = self._rpc({
@@ -27,7 +28,7 @@ odoo.define('wecom_auth_oauth.providers', function (require) {
             const nonceStr = self.generateNonceStr(16);
             // const url = window.location.pathname; //当前网页的URL， 不包含#及其后面部分
             const url = window.location.href.split("#")[0]; //当前网页的URL， 不包含#及其后面部分
-
+            console.log(document.readyState)
             if (document.readyState == "complete") {
                 // 页面载入完成，显示 "o_login_auth" 元素
                 this.$el.removeClass("d-none");
