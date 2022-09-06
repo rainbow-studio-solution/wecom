@@ -2,7 +2,7 @@
 <odoo>
     <data>
 
-        <record id="res_partner_category_view_search" model="ir.ui.view">
+        <!-- <record id="res_partner_category_view_search" model="ir.ui.view">
             <field name="name">res.partner.category.view.search</field>
             <field name="model">res.partner.category</field>
             <field name="inherit_id" ref="base.res_partner_category_view_search"/>
@@ -19,7 +19,7 @@
                     </searchpanel>
                 </xpath>
             </field>
-        </record>
+        </record> -->
 
         <record id="view_partner_category_list" model="ir.ui.view">
             <field name="name">Contact Tags</field>

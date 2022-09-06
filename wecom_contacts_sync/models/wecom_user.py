@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from asyncio.windows_events import NULL
 import logging
 import json
 from collections import defaultdict
@@ -24,7 +25,7 @@ class WecomUser(models.Model):
         readonly=True,
         default="",
     )  # 成员UserID。对应管理端的帐号
-    name = fields.Char(string="Name", readonly=True, default="")  # 成员名称
+    name = fields.Char(string="Name", readonly=True, default="",compute="_compute_name")  # 成员名称
     english_name = fields.Char(
         string="English name", readonly=True, default=""
     )  # 英部门文名称
@@ -74,7 +75,7 @@ class WecomUser(models.Model):
     )  # 员工个人二维码，扫描可添加为外部联系人
     address = fields.Char(string="Address", readonly=True, default="")  # 地址
     open_userid = fields.Char(
-        string="Open userid", readonly=True, default=""
+        string="Open userid", readonly=True, default=None
     )  # 开放用户Id,全局唯一,对于同一个服务商，不同应用获取到企业内同一个成员的open_userid是相同的，最多64个字节。仅第三方应用可获取
 
     # odoo 字段
@@ -142,6 +143,12 @@ class WecomUser(models.Model):
         readonly=True,
         # compute="_compute_active",
     )
+
+    @api.depends("userid")
+    def _compute_name(self):
+        for user in self:
+            if not user.name:
+                user.name = user.userid
 
     @api.depends("status")
     def _compute_status_name(self):

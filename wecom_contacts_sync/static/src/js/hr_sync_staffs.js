@@ -41,31 +41,29 @@ odoo.define('hrms.sync_contacts_staffs', function (require) {
                     model: 'hr.employee',
                     method: 'sync_wecom_user',
                     args: [],
-                }).then(function (results) {
-                    $.each(results, function (index, result) {
-                        if (result["state"]) {
-                            self.displayNotification({
-                                type: 'success',
-                                title: _t("Sync succeeded!"),
-                                message: result["msg"],
-                                sticky: true,
-                                buttons: [{
-                                    text: _t("Refresh"),
-                                    click: () => {
-                                        window.location.reload(true);
-                                    },
-                                    primary: true
-                                }],
-                            });
-                        } else {
-                            self.displayNotification({
-                                type: 'danger',
-                                title: _t("Sync failed!"),
-                                message: result["msg"],
-                                sticky: true,
-                            });
-                        }
-                    });
+                }).then(function (result) {
+                    if (result["state"]) {
+                        self.displayNotification({
+                            type: 'success',
+                            title: _t("Sync succeeded!"),
+                            message: result["msg"],
+                            sticky: true,
+                            buttons: [{
+                                text: _t("Refresh"),
+                                click: () => {
+                                    window.location.reload(true);
+                                },
+                                primary: true
+                            }],
+                        });
+                    } else {
+                        self.displayNotification({
+                            type: 'danger',
+                            title: _t("Sync failed!"),
+                            message: result["msg"],
+                            sticky: true,
+                        });
+                    }
                 })
             });
         }

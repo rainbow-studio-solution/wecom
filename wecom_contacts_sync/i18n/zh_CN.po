@@ -1800,10 +1800,6 @@ msgstr "企微用户Id"
 msgid "WeCom user info"
 msgstr "企微用户信息"
 
-#. module: wecom_contacts_sync
-#: model:ir.model.fields,field_description:wecom_contacts_sync.field_hr_employee__wecom_user_order
-msgid "WeCom user sort"
-msgstr "企微用户排序"
 
 #. module: wecom_contacts_sync
 #: model:ir.actions.server,name:wecom_contacts_sync.ir_cron_sync_wecom_contacts_ir_actions_server

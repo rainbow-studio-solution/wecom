@@ -117,6 +117,10 @@
                                     <span class="o_stat_text">user information</span>
                                 </div>
                             </button>
+                            <button class="btn oe_stat_button btn-succes" name="get_open_userid" type="object" attrs="{'invisible': [('open_userid', '!=', False)]}">
+                                <div role="img" class="fa fa-openid o_button_icon" aria-label="Get OpenID" title="Get OpenID"/>
+                                Get OpenID
+                            </button>
                         </div>
                         <field name="active" invisible="1"/>
                         <field name="company_id" invisible="1"/>
@@ -171,7 +175,7 @@
                                         <label for="open_userid"/>
                                         <div class="o_row">
                                             <field name="open_userid"/>
-                                            <button string="Get OpenID" class="btn btn-outline-primary" type="object" icon="fa-openid" name="get_open_userid" attrs="{'invisible': [('open_userid', '!=', False)]}"/>
+                                            <button string="Get OpenID" class="btn btn-outline-primary" type="object" icon="fa-openid" name="get_open_userid" attrs="{'invisible': [('open_userid', '!=', False)]}" />
                                         </div>
                                     </group>
                                 </group>

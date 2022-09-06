@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+import time
 import logging
 from lxml import etree
 from odoo import api, fields, models, _, Command, tools
@@ -36,7 +36,7 @@ WECOM_USER_MAPPING_ODOO_EMPLOYEE = {
 
 class HrEmployeePrivate(models.Model):
     _inherit = "hr.employee"
-    _order = "wecom_user_order"
+    # _order = "wecom_user_order"
 
     # ----------------------------------------------------------------------------------
     # 开发人员注意：hr模块中
@@ -58,25 +58,22 @@ class HrEmployeePrivate(models.Model):
         related="company_id.is_wecom_organization", readonly=False
     )
     wecom_user = fields.Many2one('wecom.user',required=True)
-
-    wecom_user_info = fields.Text(string="WeCom user info", readonly=True, default="{}")
     wecom_userid = fields.Char(string="WeCom User Id", related="wecom_user.userid",)
     wecom_openid = fields.Char(string="WeCom Open Userid", related="wecom_user.open_userid",)
-    alias = fields.Char(string="Alias", readonly=True,)
-    english_name = fields.Char(string="English Name", readonly=True,)
+    alias = fields.Char(string="Alias", readonly=True, related="wecom_user.alias")
+    english_name = fields.Char(string="English Name", readonly=True,related="wecom_user.english_name")
 
     department_ids = fields.Many2many(
         "hr.department", string="Multiple departments", readonly=True,
     )
     use_system_avatar = fields.Boolean(readonly=True, default=True)
-    avatar = fields.Char(string="Avatar")
+    avatar = fields.Char(string="Avatar",related="wecom_user.avatar")
 
     qr_code = fields.Char(
         string="Personal QR code",
-        help="Personal QR code, Scan can be added as external contact",
-        readonly=True,
+        readonly=True,related="wecom_user.qr_code"
     )
-    wecom_user_order = fields.Char("WeCom user sort", default="0", readonly=True,)
+    # wecom_user_order = fields.Char("WeCom user sort", default="0", readonly=True,)
     is_wecom_user = fields.Boolean(
         string="WeCom employees", readonly=True, default=False,
     )
@@ -112,7 +109,7 @@ class HrEmployeePrivate(models.Model):
         for employee in self:
             params = {}
             if employee.wecom_openid is False:
-                employee.get_wecom_openid()
+                employee.wecom_user.get_open_userid()
 
             try:
                 res_user_id = self.env["res.users"]._get_or_create_user_by_wecom_userid(
@@ -159,15 +156,45 @@ class HrEmployeePrivate(models.Model):
         """
         同步企微成员
         """
+        start_time = time.time()
+        tasks = {}
         if self.env.context.get('company_id'):
             company = self.env['res.company'].browse(self.env.context['company_id'])
-            print("1",company)
         else:
             company = self.env.company
-            print("2",company)
-        
-        # if not company:
-        #     company = self.env.company
-        
 
-        return {}
+        wecom_users = self.env['wecom.user'].search([('company_id','=',company.id)])
+        try:
+            for wecom_user in wecom_users:
+                # 从企业微信同步员工
+                employee = self.search([('wecom_userid','=',wecom_user.userid)])
+                if not employee:
+                    employee = self.search([('wecom_openid','=',wecom_user.open_userid)])
+
+                if not employee:
+                    employee = self.sudo().create({
+                        'name':wecom_user.name,
+                        'work_phone':None, # 避免使用公司的电话
+                        'wecom_user':wecom_user.id,
+                        'is_wecom_user':True,
+                    })
+                else:
+                    employee.sudo().write({
+                        'name':wecom_user.name,
+                    })
+        except Exception as e:
+            end_time = time.time()
+            tasks = {
+                "state": False,
+                "time": end_time - start_time,
+                "msg": str(e),
+            }
+        else:
+            end_time = time.time()
+            tasks = {
+                "state": True,
+                "time": end_time - start_time,
+                "msg": _("Successfully synchronized wecom employees"),
+            }
+        
+        return tasks

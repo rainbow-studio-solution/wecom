@@ -2,6 +2,19 @@
 <odoo>
     <data>
 
+        <record id="view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[last()]" position="after">
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                    </searchpanel>
+                </xpath>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="res_partner_kanban_view">
             <field name="name">res.partner.kanban</field>
             <field name="model">res.partner</field>
@@ -36,11 +49,7 @@
                         <group>
                             <group>
                                 <field name="wecom_userid" />
-                                <label for="wecom_openid" />
-                                <div class="o_row">
-                                    <field name="wecom_openid" />
-                                    <button string=" Get OpenID" class="btn btn-link" type="object" icon="fa-openid" name="get_wecom_openid" attrs="{'invisible': [('wecom_openid', '!=', False)]}"/>
-                                </div>
+                                <field name="wecom_openid" />
                                 <field name="is_wecom_user" />
                             </group>
                             <group>
