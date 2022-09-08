@@ -134,13 +134,17 @@ class WecomDepartment(models.Model):
             wxapi = self.env["wecom.service_api"].InitServiceApi(
                 company.corpid, company.contacts_app_id.secret
             )
-
+            app_config = self.env["wecom.app_config"].sudo()
+            contacts_sync_hr_department_id = app_config.get_param(
+                company.contacts_app_id.id, "contacts_sync_hr_department_id"
+            )  # 需要同步的企业微信部门ID
+            
             # 2022-08-10 按官方建议进行重构
             # 官方建议换用 获取子部门ID列表 与 获取单个部门详情 组合的方式获取部门
             response = wxapi.httpCall(
                 self.env["wecom.service_api_list"].get_server_api_call(
                     "DEPARTMENT_SIMPLELIST"
-                ),
+                ),{"id": contacts_sync_hr_department_id,},
             )
         except ApiException as ex:
             end_time = time.time()

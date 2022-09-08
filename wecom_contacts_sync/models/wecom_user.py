@@ -288,7 +288,20 @@ class WecomUser(models.Model):
                         department.append(int(dep))
                     userlist.append({"userid": userid, "department": department})
 
-                # 2.下载用户
+                # 2. 处理 block
+                blocks = (
+                    self.env["wecom.contacts.block"]
+                    .sudo()
+                    .search([("company_id", "=", company.id),])
+                )
+
+                if blocks:
+                    for block in blocks:
+                        for item in userlist:
+                            if item["userid"].lower() == block.wecom_userid.lower():
+                                # 从 userlist 移除 blocklist
+                                userlist.remove(item)
+                # 3.下载用户
                 if userlist:
                     for wecom_user in userlist:
                         download_user_result = self.download_user(company, wecom_user)
@@ -296,7 +309,7 @@ class WecomUser(models.Model):
                             for r in download_user_result:
                                 tasks.append(r)  # 加入 下载员工失败结果
 
-                # 3.完成下载
+                # 4.完成下载
                 end_time = time.time()
                 task = {
                     "name": "download_user_data",

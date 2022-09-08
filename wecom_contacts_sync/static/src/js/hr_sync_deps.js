@@ -22,31 +22,29 @@ odoo.define('hrms.sync_contacts_deps', function (require) {
                     context: {
                         'company_id': current_company_id
                     },
-                }).then(function (results) {
-                    $.each(results, function (index, result) {
-                        if (result["state"]) {
-                            self.displayNotification({
-                                type: 'success',
-                                title: _t("Sync succeeded!"),
-                                message: result["msg"],
-                                sticky: true,
-                                buttons: [{
-                                    text: _t("Refresh"),
-                                    click: () => {
-                                        window.location.reload(true);
-                                    },
-                                    primary: true
-                                }],
-                            });
-                        } else {
-                            self.displayNotification({
-                                type: 'danger',
-                                title: _t("Sync failed!"),
-                                message: result["msg"],
-                                sticky: true,
-                            });
-                        }
-                    });
+                }).then(function (result) {
+                    if (result["state"]) {
+                        self.displayNotification({
+                            type: 'success',
+                            title: _t("Sync succeeded!"),
+                            message: result["msg"],
+                            sticky: true,
+                            buttons: [{
+                                text: _t("Refresh"),
+                                click: () => {
+                                    window.location.reload(true);
+                                },
+                                primary: true
+                            }],
+                        });
+                    } else {
+                        self.displayNotification({
+                            type: 'danger',
+                            title: _t("Sync failed!"),
+                            message: result["msg"],
+                            sticky: true,
+                        });
+                    }
                 })
             });
         }
@@ -55,9 +53,18 @@ odoo.define('hrms.sync_contacts_deps', function (require) {
     var HrDepartmentRequestListController = ListController.extend({
         willStart: function () {
             var self = this;
+            const current_company_id = session.user_context.allowed_company_ids[0];
+            const allowed_companies = session.user_companies.allowed_companies;
+            let show_download_button = false;
             var ready = this.getSession().user_has_group('hr.group_hr_user')
                 .then(function (is_hr_user) {
-                    if (is_hr_user) {
+                    _.forEach(allowed_companies, function (company) {
+                        if (company["id"] == current_company_id) {
+                            show_download_button = company["is_wecom_organization"];
+                        }
+                    })
+
+                    if (is_hr_user && show_download_button) {
                         self.buttons_template = 'HrDepartmentSyncRequestListView.buttons';
                     }
                 });

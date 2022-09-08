@@ -15,10 +15,11 @@
                             </h1>
                         </div>
                         <group>
-                            <!-- <field name="company_id" readonly="1" options="{'no_open': True}"/> -->
-                            <field name="employee_id" invisible="1"/>
+                            <field name="company_id" readonly="1" options="{'no_open': True}"/>
+                            <field name="employee_id"/>
+                            <!-- <field name="employee_id" invisible="1"/> -->
                             <!-- <field name="employee_name"/> -->
-                            <field name="wecom_userid" required="True"/>
+                            <field name="wecom_user" required="True"/>
                         </group>
                     </sheet>
                     <footer>

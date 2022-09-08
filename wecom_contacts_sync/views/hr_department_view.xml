@@ -13,7 +13,7 @@
                     </group>
                     <group col="4" string="WeCom" attrs="{'invisible': [('is_wecom_department', '=', False)]}">
                         <field name="wecom_department_id" options="{'format': false}"/>
-                        <field name="wecom_department_parent_id" options="{'format': false}"/>
+                        <field name="wecom_department_parentid" options="{'format': false}"/>
                         <field name="is_wecom_department"/>
                         <field name="wecom_department_order"/>
                     </group>
