@@ -137,6 +137,17 @@ class HrEmployeePrivate(models.Model):
             company = self.env.company
 
         wecom_users = self.env['wecom.user'].search([('company_id','=',company.id)])
+
+        app_config = self.env["wecom.app_config"].sudo()
+        contacts_use_default_avatar = app_config.get_param(
+            company.contacts_app_id.id,
+            "contacts_use_default_avatar_when_adding_employees",
+        )  # 使用系统微信默认头像的标识
+        contacts_update_avatar = app_config.get_param(
+            company.contacts_app_id.id,
+            "contacts_update_avatar_every_time_sync_employees",
+        )  # 每次同步都更新头像的标识
+        # TODO 待处理 通讯录展示组件 获取企微成员的相关属性
         try:
             for wecom_user in wecom_users:
                 # 从企业微信同步员工
@@ -151,6 +162,12 @@ class HrEmployeePrivate(models.Model):
                         'work_phone':None, # 避免使用公司的电话
                         'wecom_user':wecom_user.id,
                         'is_wecom_user':True,
+                        "marital": None,  # 不生成婚姻状况
+                        # "image_1920": self.env["wecomapi.tools.file"].get_avatar_base64(
+                        #     contacts_use_default_avatar,
+                        #     wecom_employee["gender"],
+                        #     wecom_employee["avatar"],
+                        # ),
                     })
                 else:
                     employee.sudo().write({
