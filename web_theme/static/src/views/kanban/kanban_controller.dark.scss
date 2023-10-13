@@ -1,0 +1,8 @@
+// = Kanban Rendered
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_kanban_renderer {
+    --KanbanGroup-grouped-bg: #{$o-view-background-color};
+    --KanbanRecord__image-bg-color: #{$o-gray-900};
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<t t-name="StatusbarButtonsDropdown">
+    <div class="o_statusbar_buttons">
+        <div t-attf-class="btn-group #{open ? 'show' : ''}">
+            <a role="button" class="btn btn-primary dropdown-toggle" href="#"
+                data-bs-toggle="dropdown" aria-expanded="false">Action</a>
+            <div t-attf-class="dropdown-menu #{open ? 'show' : ''}" role="menu"/>
+        </div>
+    </div>
+</t>
+
+<t t-name="FieldStatus.content.mobile">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+        <t t-if="status" t-esc="status.display_name"/>
+    </button>
+    <div class="dropdown-menu" role="menu">
+        <t t-foreach="selection" t-as="i" t-key="i_index">
+            <t t-call="FieldStatus.content.button">
+                <t t-set="is_dropdown" t-value="true"/>
+            </t>
+        </t>
+    </div>
+</t>
+
+<t t-extend="ListView.selection">
+    <t t-jquery=".o_list_selection_box" t-operation="prepend">
+        <button class="btn btn-link py-0 o_discard_selection" t-if="isMobile">
+            <span class="fa-2x">&#215;</span>
+        </button>
+    </t>
+</t>
+
+<t t-inherit="web.Legacy.ActionMenus" t-inherit-mode="extension" owl="1" t-translation="off">
+    <xpath expr="//DropdownMenu[@items='printItems']" position="attributes">
+        <attribute name="closeOnSelected">env.device.isMobile</attribute>
+    </xpath>
+</t>
+
+</templates>

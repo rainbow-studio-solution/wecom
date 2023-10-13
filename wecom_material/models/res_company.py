@@ -14,7 +14,7 @@ class Company(models.Model):
     # 素材库
     material_app_id = fields.Many2one(
         "wecom.apps",
-        string="Application",
+        string="Material Application",
         # required=True,
         # default=lambda self: self.env.company,
         # domain="[('company_id', '=', current_company_id)]",

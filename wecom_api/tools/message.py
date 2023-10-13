@@ -10,5 +10,5 @@ class WecomApiToolsMessage(models.AbstractModel):
     _name = "wecomapi.tools.message"
     _description = "Wecom API Tools - Message"
 
-    def message_split(text):
+    def message_split(self,text):
         """ """

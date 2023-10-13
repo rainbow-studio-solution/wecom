@@ -4,7 +4,7 @@ import logging
 from odoo import api, models, _
 
 
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException   # type: ignore
 
 from datetime import datetime, timedelta
 import pytz
@@ -116,7 +116,6 @@ class WeComMessageApi(models.AbstractModel):
 
     @api.model
     def send_message(self, message):
-
         """
         发送一条企业微信消息 到多个人员
         """
@@ -158,7 +157,12 @@ class WeComMessageApi(models.AbstractModel):
             material = (
                 self.sudo()
                 .env["wecom.material"]
-                .search([("id", "=", media_id),], limit=1,)
+                .search(
+                    [
+                        ("id", "=", media_id),
+                    ],
+                    limit=1,
+                )
             )
             # material_media_id = self.check_material_file_expiration(material)
             messages_content = {
@@ -176,7 +180,11 @@ class WeComMessageApi(models.AbstractModel):
             }
         elif msgtype == "markdown":
             # markdown消息
-            messages_content = {"markdown": {"content": body_markdown,}}
+            messages_content = {
+                "markdown": {
+                    "content": body_markdown,
+                }
+            }
 
         elif msgtype == "template_card":
             # 模板卡片消息

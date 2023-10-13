@@ -1,0 +1,29 @@
+.dropdown-item-studio {
+    @extend .dropdown-item;
+    text-align: left;
+}
+
+.dropdown-menu > hr {
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.modal-studio {
+    .modal-title {
+        text-align: center;
+        color: #666666;
+        padding-bottom: .5rem;
+    }
+
+    .o_install_studio_btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0 0 0;
+
+        button {
+            line-height: 1.5;
+            font-size: 1.5rem;
+        }
+    }
+}

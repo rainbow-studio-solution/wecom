@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+    </data>
+    <data noupdate="1">
+
+        <record model="ir.config_parameter" id="wecom_global_error_code_url">
+            <field name="key">wecom.global_error_code_url</field>
+            <field name="value">https://developer.work.weixin.qq.com/document/path/90313</field>
+        </record>
+
+
+        <!-- !2022-10-03更新 -->
+        <!-- ! 用于定位 错误代码 的路径表达式-->
+        <record model="ir.config_parameter" id="global_error_code_item_selection_code">
+            <field name="key">wecom.global_error_code_item_selection_code</field>
+            <field name="value">//h5</field>
+        </record>
+
+
+
+    </data>
+</odoo>

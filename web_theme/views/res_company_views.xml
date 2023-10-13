@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='general_info']//field[@name='favicon']" position="replace"/>
+                <xpath expr="//group[@name='social_media']" position="before">
+                    <group string="Brand">
+                        <field name="favicon" widget="image" class="float-start oe_avatar" groups="base.group_no_one"/>
+                        <field name="square_logo" widget="image" class="float-start oe_avatar" groups="base.group_no_one"/>
+                        <field name="copyright"/>
+                        <field name="documentation_url"/>
+                        <field name="support_url"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Theme" name="theme">
+                        <group>
+                            <group string="Global">
+                                <field name="disable_theme_customizer" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Main" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}">
+                                <!-- readonly="1" -->
+                                <!-- <field name="theme_id" options="{'no_create_edit': True, 'no_open': True}" /> -->
+                                <field name="main_open_action_in_tabs" widget="boolean_toggle"/>
+                                <field name="main_submenu_position"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('disable_theme_customizer', '=', False)]}">
+                            <group string="Layout">
+                                <field name="menu_layout_mode"/>
+                            </group>
+                            <group string="Theme color">
+                                <field name="theme_color"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': [('disable_theme_customizer', '=', False)]}">
+                            <group string="Sidebar Navigation">
+                                <field name="sidebar_display_number_of_submenus" widget="boolean_toggle"/>
+                                <field name="sidebar_fixed" widget="boolean_toggle"/>
+                                <field name="sidebar_show_minimize_button" widget="boolean_toggle"/>
+                                <field name="sidebar_default_minimized" widget="boolean_toggle"/>
+                                <field name="sidebar_hover_maximize" widget="boolean_toggle"/>
+                            </group>
+                            <group string="Header">
+
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Views" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}">
+                                <field name="display_scroll_top_button" widget="boolean_toggle"/>
+                                <field name="list_herder_fixed" widget="boolean_toggle"/>
+                                <field name="list_rows_limit"/>
+                                <field name="form_chatter_position"/>
+                            </group>
+                            <group string="Footer">
+                                <field name="display_footer" widget="boolean_toggle" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/>
+                                <field name="display_footer_copyright" widget="boolean_toggle" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/>
+                                <!-- <field name="footer_copyright"/> -->
+                                <field name="display_footer_document" widget="boolean_toggle" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/>
+                                <!-- <field name="footer_document_url" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/> -->
+                                <field name="display_footer_support" widget="boolean_toggle" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/>
+                                <!-- <field name="footer_support_url" attrs="{'invisible': [('disable_theme_customizer', '=', False)]}"/> -->
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+
+</odoo>

@@ -25,6 +25,7 @@ class WecomApiToolsFile(models.AbstractModel):
             filepath = path.replace("\\", "/") + subpath + "/"
         else:
             filepath = path + subpath + "/"
+        # print(filepath)
         if not os.path.exists(filepath):
             os.makedirs(filepath)
         return filepath
@@ -42,10 +43,8 @@ class WecomApiToolsFile(models.AbstractModel):
             elif gender == "2":
                 image_name = "default_female_image.png"
 
-            default_image = get_module_resource(
-                "wecom_hrm_syncing", "static/src/img", image_name
-            )
-            print(default_image)
+            default_image = get_module_resource("hrms_base", "static/src/img", image_name)
+            # print(default_image)
             with open(default_image, "rb") as f:
                 imgbase64 = base64.b64encode(f.read())
         else:

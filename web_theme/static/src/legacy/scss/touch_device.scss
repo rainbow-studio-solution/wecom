@@ -1,0 +1,6 @@
+// Disable the selection of element
+// This allow to avoid the show "mobile menu" on long press to text on Mobile
+// and so avoid JS preventDefault
+.o_user_select_none {
+    user-select: none;
+}

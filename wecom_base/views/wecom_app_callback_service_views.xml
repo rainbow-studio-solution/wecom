@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_wecom_app_callback_service_list">
+            <field name="model">wecom.app_callback_service</field>
+            <field name="arch" type="xml">
+                <tree expand="1">
+                    <field name="app_id" />
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="callback_url" widget="CopyClipboardChar"/>
+                    <field name="active" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_wecom_app_callback_service_form">
+            <field name="model">wecom.app_callback_service</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="oe_stat_button" name="generate_contact_service" string="Generate contact service" type="object" icon="fa-server" attrs="{'invisible': [('code','!=','contacts')]}"/>
+                        </div>
+                        <group>
+                            <field name="app_id" required="1" force_save="1" widget="selection" />
+                            <field name="name" required="1"/>
+                            <field name="code" required="1"/>
+                            <field name="callback_url_token" required="1"/>
+                            <field name="callback_aeskey" required="1"/>
+                            <field name="description" />
+                            <field name="callback_url" force_save="1" readonly="1" widget="CopyClipboardChar"/>
+
+                            <field name="active" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="wecom_app_callback_service_list_action" model="ir.actions.act_window">
+            <field name="name">Application receive event service</field>
+            <field name="res_model">wecom.app_callback_service</field>
+            <field name="context">{'group_by':['app_id'],'active_test': False}</field>
+        </record>
+    </data>
+</odoo>

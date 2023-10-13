@@ -1,0 +1,36 @@
+// = Plus dropdown customizations
+// ----------------------------------------------------------------------------
+.o_web_client.o_touch_device {
+
+    .dropdown-item > *:first-child {
+        &:before {
+            padding-top: 7.5px;
+        }
+    }
+}
+
+.dropdown {
+    &.show .dropdown-toggle.btn-light,
+    .dropdown-toggle.o_dropdown_active.btn-light {
+        &, &:hover, &:focus {
+            position: relative;
+            z-index: $zindex-dropdown + 1;
+            border-color: $dropdown-border-color;
+            border-bottom-color: $dropdown-bg;
+            background-color: $dropdown-bg;
+            box-shadow: none;
+            color: $dropdown-link-active-color;
+        }
+
+        + .dropdown-menu {
+            margin-top: $dropdown-border-width * -1;
+        }
+    }
+
+}
+
+// = Plus jQueryUI dropdown
+// ----------------------------------------------------------------------------
+.ui-widget.ui-autocomplete {
+    border-top: $dropdown-border-width solid transparent;
+}

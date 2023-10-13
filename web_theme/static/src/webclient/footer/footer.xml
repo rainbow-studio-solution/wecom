@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_theme.Footer" owl="1">
+        <footer t-if="display_footer" class="o_footer">
+            <nav t-attf-class="o_main_footer {{env.isSmall ? '':''}}">
+
+                <div class="o_footer_container">
+                    <div class="o_footer_copyright" t-if="display_footer_copyright">
+                        <t t-esc="copyright"/>
+                    </div>
+                    <ul class="o_footer_sections">
+                        <li class="o_footer_section" t-if="display_footer_document">
+                            <a t-att-href="documentation_url" target="_blank" class="o_footer_menu_link px-2">
+                                Documentation
+                            </a>
+                        </li>
+                        <li class="o_footer_section" t-if="display_footer_support">
+                            <a t-att-href="support_url" target="_blank" class="o_footer_menu_link px-2">
+                                Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </footer>
+    </t>
+
+</templates>

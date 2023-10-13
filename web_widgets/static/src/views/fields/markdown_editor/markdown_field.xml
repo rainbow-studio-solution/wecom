@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="web.MarkdownField" owl="1">
+        <div class="o_field_widget oe_form_field o_markdown_view_editor oe_markdown_open">
+            <div class="markdown-view-editor" t-ref="editor" />
+            <t t-if="props.isTranslatable">
+                <TranslationButton
+                    fieldName="props.name"
+                    record="props.record"
+                />
+            </t>
+        </div>
+    </t>
+
+</templates>

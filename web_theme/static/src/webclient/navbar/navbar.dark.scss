@@ -1,0 +1,9 @@
+// = Navbar
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_main_navbar {
+    --o-navbar-badge-bg: #{$primary};
+    --o-navbar-badge-color: #{$white};
+    --o-navbar-badge-text-shadow: none;
+}

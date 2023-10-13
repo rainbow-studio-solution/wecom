@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- 自动任务 -->
+        <menuitem id="menu_get_wecom_corp_jsapi_ticket" name="Get Corp JSAPI Ticket" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_corp_jsapi_ticket" sequence="3"/>
+
+        <menuitem id="menu_get_wecom_app_jsapi_ticket" name="Get App JSAPI Ticket" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_app_jsapi_ticket" sequence="4"/>
+
+        <menuitem id="menu_get_wecom_api_domain_ip" name="Get API Domain IP" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_wecom_api_domain_ip" sequence="5"/>
+
+        <menuitem id="menu_wecom_app_join_qrcode" name="Get join enterprise QR code" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_get_join_qrcode" sequence="6"/>
+
+    </data>
+
+</odoo>

@@ -1,0 +1,32 @@
+// = Drawer menu Background
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_home_menu_background {
+	--DrawerMenu-bg-color: #000511;
+	--DrawerMenu-bg-image: radial-gradient(
+			at 100% 0%,
+			#{rgba($o-gray-100, 0.6)} 0px,
+			#{rgba($o-gray-100, 0.1)} 50%,
+			#{rgba($o-gray-100, 0)} 100%
+		),
+		radial-gradient(
+			at 7% 13%,
+			#{rgba($o-gray-200, 0.6)} 0px,
+			#{rgba($o-gray-100, 0.05)} 50%,
+			#{rgba($o-gray-100, 0)} 100%
+		),
+		radial-gradient(
+			at 96% 94%,
+			#{rgba($o-gray-100, 0.5)} 0px,
+			#{rgba($o-gray-100, 0.08)} 50%,
+			#{rgba($o-gray-100, 0)} 100%
+		),
+		radial-gradient(
+			at 3% 96%,
+			#{rgba($o-gray-200, 0.6)} 0px,
+			#{rgba($o-gray-100, 0.05)} 50%,
+			#{rgba($o-gray-100, 0)} 100%
+		),
+		url('/web_theme/static/img/drawer-menu-bg-overlay.svg');
+}

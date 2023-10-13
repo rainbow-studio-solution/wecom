@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="web_widgets.One2ManyConfigPopOver" owl="1">
+        <div class="oec_config_popover">
+            <h3 t-if="props.title" class="o_popover_header text-center">
+                <t t-esc="props.title"/>
+            </h3>
+            <div class="px-2">
+                <t t-out="props.content"/>
+            </div>
+        </div>
+    </t>
+
+</templates>

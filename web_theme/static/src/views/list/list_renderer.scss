@@ -1,0 +1,13 @@
+.o_list_renderer.o_list_herder_fixed{
+    .o_list_table{
+        thead{
+            position: fixed !important;
+            width: 100% !important;
+        }
+        // tbody{
+        //     > tr:first-child{
+        //         margin-top: 48px !important;
+        //     }
+        // }
+    }
+}

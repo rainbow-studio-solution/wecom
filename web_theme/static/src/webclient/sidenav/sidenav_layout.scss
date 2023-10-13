@@ -1,0 +1,164 @@
+.o_web_client {
+	&[data-menu-mode='1'][data-sidebar-minimize='off'] {
+		.o_sidenav {
+			width: $o-sidenav-width;
+
+			.o_sidenav_header {
+				.o_sidenav_header_logo {
+					.sidebar-logo-minimize {
+						display: none;
+					}
+				}
+			}
+
+			.o_sidenav_search {
+				.o_sidenav_search_input {
+					display: inherit;
+				}
+			}
+
+			.o_sidenav_search_offcanvas {
+				margin-left: $o-sidenav-width;
+				width: calc(100% - #{$o-sidenav-width});
+			}
+
+			.o_main_sidenav {
+				width: $o-sidenav-width;
+			}
+		}
+	}
+
+	&[data-menu-mode='1'][data-sidebar-minimize='on'] {
+		.o_sidenav {
+			width: $o-sidenav-collapse-width;
+
+			.o_sidenav_header {
+				.o_sidenav_header_logo {
+					.sidebar-logo-default {
+						display: none;
+					}
+				}
+			}
+
+			.o_sidenav_search {
+				display: flex;
+				justify-content: center;
+
+				.o_sidenav_search_input {
+					display: none;
+				}
+			}
+
+			.o_sidenav_search_offcanvas {
+				width: calc(100% - #{$o-sidenav-collapse-width});
+				margin-left: $o-sidenav-collapse-width;
+			}
+
+			.o_main_sidenav {
+				width: $o-sidenav-collapse-width;
+
+				.accordion {
+					.accordion-item {
+						.accordion-header {
+							.accordion-button.app {
+								display: flex;
+								justify-content: center;
+								/* 水平居中 */
+
+								.menu-icon {
+									height: auto;
+									width: 30px;
+								}
+
+								.menu-lable {
+									display: none;
+								}
+
+								.menu-badge {
+									display: none;
+								}
+
+								&::after {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	&[data-menu-mode='1'] {
+		.o_sidenav.sidebar-maximize {
+			width: $o-sidenav-width;
+			transition: width 0.3s ease;
+			z-index: 101;
+
+			.o_sidenav_header {
+				width: $o-sidenav-width;
+
+				.o_sidenav_header_logo {
+					.sidebar-logo-default {
+						display: inherit;
+					}
+
+					.sidebar-logo-minimize {
+						display: none;
+					}
+				}
+			}
+
+			.o_sidenav_search {
+				.o_sidenav_search_input {
+					display: inherit;
+				}
+			}
+
+			.o_sidenav_search_offcanvas {
+				width: calc(100% - #{$o-sidenav-width});
+				margin-left: $o-sidenav-width;
+			}
+
+			.o_main_sidenav {
+				width: $o-sidenav-width;
+
+				.accordion {
+					.accordion-item {
+						.accordion-header {
+							.accordion-button.app {
+								display: flex;
+								justify-content: center;
+								/* 水平居中 */
+
+								.menu-icon {
+									height: 24px;
+									width: 24px;
+									margin-right: 0.5rem;
+								}
+
+								.menu-lable {
+									display: inherit;
+								}
+
+								.menu-badge {
+									display: inherit;
+								}
+
+								&::after {
+									display: inherit;
+								}
+							}
+
+							.accordion-button.app.no_submenus {
+								&::after {
+									background-image: none;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

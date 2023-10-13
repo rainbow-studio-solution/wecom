@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t t-name="oec.OecProUpgradeDialog" owl="1">
+
+        <Dialog size="'lg'" title="props.title">
+            <div class="row" role="status">
+                <div class="col-6">
+                    Get this feature and much more with China Erp Professional Edition!
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fa fa-check"></i> Get this professional app</li>
+                        <li>
+                            <i class="fa fa-check"></i> New design</li>
+                        <li>
+                            <i class="fa fa-check"></i> Mobile support</li>
+                        <li>
+                            <i class="fa fa-check"></i> Upgrade to future versions</li>
+                        <li>
+                            <i class="fa fa-check"></i> Bugfixes guarantee</li>
+                        <li>
+                            <a t-att-href="props.url" target="_blank">
+                                <i class="fa fa-plus"></i> And more</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <img class="img-fluid" t-att-src="props.image" draggable="false" alt="Upgrade to China Erp Professional Edition"/>
+                </div>
+            </div>
+            <t t-set-slot="footer" owl="1">
+                <button class="btn btn-primary" t-on-click="_confirmUpgrade">Upgrade now</button>
+                <button class="btn btn-secondary" t-on-click="this.props.close">Cancel</button>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

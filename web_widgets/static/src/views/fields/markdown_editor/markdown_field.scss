@@ -1,0 +1,13 @@
+.o_field_widget {
+	&.o_field_markdown_editor {
+		.markdown-view-editor {
+			.toastui-editor-toolbar {
+				.toastui-editor-defaultUI-toolbar {
+					.o_field_translate {
+                        margin-left:0 !important;
+					}
+				}
+			}
+		}
+	}
+}

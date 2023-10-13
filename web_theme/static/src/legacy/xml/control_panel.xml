@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="web_theme._ControlPanel" owl="1">
+        <div class="o_control_panel" t-on-switch-view="_onSwitchView" t-ref="controlPanel">
+            <!-- Mobile search view open -->
+            <t t-portal="'body'" t-if="state.showMobileSearch">
+                <div class="o_searchview o_mobile_search">
+                    <div class="o_mobile_search_header">
+                        <button type="button" class="o_mobile_search_button btn" t-on-click="() => state.showMobileSearch = false">
+                            <i class="fa fa-arrow-left"/>
+                            <strong class="ml8">FILTER</strong>
+                        </button>
+                        <button type="button" class="o_mobile_search_button btn" t-on-click="() => model.dispatch('clearQuery')">
+                            <t>CLEAR</t>
+                        </button>
+                    </div>
+                    <div class="o_mobile_search_content">
+                        <SearchBar t-if="props.withSearchBar" fields="fields"/>
+                        <!-- Additional content: searchview buttons(legacy) -->
+                        <div class="o_mobile_search_filter o_search_options" t-ref="searchViewButtons">
+                            <FilterMenu t-if="props.searchMenuTypes.includes('filter')" fields="fields" />
+                            <GroupByMenu t-if="props.searchMenuTypes.includes('groupBy')" fields="fields" />
+                            <ComparisonMenu t-if="props.searchMenuTypes.includes('comparison') and model.get('filters', f => f.type === 'comparison').length"/>
+                            <FavoriteMenu t-if="props.searchMenuTypes.includes('favorite')"/>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary o_mobile_search_footer" t-on-click="() => state.showMobileSearch = false">
+                        <t>SEE RESULT</t>
+                    </button>
+                </div>
+            </t>
+            <!-- Standard control panel display -->
+            <t t-else="">
+                <div class="o_cp_top">
+                    <ol t-if="props.withBreadcrumbs and !state.showSearchBar" class="breadcrumb" role="navigation">
+                        <t t-set="breadcrumb" t-value="props.breadcrumbs[props.breadcrumbs.length - 1]"/>
+                        <li t-if="breadcrumb" class="breadcrumb-item o_back_button btn btn-secondary" accesskey="b" t-on-click.prevent="() => this.trigger('breadcrumb_clicked', { controllerID: breadcrumb.controllerID })" />
+                        <li class="breadcrumb-item active" t-esc="props.title"/>
+                    </ol>
+                    <!-- Additional content: searchview (legacy) -->
+                    <div class="o_cp_searchview" t-att-class="{ o_searchview_quick: state.showSearchBar or !props.withBreadcrumbs }" role="search" t-ref="searchView">
+                        <div t-if="props.withSearchBar" class="o_searchview" role="search" aria-autocomplete="list">
+                            <t t-if="!state.showMobileSearch">
+                                <button type="button" class="o_enable_searchview btn btn-link" t-if="props.withBreadcrumbs" t-att-class="state.showSearchBar ? 'fa fa-arrow-left' : 'oi oi-search'" t-on-click="() => state.showSearchBar = !state.showSearchBar" />
+                                <t t-if="state.showSearchBar or !props.withBreadcrumbs">
+                                    <SearchBar t-if="props.withSearchBar" fields="fields"/>
+                                    <button type="button" class="o_toggle_searchview_full btn fa fa-filter" t-on-click="() => state.showMobileSearch = !state.showMobileSearch" />
+                                </t>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+                <div t-if="props.actionMenus and props.actionMenus.items and props.view and props.view.type == 'list'" class="o_cp_bottom o_renderer_selection_banner align-items-center ml-n2">
+                    <ActionMenus t-props="props.actionMenus" />
+                </div>
+                <div t-else="" class="o_cp_bottom">
+                    <div class="o_cp_bottom_left">
+                        <!-- Additional content: buttons (legacy) -->
+                        <div class="o_cp_buttons" role="toolbar" aria-label="Control panel toolbar" t-ref="buttons">
+                            <t t-slot="buttons"/>
+                        </div>
+                    </div>
+                    <div class="o_cp_bottom_right">
+                        <!-- Show "searchViewButtons" when custom CP have search view buttons but no SearchBar -->
+                        <div class="btn-group o_search_options position-static" role="search" t-if="!props.withSearchBar" t-ref="searchViewButtons"/>
+                        <button t-if="props.view and props.view.type === 'calendar'" class="o_cp_today_button btn btn-sm btn-link" t-on-click="() => this.trigger('today-button-click')">
+                            <span class="fa-stack o_calendar_button_today">
+                                <i class="fa fa-calendar-o fa-stack-2x" role="img" aria-label="Today" title="Today"/>
+                                <strong class="o_calendar_text fa-stack-1x" t-esc="_getToday()"/>
+                            </span>
+                        </button>
+                        <!-- Additional content: pager (legacy) -->
+                        <div t-else="" class="o_cp_pager" role="search" t-ref="pager">
+                            <Pager t-if="props.pager and props.pager.limit" t-props="props.pager"/>
+                        </div>
+                        <nav t-if="props.views and props.views.length gt 1" class="btn-group o_cp_switch_buttons" t-att-class="{ show: state.showViewSwitcher }" role="toolbar" aria-label="View switcher">
+                            <button type="button" class="btn btn-link" t-attf-aria-expanded="{{ state.showViewSwitcher ? 'true' : 'false' }}" t-on-click="() => state.showViewSwitcher = !state.showViewSwitcher">
+                                <span class="fa-lg" t-att-class="props.views.find(v => v.type === props.view.type).icon"/>
+                            </button>
+                            <ul t-if="state.showViewSwitcher" class="dropdown-menu dropdown-menu-end list-inline" t-att-class="{ show: state.showViewSwitcher }">
+                                <li t-foreach="props.views" t-as="view" t-key="view.type">
+                                    <t t-call="web.ViewSwitcherButton"/>
+                                </li>
+                            </ul>
+                        </nav>
+                        <ActionMenus t-if="props.actionMenus and props.actionMenus.items" t-props="props.actionMenus"/>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+</templates>

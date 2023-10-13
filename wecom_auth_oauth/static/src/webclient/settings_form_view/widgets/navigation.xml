@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+
+    <t t-name="wecom_auth_oauth.res_config_wecom_navigation_menu" t-inherit="wecom_widget.res_config_wecom_navigation_menu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//a[@href='#wecom_material']" position="after">
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_auth_oauth" t-on-click="_jumpAnchor">
+                <i class="fa fa-sign-in"/>
+                <sapn>Authentication settings</sapn>
+            </a>
+        </xpath>
+    </t>
+
+</templates>

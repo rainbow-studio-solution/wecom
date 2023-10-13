@@ -4,579 +4,107 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-07 06:25+0000\n"
-"PO-Revision-Date: 2021-12-07 14:27+0800\n"
+"POT-Creation-Date: 2022-10-11 14:52+0000\n"
+"PO-Revision-Date: 2022-10-11 23:04+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"Language: zh_CN\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_auth_oauth
-#: model:wecom.message.template,body_markdown:wecom_auth_oauth.set_password_message
-msgid ""
-"\n"
-"## Dear ${object.name},\n"
-"Hello! First of all, please allow me to welcome you on behalf of our company. This is an invitation message from ${object.create_uid.name} of ${object.company_id.name}  to open your system account. Please click:\n"
-"> [Accept invitation](${object.signup_url})\n"
-"% set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url') \n"
-"> The system login address is: [${website_url}](${website_url})\n"
-"> Your login account is: [${object.login}](${website_url}/web/login?login=${object.login})\n"
-"#### The loyalty of our company is strict, innovative and honest. Your participation will bring us fresh blood, bring forth new thinking and set up a good corporate image for us.\n"
-"#### I wish you a happy job in our company and realize your life value!\n"
-"## ${object.company_id.name}\n"
-"<font color=\\\"comment\"\\>Telephone:${object.company_id.phone} </font>\n"
-"% if object.company_id.email \n"
-"<font color=\\\"comment\"\\>E-mail:${object.company_id.email}</font>\n"
-"% endif \n"
-"% if object.company_id.website\n"
-"<font color=\\\"comment\"\\>Website:${object.company_id.website}</font>\n"
-"% endif \n"
-"      "
-msgstr ""
-"\n"
-"## 亲爱的 ${object.name},\n"
-"您好！首先请允许我代表我们公司欢迎您的加入。这是来自 ${object.company_id.name} 的 ${object.create_uid.name} 为您开通系统账号的邀请邮件。请您点击\n"
-"[接受邀请](${object.signup_url})\n"
-"% set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url') \n"
-"> 系统登陆地址为： [${website_url}](${website_url})\n"
-"> 您的登录账号是: [${object.login}](${object.login}/web/login?login=${object.login})\n"
-"### 我们公司的工作忠旨是严格，创新，诚信。您的加入将为我们带来新鲜的血液，带来创新的思维，以及为我们树立良好的公司形象！\n"
-"### 祝您在本公司，工作愉快，实现自己的人生价值！\n"
-"## ${object.company_id.name}\n"
-"<font color=\\\"comment\"\\>电话:${object.company_id.phone} </font>\n"
-"% if object.company_id.email \n"
-"<font color=\\\"comment\"\\>E-mail:${object.company_id.email}</font>\n"
-"% endif \n"
-"% if object.company_id.website\n"
-"<font color=\\\"comment\"\\>网站:${object.company_id.website}</font>\n"
-"% endif "
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "<i class=\"fa fa-cogs fa-lg\" aria-label=\"Authentication Configuration\"/>"
+msgstr "<i class=\"fa fa-cogs fa-lg\" aria-label=\"身份验证配置\"/>"
 
 #. module: wecom_auth_oauth
-#: model:wecom.message.template,body_json:wecom_auth_oauth.reset_password_message
-msgid ""
-"\n"
-"{\n"
-"  \"card_type\": \"news_notice\",\n"
-"  \"source\": {\n"
-"    \"icon_url\": \"${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}\",\n"
-"    \"desc\": \"${object.company_id.name}\"\n"
-"  },\n"
-"  \"main_title\": {\n"
-"    \"title\": \"Dear ${object.name},\",\n"
-"    \"desc\": \"You requested a password reset\"\n"
-"  },\n"
-"  \"card_image\": {\n"
-"    \"url\": \"${object.get_base_url()}/wecom_material/static/src/img/reset_password.png\",\n"
-"    \"aspect_ratio\": 2.25\n"
-"  },\n"
-"  \"vertical_content_list\": [\n"
-"    {\n"
-"      \"title\": \"If no modification is required,ignore.\",\n"
-"      \"desc\": \"You may change your password by following this link which will remain valid during 24 hours.\"\n"
-"    }\n"
-"  ],\n"
-"  \"horizontal_content_list\": [\n"
-"    {\n"
-"      \"keyname\": \"Sender\",\n"
-"      \"value\": \"${object.create_uid.name}\"\n"
-"    },\n"
-"    {\n"
-"      \"type\": 1,\n"
-"      \"keyname\": \"Change Password\",\n"
-"      \"value\": \"Click Modify\",\n"
-"      \"url\": \"${object.signup_url}\"\n"
-"    }\n"
-"  ],\n"
-"  \"jump_list\": [\n"
-"    {\n"
-"      \"type\": 1,\n"
-"      \"title\": \"Change Password\",\n"
-"      \"url\": \"${object.signup_url}\"\n"
-"    }\n"
-"  ],\n"
-"  \"card_action\": {\n"
-"    \"type\": 1,\n"
-"    \"url\": \"${object.signup_url}\",\n"
-"    \"appid\": \"\",\n"
-"    \"pagepath\": \"\"\n"
-"  }\n"
-"}\n"
-"      "
-msgstr ""
-"\n"
-"{\"card_type\":\"news_notice\",\"source\":{\"icon_url\":\"${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}\",\"desc\":\"${object.company_id.name}\"},\"main_title\":{\"title\":\"亲爱的 ${object.name},\",\"desc\":\"您请求重置密码\"},\"card_image\":{\"url\":\"${object.get_base_url()}/wecom_material/static/src/img/reset_password.png\",\"aspect_ratio\":2.25},\"vertical_content_list\":[{\"title\":\"如果您不想更改密码，请忽略.\",\"desc\":\"您可以通过以下链接更改密码，此链接有效时间为24小时内。\"}],\"horizontal_content_list\":[{\"keyname\":\"发件人\",\"value\":\"${object.create_uid.name}\"},{\"type\":1,\"keyname\":\"修改密码\",\"value\":\"单击“修改”\",\"url\":\"${object.signup_url}\"}],\"jump_list\":[{\"type\":1,\"title\":\"修改密码\",\"url\":\"${object.signup_url}\"}],\"card_action\":{\"type\":1,\"url\":\"${object.signup_url}\",\"appid\":\"\",\"pagepath\":\"\"}} "
-
-#. module: wecom_auth_oauth
-#: model:wecom.message.template,body_json:wecom_auth_oauth.message_template_user_signup_account_created
-msgid ""
-"\n"
-"{\n"
-"  \"card_type\": \"news_notice\",\n"
-"  \"source\": {\n"
-"    \"icon_url\": \"${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}\",\n"
-"    \"desc\": \"${object.company_id.name}\"\n"
-"  },\n"
-"  \"main_title\": {\n"
-"    \"title\": \"Dear ${object.name},\",\n"
-"    \"desc\": \"Your account has been successfully created!\"\n"
-"  },\n"
-"  \"card_image\": {\n"
-"    \"url\": \"${object.get_base_url()}/wecom_material/static/src/img/account_created.png\",\n"
-"    \"aspect_ratio\": 2.25\n"
-"  },\n"
-"  \"vertical_content_list\": [\n"
-"    {\n"
-"      \"title\": \"Your account has been successfully created!\",\n"
-"      \"desc\": \"To gain access to your account, you can use the following link.\"\n"
-"    }\n"
-"  ],\n"
-"  \"horizontal_content_list\": [\n"
-"    {\n"
-"      \"keyname\": \"Your account\",\n"
-"      \"value\": \"${object.login}\"\n"
-"    },\n"
-"    {\n"
-"      \"type\": 1,\n"
-"      \"keyname\": \"Go to My Account\",\n"
-"      \"value\": \"Go to My Account\",\n"
-"      \"url\": \"${object.get_base_url()}/web/login?auth_login=${object.login}\"\n"
-"    }\n"
-"  ],\n"
-"  \"jump_list\": [\n"
-"    {\n"
-"      \"type\": 1,\n"
-"      \"title\": \"Go to My Account\",\n"
-"      \"url\": \"${object.get_base_url()}/web/login?auth_login=${object.login}\"\n"
-"    }\n"
-"  ],\n"
-"  \"card_action\": {\n"
-"    \"type\": 1,\n"
-"    \"url\": \"${object.get_base_url()}/web/login?auth_login=${object.login}\",\n"
-"    \"appid\": \"\",\n"
-"    \"pagepath\": \"\"\n"
-"  }\n"
-"}\n"
-"      "
-msgstr ""
-"\n"
-"{\"card_type\":\"news_notice\",\"source\":{\"icon_url\":\"${object.get_base_url()}/wecom_message_logo.png?company=${object.company_id.id}\",\"desc\":\"${object.company_id.name}\"},\"main_title\":{\"title\":\"亲爱的 ${object.name},\",\"desc\":\"您的帐户已成功创建！\"},\"card_image\":{\"url\":\"${object.get_base_url()}/wecom_material/static/src/img/account_created.png\",\"aspect_ratio\":2.25},\"vertical_content_list\":[{\"title\":\"您的帐户已成功创建！\",\"desc\":\"要访问您的帐户，您可以使用以下链接。\"}],\"horizontal_content_list\":[{\"keyname\":\"您的帐户\",\"value\":\"${object.login}\"},{\"type\":1,\"keyname\":\"转到我的帐户\",\"value\":\"转到我的帐户\",\"url\":\"${object.get_base_url()}/web/login?auth_login=${object.login}\"}],\"jump_list\":[{\"type\":1,\"title\":\"转到我的帐户\",\"url\":\"${object.get_base_url()}/web/login?auth_login=${object.login}\"}],\"card_action\":{\"type\":1,\"url\":\"${object.get_base_url()}/web/login?"
-"auth_login=${object.login}\",\"appid\":\"\",\"pagepath\":\"\"}} "
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields.selection,name:wecom_auth_oauth.selection__res_company__join_qrcode_size_type__1
-msgid "171px * 171px"
-msgstr ""
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,help:wecom_auth_oauth.field_res_company__join_qrcode_size_type model:ir.model.fields,help:wecom_auth_oauth.field_res_config_settings__join_qrcode_size_type
-msgid "1: 171 x 171; 2: 399 x 399; 3: 741 x 741; 4: 2052 x 2052"
-msgstr ""
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields.selection,name:wecom_auth_oauth.selection__res_company__join_qrcode_size_type__2
-msgid "399px * 399px"
-msgstr ""
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields.selection,name:wecom_auth_oauth.selection__res_company__join_qrcode_size_type__3
-msgid "741px * 741px"
-msgstr ""
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-clock-o fa-lg\" aria-label=\"The last time\"/>"
-msgstr "<i class=\"fa fa-clock-o fa-lg\" aria-label=\"最后一次\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"QR code size type\"/>"
-msgstr "<i class=\"fa fa-file-image-o fa-lg\" aria-label=\"二维码尺寸类型\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Auth Secret\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"身份验证Secret\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"验证密钥\"/>"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-link fa-lg\" aria-label=\"Auth redirect uri\"/>"
-msgstr "<i class=\"fa fa-link fa-lg\" aria-label=\"身份验证重定向URL\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-link fa-lg\" aria-label=\"QR code url\"/>"
-msgstr "<i class=\"fa fa-link fa-lg\" aria-label=\"二维码URL\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<i class=\"fa fa-link fa-lg\" aria-label=\"Qr redirect uri\"/>"
-msgstr "<i class=\"fa fa-link fa-lg\" aria-label=\"二维码重定向URL\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Auth AgentId\"/>"
-msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"授权访问的网页应用ID\"/>"
+msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"验证应用ID\"/>"
 
 #. module: wecom_auth_oauth
-#: model:wecom.message.template,body_html:wecom_auth_oauth.message_template_data_unregistered_users
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid ""
-"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wecom_message/static/src/css/messages.css\"/>\n"
-"        <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height=\"100%\">\n"
-"          <tr>\n"
-"            <td align=\"center\" valign=\"top\" bgcolor=\"#ffffff\" width=\"100%\">\n"
-"              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                <thead>\n"
-"                  <tr>\n"
-"                    <td style=\"border-bottom: 1px solid #3bcdc3;\" width=\"100%\">\n"
-"                      <center>\n"
-"                        <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                          <tr>\n"
-"                            <td valign=\"top\" style=\"text-align:left;\" class=\"mobile-center\">\n"
-"                              <img height=\"62\" src=\"/logo.png?company=${object.company_id.id}\" alt=\"${object.company_id.name}\"/>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                        </table>\n"
-"                      </center>\n"
-"                    </td>\n"
-"                  </tr>\n"
-"                </thead>\n"
-"                <tbody>\n"
-"                  <tr>\n"
-"                    <td valign=\"top\">\n"
-"                      <center>\n"
-"                        <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                          <tr>\n"
-"                            <td valign=\"top\">\n"
-"                              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                                <tr>\n"
-"                                  <td style=\"text-align: center;\">\n"
-"                                    <br/>\n"
-"                                                        % set invited_users = ctx['invited_users']\n"
-"                                  </td>\n"
-"                                </tr>\n"
-"                              </table>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                          <tr>\n"
-"                            <td>\n"
-"                              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                                <tr>\n"
-"                                  <td class=\"mobile-padding\" style=\"text-align:left;\">\n"
-"                                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
-"                                                            Pending Invitations\n"
-"                                    </span>\n"
-"                                    <br/>\n"
-"                                    <br/>\n"
-"                                                        Dear ${object.name or ''},<br/>\n"
-"                                  <br/>\n"
-"                                                        You added the following user(s) to your database but they haven't registered yet:\n"
-"                                  <ul>\n"
-"                                                            % for invited_user in invited_users:\n"
-"                                    <li>${invited_user}</li>\n"
-"                                                            % endfor\n"
-"                                  </ul>\n"
-"                                                        Follow up with them so they can access your database and start working with you.\n"
-"                                  <br/>\n"
-"                                  <br/>\n"
-"                                                        Have a nice day!<br/>\n"
-"                                <br/>\n"
-"                                <br/>\n"
-"                                                        Enjoy Odoo!<br/>\n"
-"                                                        --                              <br/>\n"
-"The ${object.company_id.name} Team\n"
-"                              <br/>\n"
-"                              <br/>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                        </table>\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                  </table>\n"
-"                </center>\n"
-"              </td>\n"
-"            </tr>\n"
-"          </tbody>\n"
-"          <tfoot>\n"
-"            <tr>\n"
-"              <td style=\"background-color:#c2c2c2;\">\n"
-"                <center>\n"
-"                  <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                    <tr>\n"
-"                      <td valign=\"middle\" align=\"left\">\n"
-"                                            ${object.company_id.name}\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                    <tr>\n"
-"                      <td style=\"text-align:left;opacity: 0.7;\">\n"
-"                                            ${object.company_id.phone}\n"
-"                                            % if object.company_id.email\n"
-"                                            |                        <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
-"                                            % endif\n"
-"                                            % if object.company_id.website\n"
-"                                            |                        <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
-"                                                ${object.company_id.website}\n"
-"                        </a>\n"
-"                                            % endif\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                  </table>\n"
-"                </center>\n"
-"              </td>\n"
-"            </tr>\n"
-"          </tfoot>\n"
-"        </table>\n"
-"      </td>\n"
-"    </tr>\n"
-"  </table>\n"
-msgstr ""
-"<link rel=\"stylesheet\" type=\"text/css\" href=\"/wecom_message/static/src/css/messages.css\"/>\n"
-"        <table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" height=\"100%\">\n"
-"          <tr>\n"
-"            <td align=\"center\" valign=\"top\" bgcolor=\"#ffffff\" width=\"100%\">\n"
-"              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                <thead>\n"
-"                  <tr>\n"
-"                    <td style=\"border-bottom: 1px solid #3bcdc3;\" width=\"100%\">\n"
-"                      <center>\n"
-"                        <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                          <tr>\n"
-"                            <td valign=\"top\" style=\"text-align:left;\" class=\"mobile-center\">\n"
-"                              <img height=\"62\" src=\"/logo.png?company=${object.company_id.id}\" alt=\"${object.company_id.name}\"/>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                        </table>\n"
-"                      </center>\n"
-"                    </td>\n"
-"                  </tr>\n"
-"                </thead>\n"
-"                <tbody>\n"
-"                  <tr>\n"
-"                    <td valign=\"top\">\n"
-"                      <center>\n"
-"                        <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                          <tr>\n"
-"                            <td valign=\"top\">\n"
-"                              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                                <tr>\n"
-"                                  <td style=\"text-align: center;\">\n"
-"                                    <br/>\n"
-"                                                        % set invited_users = ctx['invited_users']\n"
-"                                  </td>\n"
-"                                </tr>\n"
-"                              </table>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                          <tr>\n"
-"                            <td>\n"
-"                              <table cellspacing=\"0\" cellpadding=\"0\" width=\"100%\">\n"
-"                                <tr>\n"
-"                                  <td class=\"mobile-padding\" style=\"text-align:left;\">\n"
-"                                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
-"                                                            待定邀请s\n"
-"                                    </span>\n"
-"                                    <br/>\n"
-"                                    <br/>\n"
-"                                                        亲爱的 ${object.name or ''},<br/>\n"
-"                                  <br/>\n"
-"                                                        您已将以下用户添加到数据库，但他们尚未注册：\n"
-"                                  <ul>\n"
-"                                                            % for invited_user in invited_users:\n"
-"                                    <li>${invited_user}</li>\n"
-"                                                            % endfor\n"
-"                                  </ul>\n"
-"                                                        跟踪他们，这样他们就可以访问你的数据库并开始与你合作。\n"
-"                                  <br/>\n"
-"                                  <br/>\n"
-"                                                        祝您有个美好的一天！<br/>\n"
-"                                <br/>\n"
-"                               --<br/>\n"
-" ${object.company_id.name} 团队\n"
-"                              <br/>\n"
-"                              <br/>\n"
-"                            </td>\n"
-"                          </tr>\n"
-"                        </table>\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                  </table>\n"
-"                </center>\n"
-"              </td>\n"
-"            </tr>\n"
-"          </tbody>\n"
-"          <tfoot>\n"
-"            <tr>\n"
-"              <td style=\"background-color:#c2c2c2;\">\n"
-"                <center>\n"
-"                  <table cellspacing=\"0\" cellpadding=\"0\" width=\"500\" class=\"w320\">\n"
-"                    <tr>\n"
-"                      <td valign=\"middle\" align=\"left\">\n"
-"                                            ${object.company_id.name}\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                    <tr>\n"
-"                      <td style=\"text-align:left;opacity: 0.7;\">\n"
-"                                            ${object.company_id.phone}\n"
-"                                            % if object.company_id.email\n"
-"                                            |                        <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
-"                                            % endif\n"
-"                                            % if object.company_id.website\n"
-"                                            |                        <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
-"                                                ${object.company_id.website}\n"
-"                        </a>\n"
-"                                            % endif\n"
-"                      </td>\n"
-"                    </tr>\n"
-"                  </table>\n"
-"                </center>\n"
-"              </td>\n"
-"            </tr>\n"
-"          </tfoot>\n"
-"        </table>\n"
-"      </td>\n"
-"    </tr>\n"
-"  </table>\n"
+"<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"Authentication Application\"/>"
+msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"身份验证应用\"/>"
 
 #. module: wecom_auth_oauth
-#: model:wecom.message.template,body_html:wecom_auth_oauth.set_password_message
-msgid "<p><br></p>"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_agentid
+msgid "Agent ID"
+msgstr "应用ID"
+
+#. module: wecom_auth_oauth
+#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__auth_app_id
+#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_app_id
+msgid "Application"
+msgstr "应用"
+
+#. module: wecom_auth_oauth
+#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_app_config_ids
+msgid "Application Configuration"
+msgstr "应用配置"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\"Join the enterprise QR code\"/>\n"
-" Join the enterprise QR code\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
-"                        </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\" 加入企业二维码\"/>\n"
-" 加入企业二维码\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
-"                        </span>"
+"Application Management→Application→Open the application that needs to be "
+"verified and authorized, copy 'AgentId'"
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“AgentId”"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\"Join the enterprise QR code\"/>\n"
-" Join the enterprise QR code</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-qrcode fa-lg\" aria-label=\"加入企业二维码\"/>\n"
-" 加入企业二维码</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
+"Application Management→Application→Open the application that needs to be "
+"verified and authorized, copy 'Secret'"
+msgstr "应用程序管理→应用→打开需要验证和授权的应用程序，复制“Secret”"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Application login authorization\"/>\n"
-" \n"
-"                        Application login authorization\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"The values set below are the companies identified as WeCom organizations.\"/>\n"
-"                        </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"应用程序登录授权\"/>\n"
-" \n"
-"                        应用程序登录授权\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"此处设置的值是标识为企业微信组织的公司。\"/>\n"
-"                        </span>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"Application login authorization\"/>\n"
-" Application login authorization</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"GoTop\"/>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-sign-in fa-lg\" aria-label=\"应用程序登录授权\"/>\n"
-" 应用程序登录授权</span>\n"
-"                        <span class=\"text-right fa fa-angle-double-up\" aria-label=\"滚动到顶部\"/>"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "<strong>Save</strong> this page and come back here to set up the feature."
-msgstr "<strong>保存</strong> 此页面，然后返回此处以设置功能。"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
+#: code:addons/wecom_auth_oauth/models/res_config_settings.py:0
 #, python-format
-msgid "Another user is already registered using this email address or WeCom id."
-msgstr "其他用户已使用此电子邮件地址或企业微信用户注册。"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'"
-msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“AgentId”"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'"
-msgstr "应用程序管理→应用程序→打开需要验证和授权的应用程序，复制“Secret”"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__auth_secret model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_secret
-msgid "Auth Secret"
-msgstr "身份验证Secret"
-
-#. module: wecom_auth_oauth
-#: model:wecom.message.template,name:wecom_auth_oauth.reset_password_message
-msgid "Auth Signup: Reset Password"
-msgstr "身份验证注册：重置密码"
-
-#. module: wecom_auth_oauth
-#: model:wecom.message.template,name:wecom_auth_oauth.message_template_user_signup_account_created
-msgid "Auth Signup: System Account Created"
-msgstr "身份验证注册：已创建系统帐户"
-
-#. module: wecom_auth_oauth
-#: model:wecom.message.template,name:wecom_auth_oauth.set_password_message
-msgid "Auth Signup: System Connection"
-msgstr "身份验证注册：系统连接"
-
-#. module: wecom_auth_oauth
-#: model:wecom.message.template,name:wecom_auth_oauth.message_template_data_unregistered_users
-msgid "Auth Signup: Unregistered Users"
-msgstr "身份验证注册：未注册的用户"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__auth_agentid model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_agentid
-msgid "Auth agent Id"
-msgstr "身份验证应用id"
+msgid "Auth application ID and secret cannot be empty!"
+msgstr "身份验证应用ID和Secret 不能为空！"
 
 #. module: wecom_auth_oauth
 #. openerp-web
-#: code:addons/wecom_auth_oauth/static/src/xml/anchor.xml:0 code:addons/wxwork/wecom_auth_oauth/static/src/xml/anchor.xml:0
+#: code:addons/wecom_auth_oauth/static/src/webclient/settings_form_view/widgets/navigation.xml:0
+#: code:addons/wecom_auth_oauth/static/src/xml/wecom_settings_navigation.xml:0
 #, python-format
-msgid "Auth settings"
+msgid "Authentication settings"
 msgstr "身份验证设置"
 
 #. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__auth_redirect_uri model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_redirect_uri
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "Binding Auth Application"
+msgstr "绑定验证应用"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "Button group"
+msgstr "按钮组"
+
+#. module: wecom_auth_oauth
+#: model:wecom.app_config,name:wecom_auth_oauth.wecom_app_config_authentication_auth_redirect_uri
 msgid "Callback link address redirected after authorization"
 msgstr "授权后重定向的回调链接地址"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_users.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_users.py:0
-#, python-format
-msgid "Cannot send email: user %s has no email address."
-msgstr "无法发送电子邮件：用户%s没有电子邮件地址。"
-
-#. module: wecom_auth_oauth
 #. openerp-web
-#: code:addons/wecom_auth_oauth/static/src/xml/providers.xml:0 code:addons/wxwork/wecom_auth_oauth/static/src/xml/providers.xml:0
+#: code:addons/wecom_auth_oauth/static/src/xml/providers.xml:0
 #, python-format
 msgid "Close"
 msgstr "关闭"
@@ -592,86 +120,53 @@ msgid "Company"
 msgstr "公司"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wecom_auth_oauth/models/res_config_settings.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_config_settings.py:0
-#, python-format
-msgid "Complete obtaining the QR code to join the enterprise"
-msgstr "完成获取加入企业二维码"
-
-#. module: wecom_auth_oauth
 #: model:ir.model,name:wecom_auth_oauth.model_res_config_settings
 msgid "Config Settings"
 msgstr "配置设置"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
-#, python-format
-msgid "Could not create a new account."
-msgstr "无法创建新帐户。"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_auth_oauth_provider__display_name model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__display_name model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__display_name model:ir.model.fields,field_description:wecom_auth_oauth.field_res_users__display_name
-msgid "Display Name"
-msgstr "显示名称"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__enabled_join_qrcode model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__enabled_join_qrcode
-msgid "Enable to join the enterprise QR code "
-msgstr "启用加入企业二维码 "
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "Enable,The QR code for joining the enterprise is displayed on the login page."
-msgstr "启用，登录页面将显示加入企业的二维码。"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model_terms:wecom.app_config,description:wecom_auth_oauth.wecom_app_config_authentication_auth_redirect_uri
+#: model_terms:wecom.app_config,description:wecom_auth_oauth.wecom_app_config_authentication_qr_redirect_uri
 msgid ""
-"Fill in the \"Enterprise ID\", \"AgentId\" and \"Secret\" that require authentication and authorization, and use the domain name to access,\n"
-"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                            Click the button \"One-click to set up WeCom OAuth\"\n"
-"                                        </span>"
+"Fill in the \"Corp ID\", \"AgentId\" and \"Secret\" that require authentication "
+"and authorization, and use the domain name to access,\n"
+"                    <span style=\"color:orange;\">\n"
+"                        Click the button \"One-click to set up WeCom OAuth\"\n"
+"                    </span>"
 msgstr ""
-"填写需要身份验证和授权的“企业ID”，“ AgentId”和“Secret”，然后使用域名进行访问，\n"
-"                                        <span style=\"color:orange;padding: 0px 16px;\">\n"
-"                                            点击“一键设置企业微信OAuth”按钮\n"
-"                                        </span>"
+"在需要认证和授权的“企业ID”、“AgentId”和“Secret”中，使用域名进行访问，\n"
+"                    <span style=\"color:orange;\">\n"
+"                        点击按钮 [一键设置企微Auth]\n"
+"                    </span>"
 
 #. module: wecom_auth_oauth
-#: model:ir.ui.menu,name:wecom_auth_oauth.menu_wecom_cron_get_join_qrcode
-msgid "Get the QR code to join the enterprise"
-msgstr "获取加入企业二维码"
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "Generate parameters"
+msgstr "生成参数"
 
 #. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_auth_oauth_provider__id model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__id model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__id model:ir.model.fields,field_description:wecom_auth_oauth.field_res_users__id
-msgid "ID"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "Get application info"
+msgstr "获取应用信息"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
+#: code:addons/wecom_auth_oauth/controllers/main.py:0
 #, python-format
-msgid "It is detected that the page is opened in the built-in browser of WeCom, please select company."
-msgstr "检测到该页面在企业微信内置浏览器中打开，请选择公司。"
+msgid ""
+"It is detected that the page is opened in the built-in browser of WeCom, please "
+"select company."
+msgstr "检测到该页面已在企业微信内置浏览器中打开，请选择公司。"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
+#: code:addons/wecom_auth_oauth/controllers/main.py:0
 #, python-format
 msgid "Join WeCom,Become our employee."
 msgstr "加入企业微信，成为我们的员工。"
 
 #. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__join_qrcode model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__join_qrcode
-msgid "Join enterprise QR code"
-msgstr "加入企业二维码"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_auth_oauth_provider____last_update model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company____last_update model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings____last_update model:ir.model.fields,field_description:wecom_auth_oauth.field_res_users____last_update
-msgid "Last Modified on"
-msgstr "最后修改日"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__join_qrcode_last_time model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__join_qrcode_last_time
-msgid "Last update time (UTC)"
-msgstr "上次更新时间（UTC）"
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "Management application"
+msgstr "管理应用"
 
 #. module: wecom_auth_oauth
 #: model:ir.model.fields,field_description:wecom_auth_oauth.field_auth_oauth_provider__description
@@ -684,148 +179,69 @@ msgid "OAuth2 provider"
 msgstr "OAuth2服务商"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
+#: code:addons/wecom_auth_oauth/controllers/main.py:0
 #, python-format
-msgid "OAuth2: access denied, redirect to main page in case a valid session exists, without setting cookies"
+msgid ""
+"OAuth2: access denied, redirect to main page in case a valid session exists, "
+"without setting cookies"
 msgstr "OAuth2:拒绝访问，如果存在有效会话，则重定向到主页面，而不设置Cookie"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_wecom_apps_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid "One-click to set up WeCom OAuth"
 msgstr "一键设置企业微信OAuth"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_users.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_users.py:0
-#, python-format
-msgid "Password reset message sent to user: <%s>,<%s>, <%s>"
-msgstr "发送给用户的密码重置消息：<%s>，<%s>，<%s>"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,help:wecom_auth_oauth.field_res_company__auth_redirect_uri model:ir.model.fields,help:wecom_auth_oauth.field_res_company__qr_redirect_uri model:ir.model.fields,help:wecom_auth_oauth.field_res_config_settings__auth_redirect_uri model:ir.model.fields,help:wecom_auth_oauth.field_res_config_settings__qr_redirect_uri
-msgid "Please use urlencode to process the link"
-msgstr "请使用urlencode处理链接"
-
-#. module: wecom_auth_oauth
-#. openerp-web
-#: code:addons/wecom_auth_oauth/static/src/xml/anchor.xml:0 code:addons/wxwork/wecom_auth_oauth/static/src/xml/anchor.xml:0
-#, python-format
-msgid "QR Code settings"
-msgstr "二维码设置"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,help:wecom_auth_oauth.field_res_company__join_qrcode model:ir.model.fields,help:wecom_auth_oauth.field_res_config_settings__join_qrcode
-msgid "QR code link, valid for 7 days"
-msgstr "二维码链接，有效期7天"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__join_qrcode_size_type model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__join_qrcode_size_type
-msgid "QR code size type"
-msgstr "二维码尺寸类型"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
-msgid "Refresh the QR code"
-msgstr "刷新二维码"
-
-#. module: wecom_auth_oauth
-#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_company__qr_redirect_uri model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__qr_redirect_uri
+#: model:wecom.app_config,name:wecom_auth_oauth.wecom_app_config_authentication_qr_redirect_uri
 msgid "Scan the QR code to log in and call back the link address"
-msgstr "扫描二维码登录回调链接地址"
+msgstr "扫描二维码登录并回拨链接地址"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
-msgid "Send Password Reset Instructions"
-msgstr "发送密码重置说明"
+#: model:ir.model.fields,field_description:wecom_auth_oauth.field_res_config_settings__auth_secret
+msgid "Secret"
+msgstr "密钥"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
-msgid "Send Password Reset Instructions Message"
-msgstr "发送密码重置说明消息"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
-msgid "Send an Invitation Email"
-msgstr "发送邀请电子邮件"
-
-#. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.res_users_view_form
-msgid "Send an Invitation Message"
-msgstr "发送邀请消息"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wecom_auth_oauth/models/res_config_settings.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_config_settings.py:0
+#: code:addons/wecom_auth_oauth/controllers/main.py:0
 #, python-format
-msgid "Start getting join enterprise QR code"
-msgstr "开始获取加入企业二维码"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wecom_auth_oauth/models/res_config_settings.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_config_settings.py:0
-#, python-format
-msgid "Success"
-msgstr "成功"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wecom_auth_oauth/models/res_config_settings.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_config_settings.py:0
-#, python-format
-msgid "Successfully obtained the enterprise QR code."
-msgstr "成功获取企业二维码。"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0
-#, python-format
-msgid "Task:Complete obtaining the QR code to join the enterprise"
-msgstr "任务：完成获取加入企业的二维码"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_company.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_company.py:0
-#, python-format
-msgid "Task:Start getting join enterprise QR code"
-msgstr "任务：开始获取加入企业二维码"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
-#, python-format
-msgid "The current browser is not an WeCom built-in browser, so the one-click login function cannot be used."
+msgid ""
+"The current browser is not an WeCom built-in browser, so the one-click login "
+"function cannot be used."
 msgstr "当前浏览器不是企业微信内置浏览器，不能使用一键登录功能。"
 
 #. module: wecom_auth_oauth
-#: model:ir.model.fields,help:wecom_auth_oauth.field_res_company__auth_agentid model:ir.model.fields,help:wecom_auth_oauth.field_res_config_settings__auth_agentid
-msgid "The web application ID of the authorizing party, which can be viewed in the specific web application"
-msgstr "授权方的web应用程序ID，可在特定web应用程序中查看"
-
-#. module: wecom_auth_oauth
 #: model:ir.model,name:wecom_auth_oauth.model_res_users
-msgid "Users"
+msgid "User"
 msgstr "用户"
 
 #. module: wecom_auth_oauth
-#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.view_company_form model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_message_res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
 msgid "View OAuth providers"
-msgstr "查看OAuth服务商"
+msgstr "查看OAuth提供程序"
 
 #. module: wecom_auth_oauth
 #: model:auth.oauth.provider,body:wecom_auth_oauth.provider_wecom_authorize
 msgid "WeCom one-click login"
-msgstr "企业微信一键登录"
+msgstr "企微一键登录"
 
 #. module: wecom_auth_oauth
 #: model:auth.oauth.provider,body:wecom_auth_oauth.provider_wecom_qrconnect
 msgid "WeCom scan code login"
-msgstr "企业微信扫码登录"
+msgstr "企微扫码登录"
 
 #. module: wecom_auth_oauth
-#: model:ir.actions.act_window,name:wecom_auth_oauth.ir_cron_act_get_join_qrcode model:ir.actions.server,name:wecom_auth_oauth.ir_cron_get_join_qrcode_ir_actions_server model:ir.cron,cron_name:wecom_auth_oauth.ir_cron_get_join_qrcode model:ir.cron,name:wecom_auth_oauth.ir_cron_get_join_qrcode
-msgid "WeCom: Get join enterprise QR code"
-msgstr "企业微信：加入企业二维码"
+#: model:ir.model,name:wecom_auth_oauth.model_wecom_apps
+msgid "Wecom Application"
+msgstr "企微应用"
 
 #. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/models/res_users.py:0 code:addons/wxwork/wecom_auth_oauth/models/res_users.py:0
-#, python-format
-msgid "You cannot perform this action on an archived user."
-msgstr "您不能对存档用户执行此操作。"
-
-#. module: wecom_auth_oauth
-#: code:addons/wecom_auth_oauth/controllers/main.py:0 code:addons/wxwork/wecom_auth_oauth/controllers/main.py:0
+#: code:addons/wecom_auth_oauth/controllers/main.py:0
 #, python-format
 msgid "auth_signup not installed on database %s: oauth sign up cancelled."
-msgstr "应用auth_signup未安装在数据库%s: oauth 注册已取消。"
+msgstr "应用auth_signup未安装在数据库%s: oauth 注册已取消"
+
+#. module: wecom_auth_oauth
+#: model_terms:ir.ui.view,arch_db:wecom_auth_oauth.wecom_auth_oauth_res_config_settings_view_form
+msgid "description"
+msgstr "说明"

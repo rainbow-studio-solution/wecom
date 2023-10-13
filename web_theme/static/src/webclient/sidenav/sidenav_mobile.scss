@@ -1,0 +1,36 @@
+.o_main_sidenav {
+	@include media-breakpoint-down(md) {
+		background-color: $o-sidenav-background;
+
+		// .offcanvas-header {
+		//     .offcanvas-title {}
+		// }
+
+		.o_main_sidenav {
+			padding-top: 0 !important;
+			width: 100% !important;
+
+			// .accordion {
+			//     .accordion-item {
+			//         .accordion-header {
+			//             .accordion-button.app {
+			//                 .menu-lable {
+			//                     width: calc(100% - 70px);
+			//                 }
+			//             }
+			//         }
+
+			//         .accordion-collapse {
+			//             .accordion-body {
+			//                 .accordion-button.menu {
+			//                     .menu-lable {
+			//                         width: calc(100% - 70px) !important;
+			//                     }
+			//                 }
+			//             }
+			//         }
+			//     }
+			// }
+		}
+	}
+}

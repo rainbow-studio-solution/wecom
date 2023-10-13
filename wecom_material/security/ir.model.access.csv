@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wecom_material,access.wecom.material,model_wecom_material,base.group_erp_manager,1,1,1,1
+access_wecom_material,access.wecom.material,model_wecom_material,group_wecom_material_manager,1,1,1,1

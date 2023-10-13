@@ -1,0 +1,12 @@
+.o_main_navbar {
+
+    .o_theme_panel_toggle {
+        @extend %-main-navbar-entry-base;
+        @extend %-main-navbar-entry-bg-hover;
+        padding-left: $o-horizontal-padding;
+        padding-right: $o-horizontal-padding;
+        font-size: $o-navbar-brand-font-size;
+        border: 0;
+    }
+
+}

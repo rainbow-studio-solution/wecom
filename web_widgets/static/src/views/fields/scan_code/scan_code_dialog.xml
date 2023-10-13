@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web.ScanCodeDialog" owl="1">
+        <Dialog size="'md'" title="props.title" modalRef="modalRef" contentClass="props.contentClass" fullscreen="true">
+            <t t-set-slot="default" owl="1">
+                <div class="d-flex justify-content-between ">
+                    <div class="d-flex justify-content-start align-items-center w-50">
+                        <i class="fa fa-camera fa-lg"/>
+                        <select class="mx-1 form-select form-select-sm" aria-label="Camera List">
+
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-center w-50">
+                        <div class="form-check form-switch mx-1" t-if="isWecomBrowser">
+                            <input class="form-check-input" type="checkbox" role="switch" id="use_wecom" checked="checked"/>
+                            <label class="form-check-label" for="use_wecom">Scan through Wecom</label>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button title="Start" class="btn btn-success btn-sm scancode_start" type="button" data-toggle="tooltip">
+                                <i class="fa fa-play"></i>
+                            </button>
+                            <button title="Stop" class="btn btn-danger btn-sm scancode_stop" type="button" data-toggle="tooltip">
+                                <i class="fa fa-stop"></i>
+                            </button>
+                            <button title="Show/Hide properties panel" class="btn btn-warning btn-sm show_or_hide_options_panel" type="button" data-toggle="collapse" href="#camera_widget_options" role="button" aria-expanded="false" aria-controls="camera_widget_options">
+                                <i class="fa fa-angle-double-down"></i>
+                                <span>Show</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+
+                <div class="o_scan_code_dialog_scan_video">
+                    <video t-ref="videoPreview" autoplay="true" playsinline="true" class="" style="max-width: 100%; max-height: 100%;"/>
+                </div>
+
+                <hr/>
+                <div class="d-flex justify-content-start w-100 o_scan_code_dialog_scan_result">
+                    <span t-esc="props.body"/>
+                </div>
+            </t>
+            <t t-set-slot="footer" owl="1">
+                <button class="btn btn-primary" t-on-click="_confirm" t-esc="props.confirmLabel"/>
+                <button t-if="props.cancel" class="btn btn-secondary" t-on-click="_cancel" t-esc="props.cancelLabel"/>
+            </t>
+        </Dialog>
+    </t>
+
+</templates>

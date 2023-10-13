@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <button t-name="web_theme.open_studio_button" type="button" class ="dropdown-item-studio">
+        <i class="fa fa-plus"></i>
+        <span>Add Custom Field</span>
+    </button>
+
+    <div t-name="web_theme.install_web_studio" class="modal-studio">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" tabindex="-1"></button>
+        <h2 class="modal-title">Add new fields and much more with <b>Odoo Studio</b>
+        </h2>
+        <div class="o_video_embed">
+            <div class="ratio ratio-16x9">
+                <iframe class="embed-responsive-item" t-attf-src="https://www.youtube.com/embed/xCvFZrrQq7k?autoplay=1" frameborder="0" allowfullscreen="true"/>
+            </div>
+        </div>
+        <div class="o_install_studio_btn">
+            <button class="btn btn-primary btn-block o_install_studio">
+                <b>Install Odoo Studio</b>
+            </button>
+        </div>
+    </div>
+</template>

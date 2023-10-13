@@ -1,0 +1,25 @@
+.o_field_json_editor{
+    display: block !important;
+
+
+}
+
+.o_field_widget{
+    &.o_json_view_editor{
+        width: 100%;
+        .json-view-editor{
+            height: 500px;
+            padding: 0 1em;
+            .jsoneditor {
+                .jsoneditor-menu{
+                    .jsoneditor-search{
+                        .jsoneditor-frame{
+                            display: flex!important;
+                            justify-content: space-between!important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

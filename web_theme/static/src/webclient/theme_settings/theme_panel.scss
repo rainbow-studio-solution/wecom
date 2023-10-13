@@ -1,0 +1,110 @@
+.o_theme_panel {
+	border-left: none;
+
+	.o_theme_panel_header {
+		@include print-variable(o-theme-panel-header-height, $o-theme-panel-header-height-xs);
+
+		@include media-breakpoint-up(lg) {
+			@include print-variable(o-theme-panel-header-height, $o-theme-panel-header-height-lg);
+		}
+
+		height: var(--o-theme-panel-header-height);
+		background: $o-theme-panel-header-background;
+		border-bottom: $o-theme-panel-header-border-bottom;
+		color: $o-theme-panel-header-color;
+
+		.o_theme_panel_title {
+			color: $o-theme-panel-header-color;
+		}
+
+		.o_theme_panel_title {
+			text-align: center;
+			width: 100%;
+		}
+	}
+
+	.o_theme_panel_body {
+		color: #6b6f82;
+		padding: 8px !important;
+
+		.nav {
+			// height: calc(100vh - 65px);
+		}
+		.tab-content {
+			#v-pills-layout {
+				.btn-group {
+					.btn:first-child {
+						border-bottom-left-radius: 0 !important;
+					}
+					.btn:last-child {
+						border-bottom-right-radius: 0 !important;
+					}
+				}
+				.list-group {
+					.list-group-item {
+						border: 0 !important;
+					}
+
+					.list-group-item:first-child {
+						border-top-left-radius: 0 !important;
+					}
+					.list-group-item:last-child {
+						border-top-right-radius: 0 !important;
+					}
+				}
+			}
+			h2 {
+				font-weight: bold;
+				text-transform: uppercase;
+			}
+			h4 {
+				font-weight: bold;
+				text-transform: uppercase;
+				border-bottom: 1px solid #c9ccd2;
+				margin-left: 8px;
+			}
+			.theme-option {
+				display: flex;
+				flex-shrink: 0;
+				align-items: center;
+				justify-content: space-between;
+				border-bottom: 1px solid #c9ccd2 !important;
+				flex-wrap: wrap;
+				margin-bottom: 8px;
+				margin-left: 8px;
+
+				> span,.row > span {
+					text-transform: uppercase;
+					display: inline-block;
+					font-weight: bold;
+				}
+				.theme-option-description {
+					margin-left: 8px;
+					display: block;
+				}
+				.theme-colors {
+					padding-bottom: 8px;
+
+					.theme-color {
+						width: 40px;
+						height: 40px;
+						margin-right: 4px;
+						cursor: pointer;
+
+						&.current {
+							border: 2px solid #d64635;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.o_theme_panel_footer {
+		align-items: center;
+		padding: 15.5px;
+		border-top: 1px solid #c9ccd2;
+		border-bottom-right-radius: calc(0.25rem - 1px);
+		border-bottom-left-radius: calc(0.25rem - 1px);
+	}
+}

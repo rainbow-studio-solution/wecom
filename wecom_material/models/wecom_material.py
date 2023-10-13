@@ -6,14 +6,14 @@ import platform
 import subprocess
 import logging
 import time
-from pydub import AudioSegment
+from pydub import AudioSegment  # type: ignore
 from datetime import datetime, timedelta
 import pytz
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError, Warning
 
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException   # type: ignore
 
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 
@@ -41,7 +41,11 @@ class WeComMaterial(models.Model):
         copy=False,
         store=True,
     )
-    name = fields.Char("Name", required=True, translate=True,)
+    name = fields.Char(
+        "Name",
+        required=True,
+        translate=True,
+    )
     media_type = fields.Selection(
         [
             ("image", "Picture"),
@@ -79,6 +83,7 @@ class WeComMaterial(models.Model):
         "The voice file format supports AMR, and the file size should be between 5B and 2MB"
         "The video file shall not exceed 10m, the file format: MP4, and the file size shall be between 5B and 10MB"
         "Normal file size shall not exceed 20m",
+        store=True,
         required=True,
     )
     media_filename = fields.Char()
@@ -93,7 +98,6 @@ class WeComMaterial(models.Model):
 
     @api.onchange("media_type")
     def _onchange_media_type(self):
-
         if self.media_type != "image":
             self.temporary = True
         else:
@@ -134,7 +138,6 @@ class WeComMaterial(models.Model):
             # 存在媒体文件
             sys_params = self.env["ir.config_parameter"].sudo()
             if self.company_id:
-
                 file_path = self._check_file_path(
                     self.media_file, "material", self.media_filename
                 )
@@ -156,8 +159,8 @@ class WeComMaterial(models.Model):
                         )
                         headers = {"Content-Type": multipart_encoder.content_type}
                         wxapi = self.env["wecom.service_api"].InitServiceApi(
-                            self.company_id.corpid,
-                            self.company_id.material_app_id.secret,
+                            self.company_id.corpid, # type: ignore
+                            self.company_id.material_app_id.secret, # type: ignore
                         )
                         response = wxapi.httpPostFile(
                             self.env["wecom.service_api_list"].get_server_api_call(
@@ -187,8 +190,8 @@ class WeComMaterial(models.Model):
                     """
                     try:
                         wxapi = self.env["wecom.service_api"].InitServiceApi(
-                            self.company_id.corpid,
-                            self.company_id.material_app_id.secret,
+                            self.company_id.corpid, # type: ignore
+                            self.company_id.material_app_id.secret, # type: ignore
                         )
                         # files = {"media": open(file_path, "rb")}
                         multipart_encoder = MultipartEncoder(
@@ -232,6 +235,7 @@ class WeComMaterial(models.Model):
                 vals.get("media_file"),
                 vals.get("media_filename"),
             )
+            # print(vals.get("media_type"),vals.get("media_file"),vals.get("media_filename"))
             # 检查文件路径
             self._check_file_path(
                 vals.get("media_file"), "material", vals.get("media_filename")
@@ -306,6 +310,7 @@ class WeComMaterial(models.Model):
             pass
         else:
             raise UserError(_("WeCom storage path has not been configured yet!"))
+
         file_path = self.env["wecomapi.tools.file"].path_is_exists(path, subpath)
         full_path = file_path + filename
 
@@ -316,7 +321,7 @@ class WeComMaterial(models.Model):
                     fp.close()
                     # return full_path
             except IOError:
-                raise UserError(_("Error saving file to path %s!"), full_path)
+                raise UserError(_("Error saving file to path %s!"), full_path)  # type: ignore
 
         if platform.system() == "Windows":
             full_path = full_path.replace("/", "\\")
@@ -338,10 +343,10 @@ class WeComMaterial(models.Model):
             file_size_list = extensions_and_size["voice"]["size"]
             # 语音文件先上传到本地文件夹进行时长检查
             file_path = self._check_file_path(file, "material", filename)
-            duration, path = self.get_amr_duration(file_path)
+            duration, path = self.get_amr_duration(file_path)   # type: ignore
             if int(duration) > 60:
                 # 语音文件时长超过了60秒,删除mp3文件
-                os.remove(os.path.abspath(path))
+                os.remove(os.path.abspath(path))    # type: ignore
                 raise ValidationError(
                     _("The duration of the voice file exceeds 60 seconds!")
                 )
@@ -385,7 +390,7 @@ class WeComMaterial(models.Model):
         )
         if os.path.exists(mp3_transformat_path):
             mp3_audio = AudioSegment.from_file(
-                os.path.abspath(mp3_transformat_path), format="mp3"
+                os.path.abspath(mp3_transformat_path), format="mp3" # type: ignore
             )
             return mp3_audio.duration_seconds, mp3_transformat_path
 

@@ -1,0 +1,28 @@
+// = Drawer menu
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_web_client {
+    // Since the component's design is defined in assets_common, scope variables
+    // declarations within `o_web_client` selector.
+
+    .o_datepicker, .datepicker, .bootstrap-datetimepicker-widget {
+        --bs-datetimepicker-btn-hover-bg: #{$o-gray-400};
+    }
+
+    .daterangepicker {
+        --daterangerpicker__arrow-background-color: #{$o-view-background-color};
+        --daterangerpicker__arrow-border-color: #{$border-color};
+    }
+
+    .bootstrap-datetimepicker-widget {
+        --bs-datetimepicker-secondary-border-color-rgba: #{$o-gray-300};
+        --bs-datetimepicker-primary-border-color: #{$o-gray-300};
+        --datepicker-border-color: #{$border-color};
+    }
+
+    .bootstrap-datetimepicker-widget .datepicker table {
+        --datepicker-color: #{map-get($grays, '900')};
+        --datepicker__thead-bg: #{map-get($grays, '100')};
+    }
+}

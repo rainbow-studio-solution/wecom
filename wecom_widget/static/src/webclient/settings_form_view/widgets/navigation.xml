@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+    <t t-name="wecom_widget.res_config_wecom_navigation_menu" owl="1">
+
+        <div class="btn-group ml8 mt8 mb8 res_config_wecom_navigation_menu" role="group" aria-label="Navigation" id="wecom_settings_navigation">
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_companies" t-on-click="_jumpAnchor">
+                <i class="fa fa-building"/>
+                <sapn>Companies settings</sapn>
+            </a>
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_contact" t-on-click="_jumpAnchor">
+                <i class="fa fa-book"/>
+                <sapn>Contacts settings</sapn>
+            </a>
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_contact" t-on-click="_jumpAnchor">
+                <i class="fa fa-refresh"/>
+                <sapn>Contacts synchronization settings</sapn>
+            </a>
+        </div>
+
+    </t>
+
+
+</templates>

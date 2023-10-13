@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_theme.ActionContainer" owl="1">
+
+        <t t-if="open_action_in_tabs and info.Component">
+            <nav>
+                <div class="nav nav-tabs o_action_tabs mt4" role="tablist">
+                    <t t-foreach="state.tabs" t-as="tab" t-key="tab_index">
+                        <button class="nav-link btn btn-lg active" t-attf-id="nav_tab_id_{{tab.actionID}}" data-bs-toggle="tab" t-attf-data-bs-target="#nav_{{tab.actionID}}" type="button" role="tab" t-attf-aria-controls="nav_{{tab.actionID}}" aria-selected="true">
+                            <t t-esc="tab.name"/>
+                            <i class="o_facet_remove oi oi-close btn btn-link opacity-50 opacity-100-hover text-900" />
+                        </button>
+                    </t>
+
+                </div>
+            </nav>
+            <div class="o_action_manager tab-content o_action_tab_content">
+                <!--role="tabpanel" tabindex="0" t-att-id="'nav_'+state.activeTabId" t-att-aria-labelledby="'nav_'+state.activeTabId'+'-tab'" -->
+                <t t-component="info.Component" className="'o_action tab-pane o_action_tab_pane fade show active'" t-props="info.componentProps" t-key="info.id" />
+            </div>
+        </t>
+        <t t-elif="info.Component">
+            <div class="o_action_manager">
+                <t t-if="info.Component" t-component="info.Component" className="'o_action'" t-props="info.componentProps" t-key="info.id"/>
+            </div>
+        </t>
+        <Footer/>
+    </t>
+
+</templates>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web.ScanCodeField" owl="1">
+        <div class="d-grid rounded-2 overflow-hidden">
+            <Field t-props="props"/>
+            <div class="buttons d-grid">
+                <ScanCodeCopyButton t-if="props.value" className="copyButtonClassName" content="props.value"  successText="successText"/>
+
+                <ShowScanCodeDialogButton fieldNameText="fieldNameText" content="props.value" />
+            </div>
+        </div>
+    </t>
+
+    <t t-name="web.ScanCodeButtonField" owl="1">
+        <div class="buttons d-grid ">
+            <ScanCodeCopyButton t-if="props.value" className="copyButtonClassName" content="props.value" copyText="copyText" successText="successText"/>
+
+            <ShowScanCodeDialogButton fieldNameText="fieldNameText"  content="props.value"/>
+        </div>
+    </t>
+
+</templates>

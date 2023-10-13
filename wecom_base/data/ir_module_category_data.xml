@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data noupdate="1">
-        <record model="ir.module.category" id="module_category_wxwork">
-            <field name="name">WeCom</field>
+        <record model="ir.module.category" id="module_category_wecom_settings">
+            <field name="name">WeCom Settings</field>
             <field name="sequence">1</field>
             <field name="visible" eval="1" />
         </record>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_partner_category_view_search" model="ir.ui.view">
+            <field name="name">res.partner.category.view.search</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.res_partner_category_view_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[last()]" position="after">
+                    <field name="company_id" string="Company"/>
+                </xpath>
+                <xpath expr="//filter[last()]" position="after">
+                    <group expand="0" string="Group By">
+                        <filter name="group_company" string="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                    </searchpanel>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_category_list" model="ir.ui.view">
+            <field name="name">Contact Tags</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_list"/>
+            <field eval="6" name="priority"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="js_class">res_partner_category_tree_download</attribute>
+                </xpath>
+                <xpath expr="//field[@name='display_name']" position="before">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </xpath>
+                <xpath expr="//field[@name='display_name']" position="after">
+                    <field name="is_wecom_tag"/>
+                    <field name="tagid" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_category_form" model="ir.ui.view">
+            <field name="name">Contact Tags</field>
+            <field name="model">res.partner.category</field>
+            <field name="inherit_id" ref="base.view_partner_category_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form>
+                        <sheet>
+                            <group col="4" string="Contact Tag">
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True, 'no_open': True}"/>
+                                <field name="name" placeholder='e.g. "Consulting Services"'/>
+                                <field name="color" widget="color_picker"/>
+                                <field name="parent_id" attrs="{'readonly': [('is_wecom_tag','=',True)]}"/>
+                                <field name="partner_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_open': True}" context="{'default_company_id': company_id}"/>
+                                <field name="active" widget="boolean_toggle" attrs="{'readonly': [('is_wecom_tag','=',True)]}"/>
+                            </group>
+                            <group col="4" string="Wecom Info" attrs="{'invisible': [('is_wecom_tag','=',False)]}">
+                                <field name="is_wecom_tag"/>
+                                <field name="tagid" />
+                            </group>
+                        </sheet>
+                    </form>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

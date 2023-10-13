@@ -1,0 +1,47 @@
+.o_footer {
+	.o_main_footer {
+		@include print-variable(o-footer-height, $o-footer-height-xs);
+
+		@include media-breakpoint-up(lg) {
+			@include print-variable(o-footer-height, $o-footer-height-lg);
+		}
+		// @include o-webclient-padding($top: map-get($spacers, 2), $bottom: map-get($spacers, 2));
+
+		display: flex;
+		height: var(--o-footer-height);
+		min-width: min-content;
+		border-top: 1px solid $border-color;
+		// border-bottom: $o-navbar-border-bottom;
+		background-color: $o-footer-background;
+
+		.o_footer_container {
+			// margin-top: .8em;
+			font-weight: 500 !important;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+
+			.o_footer_copyright {
+				margin-left: 16px;
+				font-weight: bold;
+			}
+			.o_footer_sections {
+				margin:0;
+				margin-right: 16px;
+				display: flex;
+				list-style: none;
+				justify-content: flex-end;
+				align-items: center;
+
+				.o_footer_section {
+					.o_footer_menu_link {
+						cursor: pointer;
+						display: flex;
+						align-items: center;
+					}
+				}
+			}
+		}
+	}
+}

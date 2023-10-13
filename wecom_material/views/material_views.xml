@@ -65,7 +65,7 @@
         </record>
 
         <record id="action_view_wecom_material" model="ir.actions.act_window">
-            <field name="name">Material</field>
+            <field name="name">Wecom Material</field>
             <field name="res_model">wecom.material</field>
             <field name="view_mode">tree,form</field>
             <field name="context">{'group_by':['company_id']}</field>

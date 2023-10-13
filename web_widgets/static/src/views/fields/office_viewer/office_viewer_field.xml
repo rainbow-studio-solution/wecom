@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web.OfficeViewerField" owl="1">
+        <t t-if="!props.readonly">
+            <div  class="o_form_office_controls">
+                <t t-if="props.value">
+                    <FileUploader
+                        acceptedFileExtensions="props.accept"
+                        file="{ data: props.value, name: filePath }"
+                        onUploaded.bind="onFileUploaded"
+                    >
+                        <t t-set-slot="toggler">
+                            <button
+                                class="btn btn-secondary fa fa-pencil o_select_file_button"
+                                data-tooltip="Edit"
+                                aria-label="Edit"
+                            />
+                        </t>
+                        <button
+                            class="btn btn-secondary fa fa-trash o_clear_file_button"
+                            data-tooltip="Clear"
+                            aria-label="Clear"
+                            t-on-click="onFileRemove"
+                        />
+                    </FileUploader>
+                </t>
+                <t t-else="">
+                    <label class="o_select_file_button btn btn-primary">
+                        <FileUploader
+                            acceptedFileExtensions="props.accept"
+                            onUploaded.bind="onFileUploaded"
+                        >
+                            <t t-set-slot="toggler">
+                                Upload your file
+                            </t>
+                        </FileUploader>
+                    </label>
+                </t>
+            </div>
+        </t>
+        <t t-if="props.value">
+            <iframe class="o_officeview_iframe" alt="Microsoft Office Documents" t-att-src="url" t-att-name="props.name" t-att-height="props.height" t-on-error="onLoadFailed">   This is an embedded
+                <a target='_blank' href='http://office.com'>Microsoft Office</a> document, powered by
+                <a target='_blank' href='http://office.com/webapps'>Office Online</a>.
+            </iframe>
+        </t>
+    </t>
+
+</templates>

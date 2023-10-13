@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form.inherit.wecom_contacts</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='wecom_info']//field[last()]" position="after">
+                    <field name="contacts_app_id" options="{'no_open': True, 'no_create': True}"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

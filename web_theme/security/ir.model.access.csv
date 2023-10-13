@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_res_theme_user","access.res.theme_user","model_res_theme",base.group_user,1,1,0,0
+"access_res_theme_erp_manager","access.res.theme_erp_manager","model_res_theme",base.group_erp_manager,1,1,1,0
+"access_res_user_menuitems_erp_manager","access.res.user.menuitems_erp_manager","model_res_user_menuitems",base.group_erp_manager,1,1,1,0

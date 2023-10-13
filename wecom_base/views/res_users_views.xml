@@ -1,50 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="wecom_res_users_tree" model="ir.ui.view">
-            <field name="name">wecom users list</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_tree"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='login']" position="after">
-                    <field name="wecom_userid"/>
-                    <field name="is_wecom_user"/>
-                    <field name="share"/>
-                </xpath>
-            </field>
-        </record>
 
-        <record id="wecom_view_users_form" model="ir.ui.view">
-            <field name="name">wecom users form</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//page[@name='access_rights']" position="after">
-                    <page name="wecom" string="WeCom">
-                        <group>
-                            <group>
-                                <field name="wecom_userid"/>
-                                <field name="is_wecom_user"/>
-                            </group>
-                            <group>
-                                <field name="qr_code" widget="image_url" class="oe_avatar"/>
-                            </group>
-                        </group>
-                    </page>
-                </xpath>
-            </field>
-        </record>
-
-        <record id="view_users_search_inherit" model="ir.ui.view">
-            <field name="name">res.users.search.inherit</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_search"/>
-            <field name="arch" type="xml">
-                <xpath expr="//filter[@name='no_share']" position="after">
-                    <filter name="share" string="Share User" domain="[('share','=',True)]"/>
-                </xpath>
-            </field>
-        </record>
 
 
 

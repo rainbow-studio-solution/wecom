@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_tag_tree" model="ir.ui.view">
+            <field name="name">wecom.tag.tree</field>
+            <field name="model">wecom.tag</field>
+            <field name="arch" type="xml">
+                <!-- js_class="wecom_tag_tree_sync" -->
+                <tree string="Tag" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="name" />
+                    <field name="tagid" />
+                    <!-- <field name="userlist" /> -->
+                    <field name="user_ids" widget="many2many_tags"/>
+                    <field name="department_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wecom_tag_form" model="ir.ui.view">
+            <field name="name">wecom.tag.form</field>
+            <field name="model">wecom.tag</field>
+            <field name="arch" type="xml">
+                <form string="Tags" create="false" delete="false" edit="false">
+                    <header></header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="btn oe_stat_button btn-succes" name="download_single_tag" type="object">
+                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download Tag Member" title="Download Tag Member"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">Download</span>
+                                    <span class="o_stat_text">Tag member</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group col="4">
+                            <field name="company_id"/>
+                            <field name="tagid"/>
+                            <field name="name"/>
+                        </group>
+                        <group col="4" string="Users">
+                            <field name="userlist" no_label="1" options="{'type':'user','show':'details'}"/>
+                        </group>
+                        <group col="4" string="Departments">
+                            <field name="partylist" no_label="1" options="{'type':'department','show':'details'}"/>
+                        </group>
+                        <group col="4" string="Json">
+                            <field name="tag_json" widget="json_editor"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_wecom_contacts_tag" model="ir.actions.act_window">
+            <field name="name">Tag</field>
+            <field name="res_model">wecom.tag</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" eval="False"/>
+            <!-- <field name="search_view_id" ref="view_wecom_user_filter"/> -->
+            <field name="context">{}</field>
+        </record>
+
+    </data>
+</odoo>

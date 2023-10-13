@@ -1,0 +1,9 @@
+// = Sidebar
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_sidenav {
+    --o-sidenav-badge-bg: #{$primary};
+    --o-sidenav-badge-color: #{$white};
+    --o-sidenav-badge-text-shadow: none;
+}

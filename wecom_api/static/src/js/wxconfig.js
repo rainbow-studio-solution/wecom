@@ -1,4 +1,4 @@
-odoo.define('web.wxconfig', function (require) {
+odoo.define('wecom_client_api.wxconfig', function (require) {
     "use strict";
     var Widget = require('web.Widget');
 

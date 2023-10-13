@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_wecom_user_filter" model="ir.ui.view">
+            <field name="name">wecom.user.search</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <search string="Users">
+                    <field name="name" string="User" />
+                    <field name="userid" string="User ID" />
+
+                    <searchpanel>
+                        <field name="company_id" groups="base.group_multi_company" icon="fa-building" enable_counters="1"/>
+                        <field name="department_id" icon="fa-users" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+
+            </field>
+        </record>
+
+
+        <record id="view_wecom_user_tree" model="ir.ui.view">
+            <field name="name">wecom.user.tree</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <!-- widget="wecom_contacts_display_component" -->
+                <!-- is_wecom_contacts_display_component="true" type="userName" js_class="wecom_contacts_display_component_list"-->
+                <!-- is_wecom_contacts_display_component="true" type="departmentName" component_type="userName" options="{'type': 'userName'}"-->
+                <!-- widget="wecom_contacts_display_component" type="userName" -->
+                <tree string="User" create="false" delete="false" multi_edit="false" import="false" export_xlsx="false" sample="1">
+                    <field name="company_id" invisible="1"/>
+                    <field name="id" invisible="1"/>
+                    <field name="userid" readonly="1" />
+                    <field name="name" />
+                    <field name="open_userid" />
+                    <field name="department_id"/>
+                    <field name="department_complete_name" />
+                    <field name="department_ids" widget="many2many_tags"/>
+                    <!-- <field name="department"/> -->
+                    <field name="isleader" />
+                    <!-- <field name="is_leader_in_dept" /> -->
+                    <!-- <field name="direct_leader"/> -->
+                    <field name="department_leader"/>
+                    <field name="direct_leader_id"/>
+
+                    <field name="gender_name" />
+                    <field name="status_name" />
+                    <field name="active" />
+                    <button string="Get OpenID" class="btn btn-outline-primary" type="object" icon="fa-openid" name="get_open_userid" attrs="{'invisible': [('open_userid', '!=',False)]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_wecom_user_kanban" model="ir.ui.view">
+            <field name="name">wecom.user.kanban</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <!-- js_class="wecom_user_kanban_sync" -->
+                <kanban string="User" create="false" delete="false" multi_edit="false" import="false" sample="1">
+                    <field name="name" />
+                    <field name="gender" />
+                    <field name="userid" />
+                    <field name="department_complete_name" />
+                    <field name="is_leader_in_dept" />
+                    <field name="direct_leader" />
+                    <field name="status_name" />
+                    <field name="biz_mail" />
+                    <field name="email" />
+                    <field name="telephone" />
+                    <field name="mobile" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                                <field name="avatar" widget="image_url" class="o_kanban_image_fill_left" options='{"size": [128, 128]}'/>
+                                <div class="oe_kanban_details ml8">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <div class="float-right" t-if="record.gender.raw_value == '1'" name="gender">
+                                                    <span class="fa fa-user text-primary" role="img" aria-label="Male" title="Male" name="Male">
+                                                    </span>
+                                                </div>
+                                                <div class="float-right" t-if="record.gender.raw_value == '2'" name="gender">
+                                                    <span class="fa fa-user text-warning" role="img" aria-label="Female" title="Female" name="Female">
+                                                    </span>
+                                                </div>
+                                                <div class="float-right" t-if="record.gender.raw_value == '0'" name="gender">
+                                                    <span class="fa fa-user text-muted" role="img" aria-label="Undefined" title="Undefined" name="Undefined">
+                                                    </span>
+                                                </div>
+                                                <field name="name" placeholder="Employee's Name"/>
+                                            </strong>
+                                            <span t-if="record.position.raw_value" class="o_kanban_record_subtitle">
+                                                <field name="position"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <ul>
+                                        <li t-if="record.biz_mail.raw_value" class="o_text_overflow">
+                                            <field name="biz_mail" />
+                                        </li>
+                                        <li t-if="record.email.raw_value" class="o_text_overflow">
+                                            <field name="email" />
+                                        </li>
+                                        <li t-if="record.telephone.raw_value" class="o_force_ltr">
+                                            <field name="telephone" />
+                                        </li>
+                                        <li t-if="record.mobile.raw_value" class="o_force_ltr">
+                                            <field name="mobile" />
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_wecom_user_form" model="ir.ui.view">
+            <field name="name">wecom.user.form</field>
+            <field name="model">wecom.user</field>
+            <field name="arch" type="xml">
+                <form string="User" create="false" delete="false" edit="false">
+                    <header></header>
+                    <sheet>
+                        <div name="button_box" class="oe_button_box">
+                            <button class="btn oe_stat_button btn-succes" name="download_single_user" type="object">
+                                <div role="img" class="fa fa-cloud-download o_button_icon" aria-label="Download user information" title="Download user information"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">Download</span>
+                                    <span class="o_stat_text">user information</span>
+                                </div>
+                            </button>
+                            <button class="btn oe_stat_button btn-succes" name="copy_as_system_user" type="object">
+                                <div role="img" class="fa fa-files-o o_button_icon" aria-label="Copy as System User" title="Copy as System User"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">Copy</span>
+                                    <span class="o_stat_text">As System Employee</span>
+                                </div>
+                            </button>
+                            <button class="btn oe_stat_button btn-succes" name="copy_as_employee" type="object">
+                                <div role="img" class="fa fa-files-o o_button_icon" aria-label="Copy as System User" title="Copy as System User"/>
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">Copy</span>
+                                    <span class="o_stat_text">As Employee</span>
+                                </div>
+                            </button>
+                        </div>
+                        <field name="active" invisible="1"/>
+                        <field name="company_id" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="thumb_avatar" invisible="1"/>
+                        <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"thumb_avatar"}'/>
+                        <div class="oe_title">
+                            <h1 class="d-flex">
+                                <!-- required="True" -->
+                                <field name="name" placeholder="Employee's Name" />
+                            </h1>
+                            <h2>
+                                <field name="position" placeholder="Job Position" />
+                            </h2>
+                            <field name="tag_ids" widget="many2many_tags" placeholder="Tags"/>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="mobile" widget="phone"/>
+                                <field name="telephone" widget="phone"/>
+                                <field name="biz_mail" widget="email"/>
+                            </group>
+                            <group>
+                                <field name="isleader" />
+                                <field name="department_leader" />
+                                <field name="department" invisible="1"/>
+                                <field name="department_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="department_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="personal_information" string="Private Information">
+                                <group>
+                                    <group string="Private Contact">
+                                        <field name="email" widget="email"/>
+                                    </group>
+                                    <group string="Gender">
+                                        <field name="gender_name"/>
+                                    </group>
+                                    <group string="Identity information">
+                                        <field name="userid"/>
+                                        <field name="qr_code" widget="image_url" class="oe_avatar"/>
+
+                                        <label for="open_userid"/>
+                                        <div class="o_row">
+                                            <field name="open_userid"/>
+                                            <button string="Get OpenID" class="btn btn-outline-primary" type="object" icon="fa-openid" name="get_open_userid" attrs="{'invisible': [('open_userid', '!=',False)]}"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="public" string="Work Information">
+                                <group>
+                                    <field name="address"/>
+                                    <field name="direct_leader" options="{'type':'user','show':'simple'}"/>
+                                    <field name="external_position"/>
+                                </group>
+                            </page>
+                            <page name="external_attributes" string="External attributes">
+                                <field name="extattr"/>
+                            </page>
+                            <page name="external_profile" string="External attributes">
+                                <field name="external_profile"/>
+                            </page>
+                            <page name="json" string="Metadata">
+                                <field name="user_json" widget="json_editor"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_wecom_contacts_member" model="ir.actions.act_window">
+            <field name="name">Member</field>
+            <field name="res_model">wecom.user</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="view_wecom_user_filter"/>
+            <field name="context">{"active_test": False}</field>
+        </record>
+
+    </data>
+</odoo>

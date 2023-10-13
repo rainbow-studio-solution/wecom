@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+
+    <t t-name="wecom_contacts.res_config_wecom_navigation_menu" t-inherit="wecom_widget.res_config_wecom_navigation_menu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//a[last()]" position="after">
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_contacts_display_component" t-on-click="_jumpAnchor">
+                <i class="fa fa-id-card-o"/>
+                <sapn>Contacts display component</sapn>
+            </a>
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_material" t-on-click="_jumpAnchor">
+                <i class="fa fa-suitcase"/>
+                <sapn>Material settings</sapn>
+            </a>
+
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_msgaudit" t-on-click="_jumpAnchor">
+                <i class="fa fa-archive"/>
+                <sapn>Session content archiving settings</sapn>
+            </a>
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_attendances" t-on-click="_jumpAnchor">
+                <i class="fa fa-map-marker"/>
+                <sapn>Attendances settings</sapn>
+            </a>
+            <a type="button" role="button" class="btn btn-outline-secondary wecom_jump_anchor" href="#wecom_approval" t-on-click="_jumpAnchor">
+                <i class="fa fa-pencil-square-o"/>
+                <sapn>Approvals settings</sapn>
+            </a>
+        </xpath>
+    </t>
+
+</templates>

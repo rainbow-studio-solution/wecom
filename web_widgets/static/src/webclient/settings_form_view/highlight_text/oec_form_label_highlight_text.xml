@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="web.FormLabelHighlightText" t-inherit-mode="extension">
+        <xpath expr="//t[@t-if='upgradeEnterprise']" position="after">
+            <t t-if="upgradeErpProfessional">
+                <span class="badge text-bg-primary oe_inline o_oec_professional_label">Professional</span>
+            </t>
+        </xpath>
+    </t>
+</templates>

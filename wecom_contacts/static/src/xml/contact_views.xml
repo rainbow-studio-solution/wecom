@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- 联系人 -->
+    <t t-name="ResPartnerDownloadRequest.download_contacts_button">
+        <button type="button" class="btn btn-info o_button_download_contacts fa fa-cloud-download">
+            Download wecom contacts data
+        </button>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="ResPartnerDownloadRequestListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-call="ResPartnerDownloadRequest.download_contacts_button"/>
+        </t>
+    </t>
+
+    <t t-extend="KanbanView.buttons" t-name="ResPartnerDownloadRequestKanbanView.buttons">
+        <t t-jquery="button" t-operation="after">
+            <t t-call="ResPartnerDownloadRequest.download_contacts_button"/>
+        </t>
+    </t>
+
+    <!-- 联系人标签 -->
+    <t t-name="ResPartnerCategoryDownloadRequest.download_tags_button">
+        <button type="button" class="btn btn-info o_button_download_contact_tags fa fa-cloud-download">
+            Download wecom tag data
+        </button>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="ResPartnerCategoryDownloadRequestListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-call="ResPartnerCategoryDownloadRequest.download_tags_button"/>
+        </t>
+    </t>
+
+</templates>

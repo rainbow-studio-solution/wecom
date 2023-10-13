@@ -1,1492 +1,3020 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!--  更新时间 2021-11-16-->
+    <!--  更新时间 2022-10-10 -->
+    
     <data noupdate="0">
         <!-- 0. 基础 -->
         <record id="wecom_service_api_base_get_access_token" model="wecom.service_api_list">
             <field name="type">1</field>
-            <field name="name">Get Access Token</field>
+            <field name="name">获取access_token</field>
+            <field name="description" type="html">
+                <p>获取access_token是调用企业微信API接口的第一步，相当于创建了一个登录凭证，其它的业务API接口，都需要依赖于access_token来鉴权调用者身份。<br></br>因此开发者，在使用业务接口前，要明确access_token的颁发来源，使用正确的access_token。</p>
+            </field>
             <field name="function_name">GET_ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/gettoken</field>
             <field name="sequence">1</field>
         </record>
 
-        <!-- 1. 通讯录 -->
+        <record id="wecom_service_api_base_get_jsapi_ticket" model="wecom.service_api_list">
+            <field name="type">1</field>
+            <field name="name">获取企业的jsapi_ticket</field>
+            <field name="description" type="html">
+                <p>生成签名之前必须先了解一下jsapi_ticket，jsapi_ticket是H5应用调用企业微信JS接口的临时票据。正常情况下，<b>jsapi_ticket的有效期为7200秒</b>，通过access_token来获取。由于获取jsapi_ticket的api调用次数非常有限（一小时内，一个企业最多可获取400次，且单个应用不能超过100次），频繁刷新jsapi_ticket会导致api调用受限，影响自身业务，<b>开发者必须在自己的服务全局缓存jsapi_ticket。</b>
+                </p>
+            </field>
+            <field name="function_name">GET_JSAPI_TICKET</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/get_jsapi_ticket?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">2</field>
+        </record>
+
+        <record id="wecom_service_api_base_get_api_domain_ip" model="wecom.service_api_list">
+            <field name="type">1</field>
+            <field name="name">获取企业微信API域名IP段</field>
+            <field name="description" type="html">
+                <p>API域名IP即qyapi.weixin.qq.com的解析地址，由开发者调用企业微信端的接入IP。如果企业需要做防火墙配置，那么可以通过这个接口获取到所有相关的IP段。IP段有变更可能，当IP段变更时，新旧IP段会同时保留一段时间。建议企业每天定时拉取IP段，更新防火墙设置，避免因IP段变更导致网络不通。</p>
+            </field>
+            <field name="function_name">GET_API_DOMAIN_IP</field>
+            <field name="request_type">GET</field>
+            <field name="short_url">/cgi-bin/get_api_domain_ip?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">3</field>
+        </record>
+
+        <!-- 1. 通讯录管理 -->
         <!-- 1.1 通讯录-成员管理 -->
         <record id="wecom_service_api_contacts_user_create" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Create member</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 创建成员</field>
             <field name="function_name">USER_CREATE</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/create?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">100</field>
+            <field name="sequence">11001</field>
         </record>
         <record id="wecom_service_api_contacts_user_get" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get member</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 读取成员</field>
+            <field name="description" type="html">
+                <p>在通讯录同步助手中此接口可以读取企业通讯录的所有成员的信息，而自建应用可以读取该应用设置的可见范围内的成员信息。</p>
+            </field>
             <field name="function_name">USER_GET</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/get?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">101</field>
+            <field name="sequence">11002</field>
+            <field name="description" type="html">
+                <p>应用只能获取可见范围内的成员信息，且每种应用获取的字段有所不同，在返回结果说明中会逐个说明。企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>从2022年6月20号20点开始，除通讯录同步以外的基础应用（如客户联系、微信客服、会话存档、日程等），以及新创建的自建应用与代开发应用，调用该接口时，不再返回以下字段：头像、性别、手机、邮箱、企业邮箱、员工个人二维码、地址，应用需要通过<a href="https://developer.work.weixin.qq.com/document/path/91335" target ="_blank">oauth2手工授权</a>的方式获取管理员与员工本人授权的字段。
+                    </li>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_user_update" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Update members</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 更新成员</field>
             <field name="function_name">USER_UPDATE</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/get?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">102</field>
+            <field name="sequence">11003</field>
         </record>
         <record id="wecom_service_api_contacts_user_delete" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Delete member</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 删除成员</field>
+            <field name="description" type="html">
+                <p>仅通讯录同步助手或第三方通讯录应用可调用。
+                    <br></br>若是绑定了腾讯企业邮，则会同时删除邮箱帐号。
+                </p>
+            </field>
             <field name="function_name">USER_DELETE</field>
             <field name="request_type">POST</field>
             <field name="short_url">/cgi-bin/user/delete?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">103</field>
+            <field name="sequence">11004</field>
         </record>
         <record id="wecom_service_api_contacts_user_batch_delete" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Batch delete members</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 批量删除成员</field>
             <field name="function_name">USER_BATCH_DELETE</field>
             <field name="request_type">POST</field>
             <field name="short_url">/cgi-bin/user/batchdelete?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">104</field>
+            <field name="sequence">11005</field>
         </record>
         <record id="wecom_service_api_contacts_user_simple_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get department members</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取部门成员</field>
             <field name="function_name">USER_SIMPLE_LIST</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">105</field>
+            <field name="sequence">11006</field>
+            <field name="description" type="html">
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点：： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_user_details_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get department member details</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取部门成员详情</field>
             <field name="function_name">USER_LIST</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/list?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">106</field>
+            <field name="sequence">11007</field>
+            <field name="description" type="html">
+                <p>应用只能获取可见范围内的成员信息，且每种应用获取的字段有所不同，在返回结果说明中会逐个说明。企业通讯录安全特别重要，企业微信持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        从2022年6月20号20点开始，除通讯录同步以外的基础应用（如客户联系、微信客服、会话存档、日程等），以及新创建的自建应用与代开发应用，调用该接口时，不再返回以下字段：头像、性别、手机、邮箱、企业邮箱、员工个人二维码、地址，应用需要通过<a href="https://developer.work.weixin.qq.com/document/path/91335" target ="_blank">oauth2手工授权</a>的方式获取管理员与员工本人授权的字段。
+                    </li>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/96021" target ="_blank">「获取成员ID列表」</a>和                        <a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取userid和部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
         <record id="wecom_service_api_contacts_userid_to_openid" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Userid and openid are interchangeable</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; userid与openid互换 &gt; userid转openid</field>
+            <field name="description" type="html">
+                <p>该接口使用场景为企业支付，在使用企业红包和向员工付款时，需要自行将企业微信的userid转成openid。 <br></br>
+                    <br></br>
+            注：需要成员使用微信登录企业微信或者关注微信插件（原企业号）才能转成openid;<br></br>
+            如果是外部联系人，请使用                    <a href="https://developer.work.weixin.qq.com/document/path/90202#18820" target ="_blank">外部联系人openid转换</a>转换openid
+                </p>
+            </field>
             <field name="function_name">USERID_TO_OPENID</field>
             <field name="request_type">POST</field>
             <field name="short_url">/cgi-bin/user/convert_to_openid?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">107</field>
+            <field name="sequence">11008</field>
+        </record>
+        <record id="wecom_service_api_contacts_openid_to_userid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; userid与openid互换 &gt; openid转userid</field>
+            <field name="description" type="html">
+                <p>该接口主要应用于使用企业支付之后的结果查询。
+                    <br></br>开发者需要知道某个结果事件的openid对应企业微信内成员的信息时，可以通过调用该接口进行转换查询。</p>
+            </field>
+            <field name="function_name">OPENID_TO_USERID</field>
+            <field name="request_type">POST</field>
+            <field name="short_url">/cgi-bin/user/convert_to_userid?access_token=ACCESS_TOKEN</field>
+            <field name="sequence">11009</field>
         </record>
         <record id="wecom_service_api_contacts_user_auth_success" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Member secondary verification</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 二次验证</field>
             <field name="function_name">USER_AUTH_SUCCESS</field>
             <field name="request_type">GET</field>
             <field name="short_url">/cgi-bin/user/authsucc?access_token=ACCESS_TOKEN</field>
-            <field name="sequence">108</field>
+            <field name="sequence">11010</field>
         </record>
         <record id="wecom_service_api_contacts_batch_invite" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Invite members</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 邀请成员</field>
+            <field name="description" type="html">
+                <p>企业可通过接口批量邀请成员使用企业微信，邀请后将通过短信或邮件下发通知。</p>
+            </field>
             <field name="function_name">BATCH_INVITE</field>
             <field name="short_url">/cgi-bin/batch/invite?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">109</field>
+            <field name="sequence">11011</field>
         </record>
         <record id="wecom_service_api_contacts_get_join_qrcode" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get join QR code</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取加入企业二维码</field>
+            <field name="description" type="html">
+                <p>支持企业用户获取实时成员加入二维码。</p>
+            </field>
             <field name="function_name">GET_JOIN_QRCODE</field>
             <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">110</field>
+            <field name="sequence">11012</field>
         </record>
         <record id="wecom_service_api_contacts_get_active_members" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get active members</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取企业活跃成员数</field>
             <field name="function_name">GET_ACTIVE_MEMBERS</field>
             <field name="short_url">/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">111</field>
+            <field name="sequence">11013</field>
+        </record>
+        <record id="wecom_service_api_contacts_getuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 手机号获取userid</field>
+            <field name="description" type="html">
+                <p>通过手机号获取其所对应的userid。</p>
+            </field>
+            <field name="function_name">GETUSERID</field>
+            <field name="short_url">/cgi-bin/user/getuserid?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11013</field>
+        </record>
+        <record id="wecom_service_api_contacts_list_member_auth" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取成员授权列表</field>
+            <field name="description" type="html">
+                <p>当企业当前授权模式为成员授权时，可调用该接口获取成员授权列表。</p>
+            </field>
+            <field name="function_name">LIST_MEMBER_AUTH</field>
+            <field name="short_url">/cgi-bin/user/list_member_auth?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11014</field>
+        </record>
+        <record id="wecom_service_api_contacts_check_member_auth" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 查询成员用户是否已授权</field>
+            <field name="description" type="html">
+                <p>当企业当前授权模式为成员授权时，可调用该接口查询成员用户是否已授权。</p>
+            </field>
+            <field name="function_name">CHECK_MEMBER_AUTH</field>
+            <field name="short_url">/cgi-bin/user/check_member_auth?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11015</field>
+        </record>
+        <record id="wecom_service_api_contacts_list_selected_ticket_user" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取选人ticket对应的用户</field>
+            <field name="description" type="html">
+                <p>当企业以成员授权的方式安装了第三方应用，成员在企业微信终端通过选人jsapi选择通讯录，应用获取到selectedTicket后，可调用该接口获取SelectedTicket对应的用户open_userid列表。</p>
+            </field>
+            <field name="function_name">LIST_SELECTED_TICKET_USER</field>
+            <field name="short_url">/cgi-bin/user/list_selected_ticket_user?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11016</field>
+        </record>
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; userid转换为open_userid</field>
+            <field name="description" type="html">
+                <p>将自建应用或代开发应用获取的userid转换为第三方应用的userid</p>
+            </field>
+            <field name="function_name">USERID_TO_OPENUSERID</field>
+            <field name="short_url">/cgi-bin/user/userid_to_openuserid?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11017</field>
+        </record>
+
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 邮箱获取userid</field>
+            <field name="description" type="html">
+                <p>通过邮箱获取其所对应的userid。</p>
+            </field>
+            <field name="function_name">GET_USERID_BY_EMAIL</field>
+            <field name="short_url">/cgi-bin/user/get_userid_by_email?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11018</field>
+        </record>
+        <record id="wecom_service_api_contacts_userid_to_openuserid" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 成员管理 &gt; 获取成员ID列表</field>
+            <field name="description" type="html">
+                <p>获取企业成员的open_userid与对应的部门ID列表。</p>
+            </field>
+            <field name="function_name">USER_LIST_ID</field>
+            <field name="short_url">/cgi-bin/user/list_id?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">11019</field>
         </record>
 
         <!-- 1.2 通讯录-部门管理 -->
         <record id="wecom_service_api_contacts_department_create" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Create Department</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 创建部门</field>
             <field name="function_name">DEPARTMENT_CREATE</field>
             <field name="short_url">/cgi-bin/department/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">200</field>
+            <field name="sequence">12001</field>
         </record>
         <record id="wecom_service_api_contacts_department_update" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Update department</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 更新部门</field>
             <field name="function_name">DEPARTMENT_UPDATE</field>
             <field name="short_url">/cgi-bin/department/update?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">201</field>
+            <field name="sequence">12002</field>
         </record>
         <record id="wecom_service_api_contacts_department_delete" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Delete Department</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 删除部门</field>
             <field name="function_name">DEPARTMENT_DELETE</field>
             <field name="short_url">/cgi-bin/department/delete?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">202</field>
+            <field name="sequence">12003</field>
         </record>
         <record id="wecom_service_api_contacts_department_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get Department list</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取部门列表</field>
+            <field name="description" type="html">
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
             <field name="function_name">DEPARTMENT_LIST</field>
             <field name="short_url">/cgi-bin/department/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">202</field>
+            <field name="sequence">12004</field>
+        </record>
+        <record id="wecom_service_api_contacts_department_simplelist" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取子部门ID列表</field>
+            <field name="function_name">DEPARTMENT_SIMPLELIST</field>
+            <field name="short_url">/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">12005</field>
+        </record>
+        <record id="wecom_service_api_contacts_department_details" model="wecom.service_api_list">
+            <field name="type">2</field>
+            <field name="name">通讯录管理 &gt; 部门管理 &gt; 获取单个部门详情</field>
+            <field name="function_name">DEPARTMENT_DETAILS</field>
+            <field name="short_url">/cgi-bin/department/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">12006</field>
+            <field name="description" type="html">
+                <p>企业通讯录安全特别重要，企业微信将持续升级加固通讯录接口的安全机制，以下是关键的变更点： </p>
+                <ul>
+                    <li>
+                        <b class="text-danger">【重要】</b>从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过<a href="https://developer.work.weixin.qq.com/document/path/95350" target ="_blank">「获取部门ID列表」</a>接口获取部门ID列表。<a href="https://developer.work.weixin.qq.com/document/path/96079" target ="_blank">查看调整详情</a>。
+                    </li>
+                </ul>
+            </field>
         </record>
 
         <!-- 1.3 通讯录-标签管理 -->
         <record id="wecom_service_api_contacts_tag_create" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Create tag</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 创建标签</field>
             <field name="function_name">TAG_CREATE</field>
             <field name="short_url">/cgi-bin/tag/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">300</field>
+            <field name="sequence">13001</field>
         </record>
         <record id="wecom_service_api_contacts_tag_update" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Update tag name</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 更新标签名字</field>
             <field name="function_name">TAG_UPDATE</field>
             <field name="short_url">/cgi-bin/tag/update?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">301</field>
+            <field name="sequence">13002</field>
         </record>
         <record id="wecom_service_api_contacts_tag_delete" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Delete tag</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 删除标签</field>
             <field name="function_name">TAG_DELETE</field>
             <field name="short_url">/cgi-bin/tag/delete?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">302</field>
+            <field name="sequence">13003</field>
         </record>
         <record id="wecom_service_api_contacts_tag_get_member" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get tag member</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 获取标签成员</field>
             <field name="function_name">TAG_GET_MEMBER</field>
             <field name="short_url">/cgi-bin/tag/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">303</field>
+            <field name="sequence">13004</field>
         </record>
         <record id="wecom_service_api_contacts_tag_add_member" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Add tag member</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 增加标签成员</field>
             <field name="function_name">TAG_ADD_MEMBER</field>
             <field name="short_url">/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">304</field>
+            <field name="sequence">13005</field>
         </record>
         <record id="wecom_service_api_contacts_tag_delete_member" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Delete tag member</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 删除标签成员</field>
             <field name="function_name">TAG_DELETE_MEMBER</field>
             <field name="short_url">/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">305</field>
+            <field name="sequence">13006</field>
         </record>
         <record id="wecom_service_api_contacts_tag_get_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get tag list</field>
+            <field name="name">通讯录管理 &gt; 标签管理 &gt; 获取标签列表</field>
             <field name="function_name">TAG_GET_LIST</field>
             <field name="short_url">/cgi-bin/tag/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">306</field>
+            <field name="sequence">13007</field>
         </record>
 
         <!-- 1.4 通讯录-异步批量接口 -->
         <record id="wecom_service_api_contacts_batch_syncuser" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Incremental update member</field>
+            <field name="name">通讯录管理 &gt; 异步批量接口 &gt; 增量更新成员</field>
+            <field name="description" type="html">
+                <p>
+本接口以userid（帐号）为主键，增量更新企业微信通讯录成员。请先下载CSV模板(下载增量更新成员模版)，根据需求填写文件内容。<br></br>
+                    <br></br>注意事项：                    <br></br>
+                    <br></br>
+                    <ol>
+                        <li>
+                        模板中的部门需填写部门ID，多个部门用分号分隔，部门ID必须为数字，根部门的部门id默认为1
+                        </li>
+                        <li>
+                        文件中存在、通讯录中也存在的成员，更新成员在文件中指定的字段值
+                        </li>
+                        <li>
+                        文件中存在、通讯录中不存在的成员，执行添加操作
+                        </li>
+                        <li>
+                        通讯录中存在、文件中不存在的成员，保持不变
+                        </li>
+                        <li>
+                        成员字段更新规则：可自行添加扩展字段。文件中有指定的字段，以指定的字段值为准；文件中没指定的字段，不更新
+                        </li>
+                    </ol>
+                </p>
+            </field>
             <field name="function_name">BATCH_SYNCUSER</field>
             <field name="short_url">/cgi-bin/batch/syncuser?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">400</field>
+            <field name="sequence">14001</field>
         </record>
         <record id="wecom_service_api_contacts_batch_replaceuser" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Full coverage member</field>
+            <field name="name">通讯录管理 &gt; 异步批量接口 &gt; 全量覆盖成员</field>
+            <field name="description" type="html">
+                <p>
+本接口以userid为主键，全量覆盖企业的通讯录成员，任务完成后企业的通讯录成员与提交的文件完全保持一致。请先下载CSV文件(下载全量覆盖成员模版)，根据需求填写文件内容。<br></br>
+                    <br></br>注意事项：                    <br></br>
+                    <br></br>
+                    <ol>
+                        <li>
+                        文件中存在、通讯录中也存在的成员，完全以文件为准
+                        </li>
+                        <li>
+                        文件中存在、通讯录中不存在的成员，执行添加操作
+                        </li>
+                        <li>
+                        文件中存在、通讯录中不存在的成员，执行添加操作
+                        </li>
+                        <li>
+                        通讯录中存在、文件中不存在的成员，执行删除操作。出于安全考虑，下面两种情形系统将中止导入并返回相应的错误码。
+                            <ol>
+                                <li>需要删除的成员多于50人，且多于现有人数的20%以上</li>
+                                <li>需要删除的成员少于50人，且多于现有人数的80%以上</li>
+                            </ol>
+                        </li>
+                        <li>
+                        成员字段更新规则：可自行添加扩展字段。文件中有指定的字段，以指定的字段值为准；文件中没指定的字段，不更新
+                        </li>
+                    </ol>
+                </p>
+            </field>
             <field name="function_name">BATCH_REPLACEUSER</field>
             <field name="short_url">/cgi-bin/batch/replaceuser?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">401</field>
+            <field name="sequence">14002</field>
         </record>
         <record id="wecom_service_api_contacts_batch_replaceparty" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Full coverage Department</field>
+            <field name="name">通讯录管理 &gt; 异步批量接口 &gt; 全量覆盖部门</field>
+            <field name="description" type="html">
+                <p>
+本接口以partyid为键，全量覆盖企业的通讯录组织架构，任务完成后企业的通讯录组织架构与提交的文件完全保持一致。请先下载CSV文件(下载全量覆盖部门模版)，根据需求填写文件内容。<br></br>
+                    <br></br>注意事项：                    <br></br>
+                    <br></br>
+                    <ol>
+                        <li>
+                        文件中存在、通讯录中也存在的部门，执行修改操作
+                        </li>
+                        <li>
+                        文件中存在、通讯录中不存在的部门，执行添加操作
+                        </li>
+                        <li>
+                        文件中不存在、通讯录中存在的部门，当部门下没有任何成员或子部门时，执行删除操作
+                        </li>
+                        <li>
+                        文件中不存在、通讯录中存在的部门，当部门下仍有成员或子部门时，暂时不会删除，当下次导入成员把人从部门移出后自动删除
+                        </li>
+                        <li>
+                        CSV文件中，部门名称、部门ID、父部门ID为必填字段，部门ID必须为数字，根部门的部门id默认为1；排序为可选字段，置空或填0不修改排序, order值大的排序靠前。
+                        </li>
+                    </ol>
+                </p>
+            </field>
             <field name="function_name">BATCH_REPLACEPARTY</field>
             <field name="short_url">/cgi-bin/batch/replaceparty?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">402</field>
+            <field name="sequence">14003</field>
         </record>
         <record id="wecom_service_api_contacts_batch_task_get_result" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get asynchronous task results</field>
+            <field name="name">通讯录管理 &gt; 异步批量接口 &gt; 获取异步任务结果</field>
             <field name="function_name">BATCH_TASK_GET_RESULT</field>
             <field name="short_url">/cgi-bin/batch/getresult?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">403</field>
+            <field name="sequence">14004</field>
         </record>
 
         <!-- 1.5 通讯录-互联企业 -->
         <record id="wecom_service_api_contacts_linkedcorp_get_perm_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get the visible range of connected enterprise applications</field>
+            <field name="name">通讯录管理 &gt; 互联企业 &gt; 获取应用的可见范围</field>
+            <field name="description" type="html">
+                <p>本接口只返回互联企业中非本企业内的成员和部门的信息，如果要获取本企业的可见范围，请调用“获取应用”接口</p>
+            </field>
             <field name="function_name">LINKEDCORP_GET_PERM_LIST</field>
             <field name="short_url">/cgi-bin/linkedcorp/agent/get_perm_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">500</field>
+            <field name="sequence">15001</field>
         </record>
         <record id="wecom_service_api_contacts_linkedcorp_user_get" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get details of Internet enterprise members</field>
+            <field name="name">通讯录管理 &gt; 互联企业 &gt; 获取互联企业成员详细信息</field>
             <field name="function_name">LINKEDCORP_USER_GET</field>
             <field name="short_url">/cgi-bin/linkedcorp/user/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">501</field>
+            <field name="sequence">15002</field>
         </record>
         <record id="wecom_service_api_contacts_linkedcorp_user_simplelist" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get members of Internet enterprise department</field>
+            <field name="name">通讯录管理 &gt; 互联企业 &gt; 获取互联企业部门成员</field>
             <field name="function_name">INKEDCORP_USER_SIMPLELIST</field>
             <field name="short_url">/cgi-bin/linkedcorp/user/simplelist?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">502</field>
+            <field name="sequence">15003</field>
         </record>
         <record id="wecom_service_api_contacts_linkedcorp_user_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get the details of members of the Internet enterprise department</field>
+            <field name="name">通讯录管理 &gt; 互联企业 &gt; 获取互联企业部门成员详情</field>
             <field name="function_name">LINKEDCORP_USER_LIST</field>
             <field name="short_url">/cgi-bin/linkedcorp/user/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">503</field>
+            <field name="sequence">15004</field>
         </record>
         <record id="wecom_service_api_contacts_linkedcorp_department_list" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get the list of interconnected enterprise departments</field>
+            <field name="name">通讯录管理 &gt; 互联企业 &gt; 获取互联企业部门列表</field>
             <field name="function_name">LINKEDCORP_DEPARTMENT_LIST</field>
             <field name="short_url">/cgi-bin/linkedcorp/department/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">504</field>
+            <field name="sequence">15005</field>
         </record>
 
         <!-- 1.6 通讯录-异步导出接口 -->
         <record id="wecom_service_api_contacts_export_simple_user" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Export member</field>
+            <field name="name">通讯录管理 &gt; 异步导出接口 &gt; 导出成员</field>
             <field name="function_name">EXPORT_SIMPLE_USER</field>
             <field name="short_url">/cgi-bin/export/simple_user?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">600</field>
+            <field name="sequence">16001</field>
         </record>
         <record id="wecom_service_api_contacts_export_user" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Export member details</field>
+            <field name="name">通讯录管理 &gt; 异步导出接口 &gt; 导出成员详情</field>
             <field name="function_name">EXPORT_USER</field>
             <field name="short_url">/cgi-bin/export/user?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">601</field>
+            <field name="sequence">16002</field>
         </record>
         <record id="wecom_service_api_contacts_export_department" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Export Department</field>
+            <field name="name">通讯录管理 &gt; 异步导出接口 &gt; 导出部门</field>
             <field name="function_name">EXPORT_DEPARTMENT</field>
             <field name="short_url">/cgi-bin/export/department?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">602</field>
+            <field name="sequence">16003</field>
         </record>
         <record id="wecom_service_api_contacts_export_taguser" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Export tag members</field>
+            <field name="name">通讯录管理 &gt; 异步导出接口 &gt; 导出标签成员</field>
             <field name="function_name">EXPORT_TAGUSER</field>
             <field name="short_url">/cgi-bin/export/taguser?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">603</field>
+            <field name="sequence">16004</field>
         </record>
         <record id="wecom_service_api_contacts_export_get_result" model="wecom.service_api_list">
             <field name="type">2</field>
-            <field name="name">Get export results</field>
+            <field name="name">通讯录管理 &gt; 异步导出接口 &gt; 获取导出结果</field>
             <field name="function_name">EXPORT_GET_RESULT</field>
             <field name="short_url">/cgi-bin/export/get_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">604</field>
+            <field name="sequence">16005</field>
         </record>
+
 
         <!-- 2. 客户联系 -->
         <!-- 2.1 客户联系-企业服务人员管理 -->
         <record id="wecom_service_api_customer_externalcontact_get_follow_user_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Gets a list of members that configure the customer contact function</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 获取配置了客户联系功能的成员列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方服务商可通过此接口获取配置了客户联系功能的成员列表。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_FOLLOW_USER_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_follow_user_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">1000</field>
+            <field name="sequence">21001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_add_contact_way" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Configure customer contact "contact me" method</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 配置客户联系「联系我」方式</field>
+            <field name="description" type="html">
+                <p>企业可以在管理后台-客户联系-加客户中配置成员的「联系我」的二维码或者小程序按钮，客户通过扫描二维码或点击小程序上的按钮，即可获取成员联系方式，主动联系到成员。                    <br></br>
+                    企业可通过此接口为具有客户联系功能的成员生成专属的「联系我」二维码或者「联系我」按钮。                    <br></br>如果配置的是「联系我」按钮，需要开发者的小程序接入小程序插件。                    <br></br>
+                    <br></br>注意:                    <br></br>
+                    通过API添加的「联系我」不会在管理端进行展示，每个企业可通过API最多配置50万个「联系我」。<br></br>
+                    用户需要妥善存储返回的config_id，config_id丢失可能导致用户无法编辑或删除「联系我」。<br></br>
+                    临时会话模式不占用「联系我」数量，但每日最多添加10万个，并且仅支持单人。<br></br>
+                    临时会话模式的二维码，添加好友完成后该二维码即刻失效。                    <br></br>
+                </p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/externalcontact/add_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1001</field>
+            <field name="sequence">21002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_contact_way" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the configured "contact me" method</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 取企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>获取企业配置的「联系我」二维码和「联系我」小程序按钮。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/externalcontact/get_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1002</field>
+            <field name="sequence">21003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_list_contact_way" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the configured "contact me" list</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 获取企业已配置的「联系我」列表</field>
+            <field name="description" type="html">
+                <p>获取企业配置的「联系我」二维码和「联系我」小程序插件列表。不包含临时会话。</p>
+                <p>注意，该接口仅可获取2021年7月10日以后创建的「联系我」</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_LIST_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/externalcontact/list_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1003</field>
+            <field name="sequence">21004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_update_contact_way" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Update the configured "contact me" mode</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 更新企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>更新企业配置的「联系我」二维码和「联系我」小程序按钮中的信息，如使用人员和备注等。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_UPDATE_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/externalcontact/update_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1004</field>
+            <field name="sequence">21005</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_del_contact_way" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete the configured "contact me" mode</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 删除企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>删除一个已配置的「联系我」二维码或者「联系我」小程序按钮。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_DEL_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/externalcontact/del_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1005</field>
+            <field name="sequence">21006</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_close_temp_chat" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Close temporary chat</field>
+            <field name="name">客户联系 &gt; 企业服务人员管理 &gt; 客户联系「联系我」管理 &gt; 结束临时会话</field>
+            <field name="description" type="html">
+                <p>将指定的企业成员和客户之前的临时会话断开，断开前会自动下发已配置的结束语。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CLOSE_TEMP_CHAT</field>
             <field name="short_url">/cgi-bin/externalcontact/close_temp_chat?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1006</field>
+            <field name="sequence">21007</field>
         </record>
 
         <!-- 2.2 客户联系-客户管理 -->
         <record id="wecom_service_api_customer_externalcontact_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get customer list</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 获取客户列表</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取指定成员添加的客户列表。客户是指配置了客户联系功能的成员所添加的外部联系人。没有配置客户联系功能的成员，所添加的外部联系人将不会作为客户返回。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">1100</field>
+            <field name="sequence">22001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get customer details</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 获取客户详情</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，根据外部联系人的userid，拉取客户详情。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET</field>
             <field name="short_url">/cgi-bin/externalcontact/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">1101</field>
+            <field name="sequence">22002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_batch_get_by_user" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get customer details in batch</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 批量获取客户详情</field>
+            <field name="description" type="html">
+                <p>企业/第三方可通过此接口获取指定成员添加的客户信息列表。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_BATCH_GET_BY_USER</field>
             <field name="short_url">/cgi-bin/externalcontact/batch/get_by_user?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1102</field>
+            <field name="sequence">22003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_remark" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Modifying customer remark information</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 修改客户备注信息</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口修改指定用户添加的客户的备注信息。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_REMARK</field>
             <field name="short_url">/cgi-bin/externalcontact/remark?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1103</field>
+            <field name="sequence">22004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get a list of all customer rule groups</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 获取规则组列表</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取企业配置的所有客户规则组id列表。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1104</field>
+            <field name="sequence">22005</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_get" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the details of a customer rule group</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 获取规则组详情</field>
+            <field name="description" type="html">
+                <p>企业可以通过此接口获取某个客户规则组的详细信息。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_GET</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1105</field>
+            <field name="sequence">22006</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_get_range" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of members and departments managed by a customer rule group</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 获取规则组管理范围</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取某个客户规则组管理的成员和部门列表</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_GET_RANGE</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/get_range?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1106</field>
+            <field name="sequence">22007</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_create" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create a new customer rule group</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 创建新的规则组</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口创建一个新的客户规则组。该接口仅支持串行调用，请勿并发创建规则组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_CREATE</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1106</field>
+            <field name="sequence">22008</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_edit" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit the basic information of the rule group and modify the management scope of the customer rule group</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 编辑规则组及其管理范围</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口编辑规则组的基本信息和修改客户规则组管理范围。该接口仅支持串行调用，请勿并发修改规则组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_EDIT</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/edit?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1107</field>
+            <field name="sequence">22009</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_customer_strategy_del" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete a rule group</field>
+            <field name="name">客户联系 &gt; 客户管理 &gt; 客户联系规则组管理 &gt; 删除规则组</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口删除某个规则组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_CUSTOMER_STRATEGY_DEL</field>
             <field name="short_url">/cgi-bin/externalcontact/customer_strategy/del?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1108</field>
+            <field name="sequence">22010</field>
         </record>
 
         <!-- 2.3 客户联系-客户标签管理 -->
         <record id="wecom_service_api_customer_externalcontact_get_corp_tag_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get enterprise customer tag details</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业标签 &gt; 获取企业标签库</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取企业客户标签详情。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_CORP_TAG_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_corp_tag_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1130</field>
+            <field name="sequence">23001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_add_corp_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Add a new tag group and label to the customer tag library</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业标签 &gt; 添加企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口向客户标签库中添加新的标签组和标签，每个企业最多可配置3000个企业标签。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_CORP_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/add_corp_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1131</field>
+            <field name="sequence">23002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_edit_corp_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit the name or order value of the customer tag / tag group</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业标签 &gt; 编辑企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口编辑客户标签/标签组的名称或次序值。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_EDIT_CORP_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/edit_corp_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1132</field>
+            <field name="sequence">23003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_del_corp_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete a tag in the customer tag library, or delete the entire tag group.</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业标签 &gt; 删除企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口删除客户标签库中的标签，或删除整个标签组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_DEL_CORP_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/del_corp_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1133</field>
+            <field name="sequence">23004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_strategy_tag_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the enterprise customer tag details within a rule group.</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业规则组下的客户标签 &gt; 获取指定规则组下的企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取某个规则组内的企业客户标签详情</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_STRATEGY_TAG_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_strategy_tag_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1134</field>
+            <field name="sequence">23005</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_add_strategy_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Add a new tag group and tag to the rule group</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业规则组下的客户标签 &gt; 为指定规则组创建企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口向规则组中添加新的标签组和标签，                    <b>每个企业的企业标签和规则组标签合计最多可配置3000个</b>。注意，                    <b>仅可在一级规则组下添加标签</b>。
+                </p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_STRATEGY_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/add_strategy_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1135</field>
+            <field name="sequence">23006</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_edit_strategy_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit the enterprise customer tag under the specified rule group</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业规则组下的客户标签 &gt; 编辑指定规则组下的企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口编辑指定规则组下的客户标签/标签组的名称或次序值，但不可重新指定标签/标签组所属规则组。
+                </p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_EDIT_STRATEGY_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/edit_strategy_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1136</field>
+            <field name="sequence">23007</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_del_strategy_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Deletes the enterprise customer tag under the specified rule group</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 管理企业规则组下的客户标签 &gt; 删除指定规则组下的企业客户标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口删除某个规则组下的标签，或删除整个标签组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_DEL_STRATEGY_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/del_strategy_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1137</field>
+            <field name="sequence">23008</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_mark_tag" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit customer enterprise tag</field>
+            <field name="name">客户联系 &gt; 客户标签管理 &gt; 编辑客户企业标签</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口为指定成员的客户添加上由企业统一配置的标签</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MARK_TAG</field>
             <field name="short_url">/cgi-bin/externalcontact/mark_tag?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1138</field>
+            <field name="sequence">23009</field>
         </record>
 
         <!-- 2.4 客户联系-在职继承 -->
         <record id="wecom_service_api_customer_externalcontact_transfer_customer" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Assigning customers to incumbent membersg</field>
+            <field name="name">客户联系 &gt; 在职继承 &gt; 分配在职成员的客户</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，转接在职成员的客户给其他成员。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_TRANSFER_CUSTOMER</field>
             <field name="short_url">/cgi-bin/externalcontact/transfer_customer?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1140</field>
+            <field name="sequence">24001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_transfer_result" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Query the customer transfer status of active members</field>
+            <field name="name">客户联系 &gt; 在职继承 &gt; 查询客户接替状态</field>
+            <field name="description" type="html">
+                <p>企业和第三方可通过此接口查询在职成员的客户转接情况。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_TRANSFER_RESULT</field>
             <field name="short_url">/cgi-bin/externalcontact/transfer_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1141</field>
+            <field name="sequence">24002</field>
         </record>
 
         <!-- 2.5 客户联系-离职继承 -->
         <record id="wecom_service_api_customer_externalcontact_get_unassigned_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of resigned members to be assigned</field>
+            <field name="name">客户联系 &gt; 离职继承 &gt; 获取待分配的离职成员列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方可通过此接口，获取所有离职成员的客户列表，并可进一步调用分配离职成员的客户接口将这些客户重新分配给其他企业成员。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_UNASSIGNED_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_unassigned_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1140</field>
+            <field name="sequence">25001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_resigned_transfer_customer" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Assign customers of resigned members to other members</field>
+            <field name="name">客户联系 &gt; 离职继承 &gt; 分配离职成员的客户</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，分配离职成员的客户给其他成员</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_RESIGNED_TRANSFER_CUSTOMER</field>
             <field name="short_url">/cgi-bin/externalcontact/resigned/transfer_customer?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1141</field>
+            <field name="sequence">25002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_resigned_transfer_result" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Query the customer allocation status of resigned members</field>
+            <field name="name">客户联系 &gt; 离职继承 &gt; 查询客户接替状态</field>
+            <field name="description" type="html">
+                <p>企业和第三方可通过此接口查询离职成员的客户分配情况</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_RESIGNED_TRANSFER_RESULT</field>
             <field name="short_url">/cgi-bin/externalcontact/resigned/transfer_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1142</field>
+            <field name="sequence">25003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_groupchat_transfer" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Assign the group chat with the resigned member as the group leader to another customer service member.</field>
+            <field name="name">客户联系 &gt; 离职继承 &gt; 分配离职成员的客户群</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，将已离职成员为群主的群，分配给另一个客服成员。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUPCHAT_TRANSFER</field>
             <field name="short_url">/cgi-bin/externalcontact/groupchat/transfer?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1143</field>
+            <field name="sequence">25004</field>
         </record>
 
-        <!-- 2.6 客户联系-客户朋友圈 -->
+        <!-- 2.6 客户联系-客户群管理 -->
+        <record id="wecom_service_api_customer_externalcontact_groupchat_list" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 客户群管理 &gt; 获取客户群列表</field>
+            <field name="description" type="html">
+                <p>该接口用于获取配置过客户群管理的客户群列表。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_LIST</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">26001</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_get" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 客户群管理 &gt; 获取客户群详情</field>
+            <field name="description" type="html">
+                <p>通过客户群ID，获取详情。包括群名、群成员列表、群成员入群时间、入群方式。（客户群是由具有客户群使用权限的成员创建的外部群）</p>
+                <p>需注意的是，如果发生群信息变动，会立即收到群变更事件，但是部分信息是异步处理，可能需要等一段时间调此接口才能得到最新结果</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_GET</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/get?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">26002</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_opengid_to_chatid" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 客户群管理 &gt; 客户群opengid转换</field>
+            <field name="description" type="html">
+                <p>用户在微信里的客户群里打开小程序时，某些场景下可以获取到群的opengid，如果该群是企业微信的客户群，则企业或第三方可以调用此接口将一个opengid转换为客户群chat_id</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_OPENGID_TO_CHATID</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/opengid_to_chatid?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">26003</field>
+        </record>
+
+        <!-- 2.7 客户联系-联系我与客户入群方式 -->
+        <!-- 2.7.1 客户联系「联系我」管理 -->
+        <record id="wecom_service_api_customer_externalcontact_add_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 配置客户联系「联系我」方式</field>
+            <field name="description" type="html">
+                <p>企业可以在管理后台-客户联系-加客户中配置成员的「联系我」的二维码或者小程序按钮，客户通过扫描二维码或点击小程序上的按钮，即可获取成员联系方式，主动联系到成员。</p>
+                <p>企业可通过此接口为具有客户联系功能的成员生成专属的「联系我」二维码或者「联系我」按钮。</p>
+                <p>如果配置的是「联系我」按钮，需要开发者的小程序接入小程序插件。</p>
+                <p></p>
+                <p>注意:</p>
+                <p>通过API添加的「联系我」不会在管理端进行展示，每个企业可通过API最多配置<b>50万</b>个「联系我」。
+                </p>
+                <p>用户需要妥善存储返回的config_id，<b>config_id丢失可能导致用户无法编辑或删除「联系我」</b>。
+                </p>
+                <p>临时会话模式不占用「联系我」数量，但每日最多添加                    <b>10万</b>个，并且仅支持单人。
+                </p>
+                <p>临时会话模式的二维码，添加好友完成后该二维码即刻失效。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_ADD_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/add_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27001</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_get_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 获取企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>获取企业配置的「联系我」二维码和「联系我」小程序按钮。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GET_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/get_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27002</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_list_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 获取企业已配置的「联系我」列表</field>
+            <field name="description" type="html">
+                <p>获取企业配置的「联系我」二维码和「联系我」小程序插件列表。不包含临时会话。</p>
+                <p>注意，                    <b>该接口仅可获取2021年7月10日以后创建的「联系我」</b>
+                </p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_LIST_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/list_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27003</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_update_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 更新企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>更新企业配置的「联系我」二维码和「联系我」小程序按钮中的信息，如使用人员和备注等。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_UPDATE_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/update_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27004</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_del_contact_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 删除企业已配置的「联系我」方式</field>
+            <field name="description" type="html">
+                <p>删除一个已配置的「联系我」二维码或者「联系我」小程序按钮。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_DEL_CONTACT_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/del_contact_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27005</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_close_temp_chat" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 客户联系「联系我」管理 &gt; 结束临时会话</field>
+            <field name="description" type="html">
+                <p>将指定的企业成员和客户之前的临时会话断开，断开前会自动下发已配置的结束语。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_CLOSE_TEMP_CHAT</field>
+            <field name="short_url">/cgi-bin/externalcontact/close_temp_chat?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27006</field>
+        </record>
+        <!-- 2.7.2 客户群「加入群聊」管理 -->
+        <record id="wecom_service_api_customer_externalcontact_groupchat_add_join_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 户群「加入群聊」管理 &gt; 配置客户群进群方式</field>
+            <field name="description" type="html">
+                <p>企业可以在管理后台-客户联系中配置「加入群聊」的二维码或者小程序按钮，客户通过扫描二维码或点击小程序上的按钮，即可加入特定的客户群</p>
+                <p>企业可以在管理后台-企业可通过此接口为具有客户联系功能的成员生成专属的二维码或者小程序按钮。</p>
+                <p>企业可以在管理后台-如果配置的是小程序按钮，需要开发者的小程序接入小程序插件。</p>
+                <p>
+                    <b>注意:</b>
+                </p>
+                <p>
+                    <b>通过API添加的配置不会在管理端进行展示，每个企业可通过API最多配置50万个「加入群聊」(与「联系我」共用50万的额度)。</b>
+                </p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_ADD_JOIN_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/add_join_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27010</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_get_join_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 户群「加入群聊」管理 &gt; 获取客户群进群方式配置</field>
+            <field name="description" type="html">
+                <p>获取企业配置的群二维码或小程序按钮。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_GET_JOIN_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/get_join_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27011</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_update_join_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 户群「加入群聊」管理 &gt; 更新客户群进群方式配置</field>
+            <field name="description" type="html">
+                <p>更新进群方式配置信息。注意：使用覆盖的方式更新。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_UPDATE_JOIN_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/update_join_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27012</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_groupchat_del_join_way" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 联系我与客户入群方式 &gt; 户群「加入群聊」管理 &gt; 删除客户群进群方式配置</field>
+            <field name="description" type="html">
+                <p>删除一个进群方式配置。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GROUPCHAT_DEL_JOIN_WAY</field>
+            <field name="short_url">/cgi-bin/externalcontact/groupchat/del_join_way?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27012</field>
+        </record>
+
+
+        <!-- 2.7 客户联系-客户朋友圈 -->
         <record id="wecom_service_api_customer_externalcontact_add_moment_task" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create a publishing task for customer circle of friends</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 企业发表内容到客户的朋友圈 &gt; 创建发表任务</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过该接口创建客户朋友圈的发表任务。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_MOMENT_TASK</field>
             <field name="short_url">/cgi-bin/externalcontact/add_moment_task?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1160</field>
+            <field name="sequence">27001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_task_result" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the publishing task creation results of the customer circle of friends</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 企业发表内容到客户的朋友圈 &gt; 获取任务创建结果</field>
+            <field name="description" type="html">
+                <p>由于发表任务的创建是异步执行的，应用需要再调用该接口以获取创建的结果。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_TASK_RESULT</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_task_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">1161</field>
+            <field name="sequence">27002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the published list of all customer circles of friends of the enterprise</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 获取客户朋友圈全部的发表记录 &gt; 获取企业全部的发表列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过该接口获取企业全部的发表内容。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1162</field>
+            <field name="sequence">27003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_task" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the implementation of circle of friends members published by the enterprise</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 获取客户朋友圈全部的发表记录 &gt; 获取客户朋友圈企业发表的列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过该接口获取企业发表的朋友圈成员执行情况</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_TASK</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_task?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1163</field>
+            <field name="sequence">27004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_customer_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the visible range selected when publishing in the customer circle of friends</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 获取客户朋友圈全部的发表记录 &gt; 获取客户朋友圈发表时选择的可见范围</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过该接口获取客户朋友圈创建时，选择的客户可见范围</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_CUSTOMER_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_customer_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1164</field>
+            <field name="sequence">27005</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_send_result" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of visible customers after the customer circle of friends is published</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 获取客户朋友圈全部的发表记录 &gt; 获取客户朋友圈发表后的可见客户列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过该接口获取客户朋友圈发表后，可在微信朋友圈中查看的客户列表</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_SEND_RESULT</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_send_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1165</field>
+            <field name="sequence">27006</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_moment_comments" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get interactive data of customer circle of friends</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 获取客户朋友圈全部的发表记录 &gt; 获取客户朋友圈的互动数据</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过此接口获取客户朋友圈的互动数据。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_MOMENT_COMMENTS</field>
             <field name="short_url">/cgi-bin/externalcontact/get_moment_comments?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1166</field>
+            <field name="sequence">27007</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_moment_strategy_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of all customer circle of friends rule groups configured by the enterprise.</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 获取规则组列表</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取企业配置的所有客户朋友圈规则组id列表。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/moment_strategy/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1167</field>
+            <field name="sequence">27008</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_moment_strategy_get" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the details of a customer circle of friends rule group.</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 获取规则组详情</field>
+            <field name="description" type="html">
+                <p>企业可以通过此接口获取某个客户朋友圈规则组的详细信息。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_GET</field>
             <field name="short_url">/cgi-bin/externalcontact/moment_strategy/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1168</field>
+            <field name="sequence">27009</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_moment_strategy_get_range" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of members and departments managed by a circle of friends rule group</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 获取规则组管理范围</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取某个朋友圈规则组管理的成员和部门列表</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_GET_RANGE</field>
             <field name="short_url">/cgi-bin/externalcontact/moment_strategy/get_range?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1169</field>
+            <field name="sequence">27010</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_moment_strategy_create" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create a new customer circle rule group</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 创建新的规则组</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口创建一个新的客户朋友圈规则组。该接口仅支持串行调用，请勿并发创建规则组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_CREATE</field>
             <field name="short_url">/cgi-bin/externalcontact/moment_strategy/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1170</field>
+            <field name="sequence">27011</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_moment_strategy_edit" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit the basic information of the rule group and modify the management scope of the customer circle of friends rule group</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 编辑规则组及其管理范围</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口编辑规则组的基本信息和修改客户朋友圈规则组管理范围。该接口仅支持串行调用，请勿并发修改规则组。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_EDIT</field>
             <field name="short_url">/cgi-bin/externalcontact/moment_strategy/edit?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1171</field>
+            <field name="sequence">27012</field>
+        </record>
+        <record id="wecom_service_api_customer_externalcontact_moment_strategy_del" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 客户朋友圈 &gt; 客户朋友圈规则组管理 &gt; 删除规则组</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口删除某个客户朋友圈规则组。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_MOMENT_STRATEGY_DEL</field>
+            <field name="short_url">/cgi-bin/externalcontact/moment_strategy/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">27013</field>
         </record>
 
-        <!-- 2.6 客户联系-消息推送 -->
+        <!-- 2.8 客户联系-消息推送 -->
+        <!-- 2.8.1 客户联系-消息推送-创建企业群发 -->
         <record id="wecom_service_api_customer_externalcontact_add_msg_template" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create enterprise mass distribution</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 创建企业群发</field>
+            <field name="description" type="html">
+                <p>企业跟第三方应用可通过此接口添加企业群发消息的任务并通知成员发送给相关客户或客户群。（注：企业微信终端需升级到2.7.5版本及以上</p>
+                <p>
+                    <b>注意：调用该接口并不会直接发送消息给客户/客户群，需要成员确认后才会执行发送（客服人员的企业微信需要升级到2.7.5及以上版本</b>
+                </p>
+                <p>
+                    <b>旧接口创建企业群发已经废弃，接口升级后支持发送视频文件，并且支持最多同时发送9个附件。</b>
+                </p>
+                <p>
+                    <b>仅会推送给最后跟客户进行聊天互动的企业成员。</b>
+                </p>
+                <p>每位客户/每个客户群每天可接收1条群发消息，可以是企业统一创建发送的，也可以是成员自己创建发送的；超过接收上限的客户/客户群将无法再收到群发消息。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_MSG_TEMPLATE</field>
             <field name="short_url">/cgi-bin/externalcontact/add_msg_template?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1200</field>
+            <field name="sequence">28001</field>
         </record>
+        <!-- 2.8.2 客户联系-消息推送-获取企业的全部群发记录 -->
         <record id="wecom_service_api_customer_externalcontact_get_groupmsg_list_v2" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get mass sending records of enterprises and members</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 获取企业的全部群发记录 &gt; 获取群发记录列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可通过此接口获取企业与成员的群发记录。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_LIST_V2</field>
             <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_list_v2?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1201</field>
+            <field name="sequence">28002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_groupmsg_task" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the sending task list of group sending members</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 获取企业的全部群发记录 &gt; 获取群发成员发送任务列表</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_TASK</field>
             <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_task?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1202</field>
+            <field name="sequence">28003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_groupmsg_send_result" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the execution results of enterprise mass distribution members</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 获取企业的全部群发记录 &gt; 获取企业群发成员执行结果</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_GROUPMSG_SEND_RESULT</field>
             <field name="short_url">/cgi-bin/externalcontact/get_groupmsg_send_result?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1203</field>
+            <field name="sequence">28004</field>
         </record>
+
+        <!-- 2.8.3 客户联系-消息推送-发送新客户欢迎语 -->
         <record id="wecom_service_api_customer_externalcontact_send_welcome_msg" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Send new customer welcome message</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 发送新客户欢迎语</field>
+            <field name="description" type="html">
+                <p>
+                    <ol>
+                        <li>企业微信在向企业推送添加外部联系人事件时，会额外返回一个welcome_code，企业以此为凭据调用接口，即可通过成员向新添加的客户发送个性化的欢迎语。</li>
+                        <li>为了保证用户体验以及避免滥用，企业仅可在收到相关事件后20秒内调用，且只可调用一次。
+                            <br></br>
+                            如果企业已经在管理端为相关成员配置了可用的欢迎语，则推送添加外部联系人事件时不会返回welcome_code。
+                        </li>
+                        <li>每次添加新客户时                            <b>可能有多个企业自建应用/第三方应用收到带有welcome_code的回调事件，但仅有最先调用的可以发送成功</b>。后续调用将返回                            <b>41051（externaluser has started chatting）</b>错误，请用户根据实际使用需求，合理设置应用可见范围，避免冲突
+                        </li>
+                        <li>
+                            <b>旧接口发送新客户欢迎语已经废弃，接口升级后支持发送视频文件，并且最多支持同时发送9个附件</b>
+                        </li>
+                    </ol>
+                </p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_SEND_WELCOME_MSG</field>
             <field name="short_url">/cgi-bin/externalcontact/send_welcome_msg?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1204</field>
+            <field name="sequence">28005</field>
         </record>
-        <!-- 欢迎语素材管理 -->
+
+        <!-- 2.8.4 客户联系-消息推送-入群欢迎语素材管理 -->
         <record id="wecom_service_api_customer_externalcontact_group_welcome_template_add" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Add material to the welcome language material library of the enterprise</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 入群欢迎语素材管理 &gt; 添加入群欢迎语素材</field>
+            <field name="description" type="html">
+                <p>企业可通过此API向企业的入群欢迎语素材库中添加素材。每个企业的入群欢迎语素材库中，最多容纳100个素材。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_ADD</field>
             <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/add?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1210</field>
+            <field name="sequence">28006</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_group_welcome_template_edit" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit the material in the group chat welcome material library</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 入群欢迎语素材管理 &gt; 编辑入群欢迎语素材</field>
+            <field name="description" type="html">
+                <p>企业可通过此API编辑入群欢迎语素材库中的素材，且仅能够编辑调用方自己创建的入群欢迎语素材</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_EDIT</field>
             <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/edit?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1211</field>
+            <field name="sequence">28007</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_group_welcome_template_get" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get group chat welcome material</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 入群欢迎语素材管理 &gt; 获取入群欢迎语素材</field>
+            <field name="description" type="html">
+                <p>企业可通过此API获取入群欢迎语素材。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_GET</field>
             <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1212</field>
+            <field name="sequence">28008</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_group_welcome_template_del" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete group chat welcome material</field>
+            <field name="name">客户联系 &gt; 消息推送 &gt; 入群欢迎语素材管理 &gt; 删除入群欢迎语素材</field>
+            <field name="description" type="html">
+                <p>企业可通过此API删除入群欢迎语素材，且仅能删除调用方自己创建的入群欢迎语素材。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUP_WELCOME_TEMPLATE_DEL</field>
             <field name="short_url">/cgi-bin/externalcontact/group_welcome_template/del?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1213</field>
+            <field name="sequence">28009</field>
         </record>
 
-        <!-- 2.7 客户联系-统计管理 -->
+        <!-- 2.9 客户联系-统计管理 -->
         <record id="wecom_service_api_customer_externalcontact_get_user_behavior_data" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the data of "contact customer statistics"</field>
-            <field name="function_name">EXTERNALCONTACT_GET_USER_BEHAVIOR_DAT</field>
+            <field name="name">客户联系 &gt; 统计管理 &gt; 获取「联系客户统计」数据</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取成员联系客户的数据，包括发起申请数、新增客户数、聊天数、发送消息数和删除/拉黑成员的客户数等指标。</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_GET_USER_BEHAVIOR_DATA</field>
             <field name="short_url">/cgi-bin/externalcontact/get_user_behavior_data?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1220</field>
+            <field name="sequence">28010</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_groupchat_statistic" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the data of "group chat data statistics" by group owner aggregation</field>
+            <field name="name">客户联系 &gt; 统计管理 &gt; 获取「群聊数据统计」数据 &gt; 按群主聚合的方式</field>
+            <field name="description" type="html">
+                <p>按群主聚合的方式获取指定日期的统计数据。注意，企业微信仅存储180天的数据。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUPCHAT_STATISTIC</field>
             <field name="short_url">/cgi-bin/externalcontact/groupchat/statistic?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1221</field>
+            <field name="sequence">28011</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_groupchat_statistic_group_by_day" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the data of "group chat data statistics" by natural day aggregation</field>
+            <field name="name">客户联系 &gt; 统计管理 &gt; 获取「群聊数据统计」数据 &gt; 按自然日聚合的方式</field>
+            <field name="description" type="html">
+                <p>按自然日聚合的方式获取指定日期的统计数据。注意，企业微信仅存储180天的数据。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GROUPCHAT_STATISTIC_GROUP_BY_DAY</field>
             <field name="short_url">/cgi-bin/externalcontact/groupchat/statistic_group_by_day?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1222</field>
+            <field name="sequence">28012</field>
         </record>
 
-        <!-- 2.8 客户联系-管理商品图册 -->
+        <!-- 2.9 客户联系-管理商品图册 -->
         <record id="wecom_service_api_customer_externalcontact_add_product_album" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create a product album</field>
+            <field name="name">客户联系 &gt; 管理商品图册 &gt; 创建商品图册</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口增加商品</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_PRODUCT_ALBUM</field>
             <field name="short_url">/cgi-bin/externalcontact/add_product_album?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1230</field>
+            <field name="sequence">29001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_product_album" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get a product album</field>
+            <field name="name">客户联系 &gt; 管理商品图册 &gt; 获取商品图册</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口获取商品信息</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_PRODUCT_ALBUM</field>
             <field name="short_url">/cgi-bin/externalcontact/get_product_album?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1231</field>
+            <field name="sequence">29002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_product_album_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get the list of product albums</field>
+            <field name="name">客户联系 &gt; 管理商品图册 &gt; 获取商品图册列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口导出商品</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_PRODUCT_ALBUM_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_product_album_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1232</field>
+            <field name="sequence">29003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_update_product_album" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Edit a product album</field>
+            <field name="name">客户联系 &gt; 管理商品图册 &gt; 编辑商品图册</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口修改商品信息</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_UPDATE_PRODUCT_ALBUM</field>
             <field name="short_url">/cgi-bin/externalcontact/update_product_album?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1233</field>
+            <field name="sequence">29004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_delete_product_album" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete a product album</field>
+            <field name="name">客户联系 &gt; 管理商品图册 &gt; 删除商品图册</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口删除商品信息</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_DELETE_PRODUCT_ALBUM</field>
             <field name="short_url">/cgi-bin/externalcontact/delete_product_album?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1234</field>
+            <field name="sequence">29005</field>
         </record>
 
-        <!-- 2.9 客户联系-管理聊天敏感词 -->
+        <!-- 2.10 客户联系-管理聊天敏感词 -->
         <record id="wecom_service_api_customer_externalcontact_add_intercept_rule" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Create sensitive word rule</field>
+            <field name="name">客户联系 &gt; 管理聊天敏感词 &gt; 新建敏感词规则</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口新建敏感词规则</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_ADD_INTERCEPT_RULE</field>
             <field name="short_url">/cgi-bin/externalcontact/add_intercept_rule?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1240</field>
+            <field name="sequence">21001</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_intercept_rule_list" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get sensitive word rule list</field>
+            <field name="name">客户联系 &gt; 管理聊天敏感词 &gt; 获取敏感词规则列表</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口获取敏感词规则列表</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_INTERCEPT_RULE_LIST</field>
             <field name="short_url">/cgi-bin/externalcontact/get_intercept_rule_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">1241</field>
+            <field name="sequence">21002</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_get_intercept_rule" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Get sensitive word rule details</field>
+            <field name="name">客户联系 &gt; 管理聊天敏感词 &gt; 获取敏感词规则详情</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口获取敏感词规则详情</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_GET_INTERCEPT_RULE</field>
             <field name="short_url">/cgi-bin/externalcontact/get_intercept_rule?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1242</field>
+            <field name="sequence">21003</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_update_intercept_rule" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Modify sensitive word rules</field>
+            <field name="name">客户联系 &gt; 管理聊天敏感词 &gt; 修改敏感词规则</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口修改敏感词规则</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_UPDATE_INTERCEPT_RULE</field>
             <field name="short_url">/cgi-bin/externalcontact/update_intercept_rule?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1243</field>
+            <field name="sequence">21004</field>
         </record>
         <record id="wecom_service_api_customer_externalcontact_del_intercept_rule" model="wecom.service_api_list">
             <field name="type">3</field>
-            <field name="name">Delete sensitive word rule</field>
+            <field name="name">客户联系 &gt; 管理聊天敏感词 &gt; 删除敏感词规则</field>
+            <field name="description" type="html">
+                <p>企业和第三方应用可以通过此接口修改敏感词规则</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_DEL_INTERCEPT_RULE</field>
             <field name="short_url">/cgi-bin/externalcontact/del_intercept_rule?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">1244</field>
+            <field name="sequence">21005</field>
+        </record>
+
+        <!-- 2.11 客户联系-上传附件资源 -->
+        <record id="wecom_service_api_customer_externalcontact_del_intercept_rule" model="wecom.service_api_list">
+            <field name="type">3</field>
+            <field name="name">客户联系 &gt; 上传附件资源</field>
+            <field name="description" type="html">
+                <p>素材上传得到media_id，该media_id仅三天内有效</p>
+                <p>media_id在同一企业内应用之间可以共享</p>
+            </field>
+            <field name="function_name">EXTERNALCONTACT_DEL_INTERCEPT_RULE</field>
+            <field name="short_url">/cgi-bin/media/upload_attachment?access_token=ACCESS_TOKEN&amp;media_type=TYPE&amp;attachment_type=1</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">21101</field>
         </record>
 
         <!-- 3 微信客服 -->
         <!-- 3.1 微信客服-客服账号管理 -->
         <record id="wecom_service_api_kf_account_add" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Add customer service account</field>
+            <field name="name">微信客服 &gt; 客服账号管理 &gt; 添加客服帐号</field>
+            <field name="description" type="html">
+                <p>添加客服帐号，并可设置客服名称和头像。目前一家企业最多可添加                    <b>5000个</b>客服帐号。
+                </p>
+            </field>
             <field name="function_name">KF_ACCOUNT_ADD</field>
             <field name="short_url">/cgi-bin/kf/account/add?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2000</field>
+            <field name="sequence">31001</field>
         </record>
         <record id="wecom_service_api_kf_account_del" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Delete customer service account</field>
+            <field name="name">微信客服 &gt; 客服账号管理 &gt; 删除客服帐号</field>
+            <field name="description" type="html">
+                <p>删除已有的客服帐号</p>
+            </field>
             <field name="function_name">KF_ACCOUNT_DEL</field>
             <field name="short_url">/cgi-bin/kf/account/del?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2001</field>
+            <field name="sequence">31002</field>
         </record>
         <record id="wecom_service_api_kf_account_update" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Modify customer service account</field>
+            <field name="name">微信客服 &gt; 客服账号管理 &gt; 修改客服帐号</field>
+            <field name="description" type="html">
+                <p>修改已有的客服帐号，可修改客服名称和头像。</p>
+            </field>
             <field name="function_name">KF_ACCOUNT_UPDATE</field>
             <field name="short_url">/cgi-bin/kf/account/update?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2002</field>
+            <field name="sequence">31003</field>
         </record>
         <record id="wecom_service_api_kf_account_list" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get customer service account list</field>
+            <field name="name">微信客服 &gt; 客服账号管理 &gt; 获取客服帐号列表</field>
+            <field name="description" type="html">
+                <p>获取客服帐号列表，包括所有的客服帐号的客服ID、名称和头像。</p>
+            </field>
             <field name="function_name">KF_ACCOUNT_LIST</field>
             <field name="short_url">/cgi-bin/kf/account/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">2003</field>
+            <field name="sequence">31004</field>
         </record>
         <record id="wecom_service_api_kf_add_contact_way" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get customer service account link</field>
+            <field name="name">微信客服 &gt; 客服账号管理 &gt; 获取客服帐号链接</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口获取带有不同参数的客服链接，不同客服帐号对应不同的客服链接。获取后，企业可将链接嵌入到网页等场景中，微信用户点击链接即可向对应的客服帐号发起咨询。企业可依据参数来识别用户的咨询来源等。</p>
+            </field>
             <field name="function_name">KF_ADD_CONTACT_WAY</field>
             <field name="short_url">/cgi-bin/kf/add_contact_way?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2004</field>
+            <field name="sequence">31005</field>
         </record>
 
         <!-- 3.2 微信客服-接待人员管理 -->
         <record id="wecom_service_api_kf_servicer_add" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Add Customer Service Receptionist</field>
+            <field name="name">微信客服 &gt; 接待人员管理 &gt; 添加接待人员</field>
+            <field name="description" type="html">
+                <p>添加指定客服帐号的接待人员，每个客服帐号目前最多可添加                    <b>2000个</b>接待人员，                    <b>20个</b>部门。
+                </p>
+            </field>
             <field name="function_name">KF_SERVICER_ADD</field>
             <field name="short_url">/cgi-bin/kf/servicer/add?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2010</field>
+            <field name="sequence">32001</field>
         </record>
         <record id="wecom_service_api_kf_servicer_del" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Delete Customer Service Receptionist</field>
+            <field name="name">微信客服 &gt; 接待人员管理 &gt; 删除接待人员</field>
+            <field name="description" type="html">
+                <p>从客服帐号删除接待人员</p>
+            </field>
             <field name="function_name">KF_SERVICER_DEL</field>
             <field name="short_url">/cgi-bin/kf/servicer/del?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2011</field>
+            <field name="sequence">32002</field>
         </record>
         <record id="wecom_service_api_kf_servicer_list" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get the list of customer service receptionists</field>
+            <field name="name">微信客服 &gt; 接待人员管理 &gt; 获取接待人员列表</field>
+            <field name="description" type="html">
+                <p>获取某个客服帐号的接待人员列表</p>
+            </field>
             <field name="function_name">KF_SERVICER_LIST</field>
             <field name="short_url">/cgi-bin/kf/servicer/list?access_token=ACCESS_TOKEN</field>
-            <field name="request_type">POST</field>
-            <field name="sequence">2012</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">32003</field>
         </record>
 
-        <!-- 3.2 微信客服-会话分配与消息收发 -->
-        <!-- 分配客服会话 -->
+        <!-- 3.3 微信客服-会话分配与消息收发 -->
+        <!-- 3.3.1 分配客服会话 -->
         <record id="wecom_service_api_kf_service_state_get" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get customer service session status</field>
+            <field name="name">微信客服 &gt; 会话分配与消息收发 &gt; 分配客服会话 &gt; 获取会话状态</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">KF_SERVICE_STATE_GET</field>
             <field name="short_url">/cgi-bin/kf/service_state/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2020</field>
+            <field name="sequence">33001</field>
         </record>
         <record id="wecom_service_api_kf_service_state_trans" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Transition customer service session state</field>
+            <field name="name">微信客服 &gt; 会话分配与消息收发 &gt; 分配客服会话 &gt; 变更会话状态</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">KF_SERVICE_STATE_TRANS</field>
             <field name="short_url">/cgi-bin/kf/service_state/trans?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2021</field>
+            <field name="sequence">33002</field>
         </record>
 
-        <!-- 接收消息和事件 -->
+        <!-- 3.3.2 接收消息和事件 -->
         <record id="wecom_service_api_kf_sync_msg" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Read customer service message</field>
+            <field name="name">微信客服 &gt; 会话分配与消息收发 &gt; 接收消息和事件 &gt; 读取消息</field>
+            <field name="description" type="html">
+                <p>微信客户发送的消息、接待人员在企业微信回复的消息、发送消息接口发送失败事件（如被用户拒收）、客户点击菜单消息的回复消息，可以通过该接口获取具体的消息内容和事件。不支持读取通过发送消息接口发送的消息。</p>
+                <p>支持的消息类型：文本、图片、语音、视频、文件、位置、链接、名片、小程序、菜单、事件。</p>
+            </field>
             <field name="function_name">KF_SYNC_MSG</field>
             <field name="short_url">/cgi-bin/kf/sync_msg?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2030</field>
+            <field name="sequence">33003</field>
         </record>
 
-        <!-- 发送消息 -->
+        <!-- 3.3.3发送消息 -->
         <record id="wecom_service_api_kf_send_msg" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Send customer service message</field>
+            <field name="name">微信客服 &gt; 会话分配与消息收发 &gt; 发送消息</field>
+            <field name="description" type="html">
+                <p>当微信客户处于“新接入待处理”或“由智能助手接待”状态下，可调用该接口给用户发送消息。</p>
+                <p>注意仅当微信客户在主动发送消息给客服后的48小时内，企业可发送消息给客户，最多可发送5条消息；若用户继续发送消息，企业可再次下发消息。</p>
+                <p>支持发送消息类型：文本、图片、语音、视频、文件、图文、小程序、菜单消息、地理位置。</p>
+                <p>目前该接口允许下发消息条数和下发时限如下：</p>
+                <p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>用户动作</th>
+                                <th>允许下发条数限制</th>
+                                <th>下发时限</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>用户发送消息</td>
+                                <td>5条</td>
+                                <td>48 小时</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </field>
             <field name="function_name">KF_SEND_MSG</field>
             <field name="short_url">/cgi-bin/kf/send_msg?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2040</field>
+            <field name="sequence">33004</field>
         </record>
 
-        <!-- 发送事件响应消息 -->
+        <!-- 3.3.4 送欢迎语等事件响应消息 -->
         <record id="wecom_service_api_kf_send_msg_on_event" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Send customer service event response message</field>
+            <field name="name">微信客服 &gt; 会话分配与消息收发 &gt; 送欢迎语等事件响应消息</field>
+            <field name="description" type="html">
+                <p>当特定的事件回调消息包含code字段，或通过接口变更到特定的会话状态，会返回code字段</p>
+                <p>开发者可以此code为凭证，调用该接口给用户发送相应事件场景下的消息，如客服欢迎语、客服提示语和会话结束语等。</p>
+                <p>除"用户进入会话事件"以外，响应消息仅支持会话处于获取该code的会话状态时发送，如将会话转入待接入池时获得的code仅能在会话状态为”待接入池排队中“时发送。</p>
+                <p></p>
+                <p>目前支持的事件场景和相关约束如下：</p>
+                <p>
+                    <table class="cherry-table">
+                        <thead>
+                            <tr>
+                                <th>事件场景</th>
+                                <th>允许下发条数</th>
+                                <th>code有效期</th>
+                                <th>支持的消息类型</th>
+                                <th>获取code途径</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>用户进入会话，用于发送客服欢迎语</td>
+                                <td>1条</td>
+                                <td>20秒</td>
+                                <td>文本、菜单</td>
+                                <td>事件回调</td>
+                            </tr>
+                            <tr>
+                                <td>进入接待池，用于发送排队提示语等</td>
+                                <td>1条</td>
+                                <td>48小时</td>
+                                <td>文本</td>
+                                <td>转接会话接口</td>
+                            </tr>
+                            <tr>
+                                <td>从接待池接入会话，用于发送非工作时间的提示语或超时未回复的提示语等</td>
+                                <td>1条</td>
+                                <td>48小时</td>
+                                <td>文本</td>
+                                <td>事件回调、转接会话接口</td>
+                            </tr>
+                            <tr>
+                                <td>结束会话，用于发送结束会话提示语或满意度评价等</td>
+                                <td>1条</td>
+                                <td>20秒</td>
+                                <td>文本、菜单</td>
+                                <td>事件回调、转接会话接口</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </field>
             <field name="function_name">KF_SEND_MSG_ON_EVENT</field>
             <field name="short_url">/cgi-bin/kf/send_msg_on_event?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2050</field>
+            <field name="sequence">33005</field>
         </record>
 
-        <!-- 「升级服务」配置 -->
+        <!-- 3.4 「升级服务」配置 -->
         <record id="wecom_service_api_kf_customer_get_upgrade_service_config" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get configured specialists and customer groups</field>
+            <field name="name">微信客服 &gt; 「升级服务」配置 &gt; 获取配置的专员与客户群</field>
+            <field name="description" type="html">
+                <p>企业需要在管理后台或移动端中的「微信客服」-「升级服务」中，配置专员和客户群。该接口提供获取配置的专员与客户群列表的能力。</p>
+            </field>
             <field name="function_name">KF_CUSTOMER_GET_UPGRADE_SERVICE_CONFIG</field>
             <field name="short_url">/cgi-bin/kf/customer/get_upgrade_service_config?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">2060</field>
+            <field name="sequence">34001</field>
         </record>
         <record id="wecom_service_api_kf_customer_upgrade_service" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Upgrade customer to specialist or customer group service</field>
+            <field name="name">微信客服 &gt; 「升级服务」配置 &gt; 为客户升级为专员或客户群服务</field>
+            <field name="description" type="html">
+                <p>企业可通过其他接口获知客户的 external_userid 以及客户与接待人员的聊天内容，因此可以结合实际业务场景，为客户推荐指定的服务专员或客户群。</p>
+                <p>通过该 API 为客户指定专员或客户群后，接待人员可在企业微信中，见到特殊的状态提示（Windows 为 icon 样式变化，移动端为出现一条 bar ），便于接待人员知晓企业的指定动作。</p>
+                <p>
+                    <img src="https://wework.qpic.cn/wwpic/667448_HGW-JdOfT76g3hi_1625651725/0" alt=""/>
+                </p>
+            </field>
             <field name="function_name">KF_CUSTOMER_UPGRADE_SERVICE</field>
             <field name="short_url">/cgi-bin/kf/customer/upgrade_service?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2061</field>
+            <field name="sequence">34002</field>
         </record>
-        <!-- 为客户取消推荐 -->
         <record id="wecom_service_api_kf_customer_cancel_upgrade_service" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Cancel the recommendation for the customer</field>
+            <field name="name">微信客服 &gt; 「升级服务」配置 &gt; 为客户取消推荐</field>
+            <field name="description" type="html">
+                <p>当企业通过 API 为客户指定了专员或客户群后，如果客户已经完成服务升级，或是企业需要取消推荐，则可调用该接口清空之前为客户指定的专员或客户群。清空后，企业微信中的特殊状态提示也会同步消失。</p>
+            </field>
             <field name="function_name">KF_CUSTOMER_CANCEL_UPGRADE_SERVICE</field>
             <field name="short_url">/cgi-bin/kf/customer/cancel_upgrade_service?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2062</field>
+            <field name="sequence">34003</field>
         </record>
-        <!-- 获取客户基础信息 -->
+
+        <!-- 3.5 其他基础信息获取 -->
         <record id="wecom_service_api_kf_customer_batchget" model="wecom.service_api_list">
             <field name="type">4</field>
-            <field name="name">Get basic customer information</field>
+            <field name="name">微信客服 &gt; 其他基础信息获取 &gt; 获取客户基础信息</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">KF_CUSTOMER_BATCHGET</field>
             <field name="short_url">/cgi-bin/kf/customer/batchget?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">2070</field>
+            <field name="sequence">35001</field>
+        </record>
+        <!-- 3.6 统计管理 -->
+        <record id="wecom_service_api_kf_get_corp_statistic" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">微信客服 &gt; 统计管理 &gt; 获取「客户数据统计」企业汇总数据</field>
+            <field name="description" type="html">
+                <p>通过此接口，可以获取咨询会话数、咨询客户数等企业汇总统计数据</p>
+            </field>
+            <field name="function_name">KF_GET_CORP_STATISTIC</field>
+            <field name="short_url">/cgi-bin/kf/get_corp_statistic?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">36001</field>
+        </record>
+        <record id="wecom_service_api_kf_get_servicer_statistic" model="wecom.service_api_list">
+            <field name="type">4</field>
+            <field name="name">微信客服 &gt; 统计管理 &gt; 获取「客户数据统计」接待人员明细数据</field>
+            <field name="description" type="html">
+                <p>通过此接口，可获取接入人工会话数、咨询会话数等与接待人员相关的统计信息</p>
+            </field>
+            <field name="function_name">KF_GET_SERVICER_STATISTIC</field>
+            <field name="short_url">/cgi-bin/kf/get_servicer_statistic?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">36002</field>
         </record>
 
-        <!-- 3. 身份验证 -->
+        <!-- 4. 身份验证 -->
         <record id="wecom_service_api_auth_user_getuserinfo" model="wecom.service_api_list">
             <field name="type">5</field>
-            <field name="name">Get access user identity</field>
+            <field name="name">身份验证 &gt; 获取访问用户身份</field>
+            <field name="description" type="html">
+                <p>该接口用于根据code获取成员信息</p>
+            </field>
             <field name="function_name">GET_USER_INFO_BY_CODE</field>
             <field name="short_url">/cgi-bin/user/getuserinfo?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">3000</field>
+            <field name="sequence">41001</field>
         </record>
-        <!-- <record id="wecom_service_api_auth_user_getuserdetail" model="wecom.service_api_list">
+
+        <record id="wecom_service_api_auth_user_getuserdetail" model="wecom.service_api_list">
             <field name="type">5</field>
-            <field name="name">Get access user identity</field>
-            <field name="function_name">GET_USER_INFO_BY_CODE</field>
+            <field name="name">身份验证 &gt; 获取访问用户敏感信息</field>
+            <field name="description" type="html">
+                <p>自建应用与代开发应用可通过该接口获取成员授权的敏感字段</p>
+            </field>
+            <field name="function_name">GET_USER_DETAIL_BY_USER_TICKET</field>
             <field name="short_url">/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">3001</field>
-        </record> -->
+            <field name="sequence">41002</field>
+        </record>
 
-        <!-- 4. 应用管理 -->
+        <!-- 5. 应用管理 -->
+
+        <!-- 5.0 获取应用的jsapi_ticket-->
+        <record id="wecom_service_api_agent_get_ticket" model="wecom.service_api_list">
+            <field name="type">6</field>
+            <field name="name">应用管理 &gt; 获取应用 &gt; 获取应用的jsapi_ticket</field>
+            <field name="description" type="html">
+                <p>应用的jsapi_ticket用于计算agentConfig（参见“<a href="https://developer.work.weixin.qq.com/document/path/90506#14932" target ="_blank">通过agentConfig注入应用的权限</a>”）的签名，签名计算方法与上述介绍的config的签名算法完全相同，但需要注意以下区别：</p>
+                <ol>
+                    <li>签名的jsapi_ticket必须使用以下接口获取。且必须用wx.agentConfig中的agentid对应的应用去获取access_token。</li>
+                    <li>签名用的noncestr和timestamp必须与wx.agentConfig中的nonceStr和timestamp相同。</li>
+                </ol>
+                <p>正常情况下，<strong>应用的jsapi_ticket的有效期为7200秒</strong>，通过access_token来获取。由于获取jsapi_ticket的api调用次数非常有限（一小时内，每个应用不能超过100次），频繁刷新jsapi_ticket会导致api调用受限，影响自身业务，<strong>开发者必须在自己的服务全局缓存应用的jsapi_ticket</strong>。</p>
+            </field>
+            <field name="function_name">AGENT_GET_TICKET</field>
+            <field name="short_url">/cgi-bin/ticket/get?access_token=ACCESS_TOKEN&amp;type=agent_config</field>
+            <field name="request_type">GET</field>
+            <field name="sequence">51000</field>
+        </record>
+        <!-- 5.1 获取应用 -->
         <record id="wecom_service_api_agent_get" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Get the specified application details</field>
+            <field name="name">应用管理 &gt; 获取应用 &gt; 获取指定的应用详情</field>
+            <field name="description" type="html">
+                <p>对于互联企业的应用，如果需要获取应用可见范围内其他互联企业的部门与成员，请调用互联企业-获取应用可见范围接口</p>
+            </field>
             <field name="function_name">AGENT_GET</field>
             <field name="short_url">/cgi-bin/agent/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">4000</field>
+            <field name="sequence">51001</field>
         </record>
+
+
         <record id="wecom_service_api_agent_list" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Get the application list corresponding to access token</field>
+            <field name="name">应用管理 &gt; 获取应用 &gt; 获取access_token对应的应用列表</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">AGENT_LIST</field>
             <field name="short_url">/cgi-bin/agent/list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">4001</field>
+            <field name="sequence">51002</field>
         </record>
+        <!-- 5.2 设置应用 -->
         <record id="wecom_service_api_agent_set" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Set application</field>
+            <field name="name">应用管理 &gt; 设置应用</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">AGENT_SET</field>
             <field name="short_url">/cgi-bin/agent/set?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">4003</field>
+            <field name="sequence">51003</field>
         </record>
-        <!-- 自定义菜单 -->
+        <!-- 5.3 自定义菜单 -->
         <record id="wecom_service_api_agent_menu_create" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Create application menu</field>
+            <field name="name">应用管理 &gt; 自定义菜单 &gt; 创建菜单</field>
+            <field name="description" type="html">
+                <p>自定义菜单接口可实现多种类型按钮，如下：</p>
+                <p>
+                    <table class="cherry-table">
+                        <thead>
+                            <tr>
+                                <th>字段值</th>
+                                <th>功能名称</th>
+                                <th>说明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>click</td>
+                                <td>点击推事件</td>
+                                <td>成员点击click类型按钮后，企业微信服务器会通过消息接口推送消息类型为event 的结构给开发者（参考消息接口指南），并且带上按钮中开发者填写的key值，开发者可以通过自定义的key值与成员进行交互；</td>
+                            </tr>
+                            <tr>
+                                <td>view</td>
+                                <td>跳转URL</td>
+                                <td>成员点击view类型按钮后，企业微信客户端将会打开开发者在按钮中填写的网页URL，可与网页授权<a href="#15574" rel="nofollow">获取成员基本信息接口</a>结合，获得成员基本信息。
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>scancode_push</td>
+                                <td>扫码推事件</td>
+                                <td>成员点击按钮后，企业微信客户端将调起扫一扫工具，完成扫码操作后显示扫描结果（如果是URL，将进入URL），且会将扫码的结果传给开发者，开发者可用于下发消息。</td>
+                            </tr>
+                            <tr>
+                                <td>scancode_waitmsg</td>
+                                <td>扫码推事件 且弹出“消息接收中”提示框</td>
+                                <td>成员点击按钮后，企业微信客户端将调起扫一扫工具，完成扫码操作后，将扫码的结果传给开发者，同时收起扫一扫工具，然后弹出“消息接收中”提示框，随后可能会收到开发者下发的消息。</td>
+                            </tr>
+                            <tr>
+                                <td>pic_sysphoto</td>
+                                <td>弹出系统拍照发图</td>
+                                <td>弹出系统拍照发图	成员点击按钮后，企业微信客户端将调起系统相机，完成拍照操作后，会将拍摄的相片发送给开发者，并推送事件给开发者，同时收起系统相机，随后可能会收到开发者下发的消息。</td>
+                            </tr>
+                            <tr>
+                                <td>pic_photo_or_album</td>
+                                <td>弹出拍照或者相册发图</td>
+                                <td>成员点击按钮后，企业微信客户端将弹出选择器供成员选择“拍照”或者“从手机相册选择”。成员选择后即走其他两种流程。</td>
+                            </tr>
+                            <tr>
+                                <td>pic_weixin</td>
+                                <td>弹出企业微信相册发图器</td>
+                                <td>成员点击按钮后，企业微信客户端将调起企业微信相册，完成选择操作后，将选择的相片发送给开发者的服务器，并推送事件给开发者，同时收起相册，随后可能会收到开发者下发的消息。</td>
+                            </tr>
+                            <tr>
+                                <td>location_select</td>
+                                <td>弹出地理位置选择器</td>
+                                <td>成员点击按钮后，企业微信客户端将调起地理位置选择工具，完成选择操作后，将选择的地理位置发送给开发者的服务器，同时收起位置选择工具，随后可能会收到开发者下发的消息。</td>
+                            </tr>
+                            <tr>
+                                <td>view_miniprogram</td>
+                                <td>跳转到小程序</td>
+                                <td>成员点击按钮后，企业微信客户端将会打开开发者在按钮中配置的小程序</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </p>
+            </field>
             <field name="function_name">MENU_CREATE</field>
             <field name="short_url">/cgi-bin/menu/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">4010</field>
+            <field name="sequence">51004</field>
         </record>
         <record id="wecom_service_api_agent_menu_get" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Get application menu</field>
+            <field name="name">应用管理 &gt; 自定义菜单 &gt; 获取菜单</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">MENU_GET</field>
             <field name="short_url">/cgi-bin/menu/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">4011</field>
+            <field name="sequence">51005</field>
         </record>
         <record id="wecom_service_api_agent_menu_delete" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Delete application menu</field>
+            <field name="name">应用管理 &gt; 自定义菜单 &gt; 删除菜单</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">MENU_DELETE</field>
             <field name="short_url">/cgi-bin/menu/delete?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">4012</field>
+            <field name="sequence">51006</field>
         </record>
-        <!-- 设置应用在工作台展示的模版 -->
+        <!-- 5.4 设置工作台自定义展示 -->
         <record id="wecom_service_api_agent_set_workbench_template" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Set the template applied to the workbench display</field>
+            <field name="name">应用管理 &gt; 设置工作台自定义展示 &gt; 设置应用在工作台展示的模版</field>
+            <field name="description" type="html">
+                <p>请求说明：该接口指定应用自定义模版类型。同时也支持设置企业默认模版数据。若type指定为 "normal" 则为取消自定义模式，改为普通展示模式</p>
+            </field>
             <field name="function_name">AGENT_SET_WORKBENCH_TEMPLATE</field>
             <field name="short_url">/cgi-bin/agent/set_workbench_template?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">4020</field>
+            <field name="sequence">51007</field>
         </record>
-        <!-- 获取应用在工作台展示的模版 -->
+
         <record id="wecom_service_api_agent_get_workbench_template" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Get the template applied to the workbench display</field>
+            <field name="name">应用管理 &gt; 设置工作台自定义展示 &gt; 获取应用在工作台展示的模版</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">AGENT_GET_WORKBENCH_TEMPLATE</field>
             <field name="short_url">/cgi-bin/agent/get_workbench_template?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">4021</field>
+            <field name="sequence">51008</field>
         </record>
-        <!-- 设置应用在用户工作台展示的数据 -->
+
         <record id="wecom_service_api_agent_set_workbench_data" model="wecom.service_api_list">
             <field name="type">6</field>
-            <field name="name">Set the data displayed on the user workbench</field>
+            <field name="name">应用管理 &gt; 设置工作台自定义展示 &gt; 设置应用在用户工作台展示的数据</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">AGENT_SET_WORKBENCH_DATA</field>
             <field name="short_url">/cgi-bin/agent/set_workbench_data?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">4022</field>
+            <field name="sequence">51009</field>
         </record>
 
-
-        <!-- 4. 消息推送 -->
+        <!-- 6. 消息推送 -->
         <record id="wecom_service_api_message_send" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Send app message</field>
+            <field name="name">消息推送 &gt; 发送应用消息</field>
+            <field name="description" type="html">
+                <p>应用支持推送文本、图片、视频、文件、图文等类型。</p>
+            </field>
             <field name="function_name">MESSAGE_SEND</field>
             <field name="short_url">/cgi-bin/message/send?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5000</field>
+            <field name="sequence">61001</field>
         </record>
         <record id="wecom_service_api_message_update_template_card" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Update template card message</field>
+            <field name="name">消息推送 &gt; 更新模版卡片消息</field>
+            <field name="description" type="html">
+                <p>应用可以发送模板卡片消息，发送之后可再通过接口更新可回调的用户任务卡片消息的替换文案信息（仅原卡片为 按钮交互型、投票选择型、多项选择型的卡片以及填写了action_menu字段的文本通知型、图文展示型可以调用本接口更新）。</p>
+                <p>请注意，当应用调用发送模版卡片消息后，接口会返回一个response_code，通过response_code用户可以调用本接口一次。后续如果有用户点击任务卡片，回调接口也会带上response_code，开发者通过该code也可以调用本接口一次，注意response_code的有效期是24小时，超过24小时后将无法使用。</p>
+            </field>
             <field name="function_name">MESSAGE_UPDATE_TEMPLATE_CARD</field>
             <field name="short_url">/cgi-bin/message/update_template_card?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5001</field>
+            <field name="sequence">61002</field>
         </record>
         <record id="wecom_service_api_message_recall" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Recall application message</field>
+            <field name="name">消息推送 &gt; 撤回应用消息</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">MESSAGE_RECALL</field>
             <field name="short_url">/cgi-bin/message/recall?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5002</field>
+            <field name="sequence">61003</field>
         </record>
-        <!-- 发送消息到群聊会话 -->
+
         <record id="wecom_service_api_message_appchat_create" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Create a group chat session</field>
-            <field name="function_name">APP_CHAT_CREATE</field>
+            <field name="name">消息推送 &gt; 发送消息到群聊会话 &gt; 创建群聊会话</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
+            <field name="function_name">APPCHAT_CREATE</field>
             <field name="short_url">/cgi-bin/appchat/create?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5010</field>
+            <field name="sequence">61004</field>
         </record>
         <record id="wecom_service_api_message_appchat_update" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Modify group chat session</field>
-            <field name="function_name">APP_CHAT_UPDATE</field>
+            <field name="name">消息推送 &gt; 发送消息到群聊会话 &gt; 修改群聊会话</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
+            <field name="function_name">APPCHAT_UPDATE</field>
             <field name="short_url">/cgi-bin/appchat/update?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5011</field>
+            <field name="sequence">61005</field>
         </record>
         <record id="wecom_service_api_message_appchat_get" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Get group chat session</field>
-            <field name="function_name">APP_CHAT_GET</field>
+            <field name="name">消息推送 &gt; 发送消息到群聊会话 &gt; 获取群聊会话</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
+            <field name="function_name">APPCHAT_GET</field>
             <field name="short_url">/cgi-bin/appchat/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">5012</field>
+            <field name="sequence">61006</field>
         </record>
         <record id="wecom_service_api_message_appchat_send" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Application push message</field>
+            <field name="name">消息推送 &gt; 发送消息到群聊会话 &gt; 应用推送消息</field>
+            <field name="description" type="html">
+                <p>应用支持推送文本、图片、视频、文件、图文等类型。</p>
+            </field>
             <field name="function_name">APP_CHAT_SEND</field>
             <field name="short_url">/cgi-bin/appchat/send?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5013</field>
+            <field name="sequence">61007</field>
         </record>
 
         <!-- 互联企业消息推送 -->
         <record id="wecom_service_api_linkedcorp_message_send" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Applications of interconnected enterprises support pushing text, pictures, videos, files, graphics and other types.</field>
+            <field name="name">消息推送 &gt; 互联企业消息推送 &gt; 发送应用消息</field>
+            <field name="description" type="html">
+                <p>互联企业是企业微信提供的满足集团与子公司、企业与上下游供应商进行连接的功能，企业可以共享通讯录以及应用给互联企业，如需要，你可以前往管理后台-通讯录创建互联企业，之后你可以在自建应用的可见范围设置互联企业的通讯录；此接口主要满足开发者给互联企业成员推送消息的诉求。</p>
+            </field>
             <field name="function_name">LINKEDCORP_MESSAGE_SEND</field>
             <field name="short_url">/cgi-bin/linkedcorp/message/send?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5020</field>
+            <field name="sequence">61008</field>
         </record>
         <!-- 家校消息推送 -->
         <record id="wecom_service_api_externalcontact_message_send" model="wecom.service_api_list">
             <field name="type">7</field>
-            <field name="name">Schools can send different types of school notices to parents through this interface</field>
+            <field name="name">消息推送 &gt; 家校消息推送 &gt; 发送「学校通知」</field>
+            <field name="description" type="html">
+                <p>学校可以通过此接口来给家长发送不同类型的学校通知，来满足多种场景下的学校通知需求。目前支持的消息类型为文本、图片、语音、视频、文件、图文。。</p>
+            </field>
             <field name="function_name">EXTERNALCONTACT_MESSAGE_SEND</field>
             <field name="short_url">/cgi-bin/externalcontact/message/send?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">5030</field>
+            <field name="sequence">61009</field>
         </record>
 
-
-        <!-- 5. 媒体素材管理 -->
+        <!-- 7. 媒体素材管理 -->
         <record id="wecom_service_media_upload" model="wecom.service_api_list">
             <field name="type">8</field>
-            <field name="name">Upload temporary material</field>
+            <field name="name">素材管理 &gt; 上传临时素材 </field>
+            <field name="description" type="html">
+                <p>素材上传得到media_id，该media_id仅三天内有效</p>
+                <p>media_id在同一企业内应用之间可以共享</p>
+            </field>
             <field name="function_name">MEDIA_UPLOAD</field>
             <field name="short_url">/cgi-bin/media/upload?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">6000</field>
+            <field name="sequence">71001</field>
         </record>
         <record id="wecom_service_media_uploadimg" model="wecom.service_api_list">
             <field name="type">8</field>
-            <field name="name">Upload pictures</field>
+            <field name="name">素材管理 &gt; 上传图片 </field>
+            <field name="description" type="html">
+                <p>上传图片得到图片URL，该URL永久有效</p>
+                <p>返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。</p>
+                <p>每个企业每月最多可上传3000张图片，每天最多可上传1000张图片</p>
+            </field>
             <field name="function_name">MEDIA_UPLOADIMG</field>
             <field name="short_url">/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">6001</field>
+            <field name="sequence">71002</field>
         </record>
         <record id="wecom_service_media_get" model="wecom.service_api_list">
             <field name="type">8</field>
-            <field name="name">Get temporary material</field>
+            <field name="name">素材管理 &gt; 获取临时素材 </field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">MEDIA_GET</field>
             <field name="short_url">/cgi-bin/media/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">6002</field>
+            <field name="sequence">71003</field>
         </record>
         <record id="wecom_service_media_get_jssdk" model="wecom.service_api_list">
             <field name="type">8</field>
-            <field name="name">Get HD voice material</field>
+            <field name="name">素材管理 &gt; 获取高清语音素材</field>
+            <field name="description" type="html">
+                <p>可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。</p>
+            </field>
             <field name="function_name">MEDIA_GET_JSSDK</field>
             <field name="short_url">/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN</field>
             <field name="request_type">GET</field>
-            <field name="sequence">6003</field>
+            <field name="sequence">71004</field>
         </record>
 
-        <!-- 6. OA -->
-        <!-- 6.1 打卡 -->
+        <!-- 8. OA -->
+        <!-- 8.1 打卡 -->
         <record id="wecom_service_oa_get_corp_checkin_option" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get all check-in rules of the enterprise</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取企业所有打卡规则 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，获取企业内所有打卡规则数据。</p>
+            </field>
             <field name="function_name">GET_CORP_CHECKIN_OPTION</field>
             <field name="short_url">/cgi-bin/checkin/getcorpcheckinoption?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7000</field>
+            <field name="sequence">81001</field>
         </record>
         <record id="wecom_service_oa_get_checkin_option" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get employee check-in rules</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取员工打卡规则 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret获取的token，获取指定员工指定日期的打卡规则</p>
+                <p>第三方应用可获取应用可见范围内指定员工指定日期的打卡规则</p>
+            </field>
             <field name="function_name">GET_CHECKIN_OPTION</field>
             <field name="short_url">/cgi-bin/checkin/getcheckinoption?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7001</field>
+            <field name="sequence">81002</field>
         </record>
         <record id="wecom_service_oa_get_checkin_data" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get check-in data record</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取打卡记录数据 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，获取指定员工指定时间段内的打卡记录数据。</p>
+                <p>第三方应用可获取应用可见范围内指定员工指定日期的打卡记录数据。</p>
+            </field>
             <field name="function_name">GET_CHECKIN_DATA</field>
             <field name="short_url">/cgi-bin/checkin/getcheckindata?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7002</field>
+            <field name="sequence">81003</field>
         </record>
         <record id="wecom_service_oa_get_checkin_day_data" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get daily check-in data</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取打卡日报数据 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，获取指定员工指定时间段内的打卡日报统计数据。</p>
+                <p>第三方应用可获取应用可见范围内指定员工指定日期内的打卡日报统计数据。</p>
+            </field>
             <field name="function_name">GET_CHECKIN_DAY_DATA</field>
             <field name="short_url">/cgi-bin/checkin/getcheckin_daydata?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7003</field>
+            <field name="sequence">81004</field>
         </record>
         <record id="wecom_service_oa_get_checkin_month_data" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get monthly check-in data</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取打卡月报数据 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，获取指定员工指定时间段内的打卡月报统计数据</p>
+                <p>第三方应用可获取应用可见范围内指定员工指定日期内的打卡月报统计数据。</p>
+            </field>
             <field name="function_name">GET_CHECKIN_MONTH_DATA</field>
             <field name="short_url">/cgi-bin/checkin/getcheckin_monthdata?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7004</field>
+            <field name="sequence">81005</field>
         </record>
         <!-- 获取打卡人员排班信息 -->
         <record id="wecom_service_oa_get_checkin_schedu_list" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get check-in staff scheduling information</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取打卡人员排班信息 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，获取打卡规则为“按班次上下班”规则的指定员工指定时间段内的排班信息。</p>
+                <p>第三方应用获取应用可见范围内、打卡规则为“按班次上下班”规则的指定员工指定时间段内的排班信息。</p>
+            </field>
             <field name="function_name">GET_CHECKIN_SCHEDU_LIST</field>
             <field name="short_url">/cgi-bin/checkin/getcheckinschedulist?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7005</field>
+            <field name="sequence">81006</field>
         </record>
         <!-- 为打卡人员排班 -->
         <record id="wecom_service_oa_set_checkin_schedu_list" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Scheduling for check-in staff</field>
+            <field name="name">OA &gt; 打卡 &gt; 为打卡人员排班 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，为打卡规则为“按班次上下班”规则的指定员工排班。</p>
+                <p>第三方应用可通过本接口为应用可见范围内、打卡规则为“按班次上下班”规则的指定员工排班。</p>
+            </field>
             <field name="function_name">SET_CHECKIN_SCHEDU_LIST</field>
             <field name="short_url">/cgi-bin/checkin/setcheckinschedulist?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7006</field>
+            <field name="sequence">81007</field>
         </record>
         <!-- 录入打卡人员人脸信息 -->
         <record id="wecom_service_oa_add_checkin_user_face" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Enter employee face information</field>
+            <field name="name">OA &gt; 打卡 &gt; 录入打卡人员人脸信息 </field>
+            <field name="description" type="html">
+                <p>企业可通过打卡应用Secret调用本接口，为企业打卡人员录入人脸信息，人脸信息仅用于人脸打卡</p>
+            </field>
             <field name="function_name">ADD_CHECKIN_USER_FACE</field>
             <field name="short_url">/cgi-bin/checkin/addcheckinuserface?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7007</field>
+            <field name="sequence">81008</field>
         </record>
         <!-- 获取设备打卡数据 -->
         <record id="wecom_service_oa_get_hardware_checkin_data" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get device check-in data</field>
+            <field name="name">OA &gt; 打卡 &gt; 获取设备打卡数据 </field>
+            <field name="description" type="html">
+                <p>可通过此接口，获取考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。</p>
+                <p>第三方应用可获取应用可见范围内员工在考勤设备上产生的所有原始打卡记录，包括未被打卡应用记录的不符合打卡规则的记录。</p>
+            </field>
             <field name="function_name">GET_HARDWARE_CHECKIN_DATA</field>
             <field name="short_url">/cgi-bin/hardware/get_hardware_checkin_data?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
             <field name="sequence">7008</field>
         </record>
 
-        <!-- 6.2 审批 -->
+        <!-- 8.2 审批 -->
         <record id="wecom_service_oa_get_approval_template_detail" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get approval template details</field>
+            <field name="name">OA &gt; 审批 &gt; 获取审批模板详情 </field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，获取企业微信“审批应用”内指定审批模板的详情。</p>
+            </field>
             <field name="function_name">APPROVAL_GET_TEMPLATE_DETAIL</field>
             <field name="short_url">/cgi-bin/oa/gettemplatedetail?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7100</field>
+            <field name="sequence">82001</field>
         </record>
         <record id="wecom_service_oa_approval_submit" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Submit application for approval</field>
+            <field name="name">OA &gt; 审批 &gt; 提交审批申请 </field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，代应用可见范围内员工在企业微信“审批应用”内提交指定类型的审批申请。</p>
+            </field>
             <field name="function_name">APPROVAL_SUBMIT</field>
             <field name="short_url">/cgi-bin/oa/applyevent?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7101</field>
+            <field name="sequence">82002</field>
         </record>
 
         <record id="wecom_service_oa_get_approval_template_info" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Batch approval number</field>
+            <field name="name">OA &gt; 审批 &gt; 批量获取审批单号</field>
+            <field name="description" type="html">
+                <p>审批应用及有权限的自建应用，可通过Secret调用本接口，以获取企业一段时间内企业微信“审批应用”单据的审批编号，支持按模板类型、申请人、部门、申请单审批状态等条件筛选。</p>
+                <p>自建应用调用此接口，需在“管理后台-应用管理-审批-API-审批数据权限”中，授权应用允许提交审批单据。</p>
+                <p></p>
+                <p>一次拉取调用最多拉取100个审批记录，可以通过多次拉取的方式来满足需求，但调用频率不可超过600次/分。</p>
+                <p>推荐使用此接口获取审批数据，旧接口后续将不再维护。</p>
+            </field>
             <field name="function_name">GET_APPROVAL_INFO</field>
             <field name="short_url">/cgi-bin/oa/getapprovalinfo?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7103</field>
+            <field name="sequence">82003</field>
         </record>
         <record id="wecom_service_oa_get_approval_detail" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get approval application details</field>
+            <field name="name">OA &gt; 审批 &gt; 获取审批申请详情</field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，根据审批单号查询企业微信“审批应用”的审批申请详情。</p>
+            </field>
             <field name="function_name">GET_APPROVAL_DETAIL</field>
             <field name="short_url">/cgi-bin/oa/getapprovaldetail?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7104</field>
+            <field name="sequence">82004</field>
         </record>
 
         <!-- 企业假期 -->
         <record id="wecom_service_oa_vacationl_getcorpconf" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get enterprise vacationl management configuration</field>
+            <field name="name">OA &gt; 审批 &gt; 获取企业假期管理配置</field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，获取可见范围内员工的“假期管理”配置，包括：各个假期的id、名称、请假单位、时长计算方式、发放规则等。</p>
+                <p>第三方应用可获取应用可见范围内员工的“假期管理”配置，包括：各个假期的id、名称、请假单位、时长计算方式、发放规则等。</p>
+            </field>
             <field name="function_name">GET_CORP_VACATIONL_CONF</field>
             <field name="short_url">/cgi-bin/oa/vacation/getcorpconf?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7105</field>
+            <field name="sequence">82005</field>
         </record>
         <record id="wecom_service_oa_get_user_vacation_quota" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get member vacationl balance</field>
+            <field name="name">OA &gt; 审批 &gt; 获取成员假期余额</field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，获取可见范围内各个员工的假期余额数据。</p>
+                <p>第三方应用可获取应用可见范围内各个员工的假期余额数据。</p>
+            </field>
             <field name="function_name">GET_USER_VACATION_QUOTA</field>
             <field name="short_url">/cgi-bin/oa/vacation/getuservacationquota?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7106</field>
+            <field name="sequence">82006</field>
         </record>
         <record id="wecom_service_oa_set_user_vacation_quota" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Set member vacationl balance</field>
+            <field name="name">OA &gt; 审批 &gt; 修改成员假期余额</field>
+            <field name="description" type="html">
+                <p>企业可通过审批应用或自建应用Secret调用本接口，修改可见范围内员工的“假期余额”。</p>
+                <p>第三方应用可通过应本接口修改应用可见范围内指定员工的“假期余额”。</p>
+            </field>
             <field name="function_name">SET_USER_VACATION_QUOTA</field>
             <field name="short_url">/cgi-bin/oa/vacation/setoneuserquota?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7107</field>
+            <field name="sequence">82007</field>
         </record>
 
-        <!-- 6.3 汇报 -->
+        <!-- 8.3 汇报 -->
         <record id="wecom_service_oa_journal_get_record_list" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Batch acquisition report record number</field>
+            <field name="name">OA &gt; 汇报 &gt; 批量获取汇报记录单号</field>
+            <field name="description" type="html">
+                <p>企业可通过access_token调用本接口，以获取企业一段时间内企业微信“汇报应用”汇报记录编号，支持按汇报表单ID、申请人、部门等条件筛选。</p>
+                <p></p>
+                <p>一次拉取调用最多拉取100个汇报记录，可以通过多次拉取的方式来满足需求，但调用频率不可超过600次/分。</p>
+                <p>表单ID的获取方式：</p>
+                <p>管理后台--汇报应用--某个汇报的内容设置页--点击“汇报名称”，即可获取</p>
+                <p>
+                    <img src="https://wework.qpic.cn/wwpic/535742_oz5qIwqvTpybzQy_1606982459/0" alt=""/>
+                </p>
+            </field>
             <field name="function_name">GET_JOURNAL_RECORD_LIST</field>
             <field name="short_url">/cgi-bin/oa/journal/get_record_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7200</field>
+            <field name="sequence">83001</field>
         </record>
-        <record id="wecom_service_oa_journal_get_record_list" model="wecom.service_api_list">
+        <record id="wecom_service_oa_journal_get_record_detail" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Get report record details</field>
-            <field name="function_name">GET_JOURNAL_RECORD_DETAIL</field>
+            <field name="name">OA &gt; 审批 &gt; 获取汇报记录详情</field>
+            <field name="description" type="html">
+                <p>企业可通过access_token调用本接口，根据汇报记录单号查询企业微信“汇报应用”的汇报详情。</p>
+            </field>
+            <field name="function_name">JOURNAL_GET_RECORD_DETAIL</field>
             <field name="short_url">/cgi-bin/oa/journal/get_record_detail?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7201</field>
+            <field name="sequence">83002</field>
         </record>
         <record id="wecom_service_oa_journal_get_stat_list" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Obtain reporting statistics</field>
-            <field name="function_name">GET_JOURNAL_STAT_LIST</field>
+            <field name="name">OA &gt; 审批 &gt; 获取汇报统计数据</field>
+            <field name="description" type="html">
+                <p>企业可通过access_token调用本接口，根据汇报表单id查询企业微信“汇报应用”的汇报统计汇总信息。该接口只能拉取到已经汇总的统计数据，对于尚未完成汇总的周期不会返回。</p>
+            </field>
+            <field name="function_name">JOURNAL_GET_STAT_LIST</field>
             <field name="short_url">/cgi-bin/oa/journal/get_stat_list?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7202</field>
+            <field name="sequence">83003</field>
         </record>
 
-        <!-- 6.4 会议室 -->
+        <!-- 8.4 自建应用 -->
+        <record id="wecom_service_corp_get_open_approval_data" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">OA &gt; 自建应用 &gt; 审批流程引擎 &gt; 查询自建应用审批单当前状态</field>
+            <field name="description" type="html">
+                <p>开发者也可主动查询审批单的当前审批状态。</p>
+            </field>
+            <field name="function_name">CORP_GET_OPEN_APPROVAL_DATA</field>
+            <field name="short_url">/cgi-bin/corp/getopenapprovaldata?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">84001</field>
+        </record>
+
+        <!-- 8.5 会议室 -->
         <record id="wecom_service_oa_meetingroom_add" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Add meeting room</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室管理 &gt; 添加会议室</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口添加一个会议室。</p>
+            </field>
             <field name="function_name">MEETINGROOM_ADD</field>
             <field name="short_url">/cgi-bin/oa/meetingroom/add?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7300</field>
+            <field name="sequence">85001</field>
         </record>
+        <record id="wecom_service_oa_meetingroom_list" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室管理 &gt; 查询会议室</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口查询满足条件的会议室。</p>
+            </field>
+            <field name="function_name">MEETINGROOM_LIST</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">85002</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_edit" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室管理 &gt; 编辑会议室</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口编辑相关会议室的基本信息。</p>
+            </field>
+            <field name="function_name">MEETINGROOM_EDIT</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/edit?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">85003</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_del" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室管理 &gt; 删除会议室</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口删除指定的会议室。</p>
+            </field>
+            <field name="function_name">MEETINGROOM_DEL</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">85004</field>
+        </record>
+
         <record id="wecom_service_oa_meetingroom_get_booking_info" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Query meeting room reservation information</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室预定管理 &gt; 查询会议室的预定信息</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口查询相关会议室在指定时间段的预定情况，如是否已被预定，预定者的userid等信息，<b>不支持跨天查询。</b>
+                </p>
+            </field>
             <field name="function_name">MEETINGROOM_GET_BOOKING_INFO</field>
             <field name="short_url">/cgi-bin/oa/meetingroom/get_booking_info?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7301</field>
+            <field name="sequence">85005</field>
         </record>
         <record id="wecom_service_oa_meetingroom_book" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Reserve meeting rooms</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室预定管理 &gt; 预定会议室</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口预定会议室并自动关联日程。</p>
+            </field>
             <field name="function_name">MEETINGROOM_BOOK</field>
             <field name="short_url">/cgi-bin/oa/meetingroom/book?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7302</field>
+            <field name="sequence">85006</field>
         </record>
-        <record id="wecom_service_oa_meetingroom_cancel_book" model="wecom.service_api_list">
+        <record id="wecom_service_oa_meetingroom_book" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Cancel the reservation of the meeting room</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室预定管理 &gt; 企业可通过此接口取消会议室的预定</field>
+            <field name="description" type="html">
+                <p></p>
+            </field>
             <field name="function_name">MEETINGROOM_CANCEL_BOOK</field>
             <field name="short_url">/cgi-bin/oa/meetingroom/cancel_book?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7302</field>
+            <field name="sequence">85007</field>
+        </record>
+        <record id="wecom_service_oa_meetingroom_get_booking_info_by_meeting_id" model="wecom.service_api_list">
+            <field name="type">9</field>
+            <field name="name">OA &gt; 会议室 &gt; 会议室预定管理 &gt; 根据会议ID查询会议室的预定信息</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口按照会议ID查询相关会议室的预定情况</p>
+            </field>
+            <field name="function_name">MEETINGROOM_GET_BOOKING_INFO_BY_MEETING_ID</field>
+            <field name="short_url">/cgi-bin/oa/meetingroom/get_booking_info_by_meeting_id?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">85008</field>
         </record>
 
-        <!-- 6.5 紧急通知应用 -->
+        <!-- 8.6 紧急通知应用 -->
         <record id="wecom_service_oa_pstncc_call" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Initiate voice calls to alert employees to see important messages from your app push.</field>
+            <field name="name">OA &gt; 紧急通知应用 &gt; 发起语音电话</field>
+            <field name="description" type="html">
+                <p>通过此接口发起语音电话，提醒员工查看应用推送的重要消息。</p>
+            </field>
             <field name="function_name">PSTNCC_CALL</field>
             <field name="short_url">/cgi-bin/pstncc/call?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7400</field>
+            <field name="sequence">86001</field>
         </record>
         <record id="wecom_service_oa_get_pstncc_states" model="wecom.service_api_list">
             <field name="type">9</field>
-            <field name="name">Through this interface, you can know whether employees have answered voice calls.</field>
+            <field name="name">OA &gt; 紧急通知应用 &gt; 获取接听状态</field>
+            <field name="description" type="html">
+                <p>通过此接口，了解员工是否已接听语音电话。</p>
+            </field>
             <field name="function_name">GET_PSTNCC_STATES</field>
             <field name="short_url">/cgi-bin/pstncc/getstates?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">7401</field>
+            <field name="sequence">86002</field>
         </record>
 
-        <!-- 7. 效率工具 -->
+        <!-- 9. 效率工具 -->
+        <!-- 9.1 企业邮箱 -->
+        <!-- 9.2 日程 -->
+        <!-- 9.3 直播 -->
+        <!-- 9.4 微盘 -->
+        <record id="wecom_service_tools_wedrive_space_create" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间管理 &gt; 新建空间</field>
+            <field name="description" type="html">
+                <p>该接口用于在微盘内新建空间，可以指定人创建空间。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_CREATE</field>
+            <field name="short_url">/cgi-bin/wedrive/space_create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94001</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_rename" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间管理 &gt; 重命名空间</field>
+            <field name="description" type="html">
+                <p>该接口用于重命名已有空间，接收userid参数，以空间管理员身份来重命名。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_RENAME</field>
+            <field name="short_url">/cgi-bin/wedrive/space_rename?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94002</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_dismiss" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间管理 &gt; 解散空间</field>
+            <field name="description" type="html">
+                <p>该接口用于解散已有空间，需要以空间管理员身份来解散。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_DISMISS</field>
+            <field name="short_url">/cgi-bin/wedrive/space_dismiss?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94003</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_info" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间管理 &gt; 获取空间信息</field>
+            <field name="description" type="html">
+                <p>该接口用于获取空间成员列表、信息、权限等信息。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_INFO</field>
+            <field name="short_url">/cgi-bin/wedrive/space_info?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94004</field>
+        </record>
+
+        <record id="wecom_service_tools_wedrive_space_acl_add" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间权限 &gt; 添加成员/部门</field>
+            <field name="description" type="html">
+                <p>该接口用于对指定空间添加成员/部门，可一次性添加多个。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_ACL_ADD</field>
+            <field name="short_url">/cgi-bin/wedrive/space_acl_add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94005</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_acl_del" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间权限 &gt; 移除成员/部门</field>
+            <field name="description" type="html">
+                <p>该接口用于对指定空间移除成员/部门，操作者需要有移除权限。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_ACL_DEL</field>
+            <field name="short_url">/cgi-bin/wedrive/space_acl_del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94006</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_setting" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间权限 &gt; 权限管理</field>
+            <field name="description" type="html">
+                <p>该接口用于修改空间权限，需要传入userid，修改权限范围继承传入用户的权限范围。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_SETTING</field>
+            <field name="short_url">/cgi-bin/wedrive/space_setting?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94007</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_space_share" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 空间权限 &gt; 获取邀请链接</field>
+            <field name="description" type="html">
+                <p>该接口用于获取空间邀请分享链接。</p>
+            </field>
+            <field name="function_name">WEDRIVE_SPACE_SHARE</field>
+            <field name="short_url">/cgi-bin/wedrive/space_share?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94008</field>
+        </record>
+
+        <record id="wecom_service_tools_wedrive_file_list" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 获取文件列表</field>
+            <field name="description" type="html">
+                <p>该接口用于获取指定地址下的文件列表。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_LIST</field>
+            <field name="short_url">/cgi-bin/wedrive/file_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94010</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_upload" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 上传文件</field>
+            <field name="description" type="html">
+                <p>该接口用于向微盘中的指定位置上传文件。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_UPLOAD</field>
+            <field name="short_url">/cgi-bin/wedrive/file_upload?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94011</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_download" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 下载文件</field>
+            <field name="description" type="html">
+                <p>该接口用于下载文件，请求的userid需有下载权限</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_DOWNLOADD</field>
+            <field name="short_url">/cgi-bin/wedrive/file_download?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94012</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_create" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 新建文件/微文档</field>
+            <field name="description" type="html">
+                <p>该接口用于在微盘指定位置新建文件、微文档。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_CREATE</field>
+            <field name="short_url">/cgi-bin/wedrive/file_create?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94013</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_rename" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 重命名文件</field>
+            <field name="description" type="html">
+                <p>该接口用于对指定文件进行重命名。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_RENAME</field>
+            <field name="short_url">/cgi-bin/wedrive/file_rename?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94014</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_move" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 移动文件</field>
+            <field name="description" type="html">
+                <p>该接口用于将文件移动到指定位置。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_MOVE</field>
+            <field name="short_url">/cgi-bin/wedrive/file_move?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94015</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_delete" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 删除文件</field>
+            <field name="description" type="html">
+                <p>该接口用于删除指定文件。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_DELETE</field>
+            <field name="short_url">/cgi-bin/wedrive/file_delete?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94016</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_info" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件管理 &gt; 文件信息</field>
+            <field name="description" type="html">
+                <p>该接口用于获取指定文件的信息。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_INFO</field>
+            <field name="short_url">/cgi-bin/wedrive/file_info?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94017</field>
+        </record>
+
+        <record id="wecom_service_tools_wedrive_file_acl_add" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件权限 &gt; 新增指定人</field>
+            <field name="description" type="html">
+                <p>该接口用于对指定文件添加指定人/部门。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_ACL_ADD</field>
+            <field name="short_url">/cgi-bin/wedrive/file_acl_add?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94021</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_acl_del" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件权限 &gt; 删除指定人</field>
+            <field name="description" type="html">
+                <p>该接口用于删除指定文件的指定人/部门。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_ACL_DEL</field>
+            <field name="short_url">/cgi-bin/wedrive/file_acl_del?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94022</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_setting" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件权限 &gt; 分享设置</field>
+            <field name="description" type="html">
+                <p>该接口用于文件的分享设置。</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_SETTING</field>
+            <field name="short_url">/cgi-bin/wedrive/file_setting?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94023</field>
+        </record>
+        <record id="wecom_service_tools_wedrive_file_share" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 微盘 &gt; 文件权限 &gt; 获取分享链接</field>
+            <field name="description" type="html">
+                <p>该接口用于获取文件的分享链接</p>
+            </field>
+            <field name="function_name">WEDRIVE_FILE_SHARE</field>
+            <field name="short_url">/cgi-bin/wedrive/file_share?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">94024</field>
+        </record>
+
+        <!-- 9.5 公费电话 -->
+        <record id="wecom_service_tools_get_dial_record" model="wecom.service_api_list">
+            <field name="type">10</field>
+            <field name="name">效率工具 &gt; 公费电话 &gt; 获取公费电话拨打记录</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，按时间范围拉取成功接通的公费电话拨打记录。</p>
+            </field>
+            <field name="function_name">GET_DIAL_RECORD</field>
+            <field name="short_url">/cgi-bin/dial/get_dial_record?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">95001</field>
+        </record>
+
+        <!-- 10. 企业支付 -->
+        <!-- 10.1 企业红包 -->
+        <!-- 10.2 向员工付款 -->
+        <!-- 10.3 向员工收款 -->
+        <!-- 10.4 对外收款 -->
+        <record id="wecom_service_externalpay_addmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 新增商户号</field>
+            <field name="description" type="html">
+                <p>使用该接口时需要开通对外收款能力并绑定第一个商户号。（说明：第一个商户号的绑定需要由企业管理员手动绑定，绑定入口在：手机端工作台-对外收款，或管理后台-应用管理-对外收款-启用）</p>
+                <p>通过该接口可以导入其他商户号，同一个企业最多绑定5000个商户号。</p>
+            </field>
+            <field name="function_name">ADDMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/addmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114001</field>
+        </record>
+
+        <record id="wecom_service_externalpay_getmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 查询商户号详情</field>
+            <field name="description" type="html">
+                <p>通过该接口可以查询已绑定商户号信息以及商户号使用范围</p>
+            </field>
+            <field name="function_name">GETMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/getmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114002</field>
+        </record>
+
+        <record id="wecom_service_externalpay_delmerchant" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 删除商户号</field>
+            <field name="description" type="html">
+                <p>通过该接口可以删除未绑定的商户号</p>
+            </field>
+            <field name="function_name">DELMERCHANT</field>
+            <field name="short_url">/cgi-bin/externalpay/delmerchant?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114003</field>
+        </record>
+
+        <record id="wecom_service_externalpay_set_mch_use_scope" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 收款商户号管理 &gt; 设置商户号使用范围</field>
+            <field name="description" type="html">
+                <p>通过该接口可以设置已绑定商户号的使用范围</p>
+            </field>
+            <field name="function_name">SET_MCH_USE_SCOPE</field>
+            <field name="short_url">/cgi-bin/externalpay/set_mch_use_scope?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114004</field>
+        </record>
+
+        <record id="wecom_service_externalpay_get_bill_list" model="wecom.service_api_list">
+            <field name="type">11</field>
+            <field name="name">企业支付 &gt; 对外收款 &gt; 获取对外收款记录</field>
+            <field name="description" type="html">
+                <p>企业和服务商可通过此接口获取企业的对外收款记录。</p>
+            </field>
+            <field name="function_name">GET_BILL_LIST</field>
+            <field name="short_url">/cgi-bin/externalpay/get_bill_list?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">114004</field>
+        </record>
+
+        <!-- 11. 企业互联 -->
+        <record id="wecom_service_corpgroup_corp_list_app_share_info" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取应用共享信息</field>
+            <field name="description" type="html">
+                <p>上级/上游企业通过该接口可以获取某个应用分享给的所有企业列表。</p>
+                <p>对于有敏感权限的应用，需要下级/下游企业确认后才能共享成功，若下级/下游企业未确认，则不会存在于该接口的返回列表</p>
+            </field>
+            <field name="function_name">CORP_LIST_APP_SHARE_INFO</field>
+            <field name="short_url">/cgi-bin/corpgroup/corp/list_app_share_info?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120001</field>
+        </record>
+
+        <record id="wecom_service_corpgroup_corp_gettoken" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取下级/下游企业的access_token</field>
+            <field name="description" type="html">
+                <p>获取应用可见范围内下级/下游企业的access_token，该access_token可用于调用下级/下游企业通讯录的只读接口。</p>
+            </field>
+            <field name="function_name">CORP_GETTOKEN</field>
+            <field name="short_url">/cgi-bin/corpgroup/corp/gettoken?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120002</field>
+        </record>
+
+        <record id="wecom_service_corpgroup_miniprogram_transfer_session" model="wecom.service_api_list">
+            <field name="type">12</field>
+            <field name="name">企业互联 &gt; 获取下级/下游企业小程序session</field>
+            <field name="description" type="html">
+                <p>上级/上游企业通过该接口转换为下级/下游企业的小程序session</p>
+            </field>
+            <field name="function_name">CORP_MINIPROGRAM_TRANSFER_SESSION</field>
+            <field name="short_url">/cgi-bin/miniprogram/transfer_session?access_token=ACCESS_TOKEN</field>
+            <field name="request_type">POST</field>
+            <field name="sequence">120003</field>
+        </record>
+
+        <!-- 12. 上下游 -->
 
         <!-- 13. 会话存档 -->
-        <record id="wecom_service_msgaudit_get_permit_user_list" model="wecom.service_api_list">
-            <field name="type">13</field>
-            <field name="name">Get session content archive open member list</field>
-            <field name="function_name">GET_PERMIT_USER_LIST</field>
-            <field name="short_url">/cgi-bin/msgaudit/get_permit_user_list?access_token=ACCESS_TOKEN</field>
-            <field name="request_type">POST</field>
-            <field name="sequence">13000</field>
-        </record>
         <record id="wecom_service_msgaudit_check_single_agree" model="wecom.service_api_list">
-            <field name="type">13</field>
-            <field name="name">Obtain the consent of external members in the session</field>
-            <field name="function_name">CHECK_SINGLE_AGREE</field>
+            <field name="type">14</field>
+            <field name="name">会话内容存档 &gt; 获取会话同意情况 &gt; 单聊请求</field>
+            <field name="description" type="html">
+                <p>企业可通过下述接口，获取会话中外部成员的同意情况</p>
+            </field>
+            <field name="function_name">MSGAUDIT_CHECK_SINGLE_AGREE</field>
             <field name="short_url">/cgi-bin/msgaudit/check_single_agree?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">13001</field>
+            <field name="sequence">140001</field>
         </record>
+
         <record id="wecom_service_msgaudit_check_room_agree" model="wecom.service_api_list">
-            <field name="type">13</field>
-            <field name="name">Query the consent of all external contacts of the outside company within the roomid</field>
-            <field name="function_name">CHECK_ROOM_AGREE</field>
+            <field name="type">14</field>
+            <field name="name">会话内容存档 &gt; 获取会话同意情况 &gt; 群聊请求</field>
+            <field name="description" type="html">
+                <p>企业可通过下述接口，获取会话中外部成员的同意情况</p>
+            </field>
+            <field name="function_name">MSGAUDIT_CHECK_ROOM_AGREE</field>
             <field name="short_url">/cgi-bin/msgaudit/check_room_agree?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">13002</field>
+            <field name="sequence">140001</field>
         </record>
+
         <record id="wecom_service_msgaudit_groupchat_get" model="wecom.service_api_list">
-            <field name="type">13</field>
-            <field name="name">Obtain the session content and archive the internal group information of the enterprise, including group name, group owner ID, announcement, group creation time, and the ID and joining time of all group members.</field>
-            <field name="function_name">GROUPCHAT_GET</field>
+            <field name="type">14</field>
+            <field name="name">会话内容存档 &gt; 获取会话内容存档内部群信息</field>
+            <field name="description" type="html">
+                <p>企业可通过此接口，获取会话内容存档本企业的内部群信息，包括群名称、群主id、公告、群创建时间以及所有群成员的id与加入时间</p>
+            </field>
+            <field name="function_name">MSGAUDIT_GROUPCHAT_GET</field>
             <field name="short_url">/cgi-bin/msgaudit/groupchat/get?access_token=ACCESS_TOKEN</field>
             <field name="request_type">POST</field>
-            <field name="sequence">13003</field>
+            <field name="sequence">140003</field>
         </record>
+
+        <!-- 14. 电子发票 -->
+        <!-- 15. 家校沟通 -->
+        <!-- 16. 家校应用 -->
+        <!-- 17. 政民沟通 -->
     </data>
 </odoo>

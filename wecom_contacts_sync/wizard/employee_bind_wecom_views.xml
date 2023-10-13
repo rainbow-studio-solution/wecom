@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="employee_bind_wecom_view_form" model="ir.ui.view">
+            <field name="name">wecom.employee_bind_wecom_wizard.view.form</field>
+            <field name="model">wecom.employee_bind_wecom_wizard</field>
+            <field name="arch" type="xml">
+                <form create="1">
+                    <sheet>
+                        <field name="avatar" widget='image_url' class="oe_avatar" options='{"zoom": true, "preview_image":"image_128"}' />
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" default_focus="1" force_save="1" readonly="1" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <!-- <field name="company_id" readonly="1" options="{'no_open': True}"/> -->
+                            <field name="employee_id" invisible="1"/>
+                            <!-- <field name="employee_name"/> -->
+                            <field name="wecom_userid" required="True"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button class="oe_highlight" name="bind_wecom_member" icon="fa-user-plus" string="Binding" type="object" />
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="employee_bind_wecom_action" model="ir.actions.act_window">
+            <field name="name">Employees bind enterprise wechat members</field>
+            <field name="res_model">wecom.employee_bind_wecom_wizard</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="employee_bind_wecom_view_form"/>
+            <field name="target">new</field>
+            <field name="context">{'default_employee_id':active_id}</field>
+        </record>
+    </data>
+</odoo>

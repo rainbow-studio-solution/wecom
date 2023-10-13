@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="WecomApiErrorCodeListView.buttons" t-inherit="web.ListView.Buttons" owl="1">
+        <!-- t-if="props.resModel == 'wecom.service_api_error'" -->
+        <xpath expr="//t[@t-if='props.showButtons']" position="after">
+            <button t-if="props.resModel == 'wecom.service_api_error'" class="btn btn-info o_list_get_wecom_error_code fa fa-cloud-download" type="button" t-on-click="onClickGetApiErrorCode"> Get error code</button>
+        </xpath>
+    </t>
+
+</templates>

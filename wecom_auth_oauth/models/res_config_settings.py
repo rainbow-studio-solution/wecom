@@ -3,7 +3,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException   # type: ignore
 
 
 import werkzeug.urls
@@ -25,118 +25,45 @@ class ResConfigSettings(models.TransientModel):
         default=lambda self: self.env.company,
     )
 
-    auth_agentid = fields.Char(related="company_id.auth_agentid", readonly=False)
+    auth_app_id = fields.Many2one(related="company_id.auth_app_id", readonly=False,)
+    auth_agentid = fields.Integer(related="auth_app_id.agentid", readonly=False)
+    auth_secret = fields.Char(related="auth_app_id.secret", readonly=False)
 
-    auth_secret = fields.Char(related="company_id.auth_secret", readonly=False)
-
-    auth_redirect_uri = fields.Char(related="company_id.auth_redirect_uri")
-    qr_redirect_uri = fields.Char(related="company_id.qr_redirect_uri")
-
-    enabled_join_qrcode = fields.Boolean(
-        related="company_id.enabled_join_qrcode", readonly=False
+    auth_app_config_ids = fields.One2many(
+        # related="company_id.contacts_auto_sync_hr_enabled", readonly=False
+        related="auth_app_id.app_config_ids",
+        # domain="[('company_id', '=', company_id),('app_id', '=', contacts_app_id)]",
+        readonly=False,
     )
 
-    join_qrcode = fields.Char(related="company_id.join_qrcode")
-    join_qrcode_size_type = fields.Selection(related="company_id.join_qrcode_size_type")
+    def set_oauth_provider_wecom(self):
+        self.auth_app_id.set_oauth_provider_wecom() # type: ignore
 
-    join_qrcode_last_time = fields.Char(related="company_id.join_qrcode_last_time")
+    def generate_parameters(self):
+        """
+        生成参数
+        :return:
+        """
+        code = self.env.context.get("code")
+        if bool(code) and code == "auth":
+            for record in self:
+                # if not record.contacts_app_id:
+                #     raise ValidationError(_("Please bind contact app!"))
+                # else:
+                record.auth_app_id.with_context(code=code).generate_parameters()    # type: ignore
+        super(ResConfigSettings, self).generate_parameters()    # type: ignore
 
-    def set_oauth_provider_wxwork(self):
-        web_base_url = self.env["ir.config_parameter"].get_param("web.base.url")
-
-        new_auth_redirect_uri = (
-            urllib.parse.urlparse(web_base_url).scheme
-            + "://"
-            + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.company_id.auth_redirect_uri).path
-        )
-        new_qr_redirect_uri = (
-            urllib.parse.urlparse(web_base_url).scheme
-            + "://"
-            + urllib.parse.urlparse(web_base_url).netloc
-            + urllib.parse.urlparse(self.company_id.qr_redirect_uri).path
-        )
-
-        # 设置回调链接地址
-        self.company_id.auth_redirect_uri = new_auth_redirect_uri
-        self.company_id.qr_redirect_uri = new_qr_redirect_uri
-
-        auth_endpoint = "https://open.weixin.qq.com/connect/oauth2/authorize"
-        qr_auth_endpoint = "https://open.work.weixin.qq.com/wwopen/sso/qrConnect"
-
-        try:
-            providers = (
-                self.env["auth.oauth.provider"]
-                .sudo()
-                .search(["|", ("enabled", "=", True), ("enabled", "=", False),])
-            )
-        except Exception:
-            providers = []
-
-        for provider in providers:
-            if auth_endpoint in provider["auth_endpoint"]:
-                provider.write(
-                    {
-                        # "client_id": client_id,
-                        "validation_endpoint": self.auth_redirect_uri,
-                        "enabled": True,
-                    }
-                )
-            if qr_auth_endpoint in provider["auth_endpoint"]:
-                provider.write(
-                    {
-                        # "client_id": client_id,
-                        "validation_endpoint": self.qr_redirect_uri,
-                        "enabled": True,
-                    }
-                )
-
-    def get_join_qrcode(self):
-        ir_config = self.env["ir.config_parameter"].sudo()
-        debug = ir_config.get_param("wecom.debug_enabled")
-
-        params = {}
-        if debug:
-            _logger.info(_("Start getting join enterprise QR code"))
-        try:
-            wxapi = self.env["wecom.service_api"].InitServiceApi(
-                self.company_id, "contacts_secret", "contacts"
-            )
-            response = wxapi.httpCall(
-                self.env["wecom.service_api_list"].get_server_api_call(
-                    "GET_JOIN_QRCODE"
-                ),
-                {"size_type": self.company_id.join_qrcode_size_type,},
-            )
-
-            if response["errcode"] == 0:
-                self.company_id.join_qrcode = response["join_qrcode"]
-                self.company_id.join_qrcode_last_time = datetime.datetime.now().strftime(
-                    "%Y-%m-%d %H:%M:%S"
-                )
-
-                if debug:
-                    _logger.info(
-                        _("Complete obtaining the QR code to join the enterprise")
-                    )
-                params = {
-                    "title": _("Success"),
-                    "message": _("Successfully obtained the enterprise QR code."),
-                    "sticky": False,  # 延时关闭
-                    "className": "bg-success",
-                    "next": {"type": "ir.actions.client", "tag": "reload",},  # 刷新窗体
-                }
-                action = {
-                    "type": "ir.actions.client",
-                    "tag": "display_notification",
-                    "params": {
-                        "title": params["title"],
-                        "type": "success",
-                        "message": params["message"],
-                        "sticky": params["sticky"],
-                        "next": params["next"],
-                    },
-                }
-                return action
-        except ApiException as ex:
-            return self.env["wecom.tools"].ApiExceptionDialog(ex)
+    def get_app_info(self):
+        """
+        获取应用信息
+        :return:
+        """
+        app = self.env.context.get("app")
+        for record in self:
+            if app == "auth" and (
+                record.auth_app_id.agentid == 0 or record.auth_app_id.secret == ""  # type: ignore
+            ):
+                raise UserError(_("Auth application ID and secret cannot be empty!"))
+            else:
+                record.auth_app_id.get_app_info()   # type: ignore
+        super(ResConfigSettings, self).get_app_info()   # type: ignore

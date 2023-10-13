@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<template>
+
+    <t t-extend="res_config_wecom_navigation_menu">
+        <t t-jquery="a:last" t-operation="after">
+
+
+        </t>
+    </t>
+
+
+</template>

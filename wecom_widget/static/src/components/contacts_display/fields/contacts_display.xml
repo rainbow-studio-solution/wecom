@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="oec_widget.WecomContactsDisplay" owl="1">
+        <div class="wecom_contacts_display_component">
+            <ww-open-data t-att-id="resId" t-att-type="props.datatype" t-att-openid="props.value" />
+        </div>
+    </t>
+
+</templates>

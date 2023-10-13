@@ -1,0 +1,15 @@
+// = Gantt View
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_web_client {
+    // Since the component's design is defined in assets_common, scope variables
+    // declarations within `o_web_client` selector.
+
+    .o_gantt_view {
+        --Gant__DayOff-background-color: rgba(255, 255, 255, .05);
+        // Mix between $gantt-highlight-today-bg and $o-view-background-color
+        // to simulate the superposition of these two colors
+        --Gant__DayOffToday-background-color: #553F3A;
+    }
+}

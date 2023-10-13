@@ -84,7 +84,7 @@ class XMLParse:
         try:
             xml_tree = ET.fromstring(xmltext)
             encrypt = xml_tree.find("Encrypt")
-            return WXBizMsgCrypt_OK, encrypt.text
+            return WXBizMsgCrypt_OK, encrypt.text    # type: ignore
         except Exception as e:
             logger = logging.getLogger()
             logger.error(e)
@@ -166,7 +166,7 @@ class Prpcrypt(object):
         pkcs7 = PKCS7Encoder()
         text = pkcs7.encode(text)
         # 加密
-        cryptor = AES.new(self.key, self.mode, self.key[:16])
+        cryptor = AES.new(self.key, self.mode, self.key[:16])    # type: ignore
         try:
             ciphertext = cryptor.encrypt(text)
             # 使用BASE64对加密后的字符串进行编码
@@ -182,7 +182,7 @@ class Prpcrypt(object):
         @return: 删除填充补位后的明文
         """
         try:
-            cryptor = AES.new(self.key, self.mode, self.key[:16])
+            cryptor = AES.new(self.key, self.mode, self.key[:16])    # type: ignore
             # 使用BASE64对密文进行解码，然后AES-CBC解密
             plain_text = cryptor.decrypt(base64.b64decode(text))
         except Exception as e:
@@ -263,7 +263,7 @@ class WecomMsgCrypt(object):
         """
         pc = Prpcrypt(self.key)
         ret, encrypt = pc.encrypt(sReplyMsg, self.m_sReceiveId)
-        encrypt = encrypt.decode("utf8")
+        encrypt = encrypt.decode("utf8")     # type: ignore
         if ret != 0:
             return ret, None
         if timestamp is None:
@@ -287,7 +287,7 @@ class WecomMsgCrypt(object):
         # 验证安全签名
         """
         xmlParse = XMLParse()
-        ret, encrypt = xmlParse.extract(sPostData)
+        ret, encrypt = xmlParse.extract(sPostData)   # type: ignore
         if ret != 0:
             return ret, None
         sha1 = SHA1()

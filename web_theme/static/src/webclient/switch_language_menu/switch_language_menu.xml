@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="SwitchLanguageMenu" owl="1">
+        <Dropdown class="'o_switch_language_menu d-none d-md-block'" position="'bottom-end'">
+            <t t-set-slot="toggler">
+                <img class="rounded-circle o_language_flag" t-att-src="currentLanguage['flag_image_url']"/>
+            </t>
+            <t t-if="allLanguages.length > 1" t-foreach="Object.values(allLanguages)" t-as="lang" t-key="lang.id">
+                <t t-call="SwitchLanguageItem">
+                    <t t-set="lang" t-value="lang" />
+                </t>
+            </t>
+        </Dropdown>
+    </t>
+
+    <t t-name="SwitchLanguageItem" owl="1">
+        <t t-set="isCurrent" t-value="lang.id === currentLanguage.id"/>
+        <!-- <t t-set="isLanguageSelected" t-value="selectedCompanies.includes(lang.id)"/> -->
+
+        <div class="d-flex" data-menu="lang" t-att-data-lang-id="lang.id" t-on-click.stop="() => this.toggleLanguage(lang)" t-attf-class="{{isCurrent ? 'border-primary alert-primary' : ''}}">
+            <div class="border-right lang_flag o_py text-center">
+                <span class="btn border-0 p-2">
+                    <img class="o_lang_flag" t-att-src="lang['flag_image_url']"/>
+                </span>
+            </div>
+            <div role="button" class="d-flex flex-grow-1 align-items-center py-0 log_into pl-2 o_py" t-att-class="isCurrent ? 'ms-1 me-2' : 'btn btn-light fw-normal border-0'">
+                <span class='lang_label pe-3' t-att-class="isCurrent ? 'text-900 fw-bold' : 'ms-1'">
+                    <t t-esc="lang.name"/>
+                </span>
+            </div>
+        </div>
+    </t>
+
+</templates>

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <data noupdate="1">
 
         <record id="wecom_material_image_logo" model="wecom.material">
             <field name="name">Logo</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="False"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/logo.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/logo.png"></field>
             <field name="media_filename">logo.png</field>
         </record>
 
@@ -14,7 +15,7 @@
             <field name="name">KPI</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/kpi.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/kpi.png"></field>
             <field name="media_filename">kpi.png</field>
         </record>
 
@@ -22,7 +23,7 @@
             <field name="name">Welcome</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/welcome.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/welcome.png"></field>
             <field name="media_filename">welcome.png</field>
         </record>
 
@@ -30,7 +31,7 @@
             <field name="name">Account Created</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/account_created.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/account_created.png"></field>
             <field name="media_filename">account_created.png</field>
         </record>
 
@@ -38,7 +39,7 @@
             <field name="name">Message</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/message.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/message.png"></field>
             <field name="media_filename">message.png</field>
         </record>
 
@@ -46,7 +47,7 @@
             <field name="name">Reset Password</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/reset_password.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/reset_password.png"></field>
             <field name="media_filename">reset_password.png</field>
         </record>
 
@@ -54,14 +55,14 @@
             <field name="name">Warning</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/warn.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/warn.png"></field>
             <field name="media_filename">warn.png</field>
         </record>
         <record id="wecom_material_image_gamification" model="wecom.material">
             <field name="name">Gamification</field>
             <field name="media_type">image</field>
             <field name="temporary" eval="True"/>
-            <field name="media_file" type="base64" file="wecom_material/static/src/img/gamification.png"/>
+            <field name="media_file" type="base64" file="wecom_material/static/src/img/gamification.png"></field>
             <field name="media_filename">gamification.png</field>
         </record>
 

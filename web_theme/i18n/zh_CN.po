@@ -1,0 +1,1349 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* web_theme
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-03-07 03:53+0000\n"
+"PO-Revision-Date: 2023-03-07 11:55+0800\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.2\n"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__100
+msgid "100 rows"
+msgstr "100行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__120
+msgid "120 rows"
+msgstr "120行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__140
+msgid "140 rows"
+msgstr "140行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__160
+msgid "160 rows"
+msgstr "160行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__180
+msgid "180 rows"
+msgstr "180行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__200
+msgid "200 rows"
+msgstr "200行"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__list_rows_limit__80
+msgid "80 rows"
+msgstr "80行"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<i class=\"bi bi-eye\" role=\"img\" aria-label=\"Views\" title=\"Views\"/>"
+msgstr "<i class=\"bi bi-eye\" role=\"img\" aria-label=\"视图\" title=\"视图\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"bi bi-layout-sidebar-inset\" role=\"img\" aria-label=\"Sidebar settings\" "
+"title=\"Sidebar settings\"/>"
+msgstr ""
+"<i class=\"fa fa-outdent\" role=\"img\" aria-label=\"侧边栏设置\" title=\"侧边栏设置\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"bi bi-layout-wtf\" role=\"img\" aria-label=\"Layout settings\" title=\"Layout "
+"settings\"/>"
+msgstr ""
+"<i class=\"bi bi-layout-wtf\" role=\"img\" aria-label=\"布局设置\" title=\"布局设置\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"bi bi-palette\" role=\"img\" aria-label=\"Theme color\" title=\"Theme color\"/>"
+msgstr "<i class=\"bi bi-palette\" role=\"img\" aria-label=\"主题颜色\" title=\"主题颜色\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid ""
+"<i class=\"bi bi-unlock\"/>\n"
+"\t\t\t\t\t\t\t\t\tUnlock"
+msgstr ""
+"<i class=\"bi bi-unlock\"/>\n"
+"\t\t\t\t\t\t\t\t\t解锁"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<i class=\"bi bi-window\" role=\"img\" aria-label=\"Header\" title=\"Header\"/>"
+msgstr "<i class=\"bi bi-window\" role=\"img\" aria-label=\"页头\" title=\"页头\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"bi bi-window-desktop\" role=\"img\" aria-label=\"Footer\" title=\"Footer\"/>"
+msgstr "<i class=\"bi bi-window-desktop\" role=\"img\" aria-label=\"页脚\" title=\"页脚\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-copyright\" role=\"img\" aria-label=\"Copyright information\" "
+"title=\"Copyright information\"/>"
+msgstr ""
+"<i class=\"fa fa-copyright\" role=\"img\" aria-label=\"版权信息\" title=\"版权信息\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-diamond\" role=\"img\" aria-label=\"Main settings\" title=\"Main "
+"settings\"/>"
+msgstr "<i class=\"fa fa-bars\" role=\"img\" aria-label=\"导航设置\" title=\"导航设置\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-header\" role=\"img\" aria-label=\"Browser Window Title Name\" "
+"title=\"Browser Window Title Name\"/>"
+msgstr ""
+"<i class=\"fa fa-header\" role=\"img\" aria-label=\"浏览器窗口标题名称\" title=\"浏览器窗口"
+"标题名称\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-link\" role=\"img\" aria-label=\"Documentation URL\" title=\"Documentation "
+"URL\"/>"
+msgstr "<i class=\"fa fa-link\" role=\"img\" aria-label=\"文档URL\" title=\"文档URL\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-link\" role=\"img\" aria-label=\"Support URL\" title=\"Support URL\"/>"
+msgstr ""
+"<i class=\"fa fa-link\" role=\"img\" aria-label=\"技术支持URL\" title=\"技术支持URL\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<i class=\"fa fa-picture-o\" aria-label=\"Company Logo\"/>"
+msgstr "<i class=\"fa fa-picture-o\" aria-label=\"公司微标\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<i class=\"fa fa-picture-o\" aria-label=\"Company Square Logo\"/>"
+msgstr "<i class=\"fa fa-picture-o\" aria-label=\"公司方形微标\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<i class=\"fa fa-picture-o\" aria-label=\"Web Favorites Icon\"/>"
+msgstr "<i class=\"fa fa-picture-o\" aria-label=\"网页收藏夹图标\"/>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"<span attrs=\"{'invisible': [('lock_screen_state_storage_mode','!=','1')]}\">\n"
+"                                                Affects <b class=\"text-warning\">current</"
+"b> browser access.\n"
+"                                            </span>\n"
+"                                            <span attrs=\"{'invisible': "
+"[('lock_screen_state_storage_mode','!=','2')]}\">\n"
+"                                                Affects <b class=\"text-warning\">all</b> "
+"browser access.\n"
+"                                            </span>"
+msgstr ""
+"<span attrs=\"{'invisible': [('lock_screen_state_storage_mode','!=','1')]}\">\n"
+"                                                影响<b class=\"text-warning\">当前</b> 浏览"
+"器访问。\n"
+"                                            </span>\n"
+"                                            <span attrs=\"{'invisible': "
+"[('lock_screen_state_storage_mode','!=','2')]}\">\n"
+"                                                影响<b class=\"text-warning\">所有</b> 浏览"
+"器访问。\n"
+"                                            </span>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Layout settings</span>"
+msgstr "<span class=\"o_form_label\">布局设置</span>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Main settings</span>"
+msgstr "<span class=\"o_form_label\">主要设置</span>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Sidebar settings</span>"
+msgstr "<span class=\"o_form_label\">侧边栏设置</span>"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_groups_tree
+msgid "Access Groups"
+msgstr "访问用户组"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/base_mobile.xml:0
+#, python-format
+msgid "Action"
+msgstr "动作"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_ir_actions_act_window
+msgid "Action Window"
+msgstr "动作窗口"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Activate the developer mode"
+msgstr "激活开发者模式"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Activate the developer mode (with assets)"
+msgstr "激活开发者模式(使用资产)"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/promote_studio.xml:0
+#, python-format
+msgid "Add Custom Field"
+msgstr "添加自定义字段"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/promote_studio.xml:0
+#, python-format
+msgid "Add new fields and much more with"
+msgstr "添加新的字段和更多"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/search_panel.xml:0
+#, python-format
+msgid "All"
+msgstr "全部"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "An icon that appears in the title bar or favorites of the browser window."
+msgstr "出现在浏览器窗口的标题栏或收藏夹中的图标。"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/sidenav/sidenav.xml:0
+#, python-format
+msgid "App menu navigation"
+msgstr "应用菜单导航"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Are you sure you want to log off the current user:"
+msgstr "是否确定要注销当前用户："
+
+#. module: web_theme
+#: model:ir.ui.menu,name:web_theme.menu_base_config
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Base Settings"
+msgstr "基础设置"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__form_chatter_position__2
+msgid "Bottom of form"
+msgstr "表单底部"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+msgid "Brand"
+msgstr "品牌"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Brand settings"
+msgstr "品牌设置"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#, python-format
+msgid "CLEAR"
+msgstr "清空"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Cancel"
+msgstr "取消"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Changing the mode will immediately refresh the browser."
+msgstr "更改模式将立即刷新浏览器。"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/js/views/view_dialogs.js:0
+#, python-format
+msgid "Clear"
+msgstr "清除"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/promote_studio.xml:0
+#: code:addons/web_theme/static/src/webclient/sidenav/sidenav.xml:0
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+#, python-format
+msgid "Close"
+msgstr "关闭"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/sidenav/sidenav.js:0
+#, python-format
+msgid "Collapse sidebar menu"
+msgstr "折叠侧边栏菜单"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__company_id
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__company_id
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__company_id
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__type__company
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_search
+msgid "Company"
+msgstr "公司"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__favicon
+msgid "Company Favicon"
+msgstr "公司图标"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__logo
+msgid "Company Logo"
+msgstr "公司徽标"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__square_logo
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__square_logo
+msgid "Company Square Logo"
+msgstr "公司方形徽标"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"Company Square Logo, It is used to display the website brand when the sidebar collapses."
+msgstr "公司方形徽标，用于在侧边栏折叠时显示网站品牌。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Company logo, which is used to display the website brand."
+msgstr "公司徽标，用于显示网站品牌。"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_config_settings
+msgid "Config Settings"
+msgstr "配置设置"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Confirm"
+msgstr "确认"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_partner
+msgid "Contact"
+msgstr "联系人"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#, python-format
+msgid "Control panel toolbar"
+msgstr "控制面板工具栏"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__copyright
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__copyright
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__copyright
+msgid "Copyright"
+msgstr "版权"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Copyright information displayed in user menu items and footers."
+msgstr "显示在用户菜单项和页脚中的版权信息。"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__create_uid
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__create_date
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__darkblue
+msgid "Dark Blue"
+msgstr "深蓝色"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Dark Mode"
+msgstr "黑暗模式"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Deactivate the developer mode"
+msgstr "停用开发者模式"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__deep_purple
+msgid "Deep purple"
+msgstr "深紫色"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__sidebar_default_minimized
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__sidebar_default_minimized
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__sidebar_default_minimized
+#: model:ir.model.fields,field_description:web_theme.field_res_users__sidebar_default_minimized
+#, python-format
+msgid "Default minimize"
+msgstr "默认最小化"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__disable_theme_customizer
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__disable_theme_customizer
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__disable_theme_customizer
+msgid "Disable theme customizer"
+msgstr "禁用主题自定义"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_company_name
+msgid "Display Company Name"
+msgstr "显示公司名称"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__display_footer
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_footer
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_footer
+#: model:ir.model.fields,field_description:web_theme.field_res_users__display_footer
+#, python-format
+msgid "Display Footer"
+msgstr "显示页脚"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_name
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__sidebar_display_number_of_submenus
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__sidebar_display_number_of_submenus
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__sidebar_display_number_of_submenus
+#: model:ir.model.fields,field_description:web_theme.field_res_users__sidebar_display_number_of_submenus
+#, python-format
+msgid "Display Number Of Submenus"
+msgstr "显示子菜单数"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__display_scroll_top_button
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_scroll_top_button
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_scroll_top_button
+#: model:ir.model.fields,field_description:web_theme.field_res_users__display_scroll_top_button
+msgid "Display Scroll Top Button"
+msgstr "显示滚动顶部按钮"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__display_footer_copyright
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_footer_copyright
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_footer_copyright
+#: model:ir.model.fields,field_description:web_theme.field_res_users__display_footer_copyright
+msgid "Display footer copyright information"
+msgstr "显示页脚版权信息"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__display_footer_document
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_footer_document
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_footer_document
+#: model:ir.model.fields,field_description:web_theme.field_res_users__display_footer_document
+#, python-format
+msgid "Display footer document"
+msgstr "显示页脚帮助文档"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__display_footer_support
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__display_footer_support
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__display_footer_support
+#: model:ir.model.fields,field_description:web_theme.field_res_users__display_footer_support
+#, python-format
+msgid "Display footer support"
+msgstr "显示页脚技术支持"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"Displays the company name in the title bar of the browser window or in the title name on "
+"the status bar."
+msgstr "在浏览器窗口的标题栏或状态栏上的标题栏中显示公司名称。"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/footer/footer.xml:0
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Documentation"
+msgstr "文档"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__documentation_url
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__documentation_url
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__documentation_url
+msgid "Documentation URL"
+msgstr "文档URL"
+
+#. module: web_theme
+#: model:ir.actions.server,name:web_theme.download_contact
+msgid "Download (vCard)"
+msgstr "下载 (vCard)"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__menu_layout_mode__3
+msgid "Drawer Menu Mode"
+msgstr "抽屉菜单模式"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/navbar/navbar.js:0
+#, python-format
+msgid "Drawer menu"
+msgstr "抽屉菜单"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__enable_developer_tool
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__enable_developer_tool
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__enable_developer_tool
+msgid "Enable Developer Tools"
+msgstr "启用开发者工具"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__enable_documentation
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__enable_documentation
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__enable_documentation
+msgid "Enable Documentation"
+msgstr "启用文档"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__enable_odoo_account
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__enable_odoo_account
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__enable_odoo_account
+msgid "Enable Odoo Account"
+msgstr "启用Odoo账号"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__enable_support
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__enable_support
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__enable_support
+msgid "Enable Support"
+msgstr "启用技术支持"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__enable_lock_screen
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__enable_lock_screen
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__enable_lock_screen
+msgid "Enable lock screen"
+msgstr "启用锁屏"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/sidenav/sidenav.js:0
+#, python-format
+msgid "Expand the sidebar menu"
+msgstr "展开侧边栏菜单"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#: code:addons/web_theme/static/src/legacy/xml/search_panel.xml:0
+#, python-format
+msgid "FILTER"
+msgstr "筛选"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Failed to lock the screen!"
+msgstr "锁定屏幕失败！"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Favorites Icon"
+msgstr "收藏夹图标"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__menu_layout_mode__2
+msgid "Favorites Menu Mode"
+msgstr "收藏夹菜单模式"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__sidebar_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__sidebar_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__sidebar_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_users__sidebar_fixed
+#, python-format
+msgid "Fixed SideNavbar"
+msgstr "固定侧导航栏"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+#, python-format
+msgid "Footer"
+msgstr "页脚"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Form"
+msgstr "表单"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__form_chatter_position
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__form_chatter_position
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__form_chatter_position
+#: model:ir.model.fields,field_description:web_theme.field_res_users__form_chatter_position
+#, python-format
+msgid "Form Chatter Position"
+msgstr "表单聊天位置"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+msgid "Global"
+msgstr "全局"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__grey
+msgid "Grey"
+msgstr "灰色"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP 路由"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+#, python-format
+msgid "Header"
+msgstr "页头"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__main_submenu_position__1
+msgid "Header Navbar Menu"
+msgstr "页头菜单"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__main_submenu_position__3
+msgid "Header and Sidebar Navbar Menu"
+msgstr "页头和侧栏导航栏菜单"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__sidebar_hover_maximize
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__sidebar_hover_maximize
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__sidebar_hover_maximize
+#: model:ir.model.fields,field_description:web_theme.field_res_users__sidebar_hover_maximize
+#, python-format
+msgid "Hover maximize"
+msgstr "悬停最大化"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__id
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__id
+msgid "ID"
+msgstr ""
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "If checked, The backend page can be locked to ensure data security."
+msgstr "如果选中，则可以锁定后端页面以确保数据安全。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "If checked, The user menu display the menu item \"My Odoo.com account\"."
+msgstr "如果选中，用户菜单将显示菜单项“我的Odoo.com帐户”。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "If checked, everyone login can see the debug menu."
+msgstr "如果选中，每个登录的人都可以看到调试菜单。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "If checked, the user will not be able to set the theme, only global theme can be used."
+msgstr "如果选中，则用户将无法设置主题，只能使用全局主题。"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/promote_studio.xml:0
+#, python-format
+msgid "Install Odoo Studio"
+msgstr "安装Odoo Studio"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme____last_update
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems____last_update
+msgid "Last Modified on"
+msgstr "最后修改时间"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__write_uid
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__write_date
+#: model:ir.model.fields,field_description:web_theme.field_res_user_menuitems__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+#, python-format
+msgid "Layout"
+msgstr "布局"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Layout Mode"
+msgstr "布局模式"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__light
+msgid "Light"
+msgstr "浅色"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__default
+msgid "Light Blue"
+msgstr "浅蓝"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__light2
+msgid "Light2"
+msgstr "浅色2"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "List"
+msgstr "列表"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__list_herder_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__list_herder_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__list_herder_fixed
+#: model:ir.model.fields,field_description:web_theme.field_res_users__list_herder_fixed
+#, python-format
+msgid "List Header Fixed"
+msgstr "列表标题固定"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#: model:ir.model.fields,field_description:web_theme.field_res_users__lock_screen
+#, python-format
+msgid "Lock Screen"
+msgstr "锁屏"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__lock_screen_state_storage_mode
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__lock_screen_state_storage_mode
+msgid "Lock screen state storage mode"
+msgstr "锁屏状态存储模式"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+#, python-format
+msgid "Log out"
+msgstr "注销"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/sidenav/sidenav.xml:0
+#, python-format
+msgid "Logo"
+msgstr "徽标"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+msgid "Logs"
+msgstr "日志"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+#, python-format
+msgid "Main"
+msgstr "主要"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_ir_ui_menu
+msgid "Menu"
+msgstr "菜单"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__menu_layout_mode
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__menu_layout_mode
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__menu_layout_mode
+#: model:ir.model.fields,field_description:web_theme.field_res_users__menu_layout_mode
+msgid "Menu layout mode"
+msgstr "菜单布局模式"
+
+#. module: web_theme
+#: model:ir.ui.menu,name:web_theme.calendar_menu_my
+msgid "My Calendar"
+msgstr "我的日历"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "My Odoo.com account"
+msgstr "我的 Odoo.com 帐户"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "My Profile"
+msgstr "我的资料"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__name
+msgid "Name"
+msgstr "名称"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/web_calendar.xml:0
+#, python-format
+msgid "No filter available"
+msgstr "没有可用的筛选"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/drawer_menu/drawer_menu.xml:0
+#, python-format
+msgid "No result"
+msgstr "没有结果"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Not"
+msgstr "非"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__list_rows_limit
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__list_rows_limit
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__list_rows_limit
+#: model:ir.model.fields,field_description:web_theme.field_res_users__list_rows_limit
+#, python-format
+msgid "Number of rows in the list"
+msgstr "列表中的行数"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/promote_studio.xml:0
+#, python-format
+msgid "Odoo Studio"
+msgstr ""
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/controllers/lock.py:0
+#, python-format
+msgid "Only employees can access this database. Please contact the administrator."
+msgstr "只有员工才能访问此数据库。请与管理员联系。"
+
+#. module: web_theme
+#: model:ir.actions.client,name:web_theme.action_open_web_theme_configurator
+msgid "Open System Configurator"
+msgstr "开放系统配置程序"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__main_open_action_in_tabs
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__main_open_action_in_tabs
+#: model:ir.model.fields,field_description:web_theme.field_res_users__main_open_action_in_tabs
+#, python-format
+msgid "Open action in tabs"
+msgstr ""
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Operation failed!"
+msgstr "操作失败！"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Password"
+msgstr "密码"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Please input a Password!"
+msgstr "请输入密码！"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/navbar/navbar.js:0
+#, python-format
+msgid "Previous view"
+msgstr "以前的视图"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Primary Color"
+msgstr "主要颜色"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__theme_color__purple
+msgid "Purple"
+msgstr "紫色"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/js/views/barcode_fields.js:0
+#, python-format
+msgid "Quick search: %s"
+msgstr "快速搜索: %s"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_menu.js:0
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.js:0
+#, python-format
+msgid "Refresh"
+msgstr "刷新"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/js/views/view_dialogs.js:0
+#, python-format
+msgid "Remove"
+msgstr "移除"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__form_chatter_position__1
+msgid "Right side of the form"
+msgstr "表单的右侧"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#: code:addons/web_theme/static/src/legacy/xml/search_panel.xml:0
+#, python-format
+msgid "SEE RESULT"
+msgstr "查看结果"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Save"
+msgstr "保存"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/barcode_fields.xml:0
+#, python-format
+msgid "Scan barcode"
+msgstr "扫描条码"
+
+#. module: web_theme
+#: model:ir.actions.act_window,name:web_theme.action_base_configuration
+msgid "Settings"
+msgstr "设置"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_search
+msgid "Share User"
+msgstr "共享用户"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__sidebar_show_minimize_button
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__sidebar_show_minimize_button
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__sidebar_show_minimize_button
+#: model:ir.model.fields,field_description:web_theme.field_res_users__sidebar_show_minimize_button
+#, python-format
+msgid "Show minimize button"
+msgstr "显示最小化按钮"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Show scroll to top button"
+msgstr "显示滚动到顶部按钮"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Sidebar"
+msgstr "侧边栏"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__menu_layout_mode__1
+msgid "Sidebar Menu Mode"
+msgstr "侧边栏菜单模式"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__main_submenu_position__2
+msgid "Sidebar Navbar Menu"
+msgstr "侧边栏导航菜单"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+msgid "Sidebar Navigation"
+msgstr "侧边栏导航"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__square_logo_web
+msgid "Square Logo Web"
+msgstr "方形Web徽标"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model:ir.model.fields,field_description:web_theme.field_res_company__main_submenu_position
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__main_submenu_position
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__main_submenu_position
+#: model:ir.model.fields,field_description:web_theme.field_res_users__main_submenu_position
+#, python-format
+msgid "Submenu Position"
+msgstr "子菜单位置"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/footer/footer.xml:0
+#: code:addons/web_theme/static/src/webclient/user_menu/user_menu_items.js:0
+#, python-format
+msgid "Support"
+msgstr "技术支持"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__support_url
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__support_url
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__support_url
+msgid "Support URL"
+msgstr "技术支持URL"
+
+#. module: web_theme
+#: model:ir.actions.act_window,name:web_theme.web_theme_configurator
+msgid "System Configurator"
+msgstr "系统配置程序"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__system_name
+msgid "System Name"
+msgstr "系统名称"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_ir_config_parameter
+msgid "System Parameter"
+msgstr "系统参数"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/drawer_menu/drawer_menu.xml:0
+#, python-format
+msgid "TIP"
+msgstr "提示"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "The document URL displayed in the user menu item and footer."
+msgstr "显示在用户菜单项和页脚中的文档URL。"
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/controllers/lock.py:0
+#, python-format
+msgid "The password is correct, unlocking..."
+msgstr "密码正确，正在解锁..."
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "The technical support URL displayed in the user menu item and footer."
+msgstr "显示在用户菜单项和页脚中的技术支持URL。"
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/models/res_users.py:0
+#, python-format
+msgid "The theme is set successfully, Click the 'Refresh' button to load the new theme."
+msgstr "主题设置成功，单击“刷新”按钮加载新主题。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid ""
+"The title name displayed on the title bar or status bar of the browser window. Similarly, "
+"when a document is added to the user's link list or favorite or bookmark list, the title "
+"name will become the default name of the document link."
+msgstr ""
+"浏览器窗口标题栏或状态栏上显示的标题名称。类似地，当文档添加到用户的链接列表或收藏夹或书签列"
+"表时，标题名称将成为文档链接的默认名称。"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__theme_id
+#: model:ir.model.fields,field_description:web_theme.field_res_users__theme_id
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+msgid "Theme"
+msgstr "主题"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Theme Color"
+msgstr "主题颜色"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "Theme Customize"
+msgstr "主题自定义"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "Theme Settings"
+msgstr "主题设置"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_company__theme_color
+#: model:ir.model.fields,field_description:web_theme.field_res_config_settings__theme_color
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__theme_color
+#: model:ir.model.fields,field_description:web_theme.field_res_users__theme_color
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+msgid "Theme color"
+msgstr "主题颜色"
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/models/res_users.py:0
+#, python-format
+msgid "Theme set successfully!"
+msgstr "主题设置成功！"
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/models/res_users.py:0
+#, python-format
+msgid "Theme setting failed!"
+msgstr "主题设置失败！"
+
+#. module: web_theme
+#: model:ir.model.fields,help:web_theme.field_res_config_settings__favicon
+msgid "This field holds the image used to display a favicon for a given company."
+msgstr "此字段保存用于显示给定公司的收藏夹图标的图像。"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+msgid "Time"
+msgstr "时间"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#, python-format
+msgid "Today"
+msgstr "今天"
+
+#. module: web_theme
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__type
+msgid "Type"
+msgstr "类型"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_company__lock_screen_state_storage_mode__1
+msgid "Use browser's local storage"
+msgstr "使用浏览器的本地存储"
+
+#. module: web_theme
+#: model:ir.model.fields.selection,name:web_theme.selection__res_company__lock_screen_state_storage_mode__2
+msgid "Use database"
+msgstr "使用数据库"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_users
+#: model:ir.model.fields,field_description:web_theme.field_res_theme__user_id
+#: model:ir.model.fields.selection,name:web_theme.selection__res_theme__type__user
+msgid "User"
+msgstr "用户"
+
+#. module: web_theme
+#: model:ir.model,name:web_theme.model_res_user_menuitems
+#: model:ir.model.fields,field_description:web_theme.field_res_company__menuitem_id
+msgid "User menu items"
+msgstr "用户菜单项"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "User menu settings"
+msgstr "用户菜单设置"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Username"
+msgstr "用户名"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/legacy/xml/control_panel.xml:0
+#, python-format
+msgid "View switcher"
+msgstr "视图切换器"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#: model_terms:ir.ui.view,arch_db:web_theme.view_company_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form
+#: model_terms:ir.ui.view,arch_db:web_theme.view_users_form_simple_modif
+#, python-format
+msgid "Views"
+msgstr "视图"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "When enable,User can visit user documentation"
+msgstr "启用后，用户可以访问用户文档"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.res_config_settings_view_form
+msgid "When enable,User can vist your support site"
+msgstr "启用后，用户可以访问您的技术支持网站"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "Will cause the current user's work content to be lost!"
+msgstr "将导致当前用户的工作内容丢失！"
+
+#. module: web_theme
+#. odoo-python
+#: code:addons/web_theme/controllers/lock.py:0
+#, python-format
+msgid "Wrong password"
+msgstr "密码错误"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/theme_settings/theme_panel.xml:0
+#, python-format
+msgid "You need to save the settings to make the new theme effective!"
+msgstr "您需要保存设置以使新主题生效！"
+
+#. module: web_theme
+#: model_terms:ir.ui.view,arch_db:web_theme.lock
+msgid "second"
+msgstr "秒"
+
+#. module: web_theme
+#. odoo-javascript
+#: code:addons/web_theme/static/src/webclient/drawer_menu/drawer_menu.xml:0
+#, python-format
+msgid "— open me anywhere with"
+msgstr "— 在任何地方打开我的"

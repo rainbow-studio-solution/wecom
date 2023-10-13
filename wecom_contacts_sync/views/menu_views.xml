@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_wecom_contacts_sync" name="Contacts Sync" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_contacts_sync_wizard" groups="wecom_base.group_wecom_settings_manager" sequence="0"/>
+
+        <menuitem id="menu_wecom_contacts_management" name="Contacts" parent="wecom_base.menu_wecom_contacts" groups="wecom_base.group_wecom_settings_manager" sequence="1"/>
+
+        <menuitem id="menu_wecom_contacts_member" name="Member management" parent="menu_wecom_contacts_management" action="actions_wecom_contacts_member" groups="wecom_base.group_wecom_settings_manager" sequence="1"/>
+
+        <menuitem id="menu_wecom_contacts_department" name="Department management" parent="menu_wecom_contacts_management" action="actions_wecom_contacts_department" groups="wecom_base.group_wecom_settings_manager" sequence="2"/>
+
+        <menuitem id="menu_wecom_contacts_tag" name="Tag management" parent="menu_wecom_contacts_management" action="actions_wecom_contacts_tag" groups="wecom_base.group_wecom_settings_manager" sequence="3"/>
+
+        <menuitem id="menu_wecom_contacts_block_record" name="Block List" parent="wecom_base.menu_wecom_contacts" action="open_view_wecom_contacts_block_tree" groups="wecom_base.group_wecom_settings_manager" sequence="2"/>
+
+        <!-- 企微通讯录 同步-->
+        <!-- <menuitem id="menu_wecom_contacts_wizard" name="Contacts synchronization Wizard" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_contacts_sync_wizard" groups="wecom_base.group_wecom_settings_manager" sequence="3"/>
+        <menuitem id="menu_wecom_users_wizard" name="Bulk build User Wizard" parent="wecom_base.menu_wecom_contacts" action="actions_wecom_users_sync_wizard" groups="wecom_base.group_wecom_settings_manager" sequence="4"/> -->
+
+        <!-- 自动任务 -->
+        <menuitem id="menu_wecom_sync_contacts" name="Sync wecom contacts" parent="wecom_base.menu_wecom_cron" action="ir_cron_act_sync_wecom_contacts" sequence="7"/>
+    </data>
+
+</odoo>

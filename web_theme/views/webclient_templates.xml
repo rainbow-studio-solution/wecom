@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="web_theme.layout" name="iERP Web Layout" inherit_id="web.layout">
+        <xpath expr="//title" position="replace">
+            <t t-set="web_title" t-value="request and request.env['ir.config_parameter'].sudo().get_param('web_theme.system_name', '')" />
+            <title t-esc=" web_title or '' " />
+        </xpath>
+    </template>
+
+    <template id="lock_layou" name="Lock Layout" inherit_id="web.layout" primary="True">
+        <xpath expr="//head/meta[last()]" position="after">
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </xpath>
+        <xpath expr="//head/link[last()]" position="after">
+            <!-- <t t-call-assets="web.assets_frontend" t-js="false" /> -->
+        </xpath>
+        <xpath expr="//head/script[@id='web.layout.odooscript']" position="after">
+            <script t-nocache="Session information should always be up to date." type="text/javascript">
+				odoo.__session_info__ =
+                <t t-out="json.dumps(request.env['ir.http'].get_frontend_session_info())" />
+				;
+            </script>
+            <t t-call-assets="web.assets_frontend_minimal" t-css="false" defer_load="True" />
+            <t t-call-assets="web.assets_lock" t-js="false" />
+            <t t-call-assets="web.assets_lock" t-css="false" />
+            <!-- <t t-call-assets="web.assets_frontend_lazy" t-css="false" lazy_load="True" /> -->
+        </xpath>
+    </template>
+
+    <template id="lock" name="Lock">
+        <t t-call="web_theme.lock_layou">
+            <t t-set="body_classname" t-value="'o_lock_client'" />
+            <div class="container">
+                <div id="lock-screen" class="row">
+                    <div class="col-4 lock-card bg-light bg-opacity-75 rounded-3">
+                        <form id="lock-form" class="row g-3 lock-form needs-validation" role="form" novalidate="novalidate">
+                            <div class="col-12 text-center mt-5 lock-user-info">
+                                <img class="rounded-circle img-fluid lock-avatar" width="100" t-attf-src="/web/image/res.users/{{ lock_user.id }}/avatar_128" alt="" />
+                                <h5 class="lock-name" t-esc="lock_user.name" />
+                                <span t-if="lock_user.email" class="email" t-esc="lock_user.email" />
+                                <span t-if="lock_user.mobile" class="mobile" t-esc="lock_user.mobile" />
+                            </div>
+                            <div class="row pt-2 alert-line">
+                                <div class="alert alert-danger alert-dismissible fade show d-none" role="alert">
+                                    <span class="error" />
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" />
+                                </div>
+                            </div>
+                            <div class="row pt-2 alert-line">
+                                <div class="alert alert-success alert-dismissible fade show d-none" role="status">
+                                    <span class="message" />
+                                </div>
+                            </div>
+                            <div class="row pt-2 countdown-line d-none">
+                                <div class="countdown_wrapper text-center">
+                                    <div class="countdown_number">
+                                        <span id="countdown_number" class="fw-bold fs-1" t-translation="off">
+											3
+                                        </span>
+                                    </div>
+                                    <div class="countdown_unit">
+										second
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 username-group d-none">
+                                <label for="login" class="form-label col-form-label col-form-label-lg">
+									Username
+                                </label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text bg-transparent form-text" id="loginIcon">
+                                        <i class="fa fa-user" />
+                                    </span>
+                                    <input type="text" class="form-control form-control-lg bg-transparent" id="login" aria-describedby="loginIcon" required="required" t-att-value="lock_user.login" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="col-12 password-group">
+                                <label for="password" class="form-label">
+									Password
+                                </label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text bg-transparent form-text" id="passwordIcon">
+                                        <i class="bi bi-shield-lock" />
+                                    </span>
+                                    <input type="text" class="form-control form-control-lg bg-transparent" id="password" aria-describedby="passwordIcon" placeholder="Password" autocomplete="off" required="required" />
+                                    <button id="show_or_hide_password" class="btn d-none">
+                                        <i id="show_or_hide_password_icon" class="bi bi-eye-slash" />
+                                    </button>
+                                    <div class="invalid-feedback">
+										Please input a Password!
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 submit-line">
+                                <button id="o_unlock_button" type="submit" class="btn rounded-circle o_unlock_button">
+                                    <i class="bi bi-unlock" />
+									Unlock
+                                </button>
+                            </div>
+                            <div class="col-12 m-2 mb-3">
+                                <a id="o_lock_logout" class="text-muted o_lock_logout" data-bs-toggle="modal" data-bs-target="#logout_modal">
+									Not
+                                    <b t-esc="lock_user.name" />
+									?
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- modal-dialog modal-dialog-centered tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" role="dialog" -->
+                <div id="logout_modal" class="modal fade" aria-labelledby="logout_modal_title" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true" role="dialog">
+                    <div class="modal-dialog  modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="logout_modal_title">
+										Log out
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-danger fs-6">
+                                        <p>
+											Are you sure you want to log off the current user:
+                                        </p>
+                                        <p>
+                                            <span class="fw-bold" t-esc="lock_user.name" />
+											?
+                                        </p>
+                                        <p>
+											Will cause the current user's work content to be lost!
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="o_confirm_logout_button" type="button" class="btn btn-primary">
+										Confirm
+                                    </button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+										Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="webclient_login" inherit_id="web.login_layout">
+        <xpath expr="//t[@t-call='web.frontend_layout']/t[last()]" position="after">
+            <t t-set="body_classname" t-value="'o_home_menu_background'"/>
+            <t t-set="login_card_classes" t-value="'rounded-0 shadow-sm bg-white'"/>
+        </xpath>
+    </template>
+</odoo>

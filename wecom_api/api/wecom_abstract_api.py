@@ -46,21 +46,24 @@ class WecomAbstractApi(models.AbstractModel):
     def refreshProviderAccessToken(self):
         raise NotImplementedError
 
-    def httpCall(self, urlType, args=None):
+    def httpCall(self, urlType, args=None, include_agentid=False):
         """
         调用API
         :param urlType : 服务端API类型和请求方式（"GET" or "POST"）
         :param args : 请求参数
+        :param include_agentid : 标识args含有 "agentid" 关键字，需要进行处理
         :returns 返回结果
         """
         shortUrl = urlType[0]
         method = urlType[1]
         response = {}
-
         for retryCnt in range(0, 3):
             try:
                 if "POST" == method:
                     url = self.__makeUrl(shortUrl)
+                    if "agentid" in args and include_agentid: # type: ignore
+                        url = self.__appendArgs(url, {"agentid": args["agentid"]})  # type: ignore
+                        del args["agentid"] # type: ignore
                     response = self.__httpPost(url, args)
                 elif "GET" == method:
                     url = self.__makeUrl(shortUrl)
@@ -150,7 +153,7 @@ class WecomAbstractApi(models.AbstractModel):
     def __post_file(self, url, media_file):
         if self.get_api_debug() is True:
             print("Wecom API POST FILE", url, media_file)
-        return requests.post(url, file=media_file).json()
+        return requests.post(url, file=media_file).json()   # type: ignore
 
     def __httpGet(self, url):
         realUrl = self.__appendToken(url)

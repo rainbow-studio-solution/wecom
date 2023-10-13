@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="FieldMany2OneBarcode" t-extend="FieldMany2One">
+        <t t-jquery="button.o_external_button " t-operation="after">
+            <button
+                    type="button"
+                    class="btn o_barcode"
+                    tabindex="-1"
+                    draggable="false"
+                    aria-label="Scan barcode"
+                    title="Scan barcode"
+            />
+        </t>
+    </t>
+
+</templates>

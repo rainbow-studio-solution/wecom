@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_wecom_apps_form" model="ir.ui.view">
+            <field name="name">wecom.apps.form</field>
+            <field name="model">wecom.apps</field>
+            <field name="inherit_id" ref="wecom_base.view_wecom_apps_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='generate_parameters']" position="after">
+                    <button class="oe_highlight ml-1" name="set_oauth_provider_wecom" type="object" string="One-click to set up WeCom OAuth" icon="fa-sign-in" attrs="{'invisible': [('type_code','not in', ('[\'auth\']'))]}" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>    

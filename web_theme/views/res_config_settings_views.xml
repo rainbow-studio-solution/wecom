@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">Base Settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+
+                <div id="appstore" position="attributes">
+                    <attribute name="class">o_hidden</attribute>
+                </div>
+
+                <xpath expr="//div[@data-key='general_settings']" position="before">
+                    <div class="app_settings_block" data-string="Base Settings" string="Base Settings" data-key="web_theme">
+                        <field name="company_id" invisible="1"/>
+                        <div id="brand_settings">
+                            <h2>Brand settings</h2>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-header" role="img" aria-label="Browser Window Title Name" title="Browser Window Title Name"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="system_name"/>
+                                        <div class="text-muted">
+                                            The title name displayed on the title bar or status bar of the browser window. Similarly, when a document is added to the user's link list or favorite or bookmark list, the title name will become the default name of the document link.
+                                        </div>
+                                        <div class="content-group mt8">
+                                            <field name="system_name" class="fw-bold w-100"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="display_company_name" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="display_company_name"/>
+                                        <div class="text-muted">
+                                            Displays the company name in the title bar of the browser window or in the title name on the status bar.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-copyright" role="img" aria-label="Copyright information" title="Copyright information"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="copyright" class="o_light_label"/>
+                                        <div class="o_row">
+                                            <field name="copyright"/>
+                                        </div>
+                                        <div class="text-muted">
+                                            Copyright information displayed in user menu items and footers.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-link" role="img" aria-label="Documentation URL" title="Documentation URL"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="documentation_url"/>
+                                        <div class="o_row">
+                                            <field name="documentation_url" />
+                                        </div>
+                                        <div class="text-muted">
+                                            The document URL displayed in the user menu item and footer.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-link" role="img" aria-label="Support URL" title="Support URL"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="support_url"/>
+                                        <div class="o_row">
+                                            <field name="support_url" />
+                                        </div>
+                                        <div class="text-muted">
+                                            The technical support URL displayed in the user menu item and footer.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-picture-o" aria-label="Web Favorites Icon"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="favicon" string="Favorites Icon"/>
+                                        <div class="text-muted">
+                                            An icon that appears in the title bar or favorites of the browser window.
+                                        </div>
+                                        <div class="content-group mt8">
+                                            <field name="favicon" widget="image"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-picture-o" aria-label="Company Logo"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="logo"/>
+                                        <div class="text-muted">
+                                            Company logo, which is used to display the website brand.
+                                        </div>
+                                        <div class="content-group mt8">
+                                            <field name="logo" widget="image" class="oe_avatar"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-picture-o" aria-label="Company Square Logo"/>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="square_logo"/>
+                                        <div class="text-muted">
+                                            Company Square Logo, It is used to display the website brand when the sidebar collapses.
+                                        </div>
+                                        <div class="content-group mt8 float-start">
+                                            <field name="square_logo" widget="image" class="oe_avatar"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="theme_setting">
+                            <h2>Theme Settings</h2>
+                            <div class="row mt16 o_settings_container">
+
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="disable_theme_customizer" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="disable_theme_customizer"/>
+                                        <div class="text-muted">
+                                            If checked, the user will not be able to set the theme, only global theme can be used.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="fa fa-diamond" role="img" aria-label="Main settings" title="Main settings"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <span class="o_form_label">Main settings</span>
+                                        <div class="text-muted"></div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="main_submenu_position" class="o_light_label"/>
+                                            <field name="main_submenu_position" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-layout-wtf" role="img" aria-label="Layout settings" title="Layout settings"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <span class="o_form_label">Layout settings</span>
+                                        <div class="text-muted">
+
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="menu_layout_mode" class="o_light_label"/>
+                                            <field name="menu_layout_mode" required="1"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-palette" role="img" aria-label="Theme color" title="Theme color"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="theme_color" class="o_light_label"/>
+                                        <div class="o_row">
+                                            <field name="theme_color"/>
+                                        </div>
+                                        <div class="text-muted">
+
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': ['|',('disable_theme_customizer', '=', False),'&amp;',('disable_theme_customizer', '=', False),('menu_layout_mode', '!=', '1')]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-layout-sidebar-inset" role="img" aria-label="Sidebar settings" title="Sidebar settings"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <span class="o_form_label">Sidebar settings</span>
+                                        <div class="text-muted">
+
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="sidebar_display_number_of_submenus" class="o_light_label"/>
+                                            <field name="sidebar_display_number_of_submenus"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="sidebar_fixed" class="o_light_label"/>
+                                            <field name="sidebar_fixed"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="sidebar_show_minimize_button" class="o_light_label"/>
+                                            <field name="sidebar_show_minimize_button"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="sidebar_default_minimized" class="o_light_label"/>
+                                            <field name="sidebar_default_minimized"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="sidebar_hover_maximize" class="o_light_label"/>
+                                            <field name="sidebar_hover_maximize"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-window" role="img" aria-label="Header" title="Header"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group d-flex justify-content-between">
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-eye" role="img" aria-label="Views" title="Views"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="display_scroll_top_button" class="o_light_label"/>
+                                            <field name="display_scroll_top_button"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="list_herder_fixed" class="o_light_label"/>
+                                            <field name="list_herder_fixed"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="list_rows_limit" class="o_light_label"/>
+                                            <field name="list_rows_limit"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="form_chatter_position" class="o_light_label"/>
+                                            <field name="form_chatter_position"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('disable_theme_customizer','=',False)]}">
+                                    <div class="o_setting_left_pane">
+                                        <i class="bi bi-window-desktop" role="img" aria-label="Footer" title="Footer"></i>
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="display_footer" class="o_light_label"/>
+                                            <field name="display_footer"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="display_footer_copyright" class="o_light_label"/>
+                                            <field name="display_footer_copyright"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="display_footer_document" class="o_light_label"/>
+                                            <field name="display_footer_document"/>
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between">
+                                            <label for="display_footer_support" class="o_light_label"/>
+                                            <field name="display_footer_support"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div id="user_menu_settings">
+                            <h2>User menu settings</h2>
+                            <div class="row mt16 o_settings_container">
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="enable_documentation" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="enable_documentation"/>
+                                        <div class="text-muted">
+                                            When enable,User can visit user documentation
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="enable_support" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="enable_support"/>
+                                        <div class="text-muted">
+                                            When enable,User can vist your support site
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="enable_odoo_account" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="enable_odoo_account"/>
+                                        <div class="text-muted">
+                                            If checked, The user menu display the menu item "My Odoo.com account".
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="enable_lock_screen" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="enable_lock_screen"/>
+                                        <div class="text-muted">
+                                            If checked, The backend page can be locked to ensure data security.
+                                        </div>
+                                        <div class="content-group d-flex justify-content-between" attrs="{'invisible': [('enable_lock_screen','=',False)]}">
+                                            <label for="lock_screen_state_storage_mode" class="o_light_label"/>
+                                            <field name="lock_screen_state_storage_mode" required="1"/>
+                                        </div>
+                                        <div class="text-info float-end">
+                                            <span attrs="{'invisible': [('lock_screen_state_storage_mode','!=','1')]}">
+                                                Affects <b class="text-warning">current</b> browser access.
+                                            </span>
+                                            <span attrs="{'invisible': [('lock_screen_state_storage_mode','!=','2')]}">
+                                                Affects <b class="text-warning">all</b> browser access.
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6 o_setting_box">
+                                    <div class="o_setting_left_pane">
+                                        <field name="enable_developer_tool" />
+                                    </div>
+                                    <div class="o_setting_right_pane">
+                                        <label for="enable_developer_tool"/>
+                                        <div class="text-muted">
+                                            If checked, everyone login can see the debug menu.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="action_base_configuration" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'web_theme', 'bin_size': False}</field>
+        </record>
+
+        <menuitem id="menu_base_config" name="Base Settings" parent="base.menu_administration" sequence="-1" action="action_base_configuration" groups="base.group_system"/>
+
+    </data>
+</odoo>

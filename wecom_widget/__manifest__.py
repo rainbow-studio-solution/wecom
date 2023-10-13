@@ -3,27 +3,28 @@
 {
     "name": "WeCom Widget",
     "author": "RStudio",
-    "category": "WeCom/WeCom",
+    "category": "WeCom Suites/Widget",
     "summary": "WeCom Widget",
-    "website": "https://gitee.com/rainbowstudio/wxwork",
-    "version": "14.0.0.1",
-    "description": """ 
+    "website": "https://gitee.com/rainbowstudio/wecom",
+    "version": "16.0.0.1",
+    "description": """
 
 """,
     "depends": [
         "web",
     ],
-    "data": [
-        "views/assets_templates.xml",
-    ],
-    "qweb": [
-        "static/src/xml/*.xml",
-    ],
-    # "external_dependencies": {
-    #     "python": ["markdown"],
-    # },
-    "sequence": 605,
+    "data": [],
+    "assets": {
+        "web.assets_common": [],
+        "web.assets_backend": [
+            "wecom_widget/static/src/webclient/**/*",
+            # "wecom_widget/static/src/views/**/*",
+            "wecom_widget/static/src/components/**/*",
+        ],
+    },
+    "sequence": 600,
     "installable": True,
     "auto_install": True,
     "application": False,
+    "license": "AGPL-3",
 }

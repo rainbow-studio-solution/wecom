@@ -1,0 +1,9 @@
+// = Drawer menu
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_home_menu_background {
+    .o_menu_systray .badge {
+        --o-navbar-badge-bg: #{$o-brand-primary};
+    }
+}

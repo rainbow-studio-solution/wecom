@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- 1 -->
+        <record id="wecom_app_config_contacts_allow_sync_hr" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Allow wecom contacts to synchronize HR</field>
+            <field name="key">contacts_allow_sync_hr</field>
+            <field name="ttype">boolean</field>
+            <field name="value">True</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    If the value is true, the wizard and task are allowed to synchronize the organization structure of wecom contacts to HR;<br></br>
+                    If the value is false, you need to manually bind HR employees to wecom users. At the same time, only employees with wecom user ID can be updated by events;<br></br>
+                    The default is true;
+                    <hr></hr>
+                    Value: True or False
+                </p>
+            </field>
+        </record>
+
+        <!-- 2 -->
+        <record id="wecom_app_config_contacts_sync_hr_department_id" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Department ID to be synchronized</field>
+            <field name="key">contacts_sync_hr_department_id</field>
+            <field name="ttype">integer</field>
+            <field name="value">1</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Department id. Get the specified department and its sub-departments. If you don’t fill in, get the full organization structure by default
+                    <br></br>Value: Department id.
+                </p>
+            </field>
+        </record>
+
+        <!-- 3 -->
+        <record id="wecom_app_config_contacts_edit_enabled" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Allow API to edit WeCom contacts</field>
+            <field name="key">contacts_edit_enabled</field>
+            <field name="ttype">boolean</field>
+            <field name="value">False</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Enterprise wechat Contacts can be read and edited through API interface
+                    <br></br>Value: True or False
+                </p>
+            </field>
+        </record>
+
+        <!-- 4 -->
+        <record id="wecom_app_config_contacts_allow_add_system_users" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Allow wecom contacts to add system users</field>
+            <field name="key">contacts_allow_add_system_users</field>
+            <field name="ttype">boolean</field>
+            <field name="value">False</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    If the value is true, system users can be added through wizards, tasks and events;<br></br>
+                    If the value is false, you can only update;<br></br>
+                    The default is false;<br></br>
+                    <hr></hr>
+                    Value: True or False
+                </p>
+            </field>
+        </record>
+
+        <!-- 5 -->
+        <record id="wecom_app_config_contacts_use_default_avatar_when_adding_employees" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Use the system default avatar when adding employees</field>
+            <field name="key">contacts_use_default_avatar_when_adding_employees</field>
+            <field name="ttype">boolean</field>
+            <field name="value">True</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Enable this, Employee photos will use the default avatar. Will save a lot of synchronization time.<hr></hr>
+                    <span class="text-info font-weight-bold">Valid only when synchronizing new employees.</span>
+                    <br></br>Value: True or False
+                </p>
+            </field>
+        </record>
+
+        <!-- 6 -->
+        <record id="wecom_app_config_contacts_update_avatar_every_time_sync_employees" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Update employees avatar every time sync</field>
+            <field name="key">contacts_update_avatar_every_time_sync_employees</field>
+            <field name="ttype">boolean</field>
+            <field name="value">False</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Enable this,Each update will overwrite the employee photos you have set up.<hr></hr>
+                    <span class="text-warning font-weight-bold">Use this feature with caution.</span>
+                    <br></br>Value: True or False
+                </p>
+            </field>
+        </record>
+
+        <!-- 7 -->
+        <!-- <record id="wecom_app_config_contacts_enabled_join_qrcode" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Enable to join the enterprise QR code</field>
+            <field name="key">enabled_join_qrcode</field>
+            <field name="ttype">boolean</field>
+            <field name="value">True</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Enable,The QR code for joining the enterprise is displayed on the login page.
+                    <br></br>Value: True or False
+                </p>
+            </field>
+        </record> -->
+
+        <!-- 8 -->
+        <!-- <record id="wecom_app_config_contacts_join_qrcode" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Join enterprise QR code</field>
+            <field name="key">join_qrcode</field>
+            <field name="ttype">char</field>
+            <field name="value"></field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    QR code link, valid for 7 days
+                </p>
+            </field>
+        </record> -->
+
+        <!-- 9 -->
+        <!-- <record id="wecom_app_config_contacts_join_qrcode_size_type" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">QR code size type</field>
+            <field name="key">join_qrcode_size_type</field>
+            <field name="ttype">integer</field>
+            <field name="value">2</field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    QRcode size type
+                    <ul>
+                        <li>1: 171px * 171px</li>
+                        <li>2: 399px * 399px</li>
+                        <li>3: 741px * 741px</li>
+                    </ul>
+                </p>
+            </field>
+        </record> -->
+
+        <!-- 10 -->
+        <!-- <record id="wecom_app_config_acontacts_join_qrcode_last_time" model="wecom.app_config">
+            <field name="app_id" ref="wecom_contacts.wecom_app_contacts"/>
+            <field name="name">Last update time (UTC)</field>
+            <field name="key">join_qrcode_last_time</field>
+            <field name="ttype">datetime</field>
+            <field name="value"></field>
+            <field name="description" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Last update time (UTC)
+                </p>
+            </field>
+        </record> -->
+
+    </data>
+</odoo>

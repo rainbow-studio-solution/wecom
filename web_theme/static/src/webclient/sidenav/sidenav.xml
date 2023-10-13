@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <!-- !env.isSmall -->
+    <t t-name="web_theme.SideNav" owl="1">
+        <t t-if="env.isSmall">
+            <div id="o_sidenav_mobile" class="o_sidenav w-100 offcanvas offcanvas-start" aria-labelledby="o_sidenav_mobile_title" t-ref="sidenav">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title text-center text-uppercase w-100" id="o_sidenav_mobile_title">
+						App menu navigation
+                    </h5>
+                    <button id="o_sidenav_mobile_close" type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">
+                    </button>
+                </div>
+                <div class="offcanvas-body">
+                    <t t-call="web_theme.SideNav.Container" />
+                </div>
+            </div>
+        </t>
+        <t t-else="">
+            <aside class="o_sidenav" id="o_sidenav" t-ref="sidenav">
+                <header class="o_sidenav_header">
+                    <div class="o_sidenav_header_logo w-100">
+                        <img alt="Logo" t-attf-src="/web/binary/company_logo?company={{current_cid}}" class="sidebar-logo-default" />
+                        <img alt="Logo" t-attf-src="/web/binary/company_square_logo?company={{current_cid}}" class="sidebar-logo-minimize" />
+                    </div>
+                    <div t-if="this.sidebar_show_minimize_button" class="o_sidenav_toggle" accesskey="s" t-attf-title="{{sidebarMinimize ? 'Expand the sidebar menu':'Collapse sidebar menu'}}" t-on-click="_toggleSideNav">
+                        <span t-attf-class="svg-icon {{ sidebarMinimize ? 'active':''}}">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path opacity="0.5" d="M14.2657 11.4343L18.45 7.25C18.8642 6.83579 18.8642 6.16421 18.45 5.75C18.0358 5.33579 17.3642 5.33579 16.95 5.75L11.4071 11.2929C11.0166 11.6834 11.0166 12.3166 11.4071 12.7071L16.95 18.25C17.3642 18.6642 18.0358 18.6642 18.45 18.25C18.8642 17.8358 18.8642 17.1642 18.45 16.75L14.2657 12.5657C13.9533 12.2533 13.9533 11.7467 14.2657 11.4343Z" fill="currentColor">
+                                </path>
+                                <path d="M8.2657 11.4343L12.45 7.25C12.8642 6.83579 12.8642 6.16421 12.45 5.75C12.0358 5.33579 11.3642 5.33579 10.95 5.75L5.40712 11.2929C5.01659 11.6834 5.01659 12.3166 5.40712 12.7071L10.95 18.25C11.3642 18.6642 12.0358 18.6642 12.45 18.25C12.8642 17.8358 12.8642 17.1642 12.45 16.75L8.2657 12.5657C7.95328 12.2533 7.95328 11.7467 8.2657 11.4343Z" fill="currentColor">
+                                </path>
+                            </svg>
+                        </span>
+                    </div>
+                </header>
+                <t t-call="web_theme.SideNav.Container" />
+            </aside>
+        </t>
+    </t>
+    <t t-name="web_theme.SideNav.Container" owl="1">
+        <nav t-attf-class="o_main_sidenav navbar  {{ env.isSmal ? 'border-end':'border'}}">
+            <div class="accordion accordion-flush w-100" id="o_main_sidenav_accordion">
+                <!-- 应用菜单 -->
+                <t t-call="web_theme.SideNav.AppsMenu">
+                    <t t-set="apps" t-value="menuService.getApps()" />
+                </t>
+            </div>
+        </nav>
+    </t>
+    <t t-name="web_theme.SideNav.AppsMenu" owl="1">
+        <div class="accordion-item" t-foreach="apps" t-as="app" t-key="app.id" t-attf-id="menu-item-{{app.id}}">
+            <h2 class="accordion-header" t-attf-id="menu-header-{{app.id}}">
+                <t t-if="app.actionID">
+                    <t t-set="href" t-value="app.href || ('#menu_id='+app.id+'&amp;action_id='+app.actionID)" />
+                </t>
+                <t t-else="">
+                    <t t-set="href" t-value="'#'" />
+                </t>
+                <t t-if="app.children.length and main_submenu_position !=='1'">
+                    <a t-attf-class="accordion-button collapsed app {{app.id==currentAppId ? 'active':''}}" type="button" data-bs-toggle="collapse" t-attf-data-bs-target="#menu-collapse-{{app.id}}" t-attf-aria-controls="menu-collapse-{{app.id}}" t-att-href="href" t-attf-id="menu-link-{{app.id}}" t-attf-aria-expanded="{{app.id==currentAppId ? 'true':'false'}}" t-att-data-id="app.id" t-att-data-action="app.actionID" t-att-data-menu="app.id" t-att-data-xmlid="app.xmlid">
+                        <img class="menu-icon" t-attf-src="/{{app.webIcon.split(',')[0]}}/{{app.webIcon.split(',')[1]}}" data-toggle="tooltip" data-placement="right" t-attf-title="{{app.label or app.name}}" />
+                        <span class="menu-lable text-truncate" t-esc="app.label or app.name" />
+                        <span t-if="sidebar_display_number_of_submenus and !env.isSmall" class="badge menu-badge" t-esc="app.children.length" t-attf-title="{{app.name}} has {{app.children.length}} submenus" />
+                    </a>
+                </t>
+                <t t-else="">
+                    <a t-attf-class="accordion-button collapsed app no_submenus {{app.id==currentAppId ? 'active':''}}" type="button" data-bs-toggle="collapse" t-attf-data-bs-target="#menu-collapse-{{app.id}}" t-attf-aria-controls="menu-collapse-{{app.id}}" t-att-href="href" t-attf-id="menu-link-{{app.id}}" t-att-data-id="app.id" t-att-data-action="app.actionID" t-att-data-menu="app.id" t-att-data-xmlid="app.xmlid" t-on-click="(ev) => this._openMenu(ev,app)">
+                        <img class="menu-icon" t-attf-src="/{{app.webIcon.split(',')[0]}}/{{app.webIcon.split(',')[1]}}" data-toggle="tooltip" data-placement="right" t-attf-title="{{app.label or app.name}}" />
+                        <span class="menu-lable text-truncate" t-esc="app.label or app.name" />
+                    </a>
+                </t>
+            </h2>
+            <!-- 应用的子菜单 -->
+            <t t-if="app.children.length and main_submenu_position !=='1'">
+                <t t-set="appSubMenus" t-value="menuService.getMenu(app.id)" />
+                <t t-set="menuData" t-value="appSubMenus.childrenTree" />
+                <t t-set="menuLevel" t-value="1" />
+                <div class="accordion-collapse collapse" t-attf-id="menu-collapse-{{app.id}}" t-attf-aria-labelledby="menu-header-{{app.id}}" data-bs-parent="#o_main_sidenav_accordion">
+                    <div class="accordion-body" t-attf-id="menu-body-{{app.id}}">
+                        <div class="accordion" t-attf-id="menu-accordion-{{app.id}}">
+                            <div class="accordion-item" t-foreach="menuData" t-as="submenu" t-key="submenu.id" t-attf-id="menu-item-{{submenu.id}}">
+                                <h2 class="accordion-header" t-attf-id="menu-header-{{submenu.id}}">
+                                    <t t-call="web_theme.SideNav.SubMenuLink">
+                                        <t t-set="submenu" t-value="submenu" />
+                                        <t t-set="level" t-value="menuLevel" />
+                                    </t>
+                                </h2>
+                                <t t-if="submenu.children.length">
+                                    <t t-set="subMenus" t-value="menuService.getMenu(submenu.id)" />
+                                    <t t-call="web_theme.SideNav.SubMenuItem">
+                                        <t t-set="parentElementId" t-value="app.id" />
+                                        <t t-set="parentLabelId" t-value="submenu.id" />
+                                        <t t-set="subMenuItems" t-value="subMenus.childrenTree" />
+                                        <t t-set="level" t-value="menuLevel" />
+                                    </t>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="accordion-collapse collapse o_hidden" t-attf-id="menu-collapse-{{app.id}}" data-bs-parent="#o_main_sidenav_accordion">
+                </div>
+            </t>
+        </div>
+    </t>
+    <t t-name="web_theme.SideNav.SubMenuItem" owl="1">
+        <div class="accordion-collapse collapse" t-att-id="'menu-collapse-'+parentLabelId" t-attf-aria-labelledby="menu-header-{{parentLabelId}}" t-att-data-bs-parent="'#menu-accordion-'+parentElementId">
+            <div class="accordion-body" t-attf-id="menu-body-{{parentLabelId}}">
+                <div class="accordion accordion-flush" t-attf-id="menu-accordion-{{parentLabelId}}">
+                    <!-- 子菜单开始 -->
+                    <t t-foreach="subMenuItems" t-as="item" t-key="item.id">
+                        <div class="accordion-item" t-attf-id="menu-item-{{item.id}}">
+                            <h2 class="accordion-header" t-attf-id="menu-header-{{item.id}}">
+                                <t t-call="web_theme.SideNav.SubMenuLink">
+                                    <t t-set="submenu" t-value="item" />
+                                    <t t-set="level" t-value="level + 1" />
+                                </t>
+                            </h2>
+                            <t t-if="item.children.length">
+                                <t t-set="subMenus" t-value="menuService.getMenu(item.id)" />
+                                <t t-call="web_theme.SideNav.SubMenuItem">
+                                    <t t-set="parentElementId" t-value="parentLabelId" />
+                                    <t t-set="parentLabelId" t-value="item.id" />
+                                    <t t-set="subMenuItems" t-value="subMenus.childrenTree" />
+                                    <t t-set="level" t-value="level + 1" />
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <div class="accordion-collapse collapse o_hidden" t-attf-id="menu-collapse-{{item.id}}" t-attf-aria-labelledby="menu-header-{{item.id}}}" t-att-data-bs-parent="'#menu-accordion-'+parentLabelId">
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <!-- 子菜单结束 -->
+                </div>
+            </div>
+        </div>
+    </t>
+    <t t-name="web_theme.SideNav.SubMenuLink" owl="1">
+        <t t-if="submenu.actionID">
+            <t t-set="href" t-value="submenu.href || ('#menu_id='+submenu.id+'&amp;action_id='+submenu.actionID)" />
+        </t>
+        <t t-else="">
+            <t t-set="href" t-value="'#'" />
+        </t>
+        <t t-if="submenu.children.length">
+            <a t-attf-class="accordion-button collapsed menu {{submenu.id==currentAppId ? 'active':''}}" type="button" t-att-href="href" data-bs-toggle="collapse" t-attf-data-bs-target="#menu-collapse-{{submenu.id}}" t-attf-aria-controls="menu-collapse-{{submenu.id}}" t-attf-id="menu-link-{{submenu.id}}" t-att-data-id="submenu.id" t-att-data-action="submenu.actionID" t-att-data-xmlid="submenu.xmlid">
+                <span class="menu-icon">
+                    <i t-attf-class="#{getMenuItemIcon(level)}" />
+                </span>
+                <span t-if="env.isSmall" class="menu-lable text-truncate" t-esc="submenu.name" />
+                <span t-else="" class="menu-lable text-truncate" t-esc="submenu.name" t-attf-style="width:{{ 192- 12 * level }}px;" />
+                <span t-if="sidebar_display_number_of_submenus and !env.isSmall" t-attf-class="badge menu-badge" t-esc="submenu.children.length" t-attf-title="{{submenu.name}} has {{submenu.children.length}} submenus" />
+            </a>
+        </t>
+        <t t-else="">
+            <a t-attf-class="accordion-button collapsed menu no_submenus {{submenu.id==currentAppId ? 'active':''}}" type="button" t-att-href="href" t-attf-id="menu-link-{{submenu.id}}" t-att-data-id="submenu.id" t-att-data-action="submenu.actionID" t-att-data-xmlid="submenu.xmlid" t-on-click="(ev) => this._openMenu(ev,submenu)">
+                <span class="menu-icon">
+                    <i class="fa fa-link" />
+                </span>
+                <span class="menu-lable text-truncate" t-esc="submenu.name" />
+            </a>
+        </t>
+    </t>
+</templates>

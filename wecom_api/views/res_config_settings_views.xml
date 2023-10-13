@@ -8,7 +8,8 @@
             <field name="inherit_id" ref="wecom_base.res_config_settings_view_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//div[@data-key='wecom_base']//div[hasclass('o_settings_container')][last()]" position="after">
-                    <h2 id="wecom_contact" class="d-flex justify-content-between">
+                    <field name="company_id" invisible="1"/>
+                    <h2 id="wecom_contact" class="bg-info d-flex justify-content-between">
                         <span class="text-left">
                             <i class="fa fa-book fa-lg" aria-label="Contact synchronization"/>
                                 Contact synchronization Settings
@@ -16,7 +17,7 @@
                         </span>
                         <widget name='res_config_wecom_navigation_gotop'/>
                     </h2>
-                    <div class="row mt16 o_settings_container" id="wecom_contact_settings_container">
+                    <div class="row mt8 o_settings_container" id="wecom_contact_settings_container">
                         <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
                             <div class="o_setting_left_pane">
                                 <i class="fa fa-puzzle-piece fa-lg" aria-label="Contacts Application"/>
@@ -25,11 +26,11 @@
                                 <label for="contacts_app_id" string="Binding application"/>
                                 <div class="content-group">
                                     <div class="mt8">
-                                        <field name="contacts_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', '=', 'contacts'),('company_id', '=', company_id)]"/>
+                                        <field name="contacts_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_code', 'like', '%contacts%'),('company_id', '=', company_id)]"/>
                                     </div>
                                     <div class="mt8" attrs="{'invisible': [('contacts_app_id','=',False)]}">
-                                        <div class="text-warning mt16">
-                                            <strong>Save</strong> this page and come back here to set up the feature.</div>
+                                        <div class="text-warning mt8">
+                                            <strong>Save</strong> this page and come back here to set up other feature.</div>
                                     </div>
                                 </div>
                             </div>
@@ -46,8 +47,8 @@
                                     </div>
                                 </div>
                                 <div class="content-group">
-                                    <div class="mt16">
-                                        <field name="contacts_secret" widget="wecom_password" />
+                                    <div class="mt8">
+                                        <field name="contacts_secret" widget="DisplayPasswordChar" require_encryption="True" />
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +70,7 @@
                                     </div>
                                 </div>
                                 <div class="content-group">
-                                    <div class="mt16">
+                                    <div class="mt8">
                                         <field name="contacts_access_token" widget="CopyClipboardText" style="word-break:break-all;width: 100%;border: 1px solid #ccc;border-top-style: none;border-right-style: none;border-left-style: none;" />
                                     </div>
                                 </div>
@@ -85,18 +86,18 @@
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="contacts_app_config_ids" widget="one2many_help" help="description" class="w-100 pl-3">
-                                                <!-- nolabel="1" context="{'default_company_id': company_id}-->
+                                            <field name="contacts_app_config_ids" widget="one2many_config" help="description" class="w-100 pl-3" t-translation="off">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="key" readonly="1"/>
-                                                    <field name="value" required="1"/>
+                                                    <field name="value" force_save="1" need_format="true" required="1"/>
                                                     <field name="description" invisible="1"/>
                                                 </tree>
                                             </field>
                                         </div>
-                                        <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
+                                        <div class="btn-group float-right" role="group" aria-label="Button group">
+                                            <button class="oe_highlight" name="get_join_qrcode" type="object" string="Refresh the QR code" icon="fa-qrcode" />
+                                            <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts'}" string="Generate parameters" type="object" icon="fa-cogs" />
                                         </div>
                                     </div>
                                 </div>
@@ -112,24 +113,200 @@
                                 <div class="row">
                                     <div class="content-group">
                                         <div class="mt4">
-                                            <field name="contacts_app_callback_service_ids" widget="one2many_help" help="description" class="w-100 pl-3">
+                                            <field name="contacts_app_callback_service_ids" widget="one2many_config" help="description" class="w-100 pl-3">
                                                 <tree create="0" edit="true" delete="0" editable="bottom" help="description">
                                                     <field name="name" readonly="1"/>
                                                     <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
-                                                    <field name="callback_url_token" required="1"/>
-                                                    <field name="callback_aeskey" required="1"/>
+                                                    <field name="callback_url_token" required="1" max-width="80px"/>
+                                                    <field name="callback_aeskey" required="1" max-width="200px"/>
+                                                    <field name="active" widget="boolean_toggle" max-width="30px"/>
                                                     <field name="description" invisible="1"/>
                                                 </tree>
                                             </field>
                                         </div>
                                         <div class="text-right">
-                                            <button class="btn-outline-info" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
+                                            <button class="oe_highlight" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- 素材 -->
+                    <h2 id="wecom_material" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-suitcase fa-lg" aria-label="WeCom Material"/>
+                                WeCom Material
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_material_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_material"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_material_settings">
+                                <label for="module_wecom_material"/>
+                                <div class="text-muted">
+                                    When using the enterprise wechat API interface, developers often need to use custom resources, such as sending local picture messages, setting address book custom avatars, etc.<br/>
+                                    In order to realize the same resource file, one upload can be used multiple times. Here is a material management interface: media_ ID to identify resource files and realize file upload and download.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_material', '=', False)]}" id="wecom_material_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 身份验证 -->
+                    <h2 id="wecom_oauth" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-sign-in fa-lg" aria-label="Application login authorization" />
+                            Application login authorization
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('module_wecom_material','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_auth_oauth_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_auth_oauth"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_auth_oauth_settings">
+                                <label for="module_wecom_auth_oauth"/>
+                                <div class="text-muted">
+                                    Enterprise wechat provides OAuth's authorized login mode, which allows you to obtain the identity information of members from the web page opened by the enterprise wechat terminal, thus eliminating the login link.
+                                    <br/>
+                                    Enterprise wechat provides OAuth code scanning login authorization method, which can guide members to use enterprise wechat code scanning login authorization when the enterprise website is opened in the browser, so as to obtain the identity information of members and avoid the login link.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_auth_oauth', '=', False)]}" id="wecom_auth_oauth_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 门户 -->
+                    <h2 id="wecom_portal" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-home fa-lg" aria-label="Portal"/>
+                                Portal
+                            <i class="fa fa-lg fa-info-circle" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('module_wecom_message','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_portal_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_portal"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_portal_settings">
+                                <label for="module_wecom_portal"/>
+                                <div class="text-muted">
+
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_portal', '=', False)]}" id="wecom_portal_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 联系人 -->
+                    <h2 id="wecom_contacts" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-address-book fa-lg" aria-label="Contacts"/>
+                                Contacts
+                            <i class="fa fa-lg fa-info-circle" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('module_wecom_message','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_contacts_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_contacts"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_contacts_settings">
+                                <label for="module_wecom_contacts"/>
+                                <div class="text-muted">
+
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_contacts', '=', False)]}" id="wecom_contacts_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 会话内容存档 -->
+                    <h2 id="wecom_msgaudit" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-archive fa-lg" aria-label="Session Content Archive"/>
+                                Session Content Archive
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('is_wecom_organization','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_msgaudit_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_msgaudit" />
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_msgaudit_settings">
+                                <label string="Session Content Archive" for="module_wecom_msgaudit"/>
+                                <!-- <span class="badge badge-primary oe_inline o_wecom_pro_label">Wecom Professional Edition</span> -->
+                                <div class="text-muted">
+                                    Enterprises can obtain members' conversation content through the interface to meet the regulatory compliance requirements of enterprises and ensure the quality of customer service.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_msgaudit', '=', False)]}" id="wecom_msgaudit_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 发送应用消息 -->
+                    <h2 id="wecom_push" class="bg-info d-flex justify-content-between">
+                        <span class="text-left">
+                            <i class="fa fa-envelope-o fa-lg" aria-label="WeCom Message"/>
+                                WeCom Message
+                            <i class="fa fa-lg fa-info-circle fa-lg" title="The values set below are the companies identified as WeCom organizations." />
+                        </span>
+                        <widget name='res_config_wecom_navigation_gotop'/>
+                    </h2>
+                    <div class="row mt8 o_settings_container" attrs="{'invisible': [('module_wecom_auth_oauth','=',False)]}">
+                        <div class="col-12 col-lg-6 o_setting_box" id="wecom_message_install">
+                            <div class="o_setting_left_pane">
+                                <field name="module_wecom_message"/>
+                            </div>
+                            <div class="o_setting_right_pane" id="wecom_message_settings">
+                                <label for="module_wecom_message"/>
+                                <div class="text-muted">
+                                    Intercept the e-mail with the target identification as the user object of enterprise wechat, and push text, picture, video, file, graphic and other types of messages to the target object through enterprise wechat.
+                                </div>
+                                <div class="content-group" attrs="{'invisible': [('module_wecom_message', '=', False)]}" id="wecom_message_warning">
+                                    <div class="mt8 text-warning">
+                                        <strong>Save</strong> this page and come back here to set up other feature.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </xpath>
             </field>
         </record>

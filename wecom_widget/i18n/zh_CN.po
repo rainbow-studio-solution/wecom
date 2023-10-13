@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0beta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-14 08:54+0000\n"
-"PO-Revision-Date: 2021-12-14 17:01+0800\n"
+"POT-Creation-Date: 2022-10-04 07:21+0000\n"
+"PO-Revision-Date: 2022-10-04 15:22+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,545 +15,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
+#: code:addons/wecom_widget/static/src/webclient/settings_form_view/widgets/navigation.xml:0
 #, python-format
-msgid " ,Can't save"
-msgstr "，无法保存"
+msgid "Companies settings"
+msgstr "公司设置"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
+#: code:addons/wecom_widget/static/src/webclient/settings_form_view/widgets/navigation.xml:0
 #, python-format
-msgid " error"
-msgstr " 错误"
+msgid "Contacts settings"
+msgstr "通讯录设置"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/actions/wecom_api_dialog/wecom_api_error_dialog.xml:0
 #, python-format
-msgid "# 标题一"
-msgstr ""
+msgid "Error Details:"
+msgstr "错误详细信息："
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/actions/wecom_api_dialog/wecom_api_error_dialog.xml:0
 #, python-format
-msgid "## 标题二"
-msgstr ""
+msgid "Error code:"
+msgstr "错误代码："
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/actions/wecom_api_dialog/wecom_api_error_dialog.xml:0
 #, python-format
-msgid "### 标题三"
-msgstr ""
+msgid "Error description:"
+msgstr "错误描述："
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/actions/wecom_api_dialog/wecom_api_error_dialog.xml:0
 #, python-format
-msgid "#### 标题四"
-msgstr ""
+msgid "Error troubleshooting method:"
+msgstr "错误排查方法："
+
+#. module: wecom_widget
+#: model:ir.model,name:wecom_widget.model_ir_module_module
+msgid "Module"
+msgstr "模块"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/settings_form_view/widgets/navigation.xml:0
 #, python-format
-msgid "##### 标题五"
-msgstr ""
+msgid "Navigation"
+msgstr "导航"
 
 #. module: wecom_widget
 #. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
+#: code:addons/wecom_widget/static/src/webclient/actions/wecom_api_dialog/wecom_api_error_dialog.js:0
 #, python-format
-msgid "###### 标题六"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "//work.weixin.qq.com/api/doc)"
-msgstr "//work.weixin.qq.com/api/doc)"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/one2many_help.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/one2many_help.js:0
-#, python-format
-msgid ""
-"<button class='btn btn-default btn-sm o_field_one2many_help_show' data-"
-"content='%s'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</"
-"button>"
-msgstr ""
-"<button class='btn btn-default btn-sm o_field_one2many_help_show' data-"
-"content='%s'><i class='fa fa-info-circle' aria-hidden='false'></i> %s</"
-"button>"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/wxwork_image_url.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/wxwork_image_url.xml:0
-#, python-format
-msgid "Binary file"
-msgstr "二进制文件"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/wecom_widget_image_url.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_widget_image_url.js:0
-#, python-format
-msgid "Could not display the specified image url."
-msgstr "无法显示指定的图像url"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Edit mode"
-msgstr "编辑模式"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "File message"
-msgstr "文件消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Graphic message"
-msgstr "图文消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Graphic message(mpnews)"
-msgstr "图文消息（mpnews）"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wecom_widget/static/src/js/wecom_markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_markdown.js:0
-#, python-format
-msgid "Help"
-msgstr "帮助"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Json Editor"
-msgstr "Json 编辑器"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Json Validation Error"
-msgstr "Json验证错误"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Json validation is correct. Can be saved"
-msgstr "Json验证是正确的。可以保存"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wecom_widget/static/src/js/wecom_markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_markdown.js:0
-#, python-format
-msgid "MarkDown"
-msgstr "MarkDown"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Markdown message"
-msgstr "markdown消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wecom_widget/static/src/js/wecom_markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/markdown.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/wecom_markdown.js:0
-#, python-format
-msgid "Markdown syntax supported by WeCom"
-msgstr "企业微信支持的Markdown语法"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Message type: %s, %s characters, %s"
-msgstr "消息类型：%s，%s个字符，%s"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Mini Program Notification Message"
-msgstr "小程序通知消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/one2many_help.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/one2many_help.js:0
-#, python-format
-msgid "No help description"
-msgstr "无帮助说明"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/one2many_help.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/one2many_help.js:0
-#, python-format
-msgid "One2manyHelp"
-msgstr "One2manyHelp"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Picture message"
-msgstr "图片消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Please check the JSON text!"
-msgstr "请检查JSON文本！"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "Read-only mode"
-msgstr "只读模式"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "SMS Pricing"
-msgstr "短信定价"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/one2many_help.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/one2many_help.js:0
-#, python-format
-msgid "Show"
-msgstr "显示"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/show_password.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/show_password.js:0
-#, python-format
-msgid "Show Password"
-msgstr "显示密码"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Task card message"
-msgstr "任务卡消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Text card message"
-msgstr "文本卡片消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Text message"
-msgstr "文本消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"The maximum length cannot exceed 256 characters and must be utf8 encoding. "
-msgstr "最大长度不能超过256个字符，并且必须是utf8编码。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "The maximum length is 256 characters."
-msgstr "最大长度为256个字符。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"Title, cannot exceed 16 characters, it will be automatically truncated if "
-"it exceeds;Author, cannot exceed 8 characters;                    Content, "
-"supports html tags, cannot exceed 83250 characters;Description, cannot "
-"exceed 512 bytes, it will be automatically truncated if it exceeds;"
-msgstr ""
-"标题，不能超过16个字符，超过时自动截断；作者，不能超过8个字符；内容，支持"
-"html标记，不能超过83250个字符；说明，不能超过512字节，超过时自动截断；"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"Title, cannot exceed 16 characters, it will be automatically truncated if "
-"it exceeds;Description, cannot exceed 64 characters, it will be "
-"automatically truncated if it exceeds;Link, the maximum length is 256 "
-"characters, please make sure to include the protocol header (http/https). "
-msgstr ""
-"标题，不能超过16个字符，超过时自动截断；说明，不能超过64个字符，超过时自动截"
-"断；链接，最大长度为256个字符，请确保包含协议头（http/https）。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"Title, cannot exceed 16 characters, it will be automatically truncated if "
-"it exceeds;Description, cannot exceed 64 characters, it will be "
-"automatically truncated if it exceeds;URL link, cannot exceed 256 "
-"characters, please make sure to include the protocol header (http/https)."
-msgstr ""
-"标题，不能超过16个字符，超过时自动截断；说明，不能超过64个字符，超过时自动截"
-"断；URL链接，不能超过256个字符，请确保包含协议头（http/https）。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"Title, cannot exceed 16 characters, it will be automatically truncated if "
-"it exceeds;Description, cannot exceed 64 characters, it will be "
-"automatically truncated if it exceeds;URL link, no more than 256 "
-"characters, please make sure to include the protocol header (http/https); "
-"picture link, support JPG, PNG format, better effect is 1068*455 for large "
-"images and 150*150 for small images. "
-msgstr ""
-"标题，不能超过16个字符，超过时自动截断；说明，不能超过64个字符，超过时自动截"
-"断；URL链接，不超过256个字符，请确保包含协议头（http/https）；图片链接，支持"
-"JPG，PNG格式，效果更佳，大图片为1068*455，小图片为150*150。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid ""
-"Title, no more than 16 characters, will be automatically truncated if it "
-"exceeds; Description, no more than 64 characters, will be automatically "
-"truncated if it exceeds."
-msgstr ""
-"标题，不超过16个字符，如果超过，将自动截断；说明（不超过64个字符）将在超过时"
-"自动截断。"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Unknown type"
-msgstr "未知类型"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Video message"
-msgstr "视频消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Voice message"
-msgstr "语音消息"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/fields_wecom_message_widget.js:0
-#, python-format
-msgid "Your Message must include at least one non-whitespace character"
-msgstr "您的消息必须至少包含一个非空白字符"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "[这是一个链接]("
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "`code`"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "bold"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "http"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "open the browser console to see the error objects"
-msgstr "打开浏览器控制台以查看错误对象"
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/js/jsoneditor.js:0
-#: code:addons/wxwork/wecom_widget/static/src/js/jsoneditor.js:0
-#, python-format
-msgid "was called with "
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "企业微信应用消息支持的markdown语法"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "加粗"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "字体颜色(只支持3种内置颜色)"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "引用"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "引用文字"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "标题 （支持1至6级标题，注意#与文字中间要有空格）"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "目前应用消息中支持的markdown语法是如下的子集："
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "行内代码段（暂不支持跨行）"
-msgstr ""
-
-#. module: wecom_widget
-#. openerp-web
-#: code:addons/wecom_widget/static/src/xml/help.xml:0
-#: code:addons/wxwork/wecom_widget/static/src/xml/help.xml:0
-#, python-format
-msgid "链接"
-msgstr ""
+msgid "Wecom API Error"
+msgstr "企微API错误"

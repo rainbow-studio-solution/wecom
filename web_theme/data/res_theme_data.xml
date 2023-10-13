@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="main_company_theme" model="res.theme">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="type">company</field>
+        </record>
+
+        <record id="base.main_company" model="res.company">
+            <field name="theme_id" ref="web_theme.main_company_theme"/>
+        </record>
+
+        <record id="user_admin_theme" model="res.theme">
+            <field name="user_id" ref="base.user_admin"/>
+            <field name="type">user</field>
+        </record>
+
+        <record id="base.user_admin" model="res.users">
+            <field name="theme_id" ref="web_theme.user_admin_theme"/>
+        </record>
+
+
+    </data>
+</odoo>

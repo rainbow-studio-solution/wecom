@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!-- t-on-click.stop="(ev) => this.onClickScrollToTop(ev)" -->
+    <!-- <t t-inherit="spreadsheet_dashboard.DashboardAction" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='o_renderer']/Spreadsheet" position="after">
+            <div class="o_scroll_top o_hidden position-fixed">
+
+            </div>
+        </xpath>
+    </t> -->
+
+</templates>

@@ -1,0 +1,112 @@
+/** @odoo-module **/
+
+import { browser } from '@web/core/browser/browser';
+import { FormRenderer } from '@web/views/form/form_renderer';
+import { session } from '@web/session';
+import { patch } from '@web/core/utils/patch';
+import { useDebounced } from '@web/core/utils/timing';
+import { onMounted, onWillUnmount, onPatched, useExternalListener, useRef, useEffect, useState } from '@odoo/owl';
+
+import { scrollTo } from '@web/core/utils/scrolling';
+// this.trigger_up("scrollTo", { top: 0 });
+
+patch(FormRenderer.prototype, 'web_theme.FormRenderer', {
+	setup() {
+		this._super();
+		this.theme = session.theme;
+
+		this.offset = 300;
+		this.displayScrollTopButton = this.theme['display_scroll_top_button'];
+		this.chatter_position = this.theme['form_chatter_position'];
+
+		const rootRef = useRef('compiled_view_root');
+
+		this.state = useState({
+			...this.state,
+			formElHeight: 0,
+			scrollEl: {
+				clientHeight: 0,
+				scrollHeight: 0,
+			}
+		});
+
+		useEffect(() => {
+			this.scrollEl = rootRef.el.parentElement;
+		});
+		onMounted(() => {
+			if (this.scrollEl) {
+				this.state.scrollEl.clientHeight = this.scrollEl.clientHeight;
+				this.state.scrollEl.scrollHeight = this.scrollEl.scrollHeight;
+			}
+
+			// 使用 ResizeObserver 监听元素尺寸变化
+			const resizeObserver = new ResizeObserver((entries) => {
+				const formEl = entries[0].target;
+				const scrollEl = formEl.parentElement;
+				this.state.formElHeight = formEl.clientHeight;
+				console.log("formEl",formEl.clientHeight, formEl.scrollHeight);
+				console.log("scrollEl",scrollEl.clientHeight, scrollEl.scrollHeight);
+
+				console.log(formEl.clientHeight, this.state.formElHeight);
+				if (formEl.clientHeight != this.state.formElHeight) {
+					console.log(scrollEl);
+
+				}
+				if (scrollEl != null) {
+					this.state.scrollEl.clientHeight = scrollEl.clientHeight;
+					this.state.scrollEl.scrollHeight = scrollEl.scrollHeight;
+
+					console.log(
+						'监听到了尺寸变化了...',
+						scrollEl.scrollHeight,
+						scrollEl.clientHeight
+					);
+				}
+			});
+			resizeObserver.observe(rootRef.el);
+
+
+		});
+		onPatched(() => {
+			// console.log('onPatched-formElHeight', this.state.formElHeight);
+			// console.log('onPatched-scrollEl', this.state.scrollEl);
+			if (this.scrollEl.scrollHeight > this.scrollEl.clientHeight) {
+				this.scrollEl.addEventListener("scroll", this.onScrollEl);
+			}
+		});
+	},
+	onScrollEl() {
+		const offset = 300;
+		console.log('onScrollEl', this.scrollTop);
+		const scrollTopButton = this.querySelector('.o_scroll_top');
+		if (this.scrollTop > offset) {
+			scrollTopButton.classList.remove('o_hidden');
+		} else {
+			scrollTopButton.classList.add('o_hidden');
+		}
+	},
+	onClickScrollToTop(ev) {
+		let scrollTopButton = ev.target;
+		if (scrollTopButton.tagName == 'span') {
+			scrollTopButton = scrollTopButton.parentNode;
+		} else if (scrollTopButton.tagName == 'svg') {
+			scrollTopButton = scrollTopButton.parentNode.parentNode;
+		} else if (scrollTopButton.tagName == 'path') {
+			scrollTopButton = scrollTopButton.parentNode.parentNode.parentNode;
+		} else if (scrollTopButton.tagName == 'rect') {
+			scrollTopButton = scrollTopButton.parentNode.parentNode.parentNode;
+		}
+
+		let scrollingEl = scrollTopButton.parentElement;
+
+		// const duration = 500; //时间
+		// $(scrollingEl).animate(
+		// 	{
+		// 		scrollTop: 0
+		// 	},
+		// 	duration
+		// );
+		// return false;
+		scrollTo(scrollingEl, { isAnchor: true });
+	}
+});

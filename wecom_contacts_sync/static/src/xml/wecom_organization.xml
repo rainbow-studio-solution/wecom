@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+    <!-- 同步通讯录 -->
+    <t t-extend="ListView.buttons" t-name="WecomUserSyncRequestListView.buttons">
+        <t t-jquery="t:last" t-operation="after">
+            <button type="button" class="btn btn-info o_button_sync_contacts_user fa fa-users" title="Sync Contacts Member" accesskey="s">
+                Sync Contacts Member
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="WecomDepartmentSyncRequestListView.buttons">
+        <t t-jquery="t:last" t-operation="after">
+            <button type="button" class="btn btn-info o_button_sync_contacts_department fa fa-sitemap" title="Sync Contacts Department" accesskey="s">
+                Sync Contacts Department
+            </button>
+        </t>
+    </t>
+
+    <t t-extend="ListView.buttons" t-name="WecomTagSyncRequestListView.buttons">
+        <t t-jquery="t:last" t-operation="after">
+            <button type="button" class="btn btn-info o_button_sync_contacts_tag fa fa-tags" title="Sync Contacts Tag" accesskey="s">
+                Sync Contacts Tag
+            </button>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,72 @@
+.o_field_ScanCodeText,
+.o_field_ScanCodeURL,
+.o_field_ScanCodeChar {
+	> div {
+		grid-template-columns: auto min-content;
+		// display: flex;
+		// justify-content: space-between;
+		border: 1px solid $primary;
+		font-size: $font-size-sm;
+		color: $o-brand-primary;
+		font-weight: $badge-font-weight;
+
+		.buttons {
+			grid-template-columns: auto min-content;
+		}
+
+		> span:first-child,
+		a {
+			margin-left: 4px;
+			margin-right: 4px;
+			align-self: center;
+			text-align: center;
+
+			&:not(.o_field_WecomScanCodeText) {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
+}
+
+.o_scan_code_dialog {
+	.modal-header {
+		padding: 10px 16px;
+	}
+	.modal-footer {
+		padding: 10px 16px;
+	}
+	.modal-body {
+		.o_scan_code_dialog_scan_video {
+			overflow: hidden;
+			padding: 4px;
+			position: relative;
+			display: flex;
+			width: 100%;
+			// text-align: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			@include media-breakpoint-down(sm) {
+				#scancode-video {
+					height: 400px !important;
+					width: 100% !important;
+				}
+			}
+		}
+		.o_scan_code_dialog_scan_result {
+			span {
+				width: 100%;
+				border: 1px solid $o-gray-300;
+				border-left: 0.3rem solid #9b4dca;
+				padding-left: 5px;
+				word-break: normal;
+				display: block;
+				white-space: pre-wrap;
+				word-wrap: break-word;
+				overflow: hidden;
+			}
+		}
+	}
+}

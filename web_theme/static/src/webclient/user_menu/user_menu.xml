@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="web.UserMenu" t-inherit-mode="extension" owl="1">
+        <xpath expr="//DropdownItem" position="replace">
+            <DropdownItem t-if="element.type == 'item' || element.type == 'switch'" href="element.href" dataset="{ menu: element.id }" onSelected="element.callback">
+                <CheckBox t-if="element.type == 'switch'" value="element.isChecked" className="'form-switch d-flex flex-row-reverse justify-content-between p-0'" onChange="element.callback">
+                    <t t-out="element.description"/>
+                </CheckBox>
+                <t t-else="">
+                    <i t-if="element.icon" t-attf-class="{{element.icon}} mr8"/>
+                    <t t-out="element.description"/>
+                </t>
+            </DropdownItem>
+        </xpath>
+    </t>
+</templates>

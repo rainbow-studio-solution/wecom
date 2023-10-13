@@ -1,0 +1,27 @@
+// = DataRange Picker
+// ============================================================================
+// No CSS hacks, variables overrides only
+
+.o_web_client {
+    // Since the component's design is defined in assets_common, scope variables
+    // declarations within `o_web_client` selector.
+
+    .daterangepicker {
+        --daterangepicker-border: #{$dropdown-border-width} solid #{$dropdown-border-color};
+        --daterangepicker-border-radius: #{$dropdown-border-radius};
+        --daterangepicker-bg: #{$table-bg};
+        --daterangepicker-color: #{$o-gray-900};
+        --daterangepicker-box-shadow: #{$dropdown-box-shadow};
+
+        --daterangepicker__table-bg: #{$table-bg};
+        --daterangepicker__thead-bg: #{$o-gray-100};
+
+        --daterangepicker__cell-border-color: #{$table-border-color};
+        --daterangepicker__cell-bg--hover: #{$o-gray-400};
+        --daterangepicker__cell-bg--off: #{$o-gray-400};
+
+        --daterangepicker__select-bg: #{$form-select-bg};
+        --daterangepicker__select-border-color: #{$input-border-color};
+        --daterangepicker__select-color: #{$form-select-color};
+    }
+}

@@ -1,0 +1,13 @@
+// = Plus Main Navbar Variables
+// ============================================================================
+$o-navbar-border-bottom: 0 !default;
+
+$o-navbar-background: linear-gradient(
+	45deg,
+	$o-brand-odoo,
+	adjust-color($o-brand-odoo, $saturation: -8%, $lightness: -4%)
+) !default;
+
+$o-navbar-badge-size-adjust: 0 !default;
+$o-navbar-badge-bg: $o-default-primary-color-light !default;
+$o-navbar-drawer-menu-badge-bg: $o-brand-primary !default;

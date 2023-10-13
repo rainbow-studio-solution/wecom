@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="ir_cron_act_pull_wecom_service_api_error" model="ir.actions.act_window">
+        <!-- <record id="ir_cron_act_pull_wecom_service_api_error" model="ir.actions.act_window">
             <field name="name">WeCom: Pull the global error code of WeCom.</field>
             <field name="res_model">ir.cron</field>
             <field name="view_mode">form</field>
             <field name="res_id" ref="ir_cron_pull_wecom_service_api_error"/>
-        </record>
+        </record> -->
 
-        <record id="ir_cron_act_get_app_token" model="ir.actions.act_window">
+        <!-- <record id="ir_cron_act_get_app_token" model="ir.actions.act_window">
             <field name="name">WeCom: Get app token.</field>
             <field name="res_model">ir.cron</field>
             <field name="view_mode">form</field>
             <field name="res_id" ref="ir_cron_get_app_token"/>
         </record>
+
+        <record id="ir_cron_act_get_join_qrcode" model="ir.actions.act_window">
+            <field name="name">WeCom: Get join enterprise QR code.</field>
+            <field name="res_model">ir.cron</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="ir_cron_get_join_qrcode"/>
+        </record> -->
 
     </data>
 </odoo>

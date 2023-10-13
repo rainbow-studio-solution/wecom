@@ -1,0 +1,61 @@
+@include media-breakpoint-down(md) {
+
+    .modal {
+        .modal-content {
+            .modal-body.o_act_window .o_group.o_inner_group > tbody > tr > td:not(.o_td_label) {
+                width: 100% !important;
+
+                > * {
+                    width: 100%;
+                }
+            }
+
+            .modal-footer {
+                .btn {
+                    width: 45%;
+                    text-overflow: ellipsis;
+                    white-space: inherit;
+                }
+            }
+        }
+
+        &.o_modal_full {
+            .modal-content {
+                .modal-header {
+                    align-items: center;
+                    height: $o-navbar-height;
+                    padding: 0 1rem;
+
+                    .btn {
+                        color: white;
+                        background-color: transparent;
+                        border-color: transparent;
+
+                        &, .btn-sm {
+                            padding: 14px; // according to the padding for touch device
+                        }
+
+                        &.fa {
+                            padding: 10px; // according to the padding for touch device
+                        }
+                    }
+                }
+
+                .modal-body {
+                    .o_form_view .o_form_sheet_bg {
+                        &, & > .o_form_sheet {
+                            border-bottom: 0;
+                            border-top: 0;
+                        }
+                    }
+                }
+
+                .modal-footer {
+                    @include o-webclient-padding($top: 1rem, $bottom: 0.5rem);
+                    box-shadow: 0 1rem 2rem black;
+                    z-index: 0;
+                }
+            }
+        }
+    }
+}

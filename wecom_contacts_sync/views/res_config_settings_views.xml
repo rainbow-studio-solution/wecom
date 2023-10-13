@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">WeCom contacts settings</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="wecom_contacts.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+
+                <div id="wecom_contacts_secret" position="after">
+
+                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('contacts_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-server fa-lg" aria-label="Contacts Service"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="contacts_app_callback_service_ids"/>
+                            <div class="row">
+                                <div class="content-group overflow-auto">
+                                    <div class="mt4">
+                                        <field name="contacts_app_callback_service_ids" widget="one2many_config" help="description" class="w-100 pl-3" t-translation="off">
+                                            <tree create="0" edit="true" delete="0" editable="bottom" sample="1" limit="1">
+                                                <field name="id" invisible="1"/>
+                                                <field name="name" readonly="1"/>
+                                                <field name="callback_url" readonly="1" widget="CopyClipboardChar"/>
+                                                <field name="callback_url_token" required="1" max-width="80px"/>
+                                                <field name="callback_aeskey" required="1" max-width="200px"/>
+                                                <field name="active" widget="boolean_toggle" max-width="30px"/>
+                                                <field name="description" invisible="1"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div class="text-right">
+                                        <button class="oe_highlight" name="generate_service" context="{'code': 'contacts'}" string="Generate service" type="object" icon="fa-server" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="wecom_contacts_sync_warning" position="replace"/>
+
+                <div id="wecom_contacts_sync_install" position="after">
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-puzzle-piece fa-lg" aria-label="Wecom Contacts Synchronization Application"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="contacts_sync_app_id" string="Contacts Synchronization Application"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    To synchronize contacts, you need to bind a self-built application.
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="contacts_sync_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_id.code', '=', 'self'),('company_id', '=', company_id)]"/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('contacts_sync_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-list-ol fa-lg" aria-label="Contacts Synchronization Application Agentid"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="contacts_sync_app_agentid"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field widget="integer" options="{'format': false}" name="contacts_sync_app_agentid" class="w-100"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('contacts_sync_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-lock fa-lg" aria-label="Contacts Synchronization Application Secret"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="contacts_sync_secret"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt8">
+                                    <field name="contacts_sync_secret" widget="DisplayPasswordChar" require_encryption="True" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-12 o_setting_box" attrs="{'invisible': [('contacts_sync_app_id','=',False)]}">
+                        <div class="o_setting_left_pane">
+                            <i class="fa fa-cogs fa-lg" aria-label="Contacts Configuration"/>
+                        </div>
+                        <div class="o_setting_right_pane ">
+                            <label for="contacts_sync_app_config_ids"/>
+                            <div class="row">
+                                <div class="content-group overflow-auto">
+                                    <div class="mt4">
+                                        <field name="contacts_sync_app_config_ids" widget="one2many_config" format="value" type="ttype" help="description" class="w-100 pl-3" t-translation="off">
+                                            <tree create="0" edit="true" delete="0" editable="bottom" sample="1">
+                                                <field name="name" readonly="1"/>
+                                                <field name="key" readonly="1"/>
+                                                <field name="value" need_format="true" force_save="1" required="1"/>
+                                                <field name="description" invisible="1"/>
+                                            </tree>
+                                        </field>
+                                    </div>
+                                    <div class="btn-group float-right" role="group" aria-label="Button group">
+                                        <button class="oe_highlight ml-1" name="generate_parameters" context="{'code': 'contacts_sync'}" string="Generate parameters" type="object" icon="fa-cogs" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="wecom_material" position="before">
+                    <div id="wecom_contacts_display_component" attrs="{'invisible': ['|',('is_wecom_organization','=',False),('module_wecom_contacts','=',False)]}">
+                        <h2>Contacts display component</h2>
+                        <div class="row mt8 o_settings_container">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-id-card-o fa-lg" aria-label="Wecom Contacts Display Component"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="self_built_app_id" string="Binding Self-built application"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            Contacts display component needs to be bound to a self-built application.
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt8">
+                                            <field name="self_built_app_id" class="w-100 " widget="selection" domain="['&amp;',('type_id.code', '=', 'self'),('company_id', '=', company_id)]"/>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                                    <button name="%(wecom_base.action_view_wecom_apps_list)d" icon="fa-arrow-right" type="action" string="Management application" class="btn-link"/>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('self_built_app_id','=',False)]}">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-list-ol fa-lg" aria-label="Self-built Application Agentid"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="self_built_app_agentid"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            Application Management→Application→Open the application that needs to be verified and authorized, copy 'AgentId'
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt8">
+                                            <field widget="integer" options="{'format': false}" name="self_built_app_agentid" class="w-100"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible': [('self_built_app_id','=',False)]}">
+                                <div class="o_setting_left_pane">
+                                    <i class="fa fa-lock fa-lg" aria-label="Self-built Application Secret"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="self_built_app_secret"/>
+                                    <div class="row">
+                                        <div class="text-muted col-md-12">
+                                            Application Management→Application→Open the application that needs to be verified and authorized, copy 'Secret'
+                                        </div>
+                                    </div>
+                                    <div class="content-group">
+                                        <div class="mt8">
+                                            <field name="self_built_app_secret" widget="DisplayPasswordChar" require_encryption="True" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </field>
+        </record>
+    </data>
+</odoo>

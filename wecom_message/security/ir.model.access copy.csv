@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_wecom_message,wecom_message.access_wecom_message,wecom_message.model_wecom_message,base.group_user,1,1,1,1
-access_wecom_message_template,wecom_message.access_wecom_message_template,wecom_message.model_wecom_message_template,base.group_user,1,1,1,1
-
-access_wecom.message.notification,wecom_message.access_wecom_message_notification,wecom_message.model_wecom_message_notification,base.group_erp_manager,1,1,1,1

@@ -1,0 +1,31 @@
+// -----------------------------------------------
+// SideNavbar
+// -----------------------------------------------
+$o-sidenav-width: 265px;
+$o-sidenav-collapse-width: 75px;
+$o-side-navbar-logo-height-xs: 46px !default;
+$o-side-navbar-logo-height-lg: 40px !default;
+$o-side-navbar-logo-height: $o-side-navbar-logo-height-lg !default;
+
+// $o-sidenav-background: linear-gradient(45deg, $o-brand-odoo, adjust-color($o-brand-odoo, $saturation: -8%, $lightness: -4%));
+$o-sidenav-background: $o-brand-odoo !default;
+$o-sidenav-logo-background: linear-gradient(45deg, $o-brand-odoo, adjust-color($o-brand-odoo, $saturation: -8%, $lightness: -4%)) ;
+
+// $o-side-navbar-app-item-active-bg: $o-success !default;
+$o-side-navbar-item-hover-border: #36c6d3 !default;
+$o-side-navbar-item-hover-bg: #e9e9e9;
+$o-side-navbar-app-item-active-bg: #36c6d3 !default;
+$o-side-navbar-menu-item-active-color: #36c6d3 !default;
+$o-side-navbar-menu-item-active-bg: #e9e9e9;
+
+$o-side-navbar-menu-item-badge-size: 11px !default;
+$o-side-navbar-menu-item-badge-size-adjust: 1px !default;
+$o-side-navbar-menu-item-padding: 4px !default;
+$o-side-navbar-menu-item-badge-bg: $o-success !default;
+
+$o-side-navbar-search-header-height-xs: 46px !default;
+$o-side-navbar-search-header-height-lg: 40px !default;
+$o-side-navbar-search-header-bg: $o-default-color;
+
+$o-side-navbar-search-container-size: 850px;
+$o-side-navbar-search-app-icon-max-width: 70px;

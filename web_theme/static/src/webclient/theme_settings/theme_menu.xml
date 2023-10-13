@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="web_theme.ThemeConfigMenu" owl="1">
+        <div class="o_theme_menu">
+            <button class="o_theme_panel_toggle" type="button" hotkey="t" accesskey="t" data-bs-toggle="offcanvas" data-bs-target="#o_theme_panel" aria-controls="o_theme_panel" t-on-click.stop.prevent="() => this.openThemePanel()">
+                <i class="oi oi-settings-adjust"></i>
+            </button>
+            <ThemeConfigPage  />
+        </div>
+    </t>
+
+
+</templates>

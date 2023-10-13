@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+
+    <t t-name="wecom_widget.charBarcodeField" t-inherit="web.CharField" owl="1">
+        <xpath expr="//t[@t-else='']" position="replace">
+            <t t-else="">
+                <div class="o_field_many2one_selection">
+                <button
+                    t-on-click="onBarcodeBtnClick"
+                    type="button"
+                    class="btn ms-3 o_barcode"
+                    tabindex="-1"
+                    draggable="false"
+                    aria-label="Scan barcode"
+                    title="Scan barcode"
+                    data-tooltip="Scan barcode"
+                />
+                <t t-call="web.CharField"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

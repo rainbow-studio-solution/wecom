@@ -1,0 +1,12 @@
+// = Main Theme config Variables
+// ============================================================================
+
+$o-theme-panel-header-height-xs: 46px !default;
+$o-theme-panel-header-height-lg: 40px !default;
+$o-theme-panel-headerr-height: $o-theme-panel-header-height-lg !default;
+
+$o-theme-panel-header-background: $o-brand-odoo !default;
+$o-theme-panel-header-border-bottom: 1px solid darken($o-brand-odoo, 10%) !default;
+
+$o-theme-panel-header-color: $o-white !default;
+$o-theme-panel-header-font-size: $o-font-size-base !default;

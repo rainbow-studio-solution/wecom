@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-16 08:31+0000\n"
-"PO-Revision-Date: 2021-12-16 16:32+0800\n"
+"POT-Creation-Date: 2022-10-24 11:45+0000\n"
+"PO-Revision-Date: 2022-10-24 20:09+0800\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: zh_CN\n"
@@ -15,17 +15,17 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2\n"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
 msgid "<i class=\"fa fa-key fa-lg\" aria-label=\"Material Secret\"/>"
-msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"媒体素材密匙\"/>"
+msgstr "<i class=\"fa fa-key fa-lg\" aria-label=\"素材密钥\"/>"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
 msgid "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"Material Agentid\"/>"
-msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"媒体素材应用Id\"/>"
+msgstr "<i class=\"fa fa-list-ol fa-lg\" aria-label=\"素材应用ID\"/>"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
@@ -34,22 +34,8 @@ msgstr "<i class=\"fa fa-puzzle-piece fa-lg\" aria-label=\"素材应用\"/>"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
-msgid ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"WeCom "
-"Material\"/>\n"
-" WeCom Material\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title="
-"\"The values set below are the companies identified as WeCom organizations.\"/>\n"
-"                        </span>"
-msgstr ""
-"<span class=\"text-left\">\n"
-"                            <i class=\"fa fa-suitcase fa-lg\" aria-label=\"媒体素"
-"材\"/>\n"
-" 媒体素材\n"
-"                            <i class=\"fa fa-lg fa-info-circle fa-lg\" title=\"下"
-"面设置的值是标识为企业微信组织的公司。\"/>\n"
-"                        </span>"
+msgid "<strong>Save</strong> this page and come back here to set up other feature."
+msgstr "<strong>保存</strong> 此页面并返回此处以设置其它功能。"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_access_token
@@ -62,31 +48,28 @@ msgid "Account Created"
 msgstr "创建的帐户"
 
 #. module: wecom_material
+#: model:res.groups,name:wecom_material.group_wecom_material_manager
+msgid "Administrator"
+msgstr "管理员"
+
+#. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_agentid
 msgid "Agent ID"
 msgstr "应用ID"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Allowed file formats are %s"
-msgstr "允许的文件格式为 %s"
+msgstr "允许的文件格式为%s"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid ""
 "Already uploaded, please do not upload again! You can create a new record to "
 "upload the file."
 msgstr "已上传，请不要再次上传！ 您可以创建新记录后上传文件。"
-
-#. module: wecom_material
-#: model:ir.model.fields,field_description:wecom_material.field_res_company__material_app_id
-#: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_app_id
-msgid "Application"
-msgstr "应用"
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
@@ -104,8 +87,8 @@ msgstr "应用程序管理→应用→打开需要验证和授权的应用程序
 
 #. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
-msgid "Binding application"
-msgstr "绑定应用"
+msgid "Binding Material Application"
+msgstr "绑定素材应用"
 
 #. module: wecom_material
 #: model:ir.model,name:wecom_material.model_res_company
@@ -135,15 +118,12 @@ msgid "Created on"
 msgstr "创建于"
 
 #. module: wecom_material
-#: model:ir.model.fields,field_description:wecom_material.field_res_company__display_name
-#: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Error saving file to path %s!"
 msgstr "文件保存到路径 %s 错误!"
@@ -154,13 +134,16 @@ msgid "Gamification"
 msgstr "游戏化"
 
 #. module: wecom_material
+#: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
+msgid "Get application info"
+msgstr "获取应用信息"
+
+#. module: wecom_material
 #: model_terms:ir.ui.view,arch_db:wecom_material.wecom_material_filter
 msgid "Group By"
 msgstr "分组"
 
 #. module: wecom_material
-#: model:ir.model.fields,field_description:wecom_material.field_res_company__id
-#: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__id
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__id
 msgid "ID"
 msgstr ""
@@ -171,8 +154,6 @@ msgid "KPI"
 msgstr ""
 
 #. module: wecom_material
-#: model:ir.model.fields,field_description:wecom_material.field_res_company____last_update
-#: model:ir.model.fields,field_description:wecom_material.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material____last_update
 msgid "Last Modified on"
 msgstr "最后更改日"
@@ -193,18 +174,21 @@ msgid "Logo"
 msgstr ""
 
 #. module: wecom_material
-#: model:ir.actions.act_window,name:wecom_material.action_view_wecom_material
-#: model:ir.ui.menu,name:wecom_material.menu_wecom_message
-msgid "Material"
-msgstr "素材"
+#: model_terms:ir.ui.view,arch_db:wecom_material.res_config_settings_view_form
+msgid "Management application"
+msgstr "管理应用"
 
 #. module: wecom_material
-#. openerp-web
-#: code:addons/wecom_material/static/src/xml/anchor.xml:0
-#: code:addons/wxwork/wecom_material/static/src/xml/anchor.xml:0
+#: model:ir.model.fields,field_description:wecom_material.field_res_company__material_app_id
+#: model:ir.model.fields,field_description:wecom_material.field_res_config_settings__material_app_id
+msgid "Material Application"
+msgstr "素材应用"
+
+#. module: wecom_material
+#: code:addons/wecom_material/models/res_config_settings.py:0
 #, python-format
-msgid "Material settings"
-msgstr "素材设置"
+msgid "Material application ID and secret cannot be empty!"
+msgstr "媒体应用ID和Secret 不能为空！"
 
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__media_filename
@@ -218,7 +202,6 @@ msgstr "媒体文件标识"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Media file size must be between %sB and %sMB"
 msgstr "媒体文件大小必须在 %sB 和 %sMB 之间"
@@ -249,6 +232,11 @@ msgid "Name"
 msgstr "名称"
 
 #. module: wecom_material
+#: model:res.groups,name:wecom_material.group_wecom_material_user
+msgid "Officer"
+msgstr "主管"
+
+#. module: wecom_material
 #: model:ir.model.fields.selection,name:wecom_material.selection__wecom_material__media_type__file
 msgid "Ordinary file"
 msgstr "普通文件"
@@ -276,7 +264,6 @@ msgstr ""
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Please upload files!"
 msgstr "请上传文件！"
@@ -291,8 +278,6 @@ msgstr "重置密码"
 msgid "Secret"
 msgstr "密钥"
 
-
-
 #. module: wecom_material
 #: model:ir.model.fields,field_description:wecom_material.field_wecom_material__temporary
 msgid "Temporary material"
@@ -305,7 +290,6 @@ msgstr "上传后获得的图片的URL。永久有效。"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "The duration of the voice file exceeds 60 seconds!"
 msgstr "语音文件的时长超过60秒！"
@@ -317,7 +301,6 @@ msgstr "每个公司的素材名称必须是唯一的！"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "The temporary material has not expired, please do not upload it repeatedly."
 msgstr "临时素材尚未过期，请不要重复上传。"
@@ -330,15 +313,25 @@ msgid ""
 msgstr "媒体文件上传后获取的唯一标识，3天内有效"
 
 #. module: wecom_material
+#: model:res.groups,comment:wecom_material.group_wecom_material_user
+msgid "The user will be able to approve document created by employees."
+msgstr "此用户将有权限审批员工创建的文档。"
+
+#. module: wecom_material
+#: model:res.groups,comment:wecom_material.group_wecom_material_manager
+msgid ""
+"The user will have access to the wecom material configuration as well as "
+"statistic reports."
+msgstr "用户可以访问企微素材配置以及统计报告。"
+
+#. module: wecom_material
 #: code:addons/wecom_material/__init__.py:0
-#: code:addons/wxwork/wecom_material/__init__.py:0
 #, python-format
 msgid "Unable to create WeCom image storage path! Error:%s"
-msgstr "无法创建企业微信图像存储路径！错误：%s"
+msgstr "无法创建企微图像存储路径！错误：%s"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "Unknown type of media file!"
 msgstr "未知媒体文件类型！"
@@ -370,29 +363,28 @@ msgstr "警告"
 
 #. module: wecom_material
 #: code:addons/wecom_material/__init__.py:0
-#: code:addons/wxwork/wecom_material/__init__.py:0
 #, python-format
 msgid "WeCom image storage path has not been configured yet!"
-msgstr "尚未配置企业微信图像存储路径！"
+msgstr "尚未配置企微图像存储路径！"
 
 #. module: wecom_material
 #: model:ir.model,name:wecom_material.model_wecom_material
 msgid "WeCom material"
-msgstr "企业微信素材"
+msgstr "企微素材"
 
 #. module: wecom_material
 #: code:addons/wecom_material/models/wecom_material.py:0
-#: code:addons/wxwork/wecom_material/models/wecom_material.py:0
 #, python-format
 msgid "WeCom storage path has not been configured yet!"
-msgstr "企业微信存储路径尚未配置！"
+msgstr "企微存储路径尚未配置！"
+
+#. module: wecom_material
+#: model:ir.actions.act_window,name:wecom_material.action_view_wecom_material
+#: model:ir.ui.menu,name:wecom_material.menu_wecom_material
+msgid "Wecom Material"
+msgstr "企微素材"
 
 #. module: wecom_material
 #: model:wecom.material,name:wecom_material.wecom_material_image_welcome
 msgid "Welcome"
 msgstr "欢迎"
-
-#. module: wecom_material
-#: model:wecom.apps,app_name:wecom_material.wecom_app_firstapp
-msgid "Your first app"
-msgstr "你的第一个应用"

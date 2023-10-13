@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="calendar_menu_my" parent="calendar.mail_menu_calendar" name="My Calendar" sequence="10" action="calendar.action_calendar_event" groups="base.group_user"/>
+</odoo>
+

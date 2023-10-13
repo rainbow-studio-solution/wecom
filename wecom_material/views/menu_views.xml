@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="menu_wecom_material" name="Wecom Material" groups="base.group_system" parent="wecom_base.menu_wecom_root" action="action_view_wecom_material" sequence="5"/>
+
+
+    </data>
+</odoo>

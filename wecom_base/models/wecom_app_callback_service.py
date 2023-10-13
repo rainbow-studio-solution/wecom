@@ -2,7 +2,6 @@
 
 from datetime import datetime, timedelta
 from odoo import _, api, fields, models
-from odoo.tools.translate import translate
 from odoo.exceptions import ValidationError
 
 
@@ -26,7 +25,11 @@ class WeComAppCallbackService(models.Model):
     )
 
     name = fields.Char(string="Service Name", required=True, translate=True)
-    code = fields.Char(string="Service Code", copy=False, required=True,)
+    code = fields.Char(
+        string="Service Code",
+        copy=False,
+        required=True,
+    )
 
     callback_url = fields.Char(
         string="URL",
@@ -39,6 +42,7 @@ class WeComAppCallbackService(models.Model):
     callback_aeskey = fields.Char(string="AES Key", copy=False)  # 用于消息内容加密
 
     description = fields.Text(string="Description", translate=True, copy=True)
+    active = fields.Boolean("Active", default=False)
 
     _sql_constraints = [
         (
@@ -57,13 +61,13 @@ class WeComAppCallbackService(models.Model):
         base_url = params.get_param("web.base.url")
         callback_url = ""
         for server in self:
-            if server.app_id.company_id and server.code:
-                callback_url = base_url + "/wecom_callback/%s/%s" % (
-                    server.app_id.company_id.id,
-                    server.code,
+            if server.app_id.company_id and server.code:        # type: ignore
+                callback_url = base_url + "/wecom_callback/%s/%s" % (           # type: ignore
+                    server.app_id.company_id.id,        # type: ignore
+                    server.code,        # type: ignore
                 )
 
-            server.callback_url = callback_url
+            server.callback_url = callback_url      # type: ignore
 
     @api.onchange("app_id", "code")
     def _onchange_callback_url(self):
@@ -76,15 +80,15 @@ class WeComAppCallbackService(models.Model):
 
         if self.app_id:
             self.callback_url = base_url + "/wecom_callback/%s/%s" % (
-                self.app_id.company_id.id,
+                self.app_id.company_id.id,      # type: ignore
                 self.code,
             )
         else:
             self.callback_url = ""
 
-    def generate_service(self):
+    def generate_contact_service(self):
         """
-        生成服务
+        生成通讯录回调服务
         :return:
         """
         params = self.env["ir.config_parameter"].sudo()
@@ -92,7 +96,8 @@ class WeComAppCallbackService(models.Model):
         if not self.app_id:
             raise ValidationError(_("Please bind contact app!"))
         else:
-            self.callback_url = base_url + "/wecom_callback/%s/%s" % (
-                self.app_id.company_id.id,
+            callback_url = base_url + "/wecom_callback/%s/%s" % (
+                self.app_id.company_id.id,      # type: ignore
                 self.code,
             )
+            return callback_url

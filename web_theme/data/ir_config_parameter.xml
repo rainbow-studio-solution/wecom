@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record model="ir.config_parameter" id="coca_system_name" forcecreate="False">
+            <field name="key">web_theme.system_name</field>
+            <field name="value">iERP</field>
+        </record>
+
+        <function model="ir.config_parameter" name="set_param" eval="('web_theme.display_company_name', 'False')"/>
+
+        <record model="ir.config_parameter" id="coca_documentation_url" forcecreate="False">
+            <field name="key">web_theme.documentation_url</field>
+            <field name="value">https://eis.wiki/</field>
+        </record>
+
+        <record model="ir.config_parameter" id="coca_support_url" forcecreate="False">
+            <field name="key">web_theme.support_url</field>
+            <field name="value">https://eis.hb.cn/</field>
+        </record>
+    </data>
+</odoo>

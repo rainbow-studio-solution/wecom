@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_groups_search" model="ir.ui.view">
+            <field name="name">res.groups.search</field>
+            <field name="model">res.groups</field>
+            <field name="inherit_id" ref="base.view_groups_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[last()]" position="after">
+                    <searchpanel>
+                        <field name="category_id" icon="fa-puzzle-piece" enable_counters="1"/>
+                    </searchpanel>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_groups_tree" model="ir.ui.view">
+            <field name="name">res.groups.search</field>
+            <field name="model">res.groups</field>
+            <field name="arch" type="xml">
+                <tree string="Access Groups">
+                    <field name="full_name"/>
+                    <field name="comment"/>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,38 @@
+<template>
+
+    <t t-extend="CalendarView.buttons">
+        <t t-jquery=".o_calendar_navigation_buttons" t-operation="replace">
+            <t t-if="!isMobile">
+                <span class="o_calendar_navigation_buttons">
+                    <t t-call="CalendarView.navigation_buttons" />
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <div t-name="CalendarView.OtherCalendarMobile" class="o_other_calendar_panel d-flex align-items-center">
+        <i class="fa fa-fw fa-filter me-3" />
+        <div class="o_filter me-auto d-flex overflow-auto">
+            <t t-foreach="filters" t-as="filter" t-if="filter.values.length > 0">
+                <span class="text-nowrap fw-bold text-uppercase me-1" t-esc="filter.label" />
+                <span t-foreach="filter.values" t-as="values" class="d-flex align-items-center text-nowrap ms-1 me-2">
+                    <span t-attf-class="#{typeof values.color === 'number' ? _.str.sprintf('o_color_%s', values.color) : 'o_color_1'}">⬤</span>
+                    <span class="ms-1 fw-bold text-nowrap" t-esc="values.label" />
+                </span>
+            </t>
+        </div>
+        <i t-if="isSidePanelVisible" class="fa fa-fw fa-caret-down ms-2"/>
+        <i t-else="" class="fa fa-fw fa-caret-left ms-2"/>
+    </div>
+
+    <t t-extend="CalendarView">
+        <t t-jquery=".o_calendar_sidebar_container .o_calendar_sidebar" t-operation="append">
+            <div class="o_view_nocontent d-none">
+                <div class="o_nocontent_help">
+                    <p class="o_view_nocontent_neutral_face">No filter available</p>
+                </div>
+            </div>
+        </t>
+    </t>
+
+</template>

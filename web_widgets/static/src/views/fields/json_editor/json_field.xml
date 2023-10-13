@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="web.JsonField" owl="1">
+        <div class="o_field_widget oe_form_field o_json_view_editor oe_json_open">
+            <div class="json-view-editor" t-ref="editor" />
+        </div>
+    </t>
+
+</templates>

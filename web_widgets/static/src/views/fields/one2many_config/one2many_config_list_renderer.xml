@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <t t-name="web_widgets.One2ManyConfigListRenderer" owl="1" t-inherit-mode="primary" t-inherit="web.ListRenderer">
+        <xpath expr="//i[@t-att-class='getSortableIconClass(column)']" position="attributes">
+            <attribute name="class">d-none</attribute>
+        </xpath>
+        <xpath expr="//span[@t-if='!isEmpty']" position="replace"/>
+        <xpath expr="//table/thead/tr/th[@t-if='hasSelectors']" position="after">
+            <th title="no." class="o_list_controller text-center" style="width: 30px; min-width: 30px">#</th>
+        </xpath>
+        <xpath expr="//table/thead/tr/th[last()]" position="after">
+            <th title="Click the button to display the information" class="o_list_controller text-center" style="width: 40px; min-width: 40px">
+                <i class="fa fa-question-circle" aria-hidden="false"></i>
+            </th>
+        </xpath>
+    </t>
+
+    <t t-name="web_widgets.One2ManyConfigListRenderer.RecordRow" owl="1" t-inherit-mode="primary" t-inherit="web.ListRenderer.RecordRow">
+        <xpath expr="//tr[@class='o_data_row']/td[1]" position="after">
+            <td class="o_list_number o_data_cell text-center">
+                <t t-esc="record_index + 1"/>
+            </td>
+        </xpath>
+        <xpath expr="//tr[@class='o_data_row']/t[last()]" position="after">
+            <td class="o_data_cell text-center">
+                <button class="fa fa-info-circle btn btn-outline-primary btn-sm" t-att-data-help-field="help_field" t-att-data-help-string="help_string" t-ref="showTooltipButton" aria-label="show" tabindex="-1" data-bs-trigger="focus" data-bs-toggle="popover" t-on-click.stop="(ev) => this._onOpenPopover(ev,record)" />
+            </td>
+        </xpath>
+    </t>
+
+</odoo>

@@ -1,0 +1,209 @@
+.o_sidenav {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background: $o-sidenav-background;
+
+	&.sidebar-maximize {
+		transition: all 0.3s;
+	}
+
+	.o_sidenav_header {
+		@include print-variable(o-side-navbar-logo-height, $o-side-navbar-logo-height-xs);
+
+		@include media-breakpoint-up(lg) {
+			@include print-variable(o-side-navbar-logo-height, $o-side-navbar-logo-height-lg);
+		}
+
+		height: var(--o-side-navbar-logo-height);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: relative;
+
+		border-bottom: $o-navbar-border-bottom;
+		flex: 0 0 auto;
+
+		.o_sidenav_header_logo {
+			width: 215px;
+			display: flex;
+			justify-content: center;
+			// justify-content: space-between;
+			align-items: center;
+
+			img {
+				max-width: 190px !important;
+				max-height: calc(var(--o-side-navbar-logo-height) - 4px);
+			}
+		}
+
+		.o_sidenav_toggle {
+			// color: #a1a5b7;
+			// color: $o-sidenav-entry-color;
+			border: 0;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: $o-white;
+			position: absolute;
+			transform: translate(-50%, -50%) !important;
+			left: 100% !important;
+			top: 50% !important;
+			border-radius: 0.425rem;
+			cursor: pointer;
+			height: 24px;
+			width: 24px;
+
+			&:hover {
+				color: $o-default-primary-color;
+				transition: all 0.3s;
+			}
+
+			.svg-icon {
+				font-size: 12px;
+				font-weight: 500;
+				// transition: transform .3s ease;
+				transition: all 0.3s;
+
+				&.active {
+					transform: rotateZ(180deg);
+					color: $o-default-primary-color !important;
+				}
+			}
+		}
+	}
+
+	.o_main_sidenav {
+		// padding: 0.5rem 0 0 0;
+		padding: 0;
+		display: flex;
+		flex-grow: 1;
+		overflow-y: auto;
+		align-items: start;
+
+		&::-webkit-scrollbar {
+			width: 5px !important;
+		}
+
+		.accordion {
+			.accordion-item {
+
+				// border: 1px solid rgba(0, 0, 0, 0.125);
+				border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+
+				.accordion-header {
+					.accordion-button.app {
+						line-height: 1.8rem;
+						padding: 0.5rem;
+						display: flex;
+						align-items: center;
+
+						&.active,
+						&.active:hover {
+							color: $o-white;
+							background-color: $o-side-navbar-app-item-active-bg !important;
+							border-left: none;
+
+							.menu-badge {
+								background-color: $o-danger;
+							}
+						}
+
+						&:hover {
+							border-left: 2px solid $o-side-navbar-item-hover-border;
+							background-color: $o-side-navbar-item-hover-bg !important;
+						}
+
+						.menu-icon {
+							height: 24px;
+							width: 24px;
+							margin-right: 0.5rem;
+						}
+
+						.menu-lable {
+							width: 180px;
+							text-align: left;
+						}
+
+						.menu-badge {
+							margin-right: -0.5em;
+							border: 0;
+							color: $o-white;
+							padding: ($o-side-navbar-menu-item-padding * 0.5) $o-side-navbar-menu-item-padding;
+							background-color: var(
+								--o-side-navbar-menu-item-badge-bg,
+								#{$o-side-navbar-menu-item-badge-bg}
+							);
+							font-size: $o-side-navbar-menu-item-badge-size;
+							text-shadow: 1px 1px 0 rgba(#000, 0.3);
+						}
+					}
+
+					.accordion-button.app.no_submenus {
+						&::after {
+							background-image: none;
+						}
+					}
+				}
+
+				.accordion-collapse {
+					.accordion-body {
+						padding: 0.1rem 0 0.1rem 1rem;
+
+						.accordion-button.menu {
+							line-height: 1.5rem;
+							padding: 0.5rem;
+							// background: $o-sidenav-background ;
+
+							&.active,
+							&.active:hover {
+								border-left: 2px solid $o-side-navbar-menu-item-active-color;
+								background-color: $o-side-navbar-menu-item-active-bg !important;
+							}
+
+							&:hover {
+								border-left: 2px solid $o-side-navbar-item-hover-border;
+								background-color: $o-side-navbar-item-hover-bg !important;
+							}
+
+							.menu-icon {
+								height: 24px;
+								width: 12px;
+								margin-right: 0.5rem;
+
+								display: flex;
+								justify-content: center;
+								align-items: center;
+							}
+
+							.menu-lable {
+								// width: 150px;
+								text-align: left;
+							}
+
+							.menu-badge {
+								margin-right: -0.5em;
+								border: 0;
+								color: $o-white;
+								padding: ($o-side-navbar-menu-item-padding * 0.5) $o-side-navbar-menu-item-padding;
+								background-color: var(
+									--o-side-navbar-menu-item-badge-bg,
+									#{$o-side-navbar-menu-item-badge-bg}
+								);
+								font-size: $o-side-navbar-menu-item-badge-size;
+								text-shadow: 1px 1px 0 rgba(#000, 0.3);
+							}
+						}
+
+						.accordion-button.menu.no_submenus {
+							&::after {
+								background-image: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template id="template" xml:space="preserve">
+
+    <t t-name="wecom.WecomApiErrorDialog" owl="1">
+        <Dialog size="size" contentClass="contentClass" bodyClass="bodyClass" title="this.constructor.title">
+            <p>
+                <b>Error code: </b>
+                <b t-esc="code"/>
+            </p>
+            <p>
+                <b>Error description:</b>
+                <b t-esc="description"/>
+            </p>
+            <p>
+                <b>Error troubleshooting method:</b>
+                <t t-out="method"/>
+            </p>
+            <p>
+                <b>Error Details:</b>
+                <t t-esc="details"/>
+            </p>
+        </Dialog>
+    </t>
+
+</template>

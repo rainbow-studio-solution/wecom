@@ -1,6 +1,12 @@
-numpy==1.19.3 
-opencv-python
-pdfminer
-num2words
+html2text
+numpy
+pandas
+xmltodict
+# ------------------------------------------------------------------------------
+# xmltodict 的使用方法
+# https://github.com/martinblech/xmltodict
+# https://zhuanlan.zhihu.com/p/501918775
+# ------------------------------------------------------------------------------
+pycryptodome
 ffmpy
 pydub

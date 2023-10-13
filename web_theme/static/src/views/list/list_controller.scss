@@ -1,0 +1,9 @@
+.o_list_renderer {
+    --ListRenderer-thead-bg-color: #{$o-view-background-color};
+    --ListRenderer-thead-border-end-color: transparent;
+
+    // Standalone list views
+    .o_list_view &  {
+        --ListRenderer-thead-padding-v: 1rem;
+    }
+}

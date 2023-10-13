@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        属性： data-bs-backdrop="true" 在画布打开时在body上应用背景遮罩; data-bs-keyboard="true" 按下退出键时关闭画布; data-bs-scroll="false" 在 offcanvas 打开时允许正文滚动;
+     -->
+    <t t-name="web.ThemeConfigPanel" owl="1">
+        <div class="offcanvas offcanvas-end o_theme_panel border-start" tabindex="-1" id="o_theme_panel" aria-labelledby="o_theme_panel_title" data-bs-backdrop="true" data-bs-scroll="false" t-ref="ThemeConfigPanel">
+            <div class="offcanvas-header o_theme_panel_header">
+                <h5 class="offcanvas-title o_theme_panel_title" id="o_theme_panel_title">Theme Customize </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" />
+            </div>
+
+            <div class="offcanvas-body o_theme_panel_body">
+                <div class="d-flex align-items-start h-100">
+
+                    <div class="nav flex-column nav-pills me-3 border-end h-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active" id="v-pills-main-tab" data-bs-toggle="pill" data-bs-target="#v-pills-main" type="button" role="tab" aria-controls="v-pills-main" aria-selected="true">
+                            <i class="bi bi-gear" style="font-size: 2rem;" />
+                        </button>
+
+                        <button class="nav-link" id="v-pills-layout-tab" data-bs-toggle="pill" data-bs-target="#v-pills-layout" type="button" role="tab" aria-controls="v-pills-layout" aria-selected="false">
+                            <i class="bi bi-layout-wtf" style="font-size: 2rem;" />
+                        </button>
+
+                        <button class="nav-link" id="v-pills-color-tab" data-bs-toggle="pill" data-bs-target="#v-pills-color" type="button" role="tab" aria-controls="v-pills-color" aria-selected="false" t-if="!state.is_dark_mode">
+                            <i class="bi bi-palette" style="font-size: 2rem;"/>
+                        </button>
+
+                        <button class="nav-link" id="v-pills-sidebar-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sidebar" type="button" role="tab" aria-controls="v-pills-sidebar" aria-selected="false" t-if="menu_layout_mode==state.current_layout_mode">
+                            <i class="bi bi-layout-sidebar" style="font-size: 2rem;"/>
+                        </button>
+
+                        <button class="nav-link" id="v-pills-header-tab" data-bs-toggle="pill" data-bs-target="#v-pills-header" type="button" role="tab" aria-controls="v-pills-header" aria-selected="false">
+                            <i class="bi bi-window" style="font-size: 2rem;"/>
+                        </button>
+
+                        <button class="nav-link" id="v-pills-views-tab" data-bs-toggle="pill" data-bs-target="#v-pills-views" type="button" role="tab" aria-controls="v-pills-views" aria-selected="false">
+                            <i class="bi bi-eye" style="font-size: 2rem;"/>
+                        </button>
+                        <button class="nav-link" id="v-pills-footer-tab" data-bs-toggle="pill" data-bs-target="#v-pills-footer" type="button" role="tab" aria-controls="v-pills-footer" aria-selected="false">
+                            <i class="bi bi-window-desktop" style="font-size: 2rem;"/>
+                        </button>
+                    </div>
+
+                    <div class="tab-content w-100" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-main" role="tabpanel" aria-labelledby="v-pills-main-tab" tabindex="0">
+                            <h2>Main</h2>
+                            <div class="theme-option">
+                                <span class="float-start">Dark Mode</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleDarkMode(state.is_dark_mode)">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="switch_dark_mode" t-att-checked="state.is_dark_mode" />
+                                </div>
+                                <div class="text-info theme-option-description">
+                                    <i class="fa fa-info-circle"/>
+                                    Changing the mode will immediately refresh the browser.
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <span class="float-start">Open action in tabs</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleMainOpenActionInTabs(state.main_open_action_in_tabs)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.main_open_action_in_tabs" />
+                                </div>
+                            </div>
+
+                            <div class="theme-option" t-if="menu_layout_mode===1">
+                                <span class="float-start">Submenu Position</span>
+                                <ul class="list-group w-100">
+                                    <li t-attf-class="list-group-item border-0 d-flex justify-content-between align-items-start" t-foreach="main_submenu_positions" t-as="mode" t-key="mode.id">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">
+                                                <t t-esc="mode.name"/>
+                                            </div>
+                                            <img t-attf-src="{{mode.icon}}" />
+                                        </div>
+                                        <div class="form-check form-control-lg">
+                                            <input class="form-check-input" type="radio" name="radio_submenu_position" t-attf-id="radio_submenu_position_{{mode.id}}" t-att-value="mode.id" t-attf-checked="{{mode.id==state.current_submenu_position ? 'checked':''}}" t-on-change="() => this.onChangeSubmenuPosition(mode)"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-layout" role="tabpanel" aria-labelledby="v-pills-layout-tab" tabindex="0">
+                            <h2>Layout</h2>
+                            <div class="theme-option">
+                                <span class="float-start">Layout Mode</span>
+                                <ul class="list-group w-100">
+                                    <li t-attf-class="list-group-item border-0 d-flex justify-content-between align-items-start" t-foreach="menu_layout_modes" t-as="mode" t-key="mode.id">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">
+                                                <t t-esc="mode.name"/>
+                                            </div>
+                                            <i t-attf-class="bi {{mode.icon}} {{mode.id==state.current_layout_mode ? 'text-success':''}}" style="font-size: 4rem; " />
+                                        </div>
+                                        <div class="form-check form-control-lg">
+                                            <input class="form-check-input" type="radio" name="radio_layout_mode" t-attf-id="radio_layout_mode_{{mode.id}}" t-att-value="mode.id" t-attf-checked="{{mode.id==state.current_layout_mode ? 'checked':''}}" t-on-change="() => this.onChangeLayoutMode(mode)"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-color" role="tabpanel" aria-labelledby="v-pills-color-tab" tabindex="0" t-if="!state.is_dark_mode">
+                            <h2>Theme Color</h2>
+                            <h4>Primary Color</h4>
+                            <div class="theme-option ">
+                                <ul class="list-group list-group-horizontal theme-colors">
+                                    <li class="list-group-item theme-color" t-foreach="theme_colors" t-as="color" t-key="color_index" t-attf-style="background: {{color.color}};" t-attf-class="{{color.code==state.current_theme_color ? 'current':''}}" t-att-data-color="color.code" t-on-click="() => this.onClickThemeColor(color)"/>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-sidebar" role="tabpanel" aria-labelledby="v-pills-sidebar-tab" tabindex="0" t-if="menu_layout_mode==state.current_layout_mode">
+                            <h2>Sidebar</h2>
+                            <div class="theme-option">
+                                <span class="float-start">Display Number Of Submenus</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleSidebarDisplayNumberOfSubmenus(state.sidebar_display_number_of_submenus)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.sidebar_display_number_of_submenus" />
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <span class="float-start">Fixed SideNavbar</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleSidebarFixed(state.sidebar_fixed)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.sidebar_fixed" />
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <span class="float-start">Show minimize button</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleSidebarShowMinimizeButton(state.sidebar_show_minimize_button)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.sidebar_show_minimize_button" />
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <span class="float-start">Default minimize</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleSidebarDefaultMinimizedn(state.sidebar_default_minimized)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.sidebar_default_minimized" />
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <span class="float-start">Hover maximize</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleSidebarHoverMaximize(state.sidebar_hover_maximize)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.sidebar_hover_maximize" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-header" role="tabpanel" aria-labelledby="v-pills-header-tab" tabindex="0">
+                            <h2>Header</h2>
+
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-views" role="tabpanel" aria-labelledby="v-pills-views-tab" tabindex="0">
+                            <h2>Views</h2>
+                            <div class="theme-option">
+                                <span class="float-start">Show scroll to top button</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleDisplayScrollTopButton(state.display_scroll_top_button)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.display_scroll_top_button" />
+                                </div>
+                            </div>
+                            <h4>List</h4>
+                            <div class="theme-option">
+                                <span class="float-start">List Header Fixed</span>
+                                <div class="form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleListHerderFixed(state.list_herder_fixed)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.list_herder_fixed" />
+                                </div>
+                            </div>
+                            <div class="theme-option">
+                                <div class="row w-100 mb8 d-flex justify-content-center">
+                                    <span class="col-8 col-form-label">Number of rows in the list</span>
+                                    <div class="col-4">
+                                        <select class="form-select" t-on-change="(ev) => this.onChangeListRowsLimit(ev)">
+                                            <t t-foreach="list_rows_limits" t-as="limit" t-key="limit_index">
+                                                <option t-att-value="limit.value" t-attf-selected="{{limit.value==state.list_rows_limit ? 'selected':''}}">
+                                                    <t t-esc="limit.name"/>
+                                                </option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!-- <span class="float-start">Number of rows in the list</span> -->
+
+                            </div>
+                            <h4>Form</h4>
+                            <div class="theme-option">
+                                <span class="float-start">Form Chatter Position</span>
+                                <ul class="list-group w-100">
+                                    <li t-attf-class="list-group-item border-0 d-flex justify-content-between align-items-start" t-foreach="form_chatter_positions" t-as="position" t-key="position.id">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">
+                                                <t t-esc="position.name"/>
+                                            </div>
+                                            <i t-attf-class="bi {{position.icon}} {{position.id==state.current_chatter_position ? 'text-success':''}}" style="font-size: 4rem; " />
+                                        </div>
+                                        <div class="form-check form-control-lg">
+                                            <input class="form-check-input" type="radio" name="radio_chatter_position" t-attf-id="radio_chatter_position_{{position.id}}" t-att-value="position.id" t-attf-checked="{{position.id==state.current_chatter_position ? 'checked':''}}" t-on-change="() => this.onChangeChatterPosition(position)"/>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-footer" role="tabpanel" aria-labelledby="v-pills-footer-tab" tabindex="0">
+                            <h2>Footer</h2>
+                            <div class="theme-option">
+                                <span class="float-start">Display Footer</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleDisplayFooter(state.display_footer)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.display_footer" />
+                                </div>
+                            </div>
+                            <div class="theme-option" t-if="state.display_footer">
+                                <span class="float-start">Display footer document</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleDisplayFooterDocument(state.display_footer_document)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.display_footer_document" />
+                                </div>
+                            </div>
+                            <div class="theme-option" t-if="state.display_footer">
+                                <span class="float-start">Display footer support</span>
+                                <div class="float-end form-check form-switch form-control-lg" t-on-click.stop.prevent="() => this.onToggleDisplayFooterSupport(state.display_footer_support)">
+                                    <input class="form-check-input" type="checkbox" role="switch" t-att-checked="state.display_footer_support" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="o_theme_panel_footer sticky-bottom flex-wrap gap-1 {{state.theme_has_changed ? '':'o_hidden'}} " id="o_theme_panel_footer">
+                <div class="alert alert-info" role="alert">
+                    You need to save the settings to make the new theme effective!
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button class="btn btn-success save" t-on-click="saveTheme">
+                        <i class="fa fa-floppy-o"/>
+                        <span class="ml8">Save</span>
+                    </button>
+                    <button class="btn btn-warning cancel" data-bs-dismiss="offcanvas" t-on-click.stop.prevent="() => this.closeThemePanel()">
+                        <i class="fa fa-times"/>
+                        <span class="ml8">Close</span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </t>
+
+</templates>

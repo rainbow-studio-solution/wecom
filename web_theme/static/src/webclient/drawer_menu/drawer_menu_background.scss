@@ -1,0 +1,17 @@
+// Shared with web client and login screen
+.o_home_menu_background,
+.o_web_client.o_home_menu_background {
+	background: {
+		size: cover;
+		attachment: fixed;
+		color: var(--DrawerMenu-bg-color, #917878);
+		image: var(
+			--DrawerMenu-bg-image,
+			radial-gradient(at 100% 0%, hsla(289, 17%, 21%, 0.6) 0px, transparent 50%),
+			radial-gradient(at 7% 13%, hsla(268, 5%, 47%, 0.42) 0px, transparent 50%),
+			radial-gradient(at 96% 94%, hsla(267, 5%, 46%, 0.51) 0px, transparent 50%),
+			radial-gradient(at 3% 96%, hsla(289, 17%, 21%, 0.41) 0px, transparent 50%),
+			url('/web_theme/static/img/drawer-menu-bg-overlay.svg')
+		);
+	}
+}

@@ -1,0 +1,114 @@
+.o_home_menu_background {
+    // 'Drawer menu background' design is shared with plus login
+    // screens and it's located in './drawer_menu_background.scss'
+
+    // When applied on webclient (note: we do not specify the webclient class
+    // here to avoid breaking studio custom style)
+    &:not(.o_home_menu_background_custom) .o_main_navbar {
+        background: transparent;
+        border-bottom-color: transparent;
+
+        .dropdown-menu {
+            border-color: $dropdown-bg;
+        }
+
+        .o_dropdown_active,
+        > ul > li.show > a {
+            outline: none;
+        }
+    }
+
+    &.o_home_menu_background_custom .o_home_menu {
+        background: {
+            size: cover;
+            repeat: no-repeat;
+            position: center;
+        }
+    }
+
+    .o_menu_systray {
+        @include print-variable(o-navbar-badge-bg, $o-navbar-drawer-menu-badge-bg);
+    }
+}
+
+.o_home_menu {
+    font-size: $o-drawer-menu-font-size-base;
+
+    .container {
+        @include media-breakpoint-up(md) {
+            max-width: $o-drawer-menu-container-size !important;
+        }
+    }
+
+    .o_app {
+        &,
+        .o_app_icon {
+            transition: all 0.3s ease 0s;
+        }
+
+        .o_app_icon {
+            width: $o-drawer-menu-app-icon-max-width;
+            height: $o-drawer-menu-app-icon-max-width;
+            background: {
+                size: cover;
+                repeat: no-repeat;
+                position: center;
+            }
+
+            .fa {
+                font-size: $o-drawer-menu-app-icon-max-width * 0.5;
+                text-shadow: 0 2px 0 rgba(0, 0, 0, 0.23);
+            }
+        }
+
+        .o_caption {
+            color: $o-drawer-menu-caption-color;
+            text-shadow: $o-drawer-menu-caption-shadow;
+        }
+
+        &:focus,
+        &.o_focused,
+        &:hover {
+            .o_app_icon {
+                box-shadow: 0 8px 15px -10px black;
+                transform: translateY(-1px);
+            }
+        }
+
+        &:focus,
+        &.o_focused {
+            background-color: rgba(white, 0.05);
+            border-radius: $border-radius;
+        }
+    }
+
+    // iOS iPhone list layout due to Apple AppStore review
+    @include media-breakpoint-down(md) {
+        &.o_ios_app {
+            .o_apps {
+                flex-direction: column;
+                font-size: $o-drawer-menu-font-size-base * 1.25;
+                margin-top: map-get($spacers, 1);
+                padding: 0 map-get($spacers, 2);
+            }
+
+            .o_app {
+                flex-direction: row !important;
+                justify-content: initial !important;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.1);
+                padding: map-get($spacers, 3) map-get($spacers, 4) !important;
+            }
+
+            .o_app_icon {
+                width: $o-drawer-menu-app-icon-max-width * 0.75;
+                height: $o-drawer-menu-app-icon-max-width * 0.75;
+                margin-right: map-get($spacers, 4);
+            }
+
+            .o_caption {
+                text-align: start !important;
+            }
+        }
+    }
+}

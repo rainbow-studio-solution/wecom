@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# !参考 \addons\auth_oauth\controllers\main.py
+
 import functools
 import logging
 
@@ -8,36 +10,22 @@ import werkzeug.urls
 import werkzeug.utils
 from werkzeug.exceptions import BadRequest
 
-from odoo import api, http, models, fields, SUPERUSER_ID, _
+from odoo import api, http, SUPERUSER_ID, _
+from odoo.exceptions import AccessDenied
 from odoo.http import request
-from odoo.exceptions import AccessDenied, UserError
-
 from odoo import registry as registry_get
-from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException
-
-from odoo.addons.auth_oauth.controllers.main import (
-    OAuthLogin as Home,
-    OAuthController as Controller,
-    fragment_to_query_string,
-)
-from odoo.addons.auth_signup.models.res_users import SignupError
-from odoo.addons.web.controllers.main import (
-    db_monodb,
-    ensure_db,
-    set_cookie_and_redirect,
-    login_and_redirect,
-)
-from odoo.addons.auth_signup.controllers.main import AuthSignupHome as SignupHome
+from odoo.addons.wecom_api.api.wecom_abstract_api import ApiException   # type: ignore
+from odoo.addons.auth_signup.controllers.main import AuthSignupHome as Home # type: ignore
+from odoo.addons.auth_oauth.controllers.main import fragment_to_query_string    # type: ignore
+from odoo.addons.web.controllers.utils import ensure_db, _get_login_redirect_url    # type: ignore
 
 import urllib
 import requests
-
 from werkzeug import urls
-
 
 _logger = logging.getLogger(__name__)
 
-wecom_BROWSER_MESSAGES = {
+WECOM_BROWSER_MESSAGES = {
     "not_wecom_browser": _(
         "The current browser is not an WeCom built-in browser, so the one-click login function cannot be used."
     ),
@@ -47,72 +35,11 @@ wecom_BROWSER_MESSAGES = {
 }
 
 
-class AuthSignupHome(SignupHome):
-    def web_auth_signup(self, *args, **kw):
-        """
-        消息模板用户注册帐户已创建
-        """
-        qcontext = self.get_auth_signup_qcontext()
-
-        if not qcontext.get("token") and not qcontext.get("signup_enabled"):
-            raise werkzeug.exceptions.NotFound()
-
-        if "error" not in qcontext and request.httprequest.method == "POST":
-            try:
-                self.do_signup(qcontext)
-                # 发送帐户创建确认电子邮件
-                if qcontext.get("token"):
-                    User = request.env["res.users"]
-                    user_sudo = User.sudo().search(
-                        User._get_login_domain(qcontext.get("login")),
-                        order=User._get_login_order(),
-                        limit=1,
-                    )
-
-                    if user_sudo.wecom_userid:
-                        message_template = self.env.ref(
-                            "wecom_auth_oauth.message_template_user_signup_account_created",
-                            raise_if_not_found=False,
-                        )
-                        if user_sudo and message_template:
-                            return message_template.send_message(
-                                user_sudo.id, force_send=True, raise_exception=True,
-                            )
-                    else:
-                        mail_template = request.env.ref(
-                            "auth_signup.mail_template_user_signup_account_created",
-                            raise_if_not_found=False,
-                        )
-                        if user_sudo and mail_template:
-                            mail_template.sudo().send_mail(
-                                user_sudo.id, force_send=True
-                            )
-                return self.web_login(*args, **kw)
-            except UserError as e:
-                qcontext["error"] = e.args[0]
-            except (SignupError, AssertionError) as e:
-                if (
-                    request.env["res.users"]
-                    .sudo()
-                    .search([("login", "=", qcontext.get("login"))])
-                ):
-                    qcontext["error"] = _(
-                        "Another user is already registered using this email address or WeCom id."
-                    )
-                else:
-                    _logger.error("%s", e)
-                    qcontext["error"] = _("Could not create a new account.")
-
-        response = request.render("auth_signup.signup", qcontext)
-        response.headers["X-Frame-Options"] = "DENY"
-        return response
-
-
 class OAuthLogin(Home):
     def list_providers(self):
         try:
             providers = (
-                request.env["auth.oauth.provider"]
+                request.env["auth.oauth.provider"]  # type: ignore
                 .sudo()
                 .search_read([("enabled", "=", True)])
             )
@@ -126,7 +53,7 @@ class OAuthLogin(Home):
             ):
                 # 一键登录
                 return_url = (
-                    request.httprequest.url_root + "wxowrk_auth_oauth/authorize"
+                    request.httprequest.url_root + "wxowrk_auth_oauth/authorize"    # type: ignore
                 )
 
                 state = self.get_state(provider)
@@ -140,7 +67,7 @@ class OAuthLogin(Home):
                 )
                 provider["auth_link"] = "%s?%s%s" % (
                     provider["auth_endpoint"],
-                    werkzeug.urls.url_encode(params),
+                    werkzeug.urls.url_encode(params),   # type: ignore
                     "#wechat_redirect",
                 )
             elif (
@@ -148,7 +75,7 @@ class OAuthLogin(Home):
                 in provider["auth_endpoint"]
             ):
                 # 扫描登录
-                return_url = request.httprequest.url_root + "wxowrk_auth_oauth/qr"
+                return_url = request.httprequest.url_root + "wxowrk_auth_oauth/qr"  # type: ignore
 
                 state = self.get_state(provider)
 
@@ -160,10 +87,10 @@ class OAuthLogin(Home):
                 )
                 provider["auth_link"] = "%s?%s" % (
                     provider["auth_endpoint"],
-                    werkzeug.urls.url_encode(params),
+                    werkzeug.urls.url_encode(params),   # type: ignore
                 )
             else:
-                return_url = request.httprequest.url_root + "auth_oauth/signin"
+                return_url = request.httprequest.url_root + "auth_oauth/signin" # type: ignore
                 state = self.get_state(provider)
                 params = dict(
                     response_type="token",
@@ -179,17 +106,16 @@ class OAuthLogin(Home):
         return providers
 
 
-class OAuthController(Controller):
+class OAuthController(http.Controller):
     @http.route(
         "/wxowrk_auth_oauth/authorize", type="http", auth="none",
     )
+    @fragment_to_query_string
     def wecom_web_authorize(self, **kw):
         code = kw.pop("code", None)
-
         state = json.loads(kw["state"])
-
         company = (
-            request.env["res.company"]
+            request.env["res.company"]  # type: ignore
             .sudo()
             .search(
                 [("corpid", "=", state["a"]), ("is_wecom_organization", "=", True),],
@@ -198,12 +124,14 @@ class OAuthController(Controller):
 
         try:
             wxapi = (
-                request.env["wecom.service_api"]
+                request.env["wecom.service_api"]    # type: ignore
                 .sudo()
-                .InitServiceApi(company, "auth_secret", "auth")
+                .InitServiceApi(company.corpid, company.sudo().auth_app_id.secret)
             )
+
+            # 根据code获取成员信息
             response = wxapi.httpCall(
-                request.env["wecom.service_api_list"]
+                request.env["wecom.service_api_list"]   # type: ignore
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
                 {"code": code,},
@@ -218,9 +146,7 @@ class OAuthController(Controller):
             with registry.cursor() as cr:
                 try:
                     env = api.Environment(cr, SUPERUSER_ID, context)
-                    credentials = (
-                        env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
-                    )
+                    db, login, key = env['res.users'].sudo().wecom_auth_oauth(provider, response)
                     cr.commit()
                     action = state.get("a")
                     menu = state.get("m")
@@ -236,11 +162,16 @@ class OAuthController(Controller):
                         url = "/web#action=%s" % action
                     elif menu:
                         url = "/web#menu_id=%s" % menu
-                    resp = login_and_redirect(*credentials, redirect_url=url)
+                    # resp = login_and_redirect(*credentials, redirect_url=url)
+
+                    pre_uid = request.session.authenticate(db, login, key)  # type: ignore
+                    resp = request.redirect(_get_login_redirect_url(pre_uid, url), 303) # type: ignore
+                    resp.autocorrect_location_header = False
+
                     # Since /web is hardcoded, verify user has right to land on it
                     if werkzeug.urls.url_parse(
                         resp.location
-                    ).path == "/web" and not request.env.user.has_group(
+                    ).path == "/web" and not request.env.user.has_group(    # type: ignore
                         "base.group_user"
                     ):
                         resp.location = "/"
@@ -270,15 +201,17 @@ class OAuthController(Controller):
                     _logger.exception("OAuth2: %s" % str(e))
                     url = "/web/login?oauth_error=2"
 
-            return set_cookie_and_redirect(url)
+            redirect = request.redirect(url, 303)   # type: ignore
+            redirect.autocorrect_location_header = False
+            return redirect
         except ApiException as e:
-            return request.env["wecom.tools"].ApiExceptionDialog(e)
+            return request.env["wecomapi.tools.action"].ApiExceptionDialog(e)   # type: ignore
 
     @http.route("/wxowrk_auth_oauth/qr", type="http", auth="none")
     def wecom_qr_authorize(self, **kw):
         code = kw.pop("code", None)
         company = (
-            request.env["res.company"]
+            request.env["res.company"]  # type: ignore
             .sudo()
             .search(
                 [("corpid", "=", kw["appid"]), ("is_wecom_organization", "=", True),],
@@ -287,12 +220,12 @@ class OAuthController(Controller):
 
         try:
             wxapi = (
-                request.env["wecom.service_api"]
+                request.env["wecom.service_api"]    # type: ignore
                 .sudo()
-                .InitServiceApi(company, "auth_secret", "auth")
+                .InitServiceApi(company.corpid, company.sudo().auth_app_id.secret)
             )
             response = wxapi.httpCall(
-                request.env["wecom.service_api_list"]
+                request.env["wecom.service_api_list"]   # type: ignore
                 .sudo()
                 .get_server_api_call("GET_USER_INFO_BY_CODE"),
                 {"code": code,},
@@ -309,9 +242,7 @@ class OAuthController(Controller):
             with registry.cursor() as cr:
                 try:
                     env = api.Environment(cr, SUPERUSER_ID, context)
-                    credentials = (
-                        env["res.users"].sudo().wxwrok_auth_oauth(provider, response)
-                    )
+                    db, login, key = env['res.users'].sudo().wecom_auth_oauth(provider, response)
                     cr.commit()
                     action = state.get("a")
                     menu = state.get("m")
@@ -328,10 +259,13 @@ class OAuthController(Controller):
                     elif menu:
                         url = "/web#menu_id=%s" % menu
 
-                    resp = login_and_redirect(*credentials, redirect_url=url)
+                    pre_uid = request.session.authenticate(db, login, key)  # type: ignore
+                    resp = request.redirect(_get_login_redirect_url(pre_uid, url), 303) # type: ignore
+                    resp.autocorrect_location_header = False
+
                     if werkzeug.urls.url_parse(
                         resp.location
-                    ).path == "/web" and not request.env.user.has_group(
+                    ).path == "/web" and not request.env.user.has_group(    # type: ignore
                         "base.group_user"
                     ):
                         resp.location = "/"
@@ -356,25 +290,26 @@ class OAuthController(Controller):
                     # signup error
                     _logger.exception("OAuth2: %s" % str(e))
                     url = "/web/login?oauth_error=2"
-            return set_cookie_and_redirect(url)
+            redirect = request.redirect(url, 303)   # type: ignore
+            redirect.autocorrect_location_header = False
+            return redirect
         except ApiException as e:
-            return request.env["wecom.tools"].ApiExceptionDialog(e)
+            return request.env["wecomapi.tools.action"].ApiExceptionDialog(e)   # type: ignore
 
     @http.route("/wxowrk_login_info", type="json", auth="none")
     def wecom_get_login_info(self, **kwargs):
-
         data = {}
         if "is_wecom_browser" in kwargs:
             if kwargs["is_wecom_browser"]:
                 data = {
                     "is_wecom_browser": True,
-                    "msg": wecom_BROWSER_MESSAGES["is_wecom_browser"],
+                    "msg": WECOM_BROWSER_MESSAGES["is_wecom_browser"],
                     "companies": [],
                 }
             else:
                 data = {
                     "is_wecom_browser": False,
-                    "msg": wecom_BROWSER_MESSAGES["not_wecom_browser"],
+                    "msg": WECOM_BROWSER_MESSAGES["not_wecom_browser"],
                     "companies": [],
                 }
         else:
@@ -384,66 +319,69 @@ class OAuthController(Controller):
             }
 
         # 获取 标记为 企业微信组织 的公司
-        companies = request.env["res.company"].search(
+        companies = request.env["res.company"].search(  # type: ignore
             [(("is_wecom_organization", "=", True))]
         )
 
         if len(companies) > 0:
             for company in companies:
+                # app_config = request.env["wecom.app_config"].sudo()
+                # contacts_app = company.contacts_app_id.sudo()  # 通讯录应用
+                auth_app = company.auth_app_id.sudo()  # 验证登录应用
                 data["companies"].append(
                     {
                         "id": company["id"],
                         "name": company["abbreviated_name"],
                         "fullname": company["name"],
                         "appid": company["corpid"],
-                        "agentid": company["auth_agentid"],
-                        "join_qrcode": company["join_qrcode"],
+                        "agentid": auth_app.agentid if auth_app else 0,
+                        "enabled_join": company["wecom_contacts_join_qrcode_enabled"],
+                        "join_qrcode": company["wecom_contacts_join_qrcode"],
                     }
                 )
-
         return data
 
-    @http.route("/wecom_login_jsapi", type="json", auth="none")
-    def wecom_get_login_jsapi(self, **kwargs):
-        """
-        获取登陆页面的 JSAPI ticket
-        args:
-            nonceStr: 生成签名的随机串
-            timestamp: 生成签名的时间戳
-            url: 当前网页的URL， 不包含#及其后面部分
-        """
-        datas = []
+    # @http.route("/wecom_login_jsapi", type="json", auth="none")
+    # def wecom_get_login_jsapi(self, **kwargs):
+    #     """
+    #     获取登陆页面的 JSAPI ticket
+    #     args:
+    #         nonceStr: 生成签名的随机串
+    #         timestamp: 生成签名的时间戳
+    #         url: 当前网页的URL， 不包含#及其后面部分
+    #     """
+    #     datas = []
 
-        params = request.env["ir.config_parameter"].sudo()
-        debug = params.get_param("wecom.jsapi_debug")
+    #     params = request.env["ir.config_parameter"].sudo()
+    #     debug = params.get_param("wecom.jsapi_debug")
 
-        # 获取 标记为 企业微信组织 的公司
-        companies = request.env["res.company"].search(
-            [(("is_wecom_organization", "=", True))]
-        )
-        if len(companies) > 0:
-            for company in companies:
-                data = {}
-                parameters = {}
-                parameters.update(
-                    {
-                        "beta": True,
-                        "debug": True if debug == "True" else False,
-                        "appId": company["corpid"],
-                        "timestamp": kwargs["timestamp"],
-                        "nonceStr": kwargs["nonceStr"],
-                        "signature": request.env[
-                            "wecomapi.tools.security"
-                        ].generate_jsapi_signature(
-                            company,
-                            kwargs["nonceStr"],
-                            kwargs["timestamp"],
-                            kwargs["url"],
-                        ),
-                    }
-                )
-                data["id"] = company.id
-                data["parameters"] = parameters
-                datas.append(data)
+    #     # 获取 标记为 企业微信组织 的公司
+    #     companies = request.env["res.company"].search(
+    #         [(("is_wecom_organization", "=", True))]
+    #     )
+    #     if len(companies) > 0:
+    #         for company in companies:
+    #             data = {}
+    #             parameters = {}
+    #             parameters.update(
+    #                 {
+    #                     "beta": True,
+    #                     "debug": True if debug == "True" else False,
+    #                     "appId": company["corpid"],
+    #                     "timestamp": kwargs["timestamp"],
+    #                     "nonceStr": kwargs["nonceStr"],
+    #                     "signature": request.env[
+    #                         "wecomapi.tools.security"
+    #                     ].generate_jsapi_signature(
+    #                         company,
+    #                         kwargs["nonceStr"],
+    #                         kwargs["timestamp"],
+    #                         kwargs["url"],
+    #                     ),
+    #                 }
+    #             )
+    #             data["id"] = company.id
+    #             data["parameters"] = parameters
+    #             datas.append(data)
 
-        return datas
+    #     return datas

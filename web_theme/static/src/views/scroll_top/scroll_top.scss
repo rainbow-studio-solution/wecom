@@ -1,0 +1,66 @@
+.o_content,.o_kanban_renderer,.o_list_renderer
+ {
+	.o_scroll_top {
+		// position: fixed;
+		// position: absolute;
+		animation: animation-scrolltop 0.4s ease-out 1;
+		display: flex;
+		opacity: 0.3;
+		cursor: pointer;
+		z-index: 105;
+		justify-content: center;
+		align-items: center;
+		width: 36px;
+		height: 36px;
+		bottom: 43px;
+		right: 20px;
+		background-color: #009ef7;
+		box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+		transition: color 0.2s ease;
+		border-radius: 0.475rem;
+
+		&:hover {
+			transition: color 0.2s ease;
+			opacity: 1;
+			background-color: 009ef7;
+		}
+
+		.svg-icon {
+			color: $o-white;
+		}
+	}
+}
+
+.o_ChatterContainer {
+	.o_Chatter {
+		.o_scroll_top {
+			// position: fixed;
+			// position: absolute;
+			animation: animation-scrolltop 0.4s ease-out 1;
+			display: flex;
+			opacity: 0.3;
+			cursor: pointer;
+			z-index: 105;
+			justify-content: center;
+			align-items: center;
+			width: 36px;
+			height: 36px;
+			bottom: 43px;
+			right: 20px;
+			background-color: #009ef7;
+			box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075);
+			transition: color 0.2s ease;
+			border-radius: 0.475rem;
+
+			&:hover {
+				transition: color 0.2s ease;
+				opacity: 1;
+				background-color: 009ef7;
+			}
+
+			.svg-icon {
+				color: $o-white;
+			}
+		}
+	}
+}

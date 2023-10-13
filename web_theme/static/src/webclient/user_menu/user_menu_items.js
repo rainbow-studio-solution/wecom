@@ -1,0 +1,297 @@
+/** @odoo-module **/
+
+import { Component, markup } from "@odoo/owl";
+import { isMacOS } from "@web/core/browser/feature_detection";
+import { escape } from "@web/core/utils/strings";
+import { browser } from "@web/core/browser/browser";
+import { registry } from "@web/core/registry";
+import { session } from "@web/session";
+import {
+	ShortcutsFooterComponent,
+	preferencesItem,
+} from "@web/webclient/user_menu/user_menu_items";
+
+import localStorage from "web.local_storage";
+const lockScreenInfoKey = "lockScreenInfo";
+
+function documentationItem(env) {
+	const documentationURL = session.documentation.documentation_url;
+	const hide = session.documentation.hide;
+	return {
+		type: "item",
+		id: "documentation",
+		description: env._t("Documentation"),
+		href: documentationURL,
+		callback: () => {
+			browser.open(documentationURL, "_blank");
+		},
+		sequence: 10,
+		hide: !hide,
+		icon: "fa fa-book",
+	};
+}
+
+function supportItem(env) {
+	const support_url = session.support.support_url;
+	const hide = session.support.hide;
+	return {
+		type: "item",
+		id: "support",
+		description: env._t("Support"),
+		href: support_url,
+		callback: () => {
+			browser.open(support_url, "_blank");
+		},
+		sequence: 20,
+		hide: !hide,
+		icon: "fa fa-life-ring",
+	};
+}
+
+function shortCutsItem(env) {
+	return {
+		type: "item",
+		id: "shortcuts",
+		description: markup(
+			`${escape(env._t("Shortcuts "))}${isMacOS() ? "CMD" : "CTRL"}+K`
+		),
+		callback: () => {
+			env.services.command.openMainPalette({
+				FooterComponent: ShortcutsFooterComponent,
+			});
+		},
+		sequence: 30,
+		hide: env.isSmall,
+		icon: "fa fa-keyboard-o",
+	};
+}
+
+export function plusPreferencesItem(env) {
+	return Object.assign({}, preferencesItem(env), {
+		type: "item",
+		id: "settings",
+		description: env._t("My Profile"),
+		callback: async function () {
+			const actionDescription = await env.services.orm.call(
+				"res.users",
+				"action_get"
+			);
+			actionDescription.res_id = env.services.user.userId;
+			env.services.action.doAction(actionDescription);
+		},
+		sequence: 50,
+		hide: false,
+		icon: "fa fa-cog",
+	});
+}
+
+function odooAccountItem(env) {
+	const hide = session.enable_odoo_account;
+	return {
+		type: "item",
+		id: "account",
+		description: env._t("My Odoo.com account"),
+		callback: () => {
+			env.services
+				.rpc("/web/session/account")
+				.then((url) => {
+					browser.location.href = url;
+				})
+				.catch(() => {
+					browser.location.href = "https://accounts.odoo.com/account";
+				});
+		},
+		sequence: 60,
+		hide: !hide,
+		icon: "fa fa-user",
+	};
+}
+
+function developerToolsItemSeparator() {
+	return {
+		type: "separator",
+		sequence: 70,
+	};
+}
+
+const isDebug = Boolean(odoo.debug);
+const isAssets = odoo.debug.includes("assets");
+let show_debug = session.enable_developer_tool;
+
+function toggleDevMode(mode) {
+	const url = window.location.href;
+	window.location = $.param.querystring(url, _.str.sprintf("debug=%s", mode));
+}
+
+function developerModeItem(env) {
+	const url = "?debug=1";
+	let hide = false;
+	if (show_debug) {
+		if (isDebug && !isAssets) {
+			hide = true;
+		}
+	}
+	return {
+		type: "item",
+		id: "developer_mode",
+		description: env._t("Activate the developer mode"),
+		href: url,
+		callback: () => {
+			toggleDevMode("1");
+		},
+		sequence: 80,
+		hide: hide,
+		icon: "fa fa-bug",
+	};
+}
+
+function developerAssetsModeItem(env) {
+	const url = "?debug=assets";
+	let hide = false;
+	if (show_debug && isAssets) {
+		hide = true;
+	}
+	return {
+		type: "item",
+		id: "developer_assets_mode",
+		description: env._t("Activate the developer mode (with assets)"),
+		href: url,
+		callback: () => {
+			toggleDevMode("assets");
+			// browser.open(url);
+		},
+		sequence: 90,
+		hide: hide,
+		icon: "fa fa-bug",
+	};
+}
+
+function deactivateDeveloperModeItem(env) {
+	const url = "?debug=";
+	let hide = false;
+
+	if (show_debug) {
+		if (isDebug) {
+			hide = false;
+		} else {
+			hide = true;
+		}
+	}
+	return {
+		type: "item",
+		id: "deactivate_developer_mode",
+		description: env._t("Deactivate the developer mode"),
+		href: url,
+		callback: () => {
+			// browser.open(url);
+			toggleDevMode("0");
+		},
+		sequence: 100,
+		hide: hide,
+		icon: "fa fa-bug",
+	};
+}
+
+function getLockScreenStatus(env) {
+	if (env.isSmall) {
+		return true;
+	} else {
+		return !session.enable_lock_screen;
+	}
+}
+
+function lockScreenItemSeparator(env) {
+	return {
+		type: "separator",
+		sequence: 100,
+		hide: getLockScreenStatus(env),
+	};
+}
+
+function lockScreenItem(env) {
+	const storage_mode = session.lock_screen_state_storage_mode;
+	const lock_screen_info = {
+		href: window.location.href, //完整URL
+		host: window.location.host, //主机名
+		pathname: window.location.pathname, //路径名
+		search: window.location.search, //查询字符串
+		hash: window.location.hash, //锚点（“#”后面的分段）
+	};
+	const route = "/web/lock";
+	return {
+		type: "item",
+		id: "lock",
+		description: env._t("Lock Screen"),
+		href: `${browser.location.origin}${route}`,
+		callback: async () => {
+			const result = await env.services.rpc("/web/lockscreen", {
+				uid: env.services.user.userId,
+				lock_screen_info: lock_screen_info,
+			});
+			// console.log(result);
+			if (result["state"]) {
+				if (result["storage_mode"] === 1) {
+					// 1: 本地存储
+					localStorage.setItem(
+						lockScreenInfoKey,
+						JSON.stringify(lock_screen_info)
+					);
+				}
+				browser.location.href = route;
+			} else {
+				const title = env._t("Operation failed!");
+				const message = _.str.sprintf(
+					"%s,%s",
+					env._t("Failed to lock the screen!"),
+					result["msg"]
+				);
+				env.services.notification.add(message, {
+					title: title,
+					type: "warning",
+					sticky: false,
+				});
+			}
+		},
+		sequence: 120,
+		hide: getLockScreenStatus(env),
+		icon: "fa fa-lock",
+	};
+}
+
+function logOutItemSeparator() {
+	return {
+		type: "separator",
+		sequence: 130,
+	};
+}
+
+function logOutItem(env) {
+	const route = "/web/session/logout";
+	return {
+		type: "item",
+		id: "logout",
+		description: env._t("Log out"),
+		href: `${browser.location.origin}${route}`,
+		callback: () => {
+			browser.location.href = route;
+		},
+		sequence: 140,
+		hide: false,
+		icon: "fa fa-power-off",
+	};
+}
+
+registry
+	.category("user_menuitems")
+	.add("documentation", documentationItem, { force: true })
+	.add("support", supportItem, { force: true })
+	.add("shortcuts", shortCutsItem, { force: true })
+	.add("profile", plusPreferencesItem, { force: true })
+	.add("odoo_account", odooAccountItem, { force: true })
+	.add("dev_tool_separator", developerToolsItemSeparator)
+	.add("dev_mode", developerModeItem)
+	.add("dev_assets_mode", developerAssetsModeItem)
+	.add("deactivate_dev_mode", deactivateDeveloperModeItem)
+	.add("lock_screen", lockScreenItem)
+	.add("logout_separator", logOutItemSeparator)
+	.add("log_out", logOutItem, { force: true });

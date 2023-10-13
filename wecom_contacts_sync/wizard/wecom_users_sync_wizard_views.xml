@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_form_wecom_users_sync_wizard" model="ir.ui.view">
+            <field name="name">Batch generate users from employees using the wizard</field>
+            <field name="model">wecom.users.sync.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group string="Select all companies?">
+                        <field name="sync_all" />
+                        <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
+                        <field name="companies" />
+                    </group>
+                    <group string="Send notification to new users?">
+                        <field name="send_mail" />
+                        <field name="send_message" />
+                    </group>
+                    <notebook>
+                        <page string="Help">
+                            <ol>
+                                <li>
+                                    It is recommended to generate system users from employees in batch only during system initialization.
+                                </li>
+                                <li>
+                                    After the first batch generation of users from employees, it is recommended to start the event service of "address book synchronization" to create and update employees and users.
+                                </li>
+                                <li class="dropdown-divider"></li>
+                                <li>The generated user type belongs to the portal user by default.</li>
+                                <li>Portal users are free users and do not occupy system resources.</li>
+                                <li>Internal users occupy system resources.</li>
+                                <li>Need to be converted into internal users in the user list.</li>
+                                <li class="dropdown-divider"></li>
+                                <li>Do not send mail to new users by default.</li>
+                                <li>Send messages to new users by default.</li>
+                                <li>When you have a large number of employees, it is recommended to <b class="text-danger">turn off</b> "send mail".</li>
+                                <li>When you have a large number of employees, it is recommended to <b class="text-danger">turn off</b> "send message".</li>
+                            </ol>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="wizard_generate_users" string="Start" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_form_wecom_users_sync_result" model="ir.ui.view">
+            <field name="name">Batch generate user results from employees</field>
+            <field name="model">wecom.users.sync.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group string="status">
+                        <field name="create_date" string="Starting time"/>
+                        <field name="companies" />
+                        <field name="state" />
+                        <field name="total_time" />
+                    </group>
+                    <group string="Info">
+                        <field name="error_info" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_wecom_users_sync_wizard" model="ir.actions.act_window">
+            <field name="name">Batch generate users from employees</field>
+            <field name="res_model">wecom.users.sync.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wecom_users_sync_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

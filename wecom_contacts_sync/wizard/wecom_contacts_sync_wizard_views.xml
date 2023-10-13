@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_form_wecom_contacts_sync_wizard" model="ir.ui.view">
+            <field name="name">Contact synchronization Wizard</field>
+            <field name="model">wecom.contacts.sync.wizard</field>
+            <field name="priority" eval="1"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group string="Synchronize all companies?">
+                        <!-- invisible="1" -->
+                        <field name="manage_multiple_companies" invisible="1"/>
+                        <field name="sync_all" attrs="{'readonly': [('manage_multiple_companies', '=', False)]}"/>
+                        <field name="company_id" widget="selection" attrs="{'required': [('sync_all','=', False)]}"/>
+                        <field name="companies" />
+                    </group>
+
+                    <separator string="Help"/>
+                    <div>
+                        Linux production server uses the following command to view real-time logs:
+                    </div>
+                    <div class="mt8 mb16">
+                        <kbd>tail -f /var/log/odoo/odoo-server.log</kbd>
+                    </div>
+                    <div>
+                        If an error occurs, please check the help file.
+                    </div>
+
+                    <footer>
+                        <button name="wizard_sync_contacts" string="Start syncing" type="object" class="oe_highlight"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_form_wecom_contacts_sync_result" model="ir.ui.view">
+            <field name="name">Contact synchronization Result</field>
+            <field name="model">wecom.contacts.sync.wizard</field>
+            <field name="priority" eval="2"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form class="wecom_sync_result_dialog">
+                    <group string="Synchronization status">
+                        <group>
+                            <field name="create_date" string="Starting time"/>
+                            <field name="companies" />
+                            <field name="state" />
+                            <field name="total_time" />
+                        </group>
+                        <group>
+                            <field name="sync_result" />
+                        </group>
+                    </group>
+                    <group string="Wecom Department sync">
+                        <group>
+                            <field name="wecom_department_sync_state" />
+                            <field name="wecom_department_sync_times" />
+                        </group>
+                        <group>
+                            <field name="wecom_department_sync_result" />
+                        </group>
+                    </group>
+                    <group string="Wecom User sync">
+                        <group>
+                            <field name="wecom_user_sync_state" />
+                            <field name="wecom_user_sync_times" />
+                        </group>
+                        <group>
+                            <field name="wecom_user_sync_result" />
+                        </group>
+                    </group>
+                    <group string="Wecom Tag sync">
+                        <group>
+                            <field name="wecom_tag_sync_state" />
+                            <field name="wecom_tag_sync_times" />
+                        </group>
+                        <group>
+                            <field name="wecom_tag_sync_result" />
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button string="Close" class="btn-primary" special="cancel"/>
+                        <button name="reload" string="Close and refresh" class="btn-primary" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="actions_wecom_contacts_sync_wizard" model="ir.actions.act_window">
+            <field name="name">Contact synchronization Wizard</field>
+            <field name="res_model">wecom.contacts.sync.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_form_wecom_contacts_sync_wizard"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
